@@ -1,0 +1,1728 @@
+﻿*******************************************************************
+
+   Project name : OPOS fiscal printer driver
+   Company      : SHTRIH-M, Russia, Moscow, Masterkova 4
+                  (495) 787-60-90, www.shtrih-m.ru
+
+*******************************************************************
+
+  OposShtrih_1.13_403.exe
+  25 мая 2017 15:20
+  
+  [-] Исправлена ошибка печати количества на чеках с нулевой ценой
+  [+] Добавлена команда directIO DIO_FS_READ_DOCUMENT
+  [-] Исправлена ошибка чтения налога из базы Retalix
+  
+*******************************************************************
+
+  OposShtrih_1.13_356.exe
+  21 мая 2017 16:00
+  
+  [-] Исправлена ошибка открытия чека - не подавалась команда открытия чека
+  [-] Исправлена ошибка ведения лога при работе с несколькими устройствами
+
+*******************************************************************
+
+  OposShtrih_1.13_355.exe
+  17 мая 2017 19:00
+  
+  [-] Исправлена ошибка работы с несколькими устройствами
+  
+*******************************************************************
+
+  OposShtrih_1.13_354.exe
+  12 мая 2017 21:00
+  
+  [+] Добавлена возможность перекодировать номера налоговых ставок
+  
+*******************************************************************
+
+  OposShtrih_1.13_344.exe
+  28 апреля 2017 20:00
+  
+  [+] Добавлены параметры команды directIO DIO_READ_FS_PARAMETER:
+      DIO_FS_PARAMETER_TICKET_HEX  = 9; // FDO ticket data in hex format
+      DIO_FS_PARAMETER_TICKET_STR  = 10; // FDO ticket data in text format
+  
+*******************************************************************
+
+  OposShtrih_1.13_343.exe
+  26 апреля 2017 17:00
+  
+  [-] Исправлена ошибка при инициализации ФР ШТРИХ-MOBILE-Ф
+  
+*******************************************************************
+
+  OposShtrih_1.13_342.exe
+  19 апреля 2017 21:20
+  
+  [+] Добавлена загрузка таблиц
+  
+*******************************************************************
+
+  OposShtrih_1.13_341.exe
+  6 апреля 2017 21:50
+  
+  [-] Исправлена ошибка шрифта при печати позиций чека
+  
+*******************************************************************
+
+  OposShtrih_1.13_340.exe
+  28 марта 2017 12:40
+  
+  [-] Исправлена ошибка формата чека
+  
+*******************************************************************
+
+  OposShtrih_1.13_339.exe
+  3 марта 2017 16:00
+  
+  [-] Исправлена ошибка сборки проекта
+  
+*******************************************************************
+
+  OposShtrih_1.13_338.exe
+  1 марта 2017 16:00
+  
+  [-] Исправлена ошибка инсталлятора
+
+*******************************************************************
+
+  OposShtrih_1.13_337.exe
+  1 марта 2017 15:40
+  
+  [-] Изменено значение по умолчанию свойства LogoEnabled 
+  
+*******************************************************************
+
+  OposShtrih_1.13_336.exe
+  Февраль, 28 2017 18:20
+  
+  [-] Исправлена ошибка печати информации о налогах
+  
+*******************************************************************
+
+  OposShtrih_1.13_335.exe
+  Февраль, 15 2017 18:20
+  
+  [-] Исправлена ошибка деления на 0 при загрузке логотипа
+  
+*******************************************************************
+
+  OposShtrih_1.13_334.exe
+  Февраль, 11 2017 20:30
+  
+  [-] Исправлена ошибка записи тегов в чек
+  
+*******************************************************************
+
+  OposShtrih_1.13_319.exe
+  Январь, 27 2017 23:30
+  
+  [-] Исправлены ошибки при подключении по TCP
+  
+*******************************************************************
+
+  OposShtrih_1.13_318.exe
+  Декабрь, 29 2016 22:10
+  
+  [-] Исправлено окно ожидания синхронизации времени
+  [-] Исправлено сохранение Z отчета
+  [-] Исправления в методе printRecItem, если Price <> UnitPrice * Quantity
+  
+*******************************************************************
+
+  OposShtrih_1.13_317.exe
+  Декабрь, 28 2016 22:30
+  
+  [-] исправлена ошибка отмены чека
+  [+] Добавлено окно ожидания синхронизации
+  
+*******************************************************************
+
+  OposShtrih_1.13_316.exe
+  Декабрь, 19 2016 21:30
+  
+  [+] Добавлена команда мониторинга OFD_SETTING
+  
+*******************************************************************
+
+  OposShtrih_1.13_315.exe
+  Декабрь, 15 2016 14:30
+  
+  [+] Добавлен запрос необнуляемых сумм для ФР с ФН
+  
+*******************************************************************
+
+  OposShtrih_1.13_314.exe
+  Декабрь, 12 2016 16:20
+  
+  [-] Изменен запрос для чтения имени кассира
+  
+*******************************************************************
+
+  OposShtrih_1.13_313.exe
+  Декабрь, 6 2016 18:40
+  
+  [-] Исправлена ошибка "Операция не допускается, если объект закрыт"
+  
+*******************************************************************
+
+  OposShtrih_1.13_312.exe
+  Декабрь, 1 2016 19:10
+  
+  [-] Исправлена ошибка буферизации нефискального чека
+  
+*******************************************************************
+
+  OposShtrih_1.13_311.exe
+  Декабрь, 1 2016 17:40
+  
+  [-] Исправлена ошибка запроса номера смены
+  
+*******************************************************************
+
+  OposShtrih_1.13_310.exe
+  Ноябрь, 30 2016 17:00
+  
+  [-] Исправлена ошибка запроса номера смены
+  [+] Добавлена команда directIO(DIO_PRINT_BARCODE_HEX)
+  
+*******************************************************************
+
+  OposShtrih_1.13_308.exe
+  Ноябрь, 28 2016 21:30
+  
+  [-] Исправлены ошибки
+  
+*******************************************************************
+
+  OposShtrih_1.13_307.exe
+  Ноябрь, 25 2016 20:50
+  
+  [-] Исправлены ошибки
+  
+*******************************************************************
+
+  OposShtrih_1.13_306.exe
+  Ноябрь, 25 2016 14:00
+  
+  [-] Исправлены ошибки неправильного отображения названий в ОФД
+
+*******************************************************************
+
+  OposShtrih_1.13_305.exe
+  Ноябрь, 24 2016 11:30
+  
+  [-] Исправлены ошибка с неправильным отображением названий в ОФД
+  [-] Изменена обработка скидок
+  [+] Добавлена возможность отмены записи названий типов оплаты
+  
+*******************************************************************
+
+  OposShtrih_1.13_303.exe
+  Ноябрь, 21 2016 21:45
+  
+  [-] Исправлены ошибки в методе продажи
+  [+] В Z отчет добавлены данные о сумме налогов
+
+*******************************************************************
+
+  OposShtrih_1.13_300.exe
+  Ноябрь, 15 2016 22:00
+  
+  [+] Добавлены команды DirectIO:
+      DIO_WRITE_FS_TLV_DATA,
+      DIO_WRITE_FS_CUSTOMER_ADDRESS,
+      DIO_WRITE_FS_STRING_TAG,
+      DIO_READ_FS_PARAMETER,
+      DIO_READ_FPTR_PARAMETER,
+      DIO_WRITE_FPTR_PARAMETER
+
+  
+*******************************************************************
+
+  OposShtrih_1.13_299.exe
+  Ноябрь, 12 2016 20:00
+  
+  [-] Исправлена ошибка лишней строки с количеством топлива
+  
+*******************************************************************
+
+  OposShtrih_1.13_297.exe
+  Ноябрь, 11 2016 17:30
+  
+  [+] Сделаны сухие чеки
+  [+] Сделан регистронезависимый поисе по базе Retalix
+  
+*******************************************************************
+
+  OposShtrih_1.13_295.exe
+  Ноябрь, 8 2016 22:00
+  
+  [-] Исправлена ошибка количества строк заголовка
+  
+*******************************************************************
+
+  OposShtrih_1.13_294.exe
+  Ноябрь, 7 2016 23:00
+  
+  [-] Исправлены некоторые ошибки
+  
+*******************************************************************
+
+  OposShtrih_1.13_293.exe
+  Ноябрь, 2 2016 22:30
+  
+  [-] Исправлены некоторые ошибки
+  
+*******************************************************************
+
+  OposShtrih_1.13_292.exe
+  Октябрь, 31 2016 22:30
+  
+  [-] Исправлены некоторые ошибки
+  
+*******************************************************************
+
+  OposShtrih_1.13_291.exe
+  Октябрь, 30 2016 22:30
+  
+  [-] Исправлены некоторые ошибки
+  
+*******************************************************************
+
+  OposShtrih_1.13_290.exe
+  Октябрь, 28 2016 23:40
+  
+  [-] Изменено регулярное выражение для дисконтных карт
+  [+] Сделан отчет по всем секциям в Z отчете
+  [-] Исправлена обработка неправильно выровненных строки
+  [+] Сделана печать всех скидок на позицию чека
+  
+*******************************************************************
+
+  OposShtrih_1.13_288.exe
+  Октябрь, 27 2016 21:00
+  
+  [-] Исправлена ошибка в окне ввода номера и email
+  [+] В Z отчет добавлены строки отчета по секциям
+  
+*******************************************************************
+
+  OposShtrih_1.13_287.exe
+  Октябрь, 26 2016 16:35
+  
+  [-] Поправил ошибку в драйвере весов
+  
+*******************************************************************
+
+  OposShtrih_1.13_286.exe
+  Октябрь, 21 2016 19:35
+  
+  [-] Исправлены ошибки выравнивания клише
+  
+*******************************************************************
+
+  OposShtrih_1.13_282.exe
+  Октябрь, 18 2016 14:35
+  
+  [-] Исправлена проблема с зависание POS-терминала при печати 
+      залоговой квитанции по постоплатной топливной транзакции 
+  [-] Исправлена проблема с некорректным чеком пополнения банковской карты 
+  [-] Исправлена проблема с некорректным выравниванием суммы «подитог» в чеке.
+  [-] Исправлена проблема c начислением НДС 18% для топлива 
+  
+*******************************************************************
+
+  OposShtrih_1.13_281.exe
+  October, 16 2016 16:30
+  
+  [+] Added fiscal storage report addition to X report and Z report
+  
+*******************************************************************
+
+  OposShtrih_1.13_280.exe
+  October, 11 2016 12:00
+  
+  [-] Fixed error with dicount by discount card union
+  [+] Added fixed tax 18%
+  
+*******************************************************************
+
+  OposShtrih_1.13_272.exe
+  September, 26 2016 18:45
+  
+  [-] Removed parameter "Fiscal storage enabled"
+  [-] Fixed error with "Open day" command
+  
+*******************************************************************
+
+  OposShtrih_1.13_270.exe
+  September, 1 2016 16:20
+  
+  [-] Added command retries
+  
+*******************************************************************
+
+  OposShtrih_1.13_269.exe
+  August, 26 2016 16:20
+ 
+  [-] Added automatic fiscal day open
+  
+*******************************************************************
+
+  OposShtrih_1.13_268.exe
+  August, 25 2016 22:20
+ 
+  [+] Changed phone and email form
+  
+*******************************************************************
+
+  OposShtrih_1.13_267.exe
+  August, 5 2016 21:00
+ 
+  [+] Added support for fiscal storage error codes
+  [-] Fixed error with printing PostLine in printRecSubtotal method
+  [-] Fixed error with discount calculation
+  [-] Fixed error with drawer opened property
+  
+*******************************************************************
+
+  OposShtrih_1.13_262.exe
+  July, 29 2016 14:00
+  
+  [-] Fixed error with synchronizing threads
+  
+*******************************************************************
+
+  OposShtrih_1.13_260.exe
+  July, 25 2016 14:20
+  
+  [+] Added serial port reconnect (usbser.sys workaround)
+  
+*******************************************************************
+
+  OposShtrih_1.13_259.exe
+  July, 20 2016 22:10
+  
+  [-] Added periodical fiscal receipt printing
+  [+] Added X report parameter at page "X Report"
+  
+*******************************************************************
+
+  OposShtrih_1.13_258.exe
+  July, 14 2016 17:20
+  
+  [-] Scale: Default value of ZeroValid property changed to True
+  [-] Fixed error with device removal
+  
+*******************************************************************
+
+  OposShtrih_1.13_256.exe
+  July, 14 2016 15:20
+  
+  [-] Fixed error with Scale service object (property ZeroValid)
+  [-] Fixed error with fiscal storage sale command
+  
+*******************************************************************
+
+  OposShtrih_1.12_254.exe
+  July, 12 2016 19:20
+  
+  [-] Fixed error with fiscal storage sale command
+  
+*******************************************************************
+
+  OposShtrih_1.12_253.exe
+  July, 08 2016 13:20
+  
+  [-] Fixed error with PostLine printing after printRecItem when
+      fiscal storage is enabled (Fiscal storage commands used).
+	  
+  [-] Changed barcode printing  DIO_BARCODE_EAN13 instead of DIO_BARCODE_EAN13_INT
+      Barcode will print with command 0xC5, Print graphics line 
+	  instead of command 0xC2, Print EAN-13 barcode
+  
+*******************************************************************
+
+  OposShtrih_1.12_251.exe
+  June, 27 2016 14:50
+  
+  [-] Changed default value for parameter PollInterval 
+      from 100 ms to 1000 ms. 
+	  
+*******************************************************************
+
+  OposShtrih_1.12_250.exe
+  June, 20 2016 18:10
+  
+  [-] Fixed error with "Bar line mode" parameter
+	  
+*******************************************************************
+
+  OposShtrih_1.12_249.exe
+  June, 08 2016 22:10
+  
+  [+] Added parameter FSTransferEnabled
+	  
+*******************************************************************
+
+  OposShtrih_1.12_248.exe
+  June, 01 2016 20:50
+  
+  [+] Added UNIPOS file processing
+  [-] Fixed error with discount cards processing
+	  
+*******************************************************************
+
+  OposShtrih_1.12_246.exe
+  May, 31 2016 21:30
+  
+  [-] Changed UNIPOS registry processing
+	  
+*******************************************************************
+
+  OposShtrih_1.12_245.exe
+  May, 30 2016 18:50
+  
+  [-] Fixed error with fiscal storage
+	  
+*******************************************************************
+
+  OposShtrih_1.12_244.exe
+  May, 27 2016 17:50
+  
+  [+] Added additional text for special receipt item name
+	  
+*******************************************************************
+
+  OposShtrih_1.12_243.exe
+  May, 26 2016 19:00
+  
+  [-] Changed change calculation when there are cash and cashless payments 
+      Now driver will try to make cash change 
+	  
+  [-] Fixed error with training mode
+  
+*******************************************************************
+
+  OposShtrih_1.12_242.exe
+  May, 20 2016 14:00
+  
+  [-] Changed phone number window
+  
+*******************************************************************
+
+  OposShtrih_1.12_241.exe
+  May, 18 2016 17:40
+  
+  [-] Fixed error with encoding 866
+  [-] Fixed error with PreLine property handling
+  [+] Added keyboard to customer address window
+  [+] Added fiscal storage device support
+  
+*******************************************************************
+
+  OposShtrih_1.12_237.exe
+  May, 13 2016 13:45
+  
+  [+] Added barcode printing via printRecMessage or printNormal
+  
+*******************************************************************
+
+  OposShtrih_1.12_236.exe
+  May, 12 2016 17:40
+  
+  [+] Added SOCKET connection
+  
+*******************************************************************
+
+  OposShtrih_1.12_235.exe
+  May, 04 2016 17:30
+  
+  [+] Added parameters "card mask" and "card name" 
+      for discount cards processing
+  
+*******************************************************************
+
+  OposShtrih_1.12_234.exe
+  April, 29 2016 16:20
+  
+  [-] Fixed error with UNIPOS processing
+  
+*******************************************************************
+
+  OposShtrih_1.12_233.exe
+  April, 25 2016 17:10
+  
+  [+] Added fiscal storage commands
+  
+*******************************************************************
+
+  OposShtrih_1.12_230.exe
+  April, 21 2016 19:30
+  
+  [+] Added phone number/email request window for fiscal storage
+  
+*******************************************************************
+
+  OposShtrih_1.12_229.exe
+  April, 18 2016 20:30
+  
+  [+] Added discount card processing
+  
+*******************************************************************
+
+  OposShtrih_1.12_227.exe
+  April, 8 2016 18:10
+  
+  [-] Fixed OFD connection
+  [+] Added OFD QR code printing
+  [-] Fixed error with cancelled receipt
+  
+*******************************************************************
+
+  OposShtrih_1.12_216.exe
+  April, 1 2016 13:30
+
+  [+] Added "Log file path" parameter
+      This parameter used to set log file path
+	  
+  [+] Added "Add report date to file name (HHmmDDMMYY)" parameter
+      This parameter used to add timestamp to ZReport files
+
+*******************************************************************
+
+  OposShtrih_1.12_215.exe
+  March, 30 2016 19:20
+
+  [+] Added OFD connection
+
+*******************************************************************
+
+  OposShtrih_1.12_206.exe
+  March, 16 2016 18:20
+
+  [-] Fixed error in barcode printing 
+
+*******************************************************************
+
+  OposShtrih_1.12_205.exe
+  February, 10 2016 19:10
+
+  [-] Fixed error in getData(FPTR_GD_Z_REPORT) request
+
+*******************************************************************
+
+  OposShtrih_1.12_204.exe
+  December, 28 2015 20:00
+
+  [-] Changed zint.dll library
+
+*******************************************************************
+
+  OposShtrih_1.12_203.exe
+  December, 25 2015 16:00
+
+  [+] Added center image on receipt
+
+*******************************************************************
+
+  OposShtrih_1.12_202.exe
+  November, 23 2015 20:35
+
+  [-] Fixed error with property RecNearEnd
+
+*******************************************************************
+
+  OposShtrih_1.12_199.exe
+  November, 5 2015 12:45
+
+  [+] Added cash registers: 
+      256 - printer total amount on begin of fiscal day 
+      257 - printer total amount on end of fiscal day 
+      258 - sales total on begin of fiscal day 
+      259 - buy total on begin of fiscal day 
+      260 - sales return total on begin of fiscal day 
+      261 - buy return total on begin of fiscal day 
+      262 - sales total on end of fiscal day 
+      263 - buy total on end of fiscal day 
+      264 - sales return total on end of fiscal day 
+      265 - buy return total on end of fiscal day 
+
+*******************************************************************
+
+  OposShtrih_1.12_198.exe
+  October, 26 2015 20:30
+
+  [-] Fixed error with property RecNearEnd
+
+*******************************************************************
+
+  OposShtrih_1.12_197.exe
+  October, 21 2015 17:50
+
+  [+] Added 2D barcode support
+
+*******************************************************************
+
+  OposShtrih_1.12_193.exe
+  September, 4 2015 13:00
+
+  [+] Added DirectIO command to print image, DIO_PRINT_IMAGE = 36
+
+*******************************************************************
+
+  OposShtrih_1.12_190.exe
+  August, 24 2015 15:52
+
+  [-] Fixed errors with GLOBUS text receipt
+
+*******************************************************************
+
+  OposShtrih_1.12_189.exe
+  July, 10 2015 13:40
+
+  [+] Added DirectIO command DIO_READ_GRAND_TOTALS = 35 to 
+      read totalizers for fiscal or nonfiscal mode. 
+
+  [+] Added parameter CapRecNearEndSensorMode to change behavior of
+      property CapRecNearEndSensor. Valid values are:
+      SensorModeAuto  = 0; - value received from model description
+      SensorModeTrue  = 1; - value is always True
+      SensorModeFalse = 2; - value is always False
+
+*******************************************************************
+
+  OposShtrih_1.12_188.exe
+  June, 15 2015 15:05
+
+  [-] Fixed error with reading registry under user account
+
+*******************************************************************
+
+  OposShtrih_1.12_187.exe
+  May, 29 2015 18:20
+
+  [-] Fixed error with ZReport printing
+  [-] Fixed error with printNormal in FiscalReceipt
+  [+] Added parameter "Application amount decimal places". 
+      Valid values are: 0, 2, As in fiscal printer. 
+
+*******************************************************************
+
+  OposShtrih_1.12_181.exe
+  April, 21 2015 18:20
+
+  [-] Fixed logo loading
+
+*******************************************************************
+
+  OposShtrih_1.12_180.exe
+  April, 16 2015 18:30
+
+  [-] Fixed error in getData(FPTR_GD_CURRENT_TOTAL) request
+
+*******************************************************************
+
+  OposShtrih_1.12_179.exe
+  April, 14 2015 15:00
+
+  [-] Added DirectIO command DIO_READ_FM_TOTALS
+  [-] Fixed error with loading image
+  [-] Writing tables moved to method setDeviceEnabled(True)
+
+*******************************************************************
+
+  OposShtrih_1.12_176.exe
+  April, 3 2015 17:10
+
+  [-] Changed receipt format for GLOBUS
+  [-] Changed loading graphics
+
+*******************************************************************
+
+  OposShtrih_1.12_173.exe
+  March, 10 2015 21:20
+
+  [-] Fixed error with PreLine and PostLine in CashIn and CashOut receipts
+  [-] Fixed error with decimal point position
+  [-] Fixed error models description
+  [-] Fixed error with header and trailer printing
+
+*******************************************************************
+
+  OposShtrih_1.12_170.exe
+  January, 21 2015 18:00
+
+  [-] Removed serial port type check. 
+
+*******************************************************************
+
+  OposShtrih_1.12_169.exe
+  January, 14 2015 20:00
+
+  [-] Fixed error with paper status update events
+
+*******************************************************************
+
+  OposShtrih_1.12_168.exe
+  November, 21 2014 15:00
+
+  [-] Fixed error with log format
+  [+] Added support for getData(FPTR_GD_DESCRIPTION_LENGTH) request
+
+*******************************************************************
+
+  OposShtrih_1.12_167.exe
+  November, 13 2014 13:00
+
+  [-] Fixed error codes of fiscal printer
+  [-] Fixed error with failed on setting port params
+
+*******************************************************************
+
+  OposShtrih_1.12_166.exe
+  October, 8 2014 22:00
+
+  [-] Fixed error in GetPropertyNumber method
+  [+] Added parameter "Department number is 2 first chars of text"
+      on page 12, Misc. parameters.
+
+*******************************************************************
+
+  OposShtrih_1.12_165.exe
+  25 September 2014 17:20
+
+  [+] Added model Retail-01K
+
+*******************************************************************
+
+  OposShtrih_1.12_164.exe
+  30 July 2014 13:20
+
+  [-] Fixed error with compatibylity level 1 and DIO_LOAD_LOGO=4 request
+  [-] Removed empty receipt printing
+
+*******************************************************************
+
+  OposShtrih_1.12_163.exe
+  30 June 2014 18:40
+
+  [-] Fixed error in OPOSTest
+
+*******************************************************************
+
+  OposShtrih_1.12_162.exe
+  16 June 2014 13:45
+
+  [+] Added date and time information to XML receipt data
+  [-] Fixed error with Claim method in Scale service object
+
+*******************************************************************
+
+  OposShtrih_1.12_161.exe
+  5 May 2014 20:00
+
+  [+] Added EJ presence check
+
+*******************************************************************
+
+  OposShtrih_1.12_160.exe
+  25 April 2014 18:00
+
+  [+] Added parameter "Zero receipt before Z report (day closed)"
+      If this parameter on, zero receipt will be printed before
+      Z report, if fiscal day is closed. If this parameter is off
+      and day is closed, printZReport method will fail.
+
+*******************************************************************
+
+  OposShtrih_1.12_159.exe
+  27 March 2014 12:00
+
+  [+] Added saving receipt amount to XML file
+
+*******************************************************************
+
+  OposShtrih_1.12_158.exe
+  19 March 2014 17:50
+
+  [-] Parameters INI-file will be created in driver folder
+  [-] Symbol #0 in text lines will be processed correctly
+
+*******************************************************************
+
+  OposShtrih_1.12_156.exe
+  18 March 2014 21:00
+
+  [-] Fixed error in "ResetPrinter" method
+
+*******************************************************************
+
+  OposShtrih_1.12_155.exe
+  17 March 2014 15:30
+
+  [+] Added parameter "Properties update mode" for properties 
+      CoverOpen, DayOpened, JrnEmpty, JrnNearEnd, SlpEmpty, SlpNearEnd, 
+      RecEmpty, RecNearEnd.
+
+      Valid values are:
+      "None" - properties updated by status requests from methods 
+      "Polling" - properties updated by device polling
+      "Query" - read status on reading each property
+
+  [-] Fixed error with "PowerState" property value
+
+*******************************************************************
+
+  OposShtrih_1.12_154.exe
+  17 February 2014 15:00
+
+  [-] Changed monitoring server 
+
+*******************************************************************
+
+  OposShtrih_1.12_153.exe
+  17 February 2014 13:30
+
+  [-] Fixed errors with DayOpened property
+
+*******************************************************************
+
+  OposShtrih_1.12_152.exe
+  14 February 2014 10:40
+
+  [+] Added reading of printer parameter via TCP for Zabbix
+
+*******************************************************************
+
+  OposShtrih_1.12_149.exe
+  03 February 2014 13:40
+
+  [+] Added model NCR-001K to Models.xml file
+
+*******************************************************************
+
+  OposShtrih_1.12_148.exe
+  29 January 2014 14:36
+
+  [-] Fixed error with saving IBT parameters
+  [+] Added parameters update in BeginFiscalReceipt method
+
+*******************************************************************
+
+  OposShtrih_1.12_147.exe
+  13 January 2014 14:00
+
+  [-] Fixed error with printer state waiting 
+
+*******************************************************************
+
+  OposShtrih_1.12_145.exe
+  6 December 2013 12:20
+
+  [-] DeviceEnabled = True now will return no error if 
+      paper is empty or cover is opened
+
+*******************************************************************
+
+  OposShtrih_1.12_144.exe
+  15 November 2013 14:20
+
+  [-] Fixed error with line alignment
+  [+] Added parameter "QUANTITY X PRICE" field length 
+  [+] Added parameter "AMOUNT" field length 
+  [+] Added parameter "Separator line"
+  [+] Added parameter "Show tax letters"
+
+*******************************************************************
+
+  OposShtrih_1.12_141.exe
+  11 November 2013 18:25
+
+  [-] Fixed error with PreLine and PostLine text
+
+*******************************************************************
+
+  OposShtrih_1.12_140.exe
+  5 November 2013 14:00
+
+  [+] Added logo position value LogoAfterTotal
+  [+] CHanged limit for header and trailer lines count to 100
+  [-] Removed tax letters for receipt type "GLOBUS text receipt"
+
+*******************************************************************
+
+  OposShtrih_1.12_139.exe
+  1 November 2013 18:15
+
+  [-] Fixed error with scale DeviceEnabled property
+  [-] Fixed error with writing table values for FiscalPrinter
+
+*******************************************************************
+
+  OposShtrih_1.12_138.exe
+  16 October 2013 20:30
+
+  [+] Added receipt type "GLOBUS receipt" 
+  [+] Added receipt type "GLOBUS receipt text" 
+
+*******************************************************************
+
+  OposShtrih_1.12_136.exe
+  2 October 2013 14:30
+
+  [+] Added EJ activisation report DirectIO code
+
+*******************************************************************
+
+  OposShtrih_1.12_135.exe
+  1 October 2013 11:30
+
+  [-] Changed EJ activisation report test
+
+*******************************************************************
+
+  OposShtrih_1.12_134.exe
+  30 September 2013 17:40
+
+  [+] Added reading EJ activisation report test
+
+*******************************************************************
+
+  OposShtrih_1.12_133.exe
+  23 September 2013 16:30
+
+  [+] Added cache for voided receipt items
+
+*******************************************************************
+
+  OposShtrih_1.12_131.exe
+  26 August 2013 13:40
+
+  [-] Fixed error with ClaimDevice method
+
+*******************************************************************
+
+  OposShtrih_1.12_130.exe
+  20 August 2013 14:30
+
+  [-] Fixed error with DrawerOpened property for CashDrawer service
+
+*******************************************************************
+
+  OposShtrih_1.12_129.exe
+  6 March 2012 13:00
+
+  [-] Fixed error with log for Scale object
+
+*******************************************************************
+
+  OposShtrih_1.12_128.exe
+  1 March 2012 13:00
+
+  [-] Fixed error with logo printing
+
+  [+] Changed getData(FPTR_GD_DAILY_TOTAL) request. 
+      Behavior depends on OptArgs parameter
+      0 - daily total for all payment types
+      1 - daily total for cash payment types
+      2 - daily total for payment type 2
+      3 - daily total for payment type 3
+      4 - daily total for payment type 4
+
+*******************************************************************
+
+  OposShtrih_1.12_125.exe
+  11 Jenuary 2012 15:00
+
+  [+] Added some features to Scale service object
+
+*******************************************************************
+
+  OposShtrih_1.12_124.exe
+  13 December 2012 12:00
+
+  [+] Added Scale service object
+
+*******************************************************************
+
+  OposShtrih_1.12_123.exe
+  24 October 2012 13:25
+
+  [+] Added storage option "Registry IBT"
+
+*******************************************************************
+
+  OposShtrih_1.12_122.exe
+  03 October 2012 18:33
+
+  [+] If SetHeaderLineEnabled, NumHeaderLines is read from "Header" parameter
+  [+] If SetTrailerLineEnabled, NumTrailerLines is read from "Trailer" parameter
+
+*******************************************************************
+
+  OposShtrih_1.12_120.exe
+  28 September 2012 14:20
+
+  [+] Added automatic reset of state "Locked by invalid tax officer password"
+  [+] Added parameters SetHeaderLineEnabled and SetTrailerLineEnabled
+
+*******************************************************************
+
+  OposShtrih_1.12_118.exe
+  27 September 2012 17:20
+
+  [-] Fixed error with device search
+
+*******************************************************************
+
+  OposShtrih_1.12_117.exe
+  24 September 2012 14:00
+
+  [+] Added parameter "PrintRecSubtotal" on page "12, Misc parameters"
+      to enable or disable PrintRecSubtotal method.
+
+*******************************************************************
+
+  OposShtrih_1.12_116.exe
+  13 September 2012 19:00
+
+  [-] Fixed error with table writing
+  [+] Added parameter "BarcodeByteMode". Valid values are:
+      0 - autoselect
+      1 - straight bit order
+      2 - reverse bit order
+
+*******************************************************************
+
+  OposShtrih_1.12_114.exe
+  7 September 2012 12:00
+
+  [+] Added receipt number caching.
+  [+] Added parameter "Cache receipt number"
+
+*******************************************************************
+
+  OposShtrih_1.12_112.exe
+  29 August 2012 13:30
+
+  [-] Fixed error with PreLine in PrintRecItem method
+      PreLine was printed after ECR header
+
+  [+] Added parameters JournalPrintHeader and JournalPrintTrailer
+      to enable or disable printing header and trailer on journal
+      paper.
+
+*******************************************************************
+
+  OposShtrih_1.12_111.exe
+  3 August 2012 21:30
+
+  [-] Fixed error with TCP connection
+
+*******************************************************************
+
+  OposShtrih_1.12_110.exe
+  2 August 2012 16:00
+
+  [+] Added DirectIO command DIO_GET_LAST_ERROR = 26 to read 
+      last device error code and text. After DirectIO method call
+      pData - error code
+      pString - error text
+
+*******************************************************************
+
+  OposShtrih_1.12_109.exe
+  13 July 2012 17:15
+
+  [+] Added test mode parameters "VoidReceiptOnMaxItems" and "MaxReceiptItems"
+
+*******************************************************************
+
+  OposShtrih_1.12_108.exe
+  28 June 2012 16:30
+
+  [+] Added value HeaderTypeNone = 2 for parameter "HeaderType"
+  [+] Added "Storage" parameter to store parameters in registry 
+      or in INI file.
+
+*******************************************************************
+
+  OposShtrih_1.12_106.exe
+  26 June 2012 17:30
+
+  [+] Added saving registers before Z report to XML or CSV file
+  [+] Added maximum log file count parameter
+
+*******************************************************************
+
+  OposShtrih_1.12_105.exe
+  15 June 2012 17:15
+
+  [-] Changed InnoSetup installer to non unicode version
+
+*******************************************************************
+
+  OposShtrih_1.12_104.exe
+  5 June 2012 18:00
+
+  [-] Fixed error with ErrorWideString property
+
+*******************************************************************
+
+  OposShtrih_1.12_103.exe
+  1 June 2012 16:00
+
+  [-] Fixed error with journal station
+
+*******************************************************************
+
+  OposShtrih_1.12_102.exe
+  10 May 2012 19:00
+
+  [+] Driver parameters are stored in INI file, not in registry.
+
+*******************************************************************
+
+  OposShtrih_1.12_101.exe
+  26 April 2012 11:30
+
+  [+] Added barcode type Code39. DIO_BARCODE_CODE39 = 4
+
+*******************************************************************
+
+  OposShtrih_1.12_100.exe
+  29 March 2012 14:40
+
+  [+] Added "Table values changing enabled" parameter. 
+      It is enabled by default. 
+      If disabled driver will not change table values at startup.
+
+*******************************************************************
+
+  OposShtrih_1.12_99.exe
+  20 March 2012 15:40
+
+  [+] Added fiscal printer model SHTRIH-M-PTK
+
+*******************************************************************
+
+  OposShtrih_1.12_98.exe
+  22 February 2012 15:00
+
+  [-] Fixed error with zero receipt
+
+******************************************************************
+
+  OposShtrih_1.12_97.exe
+  13 February 2012 13:00
+
+  [-] Fixed error with zero receipt
+
+*******************************************************************
+
+  OposShtrih_1.12_96.exe
+  10 February 2012 13:00
+
+  [-] Fixed error "Acceess violation ..."
+
+*******************************************************************
+
+  OposShtrih_1.12_95.exe
+  7 February 2012 15:00
+
+  [-] Fixed rounding error
+
+*******************************************************************
+
+  OposShtrih_1.12_94.exe
+  24 January 2012 14:00
+
+  [-] Changed default value for parameter "StatusCommand" from 
+      value StatusCommandLong = 2 to value StatusCommandDriver = 0.
+
+  [+] Added parameter "Status query interval" to OposConfig utility
+
+*******************************************************************
+
+  OposShtrih_1.12_93.exe
+  19 December 2011 14:40
+
+  [+] Added cash amount logging on making cash out
+
+*******************************************************************
+
+  OposShtrih_1.12_92.exe
+  13 December 2011 14:00
+
+  [-] Changed PrintRecMessage method
+
+*******************************************************************
+
+  OposShtrih_1.12_91.exe
+  9 December 2011 23:30
+
+  [-] Changed events processing
+  [-] Fixed error with port sharing
+  [-] Fixed error with trailer printing
+  [-] Fixed error with PrintRecVoidItem method
+  [-] Fixed error with PrintRecSubtotalAdjustment method
+
+*******************************************************************
+
+  OposShtrih_1.12_86.exe
+  29 November 2011 15:30
+
+  [-] Fixed error with zero receipt
+
+*******************************************************************
+
+  OposShtrih_1.12_85.exe
+  15 November 2011 13:30
+
+  [-] Fixed error with VatInfo in discount and surcharge
+
+*******************************************************************
+
+  OposShtrih_1.12_84.exe
+  11 November 2011 14:00
+
+  [-] Removed pay type check from cash-in and cash-out receipts
+
+*******************************************************************
+
+  OposShtrih_1.12_83.exe
+  10 November 2011 22:30
+
+  [-] Fixed error with cash drawer device name
+
+*******************************************************************
+
+  OposShtrih_1.12_81.exe
+  10 November 2011 12:00
+
+  [+] Added cash drawer driver selection, CCO from RCS or CCO from NCR
+
+*******************************************************************
+
+  OposShtrih_1.12_80.exe
+  2 November 2011 17:00
+
+  [-] Fixed error with refund receipt
+
+*******************************************************************
+
+  OposShtrih_1.12_79.exe
+  26 October 2011 13:00
+
+  [+] Added ESC commands support
+  [+] Added support for single position receipt
+
+*******************************************************************
+
+  OposShtrih_1.12_77.exe
+  28 July 2011 16:00
+
+  [-] Fixed error with "continue print" command
+
+*******************************************************************
+
+  OposShtrih_1.12_76.exe
+  2 June 2011 15:40
+
+  [-] Fixed error with CODE128 barcode printing
+
+*******************************************************************
+
+  OposShtrih_1.12_75.exe
+  6 May 2011 12:30
+
+  [-] Changed error processing. 
+      On any critical error driver will return 
+      OPOS_EFPTR_TECHNICAL_ASSISTANCE error, not OPOS_E_FAILURE.
+
+*******************************************************************
+
+  OposShtrih_1.12_74.exe
+  29 April 2011 18:30
+
+  [-] Fixed error with compatibility mode
+  [-] Fixed error with GetData(FPTR_GD_RECEIPT_NUMBER) request
+
+*******************************************************************
+
+  OposShtrih_1.12_73.exe
+  15 April 2011 13:00
+
+  [-] Fixed error with reading printer header and trailer 
+
+*******************************************************************
+
+  OposShtrih_1.12_72.exe
+  16 February 2011 13:15
+
+  [-] Fixed error in EndFiscalReceipt method
+  [+] Added parameter "Polling interval" to "OPOS setup utility"
+
+*******************************************************************
+
+  OposShtrih_1.12_71.exe
+  14 February 2011 15:00
+
+  [+] Added old driver DirectIO codes support,
+      added parameter "Driver compatibility".
+
+*******************************************************************
+
+  OposShtrih_1.12_70.exe
+  24 January 2011 12:15
+
+  [-] Fixed error with second Claim nethod call
+      If first call to Claim method succeeded, the second 
+      call will fail eith OPOS_E_CLAIMED error. Fixed and now
+      second call to Claim will not fail.
+
+  [-] Fixed error with first PreLine printing
+
+*******************************************************************
+
+  OposShtrih_1.12_69.exe
+  12 January 2011 13:10
+
+  [-] Fixed error with service object registration
+
+*******************************************************************
+
+  OposShtrih_1.12_68.exe
+  22 December 2010 17:30
+
+  [-] Minor changes
+
+*******************************************************************
+
+  OposShtrih_1.12_67.exe
+  24 November 2010 13:30
+
+  [-] Fixed error with logo printing
+
+*******************************************************************
+
+  OposShtrih_1.12_66.exe
+  12 November 2010 13:30
+
+  [-] Changed log information
+
+*******************************************************************
+
+  OposShtrih_1.12_65.exe
+  11 November 2010 21:30
+
+  [+] Changed log information
+  [+] Changed GetData(FPTR_GD_PRINTER_ID) request
+
+*******************************************************************
+
+  OposShtrih_1.12_64.exe
+  9 November 2010 17:30
+
+  [-] Fixed cut issue on SHTRIH-FR-F printer
+
+*******************************************************************
+
+  OposShtrih_1.12_63.exe
+  1 November 2010 12:00
+
+  [-] Fixed string encoding issue
+
+*******************************************************************
+
+  OposShtrih_1.12_62.exe
+  7 July 2010 11:00
+
+  [+] Added DirectIO code DIO_READ_CASH_REG for reading 
+      cash register value
+
+  [+] Added DirectIO code DIO_READ_OPER_REG for reading 
+      operating register value
+
+  [+] Added support for getData FPTR_GD_GRAND_TOTAL request
+
+*******************************************************************
+
+  OposShtrih_1.12_61.exe
+  25 May 2010 19:00
+
+  [-] Fixed AdditionalTrailer print error
+
+*******************************************************************
+
+  OposShtrih_1.12_60.exe
+  6 May 2010 17:00
+
+  [-] Fixed serial port open error 
+
+*******************************************************************
+
+  OposShtrih_1.12_59.exe
+  28 April 2010 17:30
+
+  [-] Corrected model descriptions
+
+*******************************************************************
+
+  OposShtrih_1.12_58.exe
+  23 April 2010 17:00
+
+  [-] Fixed error with printing empty receipts
+
+*******************************************************************
+
+  OposShtrih_1.12_57.exe
+  13 April 2010 15:45
+
+  [+] Added printer model SHTRIH-LIGHT-FRK 
+
+*******************************************************************
+
+  OposShtrih_1.12_56.exe
+  13 April 2010 14:40
+
+  [-] Fixed error in OposConfig utility. 
+
+*******************************************************************
+
+  OposShtrih_1.12_55.exe
+  13 April 2010 13:00
+
+  [+] Added setting "Store header" to select how header and trailer
+      to be printed: automatically by printer or by driver.
+
+*******************************************************************
+
+  OposShtrih_1.12_54.exe
+  12 April 2010 12:30
+
+  [-] Fixed error in BeginFiscalReceipt method.
+      Driver will check "end of day" printer state only 
+      for fiscal receipts, not for cash-in and cash-out receipts.
+
+*******************************************************************
+
+  OposShtrih_1.12_53.exe
+  09 March 2010 15:00
+
+  [-] Fixed error with properties PhysicalDeviceDescription and PhysicalDeviceName.
+      Now this properties returns correct information about fiscal printer.
+
+  [+] Added selection for status query command, 10h or 11h
+
+*******************************************************************
+
+  OposShtrih_1.12_52.exe
+  26 February 2010 13:00
+
+  [-] Fixed error with cashless payments
+
+*******************************************************************
+
+  OposShtrih_1.12_51.exe
+  05 February 2010 15:30
+
+  [-] Fixed PrintRecSubtotalAdjustment method error
+  [-] Fixed check paper error
+
+*******************************************************************
+
+  OposShtrih_1.12_50.exe
+  30 January 2010 16:00
+
+  [+] Changed logo printing
+  [*] Changed registry parameter name "LogoBeforeHeader" to "LogoPosition"
+
+*******************************************************************
+
+  OposShtrih_1.12_49.exe
+  29 January 2010 10:00
+
+  [-] Fixed PrintRecSubtotalAdjustment method error
+
+*******************************************************************
+
+  OposShtrih_1.12_48.exe
+  22 January 2010 17:20
+
+  [-] Removed cashless total check
+  [-] Fixed CashDrawer interface error OPOS_OR_BADIF
+
+*******************************************************************
+
+  OposShtrih_1.12_47.exe
+  13 January 2010 18:00
+
+  [-] Changed registry key name for payment types from 
+      'PayTypes' to 'PaymentTypes'
+
+*******************************************************************
+
+  OposShtrih_1.12_46.exe
+  11 January 2010 17:00
+
+  [+] Added "Info" page to OposTest application
+
+*******************************************************************
+
+  OposShtrih_0.14_45.exe
+  10 December 2009 12:30
+
+  [-] Log folder will be created after driver install
+
+*******************************************************************
+
+  OposShtrih_0.14_43.exe
+  09 December 2009 16:00
+
+  [-] Fixed error with text printing
+
+*******************************************************************
+
+  OposShtrih_0.14_42.exe
+  08 December 2009 21:00
+
+  [-] Fixed error loading logo
+
+*******************************************************************
+
+  OposShtrih_0.13_41.exe
+  04 December 2009 13:00
+
+  [-] Changed device search procedure
+
+*******************************************************************
+
+  OposShtrih_0.13_40.exe
+  03 December 2009 18:30
+
+  [-] Changed serial port error processing
+
+*******************************************************************
+
+  OposShtrih_0.13_39.exe
+  28 October 2009 18:30
+
+  [-] Changed default parameters. NumHeaderLines = 6, NumTrailerLines = 4
+
+*******************************************************************
+
+  OposShtrih_0.13_38.exe
+  28 October 2009 11:30
+
+  [+] Changed LogFileEnabled parameter default value to False.
+
+*******************************************************************
+
+  OposShtrih_0.12.exe
+  20 October 2009 23:00
+
+  [+] Added payment types setup
+
+*******************************************************************
+
+  OposShtrih_0.11.exe
+  19 October 2009 16:00
+
+  [+] Added remote connection types
+
+*******************************************************************
+
+  OposShtrih_0.10.exe
+  07 October 2009 17:20
+
+  [-] Fixed error printing header with logo
+
+*******************************************************************
+
+  OposShtrih_0.9.exe
+  29 September 2009 15:40
+
+  [+] Added department support via DirectIO
+
+*******************************************************************
+
+  OposShtrih_0.8_32.exe
+  15 September 2009 12:30
+
+  [-] Some errors fixed
+
+*******************************************************************
+
+  OposShtrih_0.8_28.exe
+  29 June 2009 19:00
+
+  [+] Added methods printRecItemRefund, printRecItemRefundVoid
+
+*******************************************************************
+
+  OposShtrih_0.8.exe
+  23 June 2009 16:40
+
+  [-] Some errors fixed
+  [+] Added DirectIO codes to write and read tax names
+  [+] Added receipt format processing
+  [+] Changed parameters saving
+
+*******************************************************************
+
+  OposShtrih_0.7.exe
+  18 May 2009 13:30
+
+  [-] Some errors fixed
+  [+] Added OpenReceipt command
+  [+] Added unlimied header and trailer length
+
+*******************************************************************
+
+  OposShtrih_0.6.exe
+  13 February 2009 12:30
+
+  [+] Added support for SHTRIH-M-FR-K fiscal printer
+  [+] Added automatic Logo printing
+
+*******************************************************************
+
+  OposShtrih_0.5.exe
+  27 January 2009 14:30
+
+  [+] Implemented PrintRecItemVoid method
+
+*******************************************************************
+
+  OposShtrih_0.4.exe
+  21 January 2009 12:00
+
+  [+] Added DirectIO string command support
+
+*******************************************************************
+
+  OposShtrih_0.3.exe
+  11 December 2008 13:00
+
+  [+] Added FPTR_GD_RECEIPT_NUMBER GetData request
+
+*******************************************************************
+
+  OposShtrih_0.2.exe
+  03 September 2008 14:00
+
+  [+] Added SHTRIH-FRK fiscal printer support
+
+*******************************************************************
+
+  OposShtrih_0.1.exe
+  13 August 2008 11:00
+
+  [+] First release
+
+*******************************************************************

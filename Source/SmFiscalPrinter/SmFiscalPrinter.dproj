@@ -1,0 +1,227 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<PropertyGroup>
+			<ProjectGuid>{AA84402F-6F7C-4C01-BFD4-7B430D0FF652}</ProjectGuid>
+			<MainSource>SmFiscalPrinter.dpr</MainSource>
+			<Config Condition="'$(Config)'==''">Debug</Config>
+			<DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
+			<ProjectVersion>12.0</ProjectVersion>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_1)'!=''">
+			<Cfg_1>true</Cfg_1>
+			<CfgParent>Base</CfgParent>
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_2)'!=''">
+			<Cfg_2>true</Cfg_2>
+			<CfgParent>Base</CfgParent>
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Base)'!=''">
+			<DCC_ImageBase>00400000</DCC_ImageBase>
+			<DCC_DependencyCheckOutputName>SmFiscalPrinter.dll</DCC_DependencyCheckOutputName>
+			<DCC_IOChecking>false</DCC_IOChecking>
+			<DCC_WriteableConstants>true</DCC_WriteableConstants>
+			<DCC_UsePackage>vcl;rtl;vclx;dbrtl;Ean7;qrpt;bdertl;vcldb;EanRave7;Rave50VCL;Ean7Editors;VclSmp;RxCtl7;TntUnicodeVcl_R70;RxDB7;RxBDE7;Jcl;CnPack_D7;adortl;AdvOfficePagerPkgd7;JclVcl;JvCoreD7R;JvSystemD7R;JvStdCtrlsD7R;JvAppFrmD7R;JvBandsD7R;JvCmpD7R;JvCryptD7R;JvCtrlsD7R;JvCustomD7R;JvDlgsD7R;JvDockingD7R;JvDotNetCtrlsD7R;JvEDID7R;JvGlobusD7R;JvHMID7R;JvInterpreterD7R;JvJansD7R;JvManagedThreadsD7R;JvMMD7R;JvNetD7R;JvPageCompsD7R;JvPluginD7R;JvPrintPreviewD7R;JvRuntimeDesignD7R;JvTimeFrameworkD7R;JvValidatorsD7R;tdbf_d7d;tdbf_d7r;RaizeComponentsVcl;RaizeComponentsVclDb;PNG_D7;PngComponentsD7;indy;vcldbx;teeui;teedb;tee;JvDBD7R;JvBDED7R;JvWizardD7R;JvXPCtrlsD7R;vclactnband;visualclx;visualdbclx;dsnap;dsnapcon;dbexpress;dss;inet;xmlrtl;vclie;inetdbbde;inetdbxpress;webdsnap;soaprtl;dbxcds;websnap;ibxpress;IntrawebDB_50_70;Intraweb_50_70;TIE_http_https;vclshlctrls;Rave50CLX;GmXml_D7;inetdb</DCC_UsePackage>
+			<DCC_Optimize>false</DCC_Optimize>
+			<DCC_SYMBOL_PLATFORM>false</DCC_SYMBOL_PLATFORM>
+			<DCC_RemoteDebug>true</DCC_RemoteDebug>
+			<DCC_Alignment>1</DCC_Alignment>
+			<DCC_Platform>x86</DCC_Platform>
+			<DCC_UnitAlias>WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;WinTypes=Windows;WinProcs=Windows;$(DCC_UnitAlias)</DCC_UnitAlias>
+			<DCC_K>false</DCC_K>
+			<DCC_F>false</DCC_F>
+			<DCC_N>true</DCC_N>
+			<GenDll>true</GenDll>
+			<DCC_S>false</DCC_S>
+			<DCC_E>false</DCC_E>
+			<DCC_SYMBOL_DEPRECATED>false</DCC_SYMBOL_DEPRECATED>
+			<DCC_DebugInfoInExe>true</DCC_DebugInfoInExe>
+			<ImageDebugInfo>true</ImageDebugInfo>
+			<DCC_DcuOutput>DCU</DCC_DcuOutput>
+			<DCC_UNIT_PLATFORM>false</DCC_UNIT_PLATFORM>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Cfg_1)'!=''">
+			<DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
+			<DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
+			<DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+			<DCC_DebugInformation>false</DCC_DebugInformation>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Cfg_2)'!=''">
+			<DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
+		</PropertyGroup>
+		<ItemGroup>
+			<DelphiCompile Include="SmFiscalPrinter.dpr">
+				<MainSource>MainSource</MainSource>
+			</DelphiCompile>
+			<DCCReference Include="..\Opos\Opos.pas"/>
+			<DCCReference Include="..\Opos\Oposhi.pas"/>
+			<DCCReference Include="..\Opos\OposFptr.pas"/>
+			<DCCReference Include="..\Opos\OposUtils.pas"/>
+			<DCCReference Include="..\Opos\OposFptrhi.pas"/>
+			<DCCReference Include="..\Opos\OposException.pas"/>
+			<DCCReference Include="SmFiscalPrinterLib_TLB.pas"/>
+			<DCCReference Include="Units\FiscalPrinterImpl.pas">
+				<CoClasses>FiscalPrinter</CoClasses>
+			</DCCReference>
+			<DCCReference Include="Units\oleXmlParams.pas">
+				<CoClasses>XmlParams</CoClasses>
+			</DCCReference>
+			<DCCReference Include="Units\oleCashDrawer.pas">
+				<CoClasses>CashDrawer</CoClasses>
+			</DCCReference>
+			<DCCReference Include="Units\FiscalPrinterState.pas"/>
+			<DCCReference Include="Units\SerialPort.pas"/>
+			<DCCReference Include="Units\PrinterFrame.pas"/>
+			<DCCReference Include="Units\CashDrawerParameters.pas"/>
+			<DCCReference Include="Units\DirectIOAPI.pas"/>
+			<DCCReference Include="Units\DIOHandler.pas"/>
+			<DCCReference Include="Units\DIOHandlers.pas"/>
+			<DCCReference Include="Units\ShtrihFiscalPrinter.pas"/>
+			<DCCReference Include="Units\NotifyThread.pas"/>
+			<DCCReference Include="Units\StringUtils.pas"/>
+			<DCCReference Include="Units\PrinterTypes.pas"/>
+			<DCCReference Include="Units\DriverError.pas"/>
+			<DCCReference Include="Units\CommandDef.pas"/>
+			<DCCReference Include="Units\XMLParser.pas"/>
+			<DCCReference Include="Units\XmlValue.pas"/>
+			<DCCReference Include="Units\BinStream.pas"/>
+			<DCCReference Include="Units\CommandParam.pas"/>
+			<DCCReference Include="Units\PayType.pas"/>
+			<DCCReference Include="..\Opos\OposEvents.pas"/>
+			<DCCReference Include="Units\SerialPorts.pas"/>
+			<DCCReference Include="Units\DebugUtils.pas"/>
+			<DCCReference Include="Units\PrinterTable.pas"/>
+			<DCCReference Include="Fmu\fmuLogo.pas">
+				<Form>fmLogo</Form>
+			</DCCReference>
+			<DCCReference Include="Units\untUtil.pas"/>
+			<DCCReference Include="Units\ElectronicJournal.pas"/>
+			<DCCReference Include="Units\RegExpr.pas"/>
+			<DCCReference Include="Units\LogoLoader.pas"/>
+			<DCCReference Include="Units\SharedPrinter.pas"/>
+			<DCCReference Include="..\Opos\OposCash.pas"/>
+			<DCCReference Include="..\Opos\OposCashhi.pas"/>
+			<DCCReference Include="Units\Code128.pas"/>
+			<DCCReference Include="Units\FiscalPrinterStatistics.pas"/>
+			<DCCReference Include="..\Opos\OposStat.pas"/>
+			<DCCReference Include="..\Opos\OposStatistics.pas"/>
+			<DCCReference Include="Units\StatisticItem.pas"/>
+			<DCCReference Include="Units\FiscalPrinterDevice.pas"/>
+			<DCCReference Include="Units\TrainingReceiptPrinter.pas"/>
+			<DCCReference Include="Units\FiscalReceiptPrinter.pas"/>
+			<DCCReference Include="Units\ReceiptPrinter.pas"/>
+			<DCCReference Include="Units\ByteUtils.pas"/>
+			<DCCReference Include="Units\CashOutReceipt.pas"/>
+			<DCCReference Include="Units\CashInReceipt.pas"/>
+			<DCCReference Include="..\Opos\OposFptrUtils.pas"/>
+			<DCCReference Include="..\Opos\OposCashUtils.pas"/>
+			<DCCReference Include="Units\BStrUtil.pas"/>
+			<DCCReference Include="Units\FiscalPrinterTypes.pas"/>
+			<DCCReference Include="Units\FixedStrings.pas"/>
+			<DCCReference Include="Units\CustomReceipt.pas"/>
+			<DCCReference Include="..\Shared\VersionInfo.pas"/>
+			<DCCReference Include="Units\DeviceTables.pas"/>
+			<DCCReference Include="Units\PrinterParameters.pas"/>
+			<DCCReference Include="Units\PrinterModel.pas"/>
+			<DCCReference Include="..\Shared\DeviceService.pas"/>
+			<DCCReference Include="Units\ServiceVersion.pas"/>
+			<DCCReference Include="Units\GenericReceipt.pas"/>
+			<DCCReference Include="Units\SingleSaleReceipt.pas"/>
+			<DCCReference Include="Units\LocalConnection.pas"/>
+			<DCCReference Include="Units\PrinterConnection.pas"/>
+			<DCCReference Include="Units\CommunicationError.pas"/>
+			<DCCReference Include="Units\TCPConnection.pas"/>
+			<DCCReference Include="Units\DCOMConnection.pas"/>
+			<DCCReference Include="Units\FiscalPrinterDeviceFactory.pas"/>
+			<DCCReference Include="..\Opos\OposServiceDevice19.pas"/>
+			<DCCReference Include="..\Opos\Semaphore.pas"/>
+			<DCCReference Include="..\SmFptrSrv\FptrServerLib_TLB.pas"/>
+			<DCCReference Include="Units\VSysUtils.pas"/>
+			<DCCReference Include="..\Opos\OposSemaphore.pas"/>
+			<DCCReference Include="Units\XmlUtils.pas"/>
+			<DCCReference Include="Units\SharedPrinterInterface.pas"/>
+			<DCCReference Include="Units\PrinterCommand.pas"/>
+			<DCCReference Include="..\Shared\FileUtils.pas"/>
+			<DCCReference Include="Units\OposMessages.pas"/>
+			<DCCReference Include="..\Shared\LogFile.pas"/>
+			<DCCReference Include="Units\oleFiscalPrinter.pas"/>
+			<DCCReference Include="Units\EscPrinter.pas"/>
+			<DCCReference Include="Units\BmpLoader.pas"/>
+			<DCCReference Include="Units\EscFilter.pas"/>
+			<DCCReference Include="Units\SalesReceipt.pas"/>
+			<DCCReference Include="Units\XmlModelReader.pas"/>
+			<DCCReference Include="Units\DriverTypes.pas"/>
+			<DCCReference Include="Units\ParameterValue.pas"/>
+			<DCCReference Include="Units\TableParameter.pas"/>
+			<DCCReference Include="Units\DefaultModel.pas"/>
+			<DCCReference Include="..\Opos\PrinterEncoding.pas"/>
+			<None Include="SmFiscalPrinter.todo"/>
+			<RidlCompile Include="SmFiscalPrinter.ridl"/>
+			<BuildConfiguration Include="Base">
+				<Key>Base</Key>
+			</BuildConfiguration>
+			<BuildConfiguration Include="Debug">
+				<Key>Cfg_2</Key>
+				<CfgParent>Base</CfgParent>
+			</BuildConfiguration>
+			<BuildConfiguration Include="Release">
+				<Key>Cfg_1</Key>
+				<CfgParent>Base</CfgParent>
+			</BuildConfiguration>
+		</ItemGroup>
+		<Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')"/>
+		<ProjectExtensions>
+			<Borland.Personality>Delphi.Personality.12</Borland.Personality>
+			<Borland.ProjectType>VCLApplication</Borland.ProjectType>
+			<BorlandProject>
+				<Delphi.Personality>
+					<Source>
+						<Source Name="MainSource">SmFiscalPrinter.dpr</Source>
+					</Source>
+					<Parameters>
+						<Parameters Name="HostApplication">I:\Projects\OposShtrih\Bin\OposTest.exe</Parameters>
+						<Parameters Name="UseLauncher">False</Parameters>
+						<Parameters Name="LoadAllSymbols">True</Parameters>
+						<Parameters Name="LoadUnspecifiedSymbols">False</Parameters>
+					</Parameters>
+					<Language>
+						<Language Name="ProjectLang">$00000419</Language>
+					</Language>
+					<VersionInfo>
+						<VersionInfo Name="IncludeVerInfo">True</VersionInfo>
+						<VersionInfo Name="AutoIncBuild">True</VersionInfo>
+						<VersionInfo Name="MajorVer">1</VersionInfo>
+						<VersionInfo Name="MinorVer">12</VersionInfo>
+						<VersionInfo Name="Release">0</VersionInfo>
+						<VersionInfo Name="Build">99</VersionInfo>
+						<VersionInfo Name="Debug">False</VersionInfo>
+						<VersionInfo Name="PreRelease">False</VersionInfo>
+						<VersionInfo Name="Special">False</VersionInfo>
+						<VersionInfo Name="Private">False</VersionInfo>
+						<VersionInfo Name="DLL">False</VersionInfo>
+						<VersionInfo Name="Locale">1033</VersionInfo>
+						<VersionInfo Name="CodePage">1252</VersionInfo>
+					</VersionInfo>
+					<VersionInfoKeys>
+						<VersionInfoKeys Name="CompanyName">SHTRIH-M</VersionInfoKeys>
+						<VersionInfoKeys Name="FileDescription">Fiscal printer service</VersionInfoKeys>
+						<VersionInfoKeys Name="FileVersion">1.12.0.99</VersionInfoKeys>
+						<VersionInfoKeys Name="InternalName">Fiscal printer driver</VersionInfoKeys>
+						<VersionInfoKeys Name="LegalCopyright">Copyright © 2009</VersionInfoKeys>
+						<VersionInfoKeys Name="LegalTrademarks"/>
+						<VersionInfoKeys Name="OriginalFilename">SmFiscalPrinter.dll</VersionInfoKeys>
+						<VersionInfoKeys Name="ProductName">OPOS drivers</VersionInfoKeys>
+						<VersionInfoKeys Name="ProductVersion">1.12</VersionInfoKeys>
+						<VersionInfoKeys Name="Comments">http://www.shtrih-m.ru</VersionInfoKeys>
+					</VersionInfoKeys>
+				</Delphi.Personality>
+				<ActiveXProjectInfo>
+					<version>1</version>
+				</ActiveXProjectInfo>
+			</BorlandProject>
+			<ProjectFileVersion>12</ProjectFileVersion>
+		</ProjectExtensions>
+	</Project>

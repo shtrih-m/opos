@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<UPOSStat version="1.13.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.nrf-arts.org/UnifiedPOS/namespace/" xsi:schemaLocation="http://www.nrf-arts.org/UnifiedPOS/namespace/ UPOSStat.xsd">
+	<Event>
+		<Parameter>
+			<Name>HoursPoweredCount</Name>
+			<Value>234</Value>
+		</Parameter>
+		<Parameter>
+			<Name>CommunicationErrorCount</Name>
+			<Value>234</Value>
+		</Parameter>
+		<Parameter>
+			<Name>GoodWeightReadCount</Name>
+			<Value>234</Value>
+		</Parameter>
+	</Event>
+	<Equipment>
+		<UnifiedPOSVersion>1.13.0</UnifiedPOSVersion>
+		<DeviceCategory UPOS="Scale"/>
+		<ManufacturerName>SHTRIH-M</ManufacturerName>
+		<ModelName>82374682734687</ModelName>
+		<SerialNumber></SerialNumber>
+		<FirmwareRevision>1.002, 3.004</FirmwareRevision>
+		<Interface>RS232</Interface>
+		<InstallationDate></InstallationDate>
+	</Equipment>
+</UPOSStat>

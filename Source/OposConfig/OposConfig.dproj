@@ -1,0 +1,151 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<PropertyGroup>
+			<ProjectGuid>{27568633-64C9-453B-888E-9FA520F7092C}</ProjectGuid>
+			<MainSource>OposConfig.dpr</MainSource>
+			<Config Condition="'$(Config)'==''">Debug</Config>
+			<DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
+			<ProjectVersion>12.0</ProjectVersion>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_1)'!=''">
+			<Cfg_1>true</Cfg_1>
+			<CfgParent>Base</CfgParent>
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_2)'!=''">
+			<Cfg_2>true</Cfg_2>
+			<CfgParent>Base</CfgParent>
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Base)'!=''">
+			<DCC_UnitSearchPath>$(DELPHI)\Lib\Debug;C:\COMPON~1\JVCL\jcl\lib\d7\debug;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+			<DCC_ExeOutput>..\..\Bin</DCC_ExeOutput>
+			<DCC_DependencyCheckOutputName>..\..\Bin\OposConfig.exe</DCC_DependencyCheckOutputName>
+			<DCC_UsePackage>Vcl50;SynEdit_D5;SynEdit_R5</DCC_UsePackage>
+			<DCC_ImageBase>00400000</DCC_ImageBase>
+			<DCC_Optimize>false</DCC_Optimize>
+			<DCC_SYMBOL_PLATFORM>false</DCC_SYMBOL_PLATFORM>
+			<DCC_RemoteDebug>true</DCC_RemoteDebug>
+			<DCC_Alignment>1</DCC_Alignment>
+			<DCC_Platform>x86</DCC_Platform>
+			<DCC_UnitAlias>WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;WinTypes=Windows;WinProcs=Windows;$(DCC_UnitAlias)</DCC_UnitAlias>
+			<DCC_F>false</DCC_F>
+			<DCC_E>false</DCC_E>
+			<DCC_K>false</DCC_K>
+			<DCC_S>false</DCC_S>
+			<DCC_N>true</DCC_N>
+			<DCC_DcuOutput>DCU</DCC_DcuOutput>
+			<DCC_DebugInfoInExe>true</DCC_DebugInfoInExe>
+			<DCC_WriteableConstants>true</DCC_WriteableConstants>
+			<DCC_SYMBOL_DEPRECATED>false</DCC_SYMBOL_DEPRECATED>
+			<DCC_UNIT_PLATFORM>false</DCC_UNIT_PLATFORM>
+			<DCC_SymbolReferenceInfo>1</DCC_SymbolReferenceInfo>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Cfg_1)'!=''">
+			<DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
+			<DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
+			<DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+			<DCC_DebugInformation>false</DCC_DebugInformation>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Cfg_2)'!=''">
+			<DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
+		</PropertyGroup>
+		<ItemGroup>
+			<DelphiCompile Include="OposConfig.dpr">
+				<MainSource>MainSource</MainSource>
+			</DelphiCompile>
+			<DCCReference Include="Fmu\fmuMain.pas">
+				<Form>fmMain</Form>
+			</DCCReference>
+			<DCCReference Include="Fmu\fmuCashDrawer.pas">
+				<Form>fmCashDrawer</Form>
+			</DCCReference>
+			<DCCReference Include="Fmu\fmuDevice.pas">
+				<Form>fmDevice</Form>
+			</DCCReference>
+			<DCCReference Include="Units\untUtil.pas"/>
+			<DCCReference Include="..\SmFiscalPrinter\Units\PrinterParameters.pas"/>
+			<DCCReference Include="..\Opos\Oposhi.pas"/>
+			<DCCReference Include="..\SmFiscalPrinter\Units\DirectIOAPI.pas"/>
+			<DCCReference Include="..\Opos\OposUtils.pas"/>
+			<DCCReference Include="..\Opos\Opos.pas"/>
+			<DCCReference Include="..\Opos\OposEvents.pas"/>
+			<DCCReference Include="..\Opos\OposException.pas"/>
+			<DCCReference Include="..\Opos\OposFptr.pas"/>
+			<DCCReference Include="..\Opos\OposFptrhi.pas"/>
+			<DCCReference Include="..\SmFiscalPrinter\Units\CashDrawerParameters.pas"/>
+			<DCCReference Include="..\SmFiscalPrinter\Units\PrinterTypes.pas"/>
+			<DCCReference Include="Fmu\fmuFiscalPrinter.pas">
+				<Form>fmFiscalPrinter</Form>
+			</DCCReference>
+			<DCCReference Include="..\Opos\OposFptrUtils.pas"/>
+			<DCCReference Include="..\Opos\OposDevice.pas"/>
+			<DCCReference Include="..\SmFiscalPrinter\Units\DriverError.pas"/>
+			<DCCReference Include="..\Shared\LogFile.pas"/>
+			<DCCReference Include="..\SmFiscalPrinter\Units\StringUtils.pas"/>
+			<DCCReference Include="..\Shared\VersionInfo.pas"/>
+			<DCCReference Include="..\SmFiscalPrinter\Units\PayType.pas"/>
+			<DCCReference Include="..\SmFiscalPrinter\Units\DebugUtils.pas"/>
+			<DCCReference Include="..\Shared\SizeableForm.pas"/>
+			<DCCReference Include="..\Opos\OposFiscalPrinter_1_12_Lib_TLB.pas"/>
+			<BuildConfiguration Include="Base">
+				<Key>Base</Key>
+			</BuildConfiguration>
+			<BuildConfiguration Include="Debug">
+				<Key>Cfg_2</Key>
+				<CfgParent>Base</CfgParent>
+			</BuildConfiguration>
+			<BuildConfiguration Include="Release">
+				<Key>Cfg_1</Key>
+				<CfgParent>Base</CfgParent>
+			</BuildConfiguration>
+		</ItemGroup>
+		<Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')"/>
+		<ProjectExtensions>
+			<Borland.Personality>Delphi.Personality.12</Borland.Personality>
+			<Borland.ProjectType>VCLApplication</Borland.ProjectType>
+			<BorlandProject>
+				<Delphi.Personality>
+					<Source>
+						<Source Name="MainSource">OposConfig.dpr</Source>
+					</Source>
+					<Parameters>
+						<Parameters Name="HostApplication">D:\Projects\Work\OposShtrih\Bin\OposTest.exe</Parameters>
+						<Parameters Name="UseLauncher">False</Parameters>
+						<Parameters Name="LoadAllSymbols">True</Parameters>
+						<Parameters Name="LoadUnspecifiedSymbols">False</Parameters>
+					</Parameters>
+					<VersionInfo>
+						<VersionInfo Name="IncludeVerInfo">True</VersionInfo>
+						<VersionInfo Name="AutoIncBuild">True</VersionInfo>
+						<VersionInfo Name="MajorVer">0</VersionInfo>
+						<VersionInfo Name="MinorVer">13</VersionInfo>
+						<VersionInfo Name="Release">0</VersionInfo>
+						<VersionInfo Name="Build">59</VersionInfo>
+						<VersionInfo Name="Debug">False</VersionInfo>
+						<VersionInfo Name="PreRelease">False</VersionInfo>
+						<VersionInfo Name="Special">False</VersionInfo>
+						<VersionInfo Name="Private">False</VersionInfo>
+						<VersionInfo Name="DLL">False</VersionInfo>
+						<VersionInfo Name="Locale">1033</VersionInfo>
+						<VersionInfo Name="CodePage">1252</VersionInfo>
+					</VersionInfo>
+					<VersionInfoKeys>
+						<VersionInfoKeys Name="CompanyName">SHTRIH-M</VersionInfoKeys>
+						<VersionInfoKeys Name="FileDescription">OPOS setup utility</VersionInfoKeys>
+						<VersionInfoKeys Name="FileVersion">0.13.0.59</VersionInfoKeys>
+						<VersionInfoKeys Name="InternalName">OPOS setup</VersionInfoKeys>
+						<VersionInfoKeys Name="LegalCopyright">Copyright © 2009</VersionInfoKeys>
+						<VersionInfoKeys Name="LegalTrademarks"/>
+						<VersionInfoKeys Name="OriginalFilename">OposConfig.exe</VersionInfoKeys>
+						<VersionInfoKeys Name="ProductName">OPOS drivers</VersionInfoKeys>
+						<VersionInfoKeys Name="ProductVersion">0.13</VersionInfoKeys>
+						<VersionInfoKeys Name="Comments">http://www.shtrih-m.ru</VersionInfoKeys>
+					</VersionInfoKeys>
+				</Delphi.Personality>
+			</BorlandProject>
+			<ProjectFileVersion>12</ProjectFileVersion>
+		</ProjectExtensions>
+	</Project>

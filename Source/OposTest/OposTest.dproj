@@ -1,0 +1,310 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<PropertyGroup>
+			<ProjectGuid>{23A41E05-08CF-4040-BC10-2BA687B81757}</ProjectGuid>
+			<MainSource>OposTest.dpr</MainSource>
+			<Config Condition="'$(Config)'==''">Debug</Config>
+			<DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
+			<ProjectVersion>12.0</ProjectVersion>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_1)'!=''">
+			<Cfg_1>true</Cfg_1>
+			<CfgParent>Base</CfgParent>
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_2)'!=''">
+			<Cfg_2>true</Cfg_2>
+			<CfgParent>Base</CfgParent>
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Base)'!=''">
+			<DCC_ExeOutput>..\..\Bin</DCC_ExeOutput>
+			<DCC_Optimize>false</DCC_Optimize>
+			<DCC_DependencyCheckOutputName>..\..\Bin\OposTest.exe</DCC_DependencyCheckOutputName>
+			<DCC_IOChecking>false</DCC_IOChecking>
+			<DCC_ImageBase>00400000</DCC_ImageBase>
+			<DCC_SYMBOL_PLATFORM>false</DCC_SYMBOL_PLATFORM>
+			<DCC_RemoteDebug>true</DCC_RemoteDebug>
+			<DCC_Alignment>1</DCC_Alignment>
+			<DCC_Platform>x86</DCC_Platform>
+			<DCC_UnitAlias>WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;WinTypes=Windows;WinProcs=Windows;$(DCC_UnitAlias)</DCC_UnitAlias>
+			<DCC_UsePackage>Vcl50;Vclx50;alvd5;Vclmid50;NMFast50</DCC_UsePackage>
+			<DCC_F>false</DCC_F>
+			<DCC_E>false</DCC_E>
+			<DCC_K>false</DCC_K>
+			<DCC_S>false</DCC_S>
+			<DCC_N>true</DCC_N>
+			<DCC_DebugInfoInExe>true</DCC_DebugInfoInExe>
+			<DCC_WriteableConstants>true</DCC_WriteableConstants>
+			<DCC_SYMBOL_DEPRECATED>false</DCC_SYMBOL_DEPRECATED>
+			<DCC_DcuOutput>DCU</DCC_DcuOutput>
+			<DCC_UNIT_PLATFORM>false</DCC_UNIT_PLATFORM>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Cfg_1)'!=''">
+			<DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
+			<DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
+			<DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+			<DCC_DebugInformation>false</DCC_DebugInformation>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Cfg_2)'!=''">
+			<DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
+		</PropertyGroup>
+		<ItemGroup>
+			<DelphiCompile Include="OposTest.dpr">
+				<MainSource>MainSource</MainSource>
+			</DelphiCompile>
+			<DCCReference Include="Fmu\fmuPtrGeneral.pas">
+				<Form>fmPtrGeneral</Form>
+			</DCCReference>
+			<DCCReference Include="Fmu\fmuAbout.pas">
+				<Form>fmAbout</Form>
+			</DCCReference>
+			<DCCReference Include="Fmu\fmuFptrFiscalReports.pas">
+				<Form>fmFptrFiscalReports</Form>
+			</DCCReference>
+			<DCCReference Include="Fmu\fmuPrintRecItemRefundVoid.pas">
+				<Form>fmPrintRecItemRefundVoid</Form>
+			</DCCReference>
+			<DCCReference Include="Fmu\fmuFptrRecMessage.pas">
+				<Form>fmFptrRecMessage</Form>
+			</DCCReference>
+			<DCCReference Include="Fmu\fmuFptrRecNotPaid.pas">
+				<Form>fmFptrRecNotPaid</Form>
+			</DCCReference>
+			<DCCReference Include="Fmu\fmuFptrRecTaxID.pas">
+				<Form>fmFptrRecTaxID</Form>
+			</DCCReference>
+			<DCCReference Include="Fmu\fmuFptrRecPackageAdjustVoid.pas">
+				<Form>fmFptrRecPackageAdjustVoid</Form>
+			</DCCReference>
+			<DCCReference Include="Fmu\fmuFptrRecSubtotalAdjustVoid.pas">
+				<Form>fmFptrRecSubtotalAdjustVoid</Form>
+			</DCCReference>
+			<DCCReference Include="Fmu\fmuFptrRecItemAdjust.pas">
+				<Form>fmFptrRecItemAdjust</Form>
+			</DCCReference>
+			<DCCReference Include="Fmu\fmuFptrRecRefundVoid.pas">
+				<Form>fmFptrRecRefundVoid</Form>
+			</DCCReference>
+			<DCCReference Include="Fmu\fmuFptrRecRefund.pas">
+				<Form>fmFptrRecRefund</Form>
+			</DCCReference>
+			<DCCReference Include="Fmu\fmuFptrRecPackageAdjustment.pas">
+				<Form>fmFptrRecPackageAdjustment</Form>
+			</DCCReference>
+			<DCCReference Include="Fmu\fmuFptrRecSubtotalAdjustment.pas">
+				<Form>fmFptrRecSubtotalAdjustment</Form>
+			</DCCReference>
+			<DCCReference Include="Fmu\fmuFptrRecCash.pas">
+				<Form>fmFptrRecCash</Form>
+			</DCCReference>
+			<DCCReference Include="Fmu\fmuFptrRecTotal.pas">
+				<Form>fmFptrRecTotal</Form>
+			</DCCReference>
+			<DCCReference Include="Fmu\fmuFptrNonFiscal.pas">
+				<Form>fmFptrNonFiscal</Form>
+			</DCCReference>
+			<DCCReference Include="Fmu\fmuFptrDriverTest.pas">
+				<Form>fmFptrDriverTest</Form>
+			</DCCReference>
+			<DCCReference Include="Fmu\fmuFptrFiscalDocument.pas">
+				<Form>fmFptrFiscalDocument</Form>
+			</DCCReference>
+			<DCCReference Include="units\untPages.pas"/>
+			<DCCReference Include="Fmu\fmuFptrSetHeaderTrailer.pas">
+				<Form>fmFptrSetHeaderTrailer</Form>
+			</DCCReference>
+			<DCCReference Include="Fmu\fmuFptrSetVatTable.pas">
+				<Form>fmFptrSetVatTable</Form>
+			</DCCReference>
+			<DCCReference Include="Fmu\fmuFptrWritableProperties.pas">
+				<Form>fmFptrWritableProperties</Form>
+			</DCCReference>
+			<DCCReference Include="Fmu\fmuFptrSlipInsertion.pas">
+				<Form>fmFptrSlipInsertion</Form>
+			</DCCReference>
+			<DCCReference Include="Fmu\fmuFptrAddHeaderTrailer.pas">
+				<Form>fmFptrAddHeaderTrailer</Form>
+			</DCCReference>
+			<DCCReference Include="Fmu\fmuFptrReceipt.pas">
+				<Form>fmFptrReceipt</Form>
+			</DCCReference>
+			<DCCReference Include="Fmu\fmuFptrRecSubtotal.pas">
+				<Form>fmFptrRecSubtotal</Form>
+			</DCCReference>
+			<DCCReference Include="Fmu\fmuFptrSetline.pas">
+				<Form>fmFptrSetLine</Form>
+			</DCCReference>
+			<DCCReference Include="Units\untUtil.pas"/>
+			<DCCReference Include="Fmu\fmuFptrGetData.pas">
+				<Form>fmFptrGetData</Form>
+			</DCCReference>
+			<DCCReference Include="Fmu\fmuFptrProperties.pas">
+				<Form>fmFptrProperties</Form>
+			</DCCReference>
+			<DCCReference Include="Units\AlignStrings.pas"/>
+			<DCCReference Include="Units\DriverTest.pas"/>
+			<DCCReference Include="Units\PrinterTest.pas"/>
+			<DCCReference Include="Units\OPOSDate.pas"/>
+			<DCCReference Include="..\Opos\OposUtils.pas"/>
+			<DCCReference Include="..\Opos\Opos.pas"/>
+			<DCCReference Include="..\Opos\OposException.pas"/>
+			<DCCReference Include="..\Opos\OposFptr.pas"/>
+			<DCCReference Include="..\Opos\OposFptrhi.pas"/>
+			<DCCReference Include="..\Opos\Oposhi.pas"/>
+			<DCCReference Include="..\SmFiscalPrinter\Units\DirectIOAPI.pas"/>
+			<DCCReference Include="Fmu\fmuFptrTraining.pas">
+				<Form>fmFptrTraining</Form>
+			</DCCReference>
+			<DCCReference Include="Fmu\fmuFptrDirectIOBarcode.pas">
+				<Form>fmFptrDirectIOBarcode</Form>
+			</DCCReference>
+			<DCCReference Include="Fmu\fmuFptrDirectIO.pas">
+				<Form>fmFptrDirectIO</Form>
+			</DCCReference>
+			<DCCReference Include="Fmu\fmuFptrDirectIOStr.pas">
+				<Form>fmFptrDirectIOStr</Form>
+			</DCCReference>
+			<DCCReference Include="Fmu\fmuFptrDirectIOEndDay.pas">
+				<Form>fmFptrDirectIOEndDay</Form>
+			</DCCReference>
+			<DCCReference Include="Fmu\fmuMain.pas">
+				<Form>fmMain</Form>
+			</DCCReference>
+			<DCCReference Include="Fmu\fmuCashDrawer.pas">
+				<Form>fmCashDrawer</Form>
+			</DCCReference>
+			<DCCReference Include="Fmu\fmuPosPrinter.pas">
+				<Form>fmPosPrinter</Form>
+			</DCCReference>
+			<DCCReference Include="..\Opos\OposCash.pas"/>
+			<DCCReference Include="..\Opos\OposCashhi.pas"/>
+			<DCCReference Include="..\Opos\OposEvents.pas"/>
+			<DCCReference Include="Fmu\fmuCashGeneral.pas">
+				<Form>fmCashGeneral</Form>
+			</DCCReference>
+			<DCCReference Include="Fmu\fmuCashWait.pas">
+				<Form>fmCashWait</Form>
+			</DCCReference>
+			<DCCReference Include="Fmu\fmuFptrDate.pas">
+				<Form>fmFptrDate</Form>
+			</DCCReference>
+			<DCCReference Include="Fmu\fmuFptrReceiptTest.pas">
+				<Form>fmFptrReceiptTest</Form>
+			</DCCReference>
+			<DCCReference Include="..\Opos\OposFptrUtils.pas"/>
+			<DCCReference Include="Fmu\fmuFiscalPrinter.pas">
+				<Form>fmFiscalPrinter</Form>
+			</DCCReference>
+			<DCCReference Include="..\Opos\OposPtrUtils.pas"/>
+			<DCCReference Include="..\Opos\OposPtr.pas"/>
+			<DCCReference Include="..\Opos\OposPtrhi.pas"/>
+			<DCCReference Include="Fmu\fmuFptrInfo.pas">
+				<Form>fmFptrInfo</Form>
+			</DCCReference>
+			<DCCReference Include="Fmu\fmuFptrDirectIOHex.pas">
+				<Form>fmFptrDirectIOHex</Form>
+			</DCCReference>
+			<DCCReference Include="..\SmFiscalPrinter\Units\CommandDef.pas"/>
+			<DCCReference Include="..\SmFiscalPrinter\Units\XmlParser.pas"/>
+			<DCCReference Include="..\SmFiscalPrinter\Units\MSXML.pas"/>
+			<DCCReference Include="..\SmFiscalPrinter\Units\CommandParam.pas"/>
+			<DCCReference Include="..\SmFiscalPrinter\Units\PrinterCommand.pas"/>
+			<DCCReference Include="..\SmFiscalPrinter\Units\PrinterTypes.pas"/>
+			<DCCReference Include="..\SmFiscalPrinter\Units\BinStream.pas"/>
+			<DCCReference Include="..\SmFiscalPrinter\Units\StringUtils.pas"/>
+			<DCCReference Include="..\SmFiscalPrinter\Units\PrinterFrame.pas"/>
+			<DCCReference Include="Fmu\fmuFptrRecItem.pas">
+				<Form>fmFptrRecItem</Form>
+			</DCCReference>
+			<DCCReference Include="..\Shared\LogFile.pas"/>
+			<DCCReference Include="..\Shared\VersionInfo.pas"/>
+			<DCCReference Include="..\SmFiscalPrinter\Units\BStrUtil.pas"/>
+			<DCCReference Include="..\SmFiscalPrinter\Units\DriverError.pas"/>
+			<DCCReference Include="Units\DIODescription.pas"/>
+			<DCCReference Include="Fmu\fmuPrintRecVoidItem.pas">
+				<Form>fmPrintRecVoidItem</Form>
+			</DCCReference>
+			<DCCReference Include="Fmu\fmuPrintRecItemRefund.pas">
+				<Form>fmPrintRecItemRefund</Form>
+			</DCCReference>
+			<DCCReference Include="..\Opos\OposScalUtils.pas"/>
+			<DCCReference Include="..\Opos\OposScal.pas"/>
+			<DCCReference Include="..\SmFiscalPrinter\Units\DebugUtils.pas"/>
+			<DCCReference Include="..\Opos\OposDevice.pas"/>
+			<DCCReference Include="Fmu\fmuFptrGeneral.pas">
+				<Form>fmFptrGeneral</Form>
+			</DCCReference>
+			<DCCReference Include="..\Opos\OposPosPrinter.pas"/>
+			<DCCReference Include="..\Opos\OposCashDrawer.pas"/>
+			<DCCReference Include="..\Shared\SizeableForm.pas"/>
+			<DCCReference Include="..\Opos\OposFiscalPrinterIntf.pas"/>
+			<DCCReference Include="..\Opos\OposFiscalPrinter_1_13_Lib_TLB.pas"/>
+			<DCCReference Include="..\Opos\OposFiscalPrinter.pas"/>
+			<DCCReference Include="..\Opos\SMFiscalPrinter.pas"/>
+			<DCCReference Include="..\SmFiscalPrinter\Units\PrinterParameters.pas"/>
+			<DCCReference Include="..\SmFiscalPrinter\Units\PayType.pas"/>
+			<DCCReference Include="..\Opos\SMCashDrawer.pas"/>
+			<DCCReference Include="..\Opos\OposCashDrawer_1_13_Lib_TLB.pas"/>
+			<DCCReference Include="..\Opos\PrinterEncoding.pas"/>
+			<DCCReference Include="..\Opos\NCRCashDrawer_TLB.pas"/>
+			<BuildConfiguration Include="Base">
+				<Key>Base</Key>
+			</BuildConfiguration>
+			<BuildConfiguration Include="Debug">
+				<Key>Cfg_2</Key>
+				<CfgParent>Base</CfgParent>
+			</BuildConfiguration>
+			<BuildConfiguration Include="Release">
+				<Key>Cfg_1</Key>
+				<CfgParent>Base</CfgParent>
+			</BuildConfiguration>
+		</ItemGroup>
+		<Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')"/>
+		<ProjectExtensions>
+			<Borland.Personality>Delphi.Personality.12</Borland.Personality>
+			<Borland.ProjectType>VCLApplication</Borland.ProjectType>
+			<BorlandProject>
+				<Delphi.Personality>
+					<Source>
+						<Source Name="MainSource">OposTest.dpr</Source>
+					</Source>
+					<Parameters>
+						<Parameters Name="UseLauncher">False</Parameters>
+						<Parameters Name="LoadAllSymbols">True</Parameters>
+						<Parameters Name="LoadUnspecifiedSymbols">False</Parameters>
+					</Parameters>
+					<VersionInfo>
+						<VersionInfo Name="IncludeVerInfo">True</VersionInfo>
+						<VersionInfo Name="AutoIncBuild">True</VersionInfo>
+						<VersionInfo Name="MajorVer">1</VersionInfo>
+						<VersionInfo Name="MinorVer">12</VersionInfo>
+						<VersionInfo Name="Release">0</VersionInfo>
+						<VersionInfo Name="Build">83</VersionInfo>
+						<VersionInfo Name="Debug">False</VersionInfo>
+						<VersionInfo Name="PreRelease">False</VersionInfo>
+						<VersionInfo Name="Special">False</VersionInfo>
+						<VersionInfo Name="Private">False</VersionInfo>
+						<VersionInfo Name="DLL">False</VersionInfo>
+						<VersionInfo Name="Locale">1033</VersionInfo>
+						<VersionInfo Name="CodePage">1252</VersionInfo>
+					</VersionInfo>
+					<VersionInfoKeys>
+						<VersionInfoKeys Name="CompanyName">SHTRIH-M</VersionInfoKeys>
+						<VersionInfoKeys Name="FileDescription">OPOS test utility</VersionInfoKeys>
+						<VersionInfoKeys Name="FileVersion">1.12.0.83</VersionInfoKeys>
+						<VersionInfoKeys Name="InternalName">OPOS test</VersionInfoKeys>
+						<VersionInfoKeys Name="LegalCopyright">Copyright © 2009</VersionInfoKeys>
+						<VersionInfoKeys Name="LegalTrademarks"/>
+						<VersionInfoKeys Name="OriginalFilename">OposTest.exe</VersionInfoKeys>
+						<VersionInfoKeys Name="ProductName">OPOS drivers</VersionInfoKeys>
+						<VersionInfoKeys Name="ProductVersion">1.12</VersionInfoKeys>
+						<VersionInfoKeys Name="Comments">http://www.shtrih-m.ru</VersionInfoKeys>
+					</VersionInfoKeys>
+				</Delphi.Personality>
+			</BorlandProject>
+			<ProjectFileVersion>12</ProjectFileVersion>
+		</ProjectExtensions>
+	</Project>

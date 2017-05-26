@@ -1,0 +1,59 @@
+#------------------------------------------------------------------------------
+VERSION = BWS.01
+#------------------------------------------------------------------------------
+!ifndef ROOT
+ROOT = $(MAKEDIR)\..
+!endif
+#------------------------------------------------------------------------------
+MAKE = $(ROOT)\bin\make.exe -$(MAKEFLAGS) -f$**
+DCC = $(ROOT)\bin\dcc32.exe $**
+BRCC = $(ROOT)\bin\brcc32.exe $**
+#------------------------------------------------------------------------------
+PROJECTS = OposConfig.exe OposTest.exe SmFiscalPrinter.dll SmScale.dll \
+  SmFptrSrv.exe OposConfigTest.exe OposConfigTestLib.dll SmFiscalPrinterTest.exe \
+  SmFiscalPrinterTestLib.dll OposTestTest.exe OposTestTestLib.dll SmScaleTest.exe \
+  SmScaleTestLib.dll
+#------------------------------------------------------------------------------
+default: $(PROJECTS)
+#------------------------------------------------------------------------------
+
+OposConfig.exe: OposConfig\OposConfig.dpr
+  $(DCC)
+
+OposTest.exe: OposTest\OposTest.dpr
+  $(DCC)
+
+SmFiscalPrinter.dll: SmFiscalPrinter\SmFiscalPrinter.dpr
+  $(DCC)
+
+SmFptrSrv.exe: SmFptrSrv\SmFptrSrv.dpr
+  $(DCC)
+
+OposConfigTest.exe: ..\Test\OposConfigTest\OposConfigTest.dpr
+  $(DCC)
+
+OposConfigTestLib.dll: ..\Test\OposConfigTest\OposConfigTestLib.dpr
+  $(DCC)
+
+SmFiscalPrinterTest.exe: ..\Test\SmFiscalPrinterTest\SmFiscalPrinterTest.dpr
+  $(DCC)
+
+SmFiscalPrinterTestLib.dll: ..\Test\SmFiscalPrinterTest\SmFiscalPrinterTestLib.dpr
+  $(DCC)
+
+OposTestTest.exe: ..\Test\OposTestTest\OposTestTest.dpr
+  $(DCC)
+
+OposTestTestLib.dll: ..\Test\OposTestTest\OposTestTestLib.dpr
+  $(DCC)
+
+SmScale.dll: SmScale\SmScale.dpr
+  $(DCC)
+
+SmScaleTest.exe: ..\Test\SmScaleTest\SmScaleTest.dpr
+  $(DCC)
+
+SmScaleTestLib.dll: ..\Test\SmScaleTest\SmScaleTestLib.dpr
+  $(DCC)
+
+

@@ -1,0 +1,32 @@
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION ${comma.version}
+PRODUCTVERSION ${comma.version} 
+FILEFLAGSMASK 0x3fL
+FILEFLAGS 0x0L
+FILEOS 0x4L
+FILETYPE 0x1L
+FILESUBTYPE 0x0L
+BEGIN
+  BLOCK "StringFileInfo"
+  BEGIN
+    BLOCK "040904E4"
+    BEGIN
+      VALUE "CompanyName", "SHTRIH-M\0"
+      VALUE "FileDescription", "OPOS test utility\0"
+      VALUE "FileVersion", "${version}\0"
+      VALUE "InternalName", "OPOS test\0"
+      VALUE "LegalCopyright", "SHTRIH-M \251 2013 \0"
+      VALUE "OriginalFilename", "OposTest.exe\0"
+      VALUE "ProductName", "OPOS drivers\0"
+      VALUE "ProductVersion","${version2}\0"
+      VALUE "Comments", "http://www.shtrih-m.ru\0"
+    END
+  END
+
+  BLOCK "VarFileInfo"
+  BEGIN
+    VALUE "Translation", 0x0409,0x04E4
+  END
+END
+
+MAINICON  ICON  DISCARDABLE  "MAINICON.ico"

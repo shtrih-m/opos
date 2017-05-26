@@ -1,0 +1,14 @@
+unit ServiceVersion;
+
+interface
+
+uses
+  // This
+  DeviceService;
+
+const
+  GenericServiceVersion = deviceVersion113 + ${build};
+
+implementation
+
+end.

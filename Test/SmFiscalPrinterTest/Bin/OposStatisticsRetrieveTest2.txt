@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<UPOSStat version="1.12.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.nrf-arts.org/UnifiedPOS/namespace/" xsi:schemaLocation="http://www.nrf-arts.org/UnifiedPOS/namespace/ UPOSStat.xsd">
+	<Event>
+		<Parameter>
+			<Name>HoursPoweredCount2</Name>
+			<Value></Value>
+		</Parameter>
+	</Event>
+	<Equipment>
+		<UnifiedPOSVersion></UnifiedPOSVersion>
+		<DeviceCategory UPOS=""/>
+		<ManufacturerName></ManufacturerName>
+		<ModelName></ModelName>
+		<SerialNumber></SerialNumber>
+		<FirmwareRevision></FirmwareRevision>
+		<Interface></Interface>
+		<InstallationDate></InstallationDate>
+	</Equipment>
+</UPOSStat>
