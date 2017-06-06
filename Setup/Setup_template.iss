@@ -43,6 +43,7 @@ Source: "Bin\OposTest.exe"; DestDir: "{app}\Bin"; Flags: ignoreversion; componen
 Source: "Setup\Models.xml"; DestDir: "{app}\Bin"; Flags: ignoreversion; components: main;
 Source: "Setup\Commands.xml"; DestDir: "{app}\Bin"; Flags: ignoreversion; components: main;
 ; Source code
+Source: "Source\Script\*"; DestDir: "{app}\Source\Script"; Flags: createallsubdirs recursesubdirs; components: source;
 Source: "Source\Opos\*"; DestDir: "{app}\Source\Opos"; Flags: createallsubdirs recursesubdirs; Excludes: "*.svn,*.exe,*.dll,*.dcu,*.rsm,*.xml";	components: source;
 Source: "Source\OposTest\*"; DestDir: "{app}\Source\OposTest"; Flags: createallsubdirs recursesubdirs; Excludes: "*.svn,*.exe,*.dll,*.dcu,*.rsm,*.xml";	 components: source;
 Source: "Source\OposConfig\*"; DestDir: "{app}\Source\OposConfig"; Flags: createallsubdirs recursesubdirs; Excludes: "*.svn,*.exe,*.dll,*.dcu,*.rsm,*.xml";	components: source; 
