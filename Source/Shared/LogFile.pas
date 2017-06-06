@@ -177,16 +177,16 @@ end;
 
 procedure ODS(const S: string);
 begin
-{$IFDEF DEBUG}
+//{$IFDEF DEBUG}
   OutputDebugString(PChar(S));
-{$ENDIF}
+//{$ENDIF}
 end;
-
 
 { TLogFile }
 
 constructor TLogFile.Create;
 begin
+  ODS('TLogFile.Create');
   inherited Create;
   FLock := TCriticalSection.Create;
   FHandle := INVALID_HANDLE_VALUE;
@@ -196,6 +196,8 @@ end;
 
 destructor TLogFile.Destroy;
 begin
+  ODS('TLogFile.Destroy');
+
   CloseFile;
   FLock.Free;
   inherited Destroy;

@@ -12,10 +12,10 @@ unit SmScale_TLB;
 // ************************************************************************ //
 
 // PASTLWTR : 1.2
-// File generated on 26.05.2017 13:55:13 from Type Library described below.
+// File generated on 31.05.2017 14:37:57 from Type Library described below.
 
 // ************************************************************************  //
-// Type Lib: C:\projects\OPOSShtrih2\opos\Source\SmScale\SmScale.tlb (1)
+// Type Lib: C:\projects\OPOSShtrih\Source\SmScale\SmScale.tlb (1)
 // LIBID: {934E72FE-30C2-4916-A83F-FEE60461AD5D}
 // LCID: 0
 // Helpfile: 

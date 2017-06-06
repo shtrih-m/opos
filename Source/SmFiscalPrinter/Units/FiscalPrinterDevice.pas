@@ -155,6 +155,7 @@ type
     function FSReadTicket(var R: TFSTicket): Integer;
     function GetLogger: TLogFile;
     function GetMalinaParams: TMalinaParams;
+    function GetMaxGraphicsWidthInBytes: Integer;
   public
     constructor Create;
     destructor Destroy; override;
@@ -453,6 +454,7 @@ begin
   Result := Data;
   Result := Copy(Result, 1, MaxLen);
   Result := StringOfChar(#0, (MaxLen - Length(Result)*Scale) div (2 * Scale)) + Result;
+  Result := Result + StringOfChar(#0, (MaxLen - Length(Result)*Scale) div (2 * Scale));
   Result := Copy(Result, 1, MaxLen);
 end;
 
@@ -5003,7 +5005,7 @@ function TFiscalPrinterDevice.LoadGraphics(Line: Word;
   Data: string): Integer;
 begin
   if Parameters.LogoCenter then
-    Data := CenterGraphicsLine(Data, 40, 1);
+    Data := CenterGraphicsLine(Data, GetMaxGraphicsWidthInBytes, 1);
 
   if FCapGraphics2 then
   begin
@@ -5406,9 +5408,12 @@ end;
 
 function TFiscalPrinterDevice.GetMaxGraphicsWidth: Integer;
 begin
-  Result := 320;
-  if FCapGraphics3 then
-    Result := 512;
+  Result := FFontInfo[1].PrintWidth;
+end;
+
+function TFiscalPrinterDevice.GetMaxGraphicsWidthInBytes: Integer;
+begin
+  Result := GetMaxGraphicsWidth div 8;
 end;
 
 procedure TFiscalPrinterDevice.PrintBarcodeZInt(const Barcode: TBarcodeRec);
@@ -5424,9 +5429,7 @@ var
   Graphics3: TPrintGraphics3;
 begin
   MaxGraphicsHeight := GetMaxGraphicsHeight;
-
-  // MaxGraphicsWidth
-  MaxGraphicsWidth := ReadFontInfo(1).PrintWidth;
+  MaxGraphicsWidth := GetMaxGraphicsWidth;
   if Is2DBarcode(Barcode.BarcodeType) or (not FCapBarLine) then
   begin
     if FCapGraphics3 then
@@ -5734,13 +5737,14 @@ var
   RowsPerCommand: Integer;
   LineLength: Integer;
   RowCount: Integer;
+  GraphicsWidthInBytes: Integer;
 const
   BytesPerCommand = 240;
 begin
   Progress := 0;
 
-  LineLength := Length(CenterGraphicsLine(GetLineData(Bitmap, 1), 64, Scale));
-
+  GraphicsWidthInBytes := GetMaxGraphicsWidthInBytes;
+  LineLength := Length(CenterGraphicsLine(GetLineData(Bitmap, 1), GraphicsWidthInBytes, Scale));
   RowsPerCommand := BytesPerCommand div LineLength;
   CommandCount := (Bitmap.Height + RowsPerCommand -1) div RowsPerCommand;
   ProgressStep := CommandCount/100;
@@ -5751,7 +5755,7 @@ begin
     RowCount := 0;
     for j := 0 to RowsPerCommand-1 do
     begin
-      Line := Line + CenterGraphicsLine(GetLineData(Bitmap, Row), 64, Scale);
+      Line := Line + CenterGraphicsLine(GetLineData(Bitmap, Row), GraphicsWidthInBytes, Scale);
       Inc(Row);
       Inc(RowCount);
       if Row >= Bitmap.Height then Break;
@@ -7231,6 +7235,7 @@ begin
       Reader.LoadFromFile(FileNames[i], Tables);
       if Tables.DeviceName = DeviceName then
       begin
+        Logger.Debug('Tables file name: ' + FileNames[i]);
         Logger.Debug('Tables count = ' + IntToStr(Tables.Count));
         for j := 0 to Tables.Count - 1 do
         begin

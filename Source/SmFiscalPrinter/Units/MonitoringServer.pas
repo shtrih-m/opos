@@ -136,7 +136,6 @@ end;
 procedure TMonitoringServer.Close;
 begin
   try
-    WSACleanup;
     FThread.Free;
     FThread := nil;
     FPrinter := nil;

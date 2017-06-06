@@ -30,7 +30,6 @@ type
     FConnection: TMockPrinterConnection;
 
     procedure EmptyTest;
-    procedure OpenDevice;
     procedure ClaimDevice;
     procedure OpenClaimEnable;
     procedure CheckResult(ResultCode: Integer);
@@ -43,6 +42,7 @@ type
     procedure CheckCapJrnEmptySensor; // !!
     procedure CheckFiscalReceipt1;
   published
+    procedure OpenDevice;
     // common properties
     procedure CheckCapCompareFirmwareVersion;
     procedure CheckCapPowerReporting;

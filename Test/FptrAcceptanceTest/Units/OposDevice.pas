@@ -1,0 +1,331 @@
+unit OposDevice;
+
+interface
+
+Uses
+  // VCL
+  Windows, Classes, Registry, SysUtils, ComObj,
+  // Opos
+  Oposhi, VersionInfo;
+
+type
+  TOposDevice = class;
+
+  { TOposDevices }
+
+  TOposDevices = class
+  private
+    FList: TList;
+    function GetCount: Integer;
+    function GetItem(Index: Integer): TOposDevice;
+    procedure Clear;
+    procedure InsertItem(AItem: TOposDevice);
+    procedure RemoveItem(AItem: TOposDevice);
+  public
+    constructor Create;
+    destructor Destroy; override;
+
+    function ValidIndex(Index: Integer): Boolean;
+
+    property Count: Integer read GetCount;
+    property Items[Index: Integer]: TOposDevice read GetItem; default;
+  end;
+
+  { TOposDevice }
+
+  TOposDevice = class
+  private
+    FText: string;
+    FRegKey: string;
+    FProgID: string;
+    FOwner: TOposDevices;
+
+    function GetRegKeyName: string;
+    procedure SetOwner(AOwner: TOposDevices);
+  public
+    constructor Create(AOwner: TOposDevices;
+      const ARegKey, AText, AProgID: string);
+    destructor Destroy; override;
+
+    procedure Add(const DeviceName: string);
+    procedure Delete(const DeviceName: string);
+    procedure GetDeviceNames(DeviceNames: TStrings);
+    procedure GetDeviceNames2(DeviceNames: TStrings);
+    procedure ShowDialog(const DeviceName: string); virtual;
+    function ReadServiceName(const DeviceName: string): string;
+    function ReadServiceVersion(const ProgID: string): string;
+    class function ProgIDToFileVersion(const ProgID: string): string;
+
+    property Text: string read FText;
+    property RegKey: string read FRegKey;
+    property ProgID: string read FProgID;
+  end;
+
+function CLSIDToFileName(const CLSID: TGUID): String;
+function ProgIDToFileName(const ProgID: string): string;
+
+implementation
+
+resourcestring
+  MsgKeyOpenError = 'Error opening registry key: %s';
+
+function ExtractQuotedStr(const Src: String): String;
+begin
+  Result := Src;
+  if Src[1] = '"' then Delete(Result, 1, 1);;
+  if Result[Length(Result)] = '"' then SetLength(Result, Length(Result) - 1);
+end;
+
+function CLSIDToFileName(const CLSID: TGUID): String;
+var
+  Reg: TRegistry;
+  strCLSID: String;
+begin
+  Result := '';
+  Reg := TRegistry.Create;
+  try
+    Reg.RootKey:= HKEY_CLASSES_ROOT;
+    strCLSID := GUIDToString(CLSID);
+    if Reg.OpenKey(Format('CLSID\%s\InProcServer32', [strCLSID]), False)
+       or Reg.OpenKey(Format('CLSID\%s\LocalServer32', [strCLSID]), False) then
+    begin
+      try
+        Result := ExtractQuotedStr(Reg.ReadString(''));
+      finally
+        Reg.CloseKey;
+      end;
+    end;
+  finally
+    Reg.Free;
+  end;
+end;
+
+function ProgIDToFileName(const ProgID: string): string;
+begin
+  Result := CLSIDToFileName(ProgIDToClassID(ProgID));
+end;
+
+{ TOposDevices }
+
+constructor TOposDevices.Create;
+begin
+  inherited Create;
+  FList := TList.Create;
+end;
+
+destructor TOposDevices.Destroy;
+begin
+  Clear;
+  FList.Free;
+  inherited Destroy;
+end;
+
+procedure TOposDevices.Clear;
+begin
+  while Count > 0 do Items[0].Free;
+end;
+
+function TOposDevices.GetCount: Integer;
+begin
+  Result := FList.Count;
+end;
+
+function TOposDevices.GetItem(Index: Integer): TOposDevice;
+begin
+  Result := FList[Index];
+end;
+
+procedure TOposDevices.InsertItem(AItem: TOposDevice);
+begin
+  FList.Add(AItem);
+  AItem.FOwner := Self;
+end;
+
+procedure TOposDevices.RemoveItem(AItem: TOposDevice);
+begin
+  AItem.FOwner := nil;
+  FList.Remove(AItem);
+end;
+
+function TOposDevices.ValidIndex(Index: Integer): Boolean;
+begin
+  Result := (Index >= 0)and(Index < Count);
+end;
+
+{ TOposDevice }
+
+constructor TOposDevice.Create(AOwner: TOposDevices;
+  const ARegKey, AText, AProgID: string);
+begin
+  inherited Create;
+  FRegKey := ARegKey;
+  FText := AText;
+  FProgID := AProgID;
+
+  SetOwner(AOwner);
+end;
+
+destructor TOposDevice.Destroy;
+begin
+  SetOwner(nil);
+  inherited Destroy;
+end;
+
+procedure TOposDevice.SetOwner(AOwner: TOposDevices);
+begin
+  if AOwner <> FOwner then
+  begin
+    if FOwner <> nil then FOwner.RemoveItem(Self);
+    if AOwner <> nil then AOwner.InsertItem(Self);
+  end;
+end;
+
+function TOposDevice.GetRegKeyName: string;
+begin
+  Result := OPOS_ROOTKEY + '\' + RegKey;
+end;
+
+procedure TOposDevice.Add(const DeviceName: string);
+var
+  Reg: TRegistry;
+  KeyName: string;
+begin
+  Reg := TRegistry.Create;
+  try
+    Reg.Access := KEY_ALL_ACCESS;
+    Reg.RootKey := HKEY_LOCAL_MACHINE;
+
+    KeyName := GetRegKeyName;
+    if not Reg.OpenKey(KeyName, True) then
+      raise Exception.CreateFmt(MsgKeyOpenError, [KeyName]);
+
+    Reg.CreateKey(DeviceName);
+    Reg.CloseKey;
+    if Reg.OpenKey(KeyName + '\' + DeviceName, False) then
+    begin
+      Reg.WriteString('', ProgID);
+    end;
+  finally
+    Reg.Free;
+  end;
+end;
+
+procedure TOposDevice.Delete(const DeviceName: string);
+var
+  Reg: TRegistry;
+  KeyName: string;
+begin
+  Reg := TRegistry.Create;
+  try
+    Reg.Access := KEY_ALL_ACCESS;
+    Reg.RootKey := HKEY_LOCAL_MACHINE;
+    KeyName := GetRegKeyName;
+    if not Reg.OpenKey(KeyName, False) then
+      raise Exception.CreateFmt(MsgKeyOpenError, [KeyName]);
+
+    Reg.DeleteKey(DeviceName);
+  finally
+    Reg.Free;
+  end;
+end;
+
+procedure TOposDevice.GetDeviceNames(DeviceNames: TStrings);
+var
+  Reg: TRegistry;
+  KeyName: string;
+begin
+  Reg := TRegistry.Create;
+  try
+    Reg.Access := KEY_READ;
+    Reg.RootKey := HKEY_LOCAL_MACHINE;
+    KeyName := GetRegKeyName;
+    if not Reg.OpenKey(KeyName, False) then
+      raise Exception.CreateFmt(MsgKeyOpenError, [KeyName]);
+
+    Reg.GetKeyNames(DeviceNames);
+  finally
+    Reg.Free;
+  end;
+end;
+
+function TOposDevice.ReadServiceName(const DeviceName: string): string;
+var
+  Reg: TRegistry;
+  KeyName: string;
+begin
+  Result := '';
+  Reg := TRegistry.Create;
+  try
+    Reg.Access := KEY_READ;
+    Reg.RootKey := HKEY_LOCAL_MACHINE;
+
+    KeyName := OPOS_ROOTKEY + '\' + RegKey + '\' + DeviceName;
+    if Reg.OpenKey(KeyName, False) then
+    begin
+      Result := Reg.ReadString('');
+    end;
+  finally
+    Reg.Free;
+  end;
+end;
+
+function TOposDevice.ReadServiceVersion(const ProgID: string): string;
+var
+  Service: OleVariant;
+begin
+  Result := '';
+  try
+    Service := CreateOleObject(ProgID);
+    Result := Service.GetPropertyNumber(PIDX_ServiceObjectVersion);
+  except
+    on E: Exception do
+      Result := E.Message;
+  end;
+end;
+
+class function TOposDevice.ProgIDToFileVersion(const ProgID: string): string;
+begin
+  Result := '';
+  try
+    Result := VersionInfoToStr(ReadFileVersion(ProgIDToFileName(ProgID)));
+  except
+    on E: Exception do
+      Result := E.Message;
+  end;
+end;
+
+procedure TOposDevice.GetDeviceNames2(DeviceNames: TStrings);
+var
+  i: Integer;
+  Reg: TRegistry;
+  KeyName: string;
+  DeviceName: string;
+begin
+  Reg := TRegistry.Create;
+  try
+    Reg.Access := KEY_READ;
+    Reg.RootKey := HKEY_LOCAL_MACHINE;
+    KeyName := GetRegKeyName;
+    if not Reg.OpenKey(KeyName, False) then
+      raise Exception.CreateFmt(MsgKeyOpenError, [KeyName]);
+
+    Reg.GetKeyNames(DeviceNames);
+    Reg.CloseKey;
+
+    for i := 0 to DeviceNames.Count-1 do
+    begin
+      DeviceName := DeviceNames[i];
+      DeviceNames[i] := Format('%s, %s', [DeviceName,
+        ReadServiceVersion(DeviceName)]);
+    end;
+  finally
+    Reg.Free;
+  end;
+end;
+
+procedure TOposDevice.ShowDialog(const DeviceName: string);
+begin
+
+end;
+
+end.

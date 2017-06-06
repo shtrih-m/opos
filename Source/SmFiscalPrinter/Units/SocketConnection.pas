@@ -6,7 +6,7 @@ uses
   // VCL
   Windows, Messages, MConnect, ComObj, SysUtils, Variants, WinSock, SyncObjs,
   // Indy
-  IdTCPClient, IdGlobal, IdStack,
+  IdTCPClient, IdGlobal, IdStack, IdWinsock2,
   // This
   PrinterConnection, DriverError, StringUtils, FptrServerLib_TLB, VSysUtils,
   LogFile, CommunicationError, PrinterFrame;
@@ -82,6 +82,7 @@ begin
   FLock.Free;
   Disconnect;
   FConnection.Free;
+  FConnection := nil;
   inherited Destroy;
 end;
 
@@ -94,16 +95,18 @@ begin
     FConnection.ReuseSocket := rsTrue;
     FConnection.ReadTimeout := FByteTimeout;
     FConnection.ConnectTimeout := FByteTimeout;
+
+    Logger.Debug('TSocketConnection.Connect(' + FConnection.Host + ',' +
+      IntToStr(FConnection.Port) + ')');
+
     FConnection.Connect();
   end;
 end;
 
 procedure TSocketConnection.Disconnect;
 begin
-  Logger.Debug('TSocketConnection.Disconnect');
   try
-    FConnection.Socket.Close;
-    FConnection := TIdTCPClient.Create(nil);
+    FConnection.Disconnect;
   except
     on E: Exception do
       Logger.Error(E.Message);
@@ -377,5 +380,13 @@ begin
 
   until False;
 end;
+
+(*
+initialization
+  OutputDebugString('SocketConnection.initialization');
+
+finalization
+  OutputDebugString('SocketConnection.finalization');
+*)
 
 end.

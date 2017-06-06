@@ -244,7 +244,6 @@ end;
 
 destructor TSharedPrinter.Destroy;
 begin
-  FDevice := nil;
   if FFilter <> nil then
   begin
     FDevice.RemoveFilter(FFilter);
@@ -259,6 +258,8 @@ begin
   FConnectLinks.Free;
   FEscFilter.Free;
   FSemaphore.Free;
+  FConnection := nil;
+  FDevice := nil;
   inherited Destroy;
 end;
 
@@ -388,8 +389,6 @@ begin
 
   try
     LoadParams(DeviceName);
-    Device.Open(GetConnection);
-
     if Parameters.ReceiptReportEnabled then
     begin
       FFilter := TReceiptReportFilter.Create(FDevice, Parameters);
@@ -927,6 +926,7 @@ end;
 
 procedure TSharedPrinter.ClaimDevice(Timeout: Integer);
 begin
+  Device.Open(GetConnection);
   Device.ClaimDevice(Parameters.PortNumber, Timeout);
 end;
 

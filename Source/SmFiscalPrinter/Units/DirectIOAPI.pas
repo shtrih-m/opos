@@ -260,6 +260,8 @@ const
   DriverParameterJournalPrintTrailer      = 65;
   DriverParameterCacheReceiptNumber       = 66;
   DriverParameterBarLineByteMode          = 67;
+  DriverParameterLogFilePath              = 68;
+
 
   /////////////////////////////////////////////////////////////////////////////
   // Separator type

@@ -108,7 +108,7 @@ end;
 
 destructor TRetalix.Destroy;
 begin
-  FConnection := nil;
+  Close;
   inherited Destroy;
 end;
 

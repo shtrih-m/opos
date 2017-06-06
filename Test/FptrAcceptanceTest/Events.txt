@@ -1,0 +1,216 @@
+ODS: [14.09.2010 14:19:32.512 ] [00002116] [DEBUG] ToleFiscalPrinter.Initialize 
+ODS: [14.09.2010 14:19:32.522 ] [00002116] [DEBUG] ToleFiscalPrinter.OpenService(FiscalPrinter, SHTRIH-M-OPOS-1) 
+ODS: [14.09.2010 14:19:32.532 ] [00002116] [ERROR] '' is not a valid integer value 
+ODS: [14.09.2010 14:19:32.532 ] [00002116] [ERROR] '' is not a valid integer value 
+ODS: [14.09.2010 14:19:32.542 ] [00002116] [ERROR] '' is not a valid integer value 
+ODS: [14.09.2010 14:19:32.542 ] [00002116] [ERROR] '' is not a valid integer value 
+ODS: [14.09.2010 14:19:32.542 ] [00002116] [ERROR] '' is not a valid integer value 
+ODS: [14.09.2010 14:19:32.542 ] [00002116] [DEBUG] TSysPrinterParameters.Load(SHTRIH-M-OPOS-1) 
+ODS: [14.09.2010 14:19:32.552 ] [00002116] [DEBUG] ************************************************************** 
+ODS: [14.09.2010 14:19:32.562 ] [00002116] [DEBUG]   LOG START 
+ODS: [14.09.2010 14:19:32.562 ] [00002116] [DEBUG]   OPOS Fiscal Printer Service. SHTRIH-M, 2010 
+ODS: [14.09.2010 14:19:32.572 ] [00002116] [DEBUG]   ServiceObjectVersion     : 1012062 
+ODS: [14.09.2010 14:19:32.572 ] [00002116] [DEBUG]   File version             : 1.12.0.68 
+ODS: [14.09.2010 14:19:32.572 ] [00002116] [DEBUG] ************************************************************** 
+ODS: [14.09.2010 14:19:32.572 ] [00002116] [DEBUG] SysParameters.Begin 
+ODS: [14.09.2010 14:19:32.572 ] [00002116] [DEBUG] RemoteHost: 127.0.0.1 
+ODS: [14.09.2010 14:19:32.572 ] [00002116] [DEBUG] RemotePort: 211 
+ODS: [14.09.2010 14:19:32.572 ] [00002116] [DEBUG] ConnectionType: 0 
+ODS: [14.09.2010 14:19:32.572 ] [00002116] [DEBUG] ComNumber: 1 
+ODS: [14.09.2010 14:19:32.582 ] [00002116] [DEBUG] BaudRate: 115200 
+ODS: [14.09.2010 14:19:32.582 ] [00002116] [DEBUG] SysPassword: 30 
+ODS: [14.09.2010 14:19:32.582 ] [00002116] [DEBUG] UsrPassword: 1 
+ODS: [14.09.2010 14:19:32.582 ] [00002116] [DEBUG] SubtotalText: SUBTOTAL 
+ODS: [14.09.2010 14:19:32.582 ] [00002116] [DEBUG] CloseRecText:  
+ODS: [14.09.2010 14:19:32.582 ] [00002116] [DEBUG] VoidRecText: RECEIPT VOIDED 
+ODS: [14.09.2010 14:19:32.582 ] [00002116] [DEBUG] FontNumber: 1 
+ODS: [14.09.2010 14:19:32.582 ] [00002116] [DEBUG] ByteTimeout: 100 
+ODS: [14.09.2010 14:19:32.582 ] [00002116] [DEBUG] MaxRetryCount: 5 
+ODS: [14.09.2010 14:19:32.582 ] [00002116] [DEBUG] SearchByPortEnabled: False 
+ODS: [14.09.2010 14:19:32.582 ] [00002116] [DEBUG] SearchByBaudRateEnabled: True 
+ODS: [14.09.2010 14:19:32.582 ] [00002116] [DEBUG] PollInterval: 100 
+ODS: [14.09.2010 14:19:32.582 ] [00002116] [DEBUG] DeviceByteTimeout: 1000 
+ODS: [14.09.2010 14:19:32.592 ] [00002116] [DEBUG] TimeToSleep: 100 
+ODS: [14.09.2010 14:19:32.592 ] [00002116] [DEBUG] MonitoringEnabled: False 
+ODS: [14.09.2010 14:19:32.602 ] [00002116] [DEBUG] LogFileEnabled: True 
+ODS: [14.09.2010 14:19:32.602 ] [00002116] [DEBUG] CutType: 1 
+ODS: [14.09.2010 14:19:32.602 ] [00002116] [DEBUG] LogoPosition: 0 
+ODS: [14.09.2010 14:19:32.602 ] [00002116] [DEBUG] NumHeaderLines: 4 
+ODS: [14.09.2010 14:19:32.602 ] [00002116] [DEBUG] NumTrailerLines: 0 
+ODS: [14.09.2010 14:19:32.602 ] [00002116] [DEBUG] HeaderFont: 1 
+ODS: [14.09.2010 14:19:32.602 ] [00002116] [DEBUG] TrailerFont: 1 
+ODS: [14.09.2010 14:19:32.602 ] [00002116] [DEBUG] Encoding: 0 
+ODS: [14.09.2010 14:19:32.602 ] [00002116] [DEBUG] TrainModeText:  TRAINING MODE  
+ODS: [14.09.2010 14:19:32.602 ] [00002116] [DEBUG] TrainCashInText: CASH IN 
+ODS: [14.09.2010 14:19:32.602 ] [00002116] [DEBUG] TrainCashOutText: CASH OUT 
+ODS: [14.09.2010 14:19:32.602 ] [00002116] [DEBUG] TrainSaleText: SALE 
+ODS: [14.09.2010 14:19:32.602 ] [00002116] [DEBUG] TrainVoidRecText: RECEIPT VOIDED 
+ODS: [14.09.2010 14:19:32.602 ] [00002116] [DEBUG] TrainTotalText: TOTAL 
+ODS: [14.09.2010 14:19:32.632 ] [00002116] [DEBUG] TrainCashPayText: CASH 
+ODS: [14.09.2010 14:19:32.642 ] [00002116] [DEBUG] TrainPay2Text: PAY TYPE 1 
+ODS: [14.09.2010 14:19:32.662 ] [00002116] [DEBUG] TrainPay3Text: PAY TYPE 2 
+ODS: [14.09.2010 14:19:32.672 ] [00002116] [DEBUG] TrainPay4Text: PAY TYPE 3 
+ODS: [14.09.2010 14:19:32.682 ] [00002116] [DEBUG] TrainChangeText: CHANGE 
+ODS: [14.09.2010 14:19:32.692 ] [00002116] [DEBUG] TrainStornoText: VOID 
+ODS: [14.09.2010 14:19:32.712 ] [00002116] [DEBUG] PayType 0: 0 
+ODS: [14.09.2010 14:19:32.722 ] [00002116] [DEBUG] PayType 1: 1 
+ODS: [14.09.2010 14:19:32.732 ] [00002116] [DEBUG] PayType 2: 2 
+ODS: [14.09.2010 14:19:32.742 ] [00002116] [DEBUG] PayType 3: 3 
+ODS: [14.09.2010 14:19:32.762 ] [00002116] [DEBUG] SysParameters.End 
+ODS: [14.09.2010 14:19:32.772 ] [00002116] [DEBUG] UsrParameters.Begin 
+ODS: [14.09.2010 14:19:32.782 ] [00002116] [DEBUG] LogoSize: 195 
+ODS: [14.09.2010 14:19:32.792 ] [00002116] [DEBUG] LogoCenter: True 
+ODS: [14.09.2010 14:19:32.802 ] [00002116] [DEBUG] Department: 3 
+ODS: [14.09.2010 14:19:32.822 ] [00002116] [DEBUG] LogoEnabled: False 
+ODS: [14.09.2010 14:19:32.832 ] [00002116] [DEBUG] HeaderPrinted: True 
+ODS: [14.09.2010 14:19:32.842 ] [00002116] [DEBUG] UsrParameters.End 
+ODS: [14.09.2010 14:19:32.862 ] [00002116] [DEBUG] ToleFiscalPrinter.OpenService(FiscalPrinter, SHTRIH-M-OPOS-1) = 0 
+ODS: [14.09.2010 14:19:32.872 ] [00002116] [DEBUG] ToleFiscalPrinter.GetPropertyNumber(PIDX_ServiceObjectVersion) = 1012062 
+ODS: [14.09.2010 14:19:32.882 ] [00002116] [DEBUG] ToleFiscalPrinter.GetPropertyNumber(PIDX_ResultCode) = 0 
+ODS: [14.09.2010 14:19:32.902 ] [00002116] [DEBUG] ToleFiscalPrinter.GetPropertyNumber(PIDX_ResultCode) = 0 
+ODS: [14.09.2010 14:19:32.912 ] [00002116] [DEBUG] ToleFiscalPrinter.GetPropertyString(PIDXFptr_ErrorString) = "" 
+ODS: [14.09.2010 14:19:32.922 ] [00002116] [DEBUG] ToleFiscalPrinter.ClaimDevice(0) 
+ODS: [14.09.2010 14:19:32.932 ] [00002116] [DEBUG] ToleFiscalPrinter.ClaimDevice(0)=0 
+ODS: [14.09.2010 14:19:32.952 ] [00002116] [DEBUG] ToleFiscalPrinter.GetPropertyNumber(PIDX_ResultCode) = 0 
+ODS: [14.09.2010 14:19:32.962 ] [00002116] [DEBUG] ToleFiscalPrinter.GetPropertyNumber(PIDX_ResultCode) = 0 
+ODS: [14.09.2010 14:19:32.972 ] [00002116] [DEBUG] ToleFiscalPrinter.GetPropertyString(PIDXFptr_ErrorString) = "" 
+ODS: [14.09.2010 14:19:32.982 ] [00002116] [DEBUG] ToleFiscalPrinter.Initialize 
+ODS: [14.09.2010 14:19:33.002 ] [00002116] [DEBUG] ToleFiscalPrinter.OpenService(FiscalPrinter, SHTRIH-M-OPOS-1) 
+ODS: [14.09.2010 14:19:33.022 ] [00002116] [DEBUG] ************************************************************** 
+ODS: [14.09.2010 14:19:33.032 ] [00002116] [DEBUG]   LOG START 
+ODS: [14.09.2010 14:19:33.042 ] [00002116] [DEBUG]   OPOS Fiscal Printer Service. SHTRIH-M, 2010 
+ODS: [14.09.2010 14:19:33.062 ] [00002116] [DEBUG]   ServiceObjectVersion     : 1012062 
+ODS: [14.09.2010 14:19:33.083 ] [00002116] [DEBUG]   File version             : 1.12.0.68 
+ODS: [14.09.2010 14:19:33.113 ] [00002116] [DEBUG] ************************************************************** 
+ODS: [14.09.2010 14:19:33.133 ] [00002116] [DEBUG] SysParameters.Begin 
+ODS: [14.09.2010 14:19:33.143 ] [00002116] [DEBUG] RemoteHost: 127.0.0.1 
+ODS: [14.09.2010 14:19:33.163 ] [00002116] [DEBUG] RemotePort: 211 
+ODS: [14.09.2010 14:19:33.173 ] [00002116] [DEBUG] ConnectionType: 0 
+ODS: [14.09.2010 14:19:33.183 ] [00002116] [DEBUG] ComNumber: 1 
+ODS: [14.09.2010 14:19:33.193 ] [00002116] [DEBUG] BaudRate: 115200 
+ODS: [14.09.2010 14:19:33.213 ] [00002116] [DEBUG] SysPassword: 30 
+ODS: [14.09.2010 14:19:33.223 ] [00002116] [DEBUG] UsrPassword: 1 
+ODS: [14.09.2010 14:19:33.233 ] [00002116] [DEBUG] SubtotalText: SUBTOTAL 
+ODS: [14.09.2010 14:19:33.243 ] [00002116] [DEBUG] CloseRecText:  
+ODS: [14.09.2010 14:19:33.263 ] [00002116] [DEBUG] VoidRecText: RECEIPT VOIDED 
+ODS: [14.09.2010 14:19:33.273 ] [00002116] [DEBUG] FontNumber: 1 
+ODS: [14.09.2010 14:19:33.283 ] [00002116] [DEBUG] ByteTimeout: 100 
+ODS: [14.09.2010 14:19:33.293 ] [00002116] [DEBUG] MaxRetryCount: 5 
+ODS: [14.09.2010 14:19:33.313 ] [00002116] [DEBUG] SearchByPortEnabled: False 
+ODS: [14.09.2010 14:19:33.323 ] [00002116] [DEBUG] SearchByBaudRateEnabled: True 
+ODS: [14.09.2010 14:19:33.333 ] [00002116] [DEBUG] PollInterval: 100 
+ODS: [14.09.2010 14:19:33.343 ] [00002116] [DEBUG] DeviceByteTimeout: 1000 
+ODS: [14.09.2010 14:19:33.353 ] [00002116] [DEBUG] TimeToSleep: 100 
+ODS: [14.09.2010 14:19:33.373 ] [00002116] [DEBUG] MonitoringEnabled: False 
+ODS: [14.09.2010 14:19:33.383 ] [00002116] [DEBUG] LogFileEnabled: True 
+ODS: [14.09.2010 14:19:33.393 ] [00002116] [DEBUG] CutType: 1 
+ODS: [14.09.2010 14:19:33.403 ] [00002116] [DEBUG] LogoPosition: 0 
+ODS: [14.09.2010 14:19:33.423 ] [00002116] [DEBUG] NumHeaderLines: 4 
+ODS: [14.09.2010 14:19:33.433 ] [00002116] [DEBUG] NumTrailerLines: 0 
+ODS: [14.09.2010 14:19:33.443 ] [00002116] [DEBUG] HeaderFont: 1 
+ODS: [14.09.2010 14:19:33.453 ] [00002116] [DEBUG] TrailerFont: 1 
+ODS: [14.09.2010 14:19:33.473 ] [00002116] [DEBUG] Encoding: 0 
+ODS: [14.09.2010 14:19:33.483 ] [00002116] [DEBUG] TrainModeText:  TRAINING MODE  
+ODS: [14.09.2010 14:19:33.493 ] [00002116] [DEBUG] TrainCashInText: CASH IN 
+ODS: [14.09.2010 14:19:33.503 ] [00002116] [DEBUG] TrainCashOutText: CASH OUT 
+ODS: [14.09.2010 14:19:33.523 ] [00002116] [DEBUG] TrainSaleText: SALE 
+ODS: [14.09.2010 14:19:33.533 ] [00002116] [DEBUG] TrainVoidRecText: RECEIPT VOIDED 
+ODS: [14.09.2010 14:19:33.543 ] [00002116] [DEBUG] TrainTotalText: TOTAL 
+ODS: [14.09.2010 14:19:33.553 ] [00002116] [DEBUG] TrainCashPayText: CASH 
+ODS: [14.09.2010 14:19:33.563 ] [00002116] [DEBUG] TrainPay2Text: PAY TYPE 1 
+ODS: [14.09.2010 14:19:33.583 ] [00002116] [DEBUG] TrainPay3Text: PAY TYPE 2 
+ODS: [14.09.2010 14:19:33.593 ] [00002116] [DEBUG] TrainPay4Text: PAY TYPE 3 
+ODS: [14.09.2010 14:19:33.613 ] [00002116] [DEBUG] TrainChangeText: CHANGE 
+ODS: [14.09.2010 14:19:33.623 ] [00002116] [DEBUG] TrainStornoText: VOID 
+ODS: [14.09.2010 14:19:33.643 ] [00002116] [DEBUG] PayType 0: 0 
+ODS: [14.09.2010 14:19:33.653 ] [00002116] [DEBUG] PayType 1: 1 
+ODS: [14.09.2010 14:19:33.663 ] [00002116] [DEBUG] PayType 2: 2 
+ODS: [14.09.2010 14:19:33.673 ] [00002116] [DEBUG] PayType 3: 3 
+ODS: [14.09.2010 14:19:33.693 ] [00002116] [DEBUG] SysParameters.End 
+ODS: [14.09.2010 14:19:33.703 ] [00002116] [DEBUG] UsrParameters.Begin 
+ODS: [14.09.2010 14:19:33.713 ] [00002116] [DEBUG] LogoSize: 195 
+ODS: [14.09.2010 14:19:33.723 ] [00002116] [DEBUG] LogoCenter: True 
+ODS: [14.09.2010 14:19:33.743 ] [00002116] [DEBUG] Department: 3 
+ODS: [14.09.2010 14:19:33.753 ] [00002116] [DEBUG] LogoEnabled: False 
+ODS: [14.09.2010 14:19:33.774 ] [00002116] [DEBUG] HeaderPrinted: True 
+ODS: [14.09.2010 14:19:33.784 ] [00002116] [DEBUG] UsrParameters.End 
+ODS: [14.09.2010 14:19:33.794 ] [00002116] [DEBUG] ToleFiscalPrinter.OpenService(FiscalPrinter, SHTRIH-M-OPOS-1) = 0 
+ODS: [14.09.2010 14:19:33.814 ] [00002116] [DEBUG] ToleFiscalPrinter.GetPropertyNumber(PIDX_ServiceObjectVersion) = 1012062 
+ODS: [14.09.2010 14:19:33.824 ] [00002116] [DEBUG] ToleFiscalPrinter.GetPropertyNumber(PIDX_ResultCode) = 0 
+ODS: [14.09.2010 14:19:33.844 ] [00002116] [DEBUG] ToleFiscalPrinter.GetPropertyNumber(PIDX_ResultCode) = 0 
+ODS: [14.09.2010 14:19:33.854 ] [00002116] [DEBUG] ToleFiscalPrinter.GetPropertyString(PIDXFptr_ErrorString) = "" 
+ODS: [14.09.2010 14:19:33.864 ] [00002116] [DEBUG] ToleFiscalPrinter.ClaimDevice(0) 
+ODS: [14.09.2010 14:19:33.884 ] [00002116] [DEBUG] ToleFiscalPrinter.ClaimDevice(0)=0 
+ODS: [14.09.2010 14:19:33.894 ] [00002116] [DEBUG] ToleFiscalPrinter.GetPropertyNumber(PIDX_ResultCode) = 0 
+ODS: [14.09.2010 14:19:33.904 ] [00002116] [DEBUG] ToleFiscalPrinter.GetPropertyNumber(PIDX_ResultCode) = 0 
+ODS: [14.09.2010 14:19:33.914 ] [00002116] [DEBUG] ToleFiscalPrinter.GetPropertyString(PIDXFptr_ErrorString) = "" 
+ODS: [14.09.2010 14:19:33.934 ] [00002116] [DEBUG] ToleFiscalPrinter.Initialize 
+ODS: [14.09.2010 14:19:33.944 ] [00002116] [DEBUG] ToleFiscalPrinter.OpenService(FiscalPrinter, SHTRIH-M-OPOS-1) 
+ODS: [14.09.2010 14:19:33.964 ] [00002116] [DEBUG] ************************************************************** 
+ODS: [14.09.2010 14:19:33.974 ] [00002116] [DEBUG]   LOG START 
+ODS: [14.09.2010 14:19:33.984 ] [00002116] [DEBUG]   OPOS Fiscal Printer Service. SHTRIH-M, 2010 
+ODS: [14.09.2010 14:19:34.004 ] [00002116] [DEBUG]   ServiceObjectVersion     : 1012062 
+ODS: [14.09.2010 14:19:34.014 ] [00002116] [DEBUG]   File version             : 1.12.0.68 
+ODS: [14.09.2010 14:19:34.024 ] [00002116] [DEBUG] ************************************************************** 
+ODS: [14.09.2010 14:19:34.034 ] [00002116] [DEBUG] SysParameters.Begin 
+ODS: [14.09.2010 14:19:34.054 ] [00002116] [DEBUG] RemoteHost: 127.0.0.1 
+ODS: [14.09.2010 14:19:34.074 ] [00002116] [DEBUG] RemotePort: 211 
+ODS: [14.09.2010 14:19:34.114 ] [00002116] [DEBUG] ConnectionType: 0 
+ODS: [14.09.2010 14:19:34.124 ] [00002116] [DEBUG] ComNumber: 1 
+ODS: [14.09.2010 14:19:34.144 ] [00002116] [DEBUG] BaudRate: 115200 
+ODS: [14.09.2010 14:19:34.154 ] [00002116] [DEBUG] SysPassword: 30 
+ODS: [14.09.2010 14:19:34.164 ] [00002116] [DEBUG] UsrPassword: 1 
+ODS: [14.09.2010 14:19:34.184 ] [00002116] [DEBUG] SubtotalText: SUBTOTAL 
+ODS: [14.09.2010 14:19:34.194 ] [00002116] [DEBUG] CloseRecText:  
+ODS: [14.09.2010 14:19:34.204 ] [00002116] [DEBUG] VoidRecText: RECEIPT VOIDED 
+ODS: [14.09.2010 14:19:34.214 ] [00002116] [DEBUG] FontNumber: 1 
+ODS: [14.09.2010 14:19:34.234 ] [00002116] [DEBUG] ByteTimeout: 100 
+ODS: [14.09.2010 14:19:34.244 ] [00002116] [DEBUG] MaxRetryCount: 5 
+ODS: [14.09.2010 14:19:34.254 ] [00002116] [DEBUG] SearchByPortEnabled: False 
+ODS: [14.09.2010 14:19:34.264 ] [00002116] [DEBUG] SearchByBaudRateEnabled: True 
+ODS: [14.09.2010 14:19:34.284 ] [00002116] [DEBUG] PollInterval: 100 
+ODS: [14.09.2010 14:19:34.294 ] [00002116] [DEBUG] DeviceByteTimeout: 1000 
+ODS: [14.09.2010 14:19:34.304 ] [00002116] [DEBUG] TimeToSleep: 100 
+ODS: [14.09.2010 14:19:34.314 ] [00002116] [DEBUG] MonitoringEnabled: False 
+ODS: [14.09.2010 14:19:34.334 ] [00002116] [DEBUG] LogFileEnabled: True 
+ODS: [14.09.2010 14:19:34.344 ] [00002116] [DEBUG] CutType: 1 
+ODS: [14.09.2010 14:19:34.354 ] [00002116] [DEBUG] LogoPosition: 0 
+ODS: [14.09.2010 14:19:34.364 ] [00002116] [DEBUG] NumHeaderLines: 4 
+ODS: [14.09.2010 14:19:34.384 ] [00002116] [DEBUG] NumTrailerLines: 0 
+ODS: [14.09.2010 14:19:34.394 ] [00002116] [DEBUG] HeaderFont: 1 
+ODS: [14.09.2010 14:19:34.404 ] [00002116] [DEBUG] TrailerFont: 1 
+ODS: [14.09.2010 14:19:34.414 ] [00002116] [DEBUG] Encoding: 0 
+ODS: [14.09.2010 14:19:34.434 ] [00002116] [DEBUG] TrainModeText:  TRAINING MODE  
+ODS: [14.09.2010 14:19:34.444 ] [00002116] [DEBUG] TrainCashInText: CASH IN 
+ODS: [14.09.2010 14:19:34.454 ] [00002116] [DEBUG] TrainCashOutText: CASH OUT 
+ODS: [14.09.2010 14:19:34.464 ] [00002116] [DEBUG] TrainSaleText: SALE 
+ODS: [14.09.2010 14:19:34.485 ] [00002116] [DEBUG] TrainVoidRecText: RECEIPT VOIDED 
+ODS: [14.09.2010 14:19:34.495 ] [00002116] [DEBUG] TrainTotalText: TOTAL 
+ODS: [14.09.2010 14:19:34.505 ] [00002116] [DEBUG] TrainCashPayText: CASH 
+ODS: [14.09.2010 14:19:34.515 ] [00002116] [DEBUG] TrainPay2Text: PAY TYPE 1 
+ODS: [14.09.2010 14:19:34.525 ] [00002116] [DEBUG] TrainPay3Text: PAY TYPE 2 
+ODS: [14.09.2010 14:19:34.545 ] [00002116] [DEBUG] TrainPay4Text: PAY TYPE 3 
+ODS: [14.09.2010 14:19:34.555 ] [00002116] [DEBUG] TrainChangeText: CHANGE 
+ODS: [14.09.2010 14:19:34.565 ] [00002116] [DEBUG] TrainStornoText: VOID 
+ODS: [14.09.2010 14:19:34.575 ] [00002116] [DEBUG] PayType 0: 0 
+ODS: [14.09.2010 14:19:34.595 ] [00002116] [DEBUG] PayType 1: 1 
+ODS: [14.09.2010 14:19:34.605 ] [00002116] [DEBUG] PayType 2: 2 
+ODS: [14.09.2010 14:19:34.615 ] [00002116] [DEBUG] PayType 3: 3 
+ODS: [14.09.2010 14:19:34.625 ] [00002116] [DEBUG] SysParameters.End 
+ODS: [14.09.2010 14:19:34.635 ] [00002116] [DEBUG] UsrParameters.Begin 
+ODS: [14.09.2010 14:19:34.655 ] [00002116] [DEBUG] LogoSize: 195 
+ODS: [14.09.2010 14:19:34.665 ] [00002116] [DEBUG] LogoCenter: True 
+ODS: [14.09.2010 14:19:34.675 ] [00002116] [DEBUG] Department: 3 
+ODS: [14.09.2010 14:19:34.685 ] [00002116] [DEBUG] LogoEnabled: False 
+ODS: [14.09.2010 14:19:34.695 ] [00002116] [DEBUG] HeaderPrinted: True 
+ODS: [14.09.2010 14:19:34.715 ] [00002116] [DEBUG] UsrParameters.End 
+ODS: [14.09.2010 14:19:34.725 ] [00002116] [DEBUG] ToleFiscalPrinter.OpenService(FiscalPrinter, SHTRIH-M-OPOS-1) = 0 
+ODS: [14.09.2010 14:19:34.735 ] [00002116] [DEBUG] ToleFiscalPrinter.GetPropertyNumber(PIDX_ServiceObjectVersion) = 1012062 
+ODS: [14.09.2010 14:19:34.745 ] [00002116] [DEBUG] ToleFiscalPrinter.GetPropertyNumber(PIDX_ResultCode) = 0 
+ODS: [14.09.2010 14:19:34.765 ] [00002116] [DEBUG] ToleFiscalPrinter.GetPropertyNumber(PIDX_ResultCode) = 0 
+ODS: [14.09.2010 14:19:34.775 ] [00002116] [DEBUG] ToleFiscalPrinter.GetPropertyString(PIDXFptr_ErrorString) = "" 
+ODS: [14.09.2010 14:19:34.785 ] [00002116] [DEBUG] ToleFiscalPrinter.ClaimDevice(0) 
+ODS: [14.09.2010 14:19:34.795 ] [00002116] [DEBUG] ToleFiscalPrinter.ClaimDevice(0)=0 
+ODS: [14.09.2010 14:19:34.815 ] [00002116] [DEBUG] ToleFiscalPrinter.GetPropertyNumber(PIDX_ResultCode) = 0 
+ODS: [14.09.2010 14:19:34.825 ] [00002116] [DEBUG] ToleFiscalPrinter.GetPropertyNumber(PIDX_ResultCode) = 0 
+ODS: [14.09.2010 14:19:34.835 ] [00002116] [DEBUG] ToleFiscalPrinter.GetPropertyString(PIDXFptr_ErrorString) = "" 

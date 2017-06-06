@@ -1640,6 +1640,7 @@ begin
     DriverParameterJournalPrintTrailer: pString := BoolToStr(Printer.Parameters.JournalPrintTrailer);
     DriverParameterCacheReceiptNumber: pString := BoolToStr(Printer.Parameters.CacheReceiptNumber);
     DriverParameterBarLineByteMode: pString := IntToStr(Printer.Parameters.BarLineByteMode);
+    DriverParameterLogFilePath: pString := Printer.Parameters.LogFilePath;
   end;
 end;
 
@@ -1724,6 +1725,7 @@ begin
     DriverParameterJournalPrintTrailer: Parameters.JournalPrintTrailer := StrToBool(pString);
     DriverParameterCacheReceiptNumber: Parameters.CacheReceiptNumber := StrToBool(pString);
     DriverParameterBarLineByteMode: Parameters.BarLineByteMode := StrToInt(pString);
+    DriverParameterLogFilePath: Parameters.LogFilePath := pString;
   end;
 end;
 

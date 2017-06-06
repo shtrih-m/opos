@@ -17,6 +17,7 @@ type
     function Enabled: Boolean;
   public
     constructor Create(ADispatch: IDispatch);
+    destructor Destroy; override;
 
     procedure DataEvent(Status: Integer);
     procedure StatusUpdateEvent(Data: Integer);
@@ -42,6 +43,12 @@ constructor TOposEventsRCS.Create(ADispatch: IDispatch);
 begin
   inherited Create;
   FDispatch := ADispatch;
+end;
+
+destructor TOposEventsRCS.Destroy;
+begin
+  VarClear(FDispatch);
+  inherited Destroy;
 end;
 
 function TOposEventsRCS.Enabled: Boolean;

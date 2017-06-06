@@ -451,6 +451,7 @@ type
     function FSWriteTag(TagID: Integer; const Data: string): Integer;
     function WriteCustomerAddress(const Address: WideString): Integer;
     function PrintText(const Text: WideString; Font: Integer): Integer;
+    function ReadTable(Table, Row, Field: Integer; var Value: WideString): Integer;
 
     property FontNumber: Integer read Get_FontNumber write Set_FontNumber;
   end;
@@ -1985,6 +1986,16 @@ begin
   pData := 0;
   pString := Address;
   Result := Driver.DirectIO(DIO_WRITE_FS_CUSTOMER_ADDRESS, pData, pString);
+end;
+
+function TSMFiscalPrinter.ReadTable(Table, Row, Field: Integer;
+  var Value: WideString): Integer;
+var
+  pData: Integer;
+begin
+  pData := 0;
+  Value := Format('%d;%d;%d', [Table, Row, Field]);
+  Result := Driver.DirectIO(DIO_READ_TABLE, pData, Value);
 end;
 
 end.

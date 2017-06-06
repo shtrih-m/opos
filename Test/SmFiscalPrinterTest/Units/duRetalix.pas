@@ -21,6 +21,7 @@ type
     procedure Teardown; override;
     function GetDBPath: string;
   published
+    procedure CheckOpen;
     procedure CheckReadTaxGroup;
     procedure CheckReadTaxGroup2;
     procedure CheckParseOperator;
@@ -168,6 +169,25 @@ begin
   CheckEquals('Кассир Иванов', Line);
 end;
 
+procedure TRetalixTest.CheckOpen;
+var
+  i: Integer;
+  Retalix: TRetalix;
+begin
+  // DBPath must exists!
+  if not DirectoryExists(GetDBPath) then Exit;
+
+  Retalix := TRetalix.Create(GetDBPath, Context);
+  try
+    for i := 1 to 3 do
+    begin
+      Retalix.Open;
+      Retalix.Close;
+    end;
+  finally
+    Retalix.Free;
+  end;
+end;
 
 {$IFDEF MALINA}
 initialization

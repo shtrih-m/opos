@@ -828,7 +828,9 @@ begin
     begin
       FMonitoring.Open(Parameters.MonitoringPort, Printer);
     end;
+    {$IFDEF MALINA}
     FRetalix.Open;
+    {$ENDIF}
 
     Result := ClearResult;
   except
@@ -1049,6 +1051,9 @@ end;
 function TFiscalPrinterImpl.DoCloseDevice: Integer;
 begin
   try
+    Result := ClearResult;
+    if not FOposDevice.Opened then Exit;
+
     SetDeviceEnabled(False);
     FPrinter.Close;
     FOposDevice.Close;
@@ -1058,7 +1063,9 @@ begin
     FFilter := nil;
     FreceiptPrinter := nil;
     FMonitoring.Close;
+    {$IFDEF MALINA}
     FRetalix.Close;
+    {$ENDIF}
 
     Result := ClearResult;
   except
