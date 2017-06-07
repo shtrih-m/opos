@@ -381,12 +381,4 @@ begin
   until False;
 end;
 
-(*
-initialization
-  OutputDebugString('SocketConnection.initialization');
-
-finalization
-  OutputDebugString('SocketConnection.finalization');
-*)
-
 end.

@@ -1,7 +1,6 @@
 program SmFiscalPrinterTest;
 
 uses
-  //FastMM4,
   Forms,
   TestFramework,
   GUITestRunner,
@@ -199,11 +198,10 @@ uses
   CorrectionReceipt in '..\..\Source\SmFiscalPrinter\Units\CorrectionReceipt.pas',
   CsvPrinterTableFormat in '..\..\Source\SmFiscalPrinter\Units\CsvPrinterTableFormat.pas',
   PrinterTableFormat in '..\..\Source\SmFiscalPrinter\Units\PrinterTableFormat.pas',
-  duTemplateItem in 'Units\duTemplateItem.pas',
-  TemplateItem in '..\..\Source\SmFiscalPrinter\Units\TemplateItem.pas',
   VatCode in '..\..\Source\SmFiscalPrinter\Units\VatCode.pas',
   FSService in '..\..\Source\SmFiscalPrinter\Units\FSService.pas',
-  DriverContext in '..\..\Source\SmFiscalPrinter\Units\DriverContext.pas';
+  DriverContext in '..\..\Source\SmFiscalPrinter\Units\DriverContext.pas',
+  ReceiptTemplate in '..\..\Source\SmFiscalPrinter\Units\ReceiptTemplate.pas';
 
 {$R *.RES}
 {$R ..\..\Source\SmFiscalPrinter\SmFiscalPrinter.TLB}

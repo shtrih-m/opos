@@ -8,47 +8,50 @@
   resources were bound to the produced executable.
 */
 
-#define pnglang_EPNGUnknownCriticalChunkText 65200
-#define pnglang_EPNGUnknownCompressionText 65201
-#define pnglang_EPNGUnknownInterlaceText 65202
-#define pnglang_EPNGCannotAssignChunkText 65203
-#define pnglang_EPNGUnexpectedEndText 65204
-#define pnglang_EPNGNoImageDataText 65205
-#define pnglang_EPNGCannotChangeSizeText 65206
-#define pnglang_EPNGOutMemoryText 65207
-#define pnglang_EPNGHeaderNotPresentText 65208
-#define OposDevice_MsgKeyOpenError 65216
-#define SynEditStrConst_SYNS_ScrollInfoFmt 65217
-#define SynEditStrConst_SYNS_ScrollInfoFmtTop 65218
-#define SynEditStrConst_SYNS_EDuplicateShortcut 65219
-#define SynEditStrConst_SYNS_FriendlyLangUnknown 65220
-#define SynEditTextBuffer_SListIndexOutOfBounds 65221
-#define SynEditTextBuffer_SInvalidCapacity 65222
-#define pnglang_EPngInvalidCRCText 65223
-#define pnglang_EPNGInvalidIHDRText 65224
-#define pnglang_EPNGMissingMultipleIDATText 65225
-#define pnglang_EPNGZLIBErrorText 65226
-#define pnglang_EPNGInvalidPaletteText 65227
-#define pnglang_EPNGInvalidFileHeaderText 65228
-#define pnglang_EPNGIHDRNotFirstText 65229
-#define pnglang_EPNGSizeExceedsText 65230
-#define pnglang_EPNGUnknownPalEntryText 65231
+#define pnglang_EPNGIHDRNotFirstText 65200
+#define pnglang_EPNGSizeExceedsText 65201
+#define pnglang_EPNGUnknownPalEntryText 65202
+#define pnglang_EPNGUnknownCriticalChunkText 65203
+#define pnglang_EPNGUnknownCompressionText 65204
+#define pnglang_EPNGUnknownInterlaceText 65205
+#define pnglang_EPNGCannotAssignChunkText 65206
+#define pnglang_EPNGUnexpectedEndText 65207
+#define pnglang_EPNGNoImageDataText 65208
+#define pnglang_EPNGCannotChangeSizeText 65209
+#define pnglang_EPNGOutMemoryText 65210
+#define pnglang_EPNGHeaderNotPresentText 65211
+#define ComConst_SNoCloseActiveServer2 65216
+#define OposDevice_MsgKeyOpenError 65217
+#define TntSystem_SBufferOverflow 65218
+#define TntSystem_SInvalidUTF7 65219
+#define SynEditStrConst_SYNS_ScrollInfoFmt 65220
+#define SynEditStrConst_SYNS_ScrollInfoFmtTop 65221
+#define SynEditStrConst_SYNS_EDuplicateShortcut 65222
+#define SynEditStrConst_SYNS_FriendlyLangUnknown 65223
+#define SynEditTextBuffer_SListIndexOutOfBounds 65224
+#define SynEditTextBuffer_SInvalidCapacity 65225
+#define pnglang_EPngInvalidCRCText 65226
+#define pnglang_EPNGInvalidIHDRText 65227
+#define pnglang_EPNGMissingMultipleIDATText 65228
+#define pnglang_EPNGZLIBErrorText 65229
+#define pnglang_EPNGInvalidPaletteText 65230
+#define pnglang_EPNGInvalidFileHeaderText 65231
 #define ComStrs_sTabFailRetrieve 65232
 #define ComStrs_sTabFailGetObject 65233
 #define ComStrs_sTabFailSet 65234
 #define ComStrs_sTabFailSetObject 65235
 #define ComStrs_sTabMustBeMultiLine 65236
 #define ComStrs_sInvalidOwner 65237
-#define ComStrs_sPageIndexError 65238
-#define ComStrs_sInvalidComCtl32 65239
-#define WinHelpViewer_hNoKeyword 65240
-#define ComConst_SOleError 65241
-#define ComConst_SNoMethod 65242
-#define ComConst_SVarNotObject 65243
-#define ComConst_STooManyParams 65244
-#define ComConst_SAutomationWarning 65245
-#define ComConst_SNoCloseActiveServer1 65246
-#define ComConst_SNoCloseActiveServer2 65247
+#define ComStrs_sUDAssociated 65238
+#define ComStrs_sPageIndexError 65239
+#define ComStrs_sInvalidComCtl32 65240
+#define WinHelpViewer_hNoKeyword 65241
+#define ComConst_SOleError 65242
+#define ComConst_SNoMethod 65243
+#define ComConst_SVarNotObject 65244
+#define ComConst_STooManyParams 65245
+#define ComConst_SAutomationWarning 65246
+#define ComConst_SNoCloseActiveServer1 65247
 #define ExtCtrls_clNameInactiveBorder 65248
 #define ExtCtrls_clNameInactiveCaption 65249
 #define ExtCtrls_clNameInactiveCaptionText 65250
@@ -339,6 +342,9 @@
 #define SysConst_SDiskFull 65535
 STRINGTABLE
 BEGIN
+	pnglang_EPNGIHDRNotFirstText,	"This \"Portable Network Graphics\" image is not supported or it might be invalid.\r\n(IHDR chunk is not the first)"
+	pnglang_EPNGSizeExceedsText,	"This \"Portable Network Graphics\" image is not supported because either it's width or height exceeds the maximum size, which is 65535 pixels length."
+	pnglang_EPNGUnknownPalEntryText,	"There is no such palette entry."
 	pnglang_EPNGUnknownCriticalChunkText,	"This \"Portable Network Graphics\" image contains an unknown critical part which could not be decoded."
 	pnglang_EPNGUnknownCompressionText,	"This \"Portable Network Graphics\" image is encoded with an unknown compression scheme which could not be decoded."
 	pnglang_EPNGUnknownInterlaceText,	"This \"Portable Network Graphics\" image uses an unknown interlace scheme which could not be decoded."
@@ -348,7 +354,10 @@ BEGIN
 	pnglang_EPNGCannotChangeSizeText,	"The \"Portable Network Graphics\" image can not be resize by changing width and height properties. Try assigning the image from a bitmap."
 	pnglang_EPNGOutMemoryText,	"Some operation could not be performed because the system is out of resources. Close some windows and try again."
 	pnglang_EPNGHeaderNotPresentText,	"This operation is not valid because the current image contains no valid header."
+	ComConst_SNoCloseActiveServer2,	"this application may cause those client application(s) to fail.\r\n\r\nAre you sure you want to close this application?"
 	OposDevice_MsgKeyOpenError,	"Error opening registry key: %s"
+	TntSystem_SBufferOverflow,	"Buffer overflow"
+	TntSystem_SInvalidUTF7,	"Invalid UTF7"
 	SynEditStrConst_SYNS_ScrollInfoFmt,	"%d - %d"
 	SynEditStrConst_SYNS_ScrollInfoFmtTop,	"Top Line: %d"
 	SynEditStrConst_SYNS_EDuplicateShortcut,	"Shortcut already exists"
@@ -361,15 +370,13 @@ BEGIN
 	pnglang_EPNGZLIBErrorText,	"Could not decompress the image because it contains invalid compressed data.\r\n Description: "
 	pnglang_EPNGInvalidPaletteText,	"The \"Portable Network Graphics\" image contains an invalid palette."
 	pnglang_EPNGInvalidFileHeaderText,	"The file being readed is not a valid \"Portable Network Graphics\" image because it contains an invalid header. This file may be corruped, try obtaining it again."
-	pnglang_EPNGIHDRNotFirstText,	"This \"Portable Network Graphics\" image is not supported or it might be invalid.\r\n(IHDR chunk is not the first)"
-	pnglang_EPNGSizeExceedsText,	"This \"Portable Network Graphics\" image is not supported because either it's width or height exceeds the maximum size, which is 65535 pixels length."
-	pnglang_EPNGUnknownPalEntryText,	"There is no such palette entry."
 	ComStrs_sTabFailRetrieve,	"Failed to retrieve tab at index %d"
 	ComStrs_sTabFailGetObject,	"Failed to get object at index %d"
 	ComStrs_sTabFailSet,	"Failed to set tab \"%s\" at index %d"
 	ComStrs_sTabFailSetObject,	"Failed to set object at index %d"
 	ComStrs_sTabMustBeMultiLine,	"MultiLine must be True when TabPosition is tpLeft or tpRight"
 	ComStrs_sInvalidOwner,	"Invalid owner"
+	ComStrs_sUDAssociated,	"%s is already associated with %s"
 	ComStrs_sPageIndexError,	"%d is an invalid PageIndex value.  PageIndex must be between 0 and %d"
 	ComStrs_sInvalidComCtl32,	"This control requires version 4.70 or greater of COMCTL32.DLL"
 	WinHelpViewer_hNoKeyword,	"No help keyword specified."
@@ -379,7 +386,6 @@ BEGIN
 	ComConst_STooManyParams,	"Dispatch methods do not support more than 64 parameters"
 	ComConst_SAutomationWarning,	"COM Server Warning"
 	ComConst_SNoCloseActiveServer1,	"There are still active COM objects in this application.  One or more clients may have references to these objects, so manually closing "
-	ComConst_SNoCloseActiveServer2,	"this application may cause those client application(s) to fail.\r\n\r\nAre you sure you want to close this application?"
 	ExtCtrls_clNameInactiveBorder,	"Inactive Border"
 	ExtCtrls_clNameInactiveCaption,	"Inactive Caption"
 	ExtCtrls_clNameInactiveCaptionText,	"Inactive Caption Text"

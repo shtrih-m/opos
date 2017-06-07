@@ -10,7 +10,7 @@ uses
   Opos, PayType, ReceiptPrinter, FiscalPrinterState,
   ReceiptItem, RecDiscount, PrinterParameters, TextItem, MathUtils,
   fmuSelect, fmuPhone, fmuEMail, TLV, LogFile, RegExpr, MalinaParams,
-  StringUtils, Retalix, FiscalPrinterTypes;
+  StringUtils, Retalix, FiscalPrinterTypes, ReceiptTemplate;
 
 type
   { TFSSalesReceipt }
@@ -27,6 +27,7 @@ type
     FReceiptItems: TReceiptItems;
     FRecDiscount: TDiscountReceiptItem;
     FAdjustmentAmount: Integer;
+    FTemplate: TReceiptTemplate;
 
     procedure PrintReceiptItems;
     procedure CheckTotal(Total: Currency);
@@ -63,9 +64,10 @@ type
     procedure DoPrintFSSale(Item: TFSSaleItem);
     procedure printReceiptItemAsText(Item: TFSSaleItem);
     procedure PrintTotalAndTax(const Item: TFSSaleItem);
-
-    property Device: IFiscalPrinterDevice read GetDevice;
     procedure printReceiptItemTemplate(Item: TFSSaleItem);
+
+    property Template: TReceiptTemplate read FTemplate;
+    property Device: IFiscalPrinterDevice read GetDevice;
   public
     constructor CreateReceipt(AContext: TReceiptContext; ARecType: Integer);
     destructor Destroy; override;
@@ -206,11 +208,15 @@ begin
   FRecType := ARecType;
   FReceiptItems := TReceiptItems.Create;
   ClearReceipt;
+
+  FTemplate := TReceiptTemplate.Create(
+    AContext.Printer.Printer.Parameters.ReceiptItemFormat);
 end;
 
 destructor TFSSalesReceipt.Destroy;
 begin
   FRetalix.Free;
+  FTemplate.Free;
   FReceiptItems.Free;
   inherited Destroy;
 end;
@@ -227,6 +233,8 @@ begin
       FRetalix.Open;
     end;
     Result := FRetalix.ReadTaxGroup(ItemName);
+    if Result = -1 then
+      Result := Tax;
   end;
   {$ENDIF}
   Result := Parameters.GetVatInfo(Result);
@@ -859,6 +867,11 @@ var
   i: Integer;
   ReceiptItem: TReceiptItem;
 begin
+  if Parameters.ReceiptFormatEnabled then
+  begin
+    Printer.Printer.PrintText(Parameters.ReceiptItemsHeader);
+  end;
+
   for i := 0 to FReceiptItems.Count-1 do
   begin
     ReceiptItem := ReceiptItems[i];
@@ -879,6 +892,11 @@ begin
     begin
       Device.FsWriteTLV((ReceiptItem as TTLVReceiptItem).Data);
     end;
+  end;
+
+  if Parameters.ReceiptFormatEnabled then
+  begin
+    Printer.Printer.PrintText(Parameters.ReceiptItemsTrailer);
   end;
 end;
 
@@ -1053,11 +1071,6 @@ begin
     Printer.Printer.PrintLines(Line1, Line2);
   end;
   PrintTotalAndTax(Item);
-end;
-
-procedure TFSSalesReceipt.printReceiptItemTemplate(Item: TFSSaleItem);
-begin
-
 end;
 
 procedure TFSSalesReceipt.PrintTotalAndTax(const Item: TFSSaleItem);
@@ -1511,6 +1524,14 @@ end;
 function TFSSalesReceipt.GetDevice: IFiscalPrinterDevice;
 begin
   Result := Printer.Printer.Device;
+end;
+
+procedure TFSSalesReceipt.printReceiptItemTemplate(Item: TFSSaleItem);
+var
+  Text: string;
+begin
+  Text := Template.getItemText(Item);
+  Printer.Printer.PrintText(Text);
 end;
 
 end.

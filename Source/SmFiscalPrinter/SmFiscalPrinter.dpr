@@ -161,7 +161,6 @@ uses
   CsvPrinterTableFormat in 'Units\CsvPrinterTableFormat.pas',
   PrinterTableFormat in 'Units\PrinterTableFormat.pas',
   ReceiptTemplate in 'Units\ReceiptTemplate.pas',
-  TemplateItem in 'Units\TemplateItem.pas',
   VatCode in 'Units\VatCode.pas',
   FSService in 'Units\FSService.pas',
   DriverContext in 'Units\DriverContext.pas';
