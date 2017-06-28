@@ -1031,7 +1031,13 @@ begin
       end;
     end;
 
-    Stream.WriteByte(Command.Code);
+    if Command.Code < $FF then
+    begin
+      Stream.WriteByte(Command.Code);
+    end else
+    begin
+      Stream.WriteWord(Command.Code);
+    end;
     Command.InParams.Write(Stream);
     Command.OutParams.ClearValue;
 
@@ -1087,7 +1093,13 @@ begin
   Stream := TBinStream.Create;
   try
     Command.InParams.AsText := pString;
-    Stream.WriteByte(Command.Code);
+    if Command.Code < $FF then
+    begin
+      Stream.WriteByte(Command.Code);
+    end else
+    begin
+      Stream.WriteWord(Command.Code);
+    end;
     Command.InParams.Write(Stream);
     Command.OutParams.ClearValue;
     Device.Check(Device.ExecuteStream2(Stream));

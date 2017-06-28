@@ -150,13 +150,22 @@ end;
 
 procedure TRetalix.Close;
 begin
-  if FIsOpened then
-  begin
-    if FConnection <> nil then
-      FConnection.Close;
+  try
+    if FIsOpened then
+    begin
+      if FConnection <> nil then
+      begin
+        FConnection.Close;
+      end;
+    end;
+    FConnection := nil;
+    FIsOpened := False;
+  except
+    on E: Exception do
+    begin
+      Logger.Error('TRetalix.Close: ' + E.Message);
+    end;
   end;
-  FConnection := nil;
-  FIsOpened := False;
 end;
 
 function TRetalix.ReadCashierName(var CashierName: string): Boolean;
@@ -171,13 +180,17 @@ begin
 
   SQL := 'select accessname + '' '' + fullname from ' +
     'employee e inner join access a on e.posaccess=a.accessid ' +
-    'where  fullname like ''%%%s%%'' and status=''w''';
+    'where fullname like ''%%%s%%'' and empno=(' +
+    'select max(empno) from employee where fullname ' +
+    'like ''%%%s%%'' and status=''W'')';
 
   if GetMalinaParams.RetalixSearchCI then
   begin
     SQL := 'select accessname + '' '' + fullname from ' +
       'employee e inner join access a on e.posaccess=a.accessid ' +
-      'where lcase(fullname) like lcase(''%%%s%%'') and status=''w''';
+      'where lcase(fullname) like lcase(''%%%s%%'') and empno=(' +
+      'select max(empno) from employee where fullname ' +
+      'like lcase(''%%%s%%'') and status=''W'')';
   end;
 
   SQL := Tnt_WideFormat(SQL, [CashierName, CashierName]);
@@ -305,5 +318,42 @@ begin
     Result := Cashier + ' ' + Copy(Line, P, Length(Line));
   end;
 end;
+
+(*
+
+Поправьте, пожалуйста, немного запрос для вывода данных об операторе
+(СУ Retalix StorePoint) при сборке более новых версий драйвера ККТ.
+
+Запрос, который используется в настоящий момент.
+
+SELECT AccessName + ' ' + FirstName
+  FROM
+    Employee E INNER JOIN Access A
+      ON E.POSAccess=A.ACCESSID
+  WHERE
+    FullName LIKE ? + '%' and
+    Status='W' and
+    EMPNO=(
+      SELECT MAX(EMPNO)
+        FROM Employee
+        WHERE FullName LIKE ? + '%'
+    )
+
+
+Обновлённый запрос.
+
+SELECT AccessName + ' ' + FullName
+  FROM
+    Employee E INNER JOIN Access A
+      ON E.POSAccess=A.ACCESSID
+  WHERE
+    FullName LIKE :? + '%' and
+    EMPNO=(
+      SELECT MAX(EMPNO)
+        FROM Employee
+        WHERE FullName LIKE :? + '%' and Status='W'
+    )
+
+*)
 
 end.

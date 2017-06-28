@@ -23,6 +23,7 @@ type
     function ReadDate: TPrinterDate;
     function ReadTime: TPrinterTime;
     procedure WriteByte(Value: Byte);
+    procedure WriteWORD(Value: WORD);
     procedure WriteDWORD(Value: DWORD);
     function ReadString: string; overload;
     function ReadString(Size: Integer): string; overload;
@@ -104,6 +105,11 @@ end;
 procedure TBinStream.WriteDWORD(Value: DWORD);
 begin
   Write(Value, 4);
+end;
+
+procedure TBinStream.WriteWORD(Value: WORD);
+begin
+  Write(Value, 2);
 end;
 
 procedure TBinStream.WriteInt(Value: Int64; Size: Integer);

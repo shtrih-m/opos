@@ -1455,53 +1455,53 @@ end;
 function TTextFiscalPrinterDevice.FSFindDocument(DocNumber: Integer;
   var R: TFSDocument): Integer;
 begin
-
+  Result := 0;
 end;
 
 function TTextFiscalPrinterDevice.FSPrintCalcReport(
   var R: TFSCalcReport): Integer;
 begin
-
+  Result := 0;
 end;
 
 function TTextFiscalPrinterDevice.FSReadCommStatus(
   var R: TFSCommStatus): Integer;
 begin
-
+  Result := 0;
 end;
 
 function TTextFiscalPrinterDevice.FSReadDocMac(var DocMac: Int64): Integer;
 begin
-
+  Result := 0;
 end;
 
 function TTextFiscalPrinterDevice.FSReadExpireDate(
   var Date: TPrinterDate): Integer;
 begin
-
+  Result := 0;
 end;
 
 function TTextFiscalPrinterDevice.FSReadFiscalResult(
   var R: TFSFiscalResult): Integer;
 begin
-
+  Result := 0;
 end;
 
 function TTextFiscalPrinterDevice.FSReadState(var R: TFSState): Integer;
 begin
-
+  Result := 0;
 end;
 
 function TTextFiscalPrinterDevice.FSWriteTag(TagID: Integer;
   const Data: string): Integer;
 begin
-
+  Result := 0;
 end;
 
 function TTextFiscalPrinterDevice.WriteCustomerAddress(
   const Value: string): Integer;
 begin
-
+  Result := 0;
 end;
 
 function TTextFiscalPrinterDevice.GetDiscountMode: Integer;
@@ -1523,12 +1523,12 @@ end;
 
 function TTextFiscalPrinterDevice.GetIsFiscalized: Boolean;
 begin
-
+  Result := True;
 end;
 
 function TTextFiscalPrinterDevice.FSReadTotals(var R: TFMTotals): Integer;
 begin
-
+  Result := 0;
 end;
 
 function TTextFiscalPrinterDevice.ReadDayTotals: TFMTotals;
@@ -1560,7 +1560,7 @@ end;
 
 function TTextFiscalPrinterDevice.FSReadTicket(var R: TFSTicket): Integer;
 begin
-
+  Result := 0;
 end;
 
 procedure TTextFiscalPrinterDevice.Close;

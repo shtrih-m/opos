@@ -22,8 +22,6 @@ type
 
   TFiscalPrinterTest = class(TTestCase)
   private
-    function GetParameters: TPrinterParameters;
-  private
     FDriver: ToleFiscalPrinter;
     FPrinter: TFiscalPrinterImpl;
     FDevice: TTextFiscalPrinterDevice;
@@ -32,8 +30,10 @@ type
     procedure EmptyTest;
     procedure ClaimDevice;
     procedure OpenClaimEnable;
-    procedure CheckResult(ResultCode: Integer);
     procedure SetTestParameters;
+    procedure CheckResult(ResultCode: Integer);
+
+    function GetParameters: TPrinterParameters;
     property Parameters: TPrinterParameters read GetParameters;
   protected
     procedure Setup; override;
@@ -678,7 +678,7 @@ end;
 procedure TFiscalPrinterTest.CheckCapCheckTotal;
 begin
   OpenDevice;
-  CheckEquals(0, Driver.GetPropertyNumber(PIDXFptr_CapCheckTotal),
+  CheckEquals(1, Driver.GetPropertyNumber(PIDXFptr_CapCheckTotal),
     'CapCheckTotal');
 end;
 
@@ -779,7 +779,7 @@ begin
   Model.CapJrnNearEndSensor := False;
   Device.Model := Model;
   OpenClaimEnable;
- CheckEquals(0, Driver.GetPropertyNumber(PIDXFptr_CapJrnNearEndSensor),
+  CheckEquals(0, Driver.GetPropertyNumber(PIDXFptr_CapJrnNearEndSensor),
    'CapJrnNearEndSensor');
   Driver.Close;
   // True
@@ -798,13 +798,13 @@ begin
   Model.CapJrnPresent := False;
   Device.Model := Model;
   OpenClaimEnable;
- CheckEquals(0, Driver.GetPropertyNumber(PIDXFptr_CapJrnPresent), 'CapJrnPresent');
+  CheckEquals(0, Driver.GetPropertyNumber(PIDXFptr_CapJrnPresent), 'CapJrnPresent');
   Driver.Close;
   // True
   Model.CapJrnPresent := True;
   Device.Model := Model;
   OpenClaimEnable;
- CheckEquals(1, Driver.GetPropertyNumber(PIDXFptr_CapJrnPresent), 'CapJrnPresent');
+  CheckEquals(1, Driver.GetPropertyNumber(PIDXFptr_CapJrnPresent), 'CapJrnPresent');
 end;
 
 procedure TFiscalPrinterTest.CheckCapMultiContractor;
@@ -1375,10 +1375,10 @@ begin
 end;
 
 procedure TFiscalPrinterTest.CheckOpen;
-var
-  i: Integer;
+//var
+// i: Integer;
 begin
-  for i := 1 to 10 do
+  //for i := 1 to 10 do
   begin
     OpenDevice;
     CheckResult(Driver.Close);

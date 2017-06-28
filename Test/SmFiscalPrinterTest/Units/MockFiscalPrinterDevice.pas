@@ -29,7 +29,6 @@ type
     function GetCapFiscalStorage: Boolean;
     function GetCapReceiptDiscount2: Boolean;
     function GetParameters: TPrinterParameters;
-    property Logger: TLogFile read GetLogger;
   public
     constructor Create;
     destructor Destroy; override;
@@ -281,6 +280,7 @@ type
     property ShortStatus: TShortPrinterStatus read FShortStatus write FShortStatus;
     property DeviceMetrics: TDeviceMetrics read FDeviceMetrics write FDeviceMetrics;
     property CapReceiptDiscount2: Boolean read GetCapReceiptDiscount2;
+    property Logger: TLogFile read GetLogger;
   end;
 
 implementation

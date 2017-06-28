@@ -254,12 +254,12 @@ begin
   FLock.Free;
   FHeader.Free;
   FTrailer.Free;
-  FStatusLinks.Free;
-  FConnectLinks.Free;
   FEscFilter.Free;
   FSemaphore.Free;
   FConnection := nil;
   FDevice := nil;
+  FStatusLinks.Free;
+  FConnectLinks.Free;
   inherited Destroy;
 end;
 

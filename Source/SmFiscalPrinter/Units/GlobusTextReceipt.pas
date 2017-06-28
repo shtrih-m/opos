@@ -119,7 +119,7 @@ type
       const AUnitName: string); override;
 
     function GetCashlessTotal: Int64;
-    procedure PrintText(const Text: string; Station, Font: Integer;
+    procedure PrintText2(const Text: string; Station, Font: Integer;
       Alignment: TTextAlignment);
 
     procedure PrintNormal(const Text: string; Station: Integer); override;
@@ -876,10 +876,10 @@ end;
 
 procedure TGlobusTextReceipt.PrintNormal(const Text: string; Station: Integer);
 begin
-  PrintText(Text, Station, Parameters.FontNumber, taLeft);
+  PrintText2(Text, Station, Parameters.FontNumber, taLeft);
 end;
 
-procedure TGlobusTextReceipt.PrintText(const Text: string; Station: Integer;
+procedure TGlobusTextReceipt.PrintText2(const Text: string; Station: Integer;
   Font: Integer; Alignment: TTextAlignment);
 var
   ItemData: TTextRec;

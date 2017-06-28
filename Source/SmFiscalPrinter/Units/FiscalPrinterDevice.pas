@@ -3828,7 +3828,7 @@ begin
     Stream.WriteByte($C0);
     Stream.WriteDWORD(GetUsrPassword);
     Stream.WriteByte(Line);
-    Stream.WriteString(GetLine(Data));
+    Stream.WriteString(GetLine(Data, 40, 40));
     Result := ExecuteStream(Stream);
     if Result = ERROR_COMMAND_NOT_SUPPORTED then
       FModelData.CapGraphics := False;
@@ -3954,7 +3954,7 @@ begin
     Stream.WriteByte($C4);
     Stream.WriteDWORD(GetUsrPassword);
     Stream.WriteInt(Line, 2);
-    Stream.WriteString(GetLine(Data));
+    Stream.WriteString(GetLine(Data, 40, 40));
     Result := ExecuteStream(Stream);
     if Result = ERROR_COMMAND_NOT_SUPPORTED then
       FModelData.CapGraphicsEx := False;
@@ -5662,7 +5662,7 @@ begin
   if IsInversedPalette(Bitmap) then
     Result := Inverse(Result);
 
-  //Result := GetLine(Result, 40, 40);
+  Result := GetLine(Result, 40, 40);
 end;
 
 procedure TFiscalPrinterDevice.ProgressEvent(Progress: Integer);

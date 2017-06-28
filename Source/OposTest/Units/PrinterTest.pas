@@ -684,6 +684,14 @@ type
     function GetDisplayText: string; override;
   end;
 
+  { TReceiptTest8 }
+
+  TReceiptTest8 = class(TDriverTest)
+  public
+    procedure Execute; override;
+    function GetDisplayText: string; override;
+  end;
+
 implementation
 
 const
@@ -3948,6 +3956,52 @@ end;
 function TZeroReceiptTest2.GetDisplayText: string;
 begin
   Result := 'Zero refund receipt test';
+end;
+
+{ TReceiptTest8 }
+
+function TReceiptTest8.GetDisplayText: string;
+begin
+  Result := 'ReceiptTest8';
+end;
+
+procedure TReceiptTest8.Execute;
+begin
+  Check(FiscalPrinter.ResetPrinter);
+  FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
+  Check(FiscalPrinter.BeginFiscalReceipt(True));
+  check(FiscalPrinter.PrintRecItem('1:95 Оливки ITLV зеленые 300г', 124, 1000, 1, 124, 'шт'));
+  check(FiscalPrinter.PrintRecItem('2:29665 Молоко ПИСКАРЕВСКОЕ 1л', 53.99, 1000, 2, 53.99, 'шт'));
+  check(FiscalPrinter.PrintRecItem('3:3246577 Огурцы короткоплодные 1кг', 67.8, 1384, 2, 48.99, 'кг'));
+  check(FiscalPrinter.PrintRecItem('4*3248766 Яблоки ГЛОСТЕР 1кг', 166.19, 2080, 1, 79.9, 'кг'));
+  check(FiscalPrinter.PrintRecItem('5*3255455 Перец ДОЛМА 1кг', 23.82, 136, 2, 175.18, 'кг'));
+  check(FiscalPrinter.PrintRecItem('6:2050923 Средство САНОКС чистящее 750г', 44.59, 1000, 1, 44.59, 'шт'));
+  check(FiscalPrinter.PrintRecItem('7*3501031 Средство FAIRY 450мл', 49.9, 1000, 1, 49.9, 'шт'));
+  check(FiscalPrinter.PrintRecItem('8*2038357 Зуб.паста COLGATE 100мл', 58.8, 1000, 1, 58.8, 'шт'));
+  check(FiscalPrinter.PrintRecItem('9:3631647 Диски КРУГЛЫЙ ГОД 80шт', 19.39, 1000, 1, 19.39, 'шт'));
+  check(FiscalPrinter.PrintRecItem('10*3620583 Изд.мак.AIDA 450г', 29.9, 1000, 2, 29.9, 'шт'));
+  check(FiscalPrinter.PrintRecItem('11*3448338 Чай LIPTON черный 100х2г', 159, 1000, 1, 159, 'шт'));
+  check(FiscalPrinter.PrintRecItem('12*3500750 Средство FAIRY 450мл', 49.9, 1000, 1, 49.9, 'шт'));
+  check(FiscalPrinter.PrintRecItem('13*3620583 Изд.мак.AIDA 450г', 29.9, 1000, 2, 29.9, 'шт'));
+  check(FiscalPrinter.PrintRecItem('14*3620583 Изд.мак.AIDA 450г', 29.9, 1000, 2, 29.9, 'шт'));
+  check(FiscalPrinter.PrintRecItem('15:3420638 Дезодорант LADY карандаш 45г', 144, 1000, 3, 144, 'шт'));
+  check(FiscalPrinter.PrintRecItem('16*3618920 СМС LOSK СЕНСИТИВ 4,5кг', 299, 1000, 1, 299, 'шт'));
+  check(FiscalPrinter.PrintRecItem('17*18898 Грейпфрут отборный 1кг', 147.62, 1642, 1, 89.9, 'кг'));
+  check(FiscalPrinter.PrintRecItem('18:3231971 Томаты 1кг', 239.34, 2522, 2, 94.9, 'кг'));
+  check(FiscalPrinter.PrintRecItem('19*3757 Бананы 1кг', 113.17, 2268, 1, 49.9, 'кг'));
+  check(FiscalPrinter.PrintRecItem('20*88 Маслины ITLV СУПЕР черные 350г', 99.9, 1000, 1, 99.9, 'шт'));
+  check(FiscalPrinter.PrintRecItem('21:18077 Петрушка пакет 100г', 24.9, 1000, 2, 24.9, 'шт'));
+  check(FiscalPrinter.PrintRecItem('22:18074 Укроп пакет 100г', 24.9, 1000, 2, 24.9, 'шт'));
+  check(FiscalPrinter.PrintRecItem('23*88 Маслины ITLV СУПЕР черные 350г', 99.9, 1000, 1, 99.9, 'шт'));
+  check(FiscalPrinter.PrintRecItem('24*3445023 Авокадо 1шт', 29.9, 1000, 1, 29.9, 'шт'));
+  check(FiscalPrinter.PrintRecItem('25*3445023 Авокадо 1шт', 29.9, 1000, 1, 29.9, 'шт'));
+  check(FiscalPrinter.PrintRecItem('26:3300463 Пакет КАРУСЕЛЬ 40х65', 6.04, 1000, 1, 6.04, 'шт'));
+  check(FiscalPrinter.PrintRecItem('27:3300463 Пакет КАРУСЕЛЬ 40х65', 6.04, 1000, 1, 6.04, 'шт'));
+  check(FiscalPrinter.PrintRecItem('28:3300463 Пакет КАРУСЕЛЬ 40х65', 6.04, 1000, 1, 6.04, 'шт'));
+  check(FiscalPrinter.PrintRecSubtotal(2177.73));
+  check(FiscalPrinter.PrintRecSubtotalAdjustment(1, 'ОКРУГЛЕНИЕ', 0.73));
+  check(FiscalPrinter.PrintRecTotal(2177, 2177, '0'));
+  Check(FiscalPrinter.EndFiscalReceipt(False));
 end;
 
 end.

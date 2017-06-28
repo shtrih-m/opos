@@ -114,11 +114,12 @@ begin
   Retalix := TRetalix.Create(GetDBPath, Context);
   try
     Retalix.Open;
+
     Text := 'Оператор: Щукина Оль';
     Check(Retalix.ParseOperator(Text, Cashier));
     CheckEquals('Старший смены Щукина Ольга', Cashier);
 
-    Text := 'Оператор:  ЩуКинА Ольга ID: 723645';
+    Text := 'Оператор:  Щукина Ольга ID: 723645';
     Check(Retalix.ParseOperator(Text, Cashier));
     CheckEquals('Старший смены Щукина Ольга', Cashier);
 

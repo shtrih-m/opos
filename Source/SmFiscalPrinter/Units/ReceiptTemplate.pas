@@ -14,10 +14,10 @@ type
   TReceiptTemplate = class
   private
     FTemplate: string;
-    function GetText(const FormatLine: string; const Item: TFSSaleItem): string;
   public
     constructor Create(const ATemplate: string);
     function getItemText(const Item: TFSSaleItem): string;
+    function GetText(const FormatLine: string; const Item: TFSSaleItem): string;
   end;
 
 implementation
@@ -33,6 +33,7 @@ end;
 // \% %51lTITLE%;%8lPRICE% %6lDISCOUNT%  %8lSUM%       %3QUAN%    %=$10TOTAL_TAX%
 function TReceiptTemplate.GetText(const FormatLine: string;
   const Item: TFSSaleItem): string;
+(*
 type
   TParserState = (stChar, stESC, stField);
 var
@@ -40,6 +41,7 @@ var
   i: Integer;
   Field: string;
   State: TParserState;
+*)
 begin
 (*
   Field := '';
@@ -79,10 +81,12 @@ begin
 end;
 
 function TReceiptTemplate.getItemText(const Item: TFSSaleItem): string;
+(*
 var
   i: Integer;
   Lines: TStrings;
   TemplateLines: TStrings;
+*)
 begin
 (*
   Lines := TStringList.Create;

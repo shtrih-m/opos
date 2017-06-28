@@ -177,9 +177,9 @@ end;
 
 procedure ODS(const S: string);
 begin
-//{$IFDEF DEBUG}
+{$IFDEF DEBUG}
   OutputDebugString(PChar(S));
-//{$ENDIF}
+{$ENDIF}
 end;
 
 { TLogFile }

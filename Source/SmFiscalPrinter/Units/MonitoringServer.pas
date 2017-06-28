@@ -130,7 +130,6 @@ begin
   end;
   ServerSocket.Free;
   ClientSocket.Free;
-  WSACleanup();
 end;
 
 procedure TMonitoringServer.Close;

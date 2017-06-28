@@ -32,58 +32,57 @@ type
 
   TFiscalPrinterImpl = class(TComponent, IFptrService, IFiscalPrinterInternal)
   private
-    function GetMalinaParams: TMalinaParams;
-    function GetLogger: TLogFile;
-  private
     FRetalix: TRetalix;
     FService: TFSService;
     FPrinter: ISharedPrinter;
     FReceiptPrinter: IReceiptPrinter;
 
-    FFilters: TFptrFilters;
-    FInitPrinter: Boolean;
     FFilter: TEscFilter;
-    FOposDevice: TOposServiceDevice19;
+    FInitPrinter: Boolean;
+    FLastErrorText: string;
+    FFilters: TFptrFilters;
+    FLastErrorCode: Integer;
     FReceipt: TCustomReceipt;
-    FCommandDefs: TCommandDefs;
-    FDIOHandlers: TDIOHandlers;
-    FJournal: TElectronicJournal;
-    FVatValues: array [1..4] of Integer;
-    FPrinterState: TFiscalPrinterState;
-    FDeviceMetrics: TDeviceMetrics;
     FDeviceEnabled: Boolean;
     FStatusLink: TNotifyLink;
     FConnectLink: TNotifyLink;
+    FCommandDefs: TCommandDefs;
+    FDIOHandlers: TDIOHandlers;
+    FJournal: TElectronicJournal;
     FDisconnectLink: TNotifyLink;
+    FDeviceMetrics: TDeviceMetrics;
     FReceiptItems: Integer;
     FDocumentNumber: Integer;
     FMonitoring: TMonitoringServer;
     FNonFiscalDoc: TNonFiscalDoc;
-    FLastErrorCode: Integer;
-    FLastErrorText: string;
+    FOposDevice: TOposServiceDevice19;
+    FPrinterState: TFiscalPrinterState;
+    FVatValues: array [1..4] of Integer;
 
     procedure CancelReceipt2;
-    procedure PrintTextFont(Station: Integer; Font: Integer; const Text: string);
-
-    function GetFilters: TFptrFilters;
-    function GetNonFiscalDoc: TNonFiscalDoc;
-    function GetPrinterSemaphoreName: string;
-
-    property NonFiscalDoc: TNonFiscalDoc read GetNonFiscalDoc;
-    procedure SetDevice(const Value: IFiscalPrinterDevice);
-    function AddDateStamp(const FileName: string): string;
-    function CreateNormalSalesReceipt(RecType: Integer): TCustomReceipt;
-    function GetConnection: IPrinterConnection;
-    procedure SetConnection(const Value: IPrinterConnection);
-    function GetHeaderLine(N: Integer): string;
-    function GetTrailerLine(N: Integer): string;
-    function ParseCashierName(const Line: string): string;
-    function HandleDriverError(E: EDriverError): TOPOSError;
     procedure UpdatePrinterDate;
     procedure CheckCapSetVatTable;
+    procedure SetDevice(const Value: IFiscalPrinterDevice);
+    procedure SetConnection(const Value: IPrinterConnection);
+    procedure PrintTextFont(Station: Integer; Font: Integer; const Text: string);
+
+    function GetLogger: TLogFile;
+    function GetFilters: TFptrFilters;
+    function GetMalinaParams: TMalinaParams;
+    function GetNonFiscalDoc: TNonFiscalDoc;
+    function GetPrinterSemaphoreName: string;
+    function GetConnection: IPrinterConnection;
+    function GetHeaderLine(N: Integer): string;
+    function GetParameters: TPrinterParameters;
+    function GetTrailerLine(N: Integer): string;
+    function AddDateStamp(const FileName: string): string;
+    function ParseCashierName(const Line: string): string;
+    function HandleDriverError(E: EDriverError): TOPOSError;
+    function CreateNormalSalesReceipt(RecType: Integer): TCustomReceipt;
     function EJHandleError(FPCode, ResultCodeExtended: Integer): Integer;
     function FSHandleError(FPCode, ResultCodeExtended: Integer): Integer;
-    function GetParameters: TPrinterParameters;
+
+    property NonFiscalDoc: TNonFiscalDoc read GetNonFiscalDoc;
   public
     procedure ReadHeader;
     procedure CheckEndDay;
@@ -1556,7 +1555,7 @@ begin
   FCapAdditionalLines := True;
   FCapAmountAdjustment := True;
   FCapAmountNotPaid := False;
-  FCapCheckTotal := False;
+  FCapCheckTotal := True;
   FCapCoverSensor := True;
   FCapDoubleWidth := True;
   FCapDuplicateReceipt := True;

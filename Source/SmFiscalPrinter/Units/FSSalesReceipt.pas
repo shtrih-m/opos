@@ -343,7 +343,6 @@ end;
 
 procedure TFSSalesReceipt.CheckTotal(Total: Currency);
 begin
-(*
   if Printer.Printer.CheckTotal then
   begin
     if Printer.GetSubtotal <> Total then
@@ -355,7 +354,6 @@ begin
       Printer.PrintCurrency(Parameters.SubtotalText, Total/100);
     end;
   end;
-*)
 end;
 
 procedure TFSSalesReceipt.CheckAdjAmount(AdjustmentType: Integer; Amount: Currency);
