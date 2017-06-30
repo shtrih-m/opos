@@ -115,7 +115,7 @@ AutoIncBuild=1
 MajorVer=1
 MinorVer=13
 Release=0
-Build=372
+Build=373
 Debug=0
 PreRelease=0
 Special=0
@@ -126,7 +126,7 @@ CodePage=1252
 [Version Info Keys]
 CompanyName=SHTRIH-M
 FileDescription=OPOS setup utility
-FileVersion=1.13.0.372
+FileVersion=1.13.0.373
 InternalName=OPOS setup
 LegalCopyright=SHTRIH-M © 2013
 LegalTrademarks=
@@ -137,6 +137,9 @@ Comments=http://www.shtrih-m.ru
 [HistoryLists\hlDebugSourcePath]
 Count=1
 Item0=C:\Components\DUnit\src\
+[HistoryLists\hlConditionals]
+Count=1
+Item0=MALINA
 [HistoryLists\hlUnitAliases]
 Count=1
 Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;
@@ -145,9 +148,10 @@ Count=2
 Item0=$(DELPHI)\Lib\Debug;C:\COMPON~1\JVCL\jcl\lib\d7\debug;C:\COMPON~1\jcl\lib\d7\debug
 Item1=$(DELPHI)\Lib\Debug
 [HistoryLists\hlUnitOutputDirectory]
-Count=2
-Item0=DCU
-Item1=..\lib\D7
+Count=3
+Item0=..\..\DCU
+Item1=DCU
+Item2=..\lib\D7
 [HistoryLists\hlOutputDirectorry]
 Count=1
 Item0=Bin

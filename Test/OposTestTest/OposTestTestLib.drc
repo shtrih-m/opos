@@ -15,6 +15,8 @@
 #define pnglang_EPNGCannotChangeSizeText 65076
 #define pnglang_EPNGOutMemoryText 65077
 #define pnglang_EPNGHeaderNotPresentText 65078
+#define TntSystem_SBufferOverflow 65079
+#define TntSystem_SInvalidUTF7 65080
 #define IdResourceStringsCore_RSTransparentProxyCanNotSupportUDP 65088
 #define IdResourceStringsCore_RSBufferMissingTerminator 65089
 #define IdResourceStringsCore_RSBufferInvalidStartPos 65090
@@ -472,6 +474,8 @@ BEGIN
 	pnglang_EPNGCannotChangeSizeText,	"The \"Portable Network Graphics\" image can not be resize by changing width and height properties. Try assigning the image from a bitmap."
 	pnglang_EPNGOutMemoryText,	"Some operation could not be performed because the system is out of resources. Close some windows and try again."
 	pnglang_EPNGHeaderNotPresentText,	"This operation is not valid because the current image contains no valid header."
+	TntSystem_SBufferOverflow,	"Buffer overflow"
+	TntSystem_SInvalidUTF7,	"Invalid UTF7"
 	IdResourceStringsCore_RSTransparentProxyCanNotSupportUDP,	"UDP Not supported by this proxy."
 	IdResourceStringsCore_RSBufferMissingTerminator,	"Buffer terminator must be specified."
 	IdResourceStringsCore_RSBufferInvalidStartPos,	"Buffer start position is invalid."

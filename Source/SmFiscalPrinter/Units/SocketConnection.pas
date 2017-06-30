@@ -4,7 +4,7 @@ interface
 
 uses
   // VCL
-  Windows, Messages, MConnect, ComObj, SysUtils, Variants, WinSock, SyncObjs,
+  Windows, Messages, Classes, MConnect, ComObj, SysUtils, Variants, WinSock, SyncObjs,
   // Indy
   IdTCPClient, IdGlobal, IdStack, IdWinsock2,
   // This
@@ -64,6 +64,60 @@ const
   ACK = #6;
   NAK = #21;
 
+var
+  Ports: TThreadList = nil;
+
+procedure DeletePorts;
+var
+  List: TList;
+begin
+  List := Ports.LockList;
+  try
+    while List.Count > 0 do
+    begin
+      TIdTCPClient(List[0]).Free;
+      List.Delete(0);
+    end;
+  finally
+    Ports.UnlockList;
+  end;
+end;
+
+function GetPortsCount: Integer;
+var
+  List: TList;
+begin
+  List := Ports.LockList;
+  try
+    Result := List.Count;
+  finally
+    Ports.UnlockList;
+  end;
+end;
+
+function GetPort(const Host: string): TIdTCPClient;
+var
+  i: Integer;
+  List: TList;
+begin
+  List := Ports.LockList;
+  try
+    for i := 0 to List.Count-1 do
+    begin
+      Result := TIdTCPClient(List[i]);
+      if Result.Host = Host then
+      begin
+        Exit;
+      end;
+    end;
+    Result := TIdTCPClient.Create();
+    Result.Host := Host;
+    Ports.Add(Result);
+  finally
+    Ports.UnlockList;
+  end;
+end;
+
 { TSocketConnection }
 
 constructor TSocketConnection.Create(const ARemoteHost: string; ARemotePort: Integer;
@@ -73,7 +127,7 @@ begin
   FLogger := ALogger;
   FRemoteHost := ARemoteHost;
   FRemotePort := ARemotePort;
-  FConnection := TIdTCPClient.Create(nil);
+  FConnection := GetPort(ARemoteHost);
   FLock := TCriticalsection.Create;
 end;
 
@@ -81,8 +135,6 @@ destructor TSocketConnection.Destroy;
 begin
   FLock.Free;
   Disconnect;
-  FConnection.Free;
-  FConnection := nil;
   inherited Destroy;
 end;
 
@@ -90,7 +142,6 @@ procedure TSocketConnection.Connect;
 begin
   if not FConnection.Connected then
   begin
-    FConnection.Host := FRemoteHost;
     FConnection.Port := FRemotePort;
     FConnection.ReuseSocket := rsTrue;
     FConnection.ReadTimeout := FByteTimeout;
@@ -380,5 +431,13 @@ begin
 
   until False;
 end;
+
+initialization
+  Ports := TThreadList.Create;
+
+finalization
+  DeletePorts;
+  Ports.Free;
+  Ports := nil;
 
 end.

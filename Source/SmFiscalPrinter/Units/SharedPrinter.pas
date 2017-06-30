@@ -95,7 +95,7 @@ type
     procedure SleepEx(TimeinMilliseconds: Integer);
     function GetLogger: TLogFile;
   public
-    constructor Create;
+    constructor Create(const ADeviceName: string);
     constructor Create2(ADevice: IFiscalPrinterDevice);
     destructor Destroy; override;
 
@@ -201,6 +201,8 @@ type
     property Logger: TLogFile read GetLogger;
   end;
 
+function GetPrinter(const DeviceName: string): ISharedPrinter;
+
 implementation
 
 function GetStringsCount(const Text: string): Integer;
@@ -216,12 +218,61 @@ begin
   end;
 end;
 
+var
+  Printers: TInterfaceList = nil;
+
+procedure DeletePrinters;
+begin
+  Printers.Lock;
+  try
+    while Printers.Count > 0 do
+    begin
+      TSharedPrinter(Printers[0]).Free;
+      Printers.Delete(0);
+    end;
+  finally
+    Printers.Unlock;
+  end;
+end;
+
+function GetPrintersCount: Integer;
+begin
+  Printers.Lock;
+  try
+    Result := Printers.Count;
+  finally
+    Printers.Unlock;
+  end;
+end;
+
+function GetPrinter(const DeviceName: string): ISharedPrinter;
+var
+  i: Integer;
+begin
+  Printers.Lock;
+  try
+    for i := 0 to Printers.Count-1 do
+    begin
+      Result := Printers[i] as ISharedPrinter;
+      if Result.DeviceName = DeviceName then
+      begin
+        Exit;
+      end;
+    end;
+    Result := TSharedPrinter.Create(DeviceName);
+    Printers.Add(Result);
+  finally
+    Printers.Unlock;
+  end;
+end;
+
 { TSharedPrinter }
 
-constructor TSharedPrinter.Create;
+constructor TSharedPrinter.Create(const ADeviceName: string);
 begin
   inherited Create;
   Create2(TFiscalPrinterDevice.Create);
+  FDeviceName := ADeviceName;
 end;
 
 constructor TSharedPrinter.Create2(ADevice: IFiscalPrinterDevice);
@@ -704,6 +755,7 @@ begin
   try
     Inc(FConnectCount);
     if FConnected then Exit;
+
     SearchDevice;
     FDeviceMetrics := Device.GetDeviceMetrics;
     if GetPrinterStatus.Flags.EJPresent then
@@ -1356,5 +1408,13 @@ function TSharedPrinter.GetLogger: TLogFile;
 begin
   Result := Parameters.Logger;
 end;
+
+initialization
+  Printers := TInterfaceList.Create;
+
+finalization
+  DeletePrinters;
+  Printers.Free;
+  Printers := nil;
 
 end.

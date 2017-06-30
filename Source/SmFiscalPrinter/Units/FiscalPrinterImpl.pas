@@ -498,7 +498,7 @@ end;
 constructor TFiscalPrinterImpl.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
-  FPrinter := TSharedPrinter.Create;
+  FPrinter := TSharedPrinter.Create('');
   FStatusLink := TNotifyLink.Create;
   FStatusLink.OnChange := StatusChanged;
   FConnectLink := TNotifyLink.Create;
@@ -4114,7 +4114,7 @@ end;
 
 procedure TFiscalPrinterImpl.PrintBarcode(const Barcode: TBarcodeRec);
 begin
-  Receipt.PrintBarcode(Barcode);
+  Device.PrintBarcode2(Barcode);
 end;
 
 procedure TFiscalPrinterImpl.CancelReceipt2;

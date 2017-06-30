@@ -1,19 +1,25 @@
 [Closed Files]
-File_0=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\Retalix.pas',0,1,1,29,5,0,0
-File_1=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FSSalesReceipt.pas',0,1,216,16,235,0,0
-File_2=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\ReceiptTemplate.pas',0,1,80,3,113,0,0
-File_3=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterImpl.pas',0,1,1018,20,1020,0,0
-File_4=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\oleXmlParams.pas',0,1,1,1,1,0,0
-File_5=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\oleCashDrawer.pas',0,1,1,42,17,0,0
-File_6=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\PrinterParameters.pas',0,1,450,30,452,0,0
-File_7=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\TemplateItem.pas',0,1,88,1,113,0,0
-File_8=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\DirectIOAPI.pas',0,1,1,17,14,0,0
-File_9=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\SharedPrinter.pas',0,1,1230,27,1233,0,0
+File_0=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\oleCashDrawer.pas',0,1,91,2,107,0,0
+File_1=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\SharedPrinter.pas',0,1,176,63,203,0,0
+File_2=SourceModule,'C:\projects\OPOSShtrih\Source\Opos\OposException.pas',0,1,59,44,60,0,0
+File_3=SourceModule,'c:\Program Files (x86)\Borland\Delphi7\Source\Rtl\Common\ComConst.pas',0,1,1,1,1,0,0
+File_4=SourceModule,'c:\Program Files (x86)\Borland\Delphi7\Source\Rtl\Common\ComObj.pas',0,1,926,10,930,0,0
+File_5=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\oleFiscalPrinter.pas',0,1,355,1,357,0,0
+File_6=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterImpl.pas',0,1,509,1,525,0,0
+File_7=SourceModule,'C:\projects\OPOSShtrih\Source\Shared\DebugUtils.pas',0,1,1,1,15,0,0
+File_8=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\oleXmlParams.pas',0,1,1,65,21,0,0
+File_9=SourceModule,'C:\projects\OPOSShtrih\Source\Shared\SerialPort.pas',0,1,393,1,403,0,0
 
 [Modules]
 Count=0
 EditWindowCount=0
 TypeLibWindowCount=3
+
+[C:\projects\OPOSShtrih\Source\SmFiscalPrinter\SmFiscalPrinter.dpr]
+FormState=0
+FormOnTop=0
+SymbolFile=C:\projects\OPOSShtrih\Source\SmFiscalPrinter\SmFiscalPrinter.dsm
+ModSinceCompile=0
 
 [C:\projects\OPOSShtrih\Source\OposShtrih.bpg]
 FormState=0
@@ -22,18 +28,12 @@ FormOnTop=0
 [C:\projects\OPOSShtrih\Source\OposConfig\OposConfig.dpr]
 FormState=0
 FormOnTop=0
+SymbolFile=C:\projects\OPOSShtrih\Source\OposConfig\OposConfig.dsm
+ModSinceCompile=1
 
 [C:\projects\OPOSShtrih\Source\OposTest\OposTest.dpr]
 FormState=0
 FormOnTop=0
-SymbolFile=C:\projects\OPOSShtrih\Source\OposTest\OposTest.dsm
-ModSinceCompile=1
-
-[C:\projects\OPOSShtrih\Source\SmFiscalPrinter\SmFiscalPrinter.dpr]
-FormState=0
-FormOnTop=0
-SymbolFile=C:\projects\OPOSShtrih\Source\SmFiscalPrinter\SmFiscalPrinter.dsm
-ModSinceCompile=0
 
 [C:\projects\OPOSShtrih\Source\SmFiscalPrinter\SmFiscalPrinter.todo]
 FormState=0
@@ -164,7 +164,10 @@ LRDockWidth=320
 Dockable=1
 
 [Breakpoints]
-Count=0
+Count=3
+Breakpoint0='C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\oleCashDrawer.pas',559,'',0,1,'',1,0,0,'',1,'','',''
+Breakpoint1='C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\SharedPrinter.pas',324,'',0,1,'',1,0,0,'',1,'','',''
+Breakpoint2='C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\SharedPrinter.pas',298,'',0,1,'',1,0,0,'',1,'','',''
 
 [AddressBreakpoints]
 Count=0
@@ -172,28 +175,30 @@ Count=0
 [Main Window]
 Create=1
 Visible=1
-State=0
-Left=1
-Top=10
-Width=1280
+State=2
+Left=12
+Top=0
+Width=1268
 Height=122
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=1264
+MaxWidth=1296
+MaxHeight=122
+ClientWidth=1280
 ClientHeight=84
 
 [ProjectManager]
 Create=1
 Visible=1
 State=0
-Left=0
-Top=135
-Width=575
-Height=534
+Left=-2
+Top=112
+Width=490
+Height=415
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=559
-ClientHeight=500
+ClientWidth=474
+ClientHeight=381
 TBDockHeight=681
 LRDockWidth=445
 Dockable=0
@@ -202,8 +207,8 @@ Dockable=0
 Create=1
 Visible=0
 State=0
-Left=323
-Top=290
+Left=184
+Top=280
 Width=965
 Height=723
 MaxLeft=-1
@@ -327,8 +332,8 @@ Dockable=1
 Create=1
 Visible=0
 State=0
-Left=133
-Top=387
+Left=378
+Top=364
 Width=779
 Height=575
 MaxLeft=-1
@@ -423,8 +428,8 @@ DockSiteType=0
 Create=1
 Visible=0
 State=0
-Left=480
-Top=322
+Left=492
+Top=194
 Width=648
 Height=524
 MaxLeft=-1

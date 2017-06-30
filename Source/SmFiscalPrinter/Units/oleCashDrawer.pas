@@ -104,7 +104,7 @@ implementation
 procedure ToleCashDrawer.Initialize;
 begin
   inherited Initialize;
-  FPrinter := TSharedPrinter.Create;
+  FPrinter := SharedPrinter.GetPrinter('');
   FLock := TCriticalSection.Create;
   FOposDevice := TOposServiceDevice19.Create(Logger);
   FParameters := TCashDrawerParameters.Create(Logger);
@@ -119,8 +119,8 @@ begin
   if FOposDevice.Opened then
     Close;
 
-  FPrinter := nil;
   FStatusLink.Free;
+  FPrinter := nil;
   FParameters.Free;
   FOposDevice.Free;
   FLock.Free;
@@ -251,7 +251,8 @@ begin
   try
     FOposDevice.Open(DeviceClass, DeviceName, GetEventInterface(pDispatch));
     LoadParameters(DeviceName);
-    FPrinter.DeviceName := Parameters.FptrDeviceName;
+
+    FPrinter := SharedPrinter.GetPrinter(Parameters.FptrDeviceName);
     FPrinter.AddStatusLink(FStatusLink);
     FPrinter.Open(Parameters.FptrDeviceName);
 
@@ -316,6 +317,7 @@ begin
   try
     SetDeviceEnabled(False);
     FOposDevice.ReleaseDevice;
+    Printer.ReleaseDevice;
 
     Result := ClearResult;
   except
@@ -397,6 +399,7 @@ begin
   Logger.Debug(Format('ToleCashDrawer.Claim(%d)', [Timeout]));
   try
     FOposDevice.ClaimDevice(Timeout);
+    Printer.ClaimDevice(Timeout);
     Result := ClearResult;
   except
     on E: Exception do
