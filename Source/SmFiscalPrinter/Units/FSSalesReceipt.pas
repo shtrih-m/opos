@@ -915,7 +915,7 @@ end;
 
 procedure TFSSalesReceipt.PrintFSSale(Item: TFSSaleItem);
 begin
-  if Device.DiscountMode = 0 then
+  if Device.CapDiscount then
   begin
     PrintFSSale0(Item);
   end else
@@ -1216,7 +1216,7 @@ var
   DiscountAmount: Int64;
   Discount: TAmountOperation;
 begin
-  if (Device.DiscountMode = 0) and GetCapReceiptDiscount2 then Exit;
+  if (Device.CapDiscount) and GetCapReceiptDiscount2 then Exit;
 
   DiscountAmount := 0;
   for i := FReceiptItems.Count-1 downto 0 do
@@ -1230,7 +1230,7 @@ begin
   end;
   if DiscountAmount = 0 then Exit;
 
-  if (Device.DiscountMode = 2) and (DiscountAmount < 100) then
+  if (Device.CapSubtotalRound) and (DiscountAmount < 100) then
   begin
     FAdjustmentAmount := DiscountAmount;
     for i := FReceiptItems.Count-1 downto 0 do

@@ -956,10 +956,10 @@ begin
   FCapSlpNearEndSensor := Device.GetModel.CapSlpNearEndSensor;
   FCapSlpPresent := Device.GetModel.CapSlpPresent;
   FStartHeaderLine := Device.GetModel.StartHeaderLine;
-  FCapAmountAdjustment := Device.DiscountMode = 0;
+  FCapAmountAdjustment := True;
   FCapPositiveAdjustment := FCapAmountAdjustment;
   FCapPercentAdjustment := FCapAmountAdjustment;
-  FCapSubPercentAdjustment := Device.DiscountMode = 0;
+  FCapSubPercentAdjustment := True;
   FCapSetVatTable := not Device.CapFiscalStorage;
   // update only at first connection
   FDayOpened := Status.Mode <> ECRMODE_CLOSED;

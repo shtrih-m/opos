@@ -29,6 +29,7 @@ type
     function GetCapFiscalStorage: Boolean;
     function GetCapReceiptDiscount2: Boolean;
     function GetParameters: TPrinterParameters;
+    function GetCapSubtotalRound: Boolean;
   public
     constructor Create;
     destructor Destroy; override;
@@ -270,6 +271,7 @@ type
     function GetContext: TDriverContext;
     function GetCapOpenReceipt: Boolean;
     function IsRecOpened: Boolean;
+    function GetCapDiscount: Boolean;
     procedure CancelReceipt;
 
     property Status: TPrinterStatus read FStatus write FStatus;
@@ -282,6 +284,7 @@ type
     property DeviceMetrics: TDeviceMetrics read FDeviceMetrics write FDeviceMetrics;
     property CapReceiptDiscount2: Boolean read GetCapReceiptDiscount2;
     property Logger: TLogFile read GetLogger;
+    property CapSubtotalRound: Boolean read GetCapSubtotalRound;
   end;
 
 implementation
@@ -1578,6 +1581,16 @@ end;
 procedure TMockFiscalPrinterDevice.CancelReceipt;
 begin
 
+end;
+
+function TMockFiscalPrinterDevice.GetCapDiscount: Boolean;
+begin
+  Result := False;
+end;
+
+function TMockFiscalPrinterDevice.GetCapSubtotalRound: Boolean;
+begin
+  Result := False;
 end;
 
 end.

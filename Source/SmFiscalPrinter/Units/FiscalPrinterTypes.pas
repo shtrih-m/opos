@@ -434,6 +434,8 @@ type
     function GetParameters: TPrinterParameters;
     function GetContext: TDriverContext;
     function IsRecOpened: Boolean;
+    function GetCapDiscount: Boolean;
+    function GetCapSubtotalRound: Boolean;
     procedure CancelReceipt;
 
     property IsOnline: Boolean read GetIsOnline;
@@ -452,6 +454,8 @@ type
     property CapReceiptDiscount2: Boolean read GetCapReceiptDiscount2;
     property Context: TDriverContext read GetContext;
     property CapOpenReceipt: Boolean read GetCapOpenReceipt;
+    property CapDiscount: Boolean read GetCapDiscount;
+    property CapSubtotalRound: Boolean read GetCapSubtotalRound;
   end;
 
   { IFiscalPrinterDevice2 }

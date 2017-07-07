@@ -26,6 +26,8 @@ type
   TFiscalPrinterDevice = class(TInterfacedObject, IFiscalPrinterDevice)
   private
     FContext: TDriverContext;
+    FCapSubtotalRound: Boolean;
+    FCapDiscount: Boolean;
     FCapBarLine: Boolean;
     FCapDrawScale: Boolean;
     FCapBarcode2D: Boolean;
@@ -156,6 +158,7 @@ type
     function GetLogger: TLogFile;
     function GetMalinaParams: TMalinaParams;
     function GetMaxGraphicsWidthInBytes: Integer;
+    function GetCapDiscount: Boolean;
   public
     constructor Create;
     destructor Destroy; override;
@@ -384,6 +387,7 @@ type
     function GetParameters: TPrinterParameters;
     function GetContext: TDriverContext;
     function IsRecOpened: Boolean;
+    function GetCapSubtotalRound: Boolean;
 
     property IsOnline: Boolean read GetIsOnline;
     property Tables: TPrinterTables read FTables;
@@ -404,6 +408,8 @@ type
     property Parameters: TPrinterParameters read GetParameters;
     property Logger: TLogFile read GetLogger;
     property MalinaParams: TMalinaParams read GetMalinaParams;
+    property CapDiscount: Boolean read GetCapDiscount;
+    property CapSubtotalRound: Boolean read GetCapSubtotalRound;
   end;
 
   { EDisabledException }
@@ -503,6 +509,16 @@ begin
   FFilter.Free;
   FContext.Free;
   inherited Destroy;
+end;
+
+function TFiscalPrinterDevice.GetCapSubtotalRound: Boolean;
+begin
+  Result := FCapSubtotalRound;
+end;
+
+function TFiscalPrinterDevice.GetCapDiscount: Boolean;
+begin
+  Result := FCapDiscount;
 end;
 
 function TFiscalPrinterDevice.GetParameters: TPrinterParameters;
@@ -5861,6 +5877,8 @@ begin
   begin
     FDiscountMode := ReadDiscountMode;
   end;
+  FCapSubtotalRound := FCapFiscalStorage and ((GetDeviceMetrics.Model = 19) or (DiscountMode = 2));
+  FCapDiscount := FCapFiscalStorage and (FDiscountMode = 0) and (GetDeviceMetrics.Model <> 19);
   FIsFiscalized := FCapFiscalStorage or (FLongPrinterStatus.RegistrationNumber <> 0);
 end;
 
@@ -7299,5 +7317,8 @@ begin
   Result := (GetPrinterStatus.Mode and $0F) = MODE_REC;
 end;
 
+(*
+DiscountMode = 0
+*)
 
 end.

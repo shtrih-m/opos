@@ -30,6 +30,7 @@ type
     function GetCapFiscalStorage: Boolean;
     function GetCapReceiptDiscount2: Boolean;
     function GetParameters: TPrinterParameters;
+    function GetCapSubtotalRound: Boolean;
   public
     FCapFiscalStorage: Boolean;
 
@@ -272,6 +273,7 @@ type
     procedure LoadTables(const Path: WideString);
     function FSReadTicket(var R: TFSTicket): Integer;
     function GetContext: TDriverContext;
+    function GetCapDiscount: Boolean;
     procedure CancelReceipt;
 
     property RecStation: TStrings read FRecStation;
@@ -286,6 +288,7 @@ type
     property DeviceMetrics: TDeviceMetrics read FDeviceMetrics write FDeviceMetrics;
     property CapReceiptDiscount2: Boolean read GetCapReceiptDiscount2;
     property Parameters: TPrinterParameters read GetParameters;
+    property CapSubtotalRound: Boolean read GetCapSubtotalRound;
   end;
 
 implementation
@@ -1592,6 +1595,16 @@ end;
 procedure TTextFiscalPrinterDevice.CancelReceipt;
 begin
 
+end;
+
+function TTextFiscalPrinterDevice.GetCapDiscount: Boolean;
+begin
+  Result := False;
+end;
+
+function TTextFiscalPrinterDevice.GetCapSubtotalRound: Boolean;
+begin
+  Result := False;
 end;
 
 end.
