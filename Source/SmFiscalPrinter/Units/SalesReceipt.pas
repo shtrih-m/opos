@@ -151,19 +151,17 @@ end;
 
 procedure TSalesReceipt.CheckTotal(Total: Currency);
 begin
-(*
   if Printer.Printer.CheckTotal then
   begin
     if Printer.GetSubtotal <> Total then
     begin
-      Printer.ReceiptCancel;
+      Device.CancelReceipt;
       State.SetState(FPTR_PS_MONITOR);
     end else
     begin
       Printer.PrintCurrency(Parameters.SubtotalText, Total/100);
     end;
   end;
-*)
 end;
 
 procedure TSalesReceipt.CheckAdjAmount(AdjustmentType: Integer; Amount: Currency);
@@ -553,10 +551,7 @@ begin
 
   if FIsVoided then
   begin
-    if Device.IsRecOpened then
-    begin
-      Printer.ReceiptCancel;
-    end;
+    Device.CancelReceipt;
   end else
   begin
     // If receipt is not opened then open

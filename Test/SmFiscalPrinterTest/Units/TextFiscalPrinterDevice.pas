@@ -272,6 +272,7 @@ type
     procedure LoadTables(const Path: WideString);
     function FSReadTicket(var R: TFSTicket): Integer;
     function GetContext: TDriverContext;
+    procedure CancelReceipt;
 
     property RecStation: TStrings read FRecStation;
     property JrnStation: TStrings read FJrnStation;
@@ -1586,6 +1587,11 @@ end;
 function TTextFiscalPrinterDevice.IsRecOpened: Boolean;
 begin
   Result := False;
+end;
+
+procedure TTextFiscalPrinterDevice.CancelReceipt;
+begin
+
 end;
 
 end.

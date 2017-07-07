@@ -347,7 +347,7 @@ begin
   begin
     if Printer.GetSubtotal <> Total then
     begin
-      Printer.ReceiptCancel;
+      Device.CancelReceipt;
       State.SetState(FPTR_PS_MONITOR);
     end else
     begin
@@ -1123,10 +1123,7 @@ begin
   State.CheckState(FPTR_PS_FISCAL_RECEIPT_ENDING);
   if FIsVoided then
   begin
-    if Device.IsRecOpened then
-    begin
-      Printer.ReceiptCancel;
-    end;
+    Device.CancelReceipt;
   end else
   begin
     OpenReceipt(FRecType);

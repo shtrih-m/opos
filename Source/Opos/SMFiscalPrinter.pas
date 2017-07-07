@@ -452,6 +452,7 @@ type
     function WriteCustomerAddress(const Address: WideString): Integer;
     function PrintText(const Text: WideString; Font: Integer): Integer;
     function ReadTable(Table, Row, Field: Integer; var Value: WideString): Integer;
+    function FSPrintCalcReport: Integer;
 
     property FontNumber: Integer read Get_FontNumber write Set_FontNumber;
   end;
@@ -1997,5 +1998,17 @@ begin
   Value := Format('%d;%d;%d', [Table, Row, Field]);
   Result := Driver.DirectIO(DIO_READ_TABLE, pData, Value);
 end;
+
+function TSMFiscalPrinter.FSPrintCalcReport: Integer;
+var
+  pData: Integer;
+  pString: WideString;
+begin
+  pData := 0;
+  pString := '';
+  Result := Driver.DirectIO(DIO_FS_PRINT_CALC_REPORT, pData, pString);
+end;
+
+
 
 end.

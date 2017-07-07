@@ -434,6 +434,7 @@ type
     function GetParameters: TPrinterParameters;
     function GetContext: TDriverContext;
     function IsRecOpened: Boolean;
+    procedure CancelReceipt;
 
     property IsOnline: Boolean read GetIsOnline;
     property Model: TPrinterModelRec read GetModel;

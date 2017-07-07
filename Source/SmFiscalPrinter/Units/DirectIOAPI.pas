@@ -55,6 +55,7 @@ const
   DIO_DISABLE_NEXT_HEADER       = 46; // disable next header printing
   DIO_WRITE_TABLE_FILE          = 47; // write table file
   DIO_FS_READ_DOCUMENT          = 48; // FS read document
+  DIO_FS_PRINT_CALC_REPORT      = 49; // FS print calculations report
 
   DIO_PRINT_TEXT2                = 1000;  // print text
 

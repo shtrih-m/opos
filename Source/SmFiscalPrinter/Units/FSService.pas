@@ -164,7 +164,7 @@ end;
 
 function TFSService.SendData(const Command: string): string;
 const
-  FSTimeout = 10000;
+  FSTimeout = 100000;
 var
   i: Integer;
   IdBytes: TIdBytes;

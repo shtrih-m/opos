@@ -673,6 +673,7 @@ begin
   TDIODisableNextHeader.CreateCommand(FDIOHandlers, DIO_DISABLE_NEXT_HEADER, Self);
   TDIOWriteTableFile.CreateCommand(FDIOHandlers, DIO_WRITE_TABLE_FILE, Self);
   TDIOFSReadDocument.CreateCommand(FDIOHandlers, DIO_FS_READ_DOCUMENT, Self);
+  TDIOFSPrintCalcReport.CreateCommand(FDIOHandlers, DIO_FS_PRINT_CALC_REPORT, Self);
 end;
 
 procedure TFiscalPrinterImpl.CreateDIOHandlers1;
@@ -728,6 +729,7 @@ begin
   TDIODisableNextHeader.CreateCommand(FDIOHandlers, DIO_DISABLE_NEXT_HEADER, Self);
   TDIOWriteTableFile.CreateCommand(FDIOHandlers, DIO_WRITE_TABLE_FILE, Self);
   TDIOFSReadDocument.CreateCommand(FDIOHandlers, DIO_FS_READ_DOCUMENT, Self);
+  TDIOFSPrintCalcReport.CreateCommand(FDIOHandlers, DIO_FS_PRINT_CALC_REPORT, Self);
 end;
 
 procedure TFiscalPrinterImpl.CreateDIOHandlers2;
@@ -784,6 +786,7 @@ begin
   TDIODisableNextHeader.CreateCommand(FDIOHandlers, DIO_DISABLE_NEXT_HEADER, Self);
   TDIOWriteTableFile.CreateCommand(FDIOHandlers, DIO_WRITE_TABLE_FILE, Self);
   TDIOFSReadDocument.CreateCommand(FDIOHandlers, DIO_FS_READ_DOCUMENT, Self);
+  TDIOFSPrintCalcReport.CreateCommand(FDIOHandlers, DIO_FS_PRINT_CALC_REPORT, Self);
 end;
 
 
@@ -1181,7 +1184,7 @@ begin
   WaitForPrinting;
   if Device.IsRecOpened then
   begin
-    Device.ReceiptCancel;
+    Device.CancelReceipt;
     PrintNonFiscalEnd;
   end else
   begin
@@ -3172,8 +3175,7 @@ begin
       begin
         FReceiptItems := 0;
         WaitForPrinting;
-        Device.ReceiptCancel;
-        WaitForPrinting;
+        Device.CancelReceipt;
       end;
     end;
     Filters.PrintRecItemAfter(Description, Price, Quantity, VatInfo,
@@ -4122,7 +4124,7 @@ begin
   WaitForPrinting;
   if Device.IsRecOpened then
   begin
-    Device.ReceiptCancel;
+    Device.CancelReceipt;
   end else
   begin
     Device.PrintText(PRINTER_STATION_REC, Parameters.VoidRecText);

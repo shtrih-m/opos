@@ -863,7 +863,7 @@ end;
 procedure TSharedPrinter.PrintFakeReceipt;
 begin
   Device.OpenReceipt(0);
-  Device.ReceiptCancel;
+  Device.CancelReceipt;
   Device.CutPaper(Parameters.CutType);
 end;
 

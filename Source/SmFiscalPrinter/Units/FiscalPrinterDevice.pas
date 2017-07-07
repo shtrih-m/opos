@@ -277,6 +277,7 @@ type
 
     function GetSubtotal: Int64;
     function ReceiptCancel: Integer;
+    procedure CancelReceipt;
     function Sale(Operation: TPriceReg): Integer;
     function Buy(Operation: TPriceReg): Integer;
     function RetSale(Operation: TPriceReg): Integer;
@@ -2023,9 +2024,14 @@ end;
 ******************************************************************************)
 
 procedure TFiscalPrinterDevice.CutPaper(CutType: Byte);
+var
+  Command: string;
+  Answer: string;
 begin
   FLogger.Debug(Format('CutPaper(%d)', [CutType]));
-  Execute(#$25 + IntToBin(GetUsrPassword, 4) + Chr(CutType));
+
+  Command := #$25 + IntToBin(GetUsrPassword, 4) + Chr(CutType);
+  ExecuteData(Command, Answer);
 end;
 
 procedure TFiscalPrinterDevice.FullCut;
@@ -3610,6 +3616,15 @@ begin
       FFilter.CancelReceipt;
   finally
     Stream.Free;
+  end;
+end;
+
+procedure TFiscalPrinterDevice.CancelReceipt;
+begin
+  if IsRecOpened then
+  begin
+    ReceiptCancel;
+    WaitForPrinting;
   end;
 end;
 

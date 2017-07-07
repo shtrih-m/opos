@@ -270,6 +270,7 @@ type
     function GetContext: TDriverContext;
     function GetCapOpenReceipt: Boolean;
     function IsRecOpened: Boolean;
+    procedure CancelReceipt;
 
     property Status: TPrinterStatus read FStatus write FStatus;
     property Parameters: TPrinterParameters read GetParameters;
@@ -1572,6 +1573,11 @@ end;
 function TMockFiscalPrinterDevice.IsRecOpened: Boolean;
 begin
   Result := False;
+end;
+
+procedure TMockFiscalPrinterDevice.CancelReceipt;
+begin
+
 end;
 
 end.

@@ -20,7 +20,7 @@ const
   CRLF = #13#10;
   DIO_CUSTOM_COMMAND = $FFFF;
 
-  DIODescriptions: array[1..27] of TDirectIODescription = (
+  DIODescriptions: array[1..28] of TDirectIODescription = (
     (Command: DIO_COMMAND_PRINTER_XML;
      Description: 'XML command';
      DescriptionEx:  'Data: Printer command code' + #13#10 +
@@ -164,8 +164,12 @@ const
      '  TicketMAC - Ticket message authentication code' + CRLF +
      '  DocumentNum - Document number' + CRLF +
      '  TicketData - Ticket data in hex format'
-     ;)
+     ;),
 
+    (Command: DIO_FS_PRINT_CALC_REPORT;
+     Description: 'FS: Print calculation report';
+     DescriptionEx: 'Data: not used' + CRLF +
+     'String: not used';)
   );
 
 function GetDIODescription(ADIOCommand: Integer): TDirectIODescription;

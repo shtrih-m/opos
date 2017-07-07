@@ -239,7 +239,6 @@ end;
 
 procedure TSocketConnection.SetCmdTimeout(Value: DWORD);
 begin
-  Logger.Debug('TSocketConnection.SetCmdTimeout(' + IntToStr(Value) + ')');
   FConnection.Socket.ReadTimeout := Value;
 end;
 

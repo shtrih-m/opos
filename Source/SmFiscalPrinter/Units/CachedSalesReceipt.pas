@@ -213,19 +213,17 @@ end;
 
 procedure TCachedSalesReceipt.CheckTotal(Total: Currency);
 begin
-(*
   if Printer.Printer.CheckTotal then
   begin
     if Printer.GetSubtotal <> Total then
     begin
-      Printer.ReceiptCancel;
+      Device.CancelReceipt;
       State.SetState(FPTR_PS_MONITOR);
     end else
     begin
       Printer.PrintCurrency(Parameters.SubtotalText, Total/100);
     end;
   end;
-*)
 end;
 
 procedure TCachedSalesReceipt.CheckAdjAmount(AdjustmentType: Integer; Amount: Currency);

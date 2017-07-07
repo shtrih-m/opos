@@ -726,6 +726,18 @@ type
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
+  { TDIOFSPrintCalcReport }
+
+  TDIOFSPrintCalcReport = class(TDIOHandler)
+  private
+    FPrinter: TFiscalPrinterImpl;
+  public
+    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
+      APrinter: TFiscalPrinterImpl);
+
+    procedure DirectIO(var pData: Integer; var pString: WideString); override;
+  end;
+
 implementation
 
 function BoolToStr(Value: Boolean): string;
@@ -2184,6 +2196,24 @@ begin
     FPrinter.Device.Check(FPrinter.Device.FSReadTicket(Ticket));
     pString := pString + TicketToStr(Ticket);
   end;
+end;
+
+{ TDIOFSPrintCalcReport }
+
+constructor TDIOFSPrintCalcReport.CreateCommand(AOwner: TDIOHandlers;
+  ACommand: Integer; APrinter: TFiscalPrinterImpl);
+begin
+  inherited Create(AOwner, ACommand);
+  FPrinter := APrinter;
+end;
+
+procedure TDIOFSPrintCalcReport.DirectIO(var pData: Integer;
+  var pString: WideString);
+var
+  R: TFSCalcReport;
+begin
+  FPrinter.Device.Check(FPrinter.Device.FSPrintCalcReport(R));
+  FPrinter.PrintReportEnd;
 end;
 
 end.
