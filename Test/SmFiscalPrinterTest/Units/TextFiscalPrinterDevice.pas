@@ -274,6 +274,7 @@ type
     function FSReadTicket(var R: TFSTicket): Integer;
     function GetContext: TDriverContext;
     function GetCapDiscount: Boolean;
+    function ReadLoaderVersion(var Version: string): Integer;
     procedure CancelReceipt;
 
     property RecStation: TStrings read FRecStation;
@@ -1605,6 +1606,13 @@ end;
 function TTextFiscalPrinterDevice.GetCapSubtotalRound: Boolean;
 begin
   Result := False;
+end;
+
+function TTextFiscalPrinterDevice.ReadLoaderVersion(
+  var Version: string): Integer;
+begin
+  Version := '127';
+  Result := 0;
 end;
 
 end.

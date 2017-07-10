@@ -7,7 +7,7 @@ uses
   Windows, SysUtils, WinSock, DateUtils,
   // This
   LogFile, NotifyThread, DebugUtils, SimpleSocket, FiscalPrinterTypes,
-  PrinterTypes, BStrUtil;
+  PrinterTypes, BStrUtil, OposFptrUtils;
 
 type
   { TMonitoringServer }
@@ -34,6 +34,8 @@ type
     function CommandECTP: string;
     function CommandInfo: string;
     function CommandFN: string;
+    function CommandFWVersion: string;
+
 
     property Device: IFiscalPrinterDevice read GetDevice;
   public
@@ -209,6 +211,27 @@ begin
     FSState.FSNumber, PrinterDateTimeToStr(FSFiscalResult.Date)])
 end;
 
+function TMonitoringServer.CommandFWVersion: string;
+var
+  MainVersion1: string;
+  MainVersion2: string;
+  LoaderVersion: string;
+  Status: TLongPrinterStatus;
+begin
+  Status := Device.GetLongStatus;
+
+  MainVersion1 := Format('%s.%s %d %s', [
+    Status.FirmwareVersionHi, Status.FirmwareVersionLo, Status.FirmwareBuild,
+    EncodeOposDate(PrinterDateToOposDate(Status.FirmwareDate))]);
+
+  MainVersion2 := Format('%s.%s %d %s', [
+    Status.FMVersionHi, Status.FMVersionLo, Status.FMBuild,
+    EncodeOposDate(PrinterDateToOposDate(Status.FMFirmwareDate))]);
+
+  Device.Check(Device.ReadLoaderVersion(LoaderVersion));
+  Result := Format('%s;%s;%s', [LoaderVersion, MainVersion1, MainVersion2]);
+end;
+
 // FN_UNIXTIME Дата активизации ФН в UNIXTIME
 function TMonitoringServer.CommandFN_UNIXTIME: string;
 var
@@ -348,6 +371,11 @@ begin
     if IsCommand(Command, 'OFD_SETTING') then
     begin
       Result := CommandOfdSEttings(Command);
+      Exit;
+    end;
+    if IsCommand(Command, 'FWVERSION') then
+    begin
+      Result := CommandFWVersion;
       Exit;
     end;
 

@@ -437,6 +437,7 @@ type
     function GetCapDiscount: Boolean;
     function GetCapSubtotalRound: Boolean;
     procedure CancelReceipt;
+    function ReadLoaderVersion(var Version: string): Integer;
 
     property IsOnline: Boolean read GetIsOnline;
     property Model: TPrinterModelRec read GetModel;

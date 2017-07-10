@@ -159,6 +159,7 @@ type
     function GetMalinaParams: TMalinaParams;
     function GetMaxGraphicsWidthInBytes: Integer;
     function GetCapDiscount: Boolean;
+    function ReadLoaderVersion(var Version: string): Integer;
   public
     constructor Create;
     destructor Destroy; override;
@@ -7317,8 +7318,18 @@ begin
   Result := (GetPrinterStatus.Mode and $0F) = MODE_REC;
 end;
 
-(*
-DiscountMode = 0
-*)
+function TFiscalPrinterDevice.ReadLoaderVersion(var Version: string): Integer;
+var
+  Answer: string;
+  Command: string;
+begin
+  Command := #$FE#$EC#$00#$00#$00#$00;
+  Result := ExecuteData(Command, Answer);
+  if Result = 0 then
+  begin
+    Version := IntTostr(BinToInt(Answer, 1, 4));
+  end;
+end;
+
 
 end.

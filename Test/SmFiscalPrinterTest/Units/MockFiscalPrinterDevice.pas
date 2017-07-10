@@ -272,6 +272,7 @@ type
     function GetCapOpenReceipt: Boolean;
     function IsRecOpened: Boolean;
     function GetCapDiscount: Boolean;
+    function ReadLoaderVersion(var Version: string): Integer;
     procedure CancelReceipt;
 
     property Status: TPrinterStatus read FStatus write FStatus;
@@ -1591,6 +1592,12 @@ end;
 function TMockFiscalPrinterDevice.GetCapSubtotalRound: Boolean;
 begin
   Result := False;
+end;
+
+function TMockFiscalPrinterDevice.ReadLoaderVersion(
+  var Version: string): Integer;
+begin
+  Result := 0;
 end;
 
 end.

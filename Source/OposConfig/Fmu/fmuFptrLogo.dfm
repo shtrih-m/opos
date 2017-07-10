@@ -20,20 +20,26 @@ object fmFptrLogo: TfmFptrLogo
   object GroupBox1: TGroupBox
     Left = 0
     Top = 0
-    Width = 473
-    Height = 361
+    Width = 475
+    Height = 362
+    Align = alClient
     TabOrder = 0
-    object Image: TImage
-      Left = 16
-      Top = 24
-      Width = 297
-      Height = 257
-    end
+    DesignSize = (
+      475
+      362)
     object Bevel1: TBevel
       Left = 8
       Top = 16
       Width = 313
       Height = 273
+      Anchors = [akLeft, akTop, akRight]
+    end
+    object Image: TImage
+      Left = 16
+      Top = 24
+      Width = 297
+      Height = 257
+      Anchors = [akLeft, akTop, akRight]
     end
     object lblLogoPosition: TLabel
       Left = 144
@@ -54,6 +60,7 @@ object fmFptrLogo: TfmFptrLogo
       Top = 48
       Width = 51
       Height = 13
+      Anchors = [akTop, akRight]
       Caption = 'lblProgress'
     end
     object chbLogoEnabled: TCheckBox
@@ -91,6 +98,7 @@ object fmFptrLogo: TfmFptrLogo
       Top = 168
       Width = 91
       Height = 25
+      Anchors = [akTop, akRight]
       Caption = 'Print'
       TabOrder = 4
       OnClick = btnPrintLogoClick
@@ -100,6 +108,7 @@ object fmFptrLogo: TfmFptrLogo
       Top = 136
       Width = 91
       Height = 25
+      Anchors = [akTop, akRight]
       Caption = 'Load'
       TabOrder = 5
       OnClick = btnLoadClick
@@ -109,6 +118,7 @@ object fmFptrLogo: TfmFptrLogo
       Top = 104
       Width = 91
       Height = 25
+      Anchors = [akTop, akRight]
       Caption = 'Open'
       TabOrder = 6
       OnClick = btnOpenClick
@@ -118,6 +128,7 @@ object fmFptrLogo: TfmFptrLogo
       Top = 72
       Width = 129
       Height = 17
+      Anchors = [akTop, akRight]
       Caption = 'Center logo on page'
       TabOrder = 7
     end
@@ -126,6 +137,7 @@ object fmFptrLogo: TfmFptrLogo
       Top = 24
       Width = 129
       Height = 16
+      Anchors = [akTop, akRight]
       Step = 1
       TabOrder = 8
     end

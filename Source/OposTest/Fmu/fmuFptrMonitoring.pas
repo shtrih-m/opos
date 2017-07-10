@@ -33,7 +33,7 @@ implementation
 procedure TfmFptrMonitoring.btnReadStatusClick(Sender: TObject);
 const
   CRLF = #13#10;
-  Commands: array [0..11] of String = (
+  Commands: array [0..12] of String = (
   'STATUS',
   'INFO',
   'ECTP',
@@ -45,7 +45,8 @@ const
   'CASH_REG 10',
   'OPER_REG 1',
   'OPER_REG 10',
-  'OFD_SETTING');
+  'OFD_SETTING',
+  'FWVERSION');
 
 var
   i: Integer;
@@ -59,18 +60,18 @@ begin
     Connection.Host := edtHost.Text;
     Connection.Port := StrToInt(edtPort.Text);
     Connection.ReadTimeout := 1000;
-    if not Connection.Connected then
-    begin
-      Connection.ConnectTimeout := 1000;
-      Connection.Connect();
-    end;
+    Connection.ConnectTimeout := 1000;
     for i := Low(Commands) to High(Commands) do
     begin
+      if not Connection.Connected then
+      begin
+        Connection.Connect();
+      end;
       Connection.Socket.WriteLn(Commands[i]);
       Answer := Trim(Connection.Socket.ReadLn());
       Memo.Lines.Add(Format('%s: %s', [Commands[i], Answer]));
+      Connection.Disconnect;
     end;
-    Connection.Disconnect;
   finally
     Connection.Free;
     EnableButtons(True);
