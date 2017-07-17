@@ -1140,63 +1140,68 @@ var
   CloseParams2: TFSCloseReceiptParams2;
   CloseResult2: TFSCloseReceiptResult2;
 begin
-  State.CheckState(FPTR_PS_FISCAL_RECEIPT_ENDING);
-  if FIsVoided then
-  begin
-    Device.CancelReceipt;
-  end else
-  begin
-    OpenReceipt(FRecType);
-
-    PrintRecMessages(0);
-    UpdateDiscounts;
-    PrintReceiptItems;
-    PrintDiscounts;
-    BeforeCloseReceipt;
-    if AdditionalText <> '' then
-      PrintText2(AdditionalText);
-
-    if Device.CapFSCloseReceipt2 then
+  Device.Lock;
+  try
+    State.CheckState(FPTR_PS_FISCAL_RECEIPT_ENDING);
+    if FIsVoided then
     begin
-      CloseParams2.Payments := FPayments;
-      CloseParams2.Discount := FAdjustmentAmount;
-      CloseParams2.TaxAmount[1] := Parameters.TaxAmount1;
-      CloseParams2.TaxAmount[2] := Parameters.TaxAmount2;
-      CloseParams2.TaxAmount[3] := Parameters.TaxAmount3;
-      CloseParams2.TaxAmount[4] := Parameters.TaxAmount4;
-      CloseParams2.TaxAmount[5] := Parameters.TaxAmount5;
-      CloseParams2.TaxAmount[6] := Parameters.TaxAmount6;
-      CloseParams2.TaxSystem := Parameters.TaxSystem;
-      CloseParams2.Text := Parameters.CloseRecText;
-      Device.ReceiptClose2(CloseParams2, CloseResult2);
+      Device.CancelReceipt;
     end else
     begin
-      CloseParams.CashAmount := FPayments[0];
-      CloseParams.Amount2 := FPayments[1];
-      CloseParams.Amount3 := FPayments[2];
-      CloseParams.Amount4 := FPayments[3];
-      CloseParams.PercentDiscount := FAdjustmentAmount;
-      CloseParams.Tax1 := 0;
-      CloseParams.Tax2 := 0;
-      CloseParams.Tax3 := 0;
-      CloseParams.Tax4 := 0;
-      CloseParams.Text := Parameters.CloseRecText;
-      Printer.ReceiptClose(CloseParams);
-    end;
+      OpenReceipt(FRecType);
 
-    try
-      Printer.WaitForPrinting;
-      PrintBarcodes;
-      Printer.WaitForPrinting;
-      PrintRecMessages(1);
-      PrintRecMessages;
-    except
-      on E: Exception do
+      PrintRecMessages(0);
+      UpdateDiscounts;
+      PrintReceiptItems;
+      PrintDiscounts;
+      BeforeCloseReceipt;
+      if AdditionalText <> '' then
+        PrintText2(AdditionalText);
+
+      if Device.CapFSCloseReceipt2 then
       begin
-        Logger.Error(E.Message);
+        CloseParams2.Payments := FPayments;
+        CloseParams2.Discount := FAdjustmentAmount;
+        CloseParams2.TaxAmount[1] := Parameters.TaxAmount1;
+        CloseParams2.TaxAmount[2] := Parameters.TaxAmount2;
+        CloseParams2.TaxAmount[3] := Parameters.TaxAmount3;
+        CloseParams2.TaxAmount[4] := Parameters.TaxAmount4;
+        CloseParams2.TaxAmount[5] := Parameters.TaxAmount5;
+        CloseParams2.TaxAmount[6] := Parameters.TaxAmount6;
+        CloseParams2.TaxSystem := Parameters.TaxSystem;
+        CloseParams2.Text := Parameters.CloseRecText;
+        Device.ReceiptClose2(CloseParams2, CloseResult2);
+      end else
+      begin
+        CloseParams.CashAmount := FPayments[0];
+        CloseParams.Amount2 := FPayments[1];
+        CloseParams.Amount3 := FPayments[2];
+        CloseParams.Amount4 := FPayments[3];
+        CloseParams.PercentDiscount := FAdjustmentAmount;
+        CloseParams.Tax1 := 0;
+        CloseParams.Tax2 := 0;
+        CloseParams.Tax3 := 0;
+        CloseParams.Tax4 := 0;
+        CloseParams.Text := Parameters.CloseRecText;
+        Printer.ReceiptClose(CloseParams);
       end;
+
+      try
+        Printer.WaitForPrinting;
+        PrintBarcodes;
+        Printer.WaitForPrinting;
+        PrintRecMessages(1);
+        PrintRecMessages;
+      except
+        on E: Exception do
+        begin
+          Logger.Error(E.Message);
+        end;
+      end;
+      ClearReceipt;
     end;
-    ClearReceipt;
+  finally
+    Device.Unlock;
   end;
 end;
 

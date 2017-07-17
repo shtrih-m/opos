@@ -521,7 +521,7 @@ end;
 
 function TFiscalPrinterDevice.GetCapFSCloseReceipt2: Boolean;
 begin
-  Result := CapFSCloseReceipt2;
+  Result := FCapFSCloseReceipt2;
 end;
 
 function TFiscalPrinterDevice.GetCapSubtotalRound: Boolean;
@@ -5782,13 +5782,10 @@ var
   RowsPerCommand: Integer;
   LineLength: Integer;
   RowCount: Integer;
-  GraphicsWidthInBytes: Integer;
 const
   BytesPerCommand = 240;
 begin
   Progress := 0;
-
-  GraphicsWidthInBytes := 64;
   LineLength := Length(GetLineData(Bitmap, 1));
   RowsPerCommand := BytesPerCommand div LineLength;
   CommandCount := (Bitmap.Height + RowsPerCommand -1) div RowsPerCommand;
@@ -6705,25 +6702,30 @@ var
   BlockSize: Integer;
   BlockRequest: TFSBlockRequest;
 begin
-  BlockData := '';
-  BlockRequest.Offset := 0;
-  Check(FSReadStatus(Status));
-  if Status.DataSize = 0 then Exit;
-  if Status.BlockSize = 0 then Exit;
+  Lock;
+  try
+    BlockData := '';
+    BlockRequest.Offset := 0;
+    Check(FSReadStatus(Status));
+    if Status.DataSize = 0 then Exit;
+    if Status.BlockSize = 0 then Exit;
 
-  Count := (Status.DataSize + Status.BlockSize-1) div Status.BlockSize;
-  DataSize := Status.DataSize;
-  for i := 0 to Count-1 do
-  begin
-    BlockSize := Min(Status.BlockSize, DataSize);
-    BlockRequest.Offset := i*Status.BlockSize;
-    BlockRequest.Size := BlockSize;
-    Check(FSReadBlock(BlockRequest, Block));
-    BlockData := BlockData + Block;
-    DataSize := DataSize - BlockSize;
+    Count := (Status.DataSize + Status.BlockSize-1) div Status.BlockSize;
+    DataSize := Status.DataSize;
+    for i := 0 to Count-1 do
+    begin
+      BlockSize := Min(Status.BlockSize, DataSize);
+      BlockRequest.Offset := i*Status.BlockSize;
+      BlockRequest.Size := BlockSize;
+      Check(FSReadBlock(BlockRequest, Block));
+      BlockData := BlockData + Block;
+      DataSize := DataSize - BlockSize;
+    end;
+    BlockData := Copy(BlockData, 1, Status.DataSize);
+    Result := BlockData;
+  finally
+    Unlock;
   end;
-  BlockData := Copy(BlockData, 1, Status.DataSize);
-  Result := BlockData;
 end;
 
 procedure TFiscalPrinterDevice.FSWriteBlockData(const BlockData: string);
@@ -6733,17 +6735,22 @@ var
   BlockSize: Byte;
   Block: TFSBlock;
 begin
-  Check(FSStartWrite(Length(BlockData), BlockSize));
-  if BlockSize = 0 then
-    raise Exception.Create('BlockSize = 0');
+  Lock;
+  try
+    Check(FSStartWrite(Length(BlockData), BlockSize));
+    if BlockSize = 0 then
+      raise Exception.Create('BlockSize = 0');
 
-  Count := (Length(BlockData)+ BlockSize-1) div BlockSize;
-  for i := 0 to Count-1 do
-  begin
-    Block.Offset := BlockSize*i;
-    Block.Size := BlockSize;
-    Block.Data := Copy(BlockData, BlockSize*i + 1, BlockSize);
-    Check(FSWriteBlock(Block));
+    Count := (Length(BlockData)+ BlockSize-1) div BlockSize;
+    for i := 0 to Count-1 do
+    begin
+      Block.Offset := BlockSize*i;
+      Block.Size := BlockSize;
+      Block.Data := Copy(BlockData, BlockSize*i + 1, BlockSize);
+      Check(FSWriteBlock(Block));
+    end;
+  finally
+    Unlock;
   end;
 end;
 

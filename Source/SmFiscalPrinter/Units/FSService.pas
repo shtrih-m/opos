@@ -35,9 +35,6 @@ type
 
   TFSService = class
   private
-    function GetLogger: ILogFile;
-    function SendData2(const Command: string): string;
-  private
     FStopFlag: Boolean;
     FThread: TNotifyThread;
     FParams: TFSServiceParams;
@@ -46,6 +43,7 @@ type
     procedure Stop;
     procedure Start;
     procedure CheckFS;
+    function GetLogger: ILogFile;
     function SendData(const Command: string): string;
     procedure ThreadProc(Sender: TObject);
     procedure Sleep2(Timeout: Integer);
@@ -96,6 +94,7 @@ begin
   TickCount := GetTickCount;
   while True do
   begin
+    Sleep(20);
     if FStopFlag then Break;
     if Integer(GetTickCount) > (TickCount + Timeout) then Break;
   end;
@@ -135,44 +134,17 @@ var
   BlockData: string;
 begin
   try
-    FDevice.Lock;
-    try
-      BlockData := FDevice.FSReadBlockData;
-      if Length(BlockData) = 0 then Exit;
+    BlockData := FDevice.FSReadBlockData;
+    if Length(BlockData) = 0 then Exit;
 
-      Answer := SendData2(BlockData);
+    Answer := SendData(BlockData);
 
-      if Length(Answer) = 0 then Exit;
-      FDevice.FSWriteBlockData(Answer);
-    finally
-      FDevice.Unlock;
-    end;
+    if Length(Answer) = 0 then Exit;
+    FDevice.FSWriteBlockData(Answer);
   except
     on E: Exception do
     begin
-      Logger.Error(E.Message);
-    end;
-  end;
-end;
-
-function TFSService.SendData2(const Command: string): string;
-const
-  SendDataRepearCount = 3;
-var
-  i: Integer;
-begin
-  Result := '';
-  for i := 1 to SendDataRepearCount do
-  begin
-    try
-      Result := SendData(Command);
-      Break;
-    except
-      on E: Exception do
-      begin
-        Logger.Debug('SendData failed, ' + E.Message);
-        if i = SendDataRepearCount then raise;
-      end;
+      Logger.Error('FSService: ' + E.Message);
     end;
   end;
 end;
@@ -195,16 +167,17 @@ begin
     Result[i] := Chr(Data[i-1]);
 end;
 
-
-
 function TFSService.SendData(const Command: string): string;
 const
   FSTimeout = 100000;
 var
+  i: Integer;
   IdBytes: TIdBytes;
   Header: TOFDHeader;
   Connection: TIdTCPClient;
 begin
+  Logger.Debug(Format('FSSErvice.Connect(%s:%d)', [FParams.Host, FParams.Port]));
+
   Connection := TIdTCPClient.Create(nil);
   try
     Connection.Host := FParams.Host;
@@ -213,13 +186,19 @@ begin
     Connection.Connect;
     Connection.UseNagle := False;
     IdBytes := StrToIdBytes(Command);
+
+    Logger.Debug('TFSService.SendData');
+    Logger.DebugData('-> ', Command);
+
     Connection.IOHandler.Write(IdBytes, Length(IdBytes));
 
     Result := '';
-    Connection.Socket.ReadBytes(IdBytes, Sizeof(Header));
-    Move(IdBytes[0], Header, Sizeof(Header));
-    Connection.Socket.ReadBytes(IdBytes, Header.Size, True);
-    Result := IdBytesToStr(IdBytes);
+    for i := 1 to Sizeof(Header) do
+      Result := Result + Char(Connection.Socket.ReadByte);
+    Move(Result[1], Header, Sizeof(Header));
+    for i := 0 to Header.Size-1 do
+      Result := Result + Char(Connection.Socket.ReadByte);
+    Logger.DebugData('<- ', Result);
     Connection.Disconnect;
   finally
     Connection.Free;
