@@ -94,10 +94,10 @@ type
   TDataEvent = class(TOposEvent)
   private
     FStatus: Integer;
-    FLogger: TLogFile;
-    property Logger: TLogFile read FLogger;
+    FLogger: ILogFile;
+    property Logger: ILogFile read FLogger;
   public
-    constructor Create(AStatus: Integer; AEventType: Integer; ALogger: TLogFile);
+    constructor Create(AStatus: Integer; AEventType: Integer; ALogger: ILogFile);
     function GetID: Integer; override;
     procedure Execute(EventInterface: IOposEvents); override;
     property Status: Integer read FStatus;
@@ -110,12 +110,12 @@ type
     FEventNumber: Integer;
     FData: Integer;
     FString: WideString;
-    FLogger: TLogFile;
-    property Logger: TLogFile read FLogger;
+    FLogger: ILogFile;
+    property Logger: ILogFile read FLogger;
   public
     constructor Create(EventNumber: Integer;
       const pData: Integer;
-      const pString: WideString; ALogger: TLogFile);
+      const pString: WideString; ALogger: ILogFile);
 
     function GetID: Integer; override;
     procedure Execute(EventInterface: IOposEvents); override;
@@ -129,12 +129,12 @@ type
     FResultCodeExtended: Integer;
     FErrorLocus: Integer;
     FErrorResponse: Integer;
-    FLogger: TLogFile;
-    property Logger: TLogFile read FLogger;
+    FLogger: ILogFile;
+    property Logger: ILogFile read FLogger;
   public
     constructor Create(ResultCode: Integer;
       ResultCodeExtended: Integer;
-      ErrorLocus: Integer; ALogger: TLogFile);
+      ErrorLocus: Integer; ALogger: ILogFile);
 
     function GetID: Integer; override;
     procedure Execute(EventInterface: IOposEvents); override;
@@ -145,10 +145,10 @@ type
   TOutputCompleteEvent = class(TOposEvent)
   private
     FOutputID: Integer;
-    FLogger: TLogFile;
-    property Logger: TLogFile read FLogger;
+    FLogger: ILogFile;
+    property Logger: ILogFile read FLogger;
   public
-    constructor Create(OutputID: Integer; ALogger: TLogFile);
+    constructor Create(OutputID: Integer; ALogger: ILogFile);
 
     function GetID: Integer; override;
     procedure Execute(EventInterface: IOposEvents); override;
@@ -159,10 +159,10 @@ type
   TStatusUpdateEvent = class(TOposEvent)
   private
     FData: Integer;
-    FLogger: TLogFile;
-    property Logger: TLogFile read FLogger;
+    FLogger: ILogFile;
+    property Logger: ILogFile read FLogger;
   public
-    constructor Create(Data: Integer; ALogger: TLogFile);
+    constructor Create(Data: Integer; ALogger: ILogFile);
     function GetID: Integer; override;
     procedure Execute(EventInterface: IOposEvents); override;
     property Data: Integer read FData;
@@ -345,7 +345,7 @@ end;
 { TDataEvent }
 
 constructor TDataEvent.Create(AStatus: Integer; AEventType: Integer;
-  ALogger: TLogFile);
+  ALogger: ILogFile);
 begin
   inherited Create;
   FStatus := AStatus;
@@ -377,7 +377,7 @@ end;
 { TDirectIOEvent }
 
 constructor TDirectIOEvent.Create(EventNumber: Integer;
-  const pData: Integer; const pString: WideString; ALogger: TLogFile);
+  const pData: Integer; const pString: WideString; ALogger: ILogFile);
 begin
   inherited Create;
   FEventNumber := EventNumber;
@@ -411,7 +411,7 @@ end;
 { TErrorEvent }
 
 constructor TErrorEvent.Create(ResultCode, ResultCodeExtended,
-  ErrorLocus: Integer; ALogger: TLogFile);
+  ErrorLocus: Integer; ALogger: ILogFile);
 begin
   inherited Create;
   FResultCode := ResultCode;
@@ -445,7 +445,7 @@ end;
 
 { TOutputCompleteEvent }
 
-constructor TOutputCompleteEvent.Create(OutputID: Integer; ALogger: TLogFile);
+constructor TOutputCompleteEvent.Create(OutputID: Integer; ALogger: ILogFile);
 begin
   inherited Create;
   FOutputID := OutputID;
@@ -476,7 +476,7 @@ end;
 
 { TStatusUpdateEvent }
 
-constructor TStatusUpdateEvent.Create(Data: Integer; ALogger: TLogFile);
+constructor TStatusUpdateEvent.Create(Data: Integer; ALogger: ILogFile);
 begin
   inherited Create;
   FData := Data;

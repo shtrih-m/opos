@@ -16,7 +16,7 @@ type
 
   ToleFiscalPrinter = class(TAutoObject, IFiscalPrinterService_1_12)
   private
-    function GetLogger: TLogFile;
+    function GetLogger: ILogFile;
   private
     FLock: TCriticalSection;
     FDriver: TFiscalPrinterImpl;
@@ -26,7 +26,7 @@ type
     function GetLock: TCriticalSection;
     function GetDriver: TFiscalPrinterImpl;
 
-    property Logger: TLogFile read GetLogger;
+    property Logger: ILogFile read GetLogger;
     property Driver: TFiscalPrinterImpl read GetDriver;
   public
     constructor Create(ADriver: TFiscalPrinterImpl);
@@ -359,7 +359,7 @@ begin
   inherited Destroy;
 end;
 
-function ToleFiscalPrinter.GetLogger: TLogFile;
+function ToleFiscalPrinter.GetLogger: ILogFile;
 begin
   Result := Driver.Logger;
 end;

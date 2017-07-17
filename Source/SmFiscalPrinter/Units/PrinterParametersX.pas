@@ -10,22 +10,22 @@ uses
   PrinterParametersRegIBT,
   PrinterParametersIni;
 
-function ReadEncoding(const DeviceName: string; Logger: TLogFile): Integer;
+function ReadEncoding(const DeviceName: string; Logger: ILogFile): Integer;
 procedure LoadParameters(Item: TPrinterParameters; const DeviceName: string;
-  Logger: TLogFile);
+  Logger: ILogFile);
 
 procedure SaveParameters(Item: TPrinterParameters; const DeviceName: string;
-  Logger: TLogFile);
+  Logger: ILogFile);
 
 procedure SaveUsrParameters(Item: TPrinterParameters; const DeviceName: string;
-  Logger: TLogFile);
+  Logger: ILogFile);
 
 var
   LoadParametersEnabled: Boolean = True;
 
 implementation
 
-function ReadEncoding(const DeviceName: string; Logger: TLogFile): Integer;
+function ReadEncoding(const DeviceName: string; Logger: ILogFile): Integer;
 var
   Storage: Integer;
 begin
@@ -40,7 +40,7 @@ begin
 end;
 
 procedure LoadParameters(Item: TPrinterParameters; const DeviceName: string;
-  Logger: TLogFile);
+  Logger: ILogFile);
 begin
   if not LoadParametersEnabled then Exit;
   Item.Storage := TPrinterParametersIni.ReadStorage(DeviceName);
@@ -54,7 +54,7 @@ begin
 end;
 
 procedure SaveParameters(Item: TPrinterParameters; const DeviceName: string;
-  Logger: TLogFile);
+  Logger: ILogFile);
 begin
   TPrinterParametersIni.SaveStorage(DeviceName, Item.Storage);
   case Item.Storage of
@@ -67,7 +67,7 @@ begin
 end;
 
 procedure SaveUsrParameters(Item: TPrinterParameters; const DeviceName: string;
-  Logger: TLogFile);
+  Logger: ILogFile);
 begin
   case Item.Storage of
     StorageIni    : SaveUsrParametersIni(Item, DeviceName, Logger);

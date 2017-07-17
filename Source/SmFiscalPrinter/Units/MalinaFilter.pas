@@ -26,7 +26,7 @@ type
   private
     function GetParameters: TPrinterParameters;
     function GetParams: TMalinaParams;
-    function GetLogger: TLogFile;
+    function GetLogger: ILogFile;
   private
     FCard: TMalinaCard;
     FPrinter: ISharedPrinter;
@@ -34,7 +34,7 @@ type
     FItemCount: TDepartmentTotals;
 
     property Card: TMalinaCard read FCard;
-    property Logger: TLogFile read GetLogger;
+    property Logger: ILogFile read GetLogger;
     property Params: TMalinaParams read GetParams;
     property Printer: ISharedPrinter read FPrinter;
     property Parameters: TPrinterParameters read GetParameters;
@@ -171,7 +171,7 @@ begin
   Result := FPrinter.Device.Context.MalinaParams;
 end;
 
-function TMalinaFilter.GetLogger: TLogFile;
+function TMalinaFilter.GetLogger: ILogFile;
 begin
   Result := FPrinter.Device.Context.Logger;
 end;

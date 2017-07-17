@@ -52,10 +52,10 @@ type
 
   TUniposReader = class
   private
-    FLogger: TLogFile;
-    property Logger: TLogFile read FLogger;
+    FLogger: ILogFile;
+    property Logger: ILogFile read FLogger;
   public
-    constructor Create(ALogger: TLogFile);
+    constructor Create(ALogger: ILogFile);
 
     function ReadHeaderBlock: TTextBlockRec;
     function ReadTrailerBlock: TTextBlockRec;
@@ -113,7 +113,7 @@ const
 
 ******************************************************************************)
 
-constructor TUniposReader.Create(ALogger: TLogFile);
+constructor TUniposReader.Create(ALogger: ILogFile);
 begin
   inherited Create;
   FLogger := ALogger;

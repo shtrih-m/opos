@@ -16,7 +16,7 @@ type
   TCommandDefs = class
   private
     FList: TList;
-    FLogger: TLogFile;
+    FLogger: ILogFile;
 
     function GetCount: Integer;
     function GetItem(Index: Integer): TCommandDef;
@@ -25,7 +25,7 @@ type
     procedure DoLoadFromFile(const FileName: string);
     procedure DoSaveToFile(const FileName: string);
   public
-    constructor Create(ALogger: TLogFile);
+    constructor Create(ALogger: ILogFile);
     destructor Destroy; override;
 
     procedure Clear;
@@ -35,7 +35,7 @@ type
     procedure LoadFromFile(const FileName: string);
     function ItemByCode(Code: Integer): TCommandDef;
 
-    property Logger: TLogFile read FLogger;
+    property Logger: ILogFile read FLogger;
     property Count: Integer read GetCount;
     property Items[Index: Integer]: TCommandDef read GetItem; default;
   end;
@@ -78,7 +78,7 @@ implementation
 var
   FXmlCommands: TCommandDefs;
 
-function XmlCommands(ALogger: TLogFile): TCommandDefs;
+function XmlCommands(ALogger: ILogFile): TCommandDefs;
 begin
   if FXmlCommands = nil then
     FXmlCommands := TCommandDefs.Create(ALogger);
@@ -87,7 +87,7 @@ end;
 
 { TCommandDefs }
 
-constructor TCommandDefs.Create(ALogger: TLogFile);
+constructor TCommandDefs.Create(ALogger: ILogFile);
 begin
   inherited Create;
   FLogger := ALogger;

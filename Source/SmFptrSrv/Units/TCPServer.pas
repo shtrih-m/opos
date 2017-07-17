@@ -14,7 +14,7 @@ type
   TTCPServer = class
   private
     FPort: Integer;
-    FLogger: TLogFile;
+    FLogger: ILogFile;
     FEnabled: Boolean;
     FServer: TdmServer;
 
@@ -26,7 +26,7 @@ type
     destructor Destroy; override;
 
     function Update: Boolean;
-    property Logger: TLogFile read FLogger;
+    property Logger: ILogFile read FLogger;
     property Port: Integer read FPort write FPort;
     property Enabled: Boolean read FEnabled write FEnabled;
   end;
@@ -45,8 +45,8 @@ end;
 destructor TTCPServer.Destroy;
 begin
   Close;
-  FLogger.Free;
   FServer.Free;
+  FLogger := nil;
   inherited Destroy;
 end;
 

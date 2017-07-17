@@ -1,6 +1,7 @@
 program OposTest;
 
 uses
+  //FastMM4,
   Forms,
   fmuPtrGeneral in 'Fmu\fmuPtrGeneral.pas' {fmPtrGeneral},
   fmuAbout in 'Fmu\fmuAbout.pas' {fmAbout},

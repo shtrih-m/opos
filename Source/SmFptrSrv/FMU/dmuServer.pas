@@ -29,17 +29,17 @@ type
     procedure TCPServerDisconnect(AContext: TIdContext);
     procedure TCPServerCommandHandlers8Command(ASender: TIdCommand);
   private
-    FLogger: TLogFile;
+    FLogger: ILogFile;
     procedure StartServer;
     procedure HandleException(E: Exception; ASender: TIdCommand);
     procedure SendSuccessReply(ASender: TIdCommand);
   public
-    constructor CreateServer(ALogger: TLogFile);
+    constructor CreateServer(ALogger: ILogFile);
 
     procedure Stop;
     procedure Start;
     function Started: Boolean;
-    property Logger: TLogFile read FLogger;
+    property Logger: ILogFile read FLogger;
   end;
 
 var
@@ -68,7 +68,7 @@ end;
 
 { TServer }
 
-constructor TdmServer.CreateServer(ALogger: TLogFile);
+constructor TdmServer.CreateServer(ALogger: ILogFile);
 begin
   inherited Create(nil);
   FLogger := ALogger;
@@ -214,7 +214,7 @@ end;
 
 procedure TdmServer.Start;
 begin
-  Logger.FileName := ChangeFileExt(GetDllFileName, '.log');
+  //Logger.FileName := ChangeFileExt(GetDllFileName, '.log'); { !!! }
   Logger.Enabled := True;
   TCPServer.DefaultPort := Params.TCPPort;
   TCPServer.Active := True;

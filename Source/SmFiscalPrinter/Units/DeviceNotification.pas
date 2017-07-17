@@ -21,12 +21,12 @@ type
     FNotification: HDEVNOTIFY;
     FDev: DEV_BROADCAST_HANDLE;
     FOnDeviceChange: TIntNotifyEvent;
-    FLogger: TLogFile;
+    FLogger: ILogFile;
 
     procedure WndProc(var Msg: TMessage);
-    property Logger: TLogFile read FLogger;
+    property Logger: ILogFile read FLogger;
   public
-    constructor Create(ALogger: TLogFile);
+    constructor Create(ALogger: ILogFile);
     destructor Destroy; override;
 
     procedure Uninstall;
@@ -81,7 +81,7 @@ begin
   end;
 end;
 
-constructor TDeviceNotification.Create(ALogger: TLogFile);
+constructor TDeviceNotification.Create(ALogger: ILogFile);
 begin
   inherited Create;
   FWnd := Classes.AllocateHWND(WndProc);

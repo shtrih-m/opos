@@ -21,7 +21,7 @@ type
 
   TCashDrawerParameters = class
   private
-    FLogger: TLogFile;
+    FLogger: ILogFile;
     FCCOType: Integer;
     FEncoding: Integer;
     FDrawerNumber: Integer;
@@ -29,9 +29,9 @@ type
 
     function GetKeyName(const DeviceName: string): string;
     procedure WriteLogParameters;
-    property Logger: TLogFile read FLogger;
+    property Logger: ILogFile read FLogger;
   public
-    constructor Create(ALogger: TLogFile);
+    constructor Create(ALogger: ILogFile);
     procedure SetDefaults;
     procedure Load(const DeviceName: string);
     procedure Save(const DeviceName: string);
@@ -134,7 +134,7 @@ begin
   end;
 end;
 
-constructor TCashDrawerParameters.Create(ALogger: TLogFile);
+constructor TCashDrawerParameters.Create(ALogger: ILogFile);
 begin
   inherited Create;
   FLogger := ALogger;

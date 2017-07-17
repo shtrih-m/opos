@@ -20,7 +20,7 @@ type
     FContext: TDriverContext;
     procedure AddPage(Pages: TfmPages; PageClass: TFptrPageClass);
 
-    function GetLogger: TLogFile;
+    function GetLogger: ILogFile;
     function GetParameters: TPrinterParameters;
     function GetMalinaParams: TMalinaParams;
   public
@@ -31,7 +31,7 @@ type
     procedure SaveParams; override;
     procedure ShowDialog; override;
 
-    property Logger: TLogFile read GetLogger;
+    property Logger: ILogFile read GetLogger;
     property Parameters: TPrinterParameters read GetParameters;
     property MalinaParams: TMalinaParams read GetMalinaParams;
   end;
@@ -44,10 +44,10 @@ type
   public
     function GetParameters: TPrinterParameters;
     function GetDeviceName: WideString;
-    function GetLogger: TLogFile;
+    function GetLogger: ILogFile;
     function GetMalinaParams: TMalinaParams;
   public
-    property Logger: TLogFile read GetLogger;
+    property Logger: ILogFile read GetLogger;
     property DeviceName: WideString read GetDeviceName;
     property Parameters: TPrinterParameters read GetParameters;
     property Device: TFiscalPrinterDevice read FDevice write FDevice;
@@ -169,7 +169,7 @@ begin
   Result := FContext.Parameters;
 end;
 
-function TFiscalPrinterDevice.GetLogger: TLogFile;
+function TFiscalPrinterDevice.GetLogger: ILogFile;
 begin
   Result := FContext.Logger;
 end;
@@ -186,7 +186,7 @@ begin
   Result := FDevice.DeviceName;
 end;
 
-function TFptrPage.GetLogger: TLogFile;
+function TFptrPage.GetLogger: ILogFile;
 begin
   Result := FDevice.Logger;
 end;

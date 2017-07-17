@@ -127,7 +127,8 @@ end;
 
 procedure TOposDevices.Clear;
 begin
-  while Count > 0 do Items[0].Free;
+  while Count > 0 do
+    Items[0].Free;
 end;
 
 function TOposDevices.GetCount: Integer;

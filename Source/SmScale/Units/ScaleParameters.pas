@@ -39,9 +39,9 @@ type
     LogMaxCount: Integer;
     CapPrice: Boolean;
     PollPeriod: Integer;
-    FLogger: TLogFile;
+    FLogger: ILogFile;
   public
-    constructor Create(ALogger: TLogFile);
+    constructor Create(ALogger: ILogFile);
     procedure SetDefaults; virtual;
     procedure WriteLogParameters;
     procedure Load(const DeviceName: string); virtual;
@@ -49,7 +49,7 @@ type
     class procedure DeleteKey(const DeviceName: string);
     class procedure CreateKey(const DeviceName: string);
     class function GetKeyName(const DeviceName: string): string;
-    property Logger: TLogFile read FLogger;
+    property Logger: ILogFile read FLogger;
   end;
 
 const
@@ -110,7 +110,7 @@ const
 
 { TScaleParameters }
 
-constructor TScaleParameters.Create(ALogger: TLogFile);
+constructor TScaleParameters.Create(ALogger: ILogFile);
 begin
   inherited Create;
   FLogger := ALogger;

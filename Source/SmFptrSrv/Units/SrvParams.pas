@@ -13,20 +13,20 @@ type
 
   TSrvParams = class
   private
-    FLogger: TLogFile;
+    FLogger: ILogFile;
     FTCPPort: Integer; 				    // TCP port number
     FTCPEnabled: Boolean; 			  // TCP connection enabled
     FAutoPortClose: Boolean;	    // Close port on timeout
     FAutoRecCancel: Boolean;		  // Cancel receipt on timeout
     FPortCloseTimeout: Integer;   // Port close timeout
   public
-    constructor Create(ALogger: TLogFile);
+    constructor Create(ALogger: ILogFile);
 
     procedure LoadParams;
     procedure SetDefaults;
     procedure SaveParams;
 
-    property Logger: TLogFile read FLogger;
+    property Logger: ILogFile read FLogger;
     property TCPPort: Integer read FTCPPort write FTCPPort;
     property TCPEnabled: Boolean read FTCPEnabled write FTCPEnabled;
     property AutoPortClose: Boolean read FAutoPortClose write FAutoPortClose;
@@ -60,7 +60,7 @@ const
 
 { TSrvParams }
 
-constructor TSrvParams.Create(ALogger: TLogFile);
+constructor TSrvParams.Create(ALogger: ILogFile);
 begin
   inherited Create;
   FLogger := ALogger;

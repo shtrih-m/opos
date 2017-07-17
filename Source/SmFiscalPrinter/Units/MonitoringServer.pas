@@ -21,7 +21,7 @@ type
     function CommandCashReg(Command: string): string;
     function CommandOperReg(Command: string): string;
     function CommandOfdSEttings(Command: string): string;
-    function GetLogger: TLogFile;
+    function GetLogger: ILogFile;
   private
     FPort: Integer;
     FThread: TNotifyThread;
@@ -43,7 +43,7 @@ type
 
     procedure Close;
     procedure Open(APort: Integer; APrinter: ISharedPrinter);
-    property Logger: TLogFile read GetLogger;
+    property Logger: ILogFile read GetLogger;
   end;
 
 implementation
@@ -389,7 +389,7 @@ begin
   end;
 end;
 
-function TMonitoringServer.GetLogger: TLogFile;
+function TMonitoringServer.GetLogger: ILogFile;
 begin
   Result := FPrinter.Parameters.Logger;
 end;

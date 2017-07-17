@@ -15,13 +15,13 @@ type
   private
     FEncoding: Integer;
     FDriver: OleVariant;
-    FLogger: TLogFile;
+    FLogger: ILogFile;
 
-    function GetLogger: TLogFile;
+    function GetLogger: ILogFile;
     function GetDriver: OleVariant;
     function EncodeString(const Text: WideString): WideString;
     function DecodeString(const Text: WideString): WideString;
-    property Logger: TLogFile read GetLogger;
+    property Logger: ILogFile read GetLogger;
   public
     property Driver: OleVariant read GetDriver;
   public
@@ -116,12 +116,12 @@ implementation
 
 destructor TSMCashDrawer.Destroy;
 begin
-  FLogger.Free;
+  FLogger := nil;
   VarClear(FDriver);
   inherited Destroy;
 end;
 
-function TSMCashDrawer.GetLogger: TLogFile;
+function TSMCashDrawer.GetLogger: ILogFile;
 begin
   if FLogger = nil then
     FLogger := TLogFile.Create;

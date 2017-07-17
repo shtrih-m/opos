@@ -157,6 +157,8 @@ type
     function Storno(Operation: TPriceReg): Integer;
     function ReceiptClose(const P: TCloseReceiptParams;
       var R: TCloseReceiptResult): Integer;
+    function ReceiptClose2(const P: TFSCloseReceiptParams2;
+      var R: TFSCloseReceiptResult2): Integer;
     function ReceiptDiscount(Operation: TAmountOperation): Integer;
     function ReceiptDiscount2(Operation: TReceiptDiscount2): Integer;
     function ReceiptCharge(Operation: TAmountOperation): Integer;
@@ -239,6 +241,8 @@ type
     function FSReadState(var R: TFSState): Integer;
     function FSWriteTLV(const TLVData: string): Integer;
     function FSSale(const P: TFSSale): Integer;
+    function FSSale2(const P: TFSSale2): Integer;
+    function GetCapFSCloseReceipt2: Boolean;
     function FSStorno(const P: TFSSale): Integer;
     function FSReadStatus(var R: TFSStatus): Integer;
     function FSReadBlock(const P: TFSBlockRequest; var Block: string): Integer;
@@ -310,10 +314,10 @@ end;
 destructor TTextFiscalPrinterDevice.Destroy;
 begin
   FPort.Free;
-  FContext.Free;
   FRecStation.Free;
   FJrnStation.Free;
   FStatistics.Free;
+  FContext.Free;
   inherited Destroy;
 end;
 
@@ -1612,6 +1616,22 @@ function TTextFiscalPrinterDevice.ReadLoaderVersion(
   var Version: string): Integer;
 begin
   Version := '127';
+  Result := 0;
+end;
+
+function TTextFiscalPrinterDevice.FSSale2(const P: TFSSale2): Integer;
+begin
+  Result := 0;
+end;
+
+function TTextFiscalPrinterDevice.GetCapFSCloseReceipt2: Boolean;
+begin
+  Result := True;
+end;
+
+function TTextFiscalPrinterDevice.ReceiptClose2(
+  const P: TFSCloseReceiptParams2; var R: TFSCloseReceiptResult2): Integer;
+begin
   Result := 0;
 end;
 

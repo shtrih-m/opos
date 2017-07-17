@@ -25,7 +25,7 @@ type
     FLongStatus: TLongPrinterStatus;
     FShortStatus: TShortPrinterStatus;
 
-    function GetLogger: TLogFile;
+    function GetLogger: ILogFile;
     function GetCapFiscalStorage: Boolean;
     function GetCapReceiptDiscount2: Boolean;
     function GetParameters: TPrinterParameters;
@@ -273,6 +273,10 @@ type
     function IsRecOpened: Boolean;
     function GetCapDiscount: Boolean;
     function ReadLoaderVersion(var Version: string): Integer;
+    function ReceiptClose2(const P: TFSCloseReceiptParams2;
+      var R: TFSCloseReceiptResult2): Integer;
+    function FSSale2(const P: TFSSale2): Integer;
+    function GetCapFSCloseReceipt2: Boolean;
     procedure CancelReceipt;
 
     property Status: TPrinterStatus read FStatus write FStatus;
@@ -284,7 +288,7 @@ type
     property ShortStatus: TShortPrinterStatus read FShortStatus write FShortStatus;
     property DeviceMetrics: TDeviceMetrics read FDeviceMetrics write FDeviceMetrics;
     property CapReceiptDiscount2: Boolean read GetCapReceiptDiscount2;
-    property Logger: TLogFile read GetLogger;
+    property Logger: ILogFile read GetLogger;
     property CapSubtotalRound: Boolean read GetCapSubtotalRound;
   end;
 
@@ -304,8 +308,8 @@ end;
 destructor TMockFiscalPrinterDevice.Destroy;
 begin
   FPort.Free;
-  FContext.Free;
   FStatistics.Free;
+  FContext.Free;
   inherited Destroy;
 end;
 
@@ -314,7 +318,7 @@ begin
   Result := FContext.Parameters;
 end;
 
-function TMockFiscalPrinterDevice.GetLogger: TLogFile;
+function TMockFiscalPrinterDevice.GetLogger: ILogFile;
 begin
   Result := FContext.Logger;
 end;
@@ -1450,53 +1454,53 @@ end;
 function TMockFiscalPrinterDevice.FSFindDocument(DocNumber: Integer;
   var R: TFSDocument): Integer;
 begin
-
+  Result := 0;
 end;
 
 function TMockFiscalPrinterDevice.FSPrintCalcReport(
   var R: TFSCalcReport): Integer;
 begin
-
+  Result := 0;
 end;
 
 function TMockFiscalPrinterDevice.FSReadCommStatus(
   var R: TFSCommStatus): Integer;
 begin
-
+  Result := 0;
 end;
 
 function TMockFiscalPrinterDevice.FSReadDocMac(var DocMac: Int64): Integer;
 begin
-
+  Result := 0;
 end;
 
 function TMockFiscalPrinterDevice.FSReadExpireDate(
   var Date: TPrinterDate): Integer;
 begin
-
+  Result := 0;
 end;
 
 function TMockFiscalPrinterDevice.FSReadFiscalResult(
   var R: TFSFiscalResult): Integer;
 begin
-
+  Result := 0;
 end;
 
 function TMockFiscalPrinterDevice.FSReadState(var R: TFSState): Integer;
 begin
-
+  Result := 0;
 end;
 
 function TMockFiscalPrinterDevice.FSWriteTag(TagID: Integer;
   const Data: string): Integer;
 begin
-
+  Result := 0;
 end;
 
 function TMockFiscalPrinterDevice.WriteCustomerAddress(
   const Value: string): Integer;
 begin
-
+  Result := 0;
 end;
 
 function TMockFiscalPrinterDevice.GetDiscountMode: Integer;
@@ -1518,12 +1522,12 @@ end;
 
 function TMockFiscalPrinterDevice.GetIsFiscalized: Boolean;
 begin
-
+  Result := True;
 end;
 
 function TMockFiscalPrinterDevice.FSReadTotals(var R: TFMTotals): Integer;
 begin
-
+  Result := 0;
 end;
 
 function TMockFiscalPrinterDevice.ReadDayTotals: TFMTotals;
@@ -1539,13 +1543,13 @@ end;
 function TMockFiscalPrinterDevice.FSPrintCorrectionReceipt(
   var Command: TFSCorrectionReceipt): Integer;
 begin
-  rESULT := 0;
+  Result := 0;
 end;
 
 function TMockFiscalPrinterDevice.ReadFieldInfo(Table, Field: Byte;
   var R: TPrinterFieldRec): Integer;
 begin
-
+  Result := 0;
 end;
 
 procedure TMockFiscalPrinterDevice.LoadTables(const Path: WideString);
@@ -1556,12 +1560,12 @@ end;
 function TMockFiscalPrinterDevice.ReadFSParameter(ParamID: Integer;
   const pString: string): string;
 begin
-
+  Result := '';
 end;
 
 function TMockFiscalPrinterDevice.FSReadTicket(var R: TFSTicket): Integer;
 begin
-
+  Result := 0;
 end;
 
 procedure TMockFiscalPrinterDevice.Close;
@@ -1596,6 +1600,22 @@ end;
 
 function TMockFiscalPrinterDevice.ReadLoaderVersion(
   var Version: string): Integer;
+begin
+  Result := 0;
+end;
+
+function TMockFiscalPrinterDevice.FSSale2(const P: TFSSale2): Integer;
+begin
+  Result := 0;
+end;
+
+function TMockFiscalPrinterDevice.GetCapFSCloseReceipt2: Boolean;
+begin
+  Result := True;
+end;
+
+function TMockFiscalPrinterDevice.ReceiptClose2(
+  const P: TFSCloseReceiptParams2; var R: TFSCloseReceiptResult2): Integer;
 begin
   Result := 0;
 end;

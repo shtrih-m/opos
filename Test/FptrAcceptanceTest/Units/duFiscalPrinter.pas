@@ -24,7 +24,8 @@ implementation
 
 procedure TFiscalPrinterTest.CheckOpenMulti;
 const
-  IPAddressList: array [1..3] of string = (
+  IPAddressList: array
+   [1..3] of string = (
     '192.168.137.110', '192.168.137.111', '192.168.137.112'
   );
 

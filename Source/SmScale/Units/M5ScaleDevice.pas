@@ -15,7 +15,7 @@ type
 
   TM5ScaleDevice = class(TInterfacedObject, IM5ScaleDevice)
   private
-    FLogger: TLogFile;
+    FLogger: ILogFile;
     FPassword: Integer;
     FLock: TCriticalSection;
     FResultCode: Integer;
@@ -27,7 +27,7 @@ type
     procedure Unlock;
     procedure CheckMinLength(const Data: string; MinLength: Integer);
 
-    property Logger: TLogFile read FLogger;
+    property Logger: ILogFile read FLogger;
   public
     constructor Create(AConnection: IScaleConnection);
     destructor Destroy; override;
@@ -107,7 +107,7 @@ end;
 destructor TM5ScaleDevice.Destroy;
 begin
   FLock.Free;
-  FLogger.Free;
+  FLogger := nil;
   inherited Destroy;
 end;
 

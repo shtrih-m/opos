@@ -30,7 +30,7 @@ type
     Parameters: TMockScaleParameters;
     Statistics: TMockscaleStatistics;
     UIController: TMockUIController;
-    Logger: TLogfile;
+    Logger: ILogFile;
 
     procedure SaveState;
     procedure ClaimDevice;
@@ -152,7 +152,7 @@ begin
   Driver.Free;
   OposEvents.Free;
   FWaitEvent.Free;
-  Logger.Free;
+  Logger := nil;
 end;
 
 procedure TScaleDriverTest.AddEvent(Event: TOposEvent);

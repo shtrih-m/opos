@@ -14,7 +14,7 @@ type
 
   TUniposPrinter = class
   private
-    function GetLogger: TLogFile;
+    function GetLogger: ILogFile;
     function GetParameters: TMalinaParams;
   private
     FThread: TNotifyThread;
@@ -26,7 +26,7 @@ type
     procedure PrintReceipt(const Text: string);
     property Parameters: TMalinaParams read GetParameters;
     function FindTextFile(var FileName: string): Boolean;
-    property Logger: TLogFile read GetLogger;
+    property Logger: ILogFile read GetLogger;
   public
     constructor Create(APrinter: IFiscalPrinterInternal);
     destructor Destroy; override;
@@ -140,7 +140,7 @@ begin
   FThread.Resume;
 end;
 
-function TUniposPrinter.GetLogger: TLogFile;
+function TUniposPrinter.GetLogger: ILogFile;
 begin
   Result := FPrinter.Device.Context.Logger;
 end;

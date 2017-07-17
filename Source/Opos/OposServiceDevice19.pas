@@ -49,20 +49,20 @@ type
     FResultCodeExtended: Integer;
     FLongDeviceName: string;
     FErrorEventEnabled: Boolean;
-    FLogger: TLogFile;
+    FLogger: ILogFile;
 
     procedure EventProc(Sender: TObject);
     procedure SetPowerState(const Value: Integer);
     procedure SetFreezeEvents(const Value: Boolean);
     procedure SetDeviceEnabled(const Value: Boolean);
 
-    property Logger: TLogFile read FLogger;
+    property Logger: ILogFile read FLogger;
     property Events: TOposEvents read FEvents;
     function GetFreezeEvents: Boolean;
     procedure ErrorEvent(ResultCode, ResultCodeExtended,
       ErrorLocus: Integer);
   public
-    constructor Create(ALogger: TLogFile);
+    constructor Create(ALogger: ILogFile);
     destructor Destroy; override;
 
     procedure Open(const ADeviceClass, ADeviceName: string;
@@ -121,7 +121,7 @@ implementation
 
 { TOposServiceDevice19 }
 
-constructor TOposServiceDevice19.Create(ALogger: TLogFile);
+constructor TOposServiceDevice19.Create(ALogger: ILogFile);
 begin
   inherited Create;
   FLogger := ALogger;

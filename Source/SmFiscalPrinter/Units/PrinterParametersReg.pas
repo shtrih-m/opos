@@ -13,7 +13,7 @@ type
 
   TPrinterParametersReg = class
   private
-    FLogger: TLogFile;
+    FLogger: ILogFile;
     FParameters: TPrinterParameters;
 
     procedure LoadSysParameters(const DeviceName: string);
@@ -25,24 +25,24 @@ type
 
     property Parameters: TPrinterParameters read FParameters;
   public
-    constructor Create(AParameters: TPrinterParameters; ALogger: TLogFile);
+    constructor Create(AParameters: TPrinterParameters; ALogger: ILogFile);
 
     procedure Load(const DeviceName: string);
     procedure Save(const DeviceName: string);
 
-    property Logger: TLogFile read FLogger;
+    property Logger: ILogFile read FLogger;
   end;
 
-function ReadEncodingReg(const DeviceName: string; Logger: TLogFile): Integer;
-procedure DeleteParametersReg(const DeviceName: string; Logger: TLogFile);
+function ReadEncodingReg(const DeviceName: string; Logger: ILogFile): Integer;
+procedure DeleteParametersReg(const DeviceName: string; Logger: ILogFile);
 procedure LoadParametersReg(Item: TPrinterParameters; const DeviceName: string;
-  Logger: TLogFile);
+  Logger: ILogFile);
 
 procedure SaveParametersReg(Item: TPrinterParameters; const DeviceName: string;
-  Logger: TLogFile);
+  Logger: ILogFile);
 
 procedure SaveUsrParametersReg(Item: TPrinterParameters;
-  const DeviceName: string; Logger: TLogFile);
+  const DeviceName: string; Logger: ILogFile);
 
 implementation
 
@@ -51,7 +51,7 @@ const
   REG_KEY_PAYTYPES  = 'PaymentTypes';
   MsgKeyOpenError   = 'Error opening registry key: %s';
 
-function ReadEncodingReg(const DeviceName: string; Logger: TLogFile): Integer;
+function ReadEncodingReg(const DeviceName: string; Logger: ILogFile): Integer;
 var
   P: TPrinterParameters;
 begin
@@ -64,7 +64,7 @@ begin
   end;
 end;
 
-procedure DeleteParametersReg(const DeviceName: string; Logger: TLogFile);
+procedure DeleteParametersReg(const DeviceName: string; Logger: ILogFile);
 var
   Reg: TRegistry;
 begin
@@ -83,7 +83,7 @@ begin
 end;
 
 procedure LoadParametersReg(Item: TPrinterParameters; const DeviceName: string;
-  Logger: TLogFile);
+  Logger: ILogFile);
 var
   Reader: TPrinterParametersReg;
 begin
@@ -96,7 +96,7 @@ begin
 end;
 
 procedure SaveParametersReg(Item: TPrinterParameters; const DeviceName: string;
-  Logger: TLogFile);
+  Logger: ILogFile);
 var
   Writer: TPrinterParametersReg;
 begin
@@ -109,7 +109,7 @@ begin
 end;
 
 procedure SaveUsrParametersReg(Item: TPrinterParameters;
-  const DeviceName: string; Logger: TLogFile);
+  const DeviceName: string; Logger: ILogFile);
 var
   Writer: TPrinterParametersReg;
 begin
@@ -124,7 +124,7 @@ end;
 { TPrinterParametersReg }
 
 constructor TPrinterParametersReg.Create(AParameters: TPrinterParameters;
-  ALogger: TLogFile);
+  ALogger: ILogFile);
 begin
   inherited Create;
   FParameters := AParameters;

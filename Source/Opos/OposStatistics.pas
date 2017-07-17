@@ -22,7 +22,7 @@ type
     FFirmwareRevision: string;
     FInterfaceName: string;
     FInstallationDate: string;
-    FLogger: TLogFile;
+    FLogger: ILogFile;
 
     function SaveToXml: string;
     function GetIniFileName: string;
@@ -30,14 +30,14 @@ type
     procedure ParseNames(const Names: string; Strings: TStrings);
     function ValidItem(Item: TStatisticItem; const StatName: string): Boolean;
 
-    property Logger: TLogFile read FLogger;
+    property Logger: ILogFile read FLogger;
     property Items: TStatisticItems read FItems write SetItems;
   protected
     procedure Add(const StatisticName: string);
     procedure IncItem(const StatisticName: string); overload;
     procedure IncItem(const StatisticName: string; Count: Integer); overload;
   public
-    constructor Create(ALogger: TLogFile); virtual;
+    constructor Create(ALogger: ILogFile); virtual;
     destructor Destroy; override;
 
     procedure Assign(Source: TOposStatistics);
@@ -65,7 +65,7 @@ implementation
 
 { TOposStatistics }
 
-constructor TOposStatistics.Create(ALogger: TLogFile);
+constructor TOposStatistics.Create(ALogger: ILogFile);
 begin
   inherited Create;
   FLogger := ALogger;

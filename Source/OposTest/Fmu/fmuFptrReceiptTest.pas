@@ -97,6 +97,7 @@ begin
   AddTest(TZeroReceiptTest);
   AddTest(TZeroReceiptTest2);
   AddTest(TReceiptTest8);
+  AddTest(TReceiptTest9);
 
   cbTest.ItemIndex := 0;
 end;

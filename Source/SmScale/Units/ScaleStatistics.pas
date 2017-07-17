@@ -11,7 +11,7 @@ type
 
   TScaleStatistics = class(TOposStatistics)
   public
-    constructor Create(ALogger: TLogFile); override;
+    constructor Create(ALogger: ILogFile); override;
     procedure WeightReaded;
   end;
 
@@ -19,7 +19,7 @@ implementation
 
 { TScaleStatistics }
 
-constructor TScaleStatistics.Create(ALogger: TLogFile);
+constructor TScaleStatistics.Create(ALogger: ILogFile);
 begin
   inherited Create(ALogger);
   // Statistics for the Scale device category.

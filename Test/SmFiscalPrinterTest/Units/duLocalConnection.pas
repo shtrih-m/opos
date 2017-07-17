@@ -15,7 +15,7 @@ type
 
   TduLocalConnection = class(TTestCase)
   private
-    FLogger: TLogFile;
+    FLogger: ILogFile;
     FConnection: IPrinterConnection;
   protected
     procedure Setup; override;
@@ -44,7 +44,7 @@ end;
 
 procedure TduLocalConnection.TearDown;
 begin
-  FLogger.Free;
+  FLogger := nil;
   FConnection := nil;
 end;
 

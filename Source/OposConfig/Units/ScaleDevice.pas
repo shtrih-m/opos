@@ -12,7 +12,7 @@ type
 
   TScaleDevice = class(TOposDevice)
   private
-    FLogger: TLogFile;
+    FLogger: ILogFile;
     FParameters: TScaleParameters;
     property Parameters: TScaleParameters read FParameters;
   public
@@ -22,7 +22,7 @@ type
     procedure SetDefaults; override;
     procedure SaveParams; override;
     procedure ShowDialog; override;
-    property Logger: TLogFile read FLogger;
+    property Logger: ILogFile read FLogger;
   end;
 
   { TScalePage }
@@ -56,7 +56,7 @@ end;
 
 destructor TScaleDevice.Destroy;
 begin
-  FLogger.Free;
+  FLogger := nil;
   FParameters.Free;
   inherited Destroy;
 end;

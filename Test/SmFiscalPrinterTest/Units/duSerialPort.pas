@@ -28,7 +28,7 @@ var
   C: Char;
   Port: TSerialPort;
   TickCount: Integer;
-  Logger: TLogFile;
+  Logger: ILogFile;
 const
   TickStep = 20;
 begin
@@ -46,7 +46,7 @@ begin
     Check((TickCount + TickStep) >= 100);
   finally
     Port.Free;
-    Logger.Free;
+    Logger := nil;
   end;
 end;
 

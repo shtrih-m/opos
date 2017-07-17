@@ -14,14 +14,14 @@ type
 
   TNCRCashDrawer = class(TInterfacedObject, IOPOSCashDrawer_1_9)
   private
-    FLogger: TLogFile;
+    FLogger: ILogFile;
     FEncoding: Integer;
     FDriver: TNCRCashDrawerService;
 
-    function GetLogger: TLogFile;
+    function GetLogger: ILogFile;
     function GetDriver: TNCRCashDrawerService;
 
-    property Logger: TLogFile read GetLogger;
+    property Logger: ILogFile read GetLogger;
     property Driver: TNCRCashDrawerService read GetDriver;
   public
     function EncodeString(const Text: WideString): WideString;
@@ -129,12 +129,12 @@ end;
 
 destructor TNCRCashDrawer.Destroy;
 begin
-  FLogger.Free;
   FDriver.Free;
+  FLogger := nil;
   inherited Destroy;
 end;
 
-function TNCRCashDrawer.GetLogger: TLogFile;
+function TNCRCashDrawer.GetLogger: ILogFile;
 begin
   if FLogger = nil then
     FLogger := TLogFile.Create;

@@ -93,7 +93,7 @@ type
     function GetDevice: IFiscalPrinterDevice;
     procedure SetDeviceName(const Value: string);
     procedure SleepEx(TimeinMilliseconds: Integer);
-    function GetLogger: TLogFile;
+    function GetLogger: ILogFile;
   public
     constructor Create(const ADeviceName: string);
     constructor Create2(ADevice: IFiscalPrinterDevice);
@@ -198,7 +198,7 @@ type
     property ConnectLinks: TNotifyLinks read FConnectLinks;
     property DeviceName: string read GetDeviceName write SetDeviceName;
     property Parameters: TPrinterParameters read GetParameters;
-    property Logger: TLogFile read GetLogger;
+    property Logger: ILogFile read GetLogger;
   end;
 
 function GetPrinter(const DeviceName: string): ISharedPrinter;
@@ -223,16 +223,17 @@ var
 
 procedure DeletePrinters;
 begin
+  ODS('DeletePrinters.0');
   Printers.Lock;
   try
     while Printers.Count > 0 do
     begin
-      TSharedPrinter(Printers[0]).Free;
       Printers.Delete(0);
     end;
   finally
     Printers.Unlock;
   end;
+  ODS('DeletePrinters.1');
 end;
 
 function GetPrintersCount: Integer;
@@ -270,7 +271,6 @@ end;
 
 constructor TSharedPrinter.Create(const ADeviceName: string);
 begin
-  inherited Create;
   Create2(TFiscalPrinterDevice.Create);
   FDeviceName := ADeviceName;
 end;
@@ -295,6 +295,7 @@ end;
 
 destructor TSharedPrinter.Destroy;
 begin
+  ODS('TSharedPrinter.Destroy.0');
   if FFilter <> nil then
   begin
     FDevice.RemoveFilter(FFilter);
@@ -312,6 +313,7 @@ begin
   FStatusLinks.Free;
   FConnectLinks.Free;
   inherited Destroy;
+  ODS('TSharedPrinter.Destroy.1');
 end;
 
 function TSharedPrinter.GetDevice: IFiscalPrinterDevice;
@@ -1404,7 +1406,7 @@ begin
   Result := FDevice.Parameters;
 end;
 
-function TSharedPrinter.GetLogger: TLogFile;
+function TSharedPrinter.GetLogger: ILogFile;
 begin
   Result := Parameters.Logger;
 end;

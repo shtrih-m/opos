@@ -35,6 +35,8 @@ type
     FRetalix: TRetalix;
     FService: TFSService;
     FPrinter: ISharedPrinter;
+    FDevice: IFiscalPrinterDevice;
+    FConnection: IPrinterConnection;
     FReceiptPrinter: IReceiptPrinter;
 
     FFilter: TEscFilter;
@@ -66,7 +68,7 @@ type
     procedure SetConnection(const Value: IPrinterConnection);
     procedure PrintTextFont(Station: Integer; Font: Integer; const Text: string);
 
-    function GetLogger: TLogFile;
+    function GetLogger: ILogFile;
     function GetFilters: TFptrFilters;
     function GetMalinaParams: TMalinaParams;
     function GetNonFiscalDoc: TNonFiscalDoc;
@@ -83,6 +85,7 @@ type
     function FSHandleError(FPCode, ResultCodeExtended: Integer): Integer;
 
     property NonFiscalDoc: TNonFiscalDoc read GetNonFiscalDoc;
+    procedure SetPrinter(APrinter: ISharedPrinter);
   public
     procedure ReadHeader;
     procedure CheckEndDay;
@@ -462,7 +465,7 @@ type
     procedure FSWriteTag(TagID: Integer; const Data: string);
 
 
-    property Logger: TLogFile read GetLogger;
+    property Logger: ILogFile read GetLogger;
     property Printer: ISharedPrinter read GetPrinter;
     property OposDevice: TOposServiceDevice19 read FOposDevice;
     property Statistics: TFiscalPrinterStatistics read GetStatistics;
@@ -498,26 +501,15 @@ end;
 constructor TFiscalPrinterImpl.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
-  FPrinter := TSharedPrinter.Create('');
   FStatusLink := TNotifyLink.Create;
   FStatusLink.OnChange := StatusChanged;
   FConnectLink := TNotifyLink.Create;
   FConnectLink.OnChange := PowerStateChanged;
   FDisconnectLink := TNotifyLink.Create;
   FDisconnectLink.OnChange := PowerStateChanged;
-
-  FOposDevice := TOposServiceDevice19.Create(FPrinter.Device.Context.Logger);
-  FOposDevice.ErrorEventEnabled := False;
-
   FPrinterState := TFiscalPrinterState.Create;
   FJournal := TElectronicJournal.Create;
-  FCommandDefs := TCommandDefs.Create(FPrinter.Device.Context.Logger);
-  FDIOHandlers := TDIOHandlers.Create(FPrinter.Device.Context);
-  FMonitoring := TMonitoringServer.Create;
-
-  FRetalix := TRetalix.Create(FPrinter.Device.Context.MalinaParams.RetalixDBPath,
-    FPrinter.Device.Context);
-  InternalInit;
+  SetPrinter(SharedPrinter.GetPrinter(''));
 end;
 
 destructor TFiscalPrinterImpl.Destroy;
@@ -540,8 +532,31 @@ begin
   FDisconnectLink.Free;
   FNonFiscalDoc.Free;
   FRetalix.Free;
+  FDevice := nil;
+  FConnection := nil;
   FPrinter := nil;
   inherited Destroy;
+end;
+
+function TFiscalPrinterImpl.GetDevice: IFiscalPrinterDevice;
+begin
+  Result := FDevice;
+end;
+
+procedure TFiscalPrinterImpl.SetDevice(const Value: IFiscalPrinterDevice);
+begin
+  FDevice := Value;
+end;
+
+function TFiscalPrinterImpl.GetConnection: IPrinterConnection;
+begin
+  Result := FConnection;
+end;
+
+procedure TFiscalPrinterImpl.SetConnection(
+  const Value: IPrinterConnection);
+begin
+  FConnection := Value;
 end;
 
 function TFiscalPrinterImpl.DecodeString(const Text: WideString): string;
@@ -674,6 +689,8 @@ begin
   TDIOWriteTableFile.CreateCommand(FDIOHandlers, DIO_WRITE_TABLE_FILE, Self);
   TDIOFSReadDocument.CreateCommand(FDIOHandlers, DIO_FS_READ_DOCUMENT, Self);
   TDIOFSPrintCalcReport.CreateCommand(FDIOHandlers, DIO_FS_PRINT_CALC_REPORT, Self);
+  TDIOOpenCashDrawer.CreateCommand(FDIOHandlers, DIO_OPEN_CASH_DRAWER, Self);
+  TDIOReadCashDrawerState.CreateCommand(FDIOHandlers, DIO_READ_CASH_DRAWER_STATE, Self);
 end;
 
 procedure TFiscalPrinterImpl.CreateDIOHandlers1;
@@ -730,6 +747,8 @@ begin
   TDIOWriteTableFile.CreateCommand(FDIOHandlers, DIO_WRITE_TABLE_FILE, Self);
   TDIOFSReadDocument.CreateCommand(FDIOHandlers, DIO_FS_READ_DOCUMENT, Self);
   TDIOFSPrintCalcReport.CreateCommand(FDIOHandlers, DIO_FS_PRINT_CALC_REPORT, Self);
+  TDIOOpenCashDrawer.CreateCommand(FDIOHandlers, DIO_OPEN_CASH_DRAWER, Self);
+  TDIOReadCashDrawerState.CreateCommand(FDIOHandlers, DIO_READ_CASH_DRAWER_STATE, Self);
 end;
 
 procedure TFiscalPrinterImpl.CreateDIOHandlers2;
@@ -787,6 +806,34 @@ begin
   TDIOWriteTableFile.CreateCommand(FDIOHandlers, DIO_WRITE_TABLE_FILE, Self);
   TDIOFSReadDocument.CreateCommand(FDIOHandlers, DIO_FS_READ_DOCUMENT, Self);
   TDIOFSPrintCalcReport.CreateCommand(FDIOHandlers, DIO_FS_PRINT_CALC_REPORT, Self);
+  TDIOOpenCashDrawer.CreateCommand(FDIOHandlers, DIO_OPEN_CASH_DRAWER, Self);
+  TDIOReadCashDrawerState.CreateCommand(FDIOHandlers, DIO_READ_CASH_DRAWER_STATE, Self);
+end;
+
+procedure TFiscalPrinterImpl.SetPrinter(APrinter: ISharedPrinter);
+begin
+  FOposDevice.Free;
+  FCommandDefs.Free;
+  FDIOHandlers.Free;
+  FMonitoring.Free;
+  FRetalix.Free;
+
+  FPrinter := APrinter;
+  if FDevice <> nil then
+    FPrinter.Device := FDevice;
+  FDevice := FPrinter.Device;
+  if FConnection <> nil then
+    FPrinter.Connection := FConnection;
+  FConnection := FPrinter.Connection;
+
+  FOposDevice := TOposServiceDevice19.Create(FPrinter.Device.Context.Logger);
+  FOposDevice.ErrorEventEnabled := False;
+  FCommandDefs := TCommandDefs.Create(FPrinter.Device.Context.Logger);
+  FDIOHandlers := TDIOHandlers.Create(FPrinter.Device.Context);
+  FMonitoring := TMonitoringServer.Create;
+  FRetalix := TRetalix.Create(FPrinter.Device.Context.MalinaParams.RetalixDBPath,
+    FPrinter.Device.Context);
+  InternalInit;
 end;
 
 
@@ -795,8 +842,8 @@ function TFiscalPrinterImpl.DoOpen(
   const pDispatch: IDispatch): Integer;
 begin
   try
-    InternalInit;
-    FPrinter.DeviceName := DeviceName;
+    SetPrinter(SharedPrinter.GetPrinter(DeviceName));
+
     FFilter := TEscFilter.Create(GetPrinter);
     FPrinter.OnProgress := ProgressEvent;
     FPrinter.AddStatusLink(FStatusLink);
@@ -986,16 +1033,6 @@ begin
     Result := Value;
   end;
   Logger.Debug('GetCapRecNearEnd', [Value], Result);
-end;
-
-function TFiscalPrinterImpl.GetDevice: IFiscalPrinterDevice;
-begin
-  Result := Printer.Device;
-end;
-
-procedure TFiscalPrinterImpl.SetDevice(const Value: IFiscalPrinterDevice);
-begin
-  Printer.Device := Value;
 end;
 
 procedure TFiscalPrinterImpl.PrinterCommand(Sender: TObject;
@@ -4144,17 +4181,6 @@ begin
   Device.PrintTextFont(Station, Font, Text);
 end;
 
-function TFiscalPrinterImpl.GetConnection: IPrinterConnection;
-begin
-  Result := Printer.Connection;
-end;
-
-procedure TFiscalPrinterImpl.SetConnection(
-  const Value: IPrinterConnection);
-begin
-  Printer.Connection := Value;
-end;
-
 function TFiscalPrinterImpl.ParseCashierName(const Line: string): string;
 var
   Cashier: string;
@@ -4442,7 +4468,7 @@ begin
   Result := Device.Context.MalinaParams;
 end;
 
-function TFiscalPrinterImpl.GetLogger: TLogFile;
+function TFiscalPrinterImpl.GetLogger: ILogFile;
 begin
   Result := Device.Context.Logger;
 end;

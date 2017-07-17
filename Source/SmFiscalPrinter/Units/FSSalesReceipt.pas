@@ -209,8 +209,8 @@ begin
   FReceiptItems := TReceiptItems.Create;
   ClearReceipt;
 
-  FTemplate := TReceiptTemplate.Create(
-    AContext.Printer.Printer.Parameters.ReceiptItemFormat);
+  FTemplate := TReceiptTemplate.Create;
+  FTemplate.Template := AContext.Printer.Printer.Parameters.ReceiptItemFormat;
 end;
 
 destructor TFSSalesReceipt.Destroy;
@@ -316,17 +316,29 @@ end;
 
 function TFSSalesReceipt.IsCashlessPayCode(PayCode: Integer): Boolean;
 begin
-  Result := PayCode in [1..3];
+  Result := PayCode in [1..15];
 end;
 
 function TFSSalesReceipt.GetPaymentTotal: Int64;
+var
+  i: Integer;
 begin
-  Result := FPayments[0] + FPayments[1] + FPayments[2] + FPayments[3];
+  Result := 0;
+  for i := Low(FPayments) to High(FPayments) do
+  begin
+    Result := Result + FPayments[i];
+  end;
 end;
 
 function TFSSalesReceipt.GetCashlessTotal: Int64;
+var
+  i: Integer;
 begin
-  Result := FPayments[1] + FPayments[2] + FPayments[3];
+  Result := 0;
+  for i := (Low(FPayments)+1) to High(FPayments) do
+  begin
+    Result := Result + FPayments[i];
+  end;
 end;
 
 function TFSSalesReceipt.GetIsCashPayment: Boolean;
@@ -735,7 +747,7 @@ begin
 
   // Check payment code
   PayCode := Printer.GetPayCode(Description);
-  if not (PayCode in [0..3]) then
+  if not (PayCode in [0..15]) then
     raiseOposException(OPOS_E_ILLEGAL, 'Invalid payment code');
 
   //
@@ -987,10 +999,16 @@ begin
 
   if FSRegistration.Quantity > 0 then
   begin
-    if FRecType = RecTypeSale then
-      Printer.Sale(Operation)
-    else
-      Printer.RetSale(Operation);
+    if not Device.CapFSCloseReceipt2 then
+    begin
+      if FRecType = RecTypeSale then
+        Printer.Sale(Operation)
+      else
+        Printer.RetSale(Operation);
+    end else
+    begin
+
+    end;
   end else
   begin
     Printer.Storno(Operation);
@@ -1119,6 +1137,8 @@ end;
 procedure TFSSalesReceipt.EndFiscalReceipt;
 var
   CloseParams: TCloseReceiptParams;
+  CloseParams2: TFSCloseReceiptParams2;
+  CloseResult2: TFSCloseReceiptResult2;
 begin
   State.CheckState(FPTR_PS_FISCAL_RECEIPT_ENDING);
   if FIsVoided then
@@ -1136,17 +1156,34 @@ begin
     if AdditionalText <> '' then
       PrintText2(AdditionalText);
 
-    CloseParams.CashAmount := FPayments[0];
-    CloseParams.Amount2 := FPayments[1];
-    CloseParams.Amount3 := FPayments[2];
-    CloseParams.Amount4 := FPayments[3];
-    CloseParams.PercentDiscount := FAdjustmentAmount;
-    CloseParams.Tax1 := 0;
-    CloseParams.Tax2 := 0;
-    CloseParams.Tax3 := 0;
-    CloseParams.Tax4 := 0;
-    CloseParams.Text := Parameters.CloseRecText;
-    Printer.ReceiptClose(CloseParams);
+    if Device.CapFSCloseReceipt2 then
+    begin
+      CloseParams2.Payments := FPayments;
+      CloseParams2.Discount := FAdjustmentAmount;
+      CloseParams2.TaxAmount[1] := Parameters.TaxAmount1;
+      CloseParams2.TaxAmount[2] := Parameters.TaxAmount2;
+      CloseParams2.TaxAmount[3] := Parameters.TaxAmount3;
+      CloseParams2.TaxAmount[4] := Parameters.TaxAmount4;
+      CloseParams2.TaxAmount[5] := Parameters.TaxAmount5;
+      CloseParams2.TaxAmount[6] := Parameters.TaxAmount6;
+      CloseParams2.TaxSystem := Parameters.TaxSystem;
+      CloseParams2.Text := Parameters.CloseRecText;
+      Device.ReceiptClose2(CloseParams2, CloseResult2);
+    end else
+    begin
+      CloseParams.CashAmount := FPayments[0];
+      CloseParams.Amount2 := FPayments[1];
+      CloseParams.Amount3 := FPayments[2];
+      CloseParams.Amount4 := FPayments[3];
+      CloseParams.PercentDiscount := FAdjustmentAmount;
+      CloseParams.Tax1 := 0;
+      CloseParams.Tax2 := 0;
+      CloseParams.Tax3 := 0;
+      CloseParams.Tax4 := 0;
+      CloseParams.Text := Parameters.CloseRecText;
+      Printer.ReceiptClose(CloseParams);
+    end;
+
     try
       Printer.WaitForPrinting;
       PrintBarcodes;

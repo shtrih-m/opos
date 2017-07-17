@@ -17,7 +17,7 @@ type
 
   TOposDevice = class
   private
-    FLogger: TLogFile;
+    FLogger: ILogFile;
     FEvents: TOposEvents;
     FOposEvents: IOposEvents;
     FSemaphore: TOposSemaphore;
@@ -68,7 +68,7 @@ type
 
     property Events: TOposEvents read FEvents;
   public
-    constructor Create;
+    constructor Create(ALogger: ILogFile);
     destructor Destroy; override;
 
     function Open(const ADeviceClass, ADeviceName: string;
@@ -106,7 +106,7 @@ type
     procedure SetPropertyNumber(PropIndex: Integer; Number: Integer); virtual;
     procedure SetPropertyString(PropIndex: Integer; const Text: WideString); virtual;
 
-    property Logger: TLogFile read FLogger;
+    property Logger: ILogFile read FLogger;
     property DeviceName: string read FDeviceName;
     property DataCount: Integer read GetDataCount;
     property AutoDisable: Boolean read FAutoDisable;
@@ -148,10 +148,13 @@ end;
 
 { TOposDevice }
 
-constructor TOposDevice.Create;
+constructor TOposDevice.Create(ALogger: ILogFile);
 begin
   inherited Create;
-  FLogger := TLogFile.Create;
+  FLogger := ALogger;
+  if ALogger = nil then
+    FLogger := TLogFile.Create;
+
   FEvents := TOposEvents.Create;
   FSemaphore := TOposSemaphore.Create;
   Initialize;
@@ -168,7 +171,7 @@ begin
   FEvents.Free;
   FSemaphore.Free;
   FOposEvents := nil;
-  FLogger.Free;
+  FLogger := nil;
   inherited Destroy;
 end;
 

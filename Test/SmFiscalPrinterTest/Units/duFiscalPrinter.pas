@@ -280,14 +280,6 @@ begin
   FPrinter.Device := FDevice;
   FPrinter.Connection := FConnection;
   FDriver := ToleFiscalPrinter.Create(FPrinter);
-
-  Parameters.SetDefaults;
-  Parameters.NumHeaderLines := 0;
-  Parameters.NumTrailerLines := 0;
-  Parameters.LogFileEnabled := False;
-  Parameters.PropertyUpdateMode := PropertyUpdateModeNone;
-  Parameters.Header := '';
-  Parameters.Trailer := '';
 end;
 
 procedure TFiscalPrinterTest.TearDown;
@@ -310,6 +302,14 @@ end;
 procedure TFiscalPrinterTest.OpenDevice;
 begin
   CheckResult(Driver.Open('FiscalPrinter', DeviceName, nil));
+
+  Parameters.SetDefaults;
+  Parameters.NumHeaderLines := 0;
+  Parameters.NumTrailerLines := 0;
+  Parameters.LogFileEnabled := False;
+  Parameters.PropertyUpdateMode := PropertyUpdateModeNone;
+  Parameters.Header := '';
+  Parameters.Trailer := '';
 end;
 
 procedure TFiscalPrinterTest.ClaimDevice;
@@ -360,8 +360,8 @@ end;
 
 procedure TFiscalPrinterTest.CheckClaimed;
 begin
-  CheckEquals(0, Driver.GetPropertyNumber(PIDX_Claimed));
   OpenDevice;
+  CheckEquals(0, Driver.GetPropertyNumber(PIDX_Claimed));
   CheckResult(Driver.Claim(0));
   CheckEquals(1, Driver.GetPropertyNumber(PIDX_Claimed));
   CheckResult(Driver.ReleaseDevice);
@@ -522,7 +522,6 @@ end;
 
 procedure TFiscalPrinterTest.CheckState;
 begin
-  CheckEquals(OPOS_S_CLOSED, Driver.GetPropertyNumber(PIDX_State), 'State');
   OpenDevice;
   CheckEquals(OPOS_S_IDLE, Driver.GetPropertyNumber(PIDX_State), 'State');
 end;
@@ -1794,11 +1793,16 @@ procedure TFiscalPrinterTest.CheckRecNearEnd;
 var
   Flags: TPrinterFlags;
 begin
+  OpenDevice;
+
   SetTestParameters;
   Parameters.PropertyUpdateMode := PropertyUpdateModeNone;
   Parameters.CapRecNearEndSensorMode := SensorModeTrue;
 
-  OpenClaimEnable;
+  CheckResult(Driver.Claim(0));
+  Driver.SetPropertyNumber(PIDX_DeviceEnabled, 1);
+
+
   Flags.RecEmpty := False;
   Flags.RecNearEnd := True;
   FDevice.SetFlags(Flags);
@@ -1811,8 +1815,11 @@ begin
     'Driver.GetPropertyNumber(PIDXFptr_RecNearEnd)');
   Driver.Close;
 
+  OpenDevice;
   Parameters.CapRecNearEndSensorMode := SensorModeFalse;
-  OpenClaimEnable;
+  CheckResult(Driver.Claim(0));
+  Driver.SetPropertyNumber(PIDX_DeviceEnabled, 1);
+
   Printer.SetRecPaperState(False, True);
   CheckEquals(0, Driver.GetPropertyNumber(PIDXFptr_CapRecNearEndSensor),
     'Driver.GetPropertyNumber(PIDXFptr_CapRecNearEndSensor)');
@@ -1836,6 +1843,7 @@ end;
 
 procedure TFiscalPrinterTest.SaveTestDevice;
 begin
+  OpenDevice;
   SetTestParameters;
 end;
 
@@ -1844,6 +1852,7 @@ const
   Line1 = '     ****** ëèÄëàÅé áÄ èéäìèäì ******     ';
   Line2 = '     ****** —œ¿—»¡Œ «¿ œŒ ”œ ” ******     ';
 begin
+  OpenClaimEnable;
   CheckEquals(Line2, Str866To1251(Line1));
 
   Parameters.Encoding := Encoding866;

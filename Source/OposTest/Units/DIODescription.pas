@@ -20,7 +20,7 @@ const
   CRLF = #13#10;
   DIO_CUSTOM_COMMAND = $FFFF;
 
-  DIODescriptions: array[1..28] of TDirectIODescription = (
+  DIODescriptions: array[1..30] of TDirectIODescription = (
     (Command: DIO_COMMAND_PRINTER_XML;
      Description: 'XML command';
      DescriptionEx:  'Data: Printer command code' + #13#10 +
@@ -169,7 +169,18 @@ const
     (Command: DIO_FS_PRINT_CALC_REPORT;
      Description: 'FS: Print calculation report';
      DescriptionEx: 'Data: not used' + CRLF +
+     'String: not used';),
+
+    (Command: DIO_OPEN_CASH_DRAWER;
+     Description: 'Open cash drawer';
+     DescriptionEx: 'Data: drawer number (usually 0)' + CRLF +
+     'String: not used';),
+
+    (Command: DIO_READ_CASH_DRAWER_STATE;
+     Description: 'Read cash drawer state';
+     DescriptionEx: 'Data: return state (0 - closed, 1 - opened)' + CRLF +
      'String: not used';)
+
   );
 
 function GetDIODescription(ADIOCommand: Integer): TDirectIODescription;

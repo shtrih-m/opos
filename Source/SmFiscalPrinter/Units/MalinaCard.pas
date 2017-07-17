@@ -13,19 +13,19 @@ type
 
   TMalinaCard = class
   private
-    FLogger: TLogFile;
+    FLogger: ILogFile;
     FAmount: Integer;
     FDateTime: string;
     FCardNumber: string;
     FOperationType: Integer;
   public
-    constructor Create(ALogger: TLogFile);
+    constructor Create(ALogger: ILogFile);
 
     procedure Clear;
     procedure Load(const Key: string);
     procedure Save(const Key: string);
 
-    property Logger: TLogFile read FLogger;
+    property Logger: ILogFile read FLogger;
     property Amount: Integer read FAmount write FAmount;
     property DateTime: string read FDateTime write FDateTime;
     property CardNumber: string read FCardNumber write FCardNumber;
@@ -42,7 +42,7 @@ const
 
 { TMalinaCard }
 
-constructor TMalinaCard.Create(ALogger: TLogFile);
+constructor TMalinaCard.Create(ALogger: ILogFile);
 begin
   inherited Create;
   FLogger := ALogger;

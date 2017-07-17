@@ -30,7 +30,7 @@ type
   private
     FList: TList;
     FLinks: TList;
-    FLogger: TLogFile;
+    FLogger: ILogFile;
     FCS: TCriticalSection;
 
     function GetCount: Integer;
@@ -40,7 +40,7 @@ type
     procedure RemoveLink(AItem: TPortsLink);
     function GetItem(Index: Integer): TPort;
   public
-    constructor Create(ALogger: TLogFile);
+    constructor Create(ALogger: ILogFile);
     destructor Destroy; override;
     procedure Lock;
     procedure Unlock;
@@ -50,7 +50,7 @@ type
     function ItemByPortNumber(Value: Integer): TPort;
 
     property Count: Integer read GetCount;
-    property Logger: TLogFile read FLogger;
+    property Logger: ILogFile read FLogger;
     property Items[Index: Integer]: TPort read GetItem; default;
   end;
 
@@ -61,7 +61,7 @@ type
     FOwner: TPorts;
     procedure SetOwner(AOwner: TPorts);
   public
-    constructor Create(Logger: TLogFile);
+    constructor Create(Logger: ILogFile);
     destructor Destroy; override;
     property Ports: TPorts read FOwner;
   end;
@@ -99,7 +99,7 @@ type
     procedure WaitForPrinting(Device: IFiscalPrinterDevice; Timeout: Integer);
     function GetStatus(Device: IFiscalPrinterDevice): TPrinterStatus;
   public
-    constructor CreatePort(AOwner: TPorts; APortNumber: Integer; ALogger: TLogFile);
+    constructor CreatePort(AOwner: TPorts; APortNumber: Integer; ALogger: ILogFile);
     destructor Destroy; override;
 
     procedure Lock;
@@ -128,7 +128,7 @@ type
     FPortsLink: TPortsLink;
     procedure SetOwner(AOwner: TPort);
   public
-    constructor Create(PortNumber: Integer; Logger: TLogFile);
+    constructor Create(PortNumber: Integer; Logger: ILogFile);
     destructor Destroy; override;
     property Port: TPort read FOwner;
   end;
@@ -141,7 +141,7 @@ uses
 var
   PortsVar: TPorts = nil;
 
-function GetPorts(Logger: TLogFile): TPorts;
+function GetPorts(Logger: ILogFile): TPorts;
 begin
   if PortsVar = nil then
     PortsVar := TPorts.Create(Logger);
@@ -162,7 +162,7 @@ end;
 
 { TPorts }
 
-constructor TPorts.Create(ALogger: TLogFile);
+constructor TPorts.Create(ALogger: ILogFile);
 begin
   inherited Create;
   FCS := TCriticalSection.Create;
@@ -274,7 +274,7 @@ end;
 
 { TPortsLink }
 
-constructor TPortsLink.Create(Logger: TLogFile);
+constructor TPortsLink.Create(Logger: ILogFile);
 begin
   inherited Create;
   SetOwner(GetPorts(Logger));
@@ -297,7 +297,7 @@ end;
 
 { TPort }
 
-constructor TPort.CreatePort(AOwner: TPorts; APortNumber: Integer; ALogger: TLogFile);
+constructor TPort.CreatePort(AOwner: TPorts; APortNumber: Integer; ALogger: ILogFile);
 const
   LastID: Integer = 0;
 begin
@@ -521,7 +521,7 @@ end;
 
 { TPortLink }
 
-constructor TPortLink.Create(PortNumber: Integer; Logger: TLogFile);
+constructor TPortLink.Create(PortNumber: Integer; Logger: ILogFile);
 var
   Port: TPort;
   Ports: TPorts;

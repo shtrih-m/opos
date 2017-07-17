@@ -320,6 +320,8 @@ type
     function Storno(Operation: TPriceReg): Integer;
     function ReceiptClose(const P: TCloseReceiptParams;
       var R: TCloseReceiptResult): Integer;
+    function ReceiptClose2(const P: TFSCloseReceiptParams2;
+      var R: TFSCloseReceiptResult2): Integer;
     function ReceiptDiscount(Operation: TAmountOperation): Integer;
     function ReceiptDiscount2(Operation: TReceiptDiscount2): Integer;
     function ReceiptCharge(Operation: TAmountOperation): Integer;
@@ -396,6 +398,7 @@ type
     function FSReadState(var R: TFSState): Integer;
     function FSWriteTLV(const TLVData: string): Integer;
     function FSSale(const P: TFSSale): Integer;
+    function FSSale2(const P: TFSSale2): Integer;
     function FSStorno(const P: TFSSale): Integer;
     function FSReadStatus(var R: TFSStatus): Integer;
     function FSReadBlock(const P: TFSBlockRequest; var Block: string): Integer;
@@ -438,6 +441,7 @@ type
     function GetCapSubtotalRound: Boolean;
     procedure CancelReceipt;
     function ReadLoaderVersion(var Version: string): Integer;
+    function GetCapFSCloseReceipt2: Boolean;
 
     property IsOnline: Boolean read GetIsOnline;
     property Model: TPrinterModelRec read GetModel;
@@ -457,6 +461,7 @@ type
     property CapOpenReceipt: Boolean read GetCapOpenReceipt;
     property CapDiscount: Boolean read GetCapDiscount;
     property CapSubtotalRound: Boolean read GetCapSubtotalRound;
+    property CapFSCloseReceipt2: Boolean read GetCapFSCloseReceipt2;
   end;
 
   { IFiscalPrinterDevice2 }

@@ -16,7 +16,7 @@ type
   TCommandDefs = class
   private
     FList: TList;
-    FLogger: TLogFile;
+    FLogger: ILogFile;
 
     function GetCount: Integer;
     function GetItem(Index: Integer): TCommandDef;
@@ -25,7 +25,7 @@ type
     procedure DoSaveToFile(const FileName: string);
     procedure DoLoadFromFile(const FileName: string);
   public
-    constructor Create(ALogger: TLogFile);
+    constructor Create(ALogger: ILogFile);
     destructor Destroy; override;
 
     procedure Clear;
@@ -37,7 +37,7 @@ type
     function AddParam(Params: TCommandParams; const ParamName: string;
       ParamSize: Integer; ParamType: Integer): TCommandParam;
 
-    property Logger: TLogFile read FLogger;
+    property Logger: ILogFile read FLogger;
     property Count: Integer read GetCount;
     property Items[Index: Integer]: TCommandDef read GetItem; default;
   end;
@@ -76,7 +76,7 @@ implementation
 
 { TCommandDefs }
 
-constructor TCommandDefs.Create(ALogger: TLogFile);
+constructor TCommandDefs.Create(ALogger: ILogFile);
 begin
   inherited Create;
   FList := TList.Create;

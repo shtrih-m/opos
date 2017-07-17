@@ -21,13 +21,13 @@ type
 
     procedure Lock;
     procedure Unlock;
-    function GetLogger: TLogFile;
+    function GetLogger: ILogFile;
     function GetDriver: TScaleDriver;
     function GetLock: TCriticalSection;
     function EncodeString(const Text: string): WideString;
     function DecodeString(const Text: WideString): string;
 
-    property Logger: TLogFile read GetLogger; 
+    property Logger: ILogFile read GetLogger; 
     property Driver: TScaleDriver read GetDriver;
   public
     function CheckHealth(Level: Integer): Integer; safecall;
@@ -79,7 +79,7 @@ begin
   inherited Destroy;
 end;
 
-function ToleScale.GetLogger: TLogFile;
+function ToleScale.GetLogger: ILogFile;
 begin
   Result := Driver.Logger;
 end;

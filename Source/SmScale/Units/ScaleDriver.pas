@@ -24,7 +24,7 @@ type
     FParameters: TScaleParameters;
     FStatistics: TScaleStatistics;
 
-    function GetLogger: TLogFile;
+    function GetLogger: ILogFile;
     function GetDevice: TM5OposDevice;
     function GetParameters: TScaleParameters;
     function HandleException(E: Exception): Integer;
@@ -72,7 +72,7 @@ type
     procedure SetUnitPrice(Value: Currency); safecall;
     property OpenResult: Integer read Get_OpenResult;
   public
-    property Logger: TLogFile read GetLogger;
+    property Logger: ILogFile read GetLogger;
     property Device: TM5OposDevice read GetDevice;
     property SalesPrice: Currency read GetSalesPrice;
     property Parameters: TScaleParameters read GetParameters;
@@ -330,7 +330,7 @@ begin
   Device.UnitPrice := Value;
 end;
 
-function TScaleDriver.GetLogger: TLogFile;
+function TScaleDriver.GetLogger: ILogFile;
 begin
   Result := Device.Logger;
 end;

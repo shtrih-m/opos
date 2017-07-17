@@ -738,6 +738,30 @@ type
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
+  { TDIOOpenCashDrawer }
+
+  TDIOOpenCashDrawer = class(TDIOHandler)
+  private
+    FPrinter: TFiscalPrinterImpl;
+  public
+    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
+      APrinter: TFiscalPrinterImpl);
+
+    procedure DirectIO(var pData: Integer; var pString: WideString); override;
+  end;
+
+  { TDIOReadCashDrawerState }
+
+  TDIOReadCashDrawerState = class(TDIOHandler)
+  private
+    FPrinter: TFiscalPrinterImpl;
+  public
+    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
+      APrinter: TFiscalPrinterImpl);
+
+    procedure DirectIO(var pData: Integer; var pString: WideString); override;
+  end;
+
 implementation
 
 function BoolToStr(Value: Boolean): string;
@@ -1665,6 +1689,14 @@ begin
     DriverParameterCacheReceiptNumber: pString := BoolToStr(Printer.Parameters.CacheReceiptNumber);
     DriverParameterBarLineByteMode: pString := IntToStr(Printer.Parameters.BarLineByteMode);
     DriverParameterLogFilePath: pString := Printer.Parameters.LogFilePath;
+
+    DriverParameterTaxAmount1: pString := IntToStr(Printer.Parameters.TaxAmount1);
+    DriverParameterTaxAmount2: pString := IntToStr(Printer.Parameters.TaxAmount2);
+    DriverParameterTaxAmount3: pString := IntToStr(Printer.Parameters.TaxAmount3);
+    DriverParameterTaxAmount4: pString := IntToStr(Printer.Parameters.TaxAmount4);
+    DriverParameterTaxAmount5: pString := IntToStr(Printer.Parameters.TaxAmount5);
+    DriverParameterTaxAmount6: pString := IntToStr(Printer.Parameters.TaxAmount6);
+    DriverParameterTaxSystem: pString := IntToStr(Printer.Parameters.TaxSystem);
   end;
 end;
 
@@ -1750,6 +1782,15 @@ begin
     DriverParameterCacheReceiptNumber: Parameters.CacheReceiptNumber := StrToBool(pString);
     DriverParameterBarLineByteMode: Parameters.BarLineByteMode := StrToInt(pString);
     DriverParameterLogFilePath: Parameters.LogFilePath := pString;
+
+    DriverParameterTaxAmount1: Parameters.TaxAmount1 := StrToInt(pString);
+    DriverParameterTaxAmount2: Parameters.TaxAmount2 := StrToInt(pString);
+    DriverParameterTaxAmount3: Parameters.TaxAmount3 := StrToInt(pString);
+    DriverParameterTaxAmount4: Parameters.TaxAmount4 := StrToInt(pString);
+    DriverParameterTaxAmount5: Parameters.TaxAmount5 := StrToInt(pString);
+    DriverParameterTaxAmount6: Parameters.TaxAmount6 := StrToInt(pString);
+    DriverParameterTaxSystem: Parameters.TaxSystem := StrToInt(pString);
+
   end;
 end;
 
@@ -2214,6 +2255,41 @@ var
 begin
   FPrinter.Device.Check(FPrinter.Device.FSPrintCalcReport(R));
   FPrinter.PrintReportEnd;
+end;
+
+(*
+  DIO_OPEN_CASH_DRAWER          = 50; // Open cash drawer
+  DIO_READ_CASH_DRAWER_STATE    = 51; // Read cash drawer state
+*)
+
+{ TDIOOpenCashDrawer }
+
+constructor TDIOOpenCashDrawer.CreateCommand(AOwner: TDIOHandlers;
+  ACommand: Integer; APrinter: TFiscalPrinterImpl);
+begin
+  inherited Create(AOwner, ACommand);
+  FPrinter := APrinter;
+end;
+
+procedure TDIOOpenCashDrawer.DirectIO(var pData: Integer;
+  var pString: WideString);
+begin
+  FPrinter.Device.OpenDrawer(pData);
+end;
+
+{ TDIOReadCashDrawerState }
+
+constructor TDIOReadCashDrawerState.CreateCommand(AOwner: TDIOHandlers;
+  ACommand: Integer; APrinter: TFiscalPrinterImpl);
+begin
+  inherited Create(AOwner, ACommand);
+  FPrinter := APrinter;
+end;
+
+procedure TDIOReadCashDrawerState.DirectIO(var pData: Integer;
+  var pString: WideString);
+begin
+  pData := BoolToInt[FPrinter.Device.GetPrinterStatus.Flags.DrawerOpened];
 end;
 
 end.

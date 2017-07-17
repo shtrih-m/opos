@@ -25,7 +25,7 @@ implementation
 
 procedure TCommandDefsTest.CheckSaveToXml;
 var
-  Logger: TLogFile;
+  Logger: ILogFile;
   Item: TCommandDefs;
 begin
   Logger := TLogFile.Create;
@@ -34,7 +34,7 @@ begin
     Item.SaveToFile('CommandDefs.xml');
   finally
     Item.Free;
-    Logger.Free;
+    Logger := nil;
   end;
 end;
 

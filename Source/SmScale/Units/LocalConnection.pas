@@ -15,7 +15,7 @@ type
   TLocalConnection = class(TInterfacedObject, IScaleConnection)
   private
     FOutput: string;                    // Received data
-    FLogger: TLogFile;
+    FLogger: ILogFile;
     FPort: TSerialPort;
     FLock: TCriticalSection;
 
@@ -32,14 +32,14 @@ type
     function ReadAnswerData(var CRCError: Boolean): Boolean;
 
     property Port: TSerialPort read FPort;
-    property Logger: TLogFile read FLogger;
+    property Logger: ILogFile read FLogger;
   public
     NakCount: Integer;          // Count of received NAK
     MaxCmdCount: Integer;       // Max command try to send count
     MaxAnsCount: Integer;       // Max answer try to read count
     MaxENQCount: Integer;       // Max ENQ request count
 
-    constructor Create(ALogger: TLogFile);
+    constructor Create(ALogger: ILogFile);
     destructor Destroy; override;
 
     // IScaleConnection
@@ -63,7 +63,7 @@ const
 
 { Read answer on command }
 
-constructor TLocalConnection.Create(ALogger: TLogFile);
+constructor TLocalConnection.Create(ALogger: ILogFile);
 begin
   inherited Create;
   FPort := TSerialPort.Create(ALogger);

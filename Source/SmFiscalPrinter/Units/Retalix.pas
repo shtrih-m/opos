@@ -16,7 +16,7 @@ type
 
   TRetalix = class
   private
-    function GetLogger: TLogFile;
+    function GetLogger: ILogFile;
     function GetMalinaParams: TMalinaParams;
   private
     FDBPath: string;
@@ -24,7 +24,7 @@ type
     FContext: TDriverContext;
     FConnection: ADOInt._Connection;
     
-    property Logger: TLogFile read GetLogger;
+    property Logger: ILogFile read GetLogger;
   public
     constructor Create(const DBPath: string; AContext: TDriverContext);
     destructor Destroy; override;
@@ -117,7 +117,7 @@ begin
   Result := FContext.MalinaParams;
 end;
 
-function TRetalix.GetLogger: TLogFile;
+function TRetalix.GetLogger: ILogFile;
 begin
   Result := FContext.Logger;
 end;

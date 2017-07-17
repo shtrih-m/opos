@@ -13,9 +13,9 @@ type
 
   TXmlParams = class(TAutoObject, IXmlParams)
   private
-    FLogger: TLogFile;
+    FLogger: ILogFile;
     FParams: TXmlValues;
-    property Logger: TLogFile read FLogger;
+    property Logger: ILogFile read FLogger;
   protected
     procedure SetParam(const ParamName: WideString; const ParamValue: WideString); safecall;
     function  GetParam(const ParamName: WideString): WideString; safecall;
@@ -25,7 +25,7 @@ type
     procedure AddParam(const ParamName, ParamValue: WideString); safecall;
     procedure Clear; safecall;
   public
-    constructor Create(ALogger: TLogFile);
+    constructor Create(ALogger: ILogFile);
     destructor Destroy; override;
     procedure Initialize; override;
   end;
@@ -34,7 +34,7 @@ implementation
 
 { TDirectIOCommand }
 
-constructor TXmlParams.Create(ALogger: TLogFile);
+constructor TXmlParams.Create(ALogger: ILogFile);
 begin
   inherited Create;
   FLogger := ALogger;

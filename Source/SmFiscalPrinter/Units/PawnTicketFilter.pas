@@ -18,14 +18,14 @@ type
     FPrinter: ISharedPrinter;
     function IsPawnTicket(Doc: TNonfiscalDoc): Boolean;
     function GetParams: TMalinaParams;
-    function GetLogger: TLogFile;
+    function GetLogger: ILogFile;
   public
     constructor Create(AOwner: TFptrFilters; APrinter: ISharedPrinter);
 
     procedure BeginFiscalReceipt; override;
     procedure EndNonFiscal(Doc: TNonfiscalDoc); override;
 
-    property Logger: TLogFile read GetLogger;
+    property Logger: ILogFile read GetLogger;
     property Params: TMalinaParams read GetParams;
   end;
 
@@ -79,7 +79,7 @@ begin
   Result := FPrinter.Device.Context.MalinaParams;
 end;
 
-function TPawnTicketFilter.GetLogger: TLogFile;
+function TPawnTicketFilter.GetLogger: ILogFile;
 begin
   Result := FPrinter.Device.Context.Logger;
 end;

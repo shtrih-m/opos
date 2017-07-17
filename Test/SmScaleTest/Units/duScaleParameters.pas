@@ -15,7 +15,7 @@ type
 
   TScaleParametersTest = class(TTestCase)
   private
-    Logger: TLogFile;
+    Logger: ILogFile;
     Parameters: TScaleParameters;
 
     procedure SetValues;
@@ -43,9 +43,9 @@ end;
 
 procedure TScaleParametersTest.TearDown;
 begin
+  Logger := nil;
   Parameters.DeleteKey(DeviceName);
   Parameters.Free;
-  Logger.Free;
 end;
 
 procedure TScaleParametersTest.SetValues;

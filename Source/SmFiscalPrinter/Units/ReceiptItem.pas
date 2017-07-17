@@ -97,17 +97,25 @@ type
   TFSSaleItem = class(TReceiptItem)
   private
     FDiscounts: TReceiptItems;
+    FPriceWithDiscount: Int64;
+    function GetPriceDiscount: Int64;
   public
     destructor Destroy; override;
   public
+    Pos: Integer;
     Data: TFSSale;
     PreLine: string;
     PostLine: string;
+    FUnitPrice: Int64;
+
     function GetAmount: int64;
     function GetTotal: Int64; override;
     function GetDiscounts: TReceiptItems;
     procedure Assign(Item: TReceiptItem); override;
 
+    property Total: Int64 read GetTotal;
+    property PriceWithDiscount: Int64 read FPriceWithDiscount;
+    property PriceDiscount: Int64 read GetPriceDiscount;
     property Discounts: TReceiptItems read GetDiscounts;
     property RecType: Integer read Data.RecType write Data.RecType;
     property Quantity: Int64 read Data.Quantity write Data.Quantity;
@@ -119,6 +127,7 @@ type
     property Discount: Int64 read Data.Discount write Data.Discount;
     property Barcode: Int64 read Data.Barcode write Data.Barcode;
     property AdjText: string read Data.AdjText write Data.AdjText;
+    property UnitPrice: Int64 read FUnitPrice write FUnitPrice;
   end;
 
   { TBarcodeReceiptItem }
@@ -275,6 +284,11 @@ begin
     PostLine := Src.PostLine;
     Discounts.Assign(Src.Discounts);
   end;
+end;
+
+function TFSSaleItem.GetPriceDiscount: Int64;
+begin
+  Result := Price - PriceWithDiscount;
 end;
 
 { TDiscountReceiptItem }

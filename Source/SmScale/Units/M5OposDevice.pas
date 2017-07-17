@@ -150,7 +150,7 @@ constructor TM5OposDevice.Create(
   AStatistics: TScaleStatistics;
   AUIController: IScaleUIController);
 begin
-  inherited Create;
+  inherited Create(nil);
   FDevice := ADevice;
   FCommands := ACommands;
   FConnection := AConnection;

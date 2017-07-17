@@ -26,13 +26,13 @@ type
 
   TSMFiscalPrinter = class
   private
-    FLogger: TLogFile;
+    FLogger: ILogFile;
     FEncoding: Integer;
     FDriver: TOPOSFiscalPrinter;
 
     function GetDriver: TOPOSFiscalPrinter;
   public
-    property Logger: TLogFile read FLogger;
+    property Logger: ILogFile read FLogger;
     property Driver: TOPOSFiscalPrinter read GetDriver;
   public
     constructor Create;
@@ -493,8 +493,8 @@ end;
 
 destructor TSMFiscalPrinter.Destroy;
 begin
-  FLogger.Free;
   FDriver.Free;
+  FLogger := nil;
   inherited Destroy;
 end;
 

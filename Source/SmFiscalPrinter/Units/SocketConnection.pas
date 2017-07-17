@@ -22,7 +22,7 @@ type
     FByteTimeout: Integer;
     FLock: TCriticalsection;
     FConnection: TIdTCPClient;
-    FLogger: TLogFile;
+    FLogger: ILogFile;
 
     procedure Connect;
     procedure Disconnect;
@@ -36,7 +36,7 @@ type
     procedure SendCommand(const Data: string);
     procedure Write(const Data: string);
 
-    property Logger: TLogFile read FLogger;
+    property Logger: ILogFile read FLogger;
   public
     NakCount: Integer;          // Count of received NAK
     MaxCmdCount: Integer;       // Max command try to send count
@@ -44,7 +44,7 @@ type
     MaxENQCount: Integer;       // Max ENQ request count
 
     constructor Create(const ARemoteHost: string; ARemotePort: Integer;
-      ALogger: TLogFile);
+      ALogger: ILogFile);
     destructor Destroy; override;
 
     procedure ClosePort;
@@ -121,7 +121,7 @@ end;
 { TSocketConnection }
 
 constructor TSocketConnection.Create(const ARemoteHost: string; ARemotePort: Integer;
-  ALogger: TLogFile);
+  ALogger: ILogFile);
 begin
   inherited Create;
   FLogger := ALogger;

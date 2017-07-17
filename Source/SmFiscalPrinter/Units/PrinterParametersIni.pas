@@ -48,7 +48,7 @@ type
 
   TPrinterParametersIni = class
   private
-    FLogger: TLogFile;
+    FLogger: ILogFile;
     FParameters: TPrinterParameters;
     procedure LoadIni(const DeviceName: string);
     property Parameters: TPrinterParameters read FParameters;
@@ -61,31 +61,31 @@ type
     procedure SaveSysParameters(const DeviceName: string);
     procedure SaveUsrParameters(const DeviceName: string);
 
-    property Logger: TLogFile read FLogger;
+    property Logger: ILogFile read FLogger;
   public
-    constructor Create(AParameters: TPrinterParameters; ALogger: TLogFile);
+    constructor Create(AParameters: TPrinterParameters; ALogger: ILogFile);
     procedure Load(const DeviceName: string);
     procedure Save(const DeviceName: string);
     class function ReadStorage(const DeviceName: string): Integer;
     class procedure SaveStorage(const DeviceName: string; Storage: Integer);
   end;
 
-function ReadEncodingIni(const DeviceName: string; Logger: TLogFile): Integer;
+function ReadEncodingIni(const DeviceName: string; Logger: ILogFile): Integer;
 
 procedure DeleteParametersIni(const DeviceName: string);
 
 procedure LoadParametersIni(Item: TPrinterParameters;
-  const DeviceName: string; Logger: TLogFile);
+  const DeviceName: string; Logger: ILogFile);
 
 procedure SaveParametersIni(Item: TPrinterParameters;
-  const DeviceName: string; Logger: TLogFile);
+  const DeviceName: string; Logger: ILogFile);
 
 procedure SaveUsrParametersIni(Item: TPrinterParameters;
-  const DeviceName: string; Logger: TLogFile);
+  const DeviceName: string; Logger: ILogFile);
 
 implementation
 
-function ReadEncodingIni(const DeviceName: string; Logger: TLogFile): Integer;
+function ReadEncodingIni(const DeviceName: string; Logger: ILogFile): Integer;
 var
   P: TPrinterParameters;
 begin
@@ -109,7 +109,7 @@ begin
 end;
 
 procedure LoadParametersIni(Item: TPrinterParameters;
-  const DeviceName: string; Logger: TLogFile);
+  const DeviceName: string; Logger: ILogFile);
 var
   Reader: TPrinterParametersIni;
 begin
@@ -122,7 +122,7 @@ begin
 end;
 
 procedure SaveParametersIni(Item: TPrinterParameters; const DeviceName: string;
-  Logger: TLogFile);
+  Logger: ILogFile);
 var
   Writer: TPrinterParametersIni;
 begin
@@ -135,7 +135,7 @@ begin
 end;
 
 procedure SaveUsrParametersIni(Item: TPrinterParameters;
-  const DeviceName: string; Logger: TLogFile);
+  const DeviceName: string; Logger: ILogFile);
 var
   Writer: TPrinterParametersIni;
 begin
@@ -150,7 +150,7 @@ end;
 { TPrinterParametersIni }
 
 constructor TPrinterParametersIni.Create(AParameters: TPrinterParameters;
-  ALogger: TLogFile);
+  ALogger: ILogFile);
 begin
   inherited Create;
   FParameters := AParameters;

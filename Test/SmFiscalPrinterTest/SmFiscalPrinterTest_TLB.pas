@@ -12,11 +12,11 @@ unit SmFiscalPrinterTest_TLB;
 // ************************************************************************ //
 
 // PASTLWTR : 1.2
-// File generated on 19.05.2017 22:30:32 from Type Library described below.
+// File generated on 13.07.2017 21:42:25 from Type Library described below.
 
 // ************************************************************************  //
 // Type Lib: C:\projects\OPOSShtrih\Test\SmFiscalPrinterTest\SmFiscalPrinterTest.tlb (1)
-// LIBID: {F146CD2E-7A85-4EBB-AA7B-034346AB23F7}
+// LIBID: {A452D5B0-7E92-4EC0-84BE-F3F91324435B}
 // LCID: 0
 // Helpfile: 
 // HelpString: SmFiscalPrinterTest Library
@@ -44,7 +44,7 @@ const
   SmFiscalPrinterTestMajorVersion = 1;
   SmFiscalPrinterTestMinorVersion = 0;
 
-  LIBID_SmFiscalPrinterTest: TGUID = '{F146CD2E-7A85-4EBB-AA7B-034346AB23F7}';
+  LIBID_SmFiscalPrinterTest: TGUID = '{A452D5B0-7E92-4EC0-84BE-F3F91324435B}';
 
 
 implementation

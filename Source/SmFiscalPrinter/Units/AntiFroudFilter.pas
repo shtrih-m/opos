@@ -18,7 +18,7 @@ type
   TAntiFroudFilter = class(TFptrFilter)
   private
     function GetParams: TMalinaParams;
-    function GetLogger: TLogFile;
+    function GetLogger: ILogFile;
   private
     FReader: TUniposReader;
     function ValidReceiptFlags: Boolean;
@@ -31,7 +31,7 @@ type
     procedure CheckRefundReceipt(const Description: WideString);
     procedure CancelReceipt2;
 
-    property Logger: TLogFile read GetLogger;
+    property Logger: ILogFile read GetLogger;
     property Params: TMalinaParams read GetParams;
   private
     FItemCount: Integer;
@@ -274,7 +274,7 @@ begin
   end;
 end;
 
-function TAntiFroudFilter.GetLogger: TLogFile;
+function TAntiFroudFilter.GetLogger: ILogFile;
 begin
   Result := FService.Printer.Device.Context.Logger;
 end;

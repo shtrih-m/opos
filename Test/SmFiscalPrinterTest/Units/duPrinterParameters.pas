@@ -21,7 +21,7 @@ type
     procedure SetNonDefaultParams;
     procedure CheckNonDefaultParams;
 
-    function GetLogger: TLogFile;
+    function GetLogger: ILogFile;
     function GetParams: TPrinterParameters;
   protected
     procedure Setup; override;
@@ -32,7 +32,7 @@ type
     procedure CheckSetDefaults;
     procedure CheckDefaultParams;
 
-    property Logger: TLogFile read GetLogger; 
+    property Logger: ILogFile read GetLogger; 
     property Params: TPrinterParameters read GetParams;
   end;
 
@@ -312,7 +312,7 @@ begin
   DeleteParametersReg('DeviceName', Logger);
 end;
 
-function TPrinterParametersTest.GetLogger: TLogFile;
+function TPrinterParametersTest.GetLogger: ILogFile;
 begin
   Result := FContext.Logger;
 end;

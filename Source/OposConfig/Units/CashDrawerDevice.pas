@@ -18,7 +18,7 @@ type
 
   TCashDrawerDevice = class(TOposDevice)
   private
-    FLogger: TLogFile;
+    FLogger: ILogFile;
     FParameters: TCashDrawerParameters;
     procedure AddPage(Pages: TfmPages; PageClass: TCashPageClass);
   public
@@ -61,7 +61,7 @@ end;
 
 destructor TCashDrawerDevice.Destroy;
 begin
-  FLogger.Free;
+  FLogger := nil;
   FParameters.Free;
   inherited Destroy;
 end;

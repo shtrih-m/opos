@@ -13,14 +13,14 @@ type
 
   TFiscalPrinterFilter = class
   private
-    FLogger: TLogFile;
+    FLogger: ILogFile;
     FList: TInterfaceList;
-    property Logger: TLogFile read FLogger;
+    property Logger: ILogFile read FLogger;
   public
     procedure AddFilter(AFilter: IFiscalPrinterFilter);
     procedure RemoveFilter(AFilter: IFiscalPrinterFilter);
   public
-    constructor Create(ALogger: TLogFile);
+    constructor Create(ALogger: ILogFile);
     destructor Destroy; override;
 
     procedure BeforeCashIn;
@@ -46,11 +46,11 @@ implementation
 
 { TFiscalPrinterFilter }
 
-constructor TFiscalPrinterFilter.Create(ALogger: TLogFile);
+constructor TFiscalPrinterFilter.Create(ALogger: ILogFile);
 begin
   inherited Create;
-  FList := TInterfaceList.Create;
   FLogger := ALogger;
+  FList := TInterfaceList.Create;
 end;
 
 destructor TFiscalPrinterFilter.Destroy;

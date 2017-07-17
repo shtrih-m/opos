@@ -15,7 +15,7 @@ type
 
   TOposStatisticsTest = class(TTestCase)
   private
-    Logger: TLogfile;
+    Logger: ILogFile;
     Item: TOposStatistics;
   protected
     procedure SetUp; override;
@@ -38,14 +38,14 @@ end;
 procedure TOposStatisticsTest.SetUp;
 begin
   inherited SetUp;
-  Logger := TLogfile.Create;
+  Logger := TLogFile.Create;
   Item := TOposStatistics.Create(Logger);
 end;
 
 procedure TOposStatisticsTest.TearDown;
 begin
   Item.Free;
-  Logger.Free;
+  Logger := nil;
   inherited TearDown;
 end;
 

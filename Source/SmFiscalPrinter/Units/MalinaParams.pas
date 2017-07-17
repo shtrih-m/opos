@@ -82,9 +82,9 @@ type
 
   TMalinaParams = class
   private
+    FLogger: ILogFile;
     FReplacements: TTextMap;
     FFuelAmountPrecision: Currency;
-    FLogger: TLogFile;
 
     procedure LoadSysParameters(const DeviceName: WideString);
     class function GetSysKeyName(const DeviceName: WideString): WideString;
@@ -94,7 +94,7 @@ type
     procedure CheckFuelAmountPrecision(const Value: Currency);
     function ValidFuelAmountPrecision(const Value: Currency): Boolean;
 
-    property Logger: TLogFile read FLogger;
+    property Logger: ILogFile read FLogger;
   public
     MalinaPromoText: WideString;
     MalinaCardPrefix: WideString;
@@ -144,7 +144,7 @@ type
     RetalixSearchCI: Boolean;
     RosneftDryReceiptEnabled: Boolean;
 
-    constructor Create(ALogger: TLogFile);
+    constructor Create(ALogger: ILogFile);
     destructor Destroy; override;
 
     procedure SetDefaults;
@@ -191,7 +191,7 @@ begin
   Result := (Value >= 0) and (Value <= 1);
 end;
 
-constructor TMalinaParams.Create(ALogger: TLogFile);
+constructor TMalinaParams.Create(ALogger: ILogFile);
 begin
   inherited Create;
   FLogger := ALogger;

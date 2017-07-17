@@ -56,6 +56,8 @@ const
   DIO_WRITE_TABLE_FILE          = 47; // write table file
   DIO_FS_READ_DOCUMENT          = 48; // FS read document
   DIO_FS_PRINT_CALC_REPORT      = 49; // FS print calculations report
+  DIO_OPEN_CASH_DRAWER          = 50; // Open cash drawer
+  DIO_READ_CASH_DRAWER_STATE    = 51; // Read cash drawer state
 
   DIO_PRINT_TEXT2                = 1000;  // print text
 
@@ -262,6 +264,17 @@ const
   DriverParameterCacheReceiptNumber       = 66;
   DriverParameterBarLineByteMode          = 67;
   DriverParameterLogFilePath              = 68;
+
+  DriverParameterTaxAmount1               = 70;
+  DriverParameterTaxAmount2               = 71;
+  DriverParameterTaxAmount3               = 72;
+  DriverParameterTaxAmount4               = 73;
+  DriverParameterTaxAmount5               = 74;
+  DriverParameterTaxAmount6               = 75;
+  DriverParameterTaxSystem                = 76;
+  DriverParameterItemTotal                = 77;
+  DriverParameterPaymentType              = 78;
+  DriverParameterPaymentItem              = 79;
 
 
   /////////////////////////////////////////////////////////////////////////////

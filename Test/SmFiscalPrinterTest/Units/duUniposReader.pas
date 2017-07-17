@@ -24,7 +24,7 @@ implementation
 
 procedure TUniposReaderTest.CheckReadHeader;
 var
-  Logger: TLogFile;
+  Logger: ILogFile;
   Reader: TUniposReader;
   Data: TTextReceiptRec;
   Data2: TTextReceiptRec;
@@ -43,7 +43,7 @@ begin
     CheckEquals(Data2.NewChequeText1, Data.NewChequeText1, 'NewChequeText1');
   finally
     Reader.Free;
-    Logger.Free;
+    Logger := nil;
   end;
 end;
 

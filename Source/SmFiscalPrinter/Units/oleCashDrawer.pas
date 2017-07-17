@@ -58,7 +58,7 @@ type
     function GetEventInterface(FDispatch: IDispatch): IOposEvents;
     procedure StatusChanged(Sender: TObject);
     function HandleDriverError(E: EDriverError): TOPOSError;
-    function GetLogger: TLogFile;
+    function GetLogger: ILogFile;
   public
     procedure LogDispatch(pDispatch: IDispatch);
   protected
@@ -94,7 +94,7 @@ type
   public
     procedure Initialize; override;
     destructor Destroy; override;
-    property Logger: TLogFile read GetLogger;
+    property Logger: ILogFile read GetLogger;
   end;
 
 implementation
@@ -120,10 +120,10 @@ begin
     Close;
 
   FStatusLink.Free;
-  FPrinter := nil;
   FParameters.Free;
   FOposDevice.Free;
   FLock.Free;
+  FPrinter := nil;
   inherited Destroy;
 end;
 
@@ -764,7 +764,7 @@ begin
   end;
 end;
 
-function ToleCashDrawer.GetLogger: TLogFile;
+function ToleCashDrawer.GetLogger: ILogFile;
 begin
   Result := FPrinter.Device.Context.Logger;
 end;

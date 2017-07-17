@@ -16,7 +16,7 @@ type
 
   TTCPConnection = class(TInterfacedObject, IPrinterConnection)
   private
-    FLogger: TLogFile;
+    FLogger: ILogFile;
     FRemoteHost: string;
     FRemotePort: Integer;
     FConnection: TIdTCPClient;
@@ -25,9 +25,9 @@ type
     function SendCommand(const Command: string): string;
     procedure DoConnect;
     procedure DoDisconnect;
-    property Logger: TLogFile read FLogger;
+    property Logger: ILogFile read FLogger;
   public
-    constructor Create(const ARemoteHost: string; ARemotePort: Integer; ALogger: TLogFile);
+    constructor Create(const ARemoteHost: string; ARemotePort: Integer; ALogger: ILogFile);
     destructor Destroy; override;
 
     procedure ClosePort;
@@ -44,14 +44,14 @@ implementation
 { TTCPConnection }
 
 constructor TTCPConnection.Create(const ARemoteHost: string;
-  ARemotePort: Integer; ALogger: TLogFile);
+  ARemotePort: Integer; ALogger: ILogFile);
 begin
   inherited Create;
+  FLogger := ALogger;
   FRemoteHost := ARemoteHost;
   FRemotePort := ARemotePort;
   FConnection := TIdTCPClient.Create(nil);
   FConnection.ReadTimeout := 5000;
-  FLogger := ALogger;
 end;
 
 destructor TTCPConnection.Destroy;

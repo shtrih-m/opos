@@ -26,6 +26,7 @@ type
   TFiscalPrinterDevice = class(TInterfacedObject, IFiscalPrinterDevice)
   private
     FContext: TDriverContext;
+    FCapFSCloseReceipt2: Boolean;
     FCapSubtotalRound: Boolean;
     FCapDiscount: Boolean;
     FCapBarLine: Boolean;
@@ -124,6 +125,7 @@ type
     function ReadEJDocument(MACNumber: Integer; var Line: string): Integer;
     function ParseEJDocument(const Text: string): TEJDocument;
     function FSSale(const P: TFSSale): Integer;
+    function FSSale2(const P: TFSSale2): Integer;
     function FSStorno(const P: TFSSale): Integer;
     function ProcessLine(const Line: string): Boolean;
     function FSReadStatus(var R: TFSStatus): Integer;
@@ -155,11 +157,12 @@ type
     procedure PrintString(Stations: Byte; const Line: string);
     procedure WriteFields(Table: TPrinterTable);
     function FSReadTicket(var R: TFSTicket): Integer;
-    function GetLogger: TLogFile;
+    function GetLogger: ILogFile;
     function GetMalinaParams: TMalinaParams;
     function GetMaxGraphicsWidthInBytes: Integer;
     function GetCapDiscount: Boolean;
     function ReadLoaderVersion(var Version: string): Integer;
+    function GetCapFSCloseReceipt2: Boolean;
   public
     constructor Create;
     destructor Destroy; override;
@@ -289,6 +292,9 @@ type
     function Storno(Operation: TPriceReg): Integer;
     function ReceiptClose(const P: TCloseReceiptParams;
       var R: TCloseReceiptResult): Integer;
+    function ReceiptClose2(const P: TFSCloseReceiptParams2;
+      var R: TFSCloseReceiptResult2): Integer;
+
     function ReceiptDiscount(Operation: TAmountOperation): Integer;
     function ReceiptDiscount2(Operation: TReceiptDiscount2): Integer;
     function ReceiptCharge(Operation: TAmountOperation): Integer;
@@ -407,10 +413,11 @@ type
     property OnDisconnect: TNotifyEvent read GetOnDisconnect write SetOnDisconnect;
     property AmountDecimalPlaces: Integer read GetAmountDecimalPlaces write SetAmountDecimalPlaces;
     property Parameters: TPrinterParameters read GetParameters;
-    property Logger: TLogFile read GetLogger;
+    property Logger: ILogFile read GetLogger;
     property MalinaParams: TMalinaParams read GetMalinaParams;
     property CapDiscount: Boolean read GetCapDiscount;
     property CapSubtotalRound: Boolean read GetCapSubtotalRound;
+    property CapFSCloseReceipt2: Boolean read GetCapFSCloseReceipt2;
   end;
 
   { EDisabledException }
@@ -512,6 +519,11 @@ begin
   inherited Destroy;
 end;
 
+function TFiscalPrinterDevice.GetCapFSCloseReceipt2: Boolean;
+begin
+  Result := CapFSCloseReceipt2;
+end;
+
 function TFiscalPrinterDevice.GetCapSubtotalRound: Boolean;
 begin
   Result := FCapSubtotalRound;
@@ -527,7 +539,7 @@ begin
   Result := FContext.Parameters;
 end;
 
-function TFiscalPrinterDevice.GetLogger: TLogFile;
+function TFiscalPrinterDevice.GetLogger: ILogFile;
 begin
   Result := FContext.Logger;
 end;
@@ -4750,8 +4762,8 @@ end;
 
 procedure TFiscalPrinterDevice.Close;
 begin
-  ClosePort;
   FConnection := nil;
+  FIsOnline := False;
 end;
 
 procedure TFiscalPrinterDevice.Open(AConnection: IPrinterConnection);
@@ -5693,8 +5705,6 @@ begin
   // If palette is inverse
   if IsInversedPalette(Bitmap) then
     Result := Inverse(Result);
-
-  Result := GetLine(Result, 40, 40);
 end;
 
 procedure TFiscalPrinterDevice.ProgressEvent(Progress: Integer);
@@ -5730,6 +5740,7 @@ end;
 procedure TFiscalPrinterDevice.LoadBitmap320(StartLine: Integer; Bitmap: TBitmap);
 var
   i: Integer;
+  Data: string;
   Count: Integer;
   Progress: Integer;
   NewProgress: Integer;
@@ -5740,7 +5751,9 @@ begin
   ProgressStep := Bitmap.Height/100;
   for i := 0 to Count-1 do
   begin
-    Check(LoadGraphics(i+ StartLine, GetLineData(Bitmap, i)));
+    Data := GetLineData(Bitmap, i);
+    Data := GetLine(Data, 40, 40);
+    Check(LoadGraphics(i+ StartLine, Data));
     NewProgress := 0;
     if ProgressStep <> 0 then
       NewProgress := Round(i/ProgressStep);
@@ -5775,8 +5788,8 @@ const
 begin
   Progress := 0;
 
-  GraphicsWidthInBytes := GetMaxGraphicsWidthInBytes;
-  LineLength := Length(CenterGraphicsLine(GetLineData(Bitmap, 1), GraphicsWidthInBytes, Scale));
+  GraphicsWidthInBytes := 64;
+  LineLength := Length(GetLineData(Bitmap, 1));
   RowsPerCommand := BytesPerCommand div LineLength;
   CommandCount := (Bitmap.Height + RowsPerCommand -1) div RowsPerCommand;
   ProgressStep := CommandCount/100;
@@ -5787,13 +5800,14 @@ begin
     RowCount := 0;
     for j := 0 to RowsPerCommand-1 do
     begin
-      Line := Line + CenterGraphicsLine(GetLineData(Bitmap, Row), GraphicsWidthInBytes, Scale);
+      Line := Line + GetLineData(Bitmap, Row);
       Inc(Row);
       Inc(RowCount);
       if Row >= Bitmap.Height then Break;
     end;
     Command := #$4E + IntToBin(GetUsrPassword, 4) + Chr(LineLength) +
       IntToBin(StartLine, 2) + IntToBin(RowCount, 2) + #1 + Line;
+
     Check(ExecuteData(Command, Answer));
     Inc(StartLine, RowsPerCommand);
     NewProgress := 0;
@@ -5879,6 +5893,7 @@ begin
     FDiscountMode := ReadDiscountMode;
   end;
   FCapSubtotalRound := FCapFiscalStorage and ((GetDeviceMetrics.Model = 19) or (DiscountMode = 2));
+  FCapFSCloseReceipt2 := FCapFiscalStorage and (GetDeviceMetrics.Model <> 19);
   FCapDiscount := FCapFiscalStorage and (FDiscountMode = 0) and (GetDeviceMetrics.Model <> 19);
   FIsFiscalized := FCapFiscalStorage or (FLongPrinterStatus.RegistrationNumber <> 0);
 end;
@@ -6268,6 +6283,48 @@ begin
     IntToBin(P.Barcode, 5) +
     Copy(P.Text, 1, 109) + #0 +
     Copy(P.AdjText, 1, 109) + #0;
+
+  Result := ExecuteData(Command, Answer);
+end;
+
+(*
+Операция V2 FF46H
+Код команды FF46h . Длина сообщения:  160 байта.
+Пароль: 4 байта
+Тип операции: 1 байт
+1 - Приход,
+2 - Возврат прихода,
+3 - Расход,
+4 - Возврат расхода
+Количество: 6 байт ( 6 знаков после запятой )
+Цена:             5 байт
+Сумма операции 5 байт *
+Налог:           5 байт **
+Налоговая ставка:  1 байт
+Номер отдела: 1 байт
+0…16 - режим свободной продажи, 255 - режим продажи по коду товара
+Признак способа расчёта : 1 байт
+Признак предмета расчёта: 1 байт
+Наименование товара: 0-128 байт ASCII
+
+*)
+
+function TFiscalPrinterDevice.FSSale2(const P: TFSSale2): Integer;
+var
+  Answer: string;
+  Command: string;
+begin
+  Command := #$FF#$46 + IntToBin(GetUsrPassword, 4) +
+    Chr(Abs(P.RecType)) +
+    IntToBin(Abs(P.Quantity*1000), 6) +
+    IntToBin(Abs(P.Price), 5) +
+    IntToBin(Abs(P.Total), 5) +
+    IntToBin(Abs(P.TaxAmount), 5) +
+    Chr(GetFSTaxBits(Abs(P.Tax))) +
+    Chr(P.Department) +
+    Chr(P.PaymentType) +
+    Chr(P.PaymentItem) +
+    Copy(P.Text, 1, 128);
 
   Result := ExecuteData(Command, Answer);
 end;
@@ -7331,5 +7388,89 @@ begin
   end;
 end;
 
+(*
+Закрытие чека расширенное вариант V2 FF45H
+Код команды FF45H. Длина сообщения: 182 байт.
+Пароль системного администратора: 4 байта
+Сумма наличных (5 байт)
+Сумма типа оплаты 2 (5 байт)
+Сумма типа оплаты 3 (5 байт)
+Сумма типа оплаты 4 (5 байт)
+Сумма типа оплаты 5 (5 байт)
+Сумма типа оплаты 6 (5 байт)
+Сумма типа оплаты 7 (5 байт)
+Сумма типа оплаты 8 (5 байт)
+Сумма типа оплаты 9 (5 байт)
+Сумма типа оплаты 10 (5 байт)
+Сумма типа оплаты 11 (5 байт)
+Сумма типа оплаты 12 (5 байт)
+Сумма типа оплаты 13 (5 байт)
+Сумма типа оплаты 14 (5 байт) (предоплата)
+Сумма типа оплаты 15 (5 байт) (постоплата)
+Сумма типа оплаты 16 (5 байт) (встречное представление)
+Округление до рубля в копейках (1 байт)
+Налог 1 (5 байт) (НДС 18%)
+Налог 2 (5 байт) (НДС 10%)
+Оборот по налогу 3 (5 байт) (НДС 0%)
+Оборот по налогу 4 (5 байт) (Без НДС)
+Налог 5 (5 байт) (НДС расч. 18/118)
+Налог 6 (5 байт) (НДС расч. 10/110)
+Система налогообложения(1 байт)
+Текст (0-64 байт)
+_______________________________________________________
+Примечания:
+Типы оплаты 2-13 при передаче в ОФД суммируются и передаются как оплата "ЭЛЕКТРОННЫМИ".
+В режиме начисления налогов 0 ( 1 Таблица) касса рассчитывает налоги самостоятельно исходя из проведенных в документе операций и налоги переданные в команде игнорируются. В режиме начисления налогов 1 налоги должны быть обязательно переданы из верхнего ПО.
+
+Ответ:   FF45h Длина сообщения: 14 байт.
+Код ошибки: 1 байт
+Сдача ( 5 байт)
+Номер ФД :4 байта
+Фискальный признак: 4 байта
+
+*)
+
+function TFiscalPrinterDevice.ReceiptClose2(
+  const P: TFSCloseReceiptParams2;
+  var R: TFSCloseReceiptResult2): Integer;
+var
+  Command: string;
+  Answer: string;
+begin
+  Command := #$FF#$45 + IntToBin(GetSysPassword, 4) +
+    IntToBin(P.Payments[0], 5) +
+    IntToBin(P.Payments[1], 5) +
+    IntToBin(P.Payments[2], 5) +
+    IntToBin(P.Payments[3], 5) +
+    IntToBin(P.Payments[4], 5) +
+    IntToBin(P.Payments[5], 5) +
+    IntToBin(P.Payments[6], 5) +
+    IntToBin(P.Payments[7], 5) +
+    IntToBin(P.Payments[8], 5) +
+    IntToBin(P.Payments[9], 5) +
+    IntToBin(P.Payments[10], 5) +
+    IntToBin(P.Payments[11], 5) +
+    IntToBin(P.Payments[12], 5) +
+    IntToBin(P.Payments[13], 5) +
+    IntToBin(P.Payments[14], 5) +
+    IntToBin(P.Payments[15], 5) +
+    Chr(P.Discount) +
+    IntToBin(P.TaxAmount[1], 5) +
+    IntToBin(P.TaxAmount[2], 5) +
+    IntToBin(P.TaxAmount[3], 5) +
+    IntToBin(P.TaxAmount[4], 5) +
+    IntToBin(P.TaxAmount[5], 5) +
+    IntToBin(P.TaxAmount[6], 5) +
+    Chr(P.TaxSystem) +
+    P.Text;
+  Result := ExecuteData(Command, Answer);
+  if Result = 0 then
+  begin
+    CheckMinLength(Answer, 13);
+    R.Change := BinToInt(Answer, 1, 5);
+    R.DocNumber := BinToInt(Answer, 6, 4);
+    R.MacValue := BinToInt(Answer, 10, 4);
+  end;
+end;
 
 end.

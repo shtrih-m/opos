@@ -337,7 +337,7 @@ type
 
   TPrinterParameters = class(TPersistent)
   private
-    FLogger: TLogFile;
+    FLogger: ILogFile;
     FStorage: Integer;
     FPayTypes: TPayTypes;
     FVatCodes: TVatCodes;
@@ -474,8 +474,16 @@ type
     VatCodeEnabled: Boolean;
     HandleErrorCode: Boolean;
     FSServiceEnabled: Boolean;
+
+    TaxAmount1: Int64;
+    TaxAmount2: Int64;
+    TaxAmount3: Int64;
+    TaxAmount4: Int64;
+    TaxAmount5: Int64;
+    TaxAmount6: Int64;
+    TaxSystem: Int64;
   public
-    constructor Create(ALogger: TLogFile);
+    constructor Create(ALogger: ILogFile);
     destructor Destroy; override;
 
     procedure SetDefaults;
@@ -565,7 +573,7 @@ type
     property CenterHeader: Boolean read FCenterHeader write FCenterHeader;
     property AmountDecimalPlaces: Integer read FAmountDecimalPlaces write SetAmountDecimalPlaces;
     property CapRecNearEndSensorMode: Integer read FCapRecNearEndSensorMode write FCapRecNearEndSensorMode;
-    property Logger: TLogFile read FLogger;
+    property Logger: ILogFile read FLogger;
   end;
 
 const
@@ -635,7 +643,7 @@ implementation
 
 { TPrinterParameters }
 
-constructor TPrinterParameters.Create(ALogger: TLogFile);
+constructor TPrinterParameters.Create(ALogger: ILogFile);
 begin
   inherited Create;
   FLogger := ALogger;

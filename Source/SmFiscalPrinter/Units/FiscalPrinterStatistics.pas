@@ -14,7 +14,7 @@ type
   TFiscalPrinterStatistics = class(TOposStatistics)
   private
   public
-    constructor Create(ALogger: TLogFile); override;
+    constructor Create(ALogger: ILogFile); override;
 
     procedure PaperCutted;
     procedure PaperCutFailed;
@@ -33,7 +33,7 @@ implementation
 
 { TFiscalPrinterStatistics }
 
-constructor TFiscalPrinterStatistics.Create(ALogger: TLogFile);
+constructor TFiscalPrinterStatistics.Create(ALogger: ILogFile);
 begin
   inherited Create(ALogger);
   // Statistics for the FiscalPrinter device category.

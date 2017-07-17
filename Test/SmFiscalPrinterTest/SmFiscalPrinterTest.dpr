@@ -1,6 +1,7 @@
 program SmFiscalPrinterTest;
 
 uses
+  FastMM4,
   Forms,
   TestFramework,
   GUITestRunner,
@@ -177,7 +178,7 @@ uses
   duFSSalesReceipt in 'Units\duFSSalesReceipt.pas',
   TCPConnection in '..\..\Source\SmFiscalPrinter\Units\TCPConnection.pas',
   duDfmFile in 'Units\duDfmFile.pas',
-  duRetalix in 'Units\duRetalix.pas',
+  duReceiptTemplate in 'Units\duReceiptTemplate.pas',
   PortUtil in '..\..\Source\Shared\PortUtil.pas',
   TextReport in '..\..\Source\Shared\TextReport.pas',
   MockPrinterConnection in 'Units\MockPrinterConnection.pas',
@@ -201,7 +202,9 @@ uses
   VatCode in '..\..\Source\SmFiscalPrinter\Units\VatCode.pas',
   FSService in '..\..\Source\SmFiscalPrinter\Units\FSService.pas',
   DriverContext in '..\..\Source\SmFiscalPrinter\Units\DriverContext.pas',
-  ReceiptTemplate in '..\..\Source\SmFiscalPrinter\Units\ReceiptTemplate.pas';
+  ReceiptTemplate in '..\..\Source\SmFiscalPrinter\Units\ReceiptTemplate.pas',
+  duRetalix in 'Units\duRetalix.pas',
+  TextParser in '..\..\Source\SmFiscalPrinter\Units\TextParser.pas';
 
 {$R *.RES}
 {$R ..\..\Source\SmFiscalPrinter\SmFiscalPrinter.TLB}

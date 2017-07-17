@@ -11,14 +11,14 @@ type
 
   TDriverContext = class
   private
-    FLogger: TLogFile;
+    FLogger: ILogFile;
     FMalinaParams: TMalinaParams;
     FParameters: TPrinterParameters;
   public
     constructor Create;
     destructor Destroy; override;
 
-    property Logger: TLogFile read FLogger;
+    property Logger: ILogFile read FLogger;
     property MalinaParams: TMalinaParams read FMalinaParams;
     property Parameters: TPrinterParameters read FParameters;
   end;
@@ -37,9 +37,9 @@ end;
 
 destructor TDriverContext.Destroy;
 begin
-  FLogger.Free;
   FParameters.Free;
   FMalinaParams.Free;
+  FLogger := nil;
   inherited Destroy;
 end;
 

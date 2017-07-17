@@ -41,7 +41,7 @@ type
     FCommand: Integer;
     FOwner: TDIOHandlers;
 
-    function GetLogger: TLogFile;
+    function GetLogger: ILogFile;
     procedure SetOwner(AOwner: TDIOHandlers);
     function GetContext: TDriverContext;
   public
@@ -50,7 +50,7 @@ type
     function GetCommand: Integer; virtual;
     procedure DirectIO(var pData: Integer; var pString: WideString); virtual; abstract;
 
-    property Logger: TLogFile read GetLogger;
+    property Logger: ILogFile read GetLogger;
     property Command: Integer read FCommand;
     property Context: TDriverContext read GetContext;
   end;
@@ -146,7 +146,7 @@ begin
   Result := FOwner.Context;
 end;
 
-function TDIOHandler.GetLogger: TLogFile;
+function TDIOHandler.GetLogger: ILogFile;
 begin
   Result := Context.Logger;
 end;

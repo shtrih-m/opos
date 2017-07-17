@@ -96,7 +96,7 @@ PackageDLLOutputDir=
 PackageDCPOutputDir=
 SearchPath=C:\PROGRA~2\Borland\Delphi7\Comp\jcl\lib\d7\debug
 Packages=Vcl50;Vclx50;alvd5;Vclmid50;NMFast50
-Conditionals=MALINA
+Conditionals=
 DebugSourceDirs=
 UsePackages=0
 [Parameters]
@@ -115,7 +115,7 @@ AutoIncBuild=1
 MajorVer=1
 MinorVer=13
 Release=0
-Build=416
+Build=421
 Debug=0
 PreRelease=0
 Special=0
@@ -126,7 +126,7 @@ CodePage=1252
 [Version Info Keys]
 CompanyName=SHTRIH-M
 FileDescription=OPOS test utility
-FileVersion=1.13.0.416
+FileVersion=1.13.0.421
 InternalName=OPOS test
 LegalCopyright=SHTRIH-M © 2013
 LegalTrademarks=
@@ -137,20 +137,26 @@ Comments=http://www.shtrih-m.ru
 [HistoryLists\hlDebugSourcePath]
 Count=1
 Item0=C:\Components\DUnit\src\
+[HistoryLists\hlConditionals]
+Count=1
+Item0=DEBUG
 [HistoryLists\hlUnitAliases]
 Count=1
 Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;
 [HistoryLists\hlSearchPath]
-Count=2
-Item0=$(DELPHI)\Lib\Debug;C:\COMPON~1\JVCL\jcl\lib\d7\debug;C:\COMPON~1\jcl\lib\d7\debug
-Item1=$(DELPHI)\Lib\Debug
+Count=3
+Item0=C:\PROGRA~2\Borland\Delphi7\Comp\jcl\lib\d7\debug
+Item1=$(DELPHI)\Lib\Debug;C:\COMPON~1\JVCL\jcl\lib\d7\debug;C:\COMPON~1\jcl\lib\d7\debug
+Item2=$(DELPHI)\Lib\Debug
 [HistoryLists\hlUnitOutputDirectory]
-Count=2
-Item0=DCU
-Item1=..\lib\D7
+Count=3
+Item0=..\..\DCU
+Item1=DCU
+Item2=..\lib\D7
 [HistoryLists\hlOutputDirectorry]
-Count=1
-Item0=Bin
+Count=2
+Item0=..\..\Bin
+Item1=Bin
 [HistoryLists\hlBPLOutput]
 Count=3
 Item0=$(DELPHI)\Bin\

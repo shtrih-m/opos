@@ -14,7 +14,7 @@ type
 
   TXmlModelReader = class
   private
-    FLogger: TLogFile;
+    FLogger: ILogFile;
     FModels: TPrinterModels;
 
     procedure LoadModel(Node: IXMLNode);
@@ -24,7 +24,7 @@ type
     procedure SaveParameters(Root: IXmlNode; Items: TTableParameters);
     procedure SaveValues(Root: IXmlNode; Items: TParameterValues);
 
-    property Logger: TLogFile read FLogger;
+    property Logger: ILogFile read FLogger;
     property Models: TPrinterModels read FModels;
   public
     constructor Create(AModels: TPrinterModels);
@@ -34,8 +34,8 @@ type
     procedure Load(const FileName: WideString);
   end;
 
-procedure LoadModels(AModels: TPrinterModels; const FileName: string; Logger: TLogFile);
-procedure SaveModels(AModels: TPrinterModels; const FileName: string; Logger: TLogFile);
+procedure LoadModels(AModels: TPrinterModels; const FileName: string; Logger: ILogFile);
+procedure SaveModels(AModels: TPrinterModels; const FileName: string; Logger: ILogFile);
 
 implementation
 
@@ -53,7 +53,7 @@ begin
   Result := AnsiCompareText(S1, S2) = 0;
 end;
 
-procedure LoadModels(AModels: TPrinterModels; const FileName: string; Logger: TLogFile);
+procedure LoadModels(AModels: TPrinterModels; const FileName: string; Logger: ILogFile);
 var
   Reader: TXmlModelReader;
 begin
@@ -67,7 +67,7 @@ begin
   Reader.Free;
 end;
 
-procedure SaveModels(AModels: TPrinterModels; const FileName: string; Logger: TLogFile);
+procedure SaveModels(AModels: TPrinterModels; const FileName: string; Logger: ILogFile);
 var
   Writer: TXmlModelReader;
 begin

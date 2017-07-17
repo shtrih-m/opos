@@ -13,7 +13,7 @@ type
 
   TPrinterParametersRegIBT = class
   private
-    FLogger: TLogFile;
+    FLogger: ILogFile;
     FParameters: TPrinterParameters;
     procedure LoadIBTParameters;
     procedure SaveIBTParameters;
@@ -26,24 +26,24 @@ type
     property Parameters: TPrinterParameters read FParameters;
     class function GetSysKeyName(const DeviceName: string): string;
   public
-    constructor Create(AParameters: TPrinterParameters; ALogger: TLogFile);
+    constructor Create(AParameters: TPrinterParameters; ALogger: ILogFile);
 
     procedure Load(const DeviceName: string);
     procedure Save(const DeviceName: string);
-    property Logger: TLogFile read FLogger;
+    property Logger: ILogFile read FLogger;
   end;
 
 function ReadEncodingRegIBT(const DeviceName: string;
-  Logger: TLogFile): Integer;
+  Logger: ILogFile): Integer;
 
 procedure LoadParametersRegIBT(Item: TPrinterParameters;
-  const DeviceName: string; Logger: TLogFile);
+  const DeviceName: string; Logger: ILogFile);
 
 procedure SaveParametersRegIBT(Item: TPrinterParameters;
-  const DeviceName: string; Logger: TLogFile);
+  const DeviceName: string; Logger: ILogFile);
 
 procedure SaveUsrParametersRegIBT(Item: TPrinterParameters;
-  const DeviceName: string; Logger: TLogFile);
+  const DeviceName: string; Logger: ILogFile);
 
 implementation
 
@@ -55,7 +55,7 @@ const
 
 
 function ReadEncodingRegIBT(const DeviceName: string;
-  Logger: TLogFile): Integer;
+  Logger: ILogFile): Integer;
 var
   P: TPrinterParameters;
 begin
@@ -69,7 +69,7 @@ begin
 end;
 
 procedure LoadParametersRegIBT(Item: TPrinterParameters;
-  const DeviceName: string; Logger: TLogFile);
+  const DeviceName: string; Logger: ILogFile);
 var
   Reader: TPrinterParametersRegIBT;
 begin
@@ -82,7 +82,7 @@ begin
 end;
 
 procedure SaveParametersRegIBT(Item: TPrinterParameters;
-  const DeviceName: string; Logger: TLogFile);
+  const DeviceName: string; Logger: ILogFile);
 var
   Writer: TPrinterParametersRegIBT;
 begin
@@ -95,7 +95,7 @@ begin
 end;
 
 procedure SaveUsrParametersRegIBT(Item: TPrinterParameters;
-  const DeviceName: string; Logger: TLogFile);
+  const DeviceName: string; Logger: ILogFile);
 var
   Writer: TPrinterParametersRegIBT;
 begin
@@ -110,7 +110,7 @@ end;
 { TPrinterParametersRegIBT }
 
 constructor TPrinterParametersRegIBT.Create(AParameters: TPrinterParameters;
-  ALogger: TLogFile);
+  ALogger: ILogFile);
 begin
   inherited Create;
   FParameters := AParameters;

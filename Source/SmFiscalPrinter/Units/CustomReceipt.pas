@@ -31,7 +31,7 @@ type
     FFiscalReceiptStation: Integer;
     FAdditionalText: string;
 
-    function GetLogger: TLogFile;
+    function GetLogger: ILogFile;
     function GetDevice: IFiscalPrinterDevice;
     function GetParameters: TPrinterParameters;
   protected
@@ -143,7 +143,7 @@ type
     property RecMessages: TTextItems read FRecMessages;
     property AdditionalText: string read FAdditionalText write FAdditionalText;
     property Parameters: TPrinterParameters read GetParameters;
-    property Logger: TLogFile read GetLogger;
+    property Logger: ILogFile read GetLogger;
     property MalinaParams: TMalinaParams read GetMalinaParams;
   end;
 
@@ -521,7 +521,7 @@ begin
   Result := Printer.Printer.Parameters;
 end;
 
-function TCustomReceipt.GetLogger: TLogFile;
+function TCustomReceipt.GetLogger: ILogFile;
 begin
   Result := Device.Parameters.Logger;
 end;

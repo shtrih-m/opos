@@ -14,12 +14,12 @@ type
   TClassLogger = class
   private
     FClassName: string;
-    FLogger: TLogFile;
+    FLogger: ILogFile;
 
     function GetData(const Data: string): string;
-    property Logger: TLogFile read FLogger;
+    property Logger: ILogFile read FLogger;
   public
-    constructor Create(AClassName: string; ALogger: TLogFile);
+    constructor Create(AClassName: string; ALogger: ILogFile);
 
     procedure Info(const Data: string); overload;
     procedure Debug(const Data: string); overload;
@@ -38,7 +38,7 @@ implementation
 
 { TClassLogger }
 
-constructor TClassLogger.Create(AClassName: string; ALogger: TLogFile);
+constructor TClassLogger.Create(AClassName: string; ALogger: ILogFile);
 begin
   inherited Create;
   FLogger := ALogger;

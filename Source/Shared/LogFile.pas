@@ -9,9 +9,45 @@ uses
 type
   TVariantArray = array of Variant;
 
+  { ILogFile }
+
+  ILogFile = interface
+    procedure Lock;
+    procedure Unlock;
+    procedure Info(const Data: string); overload;
+    procedure Debug(const Data: string); overload;
+    procedure Trace(const Data: string); overload;
+    procedure Error(const Data: string); overload;
+    procedure Error(const Data: string; E: Exception); overload;
+    procedure Info(const Data: string; Params: array of const); overload;
+    procedure Trace(const Data: string; Params: array of const); overload;
+    procedure Error(const Data: string; Params: array of const); overload;
+    procedure Debug(const Data: string; Result: Variant); overload;
+    procedure Debug(const Data: string; Params: array of const); overload;
+    procedure Debug(const Data: string; Params: array of const; Result: Variant); overload;
+    function GetFileDate(const FileName: string; var FileDate: TDateTime): Boolean;
+    procedure DebugData(const Prefix, Data: string);
+    procedure LogParam(const ParamName: string; const ParamValue: Variant);
+
+    function GetSeparator: string;
+    function GetMaxCount: Integer;
+    function GetEnabled: Boolean;
+    function GetFilePath: string;
+    procedure SetEnabled(Value: Boolean);
+    procedure SetFilePath(const Value: string);
+    procedure SetSeparator(const Value: string);
+    procedure SetMaxCount(const Value: Integer);
+
+    property Enabled: Boolean read GetEnabled write SetEnabled;
+    property FilePath: string read GetFilePath write SetFilePath;
+    property MaxCount: Integer read GetMaxCount write SetMaxCount;
+    property Separator: string read GetSeparator write SetSeparator;
+  end;
+
+
   { TLogFile }
 
-  TLogFile = class
+  TLogFile = class(TInterfacedObject, ILogFile)
   private
     FHandle: THandle;
     FFileName: string;
@@ -27,7 +63,6 @@ type
     procedure CheckFilesMaxCount;
     function GetOpened: Boolean;
     function GetFileName: string;
-    procedure SetEnabled(Value: Boolean);
     procedure Write(const Data: string);
     procedure AddLine(const Data: string);
     procedure SetFileName(const Value: string);
@@ -37,12 +72,20 @@ type
     class function VariantToStr(V: Variant): string;
     class function VarArrayToStr(const AVarArray: TVariantArray): string;
     procedure GetFileNames(const Mask: string; FileNames: TStrings);
+    function GetSeparator: string;
+    procedure SetSeparator(const Value: string);
+    function GetMaxCount: Integer;
     procedure SetMaxCount(const Value: Integer);
+    function GetEnabled: Boolean;
+    procedure SetEnabled(Value: Boolean);
+    function GetFilePath: string;
+    procedure SetFilePath(const Value: string);
   public
     constructor Create;
     destructor Destroy; override;
 
     procedure Lock;
+
     procedure Unlock;
     procedure Info(const Data: string); overload;
     procedure Debug(const Data: string); overload;
@@ -61,11 +104,11 @@ type
     procedure DebugData(const Prefix, Data: string);
     procedure LogParam(const ParamName: string; const ParamValue: Variant);
 
-    property Enabled: Boolean read FEnabled write SetEnabled;
-    property FilePath: string read FFilePath write FFilePath;
+    property Enabled: Boolean read GetEnabled write SetEnabled;
+    property FilePath: string read GetFilePath write SetFilePath;
     property FileName: string read FFileName write SetFileName;
-    property Separator: string read FSeparator write FSeparator;
-    property MaxCount: Integer read FMaxCount write SetMaxCount;
+    property MaxCount: Integer read GetMaxCount write SetMaxCount;
+    property Separator: string read GetSeparator write SetSeparator;
   end;
 
 implementation
@@ -552,5 +595,35 @@ begin
   Debug(ParamName + ': ' + VarToStr(ParamValue));
 end;
 
+
+function TLogFile.GetSeparator: string;
+begin
+  Result := FSeparator;
+end;
+
+procedure TLogFile.SetSeparator(const Value: string);
+begin
+  FSeparator := Value;
+end;
+
+function TLogFile.GetMaxCount: Integer;
+begin
+  Result := FMaxCount;
+end;
+
+function TLogFile.GetEnabled: Boolean;
+begin
+  Result := FEnabled;
+end;
+
+function TLogFile.GetFilePath: string;
+begin
+  Result := FFilePath;
+end;
+
+procedure TLogFile.SetFilePath(const Value: string);
+begin
+  FFilePath := Value;
+end;
 
 end.

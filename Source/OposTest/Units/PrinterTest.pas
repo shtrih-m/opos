@@ -692,6 +692,14 @@ type
     function GetDisplayText: string; override;
   end;
 
+  { TReceiptTest9 }
+
+  TReceiptTest9 = class(TDriverTest)
+  public
+    procedure Execute; override;
+    function GetDisplayText: string; override;
+  end;
+
 implementation
 
 const
@@ -4002,6 +4010,30 @@ begin
   check(FiscalPrinter.PrintRecSubtotalAdjustment(1, 'Œ –”√À≈Õ»≈', 0.73));
   check(FiscalPrinter.PrintRecTotal(2177, 2177, '0'));
   Check(FiscalPrinter.EndFiscalReceipt(False));
+end;
+
+{ TReceiptTest9 }
+
+procedure TReceiptTest9.Execute;
+begin
+  Check(FiscalPrinter.ResetPrinter);
+  FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
+  Check(FiscalPrinter.BeginFiscalReceipt(True));
+  Check(FiscalPrinter.PrintRecItem('Item1', 124, 1000, 0, 124, '¯Ú'));
+  FiscalPrinter.SetIntParameter(DriverParameterTaxAmount1, 1);
+  FiscalPrinter.SetIntParameter(DriverParameterTaxAmount2, 2);
+  FiscalPrinter.SetIntParameter(DriverParameterTaxAmount3, 3);
+  FiscalPrinter.SetIntParameter(DriverParameterTaxAmount4, 4);
+  FiscalPrinter.SetIntParameter(DriverParameterTaxAmount5, 5);
+  FiscalPrinter.SetIntParameter(DriverParameterTaxAmount6, 6);
+  FiscalPrinter.SetIntParameter(DriverParameterTaxSystem, 0);
+  Check(FiscalPrinter.PrintRecTotal(2177, 2177, '0'));
+  Check(FiscalPrinter.EndFiscalReceipt(False));
+end;
+
+function TReceiptTest9.GetDisplayText: string;
+begin
+  Result := 'ReceiptTest9';
 end;
 
 end.

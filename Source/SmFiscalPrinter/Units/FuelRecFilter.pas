@@ -15,7 +15,7 @@ type
 
   TFuelRecFilter = class(TFptrFilter)
   private
-    function GetLogger: TLogFile;
+    function GetLogger: ILogFile;
     function GetParams: TMalinaParams;
   private
     FDoc: TCustomReceipt;
@@ -26,7 +26,7 @@ type
     function IsFuelReceipt(Receipt: TSalesReceipt): Boolean;
 
     property Doc: TCustomReceipt read FDoc;
-    property Logger: TLogFile read GetLogger;
+    property Logger: ILogFile read GetLogger;
     property Params: TMalinaParams read GetParams;
   public
     constructor Create(AOwner: TFptrFilters; APrinter: ISharedPrinter);
@@ -167,7 +167,7 @@ begin
   FDiscountChecked := False;
 end;
 
-function TFuelRecFilter.GetLogger: TLogFile;
+function TFuelRecFilter.GetLogger: ILogFile;
 begin
   Result := FPrinter.Device.Context.Logger;
 end;

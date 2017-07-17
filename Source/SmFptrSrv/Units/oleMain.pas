@@ -35,7 +35,7 @@ type
 
   TFptrServer = class(TAutoObject, IFptrServer)
   private
-    FLogger: TLogFile;
+    FLogger: ILogFile;
     FClientInfo: TClientInfo;
     FResultCode: Integer;
     FPortLink: TPortLink;
@@ -52,7 +52,7 @@ type
     function HandleException(E: Exception): Integer;
 
     property Port: TPort read GetPort;
-    property Logger: TLogFile read FLogger;
+    property Logger: ILogFile read FLogger;
   public
     function OpenPort(BaudRate, Timeout: Integer): Integer; safecall;
     function ClosePort: Integer; safecall;

@@ -26,7 +26,7 @@ type
     FReport: TTextReport;
     FReconnectPort: Boolean;
     FNotification: TDeviceNotification;
-    FLogger: TLogFile;
+    FLogger: ILogFile;
 
     procedure CheckOpened;
     procedure CreateHandle;
@@ -41,9 +41,9 @@ type
     procedure DeviceChanged(Sender: TObject; dbt: Integer);
     procedure DoClose;
 
-    property Logger: TLogFile read FLogger;
+    property Logger: ILogFile read FLogger;
   public
-    constructor Create(ALogger: TLogFile);
+    constructor Create(ALogger: ILogFile);
     destructor Destroy; override;
 
     procedure Open;
@@ -73,7 +73,7 @@ type
     ErrorCode: Integer;
   end;
 
-function GetSerialPort(PortNumber: Integer; Logger: TLogFile): TSerialPort;
+function GetSerialPort(PortNumber: Integer; Logger: ILogFile): TSerialPort;
 
 implementation
 
@@ -108,7 +108,7 @@ begin
   end;
 end;
 
-function GetSerialPort(PortNumber: Integer; Logger: TLogFile): TSerialPort;
+function GetSerialPort(PortNumber: Integer; Logger: ILogFile): TSerialPort;
 var
   i: Integer;
   List: TList;
@@ -315,7 +315,7 @@ end;
 
 { TSerialPort }
 
-constructor TSerialPort.Create(ALogger: TLogFile);
+constructor TSerialPort.Create(ALogger: ILogFile);
 const
   LastID: Integer = 0;
 begin

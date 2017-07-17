@@ -3,6 +3,7 @@ library SmFiscalPrinter;
 {%ToDo 'SmFiscalPrinter.todo'}
 
 uses
+  //FastMM4,
   ComServ,
   Opos in '..\Opos\Opos.pas',
   Oposhi in '..\Opos\Oposhi.pas',
@@ -163,7 +164,8 @@ uses
   ReceiptTemplate in 'Units\ReceiptTemplate.pas',
   VatCode in 'Units\VatCode.pas',
   FSService in 'Units\FSService.pas',
-  DriverContext in 'Units\DriverContext.pas';
+  DriverContext in 'Units\DriverContext.pas',
+  TextParser in 'Units\TextParser.pas';
 
 exports
   DllGetClassObject,
