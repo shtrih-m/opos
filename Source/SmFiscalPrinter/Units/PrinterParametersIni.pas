@@ -248,7 +248,6 @@ begin
       FParameters.Trailer := IniFile.ReadText(Section, 'Trailer', DefTrailer);
       FParameters.HeaderPrinted := IniFile.ReadBool(Section, 'HeaderPrinted', DefHeaderPrinted);
       FParameters.LogoSize := IniFile.ReadInteger(Section, 'LogoSize', DefLogoSize);
-      FParameters.LogoEnabled := IniFile.ReadBool(Section, 'LogoEnabled', DefLogoEnabled);
       FParameters.LogoReloadEnabled := IniFile.ReadBool(Section, 'LogoReloadEnabled', DefLogoReloadEnabled);
       FParameters.LogoFileName := IniFile.ReadString(Section, 'LogoFileName', '');
       FParameters.IsLogoLoaded := IniFile.ReadBool(Section, 'IsLogoLoaded', False);
@@ -503,7 +502,6 @@ begin
     IniFile.WriteText(Section, 'Trailer', Parameters.Trailer);
     IniFile.WriteBool(Section, 'HeaderPrinted', Parameters.HeaderPrinted);
     IniFile.WriteInteger(Section, 'LogoSize', Parameters.LogoSize);
-    IniFile.WriteBool(Section, 'LogoEnabled', Parameters.LogoEnabled);
     IniFile.WriteBool(Section, 'LogoReloadEnabled', Parameters.LogoReloadEnabled);
     IniFile.WriteBool(Section, 'LogoCenter', Parameters.LogoCenter);
     IniFile.WriteBool(Section, 'IsLogoLoaded', Parameters.IsLogoLoaded);

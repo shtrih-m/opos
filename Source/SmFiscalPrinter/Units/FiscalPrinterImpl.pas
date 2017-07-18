@@ -1897,10 +1897,7 @@ end;
 procedure TFiscalPrinterImpl.PrintNonFiscalEndPrinter;
 begin
   WaitForPrinting;
-  if Parameters.LogoEnabled then
-  begin
-    PrintLogo;
-  end;
+  PrintLogo;
 end;
 
 procedure TFiscalPrinterImpl.PrintNonFiscalEndDriver;
@@ -1983,12 +1980,49 @@ var
 const
   HeaderFontHeight = 25;
 begin
-  if Parameters.LogoEnabled then
+  if Parameters.LogoPosition = LogoBeforeHeader then
   begin
-    if Parameters.LogoPosition = LogoBeforeHeader then
+    // if logo size < fixed header size
+    if Parameters.LogoSize <= (Device.GetModel.NumHeaderLines-1)*HeaderFontHeight then
     begin
-      // if logo size < fixed header size
-      if Parameters.LogoSize <= (Device.GetModel.NumHeaderLines-1)*HeaderFontHeight then
+      Data.Text := '';
+      Data.Station := PRINTER_STATION_REC;
+      Data.Font := Parameters.HeaderFont;
+      Data.Alignment := taLeft;
+      Data.Wrap := Parameters.WrapText;
+      Device.PrintText(Data);
+
+      PrintLogo;
+      LineCount := Device.GetModel.NumHeaderLines - 1 -
+        (Parameters.LogoSize + HeaderFontHeight - 1) div HeaderFontHeight;
+
+      for i := 0 to LineCount-1 do
+      begin
+        Data.Text := GetHeaderLine(i);
+        Data.Station := PRINTER_STATION_REC;
+        Data.Font := Parameters.HeaderFont;
+        Data.Alignment := taLeft;
+        Data.Wrap := Parameters.WrapText;
+        Device.PrintText(Data);
+      end;
+
+      Printer.CutPaper;
+      for i := LineCount to Printer.Header.Count-1 do
+      begin
+        Data.Text := GetHeaderLine(i);
+        Data.Station := PRINTER_STATION_REC;
+        Data.Font := Parameters.HeaderFont;
+        Data.Alignment := taLeft;
+        Data.Wrap := Parameters.WrapText;
+        Device.PrintText(Data);
+      end;
+
+      Parameters.HeaderPrinted := True;
+      SaveParameters;
+    end else
+    begin
+      // Empty fixed header
+      for i := 1 to Device.GetModel.NumHeaderLines do
       begin
         Data.Text := '';
         Data.Station := PRINTER_STATION_REC;
@@ -1996,61 +2030,18 @@ begin
         Data.Alignment := taLeft;
         Data.Wrap := Parameters.WrapText;
         Device.PrintText(Data);
-
-        PrintLogo;
-        LineCount := Device.GetModel.NumHeaderLines - 1 -
-          (Parameters.LogoSize + HeaderFontHeight - 1) div HeaderFontHeight;
-
-        for i := 0 to LineCount-1 do
-        begin
-          Data.Text := GetHeaderLine(i);
-          Data.Station := PRINTER_STATION_REC;
-          Data.Font := Parameters.HeaderFont;
-          Data.Alignment := taLeft;
-          Data.Wrap := Parameters.WrapText;
-          Device.PrintText(Data);
-        end;
-
-        Printer.CutPaper;
-        for i := LineCount to Printer.Header.Count-1 do
-        begin
-          Data.Text := GetHeaderLine(i);
-          Data.Station := PRINTER_STATION_REC;
-          Data.Font := Parameters.HeaderFont;
-          Data.Alignment := taLeft;
-          Data.Wrap := Parameters.WrapText;
-          Device.PrintText(Data);
-        end;
-
-        Parameters.HeaderPrinted := True;
-        SaveParameters;
-      end else
-      begin
-        // Empty fixed header
-        for i := 1 to Device.GetModel.NumHeaderLines do
-        begin
-          Data.Text := '';
-          Data.Station := PRINTER_STATION_REC;
-          Data.Font := Parameters.HeaderFont;
-          Data.Alignment := taLeft;
-          Data.Wrap := Parameters.WrapText;
-          Device.PrintText(Data);
-        end;
-        Printer.CutPaper;
-        PrintLogo;
-        PrintFixedHeader;
       end;
-    end else
-    begin
-      PrintFixedHeaderAndCut;
-      if Parameters.LogoPosition = LogoAfterHeader then
-      begin
-        PrintLogo;
-      end;
+      Printer.CutPaper;
+      PrintLogo;
+      PrintFixedHeader;
     end;
   end else
   begin
     PrintFixedHeaderAndCut;
+    if Parameters.LogoPosition = LogoAfterHeader then
+    begin
+      PrintLogo;
+    end;
   end;
 end;
 

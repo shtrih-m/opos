@@ -5224,8 +5224,7 @@ end;
 function TFiscalPrinterDevice.GetStartLine: Integer;
 begin
   Result := 1;
-  if Parameters.LogoEnabled and Parameters.IsLogoLoaded and
-    (Parameters.LogoSize > 0) then
+  if Parameters.IsLogoLoaded and (Parameters.LogoSize > 0) then
   begin
     Result := Parameters.LogoSize + 1;
   end;

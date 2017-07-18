@@ -63,14 +63,6 @@ object fmFptrLogo: TfmFptrLogo
       Anchors = [akTop, akRight]
       Caption = 'lblProgress'
     end
-    object chbLogoEnabled: TCheckBox
-      Left = 8
-      Top = 296
-      Width = 113
-      Height = 17
-      Caption = 'Logo enabled'
-      TabOrder = 0
-    end
     object cbLogoPosition: TComboBox
       Left = 216
       Top = 296
@@ -78,7 +70,7 @@ object fmFptrLogo: TfmFptrLogo
       Height = 21
       Style = csDropDownList
       ItemHeight = 13
-      TabOrder = 2
+      TabOrder = 1
       Items.Strings = (
         'After header'
         'Before header'
@@ -91,7 +83,7 @@ object fmFptrLogo: TfmFptrLogo
       Top = 328
       Width = 105
       Height = 21
-      TabOrder = 3
+      TabOrder = 2
     end
     object btnPrintLogo: TButton
       Left = 368
@@ -100,7 +92,7 @@ object fmFptrLogo: TfmFptrLogo
       Height = 25
       Anchors = [akTop, akRight]
       Caption = 'Print'
-      TabOrder = 4
+      TabOrder = 3
       OnClick = btnPrintLogoClick
     end
     object btnLoad: TBitBtn
@@ -110,7 +102,7 @@ object fmFptrLogo: TfmFptrLogo
       Height = 25
       Anchors = [akTop, akRight]
       Caption = 'Load'
-      TabOrder = 5
+      TabOrder = 4
       OnClick = btnLoadClick
     end
     object btnOpen: TBitBtn
@@ -120,7 +112,7 @@ object fmFptrLogo: TfmFptrLogo
       Height = 25
       Anchors = [akTop, akRight]
       Caption = 'Open'
-      TabOrder = 6
+      TabOrder = 5
       OnClick = btnOpenClick
     end
     object chbLogoCenter: TCheckBox
@@ -130,7 +122,7 @@ object fmFptrLogo: TfmFptrLogo
       Height = 17
       Anchors = [akTop, akRight]
       Caption = 'Center logo on page'
-      TabOrder = 7
+      TabOrder = 6
     end
     object ProgressBar: TProgressBar
       Left = 328
@@ -139,15 +131,15 @@ object fmFptrLogo: TfmFptrLogo
       Height = 16
       Anchors = [akTop, akRight]
       Step = 1
-      TabOrder = 8
+      TabOrder = 7
     end
     object chbLogoReloadEnabled: TCheckBox
       Left = 8
-      Top = 328
+      Top = 296
       Width = 129
       Height = 17
       Caption = 'Logo reload enabled'
-      TabOrder = 1
+      TabOrder = 0
     end
   end
   object OpenPictureDialog: TOpenPictureDialog

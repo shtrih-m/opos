@@ -145,7 +145,6 @@ begin
   CheckEquals(DefLogoSize, Params.LogoSize, 'Params.LogoSize');
   CheckEquals(DefLogoCenter, Params.LogoCenter, 'Params.LogoCenter');
   CheckEquals(DefDepartment, Params.Department, 'Params.Department');
-  CheckEquals(DefLogoEnabled, Params.LogoEnabled, 'Params.LogoEnabled');
   CheckEquals(DefHeaderPrinted, Params.HeaderPrinted, 'Params.HeaderPrinted');
   CheckEquals(DefReceiptType, Params.ReceiptType, 'Params.ReceiptType');
   CheckEquals(DefZeroReceiptType, Params.ZeroReceiptType, 'Params.ZeroReceiptType');
@@ -211,7 +210,6 @@ begin
   Params.LogoSize := NonDefLogoSize;
   Params.Department := NonDefDepartment;
   Params.LogoCenter := NonDefLogoCenter;
-  Params.LogoEnabled := NonDefLogoEnabled;
   Params.ReceiptType := NonDefReceiptType;
   Params.ZeroReceiptType := NonDefZeroReceiptType;
   Params.ZeroReceiptNumber := NonDefZeroReceiptNumber;
@@ -270,7 +268,6 @@ begin
   CheckEquals(NonDefLogoSize, Params.LogoSize, 'Params.LogoSize');
   CheckEquals(NonDefLogoCenter, Params.LogoCenter, 'Params.LogoCenter');
   CheckEquals(NonDefDepartment, Params.Department, 'Params.Department');
-  CheckEquals(NonDefLogoEnabled, Params.LogoEnabled, 'Params.LogoEnabled');
   CheckEquals(NonDefHeaderPrinted, Params.HeaderPrinted, 'Params.HeaderPrinted');
   CheckEquals(NonDefReceiptType, Params.ReceiptType, 'Params.ReceiptType');
   CheckEquals(NonDefZeroReceiptType, Params.ZeroReceiptType, 'Params.ZeroReceiptType');

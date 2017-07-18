@@ -1755,7 +1755,6 @@ begin
   Parameters.IsLogoLoaded := True;
   Parameters.LogoCenter := True;
   Parameters.Department := 1;
-  Parameters.LogoEnabled := True;
   Parameters.LogoReloadEnabled := False;
   Parameters.HeaderPrinted := True;
   Parameters.CCOType := 2;

@@ -21,7 +21,6 @@ type
     lblLogoPosition: TLabel;
     lblLogoSize: TLabel;
     lblProgress: TLabel;
-    chbLogoEnabled: TCheckBox;
     cbLogoPosition: TComboBox;
     edtLogoSize: TEdit;
     btnPrintLogo: TButton;
@@ -54,7 +53,6 @@ implementation
 procedure TfmFptrLogo.UpdatePage;
 begin
   chbLogoCenter.Checked := Parameters.LogoCenter;
-  chbLogoEnabled.Checked := Parameters.LogoEnabled;
   chbLogoReloadEnabled.Checked := Parameters.LogoReloadEnabled;
   edtLogoSize.Text := IntToStr(Parameters.LogoSize);
   cbLogoPosition.ItemIndex := Parameters.LogoPosition;
@@ -63,7 +61,6 @@ end;
 procedure TfmFptrLogo.UpdateObject;
 begin
   Parameters.LogoCenter := chbLogoCenter.Checked;
-  Parameters.LogoEnabled := chbLogoEnabled.Checked;
   Parameters.LogoReloadEnabled := chbLogoReloadEnabled.Checked;
   Parameters.LogoSize := StrToInt(edtLogoSize.Text);
   Parameters.LogoPosition := cbLogoPosition.ItemIndex;

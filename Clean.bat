@@ -4,6 +4,6 @@ del /S *.rsm
 del /S *.dsm
 del /S *.map
 del /S *.log
-cd ./Test
-del /S *.dll
-cd ..
+del /S *.exe
+del /S SmScale.dll
+del /S SmFiscalPrinter.dll

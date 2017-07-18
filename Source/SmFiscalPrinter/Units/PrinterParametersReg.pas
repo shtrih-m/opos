@@ -663,9 +663,6 @@ begin
       if Reg.ValueExists('LogoSize') then
         Parameters.LogoSize := Reg.ReadInteger('LogoSize');
 
-      if Reg.ValueExists('LogoEnabled') then
-        Parameters.LogoEnabled := Reg.ReadBool('LogoEnabled');
-
       if Reg.ValueExists('LogoReloadEnabled') then
         Parameters.LogoReloadEnabled := Reg.ReadBool('LogoReloadEnabled');
 
@@ -708,7 +705,6 @@ begin
 
       Reg.WriteBool('HeaderPrinted', Parameters.HeaderPrinted);
       Reg.WriteInteger('LogoSize', Parameters.LogoSize);
-      Reg.WriteBool('LogoEnabled', Parameters.LogoEnabled);
       Reg.WriteBool('LogoReloadEnabled', Parameters.LogoReloadEnabled);
       Reg.WriteBool('LogoCenter', Parameters.LogoCenter);
       Reg.WriteBool('IsLogoLoaded', Parameters.IsLogoLoaded);

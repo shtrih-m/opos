@@ -263,7 +263,6 @@ const
   DefLogoSize = 0;
   DefDepartment = 1;
   DefLogoCenter = True;
-  DefLogoEnabled = True;
   DefLogoReloadEnabled = False;
   DefReceiptType = ReceiptTypeNormal;
   DefZeroReceiptType = ZERO_RECEIPT_NORMAL;
@@ -378,7 +377,6 @@ type
     FLogoCenter: Boolean;
     FHeaderPrinted: Boolean;
     FLogoSize: Integer;
-    FLogoEnabled: Boolean;
     FLogoReloadEnabled: Boolean;
     FLogoFileName: string;
     FIsLogoLoaded: Boolean;
@@ -537,7 +535,6 @@ type
     property IsLogoLoaded: Boolean read FIsLogoLoaded write FIsLogoLoaded;
 
     property Department: Integer read FDepartment write SetDepartment;
-    property LogoEnabled: Boolean read FLogoEnabled write FLogoEnabled;
     property LogoReloadEnabled: Boolean read FLogoReloadEnabled write FLogoReloadEnabled;
     property HeaderPrinted: Boolean read FHeaderPrinted write FHeaderPrinted;
     property ReceiptType: Integer read FReceiptType write SetReceiptType;
@@ -707,7 +704,6 @@ begin
   FIsLogoLoaded := False;
   FDepartment := DefDepartment;
   FLogoCenter := DefLogoCenter;
-  FLogoEnabled := DefLogoEnabled;
   FLogoReloadEnabled := DefLogoReloadEnabled;
   FReceiptType := DefReceiptType;
   FZeroReceiptType := DefZeroReceiptType;
@@ -863,7 +859,6 @@ begin
   Logger.Debug('IsLogoLoaded: ' + BoolToStr(IsLogoLoaded));
   Logger.Debug('LogoCenter: ' + BoolToStr(LogoCenter));
   Logger.Debug('Department: ' + IntToStr(Department));
-  Logger.Debug('LogoEnabled: ' + BoolToStr(LogoEnabled));
   Logger.Debug('LogoReloadEnabled: ' + BoolToStr(LogoReloadEnabled));
   Logger.Debug('HeaderPrinted: ' + BoolToStr(HeaderPrinted));
   Logger.Debug('CCOType: ' + IntToStr(CCOType));

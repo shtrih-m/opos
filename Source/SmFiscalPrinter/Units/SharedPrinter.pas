@@ -1100,8 +1100,7 @@ var
   StartLine: Integer;
 begin
   StartLine := 1;
-  if Parameters.LogoEnabled and Parameters.IsLogoLoaded and
-    (Parameters.LogoSize > 0) then
+  if Parameters.IsLogoLoaded and (Parameters.LogoSize > 0) then
   begin
     StartLine := Parameters.LogoSize + 1;
   end;
@@ -1113,8 +1112,7 @@ var
   StartLine: Integer;
 begin
   StartLine := 1;
-  if Parameters.LogoEnabled and Parameters.IsLogoLoaded and
-    (Parameters.LogoSize > 0) then
+  if Parameters.IsLogoLoaded and (Parameters.LogoSize > 0) then
   begin
     StartLine := Parameters.LogoSize + 1;
   end;
@@ -1283,12 +1281,9 @@ end;
 
 procedure TSharedPrinter.PrintLogo;
 begin
-  if Parameters.LogoEnabled then
+  if (Parameters.LogoSize > 0) then
   begin
-    if (Parameters.LogoSize > 0) then
-    begin
-      Device.PrintGraphics(1, Parameters.LogoSize);
-    end;
+    Device.PrintGraphics(1, Parameters.LogoSize);
   end;
 end;
 

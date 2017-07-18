@@ -1671,7 +1671,7 @@ begin
     DriverParameterLogoSize: pString := IntToStr(Printer.Parameters.LogoSize);
     DriverParameterLogoCenter: pString := BoolToStr(Printer.Parameters.LogoCenter);
     DriverParameterDepartment: pString := IntToStr(Printer.Parameters.Department);
-    DriverParameterLogoEnabled: pString := BoolToStr(Printer.Parameters.LogoEnabled);
+    DriverParameterLogoEnabled: pString := BoolToStr(True);
     DriverParameterHeaderPrinted: pString := BoolToStr(Printer.Parameters.HeaderPrinted);
     DriverParameterReceiptType: pString := IntToStr(Printer.Parameters.ReceiptType);
     DriverParameterZeroReceiptType: pString := IntToStr(Printer.Parameters.ZeroReceiptType);
@@ -1763,7 +1763,7 @@ begin
     DriverParameterLogoSize: Parameters.LogoSize := StrToInt(pString);
     DriverParameterLogoCenter: Parameters.LogoCenter := StrToBool(pString);
     DriverParameterDepartment: Parameters.Department := StrToInt(pString);
-    DriverParameterLogoEnabled: Parameters.LogoEnabled := StrToBool(pString);
+    DriverParameterLogoEnabled: ;
     DriverParameterHeaderPrinted: Parameters.HeaderPrinted := StrToBool(pString);
     DriverParameterReceiptType: Parameters.ReceiptType := StrToInt(pString);
     DriverParameterZeroReceiptType: Parameters.ZeroReceiptType := StrToInt(pString);
