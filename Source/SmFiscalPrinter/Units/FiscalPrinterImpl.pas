@@ -35,8 +35,6 @@ type
     FRetalix: TRetalix;
     FService: TFSService;
     FPrinter: ISharedPrinter;
-    FDevice: IFiscalPrinterDevice;
-    FConnection: IPrinterConnection;
     FReceiptPrinter: IReceiptPrinter;
 
     FFilter: TEscFilter;
@@ -64,8 +62,6 @@ type
     procedure CancelReceipt2;
     procedure UpdatePrinterDate;
     procedure CheckCapSetVatTable;
-    procedure SetDevice(const Value: IFiscalPrinterDevice);
-    procedure SetConnection(const Value: IPrinterConnection);
     procedure PrintTextFont(Station: Integer; Font: Integer; const Text: string);
 
     function GetLogger: ILogFile;
@@ -73,7 +69,6 @@ type
     function GetMalinaParams: TMalinaParams;
     function GetNonFiscalDoc: TNonFiscalDoc;
     function GetPrinterSemaphoreName: string;
-    function GetConnection: IPrinterConnection;
     function GetHeaderLine(N: Integer): string;
     function GetParameters: TPrinterParameters;
     function GetTrailerLine(N: Integer): string;
@@ -85,7 +80,6 @@ type
     function FSHandleError(FPCode, ResultCodeExtended: Integer): Integer;
 
     property NonFiscalDoc: TNonFiscalDoc read GetNonFiscalDoc;
-    procedure SetPrinter(APrinter: ISharedPrinter);
   public
     procedure ReadHeader;
     procedure CheckEndDay;
@@ -463,14 +457,14 @@ type
     procedure FSWriteTLV(const TLVData: string);
     procedure WriteCustomerAddress(const Value: string);
     procedure FSWriteTag(TagID: Integer; const Data: string);
+    procedure SetPrinter(APrinter: ISharedPrinter);
 
 
     property Logger: ILogFile read GetLogger;
     property Printer: ISharedPrinter read GetPrinter;
     property OposDevice: TOposServiceDevice19 read FOposDevice;
     property Statistics: TFiscalPrinterStatistics read GetStatistics;
-    property Device: IFiscalPrinterDevice read GetDevice write SetDevice;
-    property Connection: IPrinterConnection read GetConnection write SetConnection;
+    property Device: IFiscalPrinterDevice read GetDevice;
     property LastErrorCode: Integer read FLastErrorCode;
     property LastErrorText: string read FLastErrorText;
     property Parameters: TPrinterParameters read GetParameters;
@@ -532,31 +526,13 @@ begin
   FDisconnectLink.Free;
   FNonFiscalDoc.Free;
   FRetalix.Free;
-  FDevice := nil;
-  FConnection := nil;
   FPrinter := nil;
   inherited Destroy;
 end;
 
 function TFiscalPrinterImpl.GetDevice: IFiscalPrinterDevice;
 begin
-  Result := FDevice;
-end;
-
-procedure TFiscalPrinterImpl.SetDevice(const Value: IFiscalPrinterDevice);
-begin
-  FDevice := Value;
-end;
-
-function TFiscalPrinterImpl.GetConnection: IPrinterConnection;
-begin
-  Result := FConnection;
-end;
-
-procedure TFiscalPrinterImpl.SetConnection(
-  const Value: IPrinterConnection);
-begin
-  FConnection := Value;
+  Result := Printer.Device;
 end;
 
 function TFiscalPrinterImpl.DecodeString(const Text: WideString): string;
@@ -819,13 +795,6 @@ begin
   FRetalix.Free;
 
   FPrinter := APrinter;
-  if FDevice <> nil then
-    FPrinter.Device := FDevice;
-  FDevice := FPrinter.Device;
-  if FConnection <> nil then
-    FPrinter.Connection := FConnection;
-  FConnection := FPrinter.Connection;
-
   FOposDevice := TOposServiceDevice19.Create(FPrinter.Device.Context.Logger);
   FOposDevice.ErrorEventEnabled := False;
   FCommandDefs := TCommandDefs.Create(FPrinter.Device.Context.Logger);

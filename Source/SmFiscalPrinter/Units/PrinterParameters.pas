@@ -486,6 +486,7 @@ type
 
     procedure SetDefaults;
     procedure WriteLogParameters;
+    function IsLocalConnection: Boolean;
     class function DefXmlZReportFileName: string;
     class function DefCsvZReportFileName: string;
     class function DefReceiptReportFileName: string;
@@ -1099,6 +1100,11 @@ begin
       Result := VatCode.FptrVatCode;
     end;
   end;
+end;
+
+function TPrinterParameters.IsLocalConnection: Boolean;
+begin
+  Result := ConnectionType = ConnectionTypeLocal;
 end;
 
 end.

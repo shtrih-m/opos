@@ -539,7 +539,11 @@ begin
     if Opened then
     begin
       Dec(FOpenCount);
-      if FOpenCount = 0 then DoClose;
+      if FOpenCount <= 0 then
+      begin
+        FOpenCount := 0;
+        DoClose;
+      end;
     end;
   finally
     Unlock;

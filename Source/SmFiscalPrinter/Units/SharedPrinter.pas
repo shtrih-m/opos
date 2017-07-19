@@ -96,7 +96,6 @@ type
     function GetLogger: ILogFile;
   public
     constructor Create(const ADeviceName: string);
-    constructor Create2(ADevice: IFiscalPrinterDevice);
     destructor Destroy; override;
 
     function FormatText(const Value: string;
@@ -271,13 +270,8 @@ end;
 
 constructor TSharedPrinter.Create(const ADeviceName: string);
 begin
-  Create2(TFiscalPrinterDevice.Create);
-  FDeviceName := ADeviceName;
-end;
-
-constructor TSharedPrinter.Create2(ADevice: IFiscalPrinterDevice);
-begin
   inherited Create;
+  FDeviceName := ADeviceName;
   FSemaphore := TOposSemaphore.Create;
   FStatusLinks := TNotifyLinks.Create;
   FConnectLinks := TNotifyLinks.Create;
@@ -288,7 +282,7 @@ begin
   FNumHeaderLines := 4;
   FNumTrailerLines := 4;
 
-  FDevice := ADevice;
+  FDevice := TFiscalPrinterDevice.Create;
   FDevice.OnConnect := DeviceConnect;
   FDevice.OnDisconnect := DeviceDisconnect;
 end;
@@ -314,11 +308,6 @@ begin
   FConnectLinks.Free;
   inherited Destroy;
   ODS('TSharedPrinter.Destroy.1');
-end;
-
-function TSharedPrinter.GetDevice: IFiscalPrinterDevice;
-begin
-  Result := FDevice;
 end;
 
 procedure TSharedPrinter.SetDevice(Value: IFiscalPrinterDevice);
@@ -667,30 +656,33 @@ var
 begin
   if ConnectDevice(Parameters.PortNumber, Parameters.BaudRate) then Exit;
 
-  if Parameters.SearchByPortEnabled then
+  if Parameters.IsLocalConnection then
   begin
-    Ports := TStringList.Create;
-    try
-      TSerialPorts.GetSystemPorts(Ports);
-      for i := 0 to Ports.Count-1 do
-      begin
-        PortNumber := Integer(Ports.Objects[i]);
-        if Parameters.SearchByBaudRateEnabled then
-        begin
-          if SearchBaudRate(PortNumber) then Exit;
-        end else
-        begin
-          if ConnectDevice(PortNumber, Parameters.BaudRate) then Exit;
-        end;
-      end;
-    finally
-      Ports.Free;
-    end;
-  end else
-  begin
-    if Parameters.SearchByBaudRateEnabled then
+    if Parameters.SearchByPortEnabled then
     begin
-      if SearchBaudRate(Parameters.PortNumber) then Exit;
+      Ports := TStringList.Create;
+      try
+        TSerialPorts.GetSystemPorts(Ports);
+        for i := 0 to Ports.Count-1 do
+        begin
+          PortNumber := Integer(Ports.Objects[i]);
+          if Parameters.SearchByBaudRateEnabled then
+          begin
+            if SearchBaudRate(PortNumber) then Exit;
+          end else
+          begin
+            if ConnectDevice(PortNumber, Parameters.BaudRate) then Exit;
+          end;
+        end;
+      finally
+        Ports.Free;
+      end;
+    end else
+    begin
+      if Parameters.SearchByBaudRateEnabled then
+      begin
+        if SearchBaudRate(Parameters.PortNumber) then Exit;
+      end;
     end;
   end;
   RaiseOposException(OPOS_E_NOHARDWARE, 'Device not connected');
@@ -1390,6 +1382,12 @@ begin
     FConnection := CreateConnection;
   Result := FConnection;
 end;
+
+function TSharedPrinter.GetDevice: IFiscalPrinterDevice;
+begin
+  Result := FDevice;
+end;
+
 
 procedure TSharedPrinter.SetConnection(const Value: IPrinterConnection);
 begin

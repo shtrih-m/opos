@@ -263,6 +263,7 @@ const
 procedure TFiscalPrinterTest.Setup;
 var
   Model: TPrinterModelRec;
+  SPrinter: ISharedPrinter;
 begin
   inherited Setup;
   LoadParametersEnabled := False;
@@ -276,9 +277,12 @@ begin
   FDevice.Model := Model;
 
   FConnection := TMockPrinterConnection.Create;
+  SPrinter := SharedPrinter.GetPrinter(DeviceName);
+  SPrinter.Device := FDevice;
+  SPrinter.Connection := FConnection;
+
   FPrinter := TFiscalPrinterImpl.Create(nil);
-  FPrinter.Device := FDevice;
-  FPrinter.Connection := FConnection;
+  FPrinter.SetPrinter(SPrinter);
   FDriver := ToleFiscalPrinter.Create(FPrinter);
 end;
 
@@ -302,7 +306,6 @@ end;
 procedure TFiscalPrinterTest.OpenDevice;
 begin
   CheckResult(Driver.Open('FiscalPrinter', DeviceName, nil));
-
   Parameters.SetDefaults;
   Parameters.NumHeaderLines := 0;
   Parameters.NumTrailerLines := 0;
