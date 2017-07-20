@@ -975,6 +975,7 @@ end;
 
 procedure TFSSalesReceipt.DoPrintFSSale(Item: TFSSaleItem);
 var
+  FSSale2: TFSSale2;
   FSRegistration: TFSSale;
   Operation: TPriceReg;
   AmountOperation: TAmountOperation;
@@ -997,17 +998,27 @@ begin
     Operation.Text := '//' + FSRegistration.Text;
   end;
 
-  if FSRegistration.Quantity > 0 then
+  if FSRegistration.Quantity >= 0 then
   begin
-    if not Device.CapFSCloseReceipt2 then
+    if Device.CapFSCloseReceipt2 then
+    begin
+      FSSale2.RecType := FRecType;
+      FSSale2.Quantity := Abs(FSRegistration.Quantity);;
+      FSSale2.Price := FSRegistration.Price;
+      FSSale2.Total := Parameters.TaxAmount1;
+      FSSale2.TaxAmount := Parameters.TaxAmount2;
+      FSSale2.Department := FSRegistration.Department;
+      FSSale2.Tax := GetTax(FSRegistration.Text, FSRegistration.Tax);
+      FSSale2.Text := FSRegistration.Text;
+      FSSale2.PaymentType := 0;
+      FSSale2.PaymentItem := 0;
+      Device.Check(Device.FSSale2(FSSale2));
+    end else
     begin
       if FRecType = RecTypeSale then
         Printer.Sale(Operation)
       else
         Printer.RetSale(Operation);
-    end else
-    begin
-
     end;
   end else
   begin
@@ -1158,6 +1169,9 @@ begin
       if AdditionalText <> '' then
         PrintText2(AdditionalText);
 
+      Printer.WaitForPrinting;
+      PrintBarcodes;
+
       if Device.CapFSCloseReceipt2 then
       begin
         CloseParams2.Payments := FPayments;
@@ -1187,8 +1201,6 @@ begin
       end;
 
       try
-        Printer.WaitForPrinting;
-        PrintBarcodes;
         Printer.WaitForPrinting;
         PrintRecMessages(1);
         PrintRecMessages;

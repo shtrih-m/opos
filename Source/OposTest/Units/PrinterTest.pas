@@ -695,6 +695,8 @@ type
   { TReceiptTest9 }
 
   TReceiptTest9 = class(TDriverTest)
+  private
+    procedure PrintQRCode;
   public
     procedure Execute; override;
     function GetDisplayText: string; override;
@@ -4022,6 +4024,16 @@ end;
 
 { TReceiptTest9 }
 
+procedure TReceiptTest9.PrintQRCode;
+var
+  pData: Integer;
+  pString: WideString;
+begin
+  pData := 44;
+  pString := 'http://check.egais.ru?id=38d02af6-bfd2-409f-8041-b011d8160700&dt=2311161430&cn=030000290346;***;4;4;0';
+  Check(FiscalPrinter.DirectIO(7, pData, pString));
+end;
+
 procedure TReceiptTest9.Execute;
 begin
   Check(FiscalPrinter.ResetPrinter);
@@ -4036,6 +4048,7 @@ begin
   FiscalPrinter.SetIntParameter(DriverParameterTaxAmount6, 6);
   FiscalPrinter.SetIntParameter(DriverParameterTaxSystem, 0);
   Check(FiscalPrinter.PrintRecTotal(2177, 2177, '0'));
+  PrintQRCode;
   Check(FiscalPrinter.EndFiscalReceipt(False));
 end;
 

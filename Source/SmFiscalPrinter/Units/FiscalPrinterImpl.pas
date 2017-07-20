@@ -4113,7 +4113,7 @@ end;
 
 procedure TFiscalPrinterImpl.PrintBarcode(const Barcode: TBarcodeRec);
 begin
-  Device.PrintBarcode2(Barcode);
+  Receipt.PrintBarcode(Barcode);
 end;
 
 procedure TFiscalPrinterImpl.CancelReceipt2;

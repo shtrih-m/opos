@@ -276,6 +276,8 @@ type
     function PrintBarcode2(const Barcode: TBarcodeRec): Integer;
     function PrintBarcodeHex(const Barcode: TBarcodeRec): Integer;
     function SetAdjustmentAmount(Amount: Integer): Integer;
+    function FSReadTicketHex(Number: Integer; var Ticket: string): Integer;
+    function FSReadTicketStr(Number: Integer; var Ticket: string): Integer;
 
     property OpenResult: Integer read Get_OpenResult;
     property BinaryConversion: Integer read Get_BinaryConversion write Set_BinaryConversion;
@@ -2007,6 +2009,28 @@ begin
   pData := 0;
   pString := '';
   Result := Driver.DirectIO(DIO_FS_PRINT_CALC_REPORT, pData, pString);
+end;
+
+function TSMFiscalPrinter.FSReadTicketHex(Number: Integer; var Ticket: string): Integer;
+var
+  pData: Integer;
+  pString: WideString;
+begin
+  pData := DIO_FS_PARAMETER_TICKET_HEX;
+  pString := IntToStr(Number);
+  Result := Driver.DirectIO(DIO_READ_FS_PARAMETER, pData, pString);
+  Ticket := pString;
+end;
+
+function TSMFiscalPrinter.FSReadTicketStr(Number: Integer; var Ticket: string): Integer;
+var
+  pData: Integer;
+  pString: WideString;
+begin
+  pData := DIO_FS_PARAMETER_TICKET_STR;
+  pString := IntToStr(Number);
+  Result := Driver.DirectIO(DIO_READ_FS_PARAMETER, pData, pString);
+  Ticket := pString;
 end;
 
 
