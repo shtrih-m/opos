@@ -65,7 +65,8 @@ uses
   MockM5ScaleDevice in 'Units\MockM5ScaleDevice.pas',
   DeviceNotification in '..\SmFiscalPrinter\Units\DeviceNotification.pas',
   PortUtil in '..\Shared\PortUtil.pas',
-  TextReport in '..\Shared\TextReport.pas';
+  TextReport in '..\Shared\TextReport.pas',
+  OposMessages in '..\SmFiscalPrinter\Units\OposMessages.pas';
 
 exports
   DllGetClassObject,

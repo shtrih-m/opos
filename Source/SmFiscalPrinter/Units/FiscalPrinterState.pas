@@ -6,7 +6,7 @@ uses
   // VCL
   Classes, SysUtils,
   // This
-  OPOSException, OposFptr;
+  OPOSException, OposFptr, OposMessages;
 
 type
   { TFiscalPrinterState }
@@ -47,7 +47,7 @@ end;
 class procedure TFiscalPrinterState.CheckValidState(AState: Integer);
 begin
   if not ValidState(AState) then
-    raise Exception.Create('Invalid printer state value');
+    raise Exception.Create(MsgInvalidPrinterState);
 end;
 
 class function TFiscalPrinterState.GetStateText(AState: Integer): string;
@@ -71,7 +71,7 @@ end;
 procedure TFiscalPrinterState.CheckState(AState: Integer);
 begin
   if AState <> FState then
-    raiseExtendedError(OPOS_EFPTR_WRONG_STATE, 'Wrong printer state');
+    raiseExtendedError(OPOS_EFPTR_WRONG_STATE, MsgWrongPrinterState);
 end;
 
 procedure TFiscalPrinterState.SetState(AState: Integer);

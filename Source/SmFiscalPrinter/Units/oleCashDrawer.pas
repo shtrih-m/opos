@@ -7,7 +7,7 @@ uses
   Windows, ComObj, ActiveX, StdVcl, ComServ, SysUtils, Variants, SyncObjs,
   // Opos
   Opos, Oposhi, OposUtils, OposException, OposEvents, OposCash, OposCashhi,
-  OposCashUtils, OposServiceDevice19,
+  OposCashUtils, OposServiceDevice19, OposMessages,
   // This
   SmFiscalPrinterLib_TLB, SerialPort, VersionInfo,
   FiscalPrinterDevice, CashDrawerParameters, LogFile, SharedPrinter,
@@ -386,7 +386,7 @@ begin
     Logger.Debug(Format('ToleCashDrawer.CheckHealth(%d)', [Level]));
 
     FOposDevice.CheckEnabled;
-    RaiseOposException(OPOS_E_ILLEGAL, 'Not implemented');
+    RaiseOposException(OPOS_E_ILLEGAL, MsgNotImplemented);
     Result := ClearResult;
   except
     on E: Exception do

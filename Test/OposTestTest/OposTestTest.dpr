@@ -135,7 +135,8 @@ uses
   fmuFptrAddHeaderTrailer in '..\..\Source\OposTest\Fmu\fmuFptrAddHeaderTrailer.pas' {fmFptrAddHeaderTrailer},
   fmuFptrThreadTest in '..\..\Source\OposTest\Fmu\fmuFptrThreadTest.pas' {fmFptrThreadTest},
   fmuFptrTest2 in '..\..\Source\OposTest\Fmu\fmuFptrTest2.pas' {fmFptrTest2},
-  VatCode in '..\..\Source\SmFiscalPrinter\Units\VatCode.pas';
+  VatCode in '..\..\Source\SmFiscalPrinter\Units\VatCode.pas',
+  OposMessages in '..\..\Source\SmFiscalPrinter\Units\OposMessages.pas';
 
 {$R *.RES}
 

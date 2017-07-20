@@ -700,6 +700,14 @@ type
     function GetDisplayText: string; override;
   end;
 
+  { TReceiptTest10 }
+
+  TReceiptTest10 = class(TDriverTest)
+  public
+    procedure Execute; override;
+    function GetDisplayText: string; override;
+  end;
+
 implementation
 
 const
@@ -4034,6 +4042,31 @@ end;
 function TReceiptTest9.GetDisplayText: string;
 begin
   Result := 'ReceiptTest9';
+end;
+
+{ TReceiptTest10 }
+
+procedure TReceiptTest10.Execute;
+begin
+  Check(FiscalPrinter.BeginFiscalReceipt(True));
+  Check(FiscalPrinter.PrintRecItem('Упаковка букета                         ', 210000, 1000, 0, 210, '0'));
+  Check(FiscalPrinter.PrintRecItem('Черный чай "Апельсин со сливками"       ', 144, 40, 0, 3590, '0'));
+  Check(FiscalPrinter.PrintRecItem('Черный чай "Имбирный Пряник"            ', 160, 40, 0, 3990, '0'));
+  Check(FiscalPrinter.PrintRecItem('Зеленый чай "Саусеп"                    ', 144, 40, 0, 3590, '0'));
+  Check(FiscalPrinter.PrintRecItem('Зеленый чай с мятой                     ', 118, 40, 0, 2950, '0'));
+  Check(FiscalPrinter.PrintRecItem('Зеленый чай "Шу сян Люй"                ', 144, 40, 0, 3590, '0'));
+  Check(FiscalPrinter.PrintRecItem('Шоколадка                               ', 60000, 4000, 0, 15, '0'));
+  Check(FiscalPrinter.PrintRecItem('Зеленый чай "Черная смородина"          ', 160, 40, 0, 3990, '0'));
+  Check(FiscalPrinter.PrintRecItem('Черный чай "Медовый"                    ', 140, 39, 0, 3590, '0'));
+  Check(FiscalPrinter.PrintRecSubtotal(1278.01));
+  Check(FiscalPrinter.PrintRecSubtotalAdjustment(3, 'disc', 5));
+  Check(FiscalPrinter.PrintRecTotal(1214.1095, 1214.1095, '3'));
+  Check(FiscalPrinter.EndFiscalReceipt(True));
+end;
+
+function TReceiptTest10.GetDisplayText: string;
+begin
+  Result := 'ReceiptTest10';
 end;
 
 end.

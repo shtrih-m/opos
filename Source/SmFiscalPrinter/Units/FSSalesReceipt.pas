@@ -1170,7 +1170,7 @@ begin
         CloseParams2.TaxAmount[6] := Parameters.TaxAmount6;
         CloseParams2.TaxSystem := Parameters.TaxSystem;
         CloseParams2.Text := Parameters.CloseRecText;
-        Device.ReceiptClose2(CloseParams2, CloseResult2);
+        Device.Check(Device.ReceiptClose2(CloseParams2, CloseResult2));
       end else
       begin
         CloseParams.CashAmount := FPayments[0];

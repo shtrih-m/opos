@@ -222,10 +222,10 @@ var
   i: Byte;
 begin
   if Byte(s[1]) > 4 then
-    raise Exception.Create('Не верная длина FVLN');
+    raise Exception.Create('Неверная длина FVLN');
 
   if Length(s) < 2 then
-    raise Exception.Create('Не верная длина FVLN');
+    raise Exception.Create('Неверная длина FVLN');
 
   Result := ValueTLV2Int(Copy(s, 2, Length(s) - 1));
   for i := 1 to Byte(s[1]) do

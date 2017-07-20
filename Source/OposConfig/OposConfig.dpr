@@ -79,7 +79,8 @@ uses
   fmuMiscParams in 'Fmu\fmuMiscParams.pas' {fmMiscParams},
   fmuFptrPayType in 'Fmu\fmuFptrPayType.pas' {fmFptrPayType},
   VatCode in '..\SmFiscalPrinter\Units\VatCode.pas',
-  DriverContext in '..\SmFiscalPrinter\Units\DriverContext.pas';
+  DriverContext in '..\SmFiscalPrinter\Units\DriverContext.pas',
+  OposMessages in '..\SmFiscalPrinter\Units\OposMessages.pas';
 
 {$R *.RES}
 {$R WindowsXP.RES}

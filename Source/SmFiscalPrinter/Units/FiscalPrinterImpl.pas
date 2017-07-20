@@ -3711,7 +3711,7 @@ begin
     CheckEnabled;
 
     if CashierID = '' then
-     raise Exception.Create('Имя кассира не может быть пустым');
+     raise Exception.Create(MsgCashierNameEmpty);
 
     Device.WriteTable(PRINTER_TABLE_CASHIER,
       Device.ReadUsrOperatorNumber, 2, CashierID);
@@ -3797,7 +3797,7 @@ end;
 procedure TFiscalPrinterImpl.CheckCapSetVatTable;
 begin
   if not FCapSetVatTable then
-    RaiseIllegalError('VAT table cannot be set');
+    RaiseIllegalError(MsgNotSupported);
 end;
 
 function TFiscalPrinterImpl.SetVatValue(

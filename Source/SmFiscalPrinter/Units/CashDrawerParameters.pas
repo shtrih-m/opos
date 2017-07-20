@@ -6,7 +6,7 @@ uses
   // VCL
   Windows, Registry, SysUtils,
   // This
-  Oposhi, PrinterTypes, LogFile, PrinterParameters;
+  Oposhi, OposMessages, PrinterTypes, LogFile, PrinterParameters;
 
 const
   /////////////////////////////////////////////////////////////////////////////
@@ -99,7 +99,7 @@ begin
 
     end else
     begin
-      raise Exception.Create('Registry key open error');
+      raise Exception.Create(MsgRegistryKeyOpenError);
     end;
   finally
     Reg.Free;
@@ -127,7 +127,7 @@ begin
       Reg.WriteInteger('CCOType', CCOType);
     end else
     begin
-      Raise Exception.Create('Registry key open error');
+      Raise Exception.Create(MsgRegistryKeyOpenError);
     end;
   finally
     Reg.Free;

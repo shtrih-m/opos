@@ -81,7 +81,8 @@ uses
   SerialPorts in '..\..\Source\Shared\SerialPorts.pas',
   DeviceNotification in '..\..\Source\SmFiscalPrinter\Units\DeviceNotification.pas',
   PortUtil in '..\..\Source\Shared\PortUtil.pas',
-  TextReport in '..\..\Source\Shared\TextReport.pas';
+  TextReport in '..\..\Source\Shared\TextReport.pas',
+  OposMessages in '..\..\Source\SmFiscalPrinter\Units\OposMessages.pas';
 
 {$R *.RES}
 

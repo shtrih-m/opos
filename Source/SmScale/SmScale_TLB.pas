@@ -12,7 +12,7 @@ unit SmScale_TLB;
 // ************************************************************************ //
 
 // PASTLWTR : 1.2
-// File generated on 19.07.2017 15:21:44 from Type Library described below.
+// File generated on 19.07.2017 19:19:44 from Type Library described below.
 
 // ************************************************************************  //
 // Type Lib: C:\projects\OPOSShtrih\Source\SmScale\SmScale.tlb (1)

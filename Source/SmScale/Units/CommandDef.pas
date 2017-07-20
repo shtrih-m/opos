@@ -6,7 +6,7 @@ Uses
   // VCL
   Windows, Classes, SysUtils,
   // This
-  XmlParser, CommandParam, LogFile;
+  XmlParser, CommandParam, LogFile, OposMessages;
 
 type
   TCommandDef = class;
@@ -147,7 +147,7 @@ begin
     Result := Items[i];
     if Result.Code = Code then Exit;
   end;
-  raise Exception.Create('Command not found');
+  raise Exception.Create(MsgCommandNotFound);
 end;
 
 procedure TCommandDefs.DoLoadFromFile(const FileName: string);

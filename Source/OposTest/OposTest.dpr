@@ -1,7 +1,6 @@
 program OposTest;
 
 uses
-  //FastMM4,
   Forms,
   fmuPtrGeneral in 'Fmu\fmuPtrGeneral.pas' {fmPtrGeneral},
   fmuAbout in 'Fmu\fmuAbout.pas' {fmAbout},
@@ -135,7 +134,8 @@ uses
   fmuFptrTest2 in 'Fmu\fmuFptrTest2.pas' {fmFptrTest2},
   fmuFptrThreadTest in 'Fmu\fmuFptrThreadTest.pas' {fmFptrThreadTest},
   VatCode in '..\SmFiscalPrinter\Units\VatCode.pas',
-  DriverTest in 'Units\DriverTest.pas';
+  DriverTest in 'Units\DriverTest.pas',
+  OposMessages in '..\SmFiscalPrinter\Units\OposMessages.pas';
 
 {$R *.RES}
 {$R WindowsXP.RES}

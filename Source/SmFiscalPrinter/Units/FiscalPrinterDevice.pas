@@ -5890,6 +5890,11 @@ begin
   end;
   FCapSubtotalRound := FCapFiscalStorage and ((GetDeviceMetrics.Model = 19) or (DiscountMode = 2));
   FCapFSCloseReceipt2 := FCapFiscalStorage and (GetDeviceMetrics.Model <> 19);
+  if FCapFSCloseReceipt2 then
+  begin
+    FCapFSCloseReceipt2 := TestCommand($FF45);
+  end;
+
   FCapDiscount := FCapFiscalStorage and (FDiscountMode = 0) and (GetDeviceMetrics.Model <> 19);
   FIsFiscalized := FCapFiscalStorage or (FLongPrinterStatus.RegistrationNumber <> 0);
 end;

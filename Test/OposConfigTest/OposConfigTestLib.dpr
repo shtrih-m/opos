@@ -83,7 +83,8 @@ uses
   fmuMiscParams in '..\..\Source\OposConfig\Fmu\fmuMiscParams.pas' {fmMiscParams},
   VatCode in '..\..\Source\SmFiscalPrinter\Units\VatCode.pas',
   fmuFptrPayType in '..\..\Source\OposConfig\Fmu\fmuFptrPayType.pas' {fmFptrPayType},
-  DriverContext in '..\..\Source\SmFiscalPrinter\Units\DriverContext.pas';
+  DriverContext in '..\..\Source\SmFiscalPrinter\Units\DriverContext.pas',
+  OposMessages in '..\..\Source\SmFiscalPrinter\Units\OposMessages.pas';
 
 {$R *.RES}
 

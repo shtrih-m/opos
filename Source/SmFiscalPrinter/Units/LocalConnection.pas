@@ -6,6 +6,8 @@ uses
   // VCL
   Windows, SysUtils,
   // This
+  OposMessages,
+  // This
   SerialPort, LogFile, StringUtils, PrinterFrame, DriverError,
   PrinterConnection, CommunicationError;
 
@@ -141,7 +143,7 @@ begin
   if not Read(DataLen + 1, RxData) then
   begin
     AddData(RxData);
-    raise ECommunicationError.Create('Error reading answer');
+    raise ECommunicationError.Create(MsgErrorReadingAnswer);
   end;
   AddData(RxData);
   { Receive CRC of frame }
@@ -183,7 +185,7 @@ begin
           end else
           begin
             if not CRCError then
-              raise ECommunicationError.Create('Error reading answer');
+              raise ECommunicationError.Create(MsgErrorReadingAnswer);
           end;
           Inc(AnsCount);
         end;
@@ -200,10 +202,10 @@ begin
     end;
 
     if ENQCount > MaxENQCount then
-      raise ECommunicationError.Create('Not connected, MaxENQCount');
+      raise ECommunicationError.Create('Нет связи, MaxENQCount');
 
     if AnsCount > MaxAnsCount then
-      raise ECommunicationError.Create('Not connected, MaxAnsCount');
+      raise ECommunicationError.Create('Нет связи, MaxAnsCount');
   until False;
 end;
 
@@ -218,7 +220,7 @@ begin
   repeat
     Write(Data);
     if not ReadChar(RxChar) then
-      raise ECommunicationError.Create('Not connected');
+      raise ECommunicationError.Create('Нет связи');
 
     case RxChar of
       ACK : Break;
@@ -228,11 +230,11 @@ begin
         Inc(NakCount);
       end;
     else
-      raise ECommunicationError.Create('Not connected');
+      raise ECommunicationError.Create('Нет связи');
     end;
 
     if CmdCount > MaxCmdCount then
-      raise ECommunicationError.Create('Not connected');
+      raise ECommunicationError.Create('Нет связи');
 
   until False;
 end;
@@ -258,7 +260,7 @@ begin
         if CRCError then ReadAnswer(False)
         else
         begin
-          raise ECommunicationError.Create('Not connected');
+          raise ECommunicationError.Create('Нет связи');
         end;
       end;
       Result := FOutput;

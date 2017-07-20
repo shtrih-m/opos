@@ -408,7 +408,7 @@ begin
     ConnectionTypeSocket: Result := TSocketConnection.Create(
       RemoteHost, Parameters.RemotePort, Logger);
   else
-    raise Exception.Create('Invalid connection type');
+    raise Exception.Create(MsgInvalidConnectionType);
   end;
 end;
 
@@ -685,7 +685,7 @@ begin
       end;
     end;
   end;
-  RaiseOposException(OPOS_E_NOHARDWARE, 'Device not connected');
+  RaiseOposException(OPOS_E_NOHARDWARE, MsgDeviceNotConnected);
 end;
 
 function TSharedPrinter.ReadRecFormatItem(Row: Integer): TRecFormatItem;
