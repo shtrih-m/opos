@@ -159,10 +159,11 @@ type
     function FSReadTicket(var R: TFSTicket): Integer;
     function GetLogger: ILogFile;
     function GetMalinaParams: TMalinaParams;
-    function GetMaxGraphicsWidthInBytes: Integer;
     function GetCapDiscount: Boolean;
     function ReadLoaderVersion(var Version: string): Integer;
     function GetCapFSCloseReceipt2: Boolean;
+  protected
+    function GetMaxGraphicsWidthInBytes: Integer;
   public
     constructor Create;
     destructor Destroy; override;
@@ -5048,9 +5049,6 @@ end;
 function TFiscalPrinterDevice.LoadGraphics(Line: Word;
   Data: string): Integer;
 begin
-  if Parameters.LogoCenter then
-    Data := CenterGraphicsLine(Data, GetMaxGraphicsWidthInBytes, 1);
-
   if FCapGraphics2 then
   begin
     Result := LoadGraphics2(Line, Data);
@@ -5836,14 +5834,23 @@ function TFiscalPrinterDevice.LoadPicture(Picture: TPicture;
   StartLine: Integer): Integer;
 var
   Bitmap: TBitmap;
+  XOffset: Integer;
 begin
+  XOffset := 0;
+  if Parameters.LogoCenter then
+  begin
+    XOffset := (GetMaxGraphicsWidth - Picture.Width) div 2;
+  end;
+
   Bitmap := TBitmap.Create;
   try
     Bitmap.PixelFormat := pf1Bit;
     Bitmap.Monochrome := True;
-    Bitmap.Width := Picture.Width;
+    Bitmap.Width := Picture.Width + XOffset;
     Bitmap.Height := Picture.Height;
-    Bitmap.Canvas.Draw(0, 0, Picture.Graphic);
+    Bitmap.Canvas.Draw(XOffset, 0, Picture.Graphic);
+
+
     LoadBitmap(StartLine, Bitmap);
     Result := Bitmap.Height;
   finally
@@ -7448,7 +7455,7 @@ var
   Command: string;
   Answer: string;
 begin
-  Command := #$FF#$45 + IntToBin(GetSysPassword, 4) +
+  Command := #$FF#$45 + IntToBin(GetUsrPassword, 4) +
     IntToBin(P.Payments[0], 5) +
     IntToBin(P.Payments[1], 5) +
     IntToBin(P.Payments[2], 5) +

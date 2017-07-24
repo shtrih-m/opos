@@ -1952,7 +1952,7 @@ begin
   if Parameters.LogoPosition = LogoBeforeHeader then
   begin
     // if logo size < fixed header size
-    if Parameters.LogoSize <= (Device.GetModel.NumHeaderLines-1)*HeaderFontHeight then
+    if Parameters.LogoSize <= (Device.GetModel.NumHeaderLines * HeaderFontHeight) then
     begin
       Data.Text := '';
       Data.Station := PRINTER_STATION_REC;

@@ -265,16 +265,16 @@ const
   DriverParameterBarLineByteMode          = 67;
   DriverParameterLogFilePath              = 68;
 
-  DriverParameterTaxAmount1               = 70;
-  DriverParameterTaxAmount2               = 71;
-  DriverParameterTaxAmount3               = 72;
-  DriverParameterTaxAmount4               = 73;
-  DriverParameterTaxAmount5               = 74;
-  DriverParameterTaxAmount6               = 75;
-  DriverParameterTaxSystem                = 76;
-  DriverParameterItemTotal                = 77;
-  DriverParameterPaymentType              = 78;
-  DriverParameterPaymentItem              = 79;
+  DriverParameterParam1                   = 70;
+  DriverParameterParam2                   = 71;
+  DriverParameterParam3                   = 72;
+  DriverParameterParam4                   = 73;
+  DriverParameterParam5                   = 74;
+  DriverParameterParam6                   = 75;
+  DriverParameterParam7                   = 76;
+  DriverParameterParam8                   = 77;
+  DriverParameterParam9                   = 78;
+  DriverParameterParam10                  = 79;
 
 
   /////////////////////////////////////////////////////////////////////////////

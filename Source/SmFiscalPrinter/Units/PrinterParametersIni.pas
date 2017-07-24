@@ -313,7 +313,6 @@ begin
       FParameters.ReceiptItemsHeader := IniFile.ReadText(Section, 'ReceiptItemsHeader', DefReceiptItemsHeader);
       FParameters.ReceiptItemsTrailer := IniFile.ReadText(Section, 'ReceiptItemsTrailer', DefReceiptItemsTrailer);
       FParameters.ReceiptItemFormat := IniFile.ReadText(Section, 'ReceiptItemFormat', DefReceiptItemFormat);
-      FParameters.ReceiptFormatEnabled := IniFile.ReadBool(Section, 'ReceiptFormatEnabled', DefReceiptFormatEnabled);
       FParameters.RecPrintType := IniFile.ReadInteger(Section, 'RecPrintType', DefRecPrintType);
       FParameters.PrintSingleQuantity := IniFile.ReadBool(Section, 'PrintSingleQuantity', DefPrintSingleQuantity);
       FParameters.TableFilePath := IniFile.ReadString(Section, 'TableFilePath', FParameters.DefTableFilePath);
@@ -459,7 +458,6 @@ begin
     IniFile.WriteText(Section, 'ReceiptItemsHeader', FParameters.ReceiptItemsHeader);
     IniFile.WriteText(Section, 'ReceiptItemsTrailer', FParameters.ReceiptItemsTrailer);
     IniFile.WriteText(Section, 'ReceiptItemFormat', FParameters.ReceiptItemFormat);
-    IniFile.WriteBool(Section, 'ReceiptFormatEnabled', FParameters.ReceiptFormatEnabled);
     IniFile.WriteInteger(Section, 'RecPrintType', FParameters.RecPrintType);
     IniFile.WriteBool(Section, 'PrintSingleQuantity', FParameters.PrintSingleQuantity);
     IniFile.WriteString(Section, 'TableFilePath', FParameters.TableFilePath);

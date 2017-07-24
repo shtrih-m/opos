@@ -1,0 +1,45 @@
+
+--------------------------------2017/7/18 20:12:02--------------------------------
+A memory block has been leaked. The size is: 36
+
+This block was allocated by thread 0x1C38, and the stack trace (return addresses) at the time was:
+402ED8 
+403CCF 
+4040AA 
+43BD12 
+503C7C 
+505293 
+4048CF 
+404937 
+40755B 
+5CE035 
+75B2336A [BaseThreadInitThunk]
+
+The block is currently used for an object of class: TIdCriticalSection
+
+The allocation number is: 292
+
+Current memory dump of 256 bytes starting at pointer address 7EE74960:
+08 87 4F 00 A0 00 31 00 FF FF FF FF 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ED D8 62 08
+80 80 80 80 80 80 80 80 00 00 00 00 41 4A E7 7E 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+29 01 00 00 D8 2E 40 00 4D 4D 40 00 78 4D 40 00 0E 72 40 00 63 A8 40 77 22 A9 40 77 06 34 3B 77
+31 34 3B 77 AE 09 45 77 32 12 45 77 16 12 45 77 38 1C 00 00 38 1C 00 00 03 2F 40 00 C2 4C 40 00
+97 5A 40 00 26 76 50 00 5F 48 40 00 3A 4B 40 00 7A E0 5C 00 6A 33 B2 75 02 99 3B 77 D5 98 3B 77
+00 00 00 00 16 00 00 00 00 00 00 00 72 CC C7 28 90 CC 5D 00 80 80 80 80 80 80 80 80 80 80 80 80
+80 80 80 80 80 80 8D 33 38 D7 80 80 80 80 80 80 80 80 80 80 80 80 80 80 00 00 00 00 F1 4A E7 7E
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 2A 01 00 00 D8 2E 40 00 4D 4D 40 00 78 4D 40 00
+.  á  O  .  †  .  1  .  ˇ  ˇ  ˇ  ˇ  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  Ì  ÿ  b  .
+Ä  Ä  Ä  Ä  Ä  Ä  Ä  Ä  .  .  .  .  A  J  Á  ~  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
+)  .  .  .  ÿ  .  @  .  M  M  @  .  x  M  @  .  .  r  @  .  c  ®  @  w  "  ©  @  w  .  4  ;  w
+1  4  ;  w  Æ  .  E  w  2  .  E  w  .  .  E  w  8  .  .  .  8  .  .  .  .  /  @  .  ¬  L  @  .
+ó  Z  @  .  &  v  P  .  _  H  @  .  :  K  @  .  z  ‡  \  .  j  3  ≤  u  .  ô  ;  w  ’  ò  ;  w
+.  .  .  .  .  .  .  .  .  .  .  .  r  Ã  «  (  ê  Ã  ]  .  Ä  Ä  Ä  Ä  Ä  Ä  Ä  Ä  Ä  Ä  Ä  Ä
+Ä  Ä  Ä  Ä  Ä  Ä  ç  3  8  ◊  Ä  Ä  Ä  Ä  Ä  Ä  Ä  Ä  Ä  Ä  Ä  Ä  Ä  Ä  .  .  .  .  Ò  J  Á  ~
+.  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  *  .  .  .  ÿ  .  @  .  M  M  @  .  x  M  @  .
+
+--------------------------------2017/7/18 20:12:02--------------------------------
+This application has leaked memory. The small block leaks are (excluding expected leaks registered by pointer):
+
+21 - 36 bytes: TIdCriticalSection x 1
+
+Note: Memory leak detail is logged to a text file in the same folder as this application. To disable this memory leak check, undefine "EnableMemoryLeakReporting".

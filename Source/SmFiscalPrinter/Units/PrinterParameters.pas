@@ -303,7 +303,7 @@ const
   DefRFSeparatorLine = SeparatorLineDashes;
   DefMonitoringPort = 50000;
   DefMonitoringEnabled = False;
-  DefPropertyUpdateMode = PropertyUpdateModePolling;
+  DefPropertyUpdateMode = PropertyUpdateModeNone;
   DefReceiptReportEnabled = False;
   DefZReceiptBeforeZReport = True;
   DefDepartmentInText = false;
@@ -314,7 +314,6 @@ const
   DefFSUpdatePrice = False;
   DefWrapText = False;
 
-  DefReceiptFormatEnabled = False;
   DefReceiptItemsHeader =
     '------------------------------------------' + CRLF +
     ' №                  Цена со  Кол-         ' + CRLF +
@@ -325,12 +324,11 @@ const
     '------------------------------------------';
 
   DefReceiptItemFormat =
-    '%3cPOS% %38lTITLE%' + CRLF +
-    '    %8lPRICE% %6lDISCOUNT% %8lSUM%*%3QUAN%%=$10TOTAL_TAX%';
+    '%3cPOS% %30lTITLE%' + CRLF +
+    '    %6lPRICE% %5lDISCOUNT% %6lSUM% * %6QUAN%%=$10TOTAL_TAX%';
   DefRecPrintType = RecPrintTypePrinter;
   DefVatCodeEnabled = False;
   DefHandleErrorCode = False;
-
 type
   { TPrinterParameters }
 
@@ -464,7 +462,6 @@ type
     ReceiptItemsHeader: string;
     ReceiptItemsTrailer: string;
     ReceiptItemFormat: string;
-    ReceiptFormatEnabled: Boolean;
     RecPrintType: Integer;
     PrintSingleQuantity: Boolean;
     TableFilePath: WideString;
@@ -473,13 +470,16 @@ type
     HandleErrorCode: Boolean;
     FSServiceEnabled: Boolean;
 
-    TaxAmount1: Int64;
-    TaxAmount2: Int64;
-    TaxAmount3: Int64;
-    TaxAmount4: Int64;
-    TaxAmount5: Int64;
-    TaxAmount6: Int64;
-    TaxSystem: Int64;
+    Parameter1: string;
+    Parameter2: string;
+    Parameter3: string;
+    Parameter4: string;
+    Parameter5: string;
+    Parameter6: string;
+    Parameter7: string;
+    Parameter8: string;
+    Parameter9: string;
+    Parameter10: string;
   public
     constructor Create(ALogger: ILogFile);
     destructor Destroy; override;
@@ -774,7 +774,6 @@ begin
   ReceiptItemsHeader := DefReceiptItemsHeader;
   ReceiptItemsTrailer := DefReceiptItemsTrailer;
   ReceiptItemFormat := DefReceiptItemFormat;
-  ReceiptFormatEnabled := DefReceiptFormatEnabled;
   RecPrintType := DefRecPrintType;
   PrintSingleQuantity := DefPrintSingleQuantity;
   TableFilePath := DefTableFilePath;
@@ -905,7 +904,6 @@ begin
   Logger.Debug('ReceiptItemsHeader: ' + ReceiptItemsHeader);
   Logger.Debug('ReceiptItemsTrailer: ' + ReceiptItemsTrailer);
   Logger.Debug('ReceiptItemFormat: ' + ReceiptItemFormat);
-  Logger.Debug('ReceiptFormatEnabled: ' + BoolToStr(ReceiptFormatEnabled));
   Logger.Debug('RecPrintType: ' + IntToStr(RecPrintType));
   Logger.Debug('TableFilePath: ' + TableFilePath);
   Logger.Debug('VatCodeEnabled: ' + BoolToStr(VatCodeEnabled));

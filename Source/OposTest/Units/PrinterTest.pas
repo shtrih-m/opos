@@ -4039,15 +4039,17 @@ begin
   Check(FiscalPrinter.ResetPrinter);
   FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
   Check(FiscalPrinter.BeginFiscalReceipt(True));
-  Check(FiscalPrinter.PrintRecItem('Item1', 124, 1000, 0, 124, 'шт'));
-  FiscalPrinter.SetIntParameter(DriverParameterTaxAmount1, 1);
-  FiscalPrinter.SetIntParameter(DriverParameterTaxAmount2, 2);
-  FiscalPrinter.SetIntParameter(DriverParameterTaxAmount3, 3);
-  FiscalPrinter.SetIntParameter(DriverParameterTaxAmount4, 4);
-  FiscalPrinter.SetIntParameter(DriverParameterTaxAmount5, 5);
-  FiscalPrinter.SetIntParameter(DriverParameterTaxAmount6, 6);
-  FiscalPrinter.SetIntParameter(DriverParameterTaxSystem, 0);
-  Check(FiscalPrinter.PrintRecTotal(2177, 2177, '0'));
+  Check(FiscalPrinter.PrintRecItem('Конь в яблоках, варено-копченый 01234567890123456789012345678901234567890123456789',
+    124.56, 1789, 0, 124.56, 'кг'));
+
+  FiscalPrinter.SetIntParameter(DriverParameterParam1, 1);
+  FiscalPrinter.SetIntParameter(DriverParameterParam2, 2);
+  FiscalPrinter.SetIntParameter(DriverParameterParam3, 3);
+  FiscalPrinter.SetIntParameter(DriverParameterParam4, 4);
+  FiscalPrinter.SetIntParameter(DriverParameterParam5, 5);
+  FiscalPrinter.SetIntParameter(DriverParameterParam6, 6);
+  FiscalPrinter.SetIntParameter(DriverParameterParam7, 0);
+  Check(FiscalPrinter.PrintRecTotal(100000, 100000, '0'));
   PrintQRCode;
   Check(FiscalPrinter.EndFiscalReceipt(False));
 end;
@@ -4073,7 +4075,7 @@ begin
   Check(FiscalPrinter.PrintRecItem('Черный чай "Медовый"                    ', 140, 39, 0, 3590, '0'));
   Check(FiscalPrinter.PrintRecSubtotal(1278.01));
   Check(FiscalPrinter.PrintRecSubtotalAdjustment(3, 'disc', 5));
-  Check(FiscalPrinter.PrintRecTotal(1214.1095, 1214.1095, '3'));
+  Check(FiscalPrinter.PrintRecTotal(1214.11, 1214.11, '3'));
   Check(FiscalPrinter.EndFiscalReceipt(True));
 end;
 

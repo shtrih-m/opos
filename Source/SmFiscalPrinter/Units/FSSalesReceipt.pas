@@ -23,6 +23,7 @@ type
     FPayments: TPayments;
     FRetalix: TRetalix;
     FLastItem: TFSSaleItem;
+    FDiscounts: TReceiptItems;
     FHasReceiptItems: Boolean;
     FReceiptItems: TReceiptItems;
     FRecDiscount: TDiscountReceiptItem;
@@ -68,6 +69,8 @@ type
 
     property Template: TReceiptTemplate read FTemplate;
     property Device: IFiscalPrinterDevice read GetDevice;
+    procedure CorrectPayments;
+    procedure UpdateReceiptItems;
   public
     constructor CreateReceipt(AContext: TReceiptContext; ARecType: Integer);
     destructor Destroy; override;
@@ -206,6 +209,7 @@ constructor TFSSalesReceipt.CreateReceipt(AContext: TReceiptContext; ARecType: I
 begin
   inherited Create(AContext);
   FRecType := ARecType;
+  FDiscounts := TReceiptItems.Create;
   FReceiptItems := TReceiptItems.Create;
   ClearReceipt;
 
@@ -217,6 +221,7 @@ destructor TFSSalesReceipt.Destroy;
 begin
   FRetalix.Free;
   FTemplate.Free;
+  FDiscounts.Free;
   FReceiptItems.Free;
   inherited Destroy;
 end;
@@ -415,6 +420,10 @@ begin
   Operation.Discount := 0;
   Operation.Barcode := 0;
   Operation.AdjText := '';
+  Operation.Parameter1 := Parameters.Parameter1;
+  Operation.Parameter2 := Parameters.Parameter2;
+  Operation.Parameter3 := Parameters.Parameter3;
+  Operation.Parameter4 := Parameters.Parameter4;
   AddSale(Operation);
 end;
 
@@ -533,6 +542,10 @@ begin
   Operation.Discount := 0;
   Operation.Barcode := 0;
   Operation.AdjText := '';
+  Operation.Parameter1 := Parameters.Parameter1;
+  Operation.Parameter2 := Parameters.Parameter2;
+  Operation.Parameter3 := Parameters.Parameter3;
+  Operation.Parameter4 := Parameters.Parameter4;
   AddSale(Operation);
 end;
 
@@ -557,6 +570,10 @@ begin
   Operation.Discount := 0;
   Operation.Barcode := 0;
   Operation.AdjText := '';
+  Operation.Parameter1 := Parameters.Parameter1;
+  Operation.Parameter2 := Parameters.Parameter2;
+  Operation.Parameter3 := Parameters.Parameter3;
+  Operation.Parameter4 := Parameters.Parameter4;
   AddSale(Operation);
 end;
 
@@ -583,7 +600,7 @@ procedure TFSSalesReceipt.SubtotalDiscount(Amount: Int64; const Description: str
 var
   Item: TDiscountReceiptItem;
 begin
-  Item := TDiscountReceiptItem.Create(FReceiptItems);
+  Item := TDiscountReceiptItem.Create(FDiscounts);
   Item.PreLine := Printer.Printer.PreLine;
   Item.PostLine := Printer.Printer.PostLine;
   Item.Data.Amount := Amount;
@@ -837,6 +854,17 @@ begin
     FPayments[i] := 0;
   FAdjustmentAmount := 0;
   ClearRecMessages;
+
+  Parameters.Parameter1 := '';
+  Parameters.Parameter2 := '';
+  Parameters.Parameter3 := '';
+  Parameters.Parameter4 := '';
+  Parameters.Parameter5 := '';
+  Parameters.Parameter6 := '';
+  Parameters.Parameter7 := '';
+  Parameters.Parameter8 := '';
+  Parameters.Parameter9 := '';
+  Parameters.Parameter10 := '';
 end;
 
 procedure TFSSalesReceipt.BeginFiscalReceipt(PrintHeader: Boolean);
@@ -872,12 +900,48 @@ begin
     Result := '_' + Result;
 end;
 
+procedure TFSSalesReceipt.UpdateReceiptItems;
+var
+  i: Integer;
+  ItemNumber: Integer;
+  FSSaleItem: TFSSaleItem;
+  SplittedItem: TFSSaleItem;
+  ReceiptItem: TReceiptItem;
+begin
+  for i := 0 to FReceiptItems.Count-1 do
+  begin
+    ReceiptItem := ReceiptItems[i];
+    if ReceiptItem is TFSSaleItem then
+    begin
+      FSSaleItem := ReceiptItem as TFSSaleItem;
+      FSSaleItem.UpdatePrice;
+      SplittedItem := FSSaleItem.SplittedItem;
+      if SplittedItem <> nil then
+      begin
+        FReceiptItems.Insert(i+1, SplittedItem);
+      end;
+    end;
+  end;
+
+  ItemNumber := 1;
+  for i := 0 to FReceiptItems.Count-1 do
+  begin
+    ReceiptItem := ReceiptItems[i];
+    if ReceiptItem is TFSSaleItem then
+    begin
+      FSSaleItem := ReceiptItem as TFSSaleItem;
+      FSSaleItem.Pos := ItemNumber;
+      Inc(ItemNumber);
+    end;
+  end;
+end;
+
 procedure TFSSalesReceipt.PrintReceiptItems;
 var
   i: Integer;
   ReceiptItem: TReceiptItem;
 begin
-  if Parameters.ReceiptFormatEnabled then
+  if Parameters.RecPrintType = RecPrintTypeTemplate then
   begin
     Printer.Printer.PrintText(Parameters.ReceiptItemsHeader);
   end;
@@ -904,7 +968,7 @@ begin
     end;
   end;
 
-  if Parameters.ReceiptFormatEnabled then
+  if Parameters.RecPrintType = RecPrintTypeTemplate then
   begin
     Printer.Printer.PrintText(Parameters.ReceiptItemsTrailer);
   end;
@@ -1005,13 +1069,13 @@ begin
       FSSale2.RecType := FRecType;
       FSSale2.Quantity := Abs(FSRegistration.Quantity);;
       FSSale2.Price := FSRegistration.Price;
-      FSSale2.Total := Parameters.TaxAmount1;
-      FSSale2.TaxAmount := Parameters.TaxAmount2;
+      FSSale2.Total := StrToInt64Def(FSRegistration.Parameter1, $FFFFFFFFFF);
+      FSSale2.TaxAmount := StrToInt64Def(FSRegistration.Parameter2, $FFFFFFFFFF);
       FSSale2.Department := FSRegistration.Department;
       FSSale2.Tax := GetTax(FSRegistration.Text, FSRegistration.Tax);
-      FSSale2.Text := FSRegistration.Text;
-      FSSale2.PaymentType := 0;
-      FSSale2.PaymentItem := 0;
+      FSSale2.Text := Operation.Text;
+      FSSale2.PaymentType := StrToInt64Def(FSRegistration.Parameter3, 0);
+      FSSale2.PaymentItem := StrToInt64Def(FSRegistration.Parameter4, 0);
       Device.Check(Device.FSSale2(FSSale2));
     end else
     begin
@@ -1049,13 +1113,11 @@ begin
 
   if Parameters.RecPrintType = RecPrintTypeDriver then
   begin
-    if Parameters.ReceiptFormatEnabled then
-    begin
-      printReceiptItemTemplate(Item);
-    end else
-    begin
-      printReceiptItemAsText(Item);
-    end;
+    printReceiptItemAsText(Item);
+  end;
+  if Parameters.RecPrintType = RecPrintTypeTemplate then
+  begin
+    printReceiptItemTemplate(Item);
   end;
 
   if Item.PostLine <> '' then
@@ -1145,6 +1207,24 @@ begin
   end;
 end;
 
+procedure TFSSalesReceipt.CorrectPayments;
+var
+  i: Integer;
+  Total: Int64;
+  PaidAmount: Int64;
+begin
+  PaidAmount := 0;
+  Total := GetTotal;
+  for i := Low(FPayments) to High(FPayments) do
+  begin
+    if (PaidAmount + FPayments[i] > Total) then
+    begin
+      FPayments[i] := Total - PaidAmount;
+    end;
+    PaidAmount := PaidAmount + FPayments[i];
+  end;
+end;
+
 procedure TFSSalesReceipt.EndFiscalReceipt;
 var
   CloseParams: TCloseReceiptParams;
@@ -1161,8 +1241,10 @@ begin
     begin
       OpenReceipt(FRecType);
 
+      CorrectPayments;
       PrintRecMessages(0);
       UpdateDiscounts;
+      UpdateReceiptItems;
       PrintReceiptItems;
       PrintDiscounts;
       BeforeCloseReceipt;
@@ -1176,13 +1258,13 @@ begin
       begin
         CloseParams2.Payments := FPayments;
         CloseParams2.Discount := FAdjustmentAmount;
-        CloseParams2.TaxAmount[1] := Parameters.TaxAmount1;
-        CloseParams2.TaxAmount[2] := Parameters.TaxAmount2;
-        CloseParams2.TaxAmount[3] := Parameters.TaxAmount3;
-        CloseParams2.TaxAmount[4] := Parameters.TaxAmount4;
-        CloseParams2.TaxAmount[5] := Parameters.TaxAmount5;
-        CloseParams2.TaxAmount[6] := Parameters.TaxAmount6;
-        CloseParams2.TaxSystem := Parameters.TaxSystem;
+        CloseParams2.TaxAmount[1] := StrToInt64Def(Parameters.Parameter1, 0);
+        CloseParams2.TaxAmount[2] := StrToInt64Def(Parameters.Parameter2, 0);
+        CloseParams2.TaxAmount[3] := StrToInt64Def(Parameters.Parameter3, 0);
+        CloseParams2.TaxAmount[4] := StrToInt64Def(Parameters.Parameter4, 0);
+        CloseParams2.TaxAmount[5] := StrToInt64Def(Parameters.Parameter5, 0);
+        CloseParams2.TaxAmount[6] := StrToInt64Def(Parameters.Parameter6, 0);
+        CloseParams2.TaxSystem := StrToInt64Def(Parameters.Parameter7, 0);
         CloseParams2.Text := Parameters.CloseRecText;
         Device.Check(Device.ReceiptClose2(CloseParams2, CloseResult2));
       end else
@@ -1268,31 +1350,16 @@ var
   Item: TReceiptItem;
   SaleItem: TFSSaleItem;
   DiscountAmount: Int64;
-  Discount: TAmountOperation;
 begin
   if (Device.CapDiscount) and GetCapReceiptDiscount2 then Exit;
 
-  DiscountAmount := 0;
-  for i := FReceiptItems.Count-1 downto 0 do
-  begin
-    Item := FReceiptItems[i];
-    if Item is TDiscountReceiptItem then
-    begin
-      Discount := (Item as TDiscountReceiptItem).Data;
-      DiscountAmount := DiscountAmount + Discount.Amount;
-    end;
-  end;
+  DiscountAmount := FDiscounts.GetTotal;
   if DiscountAmount = 0 then Exit;
 
   if (Device.CapSubtotalRound) and (DiscountAmount < 100) then
   begin
+    FDiscounts.Clear;
     FAdjustmentAmount := DiscountAmount;
-    for i := FReceiptItems.Count-1 downto 0 do
-    begin
-      Item := FReceiptItems[i];
-      if Item is TDiscountReceiptItem then
-        Item.Free;
-    end;
     Exit;
   end;
 
@@ -1340,6 +1407,10 @@ begin
   else
     Operation.Charge := Abs(DiscountAmount);
   Operation.Barcode := 0;
+  Operation.Parameter1 := Parameters.Parameter1;
+  Operation.Parameter2 := Parameters.Parameter2;
+  Operation.Parameter3 := Parameters.Parameter3;
+  Operation.Parameter4 := Parameters.Parameter4;
   AddSale(Operation);
 end;
 
@@ -1375,6 +1446,10 @@ begin
   Operation.Discount := 0;
   Operation.Barcode := 0;
   Operation.AdjText := '';
+  Operation.Parameter1 := Parameters.Parameter1;
+  Operation.Parameter2 := Parameters.Parameter2;
+  Operation.Parameter3 := Parameters.Parameter3;
+  Operation.Parameter4 := Parameters.Parameter4;
   AddSale(Operation);
 end;
 
@@ -1415,6 +1490,10 @@ begin
   Operation.Discount := 0;
   Operation.Barcode := 0;
   Operation.AdjText := '';
+  Operation.Parameter1 := Parameters.Parameter1;
+  Operation.Parameter2 := Parameters.Parameter2;
+  Operation.Parameter3 := Parameters.Parameter3;
+  Operation.Parameter4 := Parameters.Parameter4;
   AddSale(Operation);
 end;
 
@@ -1451,6 +1530,10 @@ begin
   Operation.Discount := 0;
   Operation.Barcode := 0;
   Operation.AdjText := '';
+  Operation.Parameter1 := Parameters.Parameter1;
+  Operation.Parameter2 := Parameters.Parameter2;
+  Operation.Parameter3 := Parameters.Parameter3;
+  Operation.Parameter4 := Parameters.Parameter4;
   AddSale(Operation);
 end;
 

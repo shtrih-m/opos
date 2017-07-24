@@ -688,6 +688,10 @@ type
     Barcode: Int64;
     Text: string;         // Название товара
     AdjText: string;      // Название скидки или надбавки
+    Parameter1: string;
+    Parameter2: string;
+    Parameter3: string;
+    Parameter4: string;
   end;
 
   { TFSSale }

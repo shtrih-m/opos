@@ -36,16 +36,15 @@ type
     property Template: string read FTemplate write FTemplate;
   end;
 
-
 implementation
 
 { TReceiptTemplate }
 
-// \% %51lTITLE%;%8lPRICE% %6lDISCOUNT%  %8lSUM%       %3QUAN%    %=$10TOTAL_TAX%
+// %51lTITLE%;%8lPRICE% %6lDISCOUNT%  %8lSUM%       %3QUAN%    %=$10TOTAL_TAX%
 function TReceiptTemplate.GetText(const FormatLine: string;
   const Item: TFSSaleItem): string;
 type
-  TParserState = (stChar, stESC, stField);
+  TParserState = (stNone, stChar, stESC, stField);
 var
   C: Char;
   i: Integer;
@@ -54,6 +53,7 @@ var
 begin
   Field := '';
   Result := '';
+  State := stNone;
   for i := 1 to Length(FormatLine) do
   begin
     C := FormatLine[i];
@@ -144,7 +144,7 @@ begin
   end;
   if AnsiCompareText(FieldData.Name, 'TOTAL_TAX') = 0 then
   begin
-    Result := AmountToStr(Item.Total) + '_' + GetTaxLetter(Item.Tax);
+    Result := AmountToStr(Item.Total/100) + '_' + GetTaxLetter(Item.Tax);
   end;
   if AnsiCompareText(FieldData.Name, 'TAX_LETTER') = 0 then
   begin
@@ -240,14 +240,11 @@ begin
 end;
 
 function TReceiptTemplate.getItemText(const Item: TFSSaleItem): string;
-(*
 var
   i: Integer;
   Lines: TStrings;
   TemplateLines: TStrings;
-*)
 begin
-(*
   Lines := TStringList.Create;
   TemplateLines := TStringList.Create;
   try
@@ -262,7 +259,7 @@ begin
     TemplateLines.Text := FTemplate;
     for i := 0 to TemplateLines.Count-1 do
     begin
-      Lines.Add(GetText(TemplateLines[i], Item);
+      Lines.Add(GetText(TemplateLines[i], Item));
     end;
 
     if Item.PostLine <> '' then
@@ -273,7 +270,6 @@ begin
     Lines.Free;
     TemplateLines.Free;
   end;
-*)
 end;
 
 function TReceiptTemplate.ParseField2(

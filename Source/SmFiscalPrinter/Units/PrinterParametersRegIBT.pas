@@ -466,9 +466,6 @@ begin
       if Reg.ValueExists('ReceiptItemFormat') then
         Parameters.ReceiptItemFormat := Reg.ReadString('ReceiptItemFormat');
 
-      if Reg.ValueExists('ReceiptFormatEnabled') then
-        Parameters.ReceiptFormatEnabled := Reg.ReadBool('ReceiptFormatEnabled');
-
       if Reg.ValueExists('RecPrintType') then
         Parameters.RecPrintType := Reg.ReadInteger('RecPrintType');
 
@@ -631,7 +628,6 @@ begin
     Reg.WriteString('ReceiptItemsHeader', FParameters.ReceiptItemsHeader);
     Reg.WriteString('ReceiptItemsTrailer', FParameters.ReceiptItemsTrailer);
     Reg.WriteString('ReceiptItemFormat', FParameters.ReceiptItemFormat);
-    Reg.WriteBool('ReceiptFormatEnabled', FParameters.ReceiptFormatEnabled);
     Reg.WriteInteger('RecPrintType', FParameters.RecPrintType);
     Reg.WriteBool('PrintSingleQuantity', FParameters.PrintSingleQuantity);
     Reg.WriteString('TableFilePath', FParameters.TableFilePath);

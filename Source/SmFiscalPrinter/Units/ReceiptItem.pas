@@ -25,9 +25,11 @@ type
     constructor Create;
     destructor Destroy; override;
 
+    function GetTotal: Int64;
     procedure Clear;
     procedure Assign(Items: TReceiptItems);
-    function GetTotal: Int64;
+    procedure Insert(Index: Integer; AItem: TReceiptItem);
+
     property Count: Integer read GetCount;
     property Items[Index: Integer]: TReceiptItem read GetItem; default;
   end;
@@ -96,9 +98,12 @@ type
 
   TFSSaleItem = class(TReceiptItem)
   private
+    FPriceUpdated: Boolean;
+    FSplittedItem: TFSSaleItem;
     FDiscounts: TReceiptItems;
     FPriceWithDiscount: Int64;
     function GetPriceDiscount: Int64;
+    function calcPriceWithDiscount: Int64;
   public
     destructor Destroy; override;
   public
@@ -108,18 +113,22 @@ type
     PostLine: string;
     FUnitPrice: Int64;
 
+    function GetTotal2: Int64;
     function GetAmount: int64;
     function GetTotal: Int64; override;
     function GetDiscounts: TReceiptItems;
+
+    procedure UpdatePrice;
     procedure Assign(Item: TReceiptItem); override;
 
     property Total: Int64 read GetTotal;
-    property PriceWithDiscount: Int64 read FPriceWithDiscount;
     property PriceDiscount: Int64 read GetPriceDiscount;
     property Discounts: TReceiptItems read GetDiscounts;
+    property SplittedItem: TFSSaleItem read FSplittedItem;
+    property Price: Int64 read Data.Price write Data.Price;
+    property PriceWithDiscount: Int64 read FPriceWithDiscount;
     property RecType: Integer read Data.RecType write Data.RecType;
     property Quantity: Int64 read Data.Quantity write Data.Quantity;
-    property Price: Int64 read Data.Price write Data.Price;
     property Department: Byte read Data.Department write Data.Department;
     property Tax: Byte read Data.Tax write Data.Tax;
     property Text: string read Data.Text write Data.Text;
@@ -176,6 +185,12 @@ end;
 function TReceiptItems.GetItem(Index: Integer): TReceiptItem;
 begin
   Result := FList[Index];
+end;
+
+procedure TReceiptItems.Insert(Index: Integer; AItem: TReceiptItem);
+begin
+  FList.Insert(Index, AItem);
+  AItem.FOwner := Self;
 end;
 
 procedure TReceiptItems.InsertItem(AItem: TReceiptItem);
@@ -264,6 +279,11 @@ begin
   Result := GetAmount - Discount + Charge;
 end;
 
+function TFSSaleItem.getTotal2: Int64;
+begin
+  Result := Abs(Round2(FPriceWithDiscount * Quantity /1000));
+end;
+
 function TFSSaleItem.GetDiscounts: TReceiptItems;
 begin
   if FDiscounts = nil then
@@ -289,6 +309,96 @@ end;
 function TFSSaleItem.GetPriceDiscount: Int64;
 begin
   Result := Price - PriceWithDiscount;
+end;
+
+function TFSSaleItem.CalcPriceWithDiscount: Int64;
+begin
+  Result := 0;
+  if (quantity = 0) then Exit;
+  if (discounts.getTotal() = 0) then
+  begin
+    Result := Price;
+    Exit;
+  end;
+  Result := Trunc(Abs(getTotal() * 1000 / quantity));
+end;
+
+procedure TFSSaleItem.UpdatePrice;
+var
+  i: Integer;
+  total: Int64;
+  total2: Int64;
+  amount: Int64;
+  quantity2: Int64;
+  price2: Int64;
+  itemTotal: Int64;
+begin
+  if FPriceUpdated then Exit;
+
+  FUnitPrice := Price;
+  FPriceWithDiscount := Price;
+  if Discounts.GetTotal = 0 then
+  begin
+    FPriceWithDiscount := Price;
+    FPriceUpdated := True;
+    Exit;
+  end;
+
+  if Quantity = 1000 then
+  begin
+    FPriceWithDiscount := price - discounts.getTotal();
+    FPriceUpdated := True;
+    Exit;
+  end;
+
+  FPriceWithDiscount := calcPriceWithDiscount();
+  amount := Round(priceWithDiscount * quantity / 1000.0);
+  total := getTotal();
+  total2 := getTotal2();
+  if (total - amount > 0) then
+  begin
+    quantity2 := quantity;
+    price2 := priceWithDiscount;
+    if ((quantity mod 1000) = 0) then
+    begin
+      price2 := priceWithDiscount + 1;
+      quantity2 := Trunc((quantity / 1000 - (total - total2)) * 1000);
+    end else
+    begin
+      for i := 0 to quantity do
+      begin
+        itemTotal := Round(i * priceWithDiscount / 1000.0)
+          + Round((priceWithDiscount) * (quantity - i) / 1000.0);
+        if (itemTotal = total) then
+        begin
+          quantity2 := i;
+          price2 := priceWithDiscount;
+          break;
+        end;
+        itemTotal := Round(i * priceWithDiscount / 1000.0)
+          + Round((priceWithDiscount + 1) * (quantity - i) / 1000.0);
+        if (itemTotal = total) then
+        begin
+          quantity2 := i;
+          price2 := priceWithDiscount + 1;
+          break;
+        end;
+      end;
+    end;
+    if (quantity2 <> quantity) then
+    begin
+      FSplittedItem := TFSSaleItem.Create(nil);
+      FSplittedItem.Price := Price;
+      FSplittedItem.UnitPrice := Price;
+      FSplittedItem.FPriceWithDiscount := Price2;
+      FSplittedItem.Quantity := Quantity - Quantity2;
+      FSplittedItem.Department := Department;
+      FSplittedItem.Tax := Tax;
+      FSplittedItem.Text := Text;
+    end;
+    Quantity := Quantity2;
+  end;
+  FPriceUpdated := True;
 end;
 
 { TDiscountReceiptItem }

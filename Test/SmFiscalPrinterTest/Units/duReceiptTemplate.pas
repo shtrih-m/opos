@@ -92,18 +92,14 @@ begin
 
     Item.Price := 123456;
     Item.Quantity := 1000;
-    Item.Discounts.Clear;
-    Discount := TDiscountReceiptItem.Create(Item.Discounts);
-    Discount.Data.Amount := 12345;
+    Item.Data.Discount := 12345;
     Text := Template.getText('%TOTAL%', Item);
     CheckEquals('1111.11', Text, 'TOTAL');
 
     Item.Tax := 1;
     Item.Price := 123456;
     Item.Quantity := 1000;
-    Item.Discounts.Clear;
-    Discount := TDiscountReceiptItem.Create(Item.Discounts);
-    Discount.Data.Amount := 12345;
+    Item.Data.Discount := 12345;
     Text := Template.getText('%TOTAL_TAX%', Item);
     CheckEquals('1111.11_À', Text, 'TOTAL_TAX');
 
@@ -111,14 +107,13 @@ begin
     Text := Template.getText('%TAX_LETTER%', Item);
     CheckEquals('Á', Text, 'TAX_LETTER');
 
-    Item.Quantity := 1000;
+    Item.Quantity := 123;
     Text := Template.getText('%MULT_NE_ONE%', Item);
     CheckEquals('*', Text, 'MULT_NE_ONE');
 
     Item.Text := 'hg345hg34';
     Text := Template.getText('123 %TITLE% sdfd8', Item);
     CheckEquals('123 hg345hg34 sdfd8', Text, 'Item.Text');
-
   finally
     Item.Free;
   end;
@@ -174,7 +169,7 @@ begin
   CheckEquals(Ord(faLeft), Ord(Field.Alignment), 'Field.Alignment');
 end;
 
-//initialization
-//  RegisterTest('', TReceiptTemplateTest.Suite);
+initialization
+  RegisterTest('', TReceiptTemplateTest.Suite);
 
 end.

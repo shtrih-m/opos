@@ -1690,13 +1690,16 @@ begin
     DriverParameterBarLineByteMode: pString := IntToStr(Printer.Parameters.BarLineByteMode);
     DriverParameterLogFilePath: pString := Printer.Parameters.LogFilePath;
 
-    DriverParameterTaxAmount1: pString := IntToStr(Printer.Parameters.TaxAmount1);
-    DriverParameterTaxAmount2: pString := IntToStr(Printer.Parameters.TaxAmount2);
-    DriverParameterTaxAmount3: pString := IntToStr(Printer.Parameters.TaxAmount3);
-    DriverParameterTaxAmount4: pString := IntToStr(Printer.Parameters.TaxAmount4);
-    DriverParameterTaxAmount5: pString := IntToStr(Printer.Parameters.TaxAmount5);
-    DriverParameterTaxAmount6: pString := IntToStr(Printer.Parameters.TaxAmount6);
-    DriverParameterTaxSystem: pString := IntToStr(Printer.Parameters.TaxSystem);
+    DriverParameterParam1: pString := Printer.Parameters.Parameter1;
+    DriverParameterParam2: pString := Printer.Parameters.Parameter2;
+    DriverParameterParam3: pString := Printer.Parameters.Parameter3;
+    DriverParameterParam4: pString := Printer.Parameters.Parameter4;
+    DriverParameterParam5: pString := Printer.Parameters.Parameter5;
+    DriverParameterParam6: pString := Printer.Parameters.Parameter6;
+    DriverParameterParam7: pString := Printer.Parameters.Parameter7;
+    DriverParameterParam8: pString := Printer.Parameters.Parameter8;
+    DriverParameterParam9: pString := Printer.Parameters.Parameter9;
+    DriverParameterParam10: pString := Printer.Parameters.Parameter10;
   end;
 end;
 
@@ -1783,14 +1786,16 @@ begin
     DriverParameterBarLineByteMode: Parameters.BarLineByteMode := StrToInt(pString);
     DriverParameterLogFilePath: Parameters.LogFilePath := pString;
 
-    DriverParameterTaxAmount1: Parameters.TaxAmount1 := StrToInt(pString);
-    DriverParameterTaxAmount2: Parameters.TaxAmount2 := StrToInt(pString);
-    DriverParameterTaxAmount3: Parameters.TaxAmount3 := StrToInt(pString);
-    DriverParameterTaxAmount4: Parameters.TaxAmount4 := StrToInt(pString);
-    DriverParameterTaxAmount5: Parameters.TaxAmount5 := StrToInt(pString);
-    DriverParameterTaxAmount6: Parameters.TaxAmount6 := StrToInt(pString);
-    DriverParameterTaxSystem: Parameters.TaxSystem := StrToInt(pString);
-
+    DriverParameterParam1: Parameters.Parameter1 := pString;
+    DriverParameterParam2: Parameters.Parameter2 := pString;
+    DriverParameterParam3: Parameters.Parameter3 := pString;
+    DriverParameterParam4: Parameters.Parameter4 := pString;
+    DriverParameterParam5: Parameters.Parameter5 := pString;
+    DriverParameterParam6: Parameters.Parameter6 := pString;
+    DriverParameterParam7: Parameters.Parameter7 := pString;
+    DriverParameterParam8: Parameters.Parameter8 := pString;
+    DriverParameterParam9: Parameters.Parameter9 := pString;
+    DriverParameterParam10: Parameters.Parameter10 := pString;
   end;
 end;
 
