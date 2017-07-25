@@ -56,7 +56,6 @@ procedure TReceiptTemplateTest.CheckGetText;
 var
   Text: string;
   Item: TFSSaleItem;
-  Discount: TDiscountReceiptItem;
 begin
   Item := TFSSaleItem.Create(nil);
   try
@@ -81,12 +80,12 @@ begin
     CheckEquals('123.456', Text, 'QUAN');
 
     Item.Price := 123456;
-    Item.Quantity := 1000;
+    Item.UpdatePrice;
     Text := Template.getText('%SUM%', Item);
     CheckEquals('1234.56', Text, 'SUM');
 
-    Discount := TDiscountReceiptItem.Create(Item.Discounts);
-    Discount.Data.Amount := 123456;
+    Item.Price := 123456;
+    Item.PriceWithDiscount := 0;
     Text := Template.getText('%DISCOUNT%', Item);
     CheckEquals('1234.56', Text, 'DISCOUNT');
 
@@ -100,8 +99,8 @@ begin
     Item.Price := 123456;
     Item.Quantity := 1000;
     Item.Data.Discount := 12345;
-    Text := Template.getText('%TOTAL_TAX%', Item);
-    CheckEquals('1111.11_À', Text, 'TOTAL_TAX');
+    Text := Template.getText('ABC_%TOTAL_TAX%', Item);
+    CheckEquals('ABC_1111.11_À', Text, 'TOTAL_TAX');
 
     Item.Tax := 2;
     Text := Template.getText('%TAX_LETTER%', Item);
@@ -114,6 +113,18 @@ begin
     Item.Text := 'hg345hg34';
     Text := Template.getText('123 %TITLE% sdfd8', Item);
     CheckEquals('123 hg345hg34 sdfd8', Text, 'Item.Text');
+
+
+    Item.Pos := 1;
+    Item.UnitPrice := 12345;
+    Item.Quantity := 123456;
+    Item.Price := 12345;
+    Item.Department := 2;
+    Item.Tax := 3;
+    Item.Text := 'Receipt item 2';
+    Text := '    %6lPRICE% %5lDISCOUNT% %6lSUM% * %6QUAN%=%TOTAL_TAX%';
+    Text := Template.getText(Text, Item);
+    CheckEquals('    123.45 123.4 0.00   * 123.45=15117.19_Â', Text, 'Item.Text');
   finally
     Item.Free;
   end;

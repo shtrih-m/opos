@@ -162,6 +162,7 @@ type
     function GetCapDiscount: Boolean;
     function ReadLoaderVersion(var Version: string): Integer;
     function GetCapFSCloseReceipt2: Boolean;
+    function ReceiptCancelPassword(Password: Integer): Integer;
   protected
     function GetMaxGraphicsWidthInBytes: Integer;
   public
@@ -3649,14 +3650,51 @@ begin
   end;
 end;
 
+function TFiscalPrinterDevice.ReceiptCancelPassword(Password: Integer): Integer;
+var
+  Stream: TBinStream;
+begin
+  Stream := TBinStream.Create;
+  try
+    Stream.WriteByte($88);
+    Stream.WriteDWORD(Password);
+    Result := ExecuteStream(Stream);
+    if Result = 0 then
+      FFilter.CancelReceipt;
+  finally
+    Stream.Free;
+  end;
+end;
+
 procedure TFiscalPrinterDevice.CancelReceipt;
+var
+  i: Integer;
+  Password: Integer;
 begin
   if IsRecOpened then
   begin
-    ReceiptCancel;
-    WaitForPrinting;
+    if ReceiptCancelPassword(GetUsrPassword) = 0 then
+    begin
+      WaitForPrinting;
+      Exit;
+    end;
+    if ReceiptCancelPassword(GetSysPassword) = 0 then
+    begin
+      WaitForPrinting;
+      Exit;
+    end;
+    for i := 1 to 29 do
+    begin
+      Password := ReadTableInt(2, i, 1);
+      if ReceiptCancelPassword(Password) = 0 then
+      begin
+        WaitForPrinting;
+        Exit;
+      end;
+    end;
   end;
 end;
+
 
 (******************************************************************************
 

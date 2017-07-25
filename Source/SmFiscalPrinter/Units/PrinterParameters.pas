@@ -325,7 +325,7 @@ const
 
   DefReceiptItemFormat =
     '%3cPOS% %30lTITLE%' + CRLF +
-    '    %6lPRICE% %5lDISCOUNT% %6lSUM% * %6QUAN%%=$10TOTAL_TAX%';
+    '    %6lPRICE% %5lDISCOUNT% %6lSUM% * %6QUAN% =%10TOTAL_TAX%';
   DefRecPrintType = RecPrintTypePrinter;
   DefVatCodeEnabled = False;
   DefHandleErrorCode = False;

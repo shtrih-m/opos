@@ -1000,13 +1000,16 @@ begin
   end;
 end;
 
-procedure TFSSalesReceipt.PrintFSSale0(Item: TFSSaleItem);
-begin
+(*
   if Parameters.FSUpdatePrice then
   begin
     Item.Data.Price := Item.Data.Price -
       Round2((Item.Data.Discount - Item.Data.Charge)*1000/Item.Data.Quantity);
   end;
+*)
+
+procedure TFSSalesReceipt.PrintFSSale0(Item: TFSSaleItem);
+begin
   DoPrintFSSale(Item);
 end;
 
@@ -1019,7 +1022,13 @@ begin
   begin
     Amount := Round(SaleItem.Data.Price * SaleItem.Data.Quantity/1000) -
       SaleItem.Data.Discount + SaleItem.Data.Charge;
-    SaleItem.Data.Price := Trunc(Amount *1000 / SaleItem.Data.Quantity);
+
+    SaleItem.Data.Price := 0;
+    if SaleItem.Data.Quantity <> 0 then
+    begin
+      SaleItem.Data.Price := Trunc(Amount *1000 / SaleItem.Data.Quantity);
+    end;
+
     Amount1 := Round(SaleItem.Data.Price * SaleItem.Data.Quantity/1000);
     SaleItem.Data.Discount := 0;
     SaleItem.Data.Charge := 0;

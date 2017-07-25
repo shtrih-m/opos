@@ -3,7 +3,6 @@ library SmFiscalPrinter;
 {%ToDo 'SmFiscalPrinter.todo'}
 
 uses
-  FastMM4,
   ComServ,
   Opos in '..\Opos\Opos.pas',
   Oposhi in '..\Opos\Oposhi.pas',

@@ -126,7 +126,6 @@ type
     property Discounts: TReceiptItems read GetDiscounts;
     property SplittedItem: TFSSaleItem read FSplittedItem;
     property Price: Int64 read Data.Price write Data.Price;
-    property PriceWithDiscount: Int64 read FPriceWithDiscount;
     property RecType: Integer read Data.RecType write Data.RecType;
     property Quantity: Int64 read Data.Quantity write Data.Quantity;
     property Department: Byte read Data.Department write Data.Department;
@@ -137,6 +136,7 @@ type
     property Barcode: Int64 read Data.Barcode write Data.Barcode;
     property AdjText: string read Data.AdjText write Data.AdjText;
     property UnitPrice: Int64 read FUnitPrice write FUnitPrice;
+    property PriceWithDiscount: Int64 read FPriceWithDiscount write FPriceWithDiscount;
   end;
 
   { TBarcodeReceiptItem }

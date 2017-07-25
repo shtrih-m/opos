@@ -55,6 +55,7 @@ object fmReceiptFormat: TfmReceiptFormat
         Top = 272
         Width = 95
         Height = 13
+        Anchors = [akLeft, akRight, akBottom]
         Caption = 'Receipt items trailer:'
       end
       object memReceiptItemsHeader: TMemo
@@ -65,7 +66,7 @@ object fmReceiptFormat: TfmReceiptFormat
         Anchors = [akLeft, akTop, akRight]
         Font.Charset = RUSSIAN_CHARSET
         Font.Color = clWindowText
-        Font.Height = -16
+        Font.Height = -13
         Font.Name = 'Courier'
         Font.Style = []
         ParentFont = False
@@ -77,10 +78,10 @@ object fmReceiptFormat: TfmReceiptFormat
         Top = 184
         Width = 478
         Height = 73
-        Anchors = [akLeft, akTop, akRight]
+        Anchors = [akLeft, akTop, akRight, akBottom]
         Font.Charset = RUSSIAN_CHARSET
         Font.Color = clWindowText
-        Font.Height = -16
+        Font.Height = -13
         Font.Name = 'Courier'
         Font.Style = []
         ParentFont = False
@@ -113,10 +114,10 @@ object fmReceiptFormat: TfmReceiptFormat
         Top = 288
         Width = 478
         Height = 73
-        Anchors = [akLeft, akTop, akRight]
+        Anchors = [akLeft, akRight, akBottom]
         Font.Charset = RUSSIAN_CHARSET
         Font.Color = clWindowText
-        Font.Height = -16
+        Font.Height = -13
         Font.Name = 'Courier'
         Font.Style = []
         ParentFont = False

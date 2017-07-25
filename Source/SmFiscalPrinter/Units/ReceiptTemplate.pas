@@ -106,6 +106,7 @@ function TReceiptTemplate.GetFieldValue(const Field: string;
   const Item: TFSSaleItem): string;
 var
   L: Integer;
+  TaxLetter: string;
   FieldData: TTemplateFieldRec;
 begin
   Result := '';
@@ -132,7 +133,7 @@ begin
   end;
   if AnsiCompareText(FieldData.Name, 'SUM') = 0 then
   begin
-    Result := AmountToStr(Item.Total/100);
+    Result := AmountToStr(Item.PriceWithDiscount/100);
   end;
   if AnsiCompareText(FieldData.Name, 'DISCOUNT') = 0 then
   begin
@@ -144,7 +145,12 @@ begin
   end;
   if AnsiCompareText(FieldData.Name, 'TOTAL_TAX') = 0 then
   begin
-    Result := AmountToStr(Item.Total/100) + '_' + GetTaxLetter(Item.Tax);
+    Result := AmountToStr(Item.Total/100);
+    TaxLetter := GetTaxLetter(Item.Tax);
+    if TaxLetter <> '' then
+    begin
+      Result := Result + '_' + TaxLetter;
+    end;
   end;
   if AnsiCompareText(FieldData.Name, 'TAX_LETTER') = 0 then
   begin
