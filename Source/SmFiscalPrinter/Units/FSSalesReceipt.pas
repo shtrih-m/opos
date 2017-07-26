@@ -69,12 +69,12 @@ type
 
     property Template: TReceiptTemplate read FTemplate;
     property Device: IFiscalPrinterDevice read GetDevice;
-    procedure CorrectPayments;
     procedure UpdateReceiptItems;
   public
     constructor CreateReceipt(AContext: TReceiptContext; ARecType: Integer);
     destructor Destroy; override;
 
+    procedure CorrectPayments;
     function GetTotal: Int64; override;
 
     procedure PrintPreLine;
@@ -1076,8 +1076,8 @@ begin
     if Device.CapFSCloseReceipt2 then
     begin
       FSSale2.RecType := FRecType;
-      FSSale2.Quantity := Abs(FSRegistration.Quantity);;
-      FSSale2.Price := FSRegistration.Price;
+      FSSale2.Quantity := Abs(FSRegistration.Quantity);
+      FSSale2.Price := Item.PriceWithDiscount;
       FSSale2.Total := StrToInt64Def(FSRegistration.Parameter1, $FFFFFFFFFF);
       FSSale2.TaxAmount := StrToInt64Def(FSRegistration.Parameter2, $FFFFFFFFFF);
       FSSale2.Department := FSRegistration.Department;
@@ -1223,7 +1223,7 @@ var
   PaidAmount: Int64;
 begin
   PaidAmount := 0;
-  Total := GetTotal;
+  Total := GetTotal - FAdjustmentAmount;
   for i := Low(FPayments) to High(FPayments) do
   begin
     if (PaidAmount + FPayments[i] > Total) then
@@ -1250,7 +1250,6 @@ begin
     begin
       OpenReceipt(FRecType);
 
-      CorrectPayments;
       PrintRecMessages(0);
       UpdateDiscounts;
       UpdateReceiptItems;
@@ -1262,6 +1261,7 @@ begin
 
       Printer.WaitForPrinting;
       PrintBarcodes;
+      CorrectPayments;
 
       if Device.CapFSCloseReceipt2 then
       begin
@@ -1362,7 +1362,7 @@ var
 begin
   if (Device.CapDiscount) and GetCapReceiptDiscount2 then Exit;
 
-  DiscountAmount := FDiscounts.GetTotal;
+  DiscountAmount := Abs(FDiscounts.GetTotal);
   if DiscountAmount = 0 then Exit;
 
   if (Device.CapSubtotalRound) and (DiscountAmount < 100) then

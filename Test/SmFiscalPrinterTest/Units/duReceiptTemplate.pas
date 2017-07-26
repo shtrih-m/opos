@@ -180,7 +180,7 @@ begin
   CheckEquals(Ord(faLeft), Ord(Field.Alignment), 'Field.Alignment');
 end;
 
-initialization
-  RegisterTest('', TReceiptTemplateTest.Suite);
+//initialization
+//  RegisterTest('', TReceiptTemplateTest.Suite);
 
 end.

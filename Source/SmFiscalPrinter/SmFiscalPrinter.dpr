@@ -164,7 +164,8 @@ uses
   VatCode in 'Units\VatCode.pas',
   FSService in 'Units\FSService.pas',
   DriverContext in 'Units\DriverContext.pas',
-  TextParser in 'Units\TextParser.pas';
+  TextParser in 'Units\TextParser.pas',
+  IdTCPClient in '..\..\..\..\program files (x86)\borland\delphi7\Comp\Indy10\Lib\Core\IdTCPClient.pas';
 
 exports
   DllGetClassObject,

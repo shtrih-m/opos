@@ -157,8 +157,9 @@ end;
 procedure TSocketConnection.Disconnect;
 begin
   try
-    FConnection.Free;
-    FConnection := GetPort(FRemoteHost);
+    FConnection.Disconnect;
+    if FConnection.IOHandler <> nil then
+      FConnection.IOHandler.InputBuffer.Clear;
   except
     on E: Exception do
       Logger.Error(E.Message);

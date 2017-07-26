@@ -145,7 +145,7 @@ begin
   end;
   if AnsiCompareText(FieldData.Name, 'TOTAL_TAX') = 0 then
   begin
-    Result := AmountToStr(Item.Total/100);
+    Result := AmountToStr(Item.Total2/100);
     TaxLetter := GetTaxLetter(Item.Tax);
     if TaxLetter <> '' then
     begin

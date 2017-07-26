@@ -122,6 +122,7 @@ type
     procedure Assign(Item: TReceiptItem); override;
 
     property Total: Int64 read GetTotal;
+    property Total2: Int64 read GetTotal2;
     property PriceDiscount: Int64 read GetPriceDiscount;
     property Discounts: TReceiptItems read GetDiscounts;
     property SplittedItem: TFSSaleItem read FSplittedItem;
@@ -308,7 +309,7 @@ end;
 
 function TFSSaleItem.GetPriceDiscount: Int64;
 begin
-  Result := Price - PriceWithDiscount;
+  Result := UnitPrice - PriceWithDiscount;
 end;
 
 function TFSSaleItem.CalcPriceWithDiscount: Int64;
@@ -334,6 +335,7 @@ var
   itemTotal: Int64;
 begin
   if FPriceUpdated then Exit;
+  FSplittedItem := nil;
 
   FUnitPrice := Price;
   FPriceWithDiscount := Price;
@@ -365,7 +367,7 @@ begin
       quantity2 := Trunc((quantity / 1000 - (total - total2)) * 1000);
     end else
     begin
-      for i := 0 to quantity do
+      for i := 1 to quantity do
       begin
         itemTotal := Round(i * priceWithDiscount / 1000.0)
           + Round((priceWithDiscount) * (quantity - i) / 1000.0);
@@ -419,7 +421,7 @@ end;
 
 function TDiscountReceiptItem.GetTotal: Int64;
 begin
-  Result := -Data.Amount;
+  Result := Data.Amount;
 end;
 
 { TChargeReceiptItem }
