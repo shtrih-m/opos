@@ -305,7 +305,7 @@ begin
   inherited Create;
   FContext := TDriverContext.Create;
   FModel := PrinterModelDefault;
-  FPort := TSerialPort.Create(FContext.Logger);
+  FPort := TSerialPort.Create(2, FContext.Logger);
   FStatistics := TFiscalPrinterStatistics.Create(FContext.Logger);
   FRecStation := TStringList.Create;
   FJrnStation := TStringList.Create;

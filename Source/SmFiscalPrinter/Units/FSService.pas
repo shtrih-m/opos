@@ -188,7 +188,7 @@ begin
     IdBytes := StrToIdBytes(Command);
 
     Logger.Debug('TFSService.SendData');
-    Logger.DebugData('-> ', Command);
+    Logger.WriteTxData(Command);
 
     Connection.IOHandler.Write(IdBytes, Length(IdBytes));
 
@@ -198,7 +198,7 @@ begin
     Move(Result[1], Header, Sizeof(Header));
     for i := 0 to Header.Size-1 do
       Result := Result + Char(Connection.Socket.ReadByte);
-    Logger.DebugData('<- ', Result);
+    Logger.WriteRxData(Result);
     Connection.Disconnect;
   finally
     Connection.Free;

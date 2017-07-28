@@ -6,8 +6,8 @@ Uses
   // VCL
   Forms, Windows, Classes, Registry, SysUtils, SyncObjs, ExtCtrls,
   // This
-  PrinterConnection, LocalConnection, SerialPort, SrvParams, FiscalPrinterTypes,
-  FiscalPrinterDevice, OposSemaphore, PrinterTypes, LogFile;
+  PrinterConnection, PrinterProtocol1, SerialPort, SrvParams, FiscalPrinterTypes,
+  FiscalPrinterDevice, OposSemaphore, PrinterTypes, LogFile, PrinterPort;
 
 type
   TPort = class;
@@ -300,10 +300,13 @@ end;
 constructor TPort.CreatePort(AOwner: TPorts; APortNumber: Integer; ALogger: ILogFile);
 const
   LastID: Integer = 0;
+var
+  APort: IPrinterPort;
 begin
   inherited Create;
   FCS := TCriticalSection.Create;
-  FConnection := TLocalConnection.Create(ALogger);
+  APort := GetSerialPort(APortNumber, ALogger);
+  FConnection := TPrinterProtocol1.Create(ALogger, APort);
 
   Inc(LastID); FID := LastID;
   FPortNumber := APortNumber;

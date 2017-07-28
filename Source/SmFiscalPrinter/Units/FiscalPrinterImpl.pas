@@ -1010,6 +1010,7 @@ begin
   // $50, Previous command is printing
   if Command.ResultCode = $50 then
   begin
+    Sleep(1000);
     WaitForPrinting;
     Command.RepeatFlag := True;
     Exit;

@@ -17,13 +17,17 @@ type
     FRemoteHost: string;
     FRemotePort: Integer;
     FDriver: IFptrServer;
+    FPortNumber: Integer;
+    FBaudRate: Integer;
+    FByteTimeout: Integer;
 
     procedure Check(Code: Integer);
     function GetDriver: IFptrServer;
 
     property Driver: IFptrServer read GetDriver;
   public
-    constructor Create(const ARemoteHost: string; ARemotePort: Integer);
+    constructor Create(const ARemoteHost: string; ARemotePort: Integer;
+      APortNumber, ABaudRate, AByteTimeout: Integer);
     destructor Destroy; override;
 
     procedure ClosePort;
@@ -39,11 +43,15 @@ implementation
 
 { TDCOMConnection }
 
-constructor TDCOMConnection.Create(const ARemoteHost: string; ARemotePort: Integer);
+constructor TDCOMConnection.Create(const ARemoteHost: string; ARemotePort: Integer;
+  APortNumber, ABaudRate, AByteTimeout: Integer);
 begin
   inherited Create;
   FRemoteHost := ARemoteHost;
   FRemotePort := ARemotePort;
+  FPortNumber := APortNumber;
+  FBaudRate := ABaudRate;
+  FByteTimeout := AByteTimeout;
 end;
 
 destructor TDCOMConnection.Destroy;
@@ -92,8 +100,7 @@ begin
   Check(Driver.CloseReceipt);
 end;
 
-procedure TDCOMConnection.OpenPort(PortNumber, BaudRate,
-  ByteTimeout: Integer);
+procedure TDCOMConnection.OpenPort(PortNumber, BaudRate, ByteTimeout: Integer);
 begin
   Check(Driver.OpenPort(BaudRate, ByteTimeout));
 end;

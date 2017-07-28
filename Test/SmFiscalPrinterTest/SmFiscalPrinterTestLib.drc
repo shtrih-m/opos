@@ -8,6 +8,7 @@
   resources were bound to the produced executable.
 */
 
+#define PrinterProtocol2_IncorrectPacketFormat 64848
 #define pnglang_EPNGSizeExceedsText 64864
 #define pnglang_EPNGUnknownPalEntryText 64865
 #define pnglang_EPNGUnknownCriticalChunkText 64866
@@ -682,6 +683,7 @@
 #define SysConst_SDiskFull 65535
 STRINGTABLE
 BEGIN
+	PrinterProtocol2_IncorrectPacketFormat,	"Некорректный формат пакета"
 	pnglang_EPNGSizeExceedsText,	"This \"Portable Network Graphics\" image is not supported because either it's width or height exceeds the maximum size, which is 65535 pixels length."
 	pnglang_EPNGUnknownPalEntryText,	"There is no such palette entry."
 	pnglang_EPNGUnknownCriticalChunkText,	"This \"Portable Network Graphics\" image contains an unknown critical part which could not be decoded."

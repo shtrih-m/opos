@@ -12,6 +12,13 @@ const
   DefPrintSingleQuantity = True;
 
   /////////////////////////////////////////////////////////////////////////////
+  // PrinterProtocol constants
+
+  PrinterProtocol10 = 0;
+  PrinterProtocol20 = 1;
+  DefPrinterProtocol = PrinterProtocol10;
+
+  /////////////////////////////////////////////////////////////////////////////
   // RecPrintType constants
 
   RecPrintTypePrinter  = 0;
@@ -469,6 +476,7 @@ type
     VatCodeEnabled: Boolean;
     HandleErrorCode: Boolean;
     FSServiceEnabled: Boolean;
+    PrinterProtocol: Integer;
 
     Parameter1: string;
     Parameter2: string;
@@ -786,6 +794,7 @@ begin
 
   HandleErrorCode := DefHandleErrorCode;
   FSServiceEnabled := False;
+  PrinterProtocol := DefPrinterProtocol;
 end;
 
 procedure TPrinterParameters.LogText(const Caption, Text: string);

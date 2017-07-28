@@ -8,12 +8,12 @@ uses
   // JVCL
   DBT,
   // This
-  LogFile, DeviceNotification, PortUtil, TextReport;
+  LogFile, DeviceNotification, PortUtil, TextReport, PrinterPort;
 
 type
   { TSerialPort }
 
-  TSerialPort = class
+  TSerialPort = class(TInterfacedObject, IPrinterPort)
   private
     FID: Integer;
     FHandle: THandle;
@@ -36,14 +36,18 @@ type
     function GetOpened: Boolean;
     function GetDeviceName: string;
     procedure UpdateDCB(BaudRate: DWORD);
-    procedure SetBaudRate(const Value: DWORD);
-    procedure SetPortNumber(const Value: Integer);
+    procedure SetBaudRate(Value: DWORD);
+    procedure SetPortNumber(Value: Integer);
     procedure DeviceChanged(Sender: TObject; dbt: Integer);
     procedure DoClose;
 
     property Logger: ILogFile read FLogger;
+    function GetTimeout: DWORD;
+    procedure SetTimeout(Value: DWORD);
+    function GetPortNumber: Integer;
+    function GetBaudRate: DWORD;
   public
-    constructor Create(ALogger: ILogFile);
+    constructor Create(APortNumber: Integer; ALogger: ILogFile);
     destructor Destroy; override;
 
     procedure Open;
@@ -56,11 +60,12 @@ type
     function Read(Count: DWORD): string;
     procedure SetCmdTimeout(Value: DWORD);
     function ReadChar(var C: Char): Boolean;
+    function GetPortName: string;
 
     property Opened: Boolean read GetOpened;
-    property Timeout: DWORD read FTimeout write FTimeout;
-    property BaudRate: DWORD read FBaudRate write SetBaudRate;
-    property PortNumber: Integer read FPortNumber write SetPortNumber;
+    property Timeout: DWORD read GetTimeout write SetTimeout;
+    property BaudRate: DWORD read GetBaudRate write SetBaudRate;
+    property PortNumber: Integer read GetPortNumber write SetPortNumber;
     property ReconnectPort: Boolean read FReconnectPort write FReconnectPort;
   end;
 
@@ -73,62 +78,27 @@ type
     ErrorCode: Integer;
   end;
 
-function GetSerialPort(PortNumber: Integer; Logger: ILogFile): TSerialPort;
+function GetSerialPort(PortNumber: Integer; Logger: ILogFile): IPrinterPort;
 
 implementation
 
 var
-  Ports: TThreadList = nil;
+  Ports: TInterfaceList = nil;
 
-procedure DeletePorts;
-var
-  List: TList;
-begin
-  List := Ports.LockList;
-  try
-    while List.Count > 0 do
-    begin
-      TSerialPort(List[0]).Free;
-      List.Delete(0);
-    end;
-  finally
-    Ports.UnlockList;
-  end;
-end;
-
-function GetPortsCount: Integer;
-var
-  List: TList;
-begin
-  List := Ports.LockList;
-  try
-    Result := List.Count;
-  finally
-    Ports.UnlockList;
-  end;
-end;
-
-function GetSerialPort(PortNumber: Integer; Logger: ILogFile): TSerialPort;
+function GetSerialPort(PortNumber: Integer; Logger: ILogFile): IPrinterPort;
 var
   i: Integer;
-  List: TList;
 begin
-  List := Ports.LockList;
-  try
-    for i := 0 to List.Count-1 do
+  for i := 0 to Ports.Count-1 do
+  begin
+    Result := IPrinterPort(Ports[i]);
+    if Result.PortName = IntToStr(PortNumber) then
     begin
-      Result := TSerialPort(List[i]);
-      if Result.PortNumber = PortNumber then
-      begin
-        Exit;
-      end;
+      Exit;
     end;
-    Result := TSerialPort.Create(Logger);
-    Result.PortNumber := PortNumber;
-    Ports.Add(Result);
-  finally
-    Ports.UnlockList;
   end;
+  Result := TSerialPort.Create(PortNumber, Logger);
+  Ports.Add(Result);
 end;
 
 resourcestring
@@ -315,7 +285,7 @@ end;
 
 { TSerialPort }
 
-constructor TSerialPort.Create(ALogger: ILogFile);
+constructor TSerialPort.Create(APortNumber: Integer; ALogger: ILogFile);
 const
   LastID: Integer = 0;
 begin
@@ -330,8 +300,8 @@ begin
   FNotification := TDeviceNotification.Create(Logger);
   FNotification.OnDeviceChange := DeviceChanged;
   FReconnectPort := True;
-  PortNumber := 1;
   BaudRate := CBR_115200;
+  PortNumber := APortNumber;
 end;
 
 destructor TSerialPort.Destroy;
@@ -685,7 +655,7 @@ begin
   FLock.Leave;
 end;
 
-procedure TSerialPort.SetPortNumber(const Value: Integer);
+procedure TSerialPort.SetPortNumber(Value: Integer);
 begin
   if Value <> PortNumber then
   begin
@@ -694,7 +664,7 @@ begin
   end;
 end;
 
-procedure TSerialPort.SetBaudRate(const Value: DWORD);
+procedure TSerialPort.SetBaudRate(Value: DWORD);
 begin
   if Value <> BaudRate then
   begin
@@ -713,11 +683,35 @@ begin
   end;
 end;
 
+function TSerialPort.GetTimeout: DWORD;
+begin
+  Result := FTimeout;
+end;
+
+procedure TSerialPort.SetTimeout(Value: DWORD);
+begin
+  FTimeout := Value;
+end;
+
+function TSerialPort.GetPortNumber: Integer;
+begin
+  Result := FPortNumber;
+end;
+
+function TSerialPort.GetPortName: string;
+begin
+  Result := IntToStr(PortNumber);
+end;
+
+function TSerialPort.GetBaudRate: DWORD;
+begin
+  Result := FBaudRate;
+end;
+
 initialization
-  Ports := TThreadList.Create;
+  Ports := TInterfaceList.Create;
 
 finalization
-  DeletePorts;
   Ports.Free;
   Ports := nil;
 

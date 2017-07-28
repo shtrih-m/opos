@@ -26,7 +26,8 @@ type
     procedure Debug(const Data: string; Params: array of const); overload;
     procedure Debug(const Data: string; Params: array of const; Result: Variant); overload;
     function GetFileDate(const FileName: string; var FileDate: TDateTime): Boolean;
-    procedure DebugData(const Prefix, Data: string);
+    procedure WriteRxData(Data: string);
+    procedure WriteTxData(Data: string);
     procedure LogParam(const ParamName: string; const ParamValue: Variant);
 
     function GetSeparator: string;
@@ -103,6 +104,8 @@ type
       var FileDate: TDateTime): Boolean;
     procedure DebugData(const Prefix, Data: string);
     procedure LogParam(const ParamName: string; const ParamValue: Variant);
+    procedure WriteRxData(Data: string);
+    procedure WriteTxData(Data: string);
 
     property Enabled: Boolean read GetEnabled write SetEnabled;
     property FilePath: string read GetFilePath write SetFilePath;
@@ -588,6 +591,16 @@ begin
     Debug(Prefix + StrToHex(Copy(Line, 1, DataLen)));
     Line := Copy(Line, DataLen + 1, Length(Line));
   until Line = '';
+end;
+
+procedure TLogFile.WriteRxData(Data: string);
+begin
+  DebugData('<- ', Data);
+end;
+
+procedure TLogFile.WriteTxData(Data: string);
+begin
+  DebugData('-> ', Data);
 end;
 
 procedure TLogFile.LogParam(const ParamName: string; const ParamValue: Variant);

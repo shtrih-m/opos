@@ -1,4 +1,4 @@
-unit LocalConnection;
+unit PrinterProtocol1;
 
 interface
 
@@ -8,17 +8,17 @@ uses
   // This
   OposMessages,
   // This
-  SerialPort, LogFile, StringUtils, PrinterFrame, DriverError,
-  PrinterConnection, CommunicationError;
+  LogFile, StringUtils, DriverError, PrinterConnection,
+  CommunicationError, PrinterPort;
 
 type
-  { TLocalConnection }
+  { TPrinterProtocol1 }
 
-  TLocalConnection = class(TInterfacedObject, IPrinterConnection)
+  TPrinterProtocol1 = class(TInterfacedObject, IPrinterConnection)
   private
     FOutput: string;                    // Received data
     FLogger: ILogFile;
-    FPort: TSerialPort;
+    FPort: IPrinterPort;
 
     procedure Purge;
     procedure Write(const Data: string);
@@ -29,8 +29,9 @@ type
     procedure SendCommand(const Data: string);
     function Read(Count: DWORD; var Value: string): Boolean;
     function ReadAnswerData(var CRCError: Boolean): Boolean;
+    function ReadControlChar(var C: Char): Boolean;
 
-    property Port: TSerialPort read FPort;
+    property Port: IPrinterPort read FPort;
     property Logger: ILogFile read FLogger;
   public
     NakCount: Integer;          // Count of received NAK
@@ -38,7 +39,7 @@ type
     MaxAnsCount: Integer;       // Max answer try to read count
     MaxENQCount: Integer;       // Max ENQ request count
 
-    constructor Create(ALogger: ILogFile);
+    constructor Create(ALogger: ILogFile; APort: IPrinterPort);
     destructor Destroy; override;
 
     // IPrinterConnection
@@ -51,6 +52,14 @@ type
     procedure OpenPort(PortNumber, BaudRate, ByteTimeout: Integer);
   end;
 
+  { TPrinterFrame }
+
+  TPrinterFrame = class
+  public
+    class function GetCRC(const Data: string): Byte;
+    class function Encode(const Data: string): string;
+  end;
+
 implementation
 
 const
@@ -59,41 +68,52 @@ const
   ACK = #6;
   NAK = #21;
 
-{ TLocalConnection }
+{ TPrinterProtocol1 }
 
 { Read answer on command }
 
-constructor TLocalConnection.Create(ALogger: ILogFile);
+constructor TPrinterProtocol1.Create(ALogger: ILogFile; APort: IPrinterPort);
 begin
   inherited Create;
-  FPort := GetSerialPort(1, ALogger);
   MaxCmdCount := 3;
   MaxAnsCount := 3;
   MaxENQCount := 3;
   FLogger := ALogger;
+  FPort := APort;
 end;
 
-destructor TLocalConnection.Destroy;
+destructor TPrinterProtocol1.Destroy;
 begin
   inherited Destroy;
 end;
 
-procedure TLocalConnection.AddData(const Data: string);
+procedure TPrinterProtocol1.AddData(const Data: string);
 begin
   FOutput := FOutput + Data;
 end;
 
-procedure TLocalConnection.Purge;
+procedure TPrinterProtocol1.Purge;
 begin
   Port.Purge;
 end;
 
-procedure TLocalConnection.SetCmdTimeout(Value: DWORD);
+procedure TPrinterProtocol1.SetCmdTimeout(Value: DWORD);
 begin
   Port.SetCmdTimeout(Value);
 end;
 
-function TLocalConnection.ReadChar(var C: Char): Boolean;
+function TPrinterProtocol1.ReadControlChar(var C: Char): Boolean;
+begin
+  Result := False;
+  while True do
+  begin
+    Result := ReadChar(C);
+    if not Result then Break;
+    if C <> #$FF then Break;
+  end;
+end;
+
+function TPrinterProtocol1.ReadChar(var C: Char): Boolean;
 begin
   Result := Port.ReadChar(C);
   if Result then
@@ -102,24 +122,24 @@ begin
     Logger.Debug('<- ');
 end;
 
-procedure TLocalConnection.Write(const Data: string);
+procedure TPrinterProtocol1.Write(const Data: string);
 begin
-  Logger.DebugData('-> ', Data);
+  Logger.WriteTxData(Data);
   Port.Write(Data);
 end;
 
-function TLocalConnection.Read(Count: DWORD; var Value: string): Boolean;
+function TPrinterProtocol1.Read(Count: DWORD; var Value: string): Boolean;
 begin
   Result := True;
   Value := Port.Read(Count);
-  Logger.DebugData('<- ', Value);
+  Logger.WriteRxData(Value);
 end;
 
 // flush data before change port baudrate
 // fiscal printer changes baudrate after last ACK received
 // if we not flush data, last ACK will not be transmitted
 
-function TLocalConnection.ReadAnswerData(var CRCError: Boolean): Boolean;
+function TPrinterProtocol1.ReadAnswerData(var CRCError: Boolean): Boolean;
 var
   RxChar: Char;
   DataLen: Byte;
@@ -163,7 +183,7 @@ begin
   end;
 end;
 
-procedure TLocalConnection.ReadAnswer(WaitNAK: Boolean);
+procedure TPrinterProtocol1.ReadAnswer(WaitNAK: Boolean);
 var
   RxChar: Char;
   ENQCount: Integer;
@@ -174,7 +194,7 @@ begin
   AnsCount := 1;
   repeat
     Write(ENQ);
-    if ReadChar(RxChar) then
+    if ReadControlChar(RxChar) then
     begin
       case RxChar of
         ACK:
@@ -211,7 +231,7 @@ end;
 
 { Send command }
 
-procedure TLocalConnection.SendCommand(const Data: string);
+procedure TPrinterProtocol1.SendCommand(const Data: string);
 var
   RxChar: char;
   CmdCount: Integer;
@@ -219,7 +239,7 @@ begin
   CmdCount := 1;
   repeat
     Write(Data);
-    if not ReadChar(RxChar) then
+    if not ReadControlChar(RxChar) then
       raise ECommunicationError.Create('Нет связи');
 
     case RxChar of
@@ -239,7 +259,7 @@ begin
   until False;
 end;
 
-function TLocalConnection.Send(Timeout: Integer; const Data: string): string;
+function TPrinterProtocol1.Send(Timeout: Integer; const Data: string): string;
 var
   CRCError: Boolean;
 begin
@@ -252,7 +272,7 @@ begin
       SetCmdTimeout(port.Timeout);
       ReadAnswer(True);
       { 2. Send command }
-      SendCommand(Data);
+      SendCommand(TPrinterFrame.Encode(Data));
       { 3. Read answer }
       SetCmdTimeout(Timeout);
       if not ReadAnswerData(CRCError) then
@@ -263,7 +283,7 @@ begin
           raise ECommunicationError.Create('Нет связи');
         end;
       end;
-      Result := FOutput;
+      Result := Copy(FOutput, 3, Length(FOutput)-3);
       Logger.Debug(Logger.Separator);
     finally
       Port.Unlock;
@@ -274,37 +294,58 @@ begin
   end;
 end;
 
-procedure TLocalConnection.ClosePort;
+procedure TPrinterProtocol1.ClosePort;
 begin
   Port.Close;
 end;
 
-procedure TLocalConnection.OpenPort(PortNumber, BaudRate, ByteTimeout: Integer);
+procedure TPrinterProtocol1.OpenPort(PortNumber, BaudRate, ByteTimeout: Integer);
 begin
-  FPort := GetSerialPort(PortNumber, Logger);
   Port.BaudRate := BaudRate;
   Port.Timeout := ByteTimeout;
   Port.Open;
 end;
 
-procedure TLocalConnection.ClaimDevice(PortNumber, Timeout: Integer);
+procedure TPrinterProtocol1.ClaimDevice(PortNumber, Timeout: Integer);
 begin
   { !!! }
 end;
 
-procedure TLocalConnection.ReleaseDevice;
+procedure TPrinterProtocol1.ReleaseDevice;
 begin
   Port.Close;
 end;
 
-procedure TLocalConnection.CloseReceipt;
+procedure TPrinterProtocol1.CloseReceipt;
 begin
   { !!! }
 end;
 
-procedure TLocalConnection.OpenReceipt(Password: Integer);
+procedure TPrinterProtocol1.OpenReceipt(Password: Integer);
 begin
   { !!! }
+end;
+
+{ TPrinterFrame }
+
+class function TPrinterFrame.Encode(const Data: string): string;
+const
+  STX = #2;
+var
+  DataLen: Integer;
+begin
+  DataLen := Length(Data);
+  Result := Chr(DataLen) + Data;
+  Result := STX + Result + Chr(GetCRC(Result));
+end;
+
+class function TPrinterFrame.GetCRC(const Data: string): Byte;
+var
+  i: Integer;
+begin
+  Result := 0;
+  for i := 1 to Length(Data) do
+    Result := Result xor Ord(Data[i]);
 end;
 
 end.

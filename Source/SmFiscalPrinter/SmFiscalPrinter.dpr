@@ -15,7 +15,6 @@ uses
   oleXmlParams in 'Units\oleXmlParams.pas' {XmlParams: CoClass},
   oleCashDrawer in 'Units\oleCashDrawer.pas' {CashDrawer: CoClass},
   FiscalPrinterState in 'Units\FiscalPrinterState.pas',
-  PrinterFrame in 'Units\PrinterFrame.pas',
   CashDrawerParameters in 'Units\CashDrawerParameters.pas',
   DirectIOAPI in 'Units\DirectIOAPI.pas',
   ShtrihFiscalPrinter in 'Units\ShtrihFiscalPrinter.pas',
@@ -57,9 +56,9 @@ uses
   ServiceVersion in '..\Shared\ServiceVersion.pas',
   GenericReceipt in 'Units\GenericReceipt.pas',
   GlobusTextReceipt in 'Units\GlobusTextReceipt.pas',
-  LocalConnection in 'Units\LocalConnection.pas',
+  PrinterProtocol2 in 'Units\PrinterProtocol2.pas',
   PrinterConnection in 'Units\PrinterConnection.pas',
-  SocketConnection in 'Units\SocketConnection.pas',
+  SocketPort in 'Units\SocketPort.pas',
   DCOMConnection in 'Units\DCOMConnection.pas',
   OposServiceDevice19 in '..\Opos\OposServiceDevice19.pas',
   Semaphore in '..\Opos\Semaphore.pas',
@@ -165,7 +164,9 @@ uses
   FSService in 'Units\FSService.pas',
   DriverContext in 'Units\DriverContext.pas',
   TextParser in 'Units\TextParser.pas',
-  IdTCPClient in '..\..\..\..\program files (x86)\borland\delphi7\Comp\Indy10\Lib\Core\IdTCPClient.pas';
+  IdTCPClient in '..\..\..\..\program files (x86)\borland\delphi7\Comp\Indy10\Lib\Core\IdTCPClient.pas',
+  PrinterPort in 'Units\PrinterPort.pas',
+  PrinterProtocol1 in 'Units\PrinterProtocol1.pas';
 
 exports
   DllGetClassObject,

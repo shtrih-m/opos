@@ -66,7 +66,8 @@ uses
   DeviceNotification in '..\SmFiscalPrinter\Units\DeviceNotification.pas',
   PortUtil in '..\Shared\PortUtil.pas',
   TextReport in '..\Shared\TextReport.pas',
-  OposMessages in '..\SmFiscalPrinter\Units\OposMessages.pas';
+  OposMessages in '..\SmFiscalPrinter\Units\OposMessages.pas',
+  PrinterPort in '..\SmFiscalPrinter\Units\PrinterPort.pas';
 
 exports
   DllGetClassObject,

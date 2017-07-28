@@ -179,9 +179,6 @@ begin
   try
     FiscalPrinter.DeviceEnabled := True;
     UpdateDeviceEnabled;
-    FiscalPrinter.DeviceEnabled := True;
-    FiscalPrinter.DeviceEnabled := True;
-    FiscalPrinter.DeviceEnabled := True;
   finally
     EnableButtons(True);
   end;

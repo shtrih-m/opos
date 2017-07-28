@@ -69,6 +69,8 @@ type
     lblPropertyUpdateMode: TLabel;
     cbPropertyUpdateMode: TComboBox;
     chbZReceiptBeforeZReport: TCheckBox;
+    lblPrinterProtocol: TLabel;
+    cbPrinterProtocol: TComboBox;
     procedure FormCreate(Sender: TObject);
   public
     procedure UpdatePage; override;
@@ -87,6 +89,7 @@ implementation
 procedure TfmFptrConnection.UpdatePage;
 begin
   cbConnectionType.ItemIndex := Parameters.ConnectionType;
+  cbPrinterProtocol.ItemIndex := Parameters.PrinterProtocol;
   edtRemoteHost.Text := Parameters.RemoteHost;
   seRemotePort.Value := Parameters.RemotePort;
   cbComPort.ItemIndex := Parameters.PortNumber-1;
@@ -121,6 +124,7 @@ end;
 procedure TfmFptrConnection.UpdateObject;
 begin
   Parameters.ConnectionType := cbConnectionType.ItemIndex;
+  Parameters.PrinterProtocol := cbPrinterProtocol.ItemIndex;
   Parameters.RemoteHost := edtRemoteHost.Text;
   Parameters.RemotePort := seRemotePort.Value;
   Parameters.PortNumber := cbComPort.ItemIndex + 1;

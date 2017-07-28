@@ -319,6 +319,7 @@ begin
       FParameters.VatCodeEnabled := IniFile.ReadBool(Section, 'VatCodeEnabled', DefVatCodeEnabled);
       FParameters.HandleErrorCode := IniFile.ReadBool(Section, 'HandleErrorCode', DefHandleErrorCode);
       FParameters.FSServiceEnabled := IniFile.ReadBool(Section, 'FSServiceEnabled', False);
+      FParameters.PrinterProtocol := IniFile.ReadInteger(Section, 'PrinterProtocol', DefPrinterProtocol);
     end;
     // VatCodes
     Section := GetSectionName(DeviceName) + '_VatCodes';
@@ -464,6 +465,8 @@ begin
     IniFile.WriteBool(Section, 'VatCodeEnabled', FParameters.VatCodeEnabled);
     IniFile.WriteBool(Section, 'HandleErrorCode', FParameters.HandleErrorCode);
     IniFile.WriteBool(Section, 'FSServiceEnabled', FParameters.FSServiceEnabled);
+    IniFile.WriteInteger(Section, 'PrinterProtocol', FParameters.PrinterProtocol);
+
 
     // PayTypes
     Section := GetSectionName(DeviceName) + '_PaymentTypes';

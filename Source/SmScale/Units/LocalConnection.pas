@@ -66,7 +66,7 @@ const
 constructor TLocalConnection.Create(ALogger: ILogFile);
 begin
   inherited Create;
-  FPort := TSerialPort.Create(ALogger);
+  FPort := TSerialPort.Create(1, ALogger);
   FLock := TCriticalSection.Create;
   MaxCmdCount := 3;
   MaxAnsCount := 3;
@@ -116,7 +116,7 @@ end;
 
 procedure TLocalConnection.Write(const Data: string);
 begin
-  Logger.DebugData('-> ', Data);
+  Logger.WriteTxData(Data);
   Port.Write(Data);
 end;
 
@@ -124,7 +124,7 @@ function TLocalConnection.Read(Count: DWORD; var Value: string): Boolean;
 begin
   Result := True;
   Value := Port.Read(Count);
-  Logger.DebugData('<- ', Value);
+  Logger.WriteRxData(Value);
 end;
 
 // flush data before change port baudrate

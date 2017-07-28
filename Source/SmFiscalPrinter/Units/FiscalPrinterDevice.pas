@@ -11,7 +11,7 @@ uses
   // Opos
   OposMessages, OposException, OposFptr, OposFptrHi, OposUtils, OposFptrUtils,
   // This
-  PrinterCommand, PrinterFrame, PrinterTypes, BinStream, StringUtils,
+  PrinterCommand, PrinterTypes, BinStream, StringUtils,
   SerialPort, PrinterTable, LogFile, ByteUtils, FiscalPrinterTypes,
   DeviceTables, PrinterModel, XmlModelReader, PrinterConnection,
   CommunicationError, VersionInfo, DefaultModel, DriverTypes,
@@ -30,18 +30,19 @@ type
     FCapSubtotalRound: Boolean;
     FCapDiscount: Boolean;
     FCapBarLine: Boolean;
-    FCapDrawScale: Boolean;
+    FCapScaleGraphics: Boolean;
     FCapBarcode2D: Boolean;
     FCapGraphics1: Boolean;
     FCapGraphics2: Boolean;
-    FCapGraphics3: Boolean;
+    FCapGraphics512: Boolean;
     FCapFiscalStorage: Boolean;
     FCapOpenReceipt: Boolean;
     FCapReceiptDiscount2: Boolean;
     FCapFontInfo: Boolean;
     FDiscountMode: Integer;
     FIsFiscalized: Boolean;
-
+    FCapParameters2: Boolean;
+    FParameters2: TPrinterParameters2;
     FIsOnline: Boolean;
     FResultCode: Integer;
     FResultText: string;
@@ -397,6 +398,7 @@ type
     function GetContext: TDriverContext;
     function IsRecOpened: Boolean;
     function GetCapSubtotalRound: Boolean;
+    function ReadParameters2(var R: TPrinterParameters2): Integer;
 
     property IsOnline: Boolean read GetIsOnline;
     property Tables: TPrinterTables read FTables;
@@ -1064,10 +1066,11 @@ var
   i: Integer;
   Index: Integer;
   CommandCode: Integer;
-const
-  MaxRepeatCount = 5;
+  MaxRetryCount: Integer;
 begin
-  for i := 1 to MaxRepeatCount do
+  MaxRetryCount := Parameters.MaxRetryCount;
+  if MaxRetryCount <= 0 then MaxRetryCount := 1;
+  for i := 1 to Parameters.MaxRetryCount do
   begin
     try
       Logger.Debug(Format('0x%.2X, %s', [Command.Code, GetCommandName(Command.Code)]));
@@ -1081,12 +1084,10 @@ begin
       begin
         SetIsOnline(False);
         if not CanRepeatCommand(Command.Code) then Break;
-        if (i = MaxRepeatCount) then raise;
+        if (i = MaxRetryCount) then raise;
       end;
     end;
   end;
-
-  Command.RxData := Copy(Command.RxData, 3, Length(Command.RxData)-3);
 
   if Length(Command.RxData) < 1 then
     raise ECommunicationError.Create('Invalid answer length');
@@ -1158,7 +1159,7 @@ var
 begin
   Command.Code := GetCommandCode(TxData);
   Command.Timeout := GetCommandTimeout(Command.Code);
-  Command.TxData := TPrinterFrame.Encode(TxData);
+  Command.TxData := TxData;
   Result := ExecuteCommand(Command);
   RxData := Command.RxData;
 end;
@@ -4786,6 +4787,7 @@ end;
 procedure TFiscalPrinterDevice.OpenPort(
   PortNumber, BaudRate, ByteTimeout: Integer);
 begin
+  Logger.Debug(Format('OpenPort(COM%d, %d, %d)', [PortNumber, BaudRate, ByteTimeout]));
   Connection.OpenPort(PortNumber, BaudRate, ByteTimeout);
 end;
 
@@ -4875,9 +4877,12 @@ begin
 end;
 
 function TFiscalPrinterDevice.MinProtocolVersion(V1, V2: Integer): Boolean;
+var
+  DM: TDeviceMetrics;
 begin
-  Result := (GetDeviceMetrics.ProtocolVersion >= V1)and
-    (GetDeviceMetrics.ProtocolSubVersion >= V2);
+  DM := GetDeviceMetrics;
+  Result := (DM.ProtocolVersion > V1)or
+    ((DM.ProtocolVersion = V1) and (DM.ProtocolSubVersion >= V2));
 end;
 
 function TFiscalPrinterDevice.CapShortEcrStatus: Boolean;
@@ -5121,7 +5126,7 @@ begin
     Line2 := Line2 + 1;
   end;
 *)
-  if FCapGraphics3 then
+  if FCapGraphics512 then
   begin
     Result := PrintGraphics3(Line1, Line2);
     Exit;
@@ -5481,7 +5486,7 @@ begin
     Result := 200;
   if FCapGraphics2 then
     Result := 1200;
-  if FCapGraphics3 then
+  if FCapGraphics512 then
     Result := 600;
 end;
 
@@ -5511,12 +5516,12 @@ begin
   MaxGraphicsWidth := GetMaxGraphicsWidth;
   if Is2DBarcode(Barcode.BarcodeType) or (not FCapBarLine) then
   begin
-    if FCapGraphics3 then
+    if FCapGraphics512 then
     begin
       MaxGraphicsWidth := Min(512, MaxGraphicsWidth);
     end else
     begin
-      if not FCapDrawScale then
+      if not FCapScaleGraphics then
       begin
         MaxGraphicsWidth := 320;
       end;
@@ -5556,9 +5561,9 @@ begin
       HScale := 1;
     end else
     begin
-      if not FCapGraphics3 then
+      if not FCapGraphics512 then
       begin
-        if FCapDrawScale then
+        if FCapScaleGraphics then
         begin
           ScaleBitmap(Bitmap, HScale, 1);
         end else
@@ -5594,7 +5599,7 @@ begin
     end else
     begin
       LoadBitmap(StartLine, Bitmap);
-      if FCapGraphics3 then
+      if FCapGraphics512 then
       begin
         Graphics3.FirstLine := StartLine;
         Graphics3.LastLine := StartLine + Bitmap.Height -1;
@@ -5604,7 +5609,7 @@ begin
         Check(PrintGraphics3(Graphics3));
       end else
       begin
-        if FCapDrawScale then
+        if FCapScaleGraphics then
         begin
           P.FirstLine := StartLine;
           P.LastLine := StartLine + Bitmap.Height;
@@ -5653,7 +5658,7 @@ begin
     Bitmap.Height := Picture.Height;
     Bitmap.Canvas.Draw(0, 0, Picture.Graphic);
 
-    if FCapGraphics3 then
+    if FCapGraphics512 then
     begin
       LoadBitmap512(StartLine, Bitmap, Scale);
     end else
@@ -5661,7 +5666,7 @@ begin
       LoadBitmap320(StartLine, Bitmap);
     end;
 
-    if FCapGraphics3 then
+    if FCapGraphics512 then
     begin
       P.FirstLine := StartLine;
       P.LastLine := StartLine + Bitmap.Height-1;
@@ -5763,7 +5768,7 @@ begin
     AlignBitmapWidth(Bitmap, GetMaxGraphicsWidth);
 
   Bitmap.Height := Min(Bitmap.Height, GetMaxGraphicsHeight);
-  if FCapGraphics3 then
+  if FCapGraphics512 then
   begin
     LoadBitmap512(StartLine, Bitmap, 1);
   end else
@@ -5902,13 +5907,34 @@ var
   Table: TPrinterTableRec;
 begin
   GetPrinterModel;
+
+  FCapParameters2 := ReadParameters2(FParameters2) = 0;
+  if FCapParameters2 then
+  begin
+    FCapGraphics512 := FParameters2.Flags.CapGraphics512;
+    FCapScaleGraphics := FParameters2.Flags.CapScaleGraphics;
+
+    FModelData.CapCoverSensor := FParameters2.Flags.CapCoverSensor;
+    FModelData.CapJrnPresent := FParameters2.Flags.CapJrnPresent;
+    FModelData.CapJrnEmptySensor := FParameters2.Flags.CapJrnEmptySensor;
+    FModelData.CapJrnNearEndSensor := FParameters2.Flags.CapJrnNearEndSensor;
+    FModelData.CapRecEmptySensor := FParameters2.Flags.CapRecEmptySensor;
+    FModelData.CapRecNearEndSensor := FParameters2.Flags.CapRecNearEndSensor;
+    FModelData.CapSlpEmptySensor := FParameters2.Flags.CapSlpEmptySensor;
+    FModelData.CapSlpNearEndSensor := FParameters2.Flags.CapSlpNearEndSensor;
+    FModelData.CapSlpPresent := FParameters2.Flags.CapSlpPresent;
+    FModelData.CapRecLever := FParameters2.Flags.CapRecLeverSensor;
+    FModelData.CapJrnLever := FParameters2.Flags.CapJrnLeverSensor;
+  end else
+  begin
+    FCapGraphics512 := TestCommand($4E);
+    FCapScaleGraphics := TestCommand($4F);
+  end;
   FLongPrinterStatus := GetLongStatus;
   FCapBarLine := TestCommand($C5);
-  FCapDrawScale := TestCommand($4F);
   FCapBarcode2D := TestCommand($DE);
   FCapGraphics1 := TestCommand($C0);
   FCapGraphics2 := TestCommand($C4);
-  FCapGraphics3 := TestCommand($4E);
   FCapFiscalStorage := ReadCapFiscalStorage;
   FCapOpenReceipt := FCapFiscalStorage or TestCommand($8D);
 
@@ -7526,6 +7552,209 @@ begin
     R.Change := BinToInt(Answer, 1, 5);
     R.DocNumber := BinToInt(Answer, 6, 4);
     R.MacValue := BinToInt(Answer, 10, 4);
+  end;
+end;
+
+(*
+
+–асширенный запрос
+ оманда: F7H. ƒлина сообщени€: 2+X байта.
+“ип запроса (1 байт) 0Е255
+ƒанные (X1 байт)
+ќтвет: F7H. ƒлина сообщени€: 2+Y1 байт.
+ од ошибки (1 байт)
+ƒанные (Y1 байт)
+“ип запроса 1 Ц ѕј–јћ≈“–џ ћќƒ≈Ћ»
+ƒанные (Y1 = 31):
+числовые пол€
+ѕараметры модели
+(8 байт)
+Ѕитовое поле (назначение бит):
+0 Ц ¬есовой датчик контрольной ленты
+1 Ц ¬есовой датчик чековой ленты
+2 Ц ќптический датчик контрольной ленты
+3 Ц ќптический датчик чековой ленты
+4 Ц ƒатчик крышки
+5 Ц –ычаг термоголовки контрольной ленты
+6 Ц –ычаг термоголовки чековой ленты
+7 Ц ¬ерхний датчик подкладного документа
+8 Ц Ќижний датчик подкладного документа
+9 Ц ѕрезентер поддерживаетс€
+10 Ц ѕоддержка команд работы с презентером
+11 Ц ‘лаг заполнени€ Ё Ћ«
+12 Ц Ё Ћ« поддерживаетс€
+13 Ц ќтрезчик поддерживаетс€
+14 Ц —осто€ние ƒя как датчик бумаги в презентере
+15 Ц ƒатчик денежного €щика
+16 Ц ƒатчик бумаги на входе в презентер
+17 Ц ƒатчик бумаги на выходе из презентера
+—пецификаци€
+82
+18 Ц  упюроприемник поддерживаетс€
+19 Ц  лавиатура Ќ» поддерживаетс€
+20 Ц  онтрольна€ лента поддерживаетс€
+21 Ц ѕодкладной документ поддерживаетс€
+22 Ц ѕоддержка команд нефискального документа
+23 Ц ѕоддержка протокола  ассового ядра (cashcore)
+24 Ц ¬едущие нули в »ЌЌ
+25 Ц ¬едущие нули в –Ќћ
+26 Ц ѕереворачивать байты при печати линии
+27 Ц Ѕлокировка   “ по неверному паролю налогового инспектора
+28 Ц ѕоддержка альтернативного нижнего уровн€ протокола   “
+29 Ц ѕоддержка переноса строк символом '\n' (код 10) в командах печати
+строк 12H, 17H, 2FH
+30 Ц ѕоддержка переноса строк номером шрифта (коды 1Е9) в команде
+печати строк 2FH
+31 Ц ѕоддержка переноса строк символом '\n' (код 10) в фискальных
+командах 80HЕ87H, 8AH, 8BH
+32 Ц ѕоддержка переноса строк номером шрифта (коды 1Е9) в
+фискальных командах 80HЕ87H, 8AH, 8BH
+33 Ц ѕрава "—“ј–Ў»…  ј——»–" (28) на сн€тие отчетов: X,
+операционных регистров, по отделам, по налогам, по кассирам,
+почасового, по товарам
+34 Ц ѕоддержка Ѕит 3 "слип чек" в командах печати: строк 12H, 17H, 2FH,
+расширенной графики 4DH, C3H, графической линии C5H; поддержка
+пол€ "результат последней печати" в команде 10H короткого запроса
+состо€ни€   “
+35 Ц ѕоддержка блочной загрузки графики в команде C4H
+36 Ц ѕоддержка команды 6BH "¬озврат названи€ ошибоки"
+37 Ц ѕоддержка флагов печати дл€ команд печати расширенной графики
+C3H и печати графической линии C5H
+38 Ц «арезервировано
+39 Ц ѕоддержка ћ‘ѕ
+40 Ц ѕоддержка Ё Ћ«5
+41 Ц ѕечать графики с масштабированием (команда 4FH)
+42 Ц «агрузка и печать графики-512 (команды 4DH, 4EH)
+43Е63 Ц «арезервированы
+Ўирина печати
+шрифтом 1
+(1 байт)
+0 Ц запросить командой 26H "ѕрочитать параметры шрифта"; 1Е255
+Ўирина печати
+шрифтом 2
+(1 байт)
+0 Ц запросить командой 26H "ѕрочитать параметры шрифта"; 1Е255
+Ќомер первой
+печатаемой линии в
+графике
+(1 байт)
+0, 1, 2
+ оличество цифр в
+»ЌЌ
+(1 байт)
+12, 13, 14
+ оличество цифр в
+–Ќћ
+(1 байт)
+8, 10
+ оличество цифр в
+длинном –Ќћ
+0 Ц длинный –Ќћ не поддерживаетс€; 8, 14
+ѕротокол   “ v. 2.0
+83
+(1 байт)
+ оличество цифр в
+длинном заводском
+номере
+(1 байт)
+0 Ц длинный заводской номер не поддерживаетс€; 10, 12, 14
+ѕароль налогового
+инспектора по
+умолчанию
+(4 байта)
+00000000Е99999999
+ѕароль сист.админа
+по умолчанию
+(4 байта)
+00000000Е99999999
+Ќомер таблицы
+"BLUETOOTH
+Ѕ≈—ѕ–ќ¬ќƒЌќ…
+ћќƒ”Ћ№" настроек
+Bluetooth
+(1 байт)
+0 Ц таблица не поддерживаетс€; 1Е255
+Ќомер пол€
+"Ќј„»—Ћ≈Ќ»≈
+ЌјЋќ√ќ¬"
+(1 байт)
+0 Ц поле не поддерживаетс€; 1Е255
+ћаксимальна€ длина
+команды (N/LEN16)
+(2 байта)
+0 Ц по умолчанию; >>1Е65535
+Ўирина
+произвольной
+графической линии в
+байтах (печать
+одномерного штрих-
+кода)
+(1 байт)
+40 Ц дл€ узких принтеров; 64, 72 Ц дл€ широких принтеров
+Ўирина графической
+линии в буфере
+графики-512 (1 байт)
+0 Ц поле не поддерживаетс€; 64
+ оличество линий в
+буфере графики-512
+(2 байта)
+0 Ц поле не поддерживаетс€
+*)
+
+function TFiscalPrinterDevice.ReadParameters2(
+  var R: TPrinterParameters2): Integer;
+var
+  Answer: string;
+  Command: string;
+begin
+  Command := #$F7#$01;
+  Result := ExecuteData(Command, Answer);
+  if Result = 0 then
+  begin
+    CheckMinLength(Answer, 31);
+    Move(Answer[1], R, 31);
+    R.Flags.CapJrnNearEndSensor := TestBit(R.FlagsValue, 0);    // 0 Ц ¬есовой датчик контрольной ленты
+    R.Flags.CapRecNearEndSensor := TestBit(R.FlagsValue, 1);    // 1 Ц ¬есовой датчик чековой ленты
+    R.Flags.CapJrnEmptySensor := TestBit(R.FlagsValue, 2);      // 2 Ц ќптический датчик контрольной ленты
+    R.Flags.CapRecEmptySensor := TestBit(R.FlagsValue, 3);      // 3 Ц ќптический датчик чековой ленты
+    R.Flags.CapCoverSensor := TestBit(R.FlagsValue, 4);         // 4 Ц ƒатчик крышки
+    R.Flags.CapJrnLeverSensor := TestBit(R.FlagsValue, 5);      // 5 Ц –ычаг термоголовки контрольной ленты
+    R.Flags.CapRecLeverSensor := TestBit(R.FlagsValue, 6);      // 6 Ц –ычаг термоголовки чековой ленты
+    R.Flags.CapSlpNearEndSensor := TestBit(R.FlagsValue, 7);    // 7 Ц ¬ерхний датчик подкладного документа
+    R.Flags.CapSlpEmptySensor := TestBit(R.FlagsValue, 8);      // 8 Ц Ќижний датчик подкладного документа
+    R.Flags.CapPresenter := TestBit(R.FlagsValue, 9);           // 9 Ц ѕрезентер поддерживаетс€
+    R.Flags.CapPresenterCommands := TestBit(R.FlagsValue, 10);  // 10 Ц ѕоддержка команд работы с презентером
+    R.Flags.CapEJNearFull := TestBit(R.FlagsValue, 11);         // 11 Ц ‘лаг заполнени€ Ё Ћ«
+    R.Flags.CapEJ := TestBit(R.FlagsValue, 12);                 // 12 Ц Ё Ћ« поддерживаетс€
+    R.Flags.CapCutter := TestBit(R.FlagsValue, 13);             // 13 Ц ќтрезчик поддерживаетс€
+    R.Flags.CapDrawerStateAsPaper := TestBit(R.FlagsValue, 14); // 14 Ц —осто€ние ƒя как датчик бумаги в презентере
+    R.Flags.CapDrawerSensor := TestBit(R.FlagsValue, 15);       // 15 Ц ƒатчик денежного €щика
+    R.Flags.CapPrsInSensor := TestBit(R.FlagsValue, 16);        // 16 Ц ƒатчик бумаги на входе в презентер
+    R.Flags.CapPrsOutSensor := TestBit(R.FlagsValue, 17);       // 17 Ц ƒатчик бумаги на выходе из презентера
+    R.Flags.CapBillAcceptor := TestBit(R.FlagsValue, 18);       // 18 Ц  упюроприемник поддерживаетс€
+    R.Flags.CapTaxKeyPad := TestBit(R.FlagsValue, 19);          // 19 Ц  лавиатура Ќ» поддерживаетс€
+    R.Flags.CapJrnPresent := TestBit(R.FlagsValue, 20);         // 20 Ц  онтрольна€ лента поддерживаетс€
+    R.Flags.CapSlpPresent := TestBit(R.FlagsValue, 21);         // 21 Ц ѕодкладной документ поддерживаетс€
+    R.Flags.CapNonfiscalDoc := TestBit(R.FlagsValue, 22);       // 22 Ц ѕоддержка команд нефискального документа
+    R.Flags.CapCashCore := TestBit(R.FlagsValue, 23);           // 23 Ц ѕоддержка протокола  ассового ядра (cashcore)
+    R.Flags.CapInnLeadingZero := TestBit(R.FlagsValue, 24);     // 24 Ц ¬едущие нули в »ЌЌ
+    R.Flags.CapRnmLeadingZero := TestBit(R.FlagsValue, 25);     // 25 Ц ¬едущие нули в –Ќћ
+    R.Flags.SwapGraphicsLine := TestBit(R.FlagsValue, 26);      // 26 Ц ѕереворачивать байты при печати линии
+    R.Flags.CapTaxPasswordLock := TestBit(R.FlagsValue, 27);    // 27 Ц Ѕлокировка   “ по неверному паролю налогового инспектора
+    R.Flags.CapProtocol2 := TestBit(R.FlagsValue, 28);          // 28 Ц ѕоддержка альтернативного нижнего уровн€ протокола   “
+    R.Flags.CapLFInPrintText := TestBit(R.FlagsValue, 29);      // 29 Ц ѕоддержка переноса строк символом '\n' (код 10) в командах печати строк 12H, 17H, 2FH
+    R.Flags.CapFontInPrintText := TestBit(R.FlagsValue, 30);    // 30 Ц ѕоддержка переноса строк номером шрифта (коды 1Е9) в команде печати строк 2FH
+    R.Flags.CapLFInFiscalCommands := TestBit(R.FlagsValue, 31); // 31 Ц ѕоддержка переноса строк символом '\n' (код 10) в фискальных командах 80HЕ87H, 8AH, 8BH
+    R.Flags.CapFontInFiscalCommands := TestBit(R.FlagsValue, 32); // 32 Ц ѕоддержка переноса строк номером шрифта (коды 1Е9) в фискальных командах 80HЕ87H, 8AH, 8BH
+    R.Flags.CapTopCashierReports := TestBit(R.FlagsValue, 33);   // 33 Ц ѕрава "—“ј–Ў»…  ј——»–" (28) на сн€тие отчетов: X, операционных регистров, по отделам, по налогам, по кассирам, почасового, по товарам
+    R.Flags.CapSlpInPrintCommands := TestBit(R.FlagsValue, 34); // 34 Ц ѕоддержка Ѕит 3 "слип чек" в командах печати: строк 12H, 17H, 2FH,расширенной графики 4DH, C3H, графической линии C5H; поддержка
+    R.Flags.CapGraphicsC4 := TestBit(R.FlagsValue, 35);         // 35 Ц ѕоддержка блочной загрузки графики в команде C4H
+    R.Flags.CapCommand6B := TestBit(R.FlagsValue, 36);          // 36 Ц ѕоддержка команды 6BH "¬озврат названи€ ошибоки"
+    R.Flags.CapFlagsGraphicsEx := TestBit(R.FlagsValue, 37);    // 37 Ц ѕоддержка флагов печати дл€ команд печати расширенной графики C3H и печати графической линии C5H
+    R.Flags.CapMFP := TestBit(R.FlagsValue, 39);                // 39 Ц ѕоддержка ћ‘ѕ
+    R.Flags.CapEJ5 := TestBit(R.FlagsValue, 40);                // 40 Ц ѕоддержка Ё Ћ«5
+    R.Flags.CapScaleGraphics := TestBit(R.FlagsValue, 41);      // 41 Ц ѕечать графики с масштабированием (команда 4FH)
+    R.Flags.CapGraphics512 := TestBit(R.FlagsValue, 42);        // 42 Ц «агрузка и печать графики-512 (команды 4DH, 4EH)
   end;
 end;
 

@@ -2,7 +2,7 @@ object fmFptrConnection: TfmFptrConnection
   Left = 375
   Top = 200
   Width = 512
-  Height = 476
+  Height = 530
   Caption = 'Connection'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -32,28 +32,28 @@ object fmFptrConnection: TfmFptrConnection
       369)
     object lblComPort: TLabel
       Left = 8
-      Top = 88
+      Top = 112
       Width = 48
       Height = 13
       Caption = 'COM port:'
     end
     object lblBaudRate: TLabel
       Left = 8
-      Top = 112
+      Top = 136
       Width = 46
       Height = 13
       Caption = 'Baudrate:'
     end
     object lblByteTimeout: TLabel
       Left = 8
-      Top = 136
+      Top = 160
       Width = 80
       Height = 13
       Caption = 'Byte timeout, ms:'
     end
     object lblMaxRetryCount: TLabel
       Left = 8
-      Top = 160
+      Top = 184
       Width = 120
       Height = 13
       Caption = 'Maximum connect retries:'
@@ -67,57 +67,54 @@ object fmFptrConnection: TfmFptrConnection
     end
     object lblRemoteHost: TLabel
       Left = 8
-      Top = 40
+      Top = 64
       Width = 25
       Height = 13
       Caption = 'Host:'
     end
     object lblRemotePort: TLabel
       Left = 8
-      Top = 64
+      Top = 88
       Width = 22
       Height = 13
       Caption = 'Port:'
     end
     object lblPollInterval: TLabel
       Left = 8
-      Top = 264
+      Top = 288
       Width = 90
       Height = 13
       Caption = 'Polling interval, ms:'
     end
     object lblStatusInterval: TLabel
       Left = 8
-      Top = 288
+      Top = 312
       Width = 118
       Height = 13
       Caption = 'Status query interval, ms:'
     end
     object lblStatusTimeout: TLabel
       Left = 8
-      Top = 312
+      Top = 336
       Width = 113
       Height = 13
       Caption = 'Status timeout, seconds'
     end
     object lblPropertyUpdateMode: TLabel
       Left = 8
-      Top = 240
+      Top = 264
       Width = 115
       Height = 13
       Caption = 'Properties update mode:'
     end
-    object cbComPort: TComboBox
-      Left = 112
-      Top = 88
-      Width = 129
-      Height = 21
-      Style = csDropDownList
-      Anchors = [akLeft, akTop, akRight]
-      ItemHeight = 13
-      TabOrder = 3
+    object lblPrinterProtocol: TLabel
+      Left = 8
+      Top = 40
+      Width = 65
+      Height = 13
+      Caption = 'Protocol type:'
     end
-    object cbBaudRate: TComboBox
+    object cbComPort: TComboBox
       Left = 112
       Top = 112
       Width = 129
@@ -126,6 +123,16 @@ object fmFptrConnection: TfmFptrConnection
       Anchors = [akLeft, akTop, akRight]
       ItemHeight = 13
       TabOrder = 4
+    end
+    object cbBaudRate: TComboBox
+      Left = 112
+      Top = 136
+      Width = 129
+      Height = 21
+      Style = csDropDownList
+      Anchors = [akLeft, akTop, akRight]
+      ItemHeight = 13
+      TabOrder = 5
       Items.Strings = (
         '2400'
         '4800'
@@ -137,21 +144,21 @@ object fmFptrConnection: TfmFptrConnection
     end
     object chbSearchByPort: TCheckBox
       Left = 8
-      Top = 216
+      Top = 240
       Width = 233
       Height = 17
       Alignment = taLeftJustify
       Caption = 'Find device on all available COM ports'
-      TabOrder = 8
+      TabOrder = 9
     end
     object chbSearchByBaudRate: TCheckBox
       Left = 8
-      Top = 192
+      Top = 216
       Width = 233
       Height = 17
       Alignment = taLeftJustify
       Caption = 'Find device on all available baud rates'
-      TabOrder = 7
+      TabOrder = 8
     end
     object cbConnectionType: TComboBox
       Left = 112
@@ -170,53 +177,43 @@ object fmFptrConnection: TfmFptrConnection
     end
     object edtRemoteHost: TEdit
       Left = 112
-      Top = 40
+      Top = 64
       Width = 129
       Height = 21
-      TabOrder = 1
+      TabOrder = 2
       Text = 'edtRemoteHost'
     end
     object seRemotePort: TSpinEdit
       Left = 112
-      Top = 64
+      Top = 88
       Width = 129
       Height = 22
       MaxValue = 0
       MinValue = 0
-      TabOrder = 2
+      TabOrder = 3
       Value = 0
     end
     object seByteTimeout: TSpinEdit
       Left = 112
-      Top = 136
+      Top = 160
       Width = 129
-      Height = 22
-      MaxValue = 0
-      MinValue = 0
-      TabOrder = 5
-      Value = 0
-    end
-    object seMaxRetryCount: TSpinEdit
-      Left = 136
-      Top = 161
-      Width = 105
       Height = 22
       MaxValue = 0
       MinValue = 0
       TabOrder = 6
       Value = 0
     end
-    object sePollInterval: TSpinEdit
+    object seMaxRetryCount: TSpinEdit
       Left = 136
-      Top = 264
+      Top = 185
       Width = 105
       Height = 22
       MaxValue = 0
       MinValue = 0
-      TabOrder = 10
+      TabOrder = 7
       Value = 0
     end
-    object seStatusInterval: TSpinEdit
+    object sePollInterval: TSpinEdit
       Left = 136
       Top = 288
       Width = 105
@@ -226,7 +223,7 @@ object fmFptrConnection: TfmFptrConnection
       TabOrder = 11
       Value = 0
     end
-    object seStatusTimeout: TSpinEdit
+    object seStatusInterval: TSpinEdit
       Left = 136
       Top = 312
       Width = 105
@@ -236,18 +233,41 @@ object fmFptrConnection: TfmFptrConnection
       TabOrder = 12
       Value = 0
     end
+    object seStatusTimeout: TSpinEdit
+      Left = 136
+      Top = 336
+      Width = 105
+      Height = 22
+      MaxValue = 0
+      MinValue = 0
+      TabOrder = 13
+      Value = 0
+    end
     object cbPropertyUpdateMode: TComboBox
       Left = 136
-      Top = 240
+      Top = 264
       Width = 105
       Height = 21
       Style = csDropDownList
       ItemHeight = 13
-      TabOrder = 9
+      TabOrder = 10
       Items.Strings = (
         'None'
         'Polling'
         'Query')
+    end
+    object cbPrinterProtocol: TComboBox
+      Left = 112
+      Top = 40
+      Width = 129
+      Height = 21
+      Style = csDropDownList
+      Anchors = [akLeft, akTop, akRight]
+      ItemHeight = 13
+      TabOrder = 1
+      Items.Strings = (
+        'Standard'
+        'Protocol 2.0')
     end
   end
   object gbParams: TGroupBox

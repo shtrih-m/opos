@@ -73,7 +73,7 @@ uses
   FptrServerLib_TLB in '..\..\Source\SmFptrSrv\FptrServerLib_TLB.pas',
   DriverError in '..\..\Source\Shared\DriverError.pas',
   VSysUtils in '..\..\Source\SmFiscalPrinter\Units\VSysUtils.pas',
-  SocketConnection in '..\..\Source\SmFiscalPrinter\Units\SocketConnection.pas',
+  SocketPort in '..\..\Source\SmFiscalPrinter\Units\SocketPort.pas',
   FiscalPrinterStatistics in '..\..\Source\SmFiscalPrinter\Units\FiscalPrinterStatistics.pas',
   ServiceVersion in '..\..\Source\Shared\ServiceVersion.pas',
   DeviceService in '..\..\Source\Shared\DeviceService.pas',
@@ -88,7 +88,7 @@ uses
   EscPrinter in '..\..\Source\SmFiscalPrinter\Units\EscPrinter.pas',
   MockSharedPrinter in 'Units\MockSharedPrinter.pas',
   SharedPrinterInterface in '..\..\Source\SmFiscalPrinter\Units\SharedPrinterInterface.pas',
-  LocalConnection in '..\..\Source\SmFiscalPrinter\Units\LocalConnection.pas',
+  PrinterProtocol2 in '..\..\Source\SmFiscalPrinter\Units\PrinterProtocol2.pas',
   TextFiscalPrinterDevice in 'Units\TextFiscalPrinterDevice.pas',
   FiscalPrinterDevice in '..\..\Source\SmFiscalPrinter\Units\FiscalPrinterDevice.pas',
   OposEventsRCS in '..\..\Source\Opos\OposEventsRCS.pas',
@@ -139,7 +139,6 @@ uses
   FiscalPrinterImpl in '..\..\Source\SmFiscalPrinter\Units\FiscalPrinterImpl.pas',
   ReceiptPrinter in '..\..\Source\SmFiscalPrinter\Units\ReceiptPrinter.pas',
   SharedPrinter in '..\..\Source\SmFiscalPrinter\Units\SharedPrinter.pas',
-  duLocalConnection in 'Units\duLocalConnection.pas',
   duFiscalPrinterDevice in 'Units\duFiscalPrinterDevice.pas',
   duEscPrinter in 'Units\duEscPrinter.pas',
   duPrinterParameters in 'Units\duPrinterParameters.pas',
@@ -201,7 +200,9 @@ uses
   FSService in '..\..\Source\SmFiscalPrinter\Units\FSService.pas',
   DriverContext in '..\..\Source\SmFiscalPrinter\Units\DriverContext.pas',
   ReceiptTemplate in '..\..\Source\SmFiscalPrinter\Units\ReceiptTemplate.pas',
-  TextParser in '..\..\Source\SmFiscalPrinter\Units\TextParser.pas';
+  TextParser in '..\..\Source\SmFiscalPrinter\Units\TextParser.pas',
+  PrinterPort in '..\..\Source\SmFiscalPrinter\Units\PrinterPort.pas',
+  PrinterProtocol1 in '..\..\Source\SmFiscalPrinter\Units\PrinterProtocol1.pas';
 
 {$R *.RES}
 {$R ..\..\Source\SmFiscalPrinter\SmFiscalPrinter.TLB}

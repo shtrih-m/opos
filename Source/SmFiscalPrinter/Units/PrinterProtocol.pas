@@ -1,4 +1,4 @@
-unit PrinterConnection;
+unit PrinterProtocol;
 
 interface
 
@@ -11,8 +11,8 @@ type
     procedure ClaimDevice(PortNumber, Timeout: Integer);
     procedure ReleaseDevice;
 
+    procedure OpenPort;
     procedure ClosePort;
-    procedure OpenPort(PortNumber, BaudRate, ByteTimeout: Integer);
 
     procedure OpenReceipt(Password: Integer);
     procedure CloseReceipt;

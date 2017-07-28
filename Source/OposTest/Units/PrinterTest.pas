@@ -710,6 +710,14 @@ type
     function GetDisplayText: string; override;
   end;
 
+  { TReceiptTest11 }
+
+  TReceiptTest11 = class(TDriverTest)
+  public
+    procedure Execute; override;
+    function GetDisplayText: string; override;
+  end;
+
 implementation
 
 const
@@ -4086,5 +4094,25 @@ function TReceiptTest10.GetDisplayText: string;
 begin
   Result := 'ReceiptTest10';
 end;
+
+{ TReceiptTest11 }
+
+function TReceiptTest11.GetDisplayText: string;
+begin
+  Result := 'ReceiptTest11';
+end;
+
+procedure TReceiptTest11.Execute;
+begin
+  Check(FiscalPrinter.resetPrinter());
+  FiscalPrinter.set_FiscalReceiptType(4);
+  Check(FiscalPrinter.beginFiscalReceipt(true));
+
+  Check(FiscalPrinter.PrintRecItem('АИ-92-3', 1000.43, 55090, 4, 18.16, ''));
+  Check(FiscalPrinter.PrintRecSubtotalAdjustment(1, 'Округление', 0.43));
+  Check(FiscalPrinter.PrintRecTotal(1000, 1000, '0'));
+  Check(FiscalPrinter.endFiscalReceipt(false));
+end;
+
 
 end.

@@ -21,7 +21,7 @@ uses
   Opos in '..\Opos\Opos.pas',
   Oposhi in '..\Opos\Oposhi.pas',
   LogFile in '..\Shared\LogFile.pas',
-  LocalConnection in '..\SmFiscalPrinter\Units\LocalConnection.pas',
+  PrinterProtocol2 in '..\SmFiscalPrinter\Units\PrinterProtocol2.pas',
   VersionInfo in '..\Shared\VersionInfo.pas',
   PrinterFrame in '..\SmFiscalPrinter\Units\PrinterFrame.pas',
   DriverError in '..\Shared\DriverError.pas',
@@ -81,7 +81,9 @@ uses
   MalinaParams in '..\SmFiscalPrinter\Units\MalinaParams.pas',
   TextMap in '..\SmFiscalPrinter\Units\TextMap.pas',
   RegUtils in '..\SmFiscalPrinter\Units\RegUtils.pas',
-  DriverContext in '..\SmFiscalPrinter\Units\DriverContext.pas';
+  DriverContext in '..\SmFiscalPrinter\Units\DriverContext.pas',
+  PrinterProtocol1 in '..\SmFiscalPrinter\Units\PrinterProtocol1.pas',
+  PrinterPort in '..\SmFiscalPrinter\Units\PrinterPort.pas';
 
 {$R *.TLB}
 

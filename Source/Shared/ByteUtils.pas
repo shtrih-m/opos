@@ -5,11 +5,11 @@ interface
 function SwapByte(Value: Byte): Byte;
 function SwapBytes(const S: string): string;
 procedure SetBit(var Value: Byte; Bit: Byte);
-function TestBit(Value, Bit: Integer): Boolean;
+function TestBit(Value: Int64; Bit: Integer): Boolean;
 
 implementation
 
-function TestBit(Value, Bit: Integer): Boolean;
+function TestBit(Value: Int64; Bit: Integer): Boolean;
 begin
   Result := (Value and (1 shl Bit)) <> 0;
 end;

@@ -33,7 +33,7 @@ const
   TickStep = 20;
 begin
   Logger := TLogFile.Create;
-  Port := TSerialPort.Create(Logger);
+  Port := TSerialPort.Create(2, Logger);
   try
     Port.PortNumber := 2;
     Port.BaudRate := CBR_115200;

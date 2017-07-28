@@ -8,13 +8,13 @@ uses
   // Indy
   IdTCPClient, IdGlobal, IdStack, IdWinsock2,
   // This
-  PrinterConnection, DriverError, StringUtils, FptrServerLib_TLB, VSysUtils,
+  PrinterProtocol, DriverError, StringUtils, FptrServerLib_TLB, VSysUtils,
   LogFile, CommunicationError, PrinterFrame, OposMessages;
 
 type
   { TSocketConnection }
 
-  TSocketConnection = class(TInterfacedObject, IPrinterConnection)
+  TSocketConnection = class(TInterfacedObject, IPrinterProtocol)
   private
     FOutput: string;                    // Received data
     FRemoteHost: string;
@@ -53,7 +53,7 @@ type
     procedure ClaimDevice(PortNumber, Timeout: Integer);
     procedure OpenReceipt(Password: Integer);
     function Send(Timeout: Integer; const Data: string): string;
-    procedure OpenPort(PortNumber, BaudRate, ByteTimeout: Integer);
+    procedure OpenPort;
   end;
 
 implementation
@@ -166,9 +166,9 @@ begin
   end;
 end;
 
-procedure TSocketConnection.OpenPort(PortNumber, BaudRate, ByteTimeout: Integer);
+procedure TSocketConnection.OpenPort;
 begin
-  FByteTimeout := ByteTimeout;
+  //FByteTimeout := ByteTimeout; !!!
   Connect;
 end;
 

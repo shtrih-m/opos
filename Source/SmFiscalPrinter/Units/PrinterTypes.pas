@@ -1054,6 +1054,75 @@ type
     MacValue: Integer;
   end;
 
+  { TPrinterParameters2Flags }
+
+  TPrinterParameters2Flags = record
+    CapJrnNearEndSensor: Boolean;   // 0 Ц ¬есовой датчик контрольной ленты
+    CapRecNearEndSensor: Boolean;   // 1 Ц ¬есовой датчик чековой ленты
+    CapJrnEmptySensor: Boolean;     // 2 Ц ќптический датчик контрольной ленты
+    CapRecEmptySensor: Boolean;     // 3 Ц ќптический датчик чековой ленты
+    CapCoverSensor: Boolean;        // 4 Ц ƒатчик крышки
+    CapJrnLeverSensor: Boolean;     // 5 Ц –ычаг термоголовки контрольной ленты
+    CapRecLeverSensor: Boolean;     // 6 Ц –ычаг термоголовки чековой ленты
+    CapSlpNearEndSensor: Boolean;   // 7 Ц ¬ерхний датчик подкладного документа
+    CapSlpEmptySensor: Boolean;     // 8 Ц Ќижний датчик подкладного документа
+    CapPresenter: Boolean;          // 9 Ц ѕрезентер поддерживаетс€
+    CapPresenterCommands: Boolean;  // 10 Ц ѕоддержка команд работы с презентером
+    CapEJNearFull: Boolean;         // 11 Ц ‘лаг заполнени€ Ё Ћ«
+    CapEJ: Boolean;                 // 12 Ц Ё Ћ« поддерживаетс€
+    CapCutter: Boolean;             // 13 Ц ќтрезчик поддерживаетс€
+    CapDrawerStateAsPaper: Boolean; // 14 Ц —осто€ние ƒя как датчик бумаги в презентере
+    CapDrawerSensor: Boolean;       // 15 Ц ƒатчик денежного €щика
+    CapPrsInSensor: Boolean;        // 16 Ц ƒатчик бумаги на входе в презентер
+    CapPrsOutSensor: Boolean;       // 17 Ц ƒатчик бумаги на выходе из презентера
+    CapBillAcceptor: Boolean;       // 18 Ц  упюроприемник поддерживаетс€
+    CapTaxKeyPad: Boolean;          // 19 Ц  лавиатура Ќ» поддерживаетс€
+    CapJrnPresent: Boolean;         // 20 Ц  онтрольна€ лента поддерживаетс€
+    CapSlpPresent: Boolean;         // 21 Ц ѕодкладной документ поддерживаетс€
+    CapNonfiscalDoc: Boolean;       // 22 Ц ѕоддержка команд нефискального документа
+    CapCashCore: Boolean;           // 23 Ц ѕоддержка протокола  ассового ядра (cashcore)
+    CapInnLeadingZero: Boolean;     // 24 Ц ¬едущие нули в »ЌЌ
+    CapRnmLeadingZero: Boolean;     // 25 Ц ¬едущие нули в –Ќћ
+    SwapGraphicsLine: Boolean;      // 26 Ц ѕереворачивать байты при печати линии
+    CapTaxPasswordLock: Boolean;    // 27 Ц Ѕлокировка   “ по неверному паролю налогового инспектора
+    CapProtocol2: Boolean;          // 28 Ц ѕоддержка альтернативного нижнего уровн€ протокола   “
+    CapLFInPrintText: Boolean;      // 29 Ц ѕоддержка переноса строк символом '\n' (код 10) в командах печати строк 12H, 17H, 2FH
+    CapFontInPrintText: Boolean;  // 30 Ц ѕоддержка переноса строк номером шрифта (коды 1Е9) в команде печати строк 2FH
+    CapLFInFiscalCommands: Boolean; // 31 Ц ѕоддержка переноса строк символом '\n' (код 10) в фискальных командах 80HЕ87H, 8AH, 8BH
+    CapFontInFiscalCommands: Boolean; // 32 Ц ѕоддержка переноса строк номером шрифта (коды 1Е9) в фискальных командах 80HЕ87H, 8AH, 8BH
+    CapTopCashierReports: Boolean;   // 33 Ц ѕрава "—“ј–Ў»…  ј——»–" (28) на сн€тие отчетов: X, операционных регистров, по отделам, по налогам, по кассирам, почасового, по товарам
+    CapSlpInPrintCommands: Boolean;      // 34 Ц ѕоддержка Ѕит 3 "слип чек" в командах печати: строк 12H, 17H, 2FH,расширенной графики 4DH, C3H, графической линии C5H; поддержка
+    CapGraphicsC4: Boolean;           // 35 Ц ѕоддержка блочной загрузки графики в команде C4H
+    CapCommand6B: Boolean;            // 36 Ц ѕоддержка команды 6BH "¬озврат названи€ ошибоки"
+    CapFlagsGraphicsEx: Boolean;      // 37 Ц ѕоддержка флагов печати дл€ команд печати расширенной графики C3H и печати графической линии C5H
+    CapMFP: Boolean;                  // 39 Ц ѕоддержка ћ‘ѕ
+    CapEJ5: Boolean;                  // 40 Ц ѕоддержка Ё Ћ«5
+    CapScaleGraphics: Boolean;        // 41 Ц ѕечать графики с масштабированием (команда 4FH)
+    CapGraphics512: Boolean;          // 42 Ц «агрузка и печать графики-512 (команды 4DH, 4EH)
+  end;
+
+  { TPrinterParameters2 }
+
+  TPrinterParameters2 = packed record
+    FlagsValue: Int64;
+    Font1Width: Byte;
+    Font2Width: Byte;
+    GraphicsStartLine: Byte;
+    InnDigits: Byte;
+    RnmDigits: Byte;
+    LongRnmDigits: Byte;
+    LongSerialDigits: Byte;
+    DefTaxPassword: DWORD;
+    DefSysPassword: DWORD;
+    BluetoothTable: Byte;
+    TaxFieldNumber: Byte;
+    MaxCommandLength: WORD;
+    GraphicsWidthInBytes: Byte;
+    Graphics512WidthInBytes: Byte;
+    Graphics512MaxHeight: WORD;
+    Flags: TPrinterParameters2Flags;
+  end;
+
 function GetCommandName(Command: Integer): string;
 function GetModeDescription(Value: Integer): string;
 function GetDeviceCodeDescription(Value: Integer): string;

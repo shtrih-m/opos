@@ -11,10 +11,10 @@ uses
   FiscalPrinterDevice, PrinterTypes, PrinterConnection,
   LogFile, SerialPorts, StringUtils, FiscalPrinterStatistics,
   FiscalPrinterTypes, FixedStrings, FileUtils, DeviceTables, CommunicationError,
-  LocalConnection, TCPConnection, DCOMConnection, VSysUtils, PayType,
-  DebugUtils, ByteUtils, DriverTypes, NotifyThread, NotifyLink,
+  PrinterProtocol1, PrinterProtocol2, TCPConnection, DCOMConnection, VSysUtils,
+  PayType, DebugUtils, ByteUtils, DriverTypes, NotifyThread, NotifyLink,
   PrinterParameters, PrinterParametersX, DriverError, DirectIOAPI,
-  ReceiptReportFilter, EscFilter, SocketConnection;
+  ReceiptReportFilter, EscFilter, SerialPort, SocketPort, PrinterPort;
 
 type
   { TSharedPrinter }
@@ -94,6 +94,7 @@ type
     procedure SetDeviceName(const Value: string);
     procedure SleepEx(TimeinMilliseconds: Integer);
     function GetLogger: ILogFile;
+    function CreateProtocol(Port: IPrinterPort): IPrinterConnection;
   public
     constructor Create(const ADeviceName: string);
     destructor Destroy; override;
@@ -383,30 +384,48 @@ begin
   FDeviceName := Value;
 end;
 
+function TSharedPrinter.CreateProtocol(Port: IPrinterPort): IPrinterConnection;
+begin
+  case Parameters.PrinterProtocol of
+    PrinterProtocol10: Result := TPrinterProtocol1.Create(Logger, Port);
+    PrinterProtocol20: Result := TPrinterProtocol2.Create(Logger, Port, Parameters);
+  else
+    raise Exception.Create(MsgInvalidPrinterProtocol);
+  end;
+end;
+
 function TSharedPrinter.CreateConnection: IPrinterConnection;
 var
-  RemoteHost: string;
-  LocalConnection: TLocalConnection;
+  Port: IPrinterPort;
 begin
-  Result := nil;
-  RemoteHost := Parameters.RemoteHost;
-  if RemoteHost = '' then
-    RemoteHost := GetCompName;
-
   case Parameters.ConnectionType of
     ConnectionTypeLocal:
     begin
-      LocalConnection := TLocalConnection.Create(Logger);
-      LocalConnection.MaxENQCount := Parameters.MaxRetryCount;
-
-      Result := LocalConnection;
+      Port := GetSerialPort(Parameters.PortNumber, Logger);
+      Result := CreateProtocol(Port);
     end;
-    ConnectionTypeDCOM: Result := TDCOMConnection.Create(
-      RemoteHost, Parameters.RemotePort);
-    ConnectionTypeTCP: Result := TTCPConnection.Create(
-      RemoteHost, Parameters.RemotePort, Logger);
-    ConnectionTypeSocket: Result := TSocketConnection.Create(
-      RemoteHost, Parameters.RemotePort, Logger);
+    ConnectionTypeDCOM:
+      Result := TDCOMConnection.Create(
+        Parameters.RemoteHost,
+        Parameters.RemotePort,
+        Parameters.PortNumber,
+        Parameters.BaudRate,
+        Parameters.ByteTimeout);
+
+    ConnectionTypeTCP:
+      Result := TTCPConnection.Create(
+        Parameters.RemoteHost,
+        Parameters.RemotePort,
+        Parameters.PortNumber,
+        Parameters.BaudRate,
+        Parameters.ByteTimeout,
+        Logger);
+
+    ConnectionTypeSocket:
+    begin
+      Port := TSocketPort.Create(Parameters.RemoteHost, Parameters.RemotePort, Logger);
+      Result := CreateProtocol(Port);
+    end;
   else
     raise Exception.Create(MsgInvalidConnectionType);
   end;
@@ -538,17 +557,30 @@ begin
 end;
 
 function TSharedPrinter.SearchBaudRate(PortNumber: Integer): Boolean;
-const
-  MaxReconnectCount = 3;
 var
   i: Integer;
+  ByteTimeout: Integer;
+  MaxRetryCount: Integer;
 begin
   Logger.Debug('TSharedPrinter.SearchBaudRate');
 
-  for i := Low(PrinterBaudRates) to High(PrinterBaudRates) do
-  begin
-    Result := ConnectDevice(PortNumber, PrinterBaudRates[i]);
-    if Result then Break;
+  Result := False;
+  MaxRetryCount := Parameters.MaxRetryCount;
+  ByteTimeout := Parameters.ByteTimeout;
+  Parameters.MaxRetryCount := 1;
+  Parameters.ByteTimeout := 200;
+  try
+    for i := Low(PrinterBaudRates) to High(PrinterBaudRates) do
+    begin
+      if PrinterBaudRates[i] <> Parameters.BaudRate then
+      begin
+        Result := ConnectDevice(PortNumber, PrinterBaudRates[i]);
+        if Result then Break;
+      end;
+    end;
+  finally
+    Parameters.ByteTimeout := ByteTimeout;
+    Parameters.MaxRetryCount := MaxRetryCount;
   end;
 end;
 

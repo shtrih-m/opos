@@ -27,7 +27,9 @@ type
     procedure DoDisconnect;
     property Logger: ILogFile read FLogger;
   public
-    constructor Create(const ARemoteHost: string; ARemotePort: Integer; ALogger: ILogFile);
+    constructor Create(const ARemoteHost: string;
+      ARemotePort: Integer; APortNumber, ABaudRate, AByteTimeout: Integer;
+      ALogger: ILogFile);
     destructor Destroy; override;
 
     procedure ClosePort;
@@ -44,7 +46,8 @@ implementation
 { TTCPConnection }
 
 constructor TTCPConnection.Create(const ARemoteHost: string;
-  ARemotePort: Integer; ALogger: ILogFile);
+  ARemotePort: Integer; APortNumber, ABaudRate, AByteTimeout: Integer;
+  ALogger: ILogFile);
 begin
   inherited Create;
   FLogger := ALogger;

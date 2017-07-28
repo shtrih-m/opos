@@ -47,6 +47,7 @@ const
   MsgDayOpened = 'Нельзя установить дату в открытой смене';
   MsgInvalidPrinterState = 'Неверное состояние принтера';
   MsgInvalidConnectionType = 'Неверный тип подключения';
+  MsgInvalidPrinterProtocol = 'Неверный протокол ФР';
 
 
 (*
