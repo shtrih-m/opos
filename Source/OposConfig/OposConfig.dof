@@ -115,7 +115,7 @@ AutoIncBuild=1
 MajorVer=1
 MinorVer=13
 Release=0
-Build=394
+Build=395
 Debug=0
 PreRelease=0
 Special=0
@@ -126,7 +126,7 @@ CodePage=1252
 [Version Info Keys]
 CompanyName=SHTRIH-M
 FileDescription=OPOS setup utility
-FileVersion=1.13.0.394
+FileVersion=1.13.0.395
 InternalName=OPOS setup
 LegalCopyright=SHTRIH-M © 2013
 LegalTrademarks=

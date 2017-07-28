@@ -164,6 +164,7 @@ type
     function ReadLoaderVersion(var Version: string): Integer;
     function GetCapFSCloseReceipt2: Boolean;
     function ReceiptCancelPassword(Password: Integer): Integer;
+    function IsSupported(ResultCode: Integer): Boolean;
   protected
     function GetMaxGraphicsWidthInBytes: Integer;
   public
@@ -506,6 +507,7 @@ begin
   FStatistics := TFiscalPrinterStatistics.Create(Parameters.Logger);
   FFilter := TFiscalPrinterFilter.Create(Parameters.Logger);
   FAmountDecimalPlaces := 2;
+  FCapReceiptDiscount2 := True;
   LoadModels;
 end;
 
@@ -3580,6 +3582,7 @@ begin
     IntToBin(Operation.Tax, 1) +
     GetLine(Operation.Text);
   Result := ExecuteData(Command, Answer);
+  FCapReceiptDiscount2 := IsSupported(Result);
 end;
 
 (******************************************************************************
@@ -5938,7 +5941,6 @@ begin
   FCapFiscalStorage := ReadCapFiscalStorage;
   FCapOpenReceipt := FCapFiscalStorage or TestCommand($8D);
 
-  FCapReceiptDiscount2 := TestCommand($FF4B);
   FCapFontInfo := TestCommand($26);
   if FCapFontInfo then
   begin
@@ -5985,16 +5987,21 @@ begin
   Result := FSReadState(R) = 0;
 end;
 
+function TFiscalPrinterDevice.IsSupported(ResultCode: Integer): Boolean;
+begin
+  Result := ResultCode <> ERROR_COMMAND_NOT_SUPPORTED;
+end;
+
 function TFiscalPrinterDevice.TestCommand(Code: Integer): Boolean;
 var
   RxData: string;
 begin
   if Code > $FF then
   begin
-    Result := ExecuteData(Chr(Hi(Code)) + Chr(Lo(Code)), RxData) <> 55;
+    Result := IsSupported(ExecuteData(Chr(Hi(Code)) + Chr(Lo(Code)), RxData));
   end else
   begin
-    Result := ExecuteData(Chr(Code), RxData) <> 55;
+    Result := IsSupported(ExecuteData(Chr(Code), RxData));
   end;
 end;
 

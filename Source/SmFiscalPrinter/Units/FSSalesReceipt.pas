@@ -70,6 +70,7 @@ type
     property Template: TReceiptTemplate read FTemplate;
     property Device: IFiscalPrinterDevice read GetDevice;
     procedure UpdateReceiptItems;
+    procedure PrintDiscount(Discount: TAmountOperation);
   public
     constructor CreateReceipt(AContext: TReceiptContext; ARecType: Integer);
     destructor Destroy; override;
@@ -801,7 +802,7 @@ begin
     end;
   end else
   begin
-    if GetPaymentTotal >= (FReceiptItems.GetTotal-FAdjustmentAmount) then
+    if GetPaymentTotal >= GetTotal then
     begin
       ParseReceiptItemsLines(FReceiptItems);
       State.SetState(FPTR_PS_FISCAL_RECEIPT_ENDING);
@@ -1051,7 +1052,6 @@ var
   FSSale2: TFSSale2;
   FSRegistration: TFSSale;
   Operation: TPriceReg;
-  AmountOperation: TAmountOperation;
 begin
   if Item.PreLine <> '' then
     PrintText2(Item.PreLine);
@@ -1096,28 +1096,6 @@ begin
   end else
   begin
     Printer.Storno(Operation);
-  end;
-  if FSRegistration.Discount > 0 then
-  begin
-    AmountOperation.Amount := FSRegistration.Discount;
-    AmountOperation.Department := FSRegistration.Department;
-    AmountOperation.Tax1 := FSRegistration.Tax;
-    AmountOperation.Tax2 := 0;
-    AmountOperation.Tax3 := 0;
-    AmountOperation.Tax4 := 0;
-    AmountOperation.Text := '';
-    Printer.ReceiptDiscount(AmountOperation);
-  end;
-  if FSRegistration.Charge > 0 then
-  begin
-    AmountOperation.Amount := FSRegistration.Charge;
-    AmountOperation.Department := FSRegistration.Department;
-    AmountOperation.Tax1 := FSRegistration.Tax;
-    AmountOperation.Tax2 := 0;
-    AmountOperation.Tax3 := 0;
-    AmountOperation.Tax4 := 0;
-    AmountOperation.Text := '';
-    Printer.ReceiptDiscount(AmountOperation);
   end;
 
   if Parameters.RecPrintType = RecPrintTypeDriver then
@@ -1223,7 +1201,7 @@ var
   PaidAmount: Int64;
 begin
   PaidAmount := 0;
-  Total := GetTotal - FAdjustmentAmount;
+  Total := GetTotal;
   for i := Low(FPayments) to High(FPayments) do
   begin
     if (PaidAmount + FPayments[i] > Total) then
@@ -1250,18 +1228,20 @@ begin
     begin
       OpenReceipt(FRecType);
 
+      CorrectPayments;
       PrintRecMessages(0);
       UpdateDiscounts;
       UpdateReceiptItems;
+
       PrintReceiptItems;
       PrintDiscounts;
+
       BeforeCloseReceipt;
       if AdditionalText <> '' then
         PrintText2(AdditionalText);
 
       Printer.WaitForPrinting;
       PrintBarcodes;
-      CorrectPayments;
 
       if Device.CapFSCloseReceipt2 then
       begin
@@ -1323,32 +1303,50 @@ var
   i: Integer;
   Item: TReceiptItem;
   Discount: TAmountOperation;
+begin
+  if not Device.CapDiscount then Exit;
+  for i := 0 to FDiscounts.Count-1 do
+  begin
+    Item := FDiscounts[i];
+    if Item is TDiscountReceiptItem then
+    begin
+      Discount := (Item as TDiscountReceiptItem).Data;
+      PrintDiscount(Discount);
+    end;
+  end;
+end;
+
+procedure TFSSalesReceipt.PrintDiscount(Discount: TAmountOperation);
+var
+  ResultCode: Integer;
   Discount2: TReceiptDiscount2;
 begin
   if GetCapReceiptDiscount2 then
   begin
-    for i := 0 to FReceiptItems.Count-1 do
+    Discount2.Discount := 0;
+    Discount2.Charge := 0;
+    Discount2.Tax := Discount.Tax1;
+    Discount2.Text := Discount.Text;
+
+    if Discount.Amount > 0 then
+      Discount2.Discount := Discount.Amount
+    else
+      Discount2.Charge := Abs(Discount.Amount);
+    ResultCode := Device.ReceiptDiscount2(Discount2);
+    if ResultCode <> ERROR_COMMAND_NOT_SUPPORTED then
     begin
-      Item := FReceiptItems[i];
-      if Item is TDiscountReceiptItem then
-      begin
-        Discount := (Item as TDiscountReceiptItem).Data;
-
-        Discount2.Discount := 0;
-        Discount2.Charge := 0;
-        Discount2.Tax := Discount.Tax1;
-        Discount2.Text := Discount.Text;
-
-        if Discount.Amount > 0 then
-          Discount2.Discount := Discount.Amount
-        else
-          Discount2.Charge := Abs(Discount.Amount);
-
-
-        Device.ReceiptDiscount2(Discount2);
-      end;
+      Device.Check(ResultCode);
+      Exit;
     end;
-    Exit;
+  end;
+
+  if Discount.Amount > 0 then
+  begin
+    Device.Check(Device.ReceiptDiscount(Discount));
+  end else
+  begin
+    Discount.Amount := Abs(Discount.Amount);
+    Device.Check(Device.ReceiptCharge(Discount));
   end;
 end;
 
@@ -1360,8 +1358,6 @@ var
   SaleItem: TFSSaleItem;
   DiscountAmount: Int64;
 begin
-  if (Device.CapDiscount) and GetCapReceiptDiscount2 then Exit;
-
   DiscountAmount := Abs(FDiscounts.GetTotal);
   if DiscountAmount = 0 then Exit;
 

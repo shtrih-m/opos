@@ -157,7 +157,7 @@ begin
   CheckEquals(Params.DefCsvZReportFileName, Params.CsvZReportFileName, 'Params.CsvZReportFileName');
   CheckEquals(DefLogMaxCount, Params.LogMaxCount, 'Params.LogMaxCount');
 
-  CheckEquals(4, Params.PayTypes.Count, 'Params.PayTypes.Count');
+  CheckEquals(16, Params.PayTypes.Count, 'Params.PayTypes.Count');
   CheckEquals(0, Params.PayTypes[0].Code, 'Params.PayTypes[0].Code');
   CheckEquals(1, Params.PayTypes[1].Code, 'Params.PayTypes[1].Code');
   CheckEquals(2, Params.PayTypes[2].Code, 'Params.PayTypes[2].Code');
