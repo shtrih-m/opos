@@ -237,8 +237,8 @@ const
   /////////////////////////////////////////////////////////////////////////////
   // Default parameters
 
-  DefRemoteHost = '';
-  DefRemotePort = 0;
+  DefRemoteHost = '192.168.137.111';
+  DefRemotePort = 7778;
   DefConnectionType = ConnectionTypeLocal;
   DefPortNumber = 1;
   DefBaudRate = CBR_4800;
@@ -679,6 +679,8 @@ begin
 end;
 
 procedure TPrinterParameters.SetDefaults;
+var
+  i: Integer;
 begin
   Logger.Debug('TPrinterParameters.SetDefaults');
   FPortNumber := DefPortNumber;
@@ -726,10 +728,11 @@ begin
   ConnectionType := DefConnectionType;
   HeaderPrinted := DefHeaderPrinted;
   PayTypes.Clear;
-  PayTypes.Add(0, '0');  // Cash
-  PayTypes.Add(1, '1');  // Cashless 1
-  PayTypes.Add(2, '2');  // Cashless 2
-  PayTypes.Add(3, '3');  // Cashless 3
+  for i := 0 to 15 do
+  begin
+    PayTypes.Add(i, IntToStr(i));
+  end;
+
   FXmlZReportEnabled := DefXmlZReportEnabled;
   FCsvZReportEnabled := DefCsvZReportEnabled;
   FXmlZReportFileName := DefXmlZReportFileName;

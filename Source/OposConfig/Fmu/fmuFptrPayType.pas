@@ -14,7 +14,7 @@ type
   TfmFptrPayType = class(TFptrPage)
     lblDescription: TLabel;
     edtDescription: TEdit;
-    cbValue: TComboBox;
+    cbPaymentType: TComboBox;
     lblValue: TLabel;
     lvPayTypes: TListView;
     btnDelete: TButton;
@@ -22,6 +22,7 @@ type
     procedure btnAddClick(Sender: TObject);
     procedure btnDeleteClick(Sender: TObject);
     procedure PageChange(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     procedure UpdatePayTypes;
   public
@@ -37,11 +38,8 @@ function PayTypeToStr(Value: Integer): WideString;
 begin
   case Value of
     0: Result := 'Cash';
-    1: Result := 'Payment type 2';
-    2: Result := 'Payment type 3';
-    3: Result := 'Payment type 4';
   else
-    Result := 'Cash';
+    Result := 'Payment type ' + IntToStr(Value + 1);
   end;
 end;
 
@@ -53,7 +51,7 @@ var
   i: Integer;
   Item: TListItem;
 begin
-  cbValue.ItemIndex := 0;
+  cbPaymentType.ItemIndex := 0;
   with lvPayTypes do
   begin
     Items.BeginUpdate;
@@ -94,8 +92,8 @@ begin
   Item := lvPayTypes.Items.Add;
   Item.Caption := IntToStr(lvPayTypes.Items.Count);
   Item.SubItems.Add(edtDescription.Text);
-  Item.SubItems.Add(PayTypeToStr(cbValue.ItemIndex));
-  Parameters.PayTypes.Add(cbValue.ItemIndex, edtDescription.Text);
+  Item.SubItems.Add(PayTypeToStr(cbPaymentType.ItemIndex));
+  Parameters.PayTypes.Add(cbPaymentType.ItemIndex, edtDescription.Text);
   Item.Focused := True;
   Item.Selected := True;
   btnDelete.Enabled := True;
@@ -128,6 +126,22 @@ end;
 procedure TfmFptrPayType.PageChange(Sender: TObject);
 begin
   Modified;
+end;
+
+procedure TfmFptrPayType.FormCreate(Sender: TObject);
+var
+  i: Integer;
+begin
+  cbPaymentType.Items.BeginUpdate;
+  try
+    cbPaymentType.Items.Clear;
+    for i := 0 to 15 do
+    begin
+      cbPaymentType.Items.Add(PayTypeToStr(i));
+    end;
+  finally
+    cbPaymentType.Items.EndUpdate;
+  end;
 end;
 
 end.

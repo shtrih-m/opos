@@ -617,7 +617,7 @@ end;
 
 function TFSSalesReceipt.GetTotal: Int64;
 begin
-  Result := FReceiptItems.GetTotal;
+  Result := FReceiptItems.GetTotal - FDiscounts.GetTotal;
 end;
 
 function TFSSalesReceipt.GetAdjustmentAmount(

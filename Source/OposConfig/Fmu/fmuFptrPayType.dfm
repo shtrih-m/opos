@@ -14,6 +14,7 @@ object fmFptrPayType: TfmFptrPayType
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
+  OnCreate = FormCreate
   DesignSize = (
     464
     224)
@@ -41,7 +42,7 @@ object fmFptrPayType: TfmFptrPayType
     TabOrder = 0
     Text = '0'
   end
-  object cbValue: TComboBox
+  object cbPaymentType: TComboBox
     Left = 160
     Top = 40
     Width = 193
