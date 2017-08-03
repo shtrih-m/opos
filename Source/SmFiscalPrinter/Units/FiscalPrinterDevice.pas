@@ -1076,7 +1076,10 @@ begin
   begin
     try
       Logger.Debug(Format('0x%.2X, %s', [Command.Code, GetCommandName(Command.Code)]));
-      if (i <> 1) then  Logger.Debug(Format('Retry %d...', [i]));
+      if (i <> 1) then
+      begin
+        Logger.Debug(Format('Retry %d...', [i]));
+      end;
 
       Command.RxData := Connection.Send(Command.Timeout, Command.TxData);
       SetIsOnline(True);

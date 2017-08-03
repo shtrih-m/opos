@@ -79,7 +79,6 @@ begin
   FRemoteHost := ARemoteHost;
   FRemotePort := ARemotePort;
   FConnection := TIdTCPClient.Create;
-  FConnection.Host := ARemoteHost;
   FLock := TCriticalsection.Create;
 end;
 
@@ -87,6 +86,7 @@ destructor TSocketPort.Destroy;
 begin
   Close;
   FLock.Free;
+  FConnection.Free;
   inherited Destroy;
 end;
 
@@ -94,6 +94,7 @@ procedure TSocketPort.Open;
 begin
   if not FConnection.Connected then
   begin
+    FConnection.Host := FRemoteHost;
     FConnection.Port := FRemotePort;
     FConnection.ReuseSocket := rsTrue;
     FConnection.ReadTimeout := FByteTimeout;
@@ -110,8 +111,12 @@ procedure TSocketPort.Close;
 begin
   try
     FConnection.Disconnect;
-    if FConnection.IOHandler <> nil then
+    if (FConnection.IOHandler <> nil)and(FConnection.IOHandler.InputBuffer <> nil) then
+    begin
       FConnection.IOHandler.InputBuffer.Clear;
+    end;
+    FConnection.Free;
+    FConnection := TIdTCPClient.Create;
   except
     on E: Exception do
       Logger.Error(E.Message);

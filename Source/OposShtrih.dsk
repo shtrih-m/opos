@@ -1,14 +1,14 @@
 [Closed Files]
-File_0=SourceModule,'C:\projects\OPOSShtrih\Source\SmFptrSrv\Units\oleMain.pas',0,1,1,1,1,0,0
-File_1=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FSSalesReceipt.pas',0,1,1304,76,1315,0,0
-File_2=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\SharedPrinter.pas',0,1,1,1,1,0,0
-File_3=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterDevice.pas',0,1,3516,1,3541,0,0
-File_4=SourceModule,'C:\projects\OPOSShtrih\Source\OposTest\Units\PrinterTest.pas',0,1,4100,70,4112,0,0
-File_5=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\ReceiptItem.pas',0,1,48,15,39,0,0
-File_6=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\PrinterTypes.pas',0,1,1,64,24,0,0
-File_7=SourceModule,'C:\projects\OPOSShtrih\Source\OposConfig\Fmu\fmuFptrPayType.pas',0,1,88,83,114,1,0
-File_8=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\PrinterParameters.pas',0,1,503,122,531,0,0
-File_9=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\PayType.pas',0,1,34,1,52,0,0
+File_0=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterDevice.pas',0,1,1065,32,1078,0,0
+File_1=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\SocketPort.pas',0,1,1,22,4,0,0
+File_2=SourceModule,'c:\program files (x86)\borland\delphi7\Comp\Indy10\Lib\Core\IdTCPConnection.pas',0,1,739,19,754,0,0
+File_3=SourceModule,'C:\projects\OPOSShtrih\Source\SmFptrSrv\Units\oleMain.pas',0,1,1,52,4,0,0
+File_4=SourceModule,'C:\projects\OPOSShtrih\Source\OposTest\Fmu\fmuFptrMonitoring.pas',0,1,52,57,61,0,0
+File_5=SourceModule,'C:\program files (x86)\borland\delphi7\Comp\Indy10\Lib\Core\IdTCPClient.pas',0,1,132,53,138,0,0
+File_6=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterImpl.pas',0,1,1,1,1,0,0
+File_7=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\oleXmlParams.pas',0,1,1,1,1,0,0
+File_8=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\oleCashDrawer.pas',0,1,1,1,1,0,0
+File_9=SourceModule,'C:\projects\OPOSShtrih\Source\Shared\DebugUtils.pas',0,1,1,43,14,0,0
 
 [Modules]
 Count=0
@@ -22,20 +22,14 @@ FormOnTop=0
 [C:\projects\OPOSShtrih\Source\OposConfig\OposConfig.dpr]
 FormState=0
 FormOnTop=0
-SymbolFile=C:\projects\OPOSShtrih\Source\OposConfig\OposConfig.dsm
-ModSinceCompile=1
 
 [C:\projects\OPOSShtrih\Source\OposTest\OposTest.dpr]
 FormState=0
 FormOnTop=0
-SymbolFile=C:\projects\OPOSShtrih\Source\OposTest\OposTest.dsm
-ModSinceCompile=1
 
 [C:\projects\OPOSShtrih\Source\SmFiscalPrinter\SmFiscalPrinter.dpr]
 FormState=0
 FormOnTop=0
-SymbolFile=C:\projects\OPOSShtrih\Source\SmFiscalPrinter\SmFiscalPrinter.dsm
-ModSinceCompile=1
 
 [C:\projects\OPOSShtrih\Source\SmFiscalPrinter\SmFiscalPrinter.todo]
 FormState=0
@@ -48,8 +42,6 @@ FormOnTop=0
 [C:\projects\OPOSShtrih\Source\SmScale\SmScale.dpr]
 FormState=0
 FormOnTop=0
-SymbolFile=C:\projects\OPOSShtrih\Source\SmScale\SmScale.dsm
-ModSinceCompile=1
 
 [C:\projects\OPOSShtrih\Source\SmScale\SmScale.tlb]
 FormState=0
@@ -58,8 +50,6 @@ FormOnTop=0
 [C:\projects\OPOSShtrih\Source\SmFptrSrv\SmFptrSrv.dpr]
 FormState=0
 FormOnTop=0
-SymbolFile=C:\projects\OPOSShtrih\Source\SmFptrSrv\SmFptrSrv.dsm
-ModSinceCompile=1
 
 [C:\projects\OPOSShtrih\Source\SmFptrSrv\SmFptrSrv.tlb]
 FormState=0
@@ -68,50 +58,34 @@ FormOnTop=0
 [C:\projects\OPOSShtrih\Test\OposConfigTest\OposConfigTest.dpr]
 FormState=0
 FormOnTop=0
-SymbolFile=C:\projects\OPOSShtrih\Test\OposConfigTest\OposConfigTest.dsm
-ModSinceCompile=1
 
 [C:\projects\OPOSShtrih\Test\OposConfigTest\OposConfigTestLib.dpr]
 FormState=0
 FormOnTop=0
-SymbolFile=C:\projects\OPOSShtrih\Test\OposConfigTest\OposConfigTestLib.dsm
-ModSinceCompile=1
 
 [C:\projects\OPOSShtrih\Test\SmFiscalPrinterTest\SmFiscalPrinterTest.dpr]
 FormState=0
 FormOnTop=0
-SymbolFile=C:\projects\OPOSShtrih\Test\SmFiscalPrinterTest\SmFiscalPrinterTest.dsm
-ModSinceCompile=1
 
 [C:\projects\OPOSShtrih\Test\SmFiscalPrinterTest\SmFiscalPrinterTestLib.dpr]
 FormState=0
 FormOnTop=0
-SymbolFile=C:\projects\OPOSShtrih\Test\SmFiscalPrinterTest\SmFiscalPrinterTestLib.dsm
-ModSinceCompile=1
 
 [C:\projects\OPOSShtrih\Test\OposTestTest\OposTestTest.dpr]
 FormState=0
 FormOnTop=0
-SymbolFile=C:\projects\OPOSShtrih\Test\OposTestTest\OposTestTest.dsm
-ModSinceCompile=1
 
 [C:\projects\OPOSShtrih\Test\OposTestTest\OposTestTestLib.dpr]
 FormState=0
 FormOnTop=0
-SymbolFile=C:\projects\OPOSShtrih\Test\OposTestTest\OposTestTestLib.dsm
-ModSinceCompile=1
 
 [C:\projects\OPOSShtrih\Test\SmScaleTest\SmScaleTest.dpr]
 FormState=0
 FormOnTop=0
-SymbolFile=C:\projects\OPOSShtrih\Test\SmScaleTest\SmScaleTest.dsm
-ModSinceCompile=1
 
 [C:\projects\OPOSShtrih\Test\SmScaleTest\SmScaleTestLib.dpr]
 FormState=0
 FormOnTop=0
-SymbolFile=C:\projects\OPOSShtrih\Test\SmScaleTest\SmScaleTestLib.dsm
-ModSinceCompile=1
 
 [TypeLibEditWindow0]
 Create=1
@@ -124,7 +98,7 @@ Height=457
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=631
-ClientHeight=419
+ClientHeight=418
 Module=C:\projects\OPOSShtrih\Source\SmFiscalPrinter\SmFiscalPrinter.tlb
 
 [TypeLibEditWindow1]
@@ -138,7 +112,7 @@ Height=457
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=631
-ClientHeight=419
+ClientHeight=418
 Module=C:\projects\OPOSShtrih\Source\SmScale\SmScale.tlb
 
 [TypeLibEditWindow2]
@@ -152,7 +126,7 @@ Height=457
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=631
-ClientHeight=419
+ClientHeight=418
 Module=C:\projects\OPOSShtrih\Source\SmFptrSrv\SmFptrSrv.tlb
 
 [Watches]
@@ -171,20 +145,20 @@ Create=1
 Visible=0
 State=0
 Left=0
-Top=0
+Top=960
 Width=492
 Height=142
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=476
-ClientHeight=108
+ClientHeight=103
 TBDockHeight=180
 LRDockWidth=320
 Dockable=1
 
 [Breakpoints]
 Count=1
-Breakpoint0='C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterDevice.pas',3541,'',0,1,'',1,0,0,'',1,'','',''
+Breakpoint0='C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterDevice.pas',3544,'',0,1,'',1,0,0,'',1,'','',''
 
 [AddressBreakpoints]
 Count=0
@@ -192,30 +166,28 @@ Count=0
 [Main Window]
 Create=1
 Visible=1
-State=2
+State=0
 Left=9
-Top=10
-Width=1271
-Height=122
+Top=2
+Width=1280
+Height=123
 MaxLeft=-1
 MaxTop=-1
-MaxWidth=1296
-MaxHeight=122
-ClientWidth=1280
+ClientWidth=1264
 ClientHeight=84
 
 [ProjectManager]
 Create=1
-Visible=0
+Visible=1
 State=0
-Left=2
-Top=112
-Width=553
-Height=532
+Left=5
+Top=123
+Width=484
+Height=453
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=537
-ClientHeight=498
+ClientWidth=468
+ClientHeight=414
 TBDockHeight=681
 LRDockWidth=445
 Dockable=0
@@ -224,14 +196,14 @@ Dockable=0
 Create=1
 Visible=0
 State=0
-Left=197
-Top=182
+Left=17
+Top=219
 Width=965
 Height=723
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=949
-ClientHeight=685
+ClientHeight=684
 DumpPane=348
 DisassemblyPane=309
 RegisterPane=231
@@ -244,7 +216,7 @@ State=0
 Left=822
 Top=767
 Width=156
-Height=84
+Height=89
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=150
@@ -254,35 +226,35 @@ ClientHeight=60
 Create=1
 Visible=1
 State=0
-Left=-1
-Top=129
-Width=304
-Height=743
+Left=0
+Top=108
+Width=310
+Height=492
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=288
-ClientHeight=709
+ClientWidth=294
+ClientHeight=453
 TBDockHeight=681
 LRDockWidth=291
 Dockable=1
 SplitPos=122
 ArrangeBy=Name
 SelectedItem=
-ExpandedItems=Anchors,Attributes,BorderIcons,Font,Font.Style,Greeting,Options,PngOptions,ProviderFlags,TestModeInfo,Title,Title.Font,VisibleButtons
+ExpandedItems=Attributes,BorderIcons,Font,Font.Style,Greeting,Options,PngOptions,ProviderFlags,TestModeInfo,Title,Title.Font,VisibleButtons
 HiddenCategories=
 
 [BreakpointWindow]
 Create=1
 Visible=0
 State=0
-Left=86
-Top=293
+Left=84
+Top=235
 Width=835
-Height=351
+Height=613
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=819
-ClientHeight=317
+ClientHeight=574
 TBDockHeight=197
 LRDockWidth=737
 Dockable=1
@@ -300,12 +272,12 @@ State=0
 Left=0
 Top=12
 Width=632
-Height=362
+Height=357
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=632
-ClientHeight=362
-TBDockHeight=362
+ClientHeight=357
+TBDockHeight=357
 LRDockWidth=320
 Dockable=1
 
@@ -320,7 +292,7 @@ Height=189
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=544
-ClientHeight=155
+ClientHeight=150
 TBDockHeight=152
 LRDockWidth=320
 Dockable=1
@@ -333,14 +305,14 @@ Column3Width=76
 Create=1
 Visible=0
 State=0
-Left=0
-Top=122
+Left=-1
+Top=163
 Width=190
 Height=318
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=174
-ClientHeight=284
+ClientHeight=279
 TBDockHeight=318
 LRDockWidth=190
 Dockable=1
@@ -349,14 +321,14 @@ Dockable=1
 Create=1
 Visible=0
 State=0
-Left=6
-Top=138
+Left=0
+Top=110
 Width=779
-Height=819
+Height=814
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=763
-ClientHeight=785
+ClientHeight=775
 TBDockHeight=291
 LRDockWidth=445
 Dockable=1
@@ -372,7 +344,7 @@ Height=142
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=312
-ClientHeight=108
+ClientHeight=103
 TBDockHeight=192
 LRDockWidth=320
 Dockable=1
@@ -388,7 +360,7 @@ Height=536
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=745
-ClientHeight=502
+ClientHeight=497
 TBDockHeight=63
 LRDockWidth=470
 Dockable=1
@@ -406,13 +378,13 @@ Create=1
 Visible=0
 State=0
 Left=823
-Top=510
+Top=680
 Width=457
 Height=250
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=441
-ClientHeight=212
+ClientHeight=211
 RegisterPane=121
 FlagPane=59
 
@@ -427,7 +399,7 @@ Height=781
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1045
-ClientHeight=747
+ClientHeight=742
 TBDockHeight=137
 LRDockWidth=638
 Dockable=1
@@ -445,20 +417,20 @@ DockSiteType=0
 Create=1
 Visible=0
 State=0
-Left=294
-Top=652
+Left=406
+Top=206
 Width=648
 Height=408
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=632
-ClientHeight=374
+ClientHeight=369
 TBDockHeight=690
 LRDockWidth=328
 Dockable=1
 DockClients=CallStackWindow
-DockSiteData=0000040000000000760100000000000001780200000000000001000000008700000000000000010000000276010000000000000200000000780200000F00000043616C6C537461636B57696E646F770200000000F7010000000000000100000000080100000000000001000000008C010000000000000100000000100200000000000001000000009802000000000000FFFFFFFF
+DockSiteData=0000040000000000710100000000000001780200000000000001000000008700000000000000010000000271010000000000000200000000780200000F00000043616C6C537461636B57696E646F770200000000F7010000000000000100000000080100000000000001000000008C010000000000000100000000100200000000000001000000009802000000000000FFFFFFFF
 
 [ActiveProject]
-ActiveProject=1
+ActiveProject=3
 
