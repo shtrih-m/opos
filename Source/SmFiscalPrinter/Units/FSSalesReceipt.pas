@@ -1241,7 +1241,6 @@ begin
         PrintText2(AdditionalText);
 
       Printer.WaitForPrinting;
-      PrintBarcodes;
 
       if Device.CapFSCloseReceipt2 then
       begin
@@ -1275,6 +1274,7 @@ begin
         Printer.WaitForPrinting;
         PrintRecMessages(1);
         PrintRecMessages;
+        PrintBarcodes;
       except
         on E: Exception do
         begin

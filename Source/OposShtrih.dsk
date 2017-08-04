@@ -1,14 +1,14 @@
 [Closed Files]
-File_0=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterDevice.pas',0,1,1065,32,1078,0,0
-File_1=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\SocketPort.pas',0,1,1,22,4,0,0
-File_2=SourceModule,'c:\program files (x86)\borland\delphi7\Comp\Indy10\Lib\Core\IdTCPConnection.pas',0,1,739,19,754,0,0
-File_3=SourceModule,'C:\projects\OPOSShtrih\Source\SmFptrSrv\Units\oleMain.pas',0,1,1,52,4,0,0
-File_4=SourceModule,'C:\projects\OPOSShtrih\Source\OposTest\Fmu\fmuFptrMonitoring.pas',0,1,52,57,61,0,0
-File_5=SourceModule,'C:\program files (x86)\borland\delphi7\Comp\Indy10\Lib\Core\IdTCPClient.pas',0,1,132,53,138,0,0
-File_6=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterImpl.pas',0,1,1,1,1,0,0
-File_7=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\oleXmlParams.pas',0,1,1,1,1,0,0
-File_8=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\oleCashDrawer.pas',0,1,1,1,1,0,0
-File_9=SourceModule,'C:\projects\OPOSShtrih\Source\Shared\DebugUtils.pas',0,1,1,43,14,0,0
+File_0=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FSSalesReceipt.pas',0,1,1259,103,1278,0,0
+File_1=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterImpl.pas',0,1,4115,1,4117,0,0
+File_2=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterDevice.pas',0,1,1065,32,1078,0,0
+File_3=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\SocketPort.pas',0,1,1,22,4,0,0
+File_4=SourceModule,'c:\program files (x86)\borland\delphi7\Comp\Indy10\Lib\Core\IdTCPConnection.pas',0,1,739,19,754,0,0
+File_5=SourceModule,'C:\projects\OPOSShtrih\Source\SmFptrSrv\Units\oleMain.pas',0,1,1,52,4,0,0
+File_6=SourceModule,'C:\projects\OPOSShtrih\Source\OposTest\Fmu\fmuFptrMonitoring.pas',0,1,52,57,61,0,0
+File_7=SourceModule,'C:\program files (x86)\borland\delphi7\Comp\Indy10\Lib\Core\IdTCPClient.pas',0,1,132,53,138,0,0
+File_8=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\oleXmlParams.pas',0,1,1,1,1,0,0
+File_9=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\oleCashDrawer.pas',0,1,1,1,1,0,0
 
 [Modules]
 Count=0
