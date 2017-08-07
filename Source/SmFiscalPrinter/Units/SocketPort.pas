@@ -57,16 +57,21 @@ function GetSocketPort(const ARemoteHost: string; ARemotePort: Integer;
 var
   i: Integer;
 begin
-  for i := 0 to Ports.Count-1 do
-  begin
-    Result := IPrinterPort(Ports[i]);
-    if Result.PortName = ARemoteHost then
+  Ports.Lock;
+  try
+    for i := 0 to Ports.Count-1 do
     begin
-      Exit;
+      Result := IPrinterPort(Ports[i]);
+      if Result.PortName = ARemoteHost then
+      begin
+        Exit;
+      end;
     end;
+    Result := TSocketPort.Create(ARemoteHost, ARemotePort, ALogger);
+    Ports.Add(Result);
+  finally
+    Ports.Unlock;
   end;
-  Result := TSocketPort.Create(ARemoteHost, ARemotePort, ALogger);
-  Ports.Add(Result);
 end;
 
 { TSocketPort }

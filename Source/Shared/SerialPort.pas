@@ -89,16 +89,21 @@ function GetSerialPort(PortNumber: Integer; Logger: ILogFile): IPrinterPort;
 var
   i: Integer;
 begin
-  for i := 0 to Ports.Count-1 do
-  begin
-    Result := IPrinterPort(Ports[i]);
-    if Result.PortName = IntToStr(PortNumber) then
+  Ports.Lock;
+  try
+    for i := 0 to Ports.Count-1 do
     begin
-      Exit;
+      Result := IPrinterPort(Ports[i]);
+      if Result.PortName = IntToStr(PortNumber) then
+      begin
+        Exit;
+      end;
     end;
+    Result := TSerialPort.Create(PortNumber, Logger);
+    Ports.Add(Result);
+  finally
+    Ports.Unlock;
   end;
-  Result := TSerialPort.Create(PortNumber, Logger);
-  Ports.Add(Result);
 end;
 
 resourcestring
