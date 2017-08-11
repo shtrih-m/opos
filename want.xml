@@ -412,6 +412,18 @@ See http://www.suigeneris.org/want/ for details.
     <delete file="${basepath}/setup.iss" />
   </target>
 
+  <target name="makesetupns">
+    <echo input="${setup}/setup_template.iss" file="${basedir}/setup.iss"/>
+    <exec executable="iscc">
+      <arg value="Setup.iss" />
+      <arg value="/Q" />
+    </exec>
+    <move tofile="${basepath}/OposShtrih_${version2}_${build}.exe">
+      <include name="${basepath}/setup.exe" />
+    </move>
+    <delete file="${basepath}/setup.iss" />
+  </target>
+  
   <target name="build" >
     <ini file="release.ini" >
       <write section="releases" key="current" value="${version}" />
@@ -420,5 +432,6 @@ See http://www.suigeneris.org/want/ for details.
   </target>
 
   <target name="release" depends="clean,prepare,Test-SmFiscalPrinter,test-smscale,OposConfigTest,OposTestTest,Compile-OposConfig,Compile-OposTest,Compile-SmFptrSrv,compile-smscale,Compile-SmFiscalPrinter,sign,makesetup,finalclean"/>
+  <target name="buildns" depends="clean,prepare,Test-SmFiscalPrinter,test-smscale,OposConfigTest,OposTestTest,Compile-OposConfig,Compile-OposTest,Compile-SmFptrSrv,compile-smscale,Compile-SmFiscalPrinter,makesetupns,finalclean"/>
   
 </project>

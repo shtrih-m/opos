@@ -54,7 +54,6 @@ type
     procedure PrintDiscounts;
     function GetTax(const ItemName: string; Tax: Integer): Integer;
     function GetCapReceiptDiscount2: Boolean;
-    procedure PrintBarcodes;
     procedure PrintText2(const Text: string);
     procedure PrintFSSale(Item: TFSSaleItem);
     procedure AddTextItem(const Text: string; Station: Integer);
@@ -958,6 +957,10 @@ begin
     begin
       Printer.PrintText((ReceiptItem as TTextReceiptItem).Data);
     end;
+    if ReceiptItem is TBarcodeReceiptItem then
+    begin
+      Device.PrintBarcode2((ReceiptItem as TBarcodeReceiptItem).Data);
+    end;
   end;
   // Write tags after all items
   for i := 0 to FReceiptItems.Count-1 do
@@ -972,21 +975,6 @@ begin
   if Parameters.RecPrintType = RecPrintTypeTemplate then
   begin
     Printer.Printer.PrintText(Parameters.ReceiptItemsTrailer);
-  end;
-end;
-
-procedure TFSSalesReceipt.PrintBarcodes;
-var
-  i: Integer;
-  ReceiptItem: TReceiptItem;
-begin
-  for i := 0 to FReceiptItems.Count-1 do
-  begin
-    ReceiptItem := ReceiptItems[i];
-    if ReceiptItem is TBarcodeReceiptItem then
-    begin
-      Device.PrintBarcode2((ReceiptItem as TBarcodeReceiptItem).Data);
-    end;
   end;
 end;
 
@@ -1274,7 +1262,6 @@ begin
         Printer.WaitForPrinting;
         PrintRecMessages(1);
         PrintRecMessages;
-        PrintBarcodes;
       except
         on E: Exception do
         begin

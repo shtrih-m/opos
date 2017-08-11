@@ -1,22 +1,28 @@
 [Closed Files]
-File_0=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterImpl.pas',0,1,804,30,814,0,0
-File_1=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\SharedPrinter.pas',0,1,245,1,275,0,0
-File_2=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\SocketPort.pas',0,1,49,2,72,0,0
-File_3=SourceModule,'C:\projects\OPOSShtrih\Source\Shared\SerialPort.pas',0,1,1,66,12,0,0
-File_4=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\PrinterDeviceFilter.pas',0,1,41,14,52,0,0
-File_5=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\ReceiptPrinter.pas',0,1,69,17,80,0,0
-File_6=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\PrinterProtocol2.pas',0,1,1,54,18,0,0
-File_7=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\DCOMConnection.pas',0,1,1,17,14,0,0
-File_8=SourceModule,'C:\projects\OPOSShtrih\Source\Shared\LogFile.pas',0,1,39,10,50,0,0
-File_9=SourceModule,'C:\projects\OPOSShtrih\Source\Opos\OposFiscalPrinterNCR.pas',0,1,1,23,11,0,0
+File_0=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\DirectIOAPI.pas',0,1,1,94,9,0,0
+File_1=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterImpl.pas',0,1,2585,28,2609,0,0
+File_2=SourceModule,'C:\projects\OPOSShtrih\Source\Opos\OposFptr.pas',0,1,239,70,249,0,0
+File_3=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FSSalesReceipt.pas',0,1,1,26,5,0,0
+File_4=SourceModule,'C:\projects\OPOSShtrih\Source\SmFptrSrv\Units\oleMain.pas',0,1,1,1,1,0,0
+File_5=SourceModule,'C:\projects\OPOSShtrih\Source\Shared\DIOHandlers.pas',0,1,1164,1,1169,0,0
+File_6=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\SocketPort.pas',0,1,177,35,193,0,0
+File_7=SourceModule,'C:\projects\OPOSShtrih\Source\Shared\SerialPort.pas',0,1,76,20,86,0,0
+File_8=SourceModule,'c:\program files (x86)\borland\delphi7\source\rtl\common\classes.pas',0,1,248,71,250,0,0
+File_9=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\SharedPrinter.pas',0,1,245,1,275,0,0
 
 [Modules]
-Module0=C:\projects\OPOSShtrih\Test\SmScaleTest\SmScaleTestLib.dpr
-Count=1
+Module0=c:\program files (x86)\borland\delphi7\Comp\TntUnicodeControls_2.3.0\Source\TntClasses.pas
+Module1=C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\CsvPrinterTableFormat.pas
+Count=2
 EditWindowCount=1
 TypeLibWindowCount=3
 
-[C:\projects\OPOSShtrih\Test\SmScaleTest\SmScaleTestLib.dpr]
+[c:\program files (x86)\borland\delphi7\Comp\TntUnicodeControls_2.3.0\Source\TntClasses.pas]
+ModuleType=SourceModule
+FormState=0
+FormOnTop=0
+
+[C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\CsvPrinterTableFormat.pas]
 ModuleType=SourceModule
 FormState=0
 FormOnTop=0
@@ -89,35 +95,49 @@ FormOnTop=0
 FormState=0
 FormOnTop=0
 
+[C:\projects\OPOSShtrih\Test\SmScaleTest\SmScaleTestLib.dpr]
+FormState=0
+FormOnTop=0
+
 [EditWindow0]
-ViewCount=1
-CurrentView=0
+ViewCount=2
+CurrentView=1
 View0=0
+View1=1
 CodeExplorer=CodeExplorer@EditWindow0
 MessageView=MessageView@EditWindow0
 Create=1
 Visible=1
-State=0
+State=2
 Left=320
 Top=150
 Width=868
 Height=646
-MaxLeft=-1
-MaxTop=-1
-ClientWidth=852
-ClientHeight=607
+MaxLeft=-8
+MaxTop=117
+MaxWidth=1296
+MaxHeight=833
+ClientWidth=1280
+ClientHeight=794
 LeftPanelSize=0
 LeftPanelClients=CodeExplorer@EditWindow0
 LeftPanelData=00000400010000000C000000436F64654578706C6F7265720000000000000000000000000000000000FFFFFFFF
 RightPanelSize=0
-BottomPanelSize=0
+BottomPanelSize=85
 BottomPanelClients=MessageView@EditWindow0
-BottomPanelData=00000400010000000B0000004D657373616765566965770000000000000000000000000000000000FFFFFFFF
+BottomPanelData=000004000000000000000000000000000000000000000000000100000000000000000B0000004D65737361676556696577FFFFFFFF
 
 [View0]
-Module=C:\projects\OPOSShtrih\Test\SmScaleTest\SmScaleTestLib.dpr
-CursorX=1
-CursorY=1
+Module=C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\CsvPrinterTableFormat.pas
+CursorX=19
+CursorY=126
+TopLine=108
+LeftCol=1
+
+[View1]
+Module=c:\program files (x86)\borland\delphi7\Comp\TntUnicodeControls_2.3.0\Source\TntClasses.pas
+CursorX=108
+CursorY=6
 TopLine=1
 LeftCol=1
 
@@ -201,7 +221,7 @@ Count=0
 Create=1
 Visible=1
 State=0
-Left=9
+Left=0
 Top=2
 Width=1280
 Height=123
@@ -216,12 +236,12 @@ Visible=1
 State=0
 Left=5
 Top=123
-Width=484
-Height=453
+Width=521
+Height=534
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=468
-ClientHeight=414
+ClientWidth=505
+ClientHeight=495
 TBDockHeight=681
 LRDockWidth=445
 Dockable=0
@@ -258,7 +278,7 @@ ClientHeight=60
 
 [PropertyInspector]
 Create=1
-Visible=1
+Visible=0
 State=0
 Left=0
 Top=108
@@ -461,15 +481,15 @@ Dockable=1
 
 [MessageView@EditWindow0]
 Create=1
-Visible=0
+Visible=1
 State=0
-Left=-130
-Top=-681
-Width=443
+Left=12
+Top=0
+Width=1268
 Height=85
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=443
+ClientWidth=1268
 ClientHeight=85
 TBDockHeight=85
 LRDockWidth=443

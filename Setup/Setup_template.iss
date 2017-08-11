@@ -8,7 +8,7 @@ AppSupportURL=http://www.shtrih-m.ru
 AppUpdatesURL=http://www.shtrih-m.ru
 AppContact=т.(495) 787-6090
 AppReadmeFile=History.txt
-AppCopyright="Copyright, 2015 SHTRIH-M"
+AppCopyright="Copyright, 2017 SHTRIH-M"
 ;Версия
 VersionInfoCompany="SHTRIH-M"
 VersionInfoDescription="OPOS fiscal printer driver"
