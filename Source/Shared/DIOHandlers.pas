@@ -762,6 +762,30 @@ type
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
+  { TDIOFSFiscalize }
+
+  TDIOFSFiscalize = class(TDIOHandler)
+  private
+    FPrinter: TFiscalPrinterImpl;
+  public
+    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
+      APrinter: TFiscalPrinterImpl);
+
+    procedure DirectIO(var pData: Integer; var pString: WideString); override;
+  end;
+
+  { TDIOFSReFiscalize }
+
+  TDIOFSReFiscalize = class(TDIOHandler)
+  private
+    FPrinter: TFiscalPrinterImpl;
+  public
+    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
+      APrinter: TFiscalPrinterImpl);
+
+    procedure DirectIO(var pData: Integer; var pString: WideString); override;
+  end;
+
 implementation
 
 function BoolToStr(Value: Boolean): string;
@@ -2295,6 +2319,53 @@ procedure TDIOReadCashDrawerState.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
   pData := BoolToInt[FPrinter.Device.GetPrinterStatus.Flags.DrawerOpened];
+end;
+
+{ TDIOFSFiscalize }
+
+constructor TDIOFSFiscalize.CreateCommand(AOwner: TDIOHandlers;
+  ACommand: Integer; APrinter: TFiscalPrinterImpl);
+begin
+  inherited Create(AOwner, ACommand);
+  FPrinter := APrinter;
+end;
+
+procedure TDIOFSFiscalize.DirectIO(var pData: Integer;
+  var pString: WideString);
+var
+  P: TFSFiscalization;
+  R: TFDDocument;
+begin
+  P.TaxID := GetString(pString, 1, ValueDelimiters);
+  P.RegID := GetString(pString, 2, ValueDelimiters);
+  P.TaxCode := GetInteger(pString, 3, ValueDelimiters);
+  P.WorkMode := GetInteger(pString, 4, ValueDelimiters);
+  FPrinter.Device.Check(FPrinter.Device.FSFiscalization(P, R));
+  pString := Format('%s;%s', [IntToStr(R.DocNumber), IntToStr(R.DocMac)]);
+end;
+
+{ TDIOFSReFiscalize }
+
+constructor TDIOFSReFiscalize.CreateCommand(AOwner: TDIOHandlers;
+  ACommand: Integer; APrinter: TFiscalPrinterImpl);
+begin
+  inherited Create(AOwner, ACommand);
+  FPrinter := APrinter;
+end;
+
+procedure TDIOFSReFiscalize.DirectIO(var pData: Integer;
+  var pString: WideString);
+var
+  P: TFSReFiscalization;
+  R: TFDDocument;
+begin
+  P.TaxID := GetString(pString, 1, ValueDelimiters);
+  P.RegID := GetString(pString, 2, ValueDelimiters);
+  P.TaxCode := GetInteger(pString, 3, ValueDelimiters);
+  P.WorkMode := GetInteger(pString, 4, ValueDelimiters);
+  P.ReasonCode := GetInteger(pString, 5, ValueDelimiters);
+  FPrinter.Device.Check(FPrinter.Device.FSReFiscalization(P, R));
+  pString := Format('%s;%s', [IntToStr(R.DocNumber), IntToStr(R.DocMac)]);
 end;
 
 end.

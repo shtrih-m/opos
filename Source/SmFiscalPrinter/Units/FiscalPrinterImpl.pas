@@ -667,6 +667,8 @@ begin
   TDIOFSPrintCalcReport.CreateCommand(FDIOHandlers, DIO_FS_PRINT_CALC_REPORT, Self);
   TDIOOpenCashDrawer.CreateCommand(FDIOHandlers, DIO_OPEN_CASH_DRAWER, Self);
   TDIOReadCashDrawerState.CreateCommand(FDIOHandlers, DIO_READ_CASH_DRAWER_STATE, Self);
+  TDIOFSFiscalize.CreateCommand(FDIOHandlers, DIO_FS_FISCALIZE, Self);
+  TDIOFSReFiscalize.CreateCommand(FDIOHandlers, DIO_FS_REFISCALIZE, Self);
 end;
 
 procedure TFiscalPrinterImpl.CreateDIOHandlers1;
@@ -725,6 +727,8 @@ begin
   TDIOFSPrintCalcReport.CreateCommand(FDIOHandlers, DIO_FS_PRINT_CALC_REPORT, Self);
   TDIOOpenCashDrawer.CreateCommand(FDIOHandlers, DIO_OPEN_CASH_DRAWER, Self);
   TDIOReadCashDrawerState.CreateCommand(FDIOHandlers, DIO_READ_CASH_DRAWER_STATE, Self);
+  TDIOFSFiscalize.CreateCommand(FDIOHandlers, DIO_FS_FISCALIZE, Self);
+  TDIOFSReFiscalize.CreateCommand(FDIOHandlers, DIO_FS_REFISCALIZE, Self);
 end;
 
 procedure TFiscalPrinterImpl.CreateDIOHandlers2;
@@ -784,6 +788,8 @@ begin
   TDIOFSPrintCalcReport.CreateCommand(FDIOHandlers, DIO_FS_PRINT_CALC_REPORT, Self);
   TDIOOpenCashDrawer.CreateCommand(FDIOHandlers, DIO_OPEN_CASH_DRAWER, Self);
   TDIOReadCashDrawerState.CreateCommand(FDIOHandlers, DIO_READ_CASH_DRAWER_STATE, Self);
+  TDIOFSFiscalize.CreateCommand(FDIOHandlers, DIO_FS_FISCALIZE, Self);
+  TDIOFSReFiscalize.CreateCommand(FDIOHandlers, DIO_FS_REFISCALIZE, Self);
 end;
 
 procedure TFiscalPrinterImpl.SetPrinter(APrinter: ISharedPrinter);

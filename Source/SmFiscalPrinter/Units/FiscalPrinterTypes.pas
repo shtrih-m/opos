@@ -442,6 +442,8 @@ type
     procedure CancelReceipt;
     function ReadLoaderVersion(var Version: string): Integer;
     function GetCapFSCloseReceipt2: Boolean;
+    function FSFiscalization(const P: TFSFiscalization; var R: TFDDocument): Integer;
+    function FSReFiscalization(const P: TFSReFiscalization; var R: TFDDocument): Integer;
 
     property IsOnline: Boolean read GetIsOnline;
     property Model: TPrinterModelRec read GetModel;

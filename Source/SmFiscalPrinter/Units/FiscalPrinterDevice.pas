@@ -400,6 +400,8 @@ type
     function IsRecOpened: Boolean;
     function GetCapSubtotalRound: Boolean;
     function ReadParameters2(var R: TPrinterParameters2): Integer;
+    function FSFiscalization(const P: TFSFiscalization; var R: TFDDocument): Integer;
+    function FSReFiscalization(const P: TFSReFiscalization; var R: TFDDocument): Integer;
 
     property IsOnline: Boolean read GetIsOnline;
     property Tables: TPrinterTables read FTables;
@@ -7765,6 +7767,66 @@ begin
     R.Flags.CapEJ5 := TestBit(R.FlagsValue, 40);                // 40 – Поддержка ЭКЛЗ5
     R.Flags.CapScaleGraphics := TestBit(R.FlagsValue, 41);      // 41 – Печать графики с масштабированием (команда 4FH)
     R.Flags.CapGraphics512 := TestBit(R.FlagsValue, 42);        // 42 – Загрузка и печать графики-512 (команды 4DH, 4EH)
+  end;
+end;
+
+(******************************************************************************
+  Сформировать отчёт о регистрации ККТ
+
+  Код команды FF06h . Длина сообщения: 40 байт.
+  Пароль системного администратора: 4 байта
+  ИНН : 12 байт ASCII
+  Регистрационный номер ККТ: 20 байт ASCII
+  Код налогообложения: 1 байт
+  Режим работы: 1 байт
+
+  Ответ: FF06h Длина сообщения: 9 байт.
+  Код ошибки: 1 байт
+  Номер ФД: 4 байта
+  Фискальный признак: 4 байта
+
+******************************************************************************)
+
+function TFiscalPrinterDevice.FSFiscalization(const P: TFSFiscalization;
+  var R: TFDDocument): Integer;
+var
+  Answer: string;
+  Command: string;
+begin
+  Command := #$FF#$06 +
+    IntToBin(GetSysPassword, 4) +
+    AddTrailingSpaces(P.TaxID, 12) +
+    AddTrailingSpaces(P.RegID, 20) +
+    Chr(P.TaxCode) +
+    Chr(P.WorkMode);
+  Result := ExecuteData(Command, Answer);
+  if Result = 0 then
+  begin
+    CheckMinLength(Answer, 8);
+    R.DocNumber := BinToInt(Answer, 1, 4);
+    R.DocMac := BinToInt(Answer, 5, 4);
+  end;
+end;
+
+function TFiscalPrinterDevice.FSReFiscalization(const P: TFSReFiscalization;
+  var R: TFDDocument): Integer;
+var
+  Answer: string;
+  Command: string;
+begin
+  Command := #$FF#$34 +
+    IntToBin(GetSysPassword, 4) +
+    AddTrailingSpaces(P.TaxID, 12) +
+    AddTrailingSpaces(P.RegID, 20) +
+    Chr(P.TaxCode) +
+    Chr(P.WorkMode) +
+    Chr(P.ReasonCode);
+  Result := ExecuteData(Command, Answer);
+  if Result = 0 then
+  begin
+    CheckMinLength(Answer, 8);
+    R.DocNumber := BinToInt(Answer, 1, 4);
+    R.DocMac := BinToInt(Answer, 5, 4);
   end;
 end;
 

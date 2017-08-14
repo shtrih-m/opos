@@ -280,6 +280,8 @@ type
     function GetCapDiscount: Boolean;
     function ReadLoaderVersion(var Version: string): Integer;
     procedure CancelReceipt;
+    function FSFiscalization(const P: TFSFiscalization; var R: TFDDocument): Integer;
+    function FSReFiscalization(const P: TFSReFiscalization; var R: TFDDocument): Integer;
 
     property RecStation: TStrings read FRecStation;
     property JrnStation: TStrings read FJrnStation;
@@ -1631,6 +1633,18 @@ end;
 
 function TTextFiscalPrinterDevice.ReceiptClose2(
   const P: TFSCloseReceiptParams2; var R: TFSCloseReceiptResult2): Integer;
+begin
+  Result := 0;
+end;
+
+function TTextFiscalPrinterDevice.FSFiscalization(
+  const P: TFSFiscalization; var R: TFDDocument): Integer;
+begin
+  Result := 0;
+end;
+
+function TTextFiscalPrinterDevice.FSReFiscalization(
+  const P: TFSReFiscalization; var R: TFDDocument): Integer;
 begin
   Result := 0;
 end;

@@ -32,6 +32,7 @@ function BoolToStr2(Value: Boolean): string;
 function StrToBool(const Value: string): Boolean;
 function TrimText(const Text: string; MaxWidth: Integer): string;
 function AmountToStr(Value: Currency): string;
+function AddTrailingSpaces(const S: string; Len: Integer): string;
 
 
 implementation
@@ -316,6 +317,12 @@ begin
   FormatSettings.DecimalSeparator := '.';
   FormatSettings.ThousandSeparator := #0;
   Result := FormatFloat('0.00', Value, FormatSettings);
+end;
+
+function AddTrailingSpaces(const S: string; Len: Integer): string;
+begin
+  Result := Copy(S, 1, Len);
+  Result := Result + StringOfChar(' ', Len - Length(Result));
 end;
 
 

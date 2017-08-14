@@ -58,6 +58,8 @@ const
   DIO_FS_PRINT_CALC_REPORT      = 49; // FS print calculations report
   DIO_OPEN_CASH_DRAWER          = 50; // Open cash drawer
   DIO_READ_CASH_DRAWER_STATE    = 51; // Read cash drawer state
+  DIO_FS_FISCALIZE              = 52; // Print FS fiscalization report
+  DIO_FS_REFISCALIZE            = 53; // Print FS refiscalization report
 
   DIO_PRINT_TEXT2                = 1000;  // print text
 

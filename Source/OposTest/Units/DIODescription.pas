@@ -20,7 +20,7 @@ const
   CRLF = #13#10;
   DIO_CUSTOM_COMMAND = $FFFF;
 
-  DIODescriptions: array[1..30] of TDirectIODescription = (
+  DIODescriptions: array[1..32] of TDirectIODescription = (
     (Command: DIO_COMMAND_PRINTER_XML;
      Description: 'XML command';
      DescriptionEx:  'Data: Printer command code' + #13#10 +
@@ -179,8 +179,32 @@ const
     (Command: DIO_READ_CASH_DRAWER_STATE;
      Description: 'Read cash drawer state';
      DescriptionEx: 'Data: return state (0 - closed, 1 - opened)' + CRLF +
-     'String: not used';)
+     'String: not used';),
 
+    (Command: DIO_FS_FISCALIZE;
+     Description: 'FS fiscalization';
+     DescriptionEx: 'Data: not used' + CRLF +
+     '[in] String: ' + CRLF +
+     'taxID - string 12 chars' + CRLF +
+     'regID - string 20 chars' + CRLF +
+     'TaxCode - byte' + CRLF +
+     'WorkMode - byte' + CRLF +
+     '[out] String: ' + CRLF +
+     'DocNumber - document number' + CRLF +
+     'DocMac - document authentication code';),
+
+    (Command: DIO_FS_REFISCALIZE;
+     Description: 'FS refiscalization';
+     DescriptionEx: 'Data: not used' + CRLF +
+     '[in] String: ' + CRLF +
+     'taxID - string 12 chars' + CRLF +
+     'regID - string 20 chars' + CRLF +
+     'TaxCode - byte' + CRLF +
+     'WorkMode - byte' + CRLF +
+     'code - refiscalization code' + CRLF +
+     '[out] String: ' + CRLF +
+     'DocNumber - document number' + CRLF +
+     'DocMac - document authentication code';)
   );
 
 function GetDIODescription(ADIOCommand: Integer): TDirectIODescription;

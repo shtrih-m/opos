@@ -1123,6 +1123,32 @@ type
     Flags: TPrinterParameters2Flags;
   end;
 
+  { TFSFiscalization }
+
+  TFSFiscalization = record
+    TaxID: string;
+    RegID: string;
+    TaxCode: Byte;
+    WorkMode: Byte;
+  end;
+
+  { TFSReFiscalization }
+
+  TFSReFiscalization = record
+    TaxID: string;
+    RegID: string;
+    TaxCode: Byte;
+    WorkMode: Byte;
+    ReasonCode: Byte;
+  end;
+
+  { TFDDocument }
+
+  TFDDocument = record
+    DocNumber: DWORD;
+    DocMac: DWORD;
+  end;
+
 function GetCommandName(Command: Integer): string;
 function GetModeDescription(Value: Integer): string;
 function GetDeviceCodeDescription(Value: Integer): string;

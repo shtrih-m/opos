@@ -278,6 +278,8 @@ type
     function FSSale2(const P: TFSSale2): Integer;
     function GetCapFSCloseReceipt2: Boolean;
     procedure CancelReceipt;
+    function FSFiscalization(const P: TFSFiscalization; var R: TFDDocument): Integer;
+    function FSReFiscalization(const P: TFSReFiscalization; var R: TFDDocument): Integer;
 
     property Status: TPrinterStatus read FStatus write FStatus;
     property Parameters: TPrinterParameters read GetParameters;
@@ -1616,6 +1618,18 @@ end;
 
 function TMockFiscalPrinterDevice.ReceiptClose2(
   const P: TFSCloseReceiptParams2; var R: TFSCloseReceiptResult2): Integer;
+begin
+  Result := 0;
+end;
+
+function TMockFiscalPrinterDevice.FSFiscalization(
+  const P: TFSFiscalization; var R: TFDDocument): Integer;
+begin
+  Result := 0;
+end;
+
+function TMockFiscalPrinterDevice.FSReFiscalization(
+  const P: TFSReFiscalization; var R: TFDDocument): Integer;
 begin
   Result := 0;
 end;
