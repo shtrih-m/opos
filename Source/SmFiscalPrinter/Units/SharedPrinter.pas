@@ -1232,10 +1232,6 @@ procedure TSharedPrinter.UpdateStatus;
 begin
   FStatus := GetPrinterStatus;
   FStatusLinks.DoNotify;
-  if FStatus.AdvancedMode = AMODE_AFTER then
-  begin
-    WaitForPrinting;
-  end;
 end;
 
 function TSharedPrinter.GetStatus: TPrinterStatus;

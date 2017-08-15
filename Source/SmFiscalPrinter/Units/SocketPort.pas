@@ -120,8 +120,8 @@ begin
     begin
       FConnection.IOHandler.InputBuffer.Clear;
     end;
-    FConnection.Free;
-    FConnection := TIdTCPClient.Create;
+    //FConnection.Free;
+    //FConnection := TIdTCPClient.Create;
   except
     on E: Exception do
       Logger.Error(E.Message);
@@ -155,6 +155,7 @@ var
   C: Char;
   i: Integer;
 begin
+  Open;
   Result := '';
   try
     for i := 1 to Count do
@@ -173,6 +174,7 @@ end;
 
 function TSocketPort.ReadChar(var C: Char): Boolean;
 begin
+  Open;
   Result := True;
   try
     C := Chr(FConnection.Socket.ReadByte());
@@ -187,7 +189,7 @@ end;
 
 procedure TSocketPort.SetCmdTimeout(Value: DWORD);
 begin
-  FConnection.Socket.ReadTimeout := Value;
+  FConnection.ReadTimeout := Value;
 end;
 
 function TSocketPort.GetTimeout: DWORD;

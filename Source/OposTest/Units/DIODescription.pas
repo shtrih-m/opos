@@ -20,7 +20,7 @@ const
   CRLF = #13#10;
   DIO_CUSTOM_COMMAND = $FFFF;
 
-  DIODescriptions: array[1..32] of TDirectIODescription = (
+  DIODescriptions: array[1..33] of TDirectIODescription = (
     (Command: DIO_COMMAND_PRINTER_XML;
      Description: 'XML command';
      DescriptionEx:  'Data: Printer command code' + #13#10 +
@@ -204,7 +204,12 @@ const
      'code - refiscalization code' + CRLF +
      '[out] String: ' + CRLF +
      'DocNumber - document number' + CRLF +
-     'DocMac - document authentication code';)
+     'DocMac - document authentication code';),
+
+    (Command: DIO_GET_PRINT_WIDTH;
+     Description: 'Get print width';
+     DescriptionEx: 'Data: font number 1..7' + CRLF +
+     '[out] String: print width';)
   );
 
 function GetDIODescription(ADIOCommand: Integer): TDirectIODescription;

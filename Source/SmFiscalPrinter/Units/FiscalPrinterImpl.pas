@@ -669,6 +669,7 @@ begin
   TDIOReadCashDrawerState.CreateCommand(FDIOHandlers, DIO_READ_CASH_DRAWER_STATE, Self);
   TDIOFSFiscalize.CreateCommand(FDIOHandlers, DIO_FS_FISCALIZE, Self);
   TDIOFSReFiscalize.CreateCommand(FDIOHandlers, DIO_FS_REFISCALIZE, Self);
+  TDIOGetPrintWidth.CreateCommand(FDIOHandlers, DIO_GET_PRINT_WIDTH, Self);
 end;
 
 procedure TFiscalPrinterImpl.CreateDIOHandlers1;
@@ -729,6 +730,7 @@ begin
   TDIOReadCashDrawerState.CreateCommand(FDIOHandlers, DIO_READ_CASH_DRAWER_STATE, Self);
   TDIOFSFiscalize.CreateCommand(FDIOHandlers, DIO_FS_FISCALIZE, Self);
   TDIOFSReFiscalize.CreateCommand(FDIOHandlers, DIO_FS_REFISCALIZE, Self);
+  TDIOGetPrintWidth.CreateCommand(FDIOHandlers, DIO_GET_PRINT_WIDTH, Self);
 end;
 
 procedure TFiscalPrinterImpl.CreateDIOHandlers2;
@@ -790,6 +792,7 @@ begin
   TDIOReadCashDrawerState.CreateCommand(FDIOHandlers, DIO_READ_CASH_DRAWER_STATE, Self);
   TDIOFSFiscalize.CreateCommand(FDIOHandlers, DIO_FS_FISCALIZE, Self);
   TDIOFSReFiscalize.CreateCommand(FDIOHandlers, DIO_FS_REFISCALIZE, Self);
+  TDIOGetPrintWidth.CreateCommand(FDIOHandlers, DIO_GET_PRINT_WIDTH, Self);
 end;
 
 procedure TFiscalPrinterImpl.SetPrinter(APrinter: ISharedPrinter);
@@ -1552,6 +1555,7 @@ var
   Flags: TPrinterFlags;
   Status: TPrinterStatus;
 begin
+  Logger.Debug('StatusChanged.0');
   try
     Status := Printer.Status;
     Flags := Status.Flags;
@@ -1559,10 +1563,16 @@ begin
     SetJrnPaperState(Flags.JrnEmpty, Flags.JrnNearEnd);
     SetCoverState(Flags.CoverOpened);
     FDayOpened := Device.IsDayOpened(Status.Mode);
+    if Status.AdvancedMode = AMODE_AFTER then
+    begin
+      WaitForPrinting;
+      PrintNonFiscalEnd;
+    end;
   except
     on E: Exception do
       Logger.Error('TFiscalPrinterImpl.StatusChanged', E);
   end;
+  Logger.Debug('StatusChanged.1');
 end;
 
 procedure TFiscalPrinterImpl.InternalInit;

@@ -786,6 +786,18 @@ type
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
+  { TDIOGetPrintWidth }
+
+  TDIOGetPrintWidth = class(TDIOHandler)
+  private
+    FPrinter: TFiscalPrinterImpl;
+  public
+    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
+      APrinter: TFiscalPrinterImpl);
+
+    procedure DirectIO(var pData: Integer; var pString: WideString); override;
+  end;
+
 implementation
 
 function BoolToStr(Value: Boolean): string;
@@ -2366,6 +2378,21 @@ begin
   P.ReasonCode := GetInteger(pString, 5, ValueDelimiters);
   FPrinter.Device.Check(FPrinter.Device.FSReFiscalization(P, R));
   pString := Format('%s;%s', [IntToStr(R.DocNumber), IntToStr(R.DocMac)]);
+end;
+
+{ TDIOGetPrintWidth }
+
+constructor TDIOGetPrintWidth.CreateCommand(AOwner: TDIOHandlers;
+  ACommand: Integer; APrinter: TFiscalPrinterImpl);
+begin
+  inherited Create(AOwner, ACommand);
+  FPrinter := APrinter;
+end;
+
+procedure TDIOGetPrintWidth.DirectIO(var pData: Integer;
+  var pString: WideString);
+begin
+  pString := IntToStr(FPrinter.Device.GetPrintWidth(pData));
 end;
 
 end.

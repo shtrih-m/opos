@@ -164,7 +164,6 @@ uses
   FSService in 'Units\FSService.pas',
   DriverContext in 'Units\DriverContext.pas',
   TextParser in 'Units\TextParser.pas',
-  IdTCPClient in '..\..\..\..\program files (x86)\borland\delphi7\Comp\Indy10\Lib\Core\IdTCPClient.pas',
   PrinterPort in 'Units\PrinterPort.pas',
   PrinterProtocol1 in 'Units\PrinterProtocol1.pas';
 

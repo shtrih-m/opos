@@ -60,6 +60,7 @@ const
   DIO_READ_CASH_DRAWER_STATE    = 51; // Read cash drawer state
   DIO_FS_FISCALIZE              = 52; // Print FS fiscalization report
   DIO_FS_REFISCALIZE            = 53; // Print FS refiscalization report
+  DIO_GET_PRINT_WIDTH           = 54; // Get print width
 
   DIO_PRINT_TEXT2                = 1000;  // print text
 

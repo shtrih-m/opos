@@ -33,6 +33,35 @@ function PowerNotifyToStr(Value: Integer): string;
 
 const
   CRLF = #13#10;
+
+  S_OPOS_OR_ALREADYOPEN = 'Управляющий объект уже открыт';
+  S_OPOS_OR_REGBADNAME = 'В реестре нет ключа для этого имени устройства';
+  S_OPOS_OR_REGPROGID =
+    'Невозможно прочитать значение по умолчанию для ключа устройства, или' + CRLF +
+    'невозможно преобразовать Prog ID в Class ID';
+  S_OPOS_OR_CREATE =
+    'Невозможно создать сервисный объект, или ' + CRLF +
+    'невозможно получить у него интерфейс IDispatch';
+  S_OPOS_OR_BADIF =
+    'Сервисный объект не поддерживает один или несколько методов, ' + CRLF +
+    'необходимых для номера релиза';
+  S_OPOS_OR_FAILEDOPEN =
+    'Сервисный объект вернул ошибку при открытии, ' + CRLF +
+    'но более подробная информация об ошибке отсутствует';
+  S_OPOS_OR_BADVERSION =
+    'Старшая версия сервисного объекта не 1';
+  S_OPOS_ORS_NOPORT =
+    'Доступ к порту требуется при открытии, но порт недоступен или неверно задан';
+  S_OPOS_ORS_NOTSUPPORTED =
+    'Сервисный объект не поддерживает устройство';
+  S_OPOS_ORS_CONFIG =
+    'Неверная конфигурация';
+  S_OPOS_ORS_SPECIFIC =
+    'Ошибки больше этого значения относятся к сервисному объекту';
+
+  S_UNKNOWN_CODE = 'Неизвестный код';
+
+(*
   S_OPOS_OR_ALREADYOPEN = 'Control Object already open';
   S_OPOS_OR_REGBADNAME =
     'The registry does not contain a key for the specified device name';
@@ -61,6 +90,7 @@ const
     'Errors greater than this value are SO-specific';
 
   S_UNKNOWN_CODE = 'Unknown code';
+*)
 
 implementation
 

@@ -141,7 +141,8 @@ type
     function Execute(const Data: string): string;
     function ExecuteStream(Stream: TBinStream): Integer;
     function ExecutePrinterCommand(Command: TPrinterCommand): Integer;
-    function GetPrintWidth: Integer;
+    function GetPrintWidth: Integer; overload;
+    function GetPrintWidth(Font: Integer): Integer; overload;
     function GetSysPassword: DWORD;
     function GetTaxPassword: DWORD;
     function GetUsrPassword: DWORD;
@@ -1630,6 +1631,11 @@ end;
 
 function TMockFiscalPrinterDevice.FSReFiscalization(
   const P: TFSReFiscalization; var R: TFDDocument): Integer;
+begin
+  Result := 0;
+end;
+
+function TMockFiscalPrinterDevice.GetPrintWidth(Font: Integer): Integer;
 begin
   Result := 0;
 end;

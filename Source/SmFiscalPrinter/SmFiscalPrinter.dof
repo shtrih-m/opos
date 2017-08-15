@@ -3,7 +3,7 @@ Version=7.0
 [Compiler]
 A=8
 B=0
-C=0
+C=1
 D=1
 E=0
 F=0
@@ -94,7 +94,7 @@ OutputDir=
 UnitOutputDir=..\..\DCU
 PackageDLLOutputDir=
 PackageDCPOutputDir=
-SearchPath=
+SearchPath=$(DELPHI)\Lib\Debug;c:\PROGRA~2\Borland\Delphi7\Comp\jcl\lib\d7\debug
 Packages=vcl;rtl;vclx;dbrtl;Ean7;qrpt;bdertl;vcldb;EanRave7;Rave50VCL;Ean7Editors;VclSmp;RxCtl7;TntUnicodeVcl_R70;RxDB7;RxBDE7;Jcl;CnPack_D7;adortl;AdvOfficePagerPkgd7;JclVcl;JvCoreD7R;JvSystemD7R;JvStdCtrlsD7R;JvAppFrmD7R;JvBandsD7R;JvCmpD7R;JvCryptD7R;JvCtrlsD7R;JvCustomD7R;JvDlgsD7R;JvDockingD7R;JvDotNetCtrlsD7R;JvEDID7R;JvGlobusD7R;JvHMID7R;JvInterpreterD7R;JvJansD7R;JvManagedThreadsD7R;JvMMD7R;JvNetD7R;JvPageCompsD7R;JvPluginD7R;JvPrintPreviewD7R;JvRuntimeDesignD7R;JvTimeFrameworkD7R;JvValidatorsD7R;tdbf_d7d;tdbf_d7r;RaizeComponentsVcl;RaizeComponentsVclDb;PNG_D7;PngComponentsD7;indy;vcldbx;teeui;teedb;tee;JvDBD7R;JvBDED7R;JvWizardD7R;JvXPCtrlsD7R;vclactnband;visualclx;visualdbclx;dsnap;dsnapcon;dbexpress;dss;inet;vclie;dbxcds;ibxpress;IntrawebDB_50_70;Intraweb_50_70;TIE_http_https;vclshlctrls;Rave50CLX;GmXml_D7;inetdb;IndyCore70;IndySystem70;IndyProtocols70
 Conditionals=
 DebugSourceDirs=
@@ -115,7 +115,7 @@ AutoIncBuild=0
 MajorVer=1
 MinorVer=13
 Release=0
-Build=420
+Build=426
 Debug=0
 PreRelease=0
 Special=0
@@ -126,18 +126,14 @@ CodePage=1252
 [Version Info Keys]
 CompanyName=SHTRIH-M
 FileDescription=Fiscal printer service
-FileVersion=1.13.0.420
+FileVersion=1.13.0.426
 InternalName=Fiscal printer driver
-LegalCopyright=SHTRIH-M © 2013 
+LegalCopyright=SHTRIH-M © 2013
 LegalTrademarks=
 OriginalFilename=SmFiscalPrinter.dll
 ProductName=OPOS drivers
 ProductVersion=1.13
 Comments=http://www.shtrih-m.ru
-[Excluded Packages]
-c:\program files (x86)\borland\delphi7\Bin\dclsoap70.bpl=Borland SOAP Components
-c:\program files (x86)\borland\delphi7\Bin\dclwbm70.bpl=Borland InternetExpress Components
-c:\program files (x86)\borland\delphi7\Bin\dclwebsnap70.bpl=Borland WebSnap Components
 [HistoryLists\hlUnitAliases]
 Count=1
 Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;
@@ -145,10 +141,9 @@ Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;
 Count=1
 Item0=$(DELPHI)\Lib\Debug
 [HistoryLists\hlUnitOutputDirectory]
-Count=3
-Item0=..\..\DCU
-Item1=DCU
-Item2=..\lib\D7
+Count=2
+Item0=DCU
+Item1=..\lib\D7
 [HistoryLists\hlBPLOutput]
 Count=3
 Item0=$(DELPHI)\Bin\

@@ -309,7 +309,8 @@ type
     function Execute(const Data: string): string;
     function ExecuteStream(Stream: TBinStream): Integer;
     function ExecutePrinterCommand(Command: TPrinterCommand): Integer;
-    function GetPrintWidth: Integer;
+    function GetPrintWidth: Integer; overload;
+    function GetPrintWidth(Font: Integer): Integer; overload;
     function GetSysPassword: DWORD;
     function GetTaxPassword: DWORD;
     function GetUsrPassword: DWORD;
@@ -638,6 +639,19 @@ type
   end;
 
 type
+  { IFiscalPrinterInternal }
+
+  IFiscalPrinterInternal = interface
+  ['{17C01750-13B6-410B-BE0A-92CC9B5FB602}']
+    procedure Connect;
+    procedure PrintNonFiscalEnd;
+    function GetDevice: IFiscalPrinterDevice;
+    function GetPrinterSemaphoreName: string;
+    procedure PrintTextFont(Station, Font: Integer; const Text: string);
+
+    property Device: IFiscalPrinterDevice read GetDevice;
+  end;
+
   { ISharedPrinter }
 
   ISharedPrinter = interface
@@ -877,20 +891,6 @@ type
     function GetPrinter: ISharedPrinter;
     property Printer: ISharedPrinter read GetPrinter;
   end;
-
-  { IFiscalPrinterInternal }
-
-  IFiscalPrinterInternal = interface
-  ['{17C01750-13B6-410B-BE0A-92CC9B5FB602}']
-    procedure Connect;
-    procedure PrintNonFiscalEnd;
-    function GetDevice: IFiscalPrinterDevice;
-    function GetPrinterSemaphoreName: string;
-    procedure PrintTextFont(Station, Font: Integer; const Text: string);
-
-    property Device: IFiscalPrinterDevice read GetDevice;
-  end;
-
 
 function TicketToStr(const Ticket: TFSTicket): string;
 function PrinterDateToOposDate(Date: TPrinterDate): TOposDate;
