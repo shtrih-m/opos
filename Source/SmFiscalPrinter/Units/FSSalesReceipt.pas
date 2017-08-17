@@ -1190,7 +1190,7 @@ var
 begin
   PaidAmount := 0;
   Total := GetTotal;
-  for i := Low(FPayments) to High(FPayments) do
+  for i := High(FPayments) downto (Low(FPayments)+1) do
   begin
     if (PaidAmount + FPayments[i] > Total) then
     begin

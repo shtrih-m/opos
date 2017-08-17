@@ -168,7 +168,7 @@ uses
   duMalinaCard in 'Units\duMalinaCard.pas',
   duMalinaFilter in 'Units\duMalinaFilter.pas',
   duOposStatistics in 'Units\duOposStatistics.pas',
-  duTankFilter in 'Units\duTankFilter.pas',
+  duResourceString in 'Units\duResourceString.pas',
   duTankReader in 'Units\duTankReader.pas',
   duWideString in 'Units\duWideString.pas',
   TankReader in '..\..\Source\SmFiscalPrinter\Units\TankReader.pas',

@@ -168,7 +168,7 @@ uses
   duMalinaCard in 'Units\duMalinaCard.pas',
   duMalinaFilter in 'Units\duMalinaFilter.pas',
   duOposStatistics in 'Units\duOposStatistics.pas',
-  duTankFilter in 'Units\duTankFilter.pas',
+  duResourceString in 'Units\duResourceString.pas',
   duTankReader in 'Units\duTankReader.pas',
   duWideString in 'Units\duWideString.pas',
   TankReader in '..\..\Source\SmFiscalPrinter\Units\TankReader.pas',
@@ -204,7 +204,8 @@ uses
   duRetalix in 'Units\duRetalix.pas',
   TextParser in '..\..\Source\SmFiscalPrinter\Units\TextParser.pas',
   PrinterPort in '..\..\Source\SmFiscalPrinter\Units\PrinterPort.pas',
-  PrinterProtocol1 in '..\..\Source\SmFiscalPrinter\Units\PrinterProtocol1.pas';
+  PrinterProtocol1 in '..\..\Source\SmFiscalPrinter\Units\PrinterProtocol1.pas',
+  duTankFilter in 'Units\duTankFilter.pas';
 
 {$R *.RES}
 {$R ..\..\Source\SmFiscalPrinter\SmFiscalPrinter.TLB}
