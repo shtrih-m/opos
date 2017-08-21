@@ -2624,7 +2624,7 @@ begin
 
       FPTR_GD_DESCRIPTION_LENGTH:
       begin
-        Data := IntToStr(Printer.PrintWidth);
+        Data := IntToStr(Device.GetPrintWidth(OptArgs));
       end;
     else
       InvalidParameterValue('DataItem');

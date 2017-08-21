@@ -7069,6 +7069,19 @@ begin
     begin
       Result := ReadTableStr(18, 1, 3);
     end;
+
+    DIO_FPTR_PARAMETER_INN:
+    begin
+      Result := ReadTableStr(18, 1, 2);
+    end;
+    DIO_FPTR_PARAMETER_TAXSYSTEM:
+    begin
+      Result := ReadTableStr(18, 1, 5);
+    end;
+    DIO_FPTR_PARAMETER_WORKMODE:
+    begin
+      Result := ReadTableStr(18, 1, 6);
+    end;
   else
     raise Exception.CreateFmt('Invalid parameter ID value, %d', [ParamId]);
   end;

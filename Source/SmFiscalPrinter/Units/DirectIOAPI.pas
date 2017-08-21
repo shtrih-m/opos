@@ -319,6 +319,9 @@ const
   DIO_FPTR_PARAMETER_OFD_PORT       = 2;
   DIO_FPTR_PARAMETER_OFD_TIMEOUT    = 3;
   DIO_FPTR_PARAMETER_RNM            = 4;
+  DIO_FPTR_PARAMETER_INN            = 5;
+  DIO_FPTR_PARAMETER_TAXSYSTEM      = 6;
+  DIO_FPTR_PARAMETER_WORKMODE       = 7;
 
   /////////////////////////////////////////////////////////////////////////////
   // FPTR_RT_CORRECTION receipt type
