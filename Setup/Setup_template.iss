@@ -20,6 +20,8 @@ DefaultGroupName=OPOS\SHTRIH-M\
 UninstallDisplayIcon= {app}\Uninstall.exe
 AllowNoIcons=Yes
 OutputDir="."
+[Setup]
+OutputBaseFilename=Setup
 [Components]
 Name: "main"; Description: "Driver files"; Types: full compact custom; Flags: fixed
 Name: "source"; Description: "Samples and source code"; 
