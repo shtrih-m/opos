@@ -47,7 +47,7 @@ type
     procedure WaitForPrinting;
     procedure PrintDocHeaderEnd;
     procedure PrintLines(const Line1, Line2: string);
-    function GetPrinterStatus: TPrinterStatus;
+    function ReadPrinterStatus: TPrinterStatus;
     function GetPayCode(const Description: string): Integer;
     function GetModel: TPrinterModelRec;
     function OpenReceipt(ReceiptType: Byte): Integer;
@@ -92,7 +92,7 @@ type
     function GetPrinter: ISharedPrinter;
     function GetStation: Integer;
     function IsReceiptOpened: Boolean;
-    function GetPrinterStatus: TPrinterStatus;
+    function ReadPrinterStatus: TPrinterStatus;
     function GetDevice: IFiscalPrinterDevice;
 
     procedure PrintPreLine;
@@ -196,7 +196,7 @@ end;
 
 function TReceiptPrinter.IsReceiptOpened: Boolean;
 begin
-  Result := (Printer.GetPrinterStatus.Mode and $0F) = MODE_REC;
+  Result := (Device.ReadPrinterStatus.Mode and $0F) = MODE_REC;
 end;
 
 procedure TReceiptPrinter.PrintTextLine(const S: string);
@@ -213,9 +213,9 @@ procedure TReceiptPrinter.PrintDocHeaderEnd;
 begin
 end;
 
-function TReceiptPrinter.GetPrinterStatus: TPrinterStatus;
+function TReceiptPrinter.ReadPrinterStatus: TPrinterStatus;
 begin
-  Result := Printer.GetPrinterStatus;
+  Result := Device.ReadPrinterStatus;
 end;
 
 function TReceiptPrinter.GetPayCode(const Description: string): Integer;

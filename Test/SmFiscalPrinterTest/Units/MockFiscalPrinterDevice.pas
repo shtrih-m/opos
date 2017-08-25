@@ -30,6 +30,7 @@ type
     function GetCapReceiptDiscount2: Boolean;
     function GetParameters: TPrinterParameters;
     function GetCapSubtotalRound: Boolean;
+    function GetPrinterStatus: TPrinterStatus;
   public
     constructor Create;
     destructor Destroy; override;
@@ -96,8 +97,8 @@ type
     function StartDump(DeviceCode: Integer): Integer;
     function GetDumpBlock: TDumpBlock;
     function GetLongSerial: TGetLongSerial;
-    function GetShortStatus: TShortPrinterStatus;
-    function GetLongStatus: TLongPrinterStatus;
+    function ReadShortStatus: TShortPrinterStatus;
+    function ReadLongStatus: TLongPrinterStatus;
     function GetFMFlags(Flags: Byte): TFMFlags;
     function PrintBoldString(Flags: Byte; const Text: string): Integer;
     function Beep: Integer;
@@ -252,7 +253,7 @@ type
     function FSWriteTag(TagID: Integer; const Data: string): Integer;
     function WriteCustomerAddress(const Value: string): Integer;
 
-    function GetPrinterStatus: TPrinterStatus;
+    function ReadPrinterStatus: TPrinterStatus;
     function GetErrorText(Code: Integer): string;
     function OpenFiscalDay: Boolean;
     function ReadSysOperatorNumber: Integer;
@@ -281,6 +282,12 @@ type
     procedure CancelReceipt;
     function FSFiscalization(const P: TFSFiscalization; var R: TFDDocument): Integer;
     function FSReFiscalization(const P: TFSReFiscalization; var R: TFDDocument): Integer;
+    function IsCapFooterFlag: Boolean;
+    procedure SetFooterFlag(Value: Boolean);
+    procedure SetBeforeCommand(Value: TCommandEvent);
+    function GetOnPrinterStatus: TNotifyEvent;
+    procedure SetOnPrinterStatus(Value: TNotifyEvent);
+    function IsCapBarcode2D: Boolean;
 
     property Status: TPrinterStatus read FStatus write FStatus;
     property Parameters: TPrinterParameters read GetParameters;
@@ -615,11 +622,6 @@ end;
 function TMockFiscalPrinterDevice.GetRecItemVoidTotal: Int64;
 begin
   Result := 0;
-end;
-
-function TMockFiscalPrinterDevice.GetShortStatus: TShortPrinterStatus;
-begin
-  Result := FShortStatus;
 end;
 
 function TMockFiscalPrinterDevice.GetStatus: TPrinterStatus;
@@ -1086,7 +1088,7 @@ begin
 
 end;
 
-function TMockFiscalPrinterDevice.GetLongStatus: TLongPrinterStatus;
+function TMockFiscalPrinterDevice.ReadLongStatus: TLongPrinterStatus;
 begin
   Result := FLongStatus;
 end;
@@ -1638,6 +1640,46 @@ end;
 function TMockFiscalPrinterDevice.GetPrintWidth(Font: Integer): Integer;
 begin
   Result := 0;
+end;
+
+function TMockFiscalPrinterDevice.IsCapFooterFlag: Boolean;
+begin
+  Result := False;
+end;
+
+procedure TMockFiscalPrinterDevice.SetFooterFlag(Value: Boolean);
+begin
+
+end;
+
+function TMockFiscalPrinterDevice.GetOnPrinterStatus: TNotifyEvent;
+begin
+
+end;
+
+function TMockFiscalPrinterDevice.ReadPrinterStatus: TPrinterStatus;
+begin
+
+end;
+
+function TMockFiscalPrinterDevice.ReadShortStatus: TShortPrinterStatus;
+begin
+  Result := FShortStatus;
+end;
+
+procedure TMockFiscalPrinterDevice.SetBeforeCommand(Value: TCommandEvent);
+begin
+
+end;
+
+procedure TMockFiscalPrinterDevice.SetOnPrinterStatus(Value: TNotifyEvent);
+begin
+
+end;
+
+function TMockFiscalPrinterDevice.IsCapBarcode2D: Boolean;
+begin
+  Result := False;
 end;
 
 end.

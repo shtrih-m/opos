@@ -19,6 +19,7 @@ type
     class function GetStateText(AState: Integer): string;
     class function ValidState(const Value: Integer): Boolean;
 
+    function IsReceiptEnding: Boolean;
     procedure SetState(AState: Integer);
     procedure CheckState(AState: Integer);
 
@@ -78,6 +79,11 @@ procedure TFiscalPrinterState.SetState(AState: Integer);
 begin
   CheckValidState(AState);
   FState := AState;
+end;
+
+function TFiscalPrinterState.IsReceiptEnding: Boolean;
+begin
+  Result := FState = FPTR_PS_FISCAL_RECEIPT_ENDING;
 end;
 
 end.

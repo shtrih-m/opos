@@ -504,7 +504,7 @@ begin
       // specific
       PIDXCash_DrawerOpened           :
       begin
-        SetDrawerOpened(Printer.GetPrinterStatus.Flags.DrawerOpened);
+        SetDrawerOpened(Device.ReadPrinterStatus.Flags.DrawerOpened);
         Result := BoolToInt[FDrawerOpened];
       end;
       PIDXCash_CapStatus              : Result := BoolToInt[FCapStatus];
@@ -757,7 +757,7 @@ begin
   if Printer.Device.IsOnline then
   begin
     FOposDevice.PowerState := OPOS_PS_ONLINE;
-    SetDrawerOpened(Printer.Status.Flags.DrawerOpened);
+    SetDrawerOpened(Device.PrinterStatus.Flags.DrawerOpened);
   end else
   begin
     FOposDevice.PowerState := OPOS_PS_OFF_OFFLINE;

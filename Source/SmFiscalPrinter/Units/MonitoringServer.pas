@@ -218,7 +218,7 @@ var
   LoaderVersion: string;
   Status: TLongPrinterStatus;
 begin
-  Status := Device.GetLongStatus;
+  Status := Device.ReadLongStatus; { !!! }
 
   MainVersion1 := Format('%s.%s %d %s', [
     Status.FirmwareVersionHi, Status.FirmwareVersionLo, Status.FirmwareBuild,

@@ -3,8 +3,8 @@ unit OposMessages;
 interface
 
 const
-  MsgErrorReadingAnswer = 'Ошибка чтения ответа';
   MsgDeviceNotConnected = 'Нет связи';
+  MsgErrorReadingAnswer = 'Ошибка чтения ответа';
   MsgCommandNotFound = 'Команда не найдена';
   MsgCashierNameEmpty = 'Имя кассира не может быть пустым';
   MsgRegistryKeyOpenError = 'Ошибка открытия ключа реестра';

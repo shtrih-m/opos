@@ -12,7 +12,7 @@ unit FptrServerLib_TLB;
 // ************************************************************************ //
 
 // PASTLWTR : 1.2
-// File generated on 17.08.2017 16:26:53 from Type Library described below.
+// File generated on 25.08.2017 14:34:27 from Type Library described below.
 
 // ************************************************************************  //
 // Type Lib: C:\projects\OPOSShtrih\Source\SmFptrSrv\SmFptrSrv.tlb (1)

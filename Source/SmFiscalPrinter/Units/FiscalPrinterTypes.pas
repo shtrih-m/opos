@@ -246,7 +246,7 @@ type
     procedure WriteSerial(Serial: DWORD);
     procedure InitFiscalMemory;
     procedure Check(Value: Integer);
-    procedure PrintString(Stations: Byte; const Text: string);
+    procedure PrintString(Flags: Byte; const Text: string);
     procedure SetSysPassword(const Value: DWORD);
     procedure SetTaxPassword(const Value: DWORD);
     procedure SetUsrPassword(const Value: DWORD);
@@ -255,6 +255,8 @@ type
     procedure EJTotalsReportDate(const Parameters: TDateReport);
     procedure EJTotalsReportNumber(const Parameters: TNumberReport);
     procedure SetOnCommand(Value: TCommandEvent);
+    procedure SetBeforeCommand(Value: TCommandEvent);
+
     procedure PrintJournal(DayNumber: Integer);
 
     function GetResultCode: Integer;
@@ -262,8 +264,8 @@ type
     function StartDump(DeviceCode: Integer): Integer;
     function GetDumpBlock: TDumpBlock;
     function GetLongSerial: TGetLongSerial;
-    function GetShortStatus: TShortPrinterStatus;
-    function GetLongStatus: TLongPrinterStatus;
+    function ReadShortStatus: TShortPrinterStatus;
+    function ReadLongStatus: TLongPrinterStatus;
     function GetFMFlags(Flags: Byte): TFMFlags;
     function PrintBoldString(Flags: Byte; const Text: string): Integer;
     function Beep: Integer;
@@ -394,7 +396,7 @@ type
     function ReadEJDocument(MACNumber: Integer; var Line: string): Integer;
     function ParseEJDocument(const Text: string): TEJDocument;
     function WaitForPrinting: TPrinterStatus;
-    function GetPrinterStatus: TPrinterStatus;
+    function ReadPrinterStatus: TPrinterStatus;
 
     function FSReadState(var R: TFSState): Integer;
     function FSWriteTLV(const TLVData: string): Integer;
@@ -445,6 +447,12 @@ type
     function GetCapFSCloseReceipt2: Boolean;
     function FSFiscalization(const P: TFSFiscalization; var R: TFDDocument): Integer;
     function FSReFiscalization(const P: TFSReFiscalization; var R: TFDDocument): Integer;
+    function IsCapFooterFlag: Boolean;
+    procedure SetFooterFlag(Value: Boolean);
+    function GetOnPrinterStatus: TNotifyEvent;
+    procedure SetOnPrinterStatus(Value: TNotifyEvent);
+    function GetPrinterStatus: TPrinterStatus;
+    function IsCapBarcode2D: Boolean;
 
     property IsOnline: Boolean read GetIsOnline;
     property Model: TPrinterModelRec read GetModel;
@@ -456,8 +464,6 @@ type
     property CapFiscalStorage: Boolean read GetCapFiscalStorage;
     property Tables: TDeviceTables read GetTables write SetTables;
     property Statistics: TFiscalPrinterStatistics read GetStatistics;
-    property OnConnect: TNotifyEvent read GetOnConnect write SetOnConnect;
-    property OnDisconnect: TNotifyEvent read GetOnDisconnect write SetOnDisconnect;
     property AmountDecimalPlaces: Integer read GetAmountDecimalPlaces write SetAmountDecimalPlaces;
     property CapReceiptDiscount2: Boolean read GetCapReceiptDiscount2;
     property Context: TDriverContext read GetContext;
@@ -465,6 +471,10 @@ type
     property CapDiscount: Boolean read GetCapDiscount;
     property CapSubtotalRound: Boolean read GetCapSubtotalRound;
     property CapFSCloseReceipt2: Boolean read GetCapFSCloseReceipt2;
+    property PrinterStatus: TPrinterStatus read GetPrinterStatus;
+    property OnConnect: TNotifyEvent read GetOnConnect write SetOnConnect;
+    property OnDisconnect: TNotifyEvent read GetOnDisconnect write SetOnDisconnect;
+    property OnPrinterStatus: TNotifyEvent read GetOnPrinterStatus write SetOnPrinterStatus;
   end;
 
   { IFiscalPrinterDevice2 }
@@ -666,7 +676,6 @@ type
     procedure CutPaper;
     procedure Disconnect;
     procedure ReadTables;
-    procedure UpdateStatus;
     procedure SaveParameters;
     function GetPrintWidth: Integer;
     function GetPrintWidthInDots: Integer;
@@ -711,14 +720,12 @@ type
 
     function GetHeader: TFixedStrings;
     function GetTrailer: TFixedStrings;
-    function GetPrinterStatus: TPrinterStatus;
     function GetDeviceName: string;
     function GetDevice: IFiscalPrinterDevice;
     function GetCheckTotal: Boolean;
     function GetOnProgress: TProgressEvent;
     function GetPollEnabled: Boolean;
     procedure SetPollEnabled(const Value: Boolean);
-    function GetStatus: TPrinterStatus;
     procedure AddStatusLink(Link: TNotifyLink);
     procedure AddConnectLink(Link: TNotifyLink);
     procedure RemoveStatusLink(Link: TNotifyLink);
@@ -758,7 +765,6 @@ type
     property CheckTotal: Boolean read GetCheckTotal write SetCheckTotal;
     property OnProgress: TProgressEvent read GetOnProgress write SetOnProgress;
     property PollEnabled: Boolean read GetPollEnabled write SetPollEnabled;
-    property Status: TPrinterStatus read GetStatus;
     property Station: Integer read GetStation write SetStation;
     property PreLine: string read GetPreLine write SetPreLine;
     property PostLine: string read GetPostLine write SetPostLine;

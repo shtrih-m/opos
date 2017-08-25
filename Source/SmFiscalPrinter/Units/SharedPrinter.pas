@@ -22,7 +22,6 @@ type
   TSharedPrinter = class(TInterfacedObject, ISharedPrinter)
   private
     FOpened: Boolean;
-    FStatus: TPrinterStatus;
     FConnectCount: Integer;
     FDeviceName: string;
     FConnected: Boolean;
@@ -73,8 +72,6 @@ type
     function GetPollEnabled: Boolean;
     procedure SetPollEnabled(const Value: Boolean);
     procedure DeviceProc(Sender: TObject);
-    procedure UpdateStatus;
-    function GetStatus: TPrinterStatus;
     function GetStatusLinks: TNotifyLinks;
     function GetPostLine: string;
     function GetPreLine: string;
@@ -95,6 +92,7 @@ type
     procedure SleepEx(TimeinMilliseconds: Integer);
     function GetLogger: ILogFile;
     function CreateProtocol(Port: IPrinterPort): IPrinterConnection;
+    procedure DevicePrinterStatus(Sender: TObject);
   public
     constructor Create(const ADeviceName: string);
     destructor Destroy; override;
@@ -149,7 +147,6 @@ type
     procedure PrintImageScale(const FileName: string; Scale: Integer);
 
     function WaitForPrinting: TPrinterStatus;
-    function GetPrinterStatus: TPrinterStatus;
     function FormatBoldLines(const Line1, Line2: string): string;
     procedure AddStatusLink(Link: TNotifyLink);
     procedure AddConnectLink(Link: TNotifyLink);
@@ -177,7 +174,6 @@ type
 
     property Opened: Boolean read FOpened;
     property Header: TFixedStrings read GetHeader;
-    property Status: TPrinterStatus read GetStatus;
     property Trailer: TFixedStrings read GetTrailer;
     property PrintWidth: Integer read GetPrintWidth;
     property Station: Integer read FStation write FStation;
@@ -286,6 +282,7 @@ begin
   FDevice := TFiscalPrinterDevice.Create;
   FDevice.OnConnect := DeviceConnect;
   FDevice.OnDisconnect := DeviceDisconnect;
+  FDevice.OnPrinterStatus := DevicePrinterStatus;
 end;
 
 destructor TSharedPrinter.Destroy;
@@ -327,6 +324,11 @@ end;
 procedure TSharedPrinter.DeviceConnect(Sender: TObject);
 begin
   FConnectLinks.DoNotify;
+end;
+
+procedure TSharedPrinter.DevicePrinterStatus(Sender: TObject);
+begin
+  FStatusLinks.DoNotify;
 end;
 
 procedure TSharedPrinter.DeviceDisconnect(Sender: TObject);
@@ -584,53 +586,6 @@ begin
   end;
 end;
 
-function TSharedPrinter.GetPrinterStatus: TPrinterStatus;
-var
-  ShortStatus: TShortPrinterStatus;
-begin
-  Logger.Debug('TSharedPrinter.GetPrinterStatus');
-  case Parameters.StatusCommand of
-    // Driver will select command to read printer status
-    StatusCommandDriver:
-    begin
-      if Device.CapShortEcrStatus then
-      begin
-        ShortStatus := Device.GetShortStatus;
-        Result.Mode := ShortStatus.Mode;
-        Result.AdvancedMode := ShortStatus.AdvancedMode;
-        Result.OperatorNumber := ShortStatus.OperatorNumber;
-        Result.Flags := DecodePrinterFlags(ShortStatus.Flags);
-      end else
-      begin
-        FLongPrinterStatus := Device.GetLongStatus;
-        Result.Mode := FLongPrinterStatus.Mode;
-        Result.AdvancedMode := FLongPrinterStatus.AdvancedMode;
-        Result.OperatorNumber := FLongPrinterStatus.OperatorNumber;
-        Result.Flags := DecodePrinterFlags(FLongPrinterStatus.Flags);
-      end;
-    end;
-
-    // Short status command
-    StatusCommandShort:
-    begin
-      ShortStatus := Device.GetShortStatus;
-      Result.Mode := ShortStatus.Mode;
-      Result.AdvancedMode := ShortStatus.AdvancedMode;
-      Result.OperatorNumber := ShortStatus.OperatorNumber;
-      Result.Flags := DecodePrinterFlags(ShortStatus.Flags);
-    end;
-  else
-    // Long status command
-    FLongPrinterStatus := Device.GetLongStatus;
-    Result.Mode := FLongPrinterStatus.Mode;
-    Result.AdvancedMode := FLongPrinterStatus.AdvancedMode;
-    Result.OperatorNumber := FLongPrinterStatus.OperatorNumber;
-    Result.Flags := DecodePrinterFlags(FLongPrinterStatus.Flags);
-  end;
-  Logger.Debug(Format('Mode: 0x%.2x, amode: 0x%.2x, Flags: 0x%.4x',
-    [Result.Mode, Result.AdvancedMode, Result.Flags.Value]));
-end;
-
 function TSharedPrinter.ConnectDevice(
   PortNumber, BaudRate: Integer): Boolean;
 var
@@ -642,7 +597,7 @@ begin
   PrinterBaudRate := BaudRate;
   try
     Device.OpenPort(PortNumber, BaudRate, Parameters.ByteTimeout);
-    FLongPrinterStatus := Device.GetLongStatus;
+    FLongPrinterStatus := Device.ReadLongStatus;
     // check if port supports baudrate
     if BaudRate <> Parameters.BaudRate then
     begin
@@ -667,7 +622,7 @@ begin
         // To ensure that last ACK is delivered
         Sleep(100);
         Device.OpenPort(PortNumber, PrinterBaudRate, Parameters.ByteTimeout);
-        GetPrinterStatus;
+        Device.ReadPrinterStatus;
       end;
     end;
     Result := True;
@@ -784,7 +739,7 @@ begin
 
     SearchDevice;
     FDeviceMetrics := Device.GetDeviceMetrics;
-    if GetPrinterStatus.Flags.EJPresent then
+    if Device.ReadPrinterStatus.Flags.EJPresent then
     begin
       Device.GetEJStatus1(FEJStatus1);
       if FEJStatus1.Flags.Activated then
@@ -1032,7 +987,7 @@ begin
     if Integer(GetTickCount) > (TickCount + Parameters.StatusTimeout*1000) then
       raise Exception.Create(SStatusWaitTimeout);
 
-    Result := GetPrinterStatus;
+    Result := Device.ReadPrinterStatus;
     Mode := Result.Mode and $0F;
     case Result.AdvancedMode of
       AMODE_IDLE:
@@ -1209,7 +1164,7 @@ begin
       try
         Device.Lock;
         try
-          UpdateStatus;
+          Device.ReadPrinterStatus;
         finally
           Device.Unlock;
         end;
@@ -1226,17 +1181,6 @@ begin
       Logger.Error('TSharedPrinter.DeviceProc: ', E);
   end;
   Logger.Debug('TSharedPrinter.DeviceProc.End');
-end;
-
-procedure TSharedPrinter.UpdateStatus;
-begin
-  FStatus := GetPrinterStatus;
-  FStatusLinks.DoNotify;
-end;
-
-function TSharedPrinter.GetStatus: TPrinterStatus;
-begin
-  Result := FStatus;
 end;
 
 function TSharedPrinter.GetStatusLinks: TNotifyLinks;

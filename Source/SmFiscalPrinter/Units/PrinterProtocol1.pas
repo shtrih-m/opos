@@ -222,10 +222,10 @@ begin
     end;
 
     if ENQCount > MaxENQCount then
-      raise ECommunicationError.Create('Нет связи, MaxENQCount');
+      raise ECommunicationError.Create(MsgDeviceNotConnected + ', MaxENQCount');
 
     if AnsCount > MaxAnsCount then
-      raise ECommunicationError.Create('Нет связи, MaxAnsCount');
+      raise ECommunicationError.Create(MsgDeviceNotConnected + ', MaxAnsCount');
   until False;
 end;
 
@@ -240,7 +240,7 @@ begin
   repeat
     Write(Data);
     if not ReadControlChar(RxChar) then
-      raise ECommunicationError.Create('Нет связи');
+      raise ECommunicationError.Create(MsgDeviceNotConnected);
 
     case RxChar of
       ACK : Break;
@@ -250,11 +250,11 @@ begin
         Inc(NakCount);
       end;
     else
-      raise ECommunicationError.Create('Нет связи');
+      raise ECommunicationError.Create(MsgDeviceNotConnected);
     end;
 
     if CmdCount > MaxCmdCount then
-      raise ECommunicationError.Create('Нет связи');
+      raise ECommunicationError.Create(MsgDeviceNotConnected);
 
   until False;
 end;
@@ -280,7 +280,7 @@ begin
         if CRCError then ReadAnswer(False)
         else
         begin
-          raise ECommunicationError.Create('Нет связи');
+          raise ECommunicationError.Create(MsgDeviceNotConnected);
         end;
       end;
       Result := Copy(FOutput, 3, Length(FOutput)-3);

@@ -165,7 +165,8 @@ uses
   DriverContext in 'Units\DriverContext.pas',
   TextParser in 'Units\TextParser.pas',
   PrinterPort in 'Units\PrinterPort.pas',
-  PrinterProtocol1 in 'Units\PrinterProtocol1.pas';
+  PrinterProtocol1 in 'Units\PrinterProtocol1.pas',
+  PrinterFonts in 'Units\PrinterFonts.pas';
 
 exports
   DllGetClassObject,

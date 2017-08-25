@@ -198,6 +198,7 @@ const
   PRINTER_STATION_REC       = 2;    // Bit 1 - Receipt
   PRINTER_STATION_SLP       = 4;    // Bit 2 - Slip
   PRINTER_STATION_RECJRN    = 3;
+  PRINTER_FLAG_FOOTER       = $80;
 
   // Report type
   PRINTER_REPORT_TYPE_SHORT     = 0;    // Short
@@ -1179,6 +1180,7 @@ function PrinterDateTimeToStr3(Date: TPrinterDateTime): string;
 function PrinterTimeToStr(Time: TPrinterTime): string;
 function PrinterTimeToStr2(Time: TPrinterTime): string;
 function PrinterDateToStr(Date: TPrinterDate): string;
+function IsEqual(const I1, I2: TPrinterStatus): Boolean;
 
 implementation
 
@@ -2636,5 +2638,13 @@ begin
   Result := Format('%.2d.%.2d.%.4d', [Date.Day, Date.Month, Date.Year + 2000]);
 end;
 
+function IsEqual(const I1, I2: TPrinterStatus): Boolean;
+begin
+  Result :=
+    (I1.Mode = I2.Mode) and
+    (I1.AdvancedMode = I2.AdvancedMode) and
+    (I1.Flags.Value = I2.Flags.Value) and
+    (I1.OperatorNumber = I2.OperatorNumber);
+end;
 
 end.

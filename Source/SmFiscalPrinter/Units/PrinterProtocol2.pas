@@ -293,7 +293,7 @@ end;
 
 procedure TPrinterProtocol2.NoHardwareError;
 begin
-  raise ECommunicationError.Create('Нет связи');
+  raise ECommunicationError.Create(MsgDeviceNotConnected);
 end;
 
 // Синхронизация номеров пакетов

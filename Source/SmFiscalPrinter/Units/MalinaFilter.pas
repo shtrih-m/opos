@@ -80,7 +80,7 @@ begin
     Exit;
   end;
 
-  Mode := Printer.GetPrinterStatus.Mode;
+  Mode := Printer.Device.ReadPrinterStatus.Mode;
   if (Mode <> ECRMODE_RECSELL)and(Mode <> ECRMODE_RECRETSELL) then
   begin
     Logger.Debug('Not sale or sale refund receipt');

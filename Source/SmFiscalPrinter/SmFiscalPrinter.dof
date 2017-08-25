@@ -115,7 +115,7 @@ AutoIncBuild=0
 MajorVer=1
 MinorVer=13
 Release=0
-Build=426
+Build=429
 Debug=0
 PreRelease=0
 Special=0
@@ -126,24 +126,30 @@ CodePage=1252
 [Version Info Keys]
 CompanyName=SHTRIH-M
 FileDescription=Fiscal printer service
-FileVersion=1.13.0.426
+FileVersion=1.13.0.429
 InternalName=Fiscal printer driver
-LegalCopyright=SHTRIH-M © 2013
+LegalCopyright=SHTRIH-M © 2013 
 LegalTrademarks=
 OriginalFilename=SmFiscalPrinter.dll
 ProductName=OPOS drivers
 ProductVersion=1.13
 Comments=http://www.shtrih-m.ru
+[Excluded Packages]
+c:\program files (x86)\borland\delphi7\Bin\dclsoap70.bpl=Borland SOAP Components
+c:\program files (x86)\borland\delphi7\Bin\dclwbm70.bpl=Borland InternetExpress Components
+c:\program files (x86)\borland\delphi7\Bin\dclwebsnap70.bpl=Borland WebSnap Components
 [HistoryLists\hlUnitAliases]
 Count=1
 Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;
 [HistoryLists\hlSearchPath]
-Count=1
-Item0=$(DELPHI)\Lib\Debug
-[HistoryLists\hlUnitOutputDirectory]
 Count=2
-Item0=DCU
-Item1=..\lib\D7
+Item0=$(DELPHI)\Lib\Debug;c:\PROGRA~2\Borland\Delphi7\Comp\jcl\lib\d7\debug
+Item1=$(DELPHI)\Lib\Debug
+[HistoryLists\hlUnitOutputDirectory]
+Count=3
+Item0=..\..\DCU
+Item1=DCU
+Item2=..\lib\D7
 [HistoryLists\hlBPLOutput]
 Count=3
 Item0=$(DELPHI)\Bin\

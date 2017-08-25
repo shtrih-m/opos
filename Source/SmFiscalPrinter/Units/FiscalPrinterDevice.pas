@@ -18,7 +18,8 @@ uses
   TableParameter, DebugUtils, ClassLogger, DriverError,
   FiscalPrinterStatistics, ParameterValue, EJReportParser,
   PrinterParameters, DirectIOAPI, FileUtils,
-  PrinterDeviceFilter, TLV, CsvPrinterTableFormat, MalinaParams, DriverContext;
+  PrinterDeviceFilter, TLV, CsvPrinterTableFormat, MalinaParams, DriverContext,
+  PrinterFonts;
 
 type
   { TFiscalPrinterDevice }
@@ -56,6 +57,8 @@ type
     FFields: TPrinterFields;
     FModels: TPrinterModels;
     FOnCommand: TCommandEvent;
+    FOnPrinterStatus: TNotifyEvent;
+    FBeforeCommand: TCommandEvent;
     FDeviceTables: TDeviceTables;
     FConnection: IPrinterConnection;
     FValidDeviceMetrics: Boolean;
@@ -67,12 +70,17 @@ type
     FFilter: TFiscalPrinterFilter;
     FAmountDecimalPlaces: Integer;
     FOnProgress: TProgressEvent;
-    FLongPrinterStatus: TLongPrinterStatus;
     FFontInfo: array [1..10] of TFontInfo;
     FTaxInfo: array [1..6] of TTaxInfo;
+    FPrinterStatus: TPrinterStatus;
+    FLongStatus: TLongPrinterStatus;
+    FShortStatus: TShortPrinterStatus;
+    FCapFooterFlag: Boolean;
+    FFooterFlag: Boolean;
 
-    procedure WriteLogModelParameters(const Model: TPrinterModelRec);
     procedure PrintLineFont(const Data: TTextRec);
+    procedure SetPrinterStatus(Value: TPrinterStatus);
+    procedure WriteLogModelParameters(const Model: TPrinterModelRec);
 
     function GetModelsFileName: string;
     function SelectModel: TPrinterModel;
@@ -110,7 +118,7 @@ type
     function Is2DBarcode(Symbology: Integer): Boolean;
     procedure Connect;
     function WaitForPrinting: TPrinterStatus;
-    function GetPrinterStatus: TPrinterStatus;
+    function ReadPrinterStatus: TPrinterStatus;
     procedure AlignBitmap(Bitmap: TBitmap; const Barcode: TBarcodeRec;
       HScale: Integer; PrintWidthInDots: Integer);
     function PrintBarcode2D(const Barcode: TBarcode2D): Integer;
@@ -155,7 +163,7 @@ type
     function ReadDayTotals: TFMTotals;
     function LoadPicture(Picture: TPicture; StartLine: Integer): Integer;
 
-    procedure PrintString(Stations: Byte; const Line: string);
+    procedure PrintString(Flags: Byte; const Line: string);
     procedure WriteFields(Table: TPrinterTable);
     function FSReadTicket(var R: TFSTicket): Integer;
     function GetLogger: ILogFile;
@@ -165,6 +173,10 @@ type
     function GetCapFSCloseReceipt2: Boolean;
     function ReceiptCancelPassword(Password: Integer): Integer;
     function IsSupported(ResultCode: Integer): Boolean;
+    function IsCapFooterFlag: Boolean;
+    function GetPrintFlags(Flags: Integer): Integer;
+    procedure SetFooterFlag(Value: Boolean);
+    procedure PrintQRCode3(Barcode: TBarcodeRec);
   protected
     function GetMaxGraphicsWidthInBytes: Integer;
   public
@@ -190,9 +202,9 @@ type
     function Beep: Integer;
     function GetDumpBlock: TDumpBlock;
     function GetLongSerial: TGetLongSerial;
-    function GetLongStatus: TLongPrinterStatus;
+    function ReadLongStatus: TLongPrinterStatus;
     function GetFMFlags(Flags: Byte): TFMFlags;
-    function GetShortStatus: TShortPrinterStatus;
+    function ReadShortStatus: TShortPrinterStatus;
     function StartDump(DeviceCode: Integer): Integer;
     function PrintBoldString(Flags: Byte; const Text: string): Integer;
     function GetPortParams(Port: Byte): TPortParams;
@@ -257,7 +269,7 @@ type
     function LoadGraphics3(Line: Word; Data: string): Integer; overload;
     function LoadGraphics3(const P: TLoadGraphics3): Integer; overload;
     function PrintBarLine(Height: Word; Data: string): Integer;
-    function PrintBinaryLine(Height: Word; Data: string): Integer;
+    function PrintGraphicsLine(Height: Word; Flags: Byte; Data: string): Integer;
     function ReadDeviceMetrics: TDeviceMetrics;
     function GetDayDiscountTotal: Int64;
     function GetRecDiscountTotal: Int64;
@@ -274,7 +286,7 @@ type
     function EJReportStop: Integer;
     procedure Check(Code: Integer);
     function GetEJStatus1(var Status: TEJStatus1): Integer;
-    procedure PrintStringFont(Station, Font: Byte; const Line: string);
+    procedure PrintStringFont(Flags, Font: Byte; const Line: string);
     procedure PrintJournal(DayNumber: Integer);
 
     function GetSysPassword: DWORD;
@@ -340,7 +352,11 @@ type
       LineWidth: Integer): string;
     function GetModel: TPrinterModelRec;
     function GetOnCommand: TCommandEvent;
+    function GetOnPrinterStatus: TNotifyEvent;
+    function GetBeforeCommand: TCommandEvent;
+    procedure SetOnPrinterStatus(Value: TNotifyEvent);
     procedure SetOnCommand(Value: TCommandEvent);
+    procedure SetBeforeCommand(Value: TCommandEvent);
     procedure PrintText(const Data: TTextRec); overload;
     procedure PrintText(Station: Integer; const Text: string); overload;
     function GetTables: TDeviceTables;
@@ -386,7 +402,7 @@ type
     function readOperatorNumber(Password: Integer): Integer;
     function WriteCustomerAddress(const Value: string): Integer;
 
-    function GetShortStatus2(Password: Integer): TShortPrinterStatus;
+    function ReadShortStatus2(Password: Integer): TShortPrinterStatus;
     function GetTaxInfo(Tax: Integer): TTaxInfo;
     function ReadDiscountMode: Integer;
     function ReadFPParameter(ParamId: Integer): string;
@@ -402,6 +418,8 @@ type
     function ReadParameters2(var R: TPrinterParameters2): Integer;
     function FSFiscalization(const P: TFSFiscalization; var R: TFDDocument): Integer;
     function FSReFiscalization(const P: TFSReFiscalization; var R: TFDDocument): Integer;
+    function GetPrinterStatus: TPrinterStatus;
+    function IsCapBarcode2D: Boolean;
 
     property IsOnline: Boolean read GetIsOnline;
     property Tables: TPrinterTables read FTables;
@@ -1138,8 +1156,13 @@ begin
   try
     repeat
       Command.RepeatFlag := False;
+      if Assigned(FBeforeCommand) then
+        FBeforeCommand(Self, Command);
+
       SendCommand(Command);
-      if Assigned(FOnCommand) then FOnCommand(Self, Command);
+      if Assigned(FOnCommand) then
+        FOnCommand(Self, Command);
+
       Result := Command.ResultCode;
 
       if not Command.RepeatFlag then Break;
@@ -1385,20 +1408,20 @@ end;
 
 function TFiscalPrinterDevice.ReadOperatorNumber(Password: Integer): Integer;
 begin
-  Result := GetShortStatus2(Password).OperatorNumber;
+  Result := ReadShortStatus2(Password).OperatorNumber;
 end;
 
 function TFiscalPrinterDevice.ReadUsrOperatorNumber: Integer;
 begin
-  Result := GetShortStatus2(GetUsrPassword).OperatorNumber;
+  Result := ReadShortStatus2(GetUsrPassword).OperatorNumber;
 end;
 
 function TFiscalPrinterDevice.ReadSysOperatorNumber: Integer;
 begin
-  Result := GetShortStatus2(GetSysPassword).OperatorNumber;
+  Result := ReadShortStatus2(GetSysPassword).OperatorNumber;
 end;
 
-function TFiscalPrinterDevice.GetShortStatus2(Password: Integer): TShortPrinterStatus;
+function TFiscalPrinterDevice.ReadShortStatus2(Password: Integer): TShortPrinterStatus;
 var
   Stream: TBinStream;
 begin
@@ -1408,14 +1431,16 @@ begin
     Stream.WriteDWORD(Password);
     Check(ExecuteStream(Stream));
     Stream.Read(Result, Sizeof(Result));
+    FShortStatus := Result;
   finally
     Stream.Free;
   end;
 end;
 
-function TFiscalPrinterDevice.GetShortStatus: TShortPrinterStatus;
+function TFiscalPrinterDevice.ReadShortStatus: TShortPrinterStatus;
 var
   Stream: TBinStream;
+  Status: TPrinterStatus;
 begin
   Stream := TBinStream.Create;
   try
@@ -1424,6 +1449,13 @@ begin
 
     Check(ExecuteStream(Stream));
     Stream.Read(Result, Sizeof(Result));
+
+    FShortStatus := Result;
+    Status.Mode := Result.Mode;
+    Status.AdvancedMode := Result.AdvancedMode;
+    Status.OperatorNumber := Result.OperatorNumber;
+    Status.Flags := DecodePrinterFlags(Result.Flags);
+    SetPrinterStatus(Status);
   finally
     Stream.Free;
   end;
@@ -1461,8 +1493,9 @@ end;
 
 ******************************************************************************)
 
-function TFiscalPrinterDevice.GetLongStatus: TLongPrinterStatus;
+function TFiscalPrinterDevice.ReadLongStatus: TLongPrinterStatus;
 var
+  Status: TPrinterStatus;
   Command: TLongStatusCommand;
 begin
   Command := TLongStatusCommand.Create;
@@ -1470,6 +1503,13 @@ begin
     Command.Password := GetUsrPassword;
     Check(ExecutePrinterCommand(Command));
     Result := Command.Status;
+
+    FLongStatus := Command.Status;
+    Status.Mode := FLongStatus.Mode;
+    Status.AdvancedMode := FLongStatus.AdvancedMode;
+    Status.OperatorNumber := FLongStatus.OperatorNumber;
+    Status.Flags := DecodePrinterFlags(FLongStatus.Flags);
+    SetPrinterStatus(Status);
   finally
     Command.Free;
   end;
@@ -1645,19 +1685,28 @@ end;
 
 ******************************************************************************)
 
-procedure TFiscalPrinterDevice.PrintString(Stations: Byte;
+function TFiscalPrinterDevice.GetPrintFlags(Flags: Integer): Integer;
+begin
+  Result := Flags;
+  if FCapFooterFlag and FFooterFlag then
+  begin
+    Result := Result or PRINTER_FLAG_FOOTER;
+  end;
+end;
+
+procedure TFiscalPrinterDevice.PrintString(Flags: Byte;
   const Line: string);
 var
   Text: string;
 begin
-  FLogger.Debug(Format('PrintString(%d,''%s'')',
-    [Stations, Line]));
+  FLogger.Debug(Format('PrintString(%d,''%s'')', [Flags, Line]));
 
   Text := Line;
   if Text = '' then Text := ' ';
   Text := TrimText(Text, GetPrintWidth);
 
-  Execute(#$17 + IntToBin(GetUsrPassword, 4) + Chr(Stations) + GetLine(Text));
+  Flags := GetPrintFlags(Flags);
+  Execute(#$17 + IntToBin(GetUsrPassword, 4) + Chr(Flags) + GetLine(Text));
 end;
 
 (******************************************************************************
@@ -2315,18 +2364,19 @@ end;
 
 ******************************************************************************)
 
-procedure TFiscalPrinterDevice.PrintStringFont(Station, Font: Byte;
+procedure TFiscalPrinterDevice.PrintStringFont(Flags, Font: Byte;
   const Line: string);
 var
   Text: string;
 begin
   Text := Line;
+  Flags := GetPrintFlags(Flags);
 
   if Text = '' then Text := ' ';
   FLogger.Debug(Format('PrintStringFont(%d,%d, ''%s'')',
-    [Station, Font, Text]));
+    [Flags, Font, Text]));
 
-  Execute(#$2F + IntToBin(GetUsrPassword, 4) + Chr(Station) + Chr(Font) +
+  Execute(#$2F + IntToBin(GetUsrPassword, 4) + Chr(Flags) + Chr(Font) +
     GetLine(Text));
 end;
 
@@ -4062,6 +4112,7 @@ end;
   Command: 	C5H. Length: X + 7 bytes.
   ·	Operator password (4 bytes)
   ·	Number of repetitions (2 bytes)
+  ·	Flags (1 byte)
   ·	Graphical data (X bytes)
   Answer:		C5H. Length: 3 bytes.
   ·	Result Code (1 byte)
@@ -4069,15 +4120,21 @@ end;
 
 ******************************************************************************)
 
-function TFiscalPrinterDevice.PrintBinaryLine(Height: Word; Data: string): Integer;
+function TFiscalPrinterDevice.PrintGraphicsLine(Height: Word; Flags: Byte;
+  Data: string): Integer;
 var
   Stream: TBinStream;
 begin
+  Flags := GetPrintFlags(Flags);
   Stream := TBinStream.Create;
   try
     Stream.WriteByte($C5);
     Stream.WriteDWORD(GetUsrPassword);
     Stream.WriteInt(Height, 2);
+    if FCapParameters2 and FParameters2.Flags.CapFlagsGraphicsEx then
+    begin
+      Stream.WriteByte(Flags);
+    end;
     Stream.WriteString(Data);
     Result := ExecuteStream(Stream);
   finally
@@ -4623,6 +4680,16 @@ end;
 procedure TFiscalPrinterDevice.SetOnCommand(Value: TCommandEvent);
 begin
   FOnCommand := Value;
+end;
+
+function TFiscalPrinterDevice.GetBeforeCommand: TCommandEvent;
+begin
+  Result := FBeforeCommand;
+end;
+
+procedure TFiscalPrinterDevice.SetBeforeCommand(Value: TCommandEvent);
+begin
+  FBeforeCommand := Value;
 end;
 
 function TFiscalPrinterDevice.AlignLine(const Line: string;
@@ -5191,12 +5258,19 @@ begin
     PrintStringFont(PRINTER_STATION_REC, Parameters.FontNumber, Line);
   end else
   begin
-    if (ABarcode.BarcodeType = DIO_BARCODE_QRCODE)and FCapBarcode2D then
+    if (ABarcode.BarcodeType in [
+      DIO_BARCODE_QRCODE, DIO_BARCODE_QRCODE2, DIO_BARCODE_QRCODE4])and FCapBarcode2D then
     begin
       Check(PrintQRCode2D(ABarcode))
     end else
     begin
-      PrintBarcodeZInt(ABarcode);
+      if ABarcode.BarcodeType = DIO_BARCODE_QRCODE3 then
+      begin
+        PrintQRCode3(ABarcode);
+      end else
+      begin
+        PrintBarcodeZInt(ABarcode);
+      end;
     end;
   end;
   Logger.Debug('PrintBarcode2.OK');
@@ -5237,7 +5311,14 @@ begin
     Result := LoadBarcode2D(Block);
     if Result <> 0 then Exit;
   end;
-  Barcode2D.BarcodeType := 3;
+  case Barcode.BarcodeType of
+    DIO_BARCODE_QRCODE: Barcode2D.BarcodeType := 3;
+    DIO_BARCODE_QRCODE2: Barcode2D.BarcodeType := $83;
+    DIO_BARCODE_QRCODE3: Barcode2D.BarcodeType := $83;
+    DIO_BARCODE_QRCODE4: Barcode2D.BarcodeType := $C3;
+  else
+    Barcode2D.BarcodeType := 3;
+  end;
   Barcode2D.DataLength := Length(Barcode.Data);
   Barcode2D.BlockNumber := 0;
   Barcode2D.Parameter1 := Barcode.Parameter1;
@@ -5288,6 +5369,9 @@ function TFiscalPrinterDevice.Is2DBarcode(Symbology: Integer): Boolean;
 begin
   Result := Symbology in [
     DIO_BARCODE_QRCODE,
+    DIO_BARCODE_QRCODE2,
+    DIO_BARCODE_QRCODE3,
+    DIO_BARCODE_QRCODE4,
     DIO_BARCODE_AZTEC,
     DIO_BARCODE_MICROQR,
     DIO_BARCODE_AZRUNE,
@@ -5348,6 +5432,8 @@ begin
     DIO_BARCODE_PDF417TRUNC         : Result := tBARCODE_PDF417TRUNC;
     DIO_BARCODE_MAXICODE            : Result := tBARCODE_MAXICODE;
     DIO_BARCODE_QRCODE              : Result := tBARCODE_QRCODE;
+    DIO_BARCODE_QRCODE2             : Result := tBARCODE_QRCODE;
+    DIO_BARCODE_QRCODE3             : Result := tBARCODE_QRCODE;
     DIO_BARCODE_AUSPOST             : Result := tBARCODE_AUSPOST;
     DIO_BARCODE_AUSREPLY            : Result := tBARCODE_AUSREPLY;
     DIO_BARCODE_AUSROUTE            : Result := tBARCODE_AUSROUTE;
@@ -5508,6 +5594,138 @@ begin
   Result := GetMaxGraphicsWidth div 8;
 end;
 
+procedure TFiscalPrinterDevice.PrintQRCode3(Barcode: TBarcodeRec);
+
+  procedure DrawQRCodeText(URL, Sign: string; Bitmap: TBitmap;
+    BitmapWidth: Integer);
+  var
+    Y: Integer;
+    Bits: TBits;
+    i, j, k: Integer;
+    Line: string;
+    Lines: TStrings;
+    LineLength: Integer;
+    CharLine: Integer;
+  begin
+    Bitmap.Canvas.Brush.Style := bsSolid;
+
+    LineLength := 35;
+    Bits := TBits.Create;
+    Lines := TStringList.Create;
+    try
+      while Length(URL) > 0 do
+      begin
+        Lines.Add(Copy(URL, 1, LineLength));
+        URL := Copy(URL, LineLength+1, Length(URL));
+      end;
+      while Length(Sign) > 0 do
+      begin
+        Lines.Add(Copy(Sign, 1, LineLength));
+        Sign := Copy(Sign, LineLength+1, Length(Sign));
+      end;
+      for i := 0 to Lines.Count-1 do
+      begin
+        Line := Lines[i];
+        for k := 0 to 13 do
+        begin
+          Y := k + 18*i;
+          if Y > Bitmap.Height then Break;
+
+          Bits.Clear;
+          for j := 1 to Length(Line) do
+          begin
+            CharLine := cFont14x8[Ord(Line[j]) * FONT_5_HEIGHT + k];
+            Bits.add(CharLine, 8);
+            Bits.add(0, 2);
+          end;
+          Bits.UpdateBytes;
+          for j := 0 to Bits.SizeInBytes-1 do
+          begin
+            PByteArray(Bitmap.ScanLine[Y])[j] := Bits.Bytes(j) xor $FF;
+          end;
+        end;
+      end;
+    finally
+      Bits.Free;
+      Lines.Free;
+    end;
+  end;
+
+var
+  P: Integer;
+  URLText: string;
+  SignText: string;
+  Bitmap: TBitmap;
+  StartLine: Integer;
+  BitmapWidth: Integer;
+  Render: TZintBarcode;
+  MaxGraphicsWidth: Integer;
+  MaxGraphicsHeight: Integer;
+  Graphics3: TPrintGraphics3;
+begin
+  SignText := '';
+  URLText := Barcode.Data;
+  P := Pos(' ', Barcode.Data);
+  if P <> 0 then
+  begin
+    URLText := Copy(Barcode.Data, 1, P-1);
+    SignText := Copy(Barcode.Data, P+1, Length(Barcode.Data));
+  end;
+  Barcode.Data := URLText;
+  Barcode.Alignment := BARCODE_ALIGNMENT_RIGHT;
+  MaxGraphicsHeight := GetMaxGraphicsHeight;
+  MaxGraphicsWidth := GetMaxGraphicsWidth;
+
+  Bitmap := TBitmap.Create;
+  Render := TZintBarcode.Create;
+  try
+    Render.BorderWidth := 0;
+    Render.FGColor := clBlack;
+    Render.BGColor := clWhite;
+    Render.Scale := 1;
+    Render.Height := Barcode.Height;
+    Render.BarcodeType := GetZIntBarcodeType(Barcode.BarcodeType);
+    Render.Data := Barcode.Data;
+    Render.ShowHumanReadableText := False;
+    Render.EncodeNow;
+    RenderBarcode(Bitmap, Render.Symbol, Is1DBarcode(Barcode.BarcodeType));
+
+    ScaleBitmap(Bitmap, Barcode.ModuleWidth, Barcode.ModuleWidth);
+
+
+    if Bitmap.Width > MaxGraphicsWidth then
+      raise Exception.CreateFmt('Bitmap width more than maximum, %d > %d', [
+        Bitmap.Width, MaxGraphicsWidth]);
+
+    if Bitmap.Height > MaxGraphicsHeight then
+      raise Exception.CreateFmt('Bitmap height more than maximum, %d > %d', [
+        Bitmap.Height, MaxGraphicsHeight]);
+
+    BitmapWidth := Bitmap.Width;
+    AlignBitmap(Bitmap, Barcode, 1, MaxGraphicsWidth);
+
+    DrawQRCodeText(URLText, SignText, Bitmap, BitmapWidth);
+
+    StartLine := GetStartLine;
+    LoadBitmap(StartLine, Bitmap);
+    if FCapGraphics512 then
+    begin
+      Graphics3.FirstLine := StartLine;
+      Graphics3.LastLine := StartLine + Bitmap.Height -1;
+      Graphics3.VScale := 1;
+      Graphics3.HScale := 1;
+      Graphics3.Flags := PRINTER_STATION_REC;
+      Check(PrintGraphics3(Graphics3));
+    end else
+    begin
+      Check(PrintGraphics(StartLine, Bitmap.Height + StartLine));
+    end;
+  finally
+    Render.Free;
+    Bitmap.Free;
+  end;
+end;
+
 procedure TFiscalPrinterDevice.PrintBarcodeZInt(const Barcode: TBarcodeRec);
 var
   P: TDrawScale;
@@ -5557,10 +5775,18 @@ begin
     HScale := ModuleWidth;
     if Is2DBarcode(Barcode.BarcodeType) then
     begin
-      if IsPDF417(Barcode.BarcodeType) then
-        VScale := ModuleWidth*3
-      else
-        VScale := ModuleWidth;
+      if Model.ID <> 19 then
+      begin
+        VScale := 1;
+        HScale := 1;
+        ScaleBitmap(Bitmap, ModuleWidth, ModuleWidth);
+      end else
+      begin
+        if IsPDF417(Barcode.BarcodeType) then
+          VScale := ModuleWidth*3
+        else
+          VScale := ModuleWidth;
+      end;
     end;
 
     if Is1DBarcode(Barcode.BarcodeType)and FCapBarLine then
@@ -5592,7 +5818,6 @@ begin
         Bitmap.Height, MaxGraphicsHeight]);
 
     AlignBitmap(Bitmap, Barcode, HScale, MaxGraphicsWidth);
-
 
     if Is1DBarcode(Barcode.BarcodeType) then
     begin
@@ -5938,7 +6163,9 @@ begin
     FCapGraphics512 := TestCommand($4E);
     FCapScaleGraphics := TestCommand($4F);
   end;
-  FLongPrinterStatus := GetLongStatus;
+  FCapFooterFlag := FCapParameters2 and FParameters2.Flags.CapFlagsGraphicsEx;
+
+  ReadLongStatus;
   FCapBarLine := TestCommand($C5);
   FCapBarcode2D := TestCommand($DE);
   FCapGraphics1 := TestCommand($C0);
@@ -5974,7 +6201,7 @@ begin
   end;
 
   FCapDiscount := FCapFiscalStorage and (FDiscountMode = 0) and (GetDeviceMetrics.Model <> 19);
-  FIsFiscalized := FCapFiscalStorage or (FLongPrinterStatus.RegistrationNumber <> 0);
+  FIsFiscalized := FCapFiscalStorage or (FLongStatus.RegistrationNumber <> 0);
 end;
 
 function TFiscalPrinterDevice.GetTaxInfo(Tax: Integer): TTaxInfo;
@@ -6074,66 +6301,60 @@ begin
 end;
 
 function TFiscalPrinterDevice.GetPrinterStatus: TPrinterStatus;
-var
-  ShortStatus: TShortPrinterStatus;
 begin
-  Logger.Debug('TSharedPrinter.GetPrinterStatus');
+  Result := FPrinterStatus;
+end;
+
+function TFiscalPrinterDevice.ReadPrinterStatus: TPrinterStatus;
+begin
+  Logger.Debug('TSharedPrinter.ReadPrinterStatus');
   case Parameters.StatusCommand of
     // Driver will select command to read printer status
     StatusCommandDriver:
     begin
       if CapShortEcrStatus then
       begin
-        ShortStatus := GetShortStatus;
-        Result.Mode := ShortStatus.Mode;
-        Result.AdvancedMode := ShortStatus.AdvancedMode;
-        Result.OperatorNumber := ShortStatus.OperatorNumber;
-        Result.Flags := DecodePrinterFlags(ShortStatus.Flags);
+        ReadShortStatus;
       end else
       begin
-        FLongPrinterStatus := GetLongStatus;
-        Result.Mode := FLongPrinterStatus.Mode;
-        Result.AdvancedMode := FLongPrinterStatus.AdvancedMode;
-        Result.OperatorNumber := FLongPrinterStatus.OperatorNumber;
-        Result.Flags := DecodePrinterFlags(FLongPrinterStatus.Flags);
+        ReadLongStatus;
       end;
     end;
-
     // Short status command
-    StatusCommandShort:
-    begin
-      ShortStatus := GetShortStatus;
-      Result.Mode := ShortStatus.Mode;
-      Result.AdvancedMode := ShortStatus.AdvancedMode;
-      Result.OperatorNumber := ShortStatus.OperatorNumber;
-      Result.Flags := DecodePrinterFlags(ShortStatus.Flags);
-    end;
+    StatusCommandShort: ReadShortStatus;
   else
     // Long status command
-    FLongPrinterStatus := GetLongStatus;
-    Result.Mode := FLongPrinterStatus.Mode;
-    Result.AdvancedMode := FLongPrinterStatus.AdvancedMode;
-    Result.OperatorNumber := FLongPrinterStatus.OperatorNumber;
-    Result.Flags := DecodePrinterFlags(FLongPrinterStatus.Flags);
+    ReadLongStatus;
   end;
-  Logger.Debug(Format('Mode: 0x%.2x, amode: 0x%.2x, Flags: 0x%.4x',
-    [Result.Mode, Result.AdvancedMode, Result.Flags.Value]));
+  Result := FPrinterStatus;
 end;
 
 function TFiscalPrinterDevice.PrintBarLine(Height: Word; Data: string): Integer;
 var
-  ReverseBytes: Boolean;
+  IsSwapBytes: Boolean;
 begin
   case Parameters.BarLineByteMode of
-    BarLineByteModeAuto: ReverseBytes := Model.BarcodeSwapBytes;
-    BarLineByteModeStraight: ReverseBytes := False;
-    BarLineByteModeReverse: ReverseBytes := True;
+    BarLineByteModeAuto:
+    begin
+      if FCapParameters2 then
+      begin
+        IsSwapBytes := not FParameters2.Flags.SwapGraphicsLine;
+      end else
+      begin
+        IsSwapBytes := Model.BarcodeSwapBytes;
+      end;
+    end;
+    BarLineByteModeStraight: IsSwapBytes := False;
+    BarLineByteModeReverse: IsSwapBytes := True;
   else
-    ReverseBytes := False;
+    IsSwapBytes := False;
   end;
-  if ReverseBytes then
+  if IsSwapBytes then
+  begin
     Data := SwapBytes(Data);
-  Result := PrintBinaryLine(Height, Data);
+  end;
+
+  Result := PrintGraphicsLine(Height, PRINTER_STATION_REC, Data);
   if Result = 0 then
   begin
     Sleep(Parameters.BarLinePrintDelay);
@@ -6292,11 +6513,13 @@ function TFiscalPrinterDevice.PrintGraphics3(const P: TPrintGraphics3): Integer;
 var
   Answer: string;
   Command: string;
+  Flags: Byte;
 begin
+  Flags := GetPrintFlags(P.Flags);
   Command := #$4D + IntToBin(GetUsrPassword, 4) +
     IntToBin(P.FirstLine, 2) +
     IntToBin(P.LastLine, 2) +
-    Chr(P.VScale) + Chr(P.HScale) + Chr(P.Flags);
+    Chr(P.VScale) + Chr(P.HScale) + Chr(Flags);
   Result := ExecuteData(Command, Answer);
 end;
 
@@ -7841,6 +8064,45 @@ begin
     R.DocNumber := BinToInt(Answer, 1, 4);
     R.DocMac := BinToInt(Answer, 5, 4);
   end;
+end;
+
+function TFiscalPrinterDevice.IsCapFooterFlag: Boolean;
+begin
+  Result := FCapFooterFlag;
+end;
+
+procedure TFiscalPrinterDevice.SetFooterFlag(Value: Boolean);
+begin
+  FFooterFlag := Value;
+end;
+
+function TFiscalPrinterDevice.GetOnPrinterStatus: TNotifyEvent;
+begin
+  Result := FOnPrinterStatus;
+end;
+
+procedure TFiscalPrinterDevice.SetOnPrinterStatus(Value: TNotifyEvent);
+begin
+  FOnPrinterStatus := Value;
+end;
+
+procedure TFiscalPrinterDevice.SetPrinterStatus(Value: TPrinterStatus);
+begin
+  if not IsEqual(FPrinterStatus, Value) then
+  begin
+    FPrinterStatus := Value;
+
+    Logger.Debug(Format('Mode: $%.2x, amode: $%.2x, Flags: $%.4x',
+      [FPrinterStatus.Mode, FPrinterStatus.AdvancedMode, FPrinterStatus.Flags.Value]));
+
+    if Assigned(FOnPrinterStatus) then
+      FOnPrinterStatus(Self);
+  end;
+end;
+
+function TFiscalPrinterDevice.IsCapBarcode2D: Boolean;
+begin
+  Result := FCapBarcode2D;
 end;
 
 end.

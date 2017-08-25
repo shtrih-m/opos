@@ -187,7 +187,7 @@ var
 begin
   ReceiptTotal := GetSubtotal;
   if ReceiptTotal = 0 then Exit;
-  RecType := Printer.GetPrinterStatus.Mode shr 4;
+  RecType := Device.ReadPrinterStatus.Mode shr 4;
   // Get taxes turnovers
   for i := 0 to 3 do
   begin

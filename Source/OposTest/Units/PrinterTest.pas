@@ -4103,6 +4103,61 @@ begin
 end;
 
 procedure TReceiptTest11.Execute;
+
+  procedure printCode128;
+  var
+    Barcode: TBarcodeRec;
+  begin
+    Barcode.Data := '8236482763482736482';
+    Barcode.Text := Barcode.Data;
+    Barcode.Height := 100;
+    Barcode.BarcodeType := DIO_BARCODE_CODE128A;
+    Barcode.ModuleWidth := 2;
+    Barcode.Alignment := BARCODE_ALIGNMENT_CENTER;
+    Check(FiscalPrinter.PrintBarcode2(Barcode));
+  end;
+
+  procedure printQRCode;
+  var
+    Barcode: TBarcodeRec;
+  begin
+    // в формате <ссылка><ПРОБЕЛ><подпись 128 символов><0x00>
+    Barcode.Data :=
+      'http://check.egais.ru?id=38d02af6-bfd2-409f-8041-b011d8160700&dt=2311161430&cn=030000290346 ' +
+      '0123456789012345678901234567890123456789012345678901234567890123456789' +
+      '0123456789012345678901234567890123456789012345678901234567890123456789' +
+      '01234567';
+
+    Barcode.Text := '';
+    Barcode.Height := 100;
+    Barcode.BarcodeType := DIO_BARCODE_QRCODE4;
+    Barcode.ModuleWidth := 4;
+    Barcode.Alignment := BARCODE_ALIGNMENT_CENTER;
+    Check(FiscalPrinter.PrintBarcode2(Barcode));
+  end;
+
+  procedure printAztecCode;
+  var
+    Barcode: TBarcodeRec;
+  begin
+    Barcode.Data := '87686787687687687687687030000290346';
+    Barcode.Text := '';
+    Barcode.Height := 100;
+    Barcode.BarcodeType := DIO_BARCODE_AZTEC;
+    Barcode.ModuleWidth := 5;
+    Barcode.Alignment := BARCODE_ALIGNMENT_CENTER;
+    Check(FiscalPrinter.PrintBarcode2(Barcode));
+  end;
+
+  procedure printEndingItems;
+  begin
+    PrintCode128;
+    printQRCode;
+    //printAztecCode;
+    Check(FiscalPrinter.PrintRecMessage('Оператор: ts ID:    3944628'));
+    Check(FiscalPrinter.PrintRecMessage('ID продажи: 3944627 (499.74 руб)'));
+  end;
+
 begin
   Check(FiscalPrinter.resetPrinter());
   FiscalPrinter.set_FiscalReceiptType(4);
@@ -4110,7 +4165,12 @@ begin
 
   Check(FiscalPrinter.PrintRecItem('АИ-92-3', 1000.43, 55090, 4, 18.16, ''));
   Check(FiscalPrinter.PrintRecSubtotalAdjustment(1, 'Округление', 0.43));
+
+  printEndingItems;
+
   Check(FiscalPrinter.PrintRecTotal(1000, 1000, '0'));
+
+  printEndingItems;
   Check(FiscalPrinter.endFiscalReceipt(false));
 end;
 

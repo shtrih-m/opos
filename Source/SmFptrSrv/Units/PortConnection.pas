@@ -388,7 +388,7 @@ function TPort.GetStatus(Device: IFiscalPrinterDevice): TPrinterStatus;
 var
   Status: TLongPrinterStatus;
 begin
-  Status := Device.GetLongStatus;
+  Status := Device.ReadLongStatus;
   Result.Mode := Status.Mode;
   Result.AdvancedMode := Status.AdvancedMode;
   Result.OperatorNumber := Status.OperatorNumber;
@@ -442,7 +442,7 @@ end;
 
 function TPort.IsReceiptOpened(Device: IFiscalPrinterDevice): Boolean;
 begin
-  Result := (Device.GetLongStatus.Mode and $0F) = MODE_REC;
+  Result := (Device.ReadPrinterStatus.Mode and $0F) = MODE_REC;
 end;
 
 procedure TPort.CancelReceipt;

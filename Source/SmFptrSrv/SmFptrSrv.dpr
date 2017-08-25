@@ -83,7 +83,8 @@ uses
   RegUtils in '..\SmFiscalPrinter\Units\RegUtils.pas',
   DriverContext in '..\SmFiscalPrinter\Units\DriverContext.pas',
   PrinterProtocol1 in '..\SmFiscalPrinter\Units\PrinterProtocol1.pas',
-  PrinterPort in '..\SmFiscalPrinter\Units\PrinterPort.pas';
+  PrinterPort in '..\SmFiscalPrinter\Units\PrinterPort.pas',
+  PrinterFonts in '..\SmFiscalPrinter\Units\PrinterFonts.pas';
 
 {$R *.TLB}
 

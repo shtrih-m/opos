@@ -185,9 +185,15 @@ const
   DIO_BARCODE_CHANNEL             = 90;
   DIO_BARCODE_CODEONE             = 91;
   DIO_BARCODE_GRIDMATRIX          = 92;
+  // Компактный вид QR кода, печатается быстро средствами ФР, перепечатываться не будет
+  DIO_BARCODE_QRCODE2             = 93;
+  // Компактный вид QR кода, печатается медленно в графике, перепечатываться будет
+  DIO_BARCODE_QRCODE3             = 94;
+  // Компактный вид QR кода, печатается быстро средствами ФР, перепечатываться будет
+  DIO_BARCODE_QRCODE4             = 95;
 
   DIO_BARCODE_MIN = 0;
-  DIO_BARCODE_MAX = 92;
+  DIO_BARCODE_MAX = 95;
 
   /////////////////////////////////////////////////////////////////////////////
   // BarcodeAlignment values

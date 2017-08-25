@@ -25,7 +25,7 @@ uses
   TextItem, FptrFilter, NonFiscalDoc, RosneftSalesReceipt, FSSalesReceipt,
   PrinterConnection, Retalix, RegExpr, TLV,
   DriverError, MathUtils, fmuTimeSync, CorrectionReceipt,
-  CsvPrinterTableFormat, PrinterTable, FSService;
+  CsvPrinterTableFormat, PrinterTable, FSService, ReceiptItem;
 
 type
   { TFiscalPrinterImpl }
@@ -34,9 +34,6 @@ type
   private
     FRetalix: TRetalix;
     FService: TFSService;
-    FPrinter: ISharedPrinter;
-    FReceiptPrinter: IReceiptPrinter;
-
     FFilter: TEscFilter;
     FInitPrinter: Boolean;
     FLastErrorText: string;
@@ -58,6 +55,10 @@ type
     FOposDevice: TOposServiceDevice19;
     FPrinterState: TFiscalPrinterState;
     FVatValues: array [1..4] of Integer;
+    FBeforeCloseItems: TReceiptItems;
+    FAfterCloseItems: TReceiptItems;
+    FPrinter: ISharedPrinter;
+    FReceiptPrinter: IReceiptPrinter;
 
     procedure CancelReceipt2;
     procedure UpdatePrinterDate;
@@ -80,6 +81,7 @@ type
     function FSHandleError(FPCode, ResultCodeExtended: Integer): Integer;
 
     property NonFiscalDoc: TNonFiscalDoc read GetNonFiscalDoc;
+    procedure PrintReceiptItems(Items: TReceiptItems);
   public
     procedure ReadHeader;
     procedure CheckEndDay;
@@ -102,6 +104,7 @@ type
     procedure SetJrnPaperState(IsEmpty, IsNearEnd: Boolean);
     procedure SetRecPaperState(IsEmpty, IsNearEnd: Boolean);
     procedure PrinterCommand(Sender: TObject; var Command: TCommandRec);
+    procedure BeforeCommand(Sender: TObject; var Command: TCommandRec);
     procedure PrintImage(const FileName: string);
     procedure PrintImageScale(const FileName: string; Scale: Integer);
     procedure SetAdjustmentAmount(Amount: Integer);
@@ -503,6 +506,8 @@ begin
   FDisconnectLink.OnChange := PowerStateChanged;
   FPrinterState := TFiscalPrinterState.Create;
   FJournal := TElectronicJournal.Create;
+  FBeforeCloseItems := TReceiptItems.Create;
+  FAfterCloseItems := TReceiptItems.Create;
   SetPrinter(SharedPrinter.GetPrinter(''));
 end;
 
@@ -526,6 +531,8 @@ begin
   FDisconnectLink.Free;
   FNonFiscalDoc.Free;
   FRetalix.Free;
+  FBeforeCloseItems.Free;
+  FAfterCloseItems.Free;
   FPrinter := nil;
   inherited Destroy;
 end;
@@ -599,7 +606,7 @@ end;
 
 function TFiscalPrinterImpl.GetLongStatus: TLongPrinterStatus;
 begin
-  Result := Device.GetLongStatus;
+  Result := Device.ReadLongStatus;
   FDocumentNumber := Result.DocumentNumber;
 end;
 
@@ -846,6 +853,7 @@ begin
     FReceiptPrinter := TFiscalReceiptPrinter.Create(Printer);
 
     Device.SetOnCommand(PrinterCommand);
+    Device.SetBeforeCommand(BeforeCommand);
     FCommandDefs.LoadFromFile(GetCommandDefsFileName);
     // initialize
     FSubtotalText := Parameters.SubtotalText;
@@ -936,8 +944,7 @@ begin
   Printer.Connect;
   CancelReceipt;
   Printer.ReadTables;
-  Printer.UpdateStatus;
-  Status := Device.GetLongStatus;
+  Status := Device.ReadLongStatus;
   FDeviceMetrics := Device.GetDeviceMetrics;
   PrinterFlags := DecodePrinterFlags(Status.Flags);
   if PrinterFlags.DecimalPosition then
@@ -1011,6 +1018,20 @@ begin
     Result := Value;
   end;
   Logger.Debug('GetCapRecNearEnd', [Value], Result);
+end;
+
+procedure TFiscalPrinterImpl.BeforeCommand(Sender: TObject;
+  var Command: TCommandRec);
+begin
+  if (Command.Code = $85) or (Command.Code = $FF45) then
+  begin
+    Device.SetFooterFlag(True);
+    try
+      PrintReceiptItems(FBeforeCloseItems);
+    finally
+      Device.SetFooterFlag(False);
+    end;
+  end;
 end;
 
 procedure TFiscalPrinterImpl.PrinterCommand(Sender: TObject;
@@ -1443,7 +1464,7 @@ begin
     if Integer(GetTickCount) > (TickCount + Parameters.StatusTimeout*1000) then
       raise Exception.Create(SStatusWaitTimeout);
 
-    PrinterStatus := Printer.GetPrinterStatus;
+    PrinterStatus := Device.ReadPrinterStatus;
     Mode := PrinterStatus.Mode and $0F;
 
     case Mode of
@@ -1478,7 +1499,7 @@ begin
       // Waiting for date confirm
       MODE_WAITDATE:
       begin
-        Device.ConfirmDate(Device.GetLongStatus.Date);
+        Device.ConfirmDate(Device.ReadLongStatus.Date);
         Inc(WaitDateCount);
         if WaitDateCount >= MaxStateCount then
           raiseOposException(OPOS_E_FAILURE, GetStateErrorMessage(Mode));
@@ -1557,7 +1578,7 @@ var
 begin
   Logger.Debug('StatusChanged.0');
   try
-    Status := Printer.Status;
+    Status := Device.PrinterStatus;
     Flags := Status.Flags;
     SetRecPaperState(Flags.RecEmpty, Flags.RecNearEnd);
     SetJrnPaperState(Flags.JrnEmpty, Flags.JrnNearEnd);
@@ -1684,7 +1705,7 @@ end;
 
 procedure TFiscalPrinterImpl.CheckEndDay;
 begin
-  if Printer.GetPrinterStatus.Mode = ECRMODE_24OVER then
+  if Device.ReadPrinterStatus.Mode = ECRMODE_24OVER then
     raiseExtendedError(OPOS_EFPTR_DAY_END_REQUIRED, MsgDayEndRequired);
 end;
 
@@ -1752,7 +1773,7 @@ var
 begin
   Lines := TStringList.Create;
   try
-    Status := Device.GetLongStatus;
+    Status := Device.ReadLongStatus;
     FMFlags := Device.GetFMFlags(Status.FMFlags);
     PrinterFlags := DecodePrinterFlags(Status.Flags);
     // Cover opened
@@ -1877,7 +1898,7 @@ begin
     HeaderTypePrinter: PrintNonFiscalEndPrinter;
     HeaderTypeDriver: PrintNonFiscalEndDriver;
   end;
-  FDocumentNumber := Device.GetLongStatus.DocumentNumber;
+  FDocumentNumber := Device.ReadLongStatus.DocumentNumber;
 end;
 
 procedure TFiscalPrinterImpl.PrintNonFiscalEndPrinter;
@@ -2238,7 +2259,8 @@ begin
     FReceipt := CreateReceipt(FFiscalReceiptType);
     Receipt.BeginFiscalReceipt(PrintHeader);
     Filters.BeginFiscalReceipt2(FReceipt);
-
+    FBeforeCloseItems.Clear;
+    FAfterCloseItems.Clear;
     Result := ClearResult;
   except
     on E: Exception do
@@ -2461,12 +2483,33 @@ begin
   Result := IllegalError;
 end;
 
+procedure TFiscalPrinterImpl.PrintReceiptItems(Items: TReceiptItems);
+var
+  i: Integer;
+  ReceiptItem: TReceiptItem;
+begin
+  for i := 0 to Items.Count-1 do
+  begin
+    ReceiptItem := Items[i];
+    if ReceiptItem is TTextReceiptItem then
+    begin
+      Device.PrintText((ReceiptItem as TTextReceiptItem).Data);
+    end;
+    if ReceiptItem is TBarcodeReceiptItem then
+    begin
+      Device.PrintBarcode2((ReceiptItem as TBarcodeReceiptItem).Data);
+    end;
+  end;
+end;
+
 function TFiscalPrinterImpl.EndFiscalReceipt(PrintHeader: WordBool): Integer;
 begin
   try
     Filters.BeforeCloseReceipt;
     Receipt.EndFiscalReceipt;
     Filters.AfterCloseReceipt;
+
+    PrintReceiptItems(FAfterCloseItems);
 
     //if PrintHeader then
     begin
@@ -2565,7 +2608,7 @@ begin
     case DataItem of
       FPTR_GD_FIRMWARE:
       begin
-        Status := Device.GetLongStatus;
+        Status := Device.ReadLongStatus;
         case OptArgs of
           // ECR firmware version
           0:  Data := Format('%s.%s', [Status.FirmwareVersionHi, Status.FirmwareVersionLo]);
@@ -2581,7 +2624,7 @@ begin
       end;
       FPTR_GD_PRINTER_ID:
       begin
-        Status := Device.GetLongStatus;
+        Status := Device.ReadLongStatus;
         Data := Status.SerialNumber;
       end;
       FPTR_GD_CURRENT_TOTAL:
@@ -2606,7 +2649,7 @@ begin
       begin
         if Device.IsFiscalized then
         begin
-          Data := IntToStr(Device.GetLongStatus.DayNumber);
+          Data := IntToStr(Device.ReadLongStatus.DayNumber);
         end else
         begin
           Data := IntToStr(Device.ReadOperatingRegister(159))
@@ -2727,11 +2770,11 @@ begin
     case FDateType of
       FPTR_DT_EOD:
       begin
-        Date := Journal.ReadEJSesssionDate(Device, Device.GetLongStatus.DayNumber);
+        Date := Journal.ReadEJSesssionDate(Device, Device.ReadLongStatus.DayNumber);
       end;
       FPTR_DT_RTC:
       begin
-        Status := Device.GetLongStatus;
+        Status := Device.ReadLongStatus;
         OposDate := PrinterDateTimeToOposDate(Status.Date, Status.Time);
         Date := EncodeOposDate(OposDate);
       end;
@@ -2799,7 +2842,7 @@ begin
     PIDXFptr_QuantityLength         : Result := FQuantityLength;
     PIDXFptr_RecEmpty               : Result := BoolToInt[FRecStatus.IsEmpty];
     PIDXFptr_RecNearEnd             : Result := BoolToInt[FRecStatus.IsNearEnd];
-    PIDXFptr_RemainingFiscalMemory  : Result := Device.GetLongStatus.RemainingFiscalMemory;
+    PIDXFptr_RemainingFiscalMemory  : Result := Device.ReadLongStatus.RemainingFiscalMemory;
     PIDXFptr_SlpEmpty               : Result := BoolToInt[FSlpStatus.IsEmpty];
     PIDXFptr_SlpNearEnd             : Result := BoolToInt[FSlpStatus.IsNearEnd];
     PIDXFptr_SlipSelection          : Result := FSlipSelection;
@@ -2887,7 +2930,7 @@ begin
         PIDXFptr_RecEmpty,
         PIDXFptr_RecNearEnd:
         begin
-          Printer.UpdateStatus;
+          Device.ReadPrinterStatus;
         end;
       end;
     end;
@@ -3262,6 +3305,7 @@ function TFiscalPrinterImpl.PrintRecMessage(
   const AMessage: WideString): Integer;
 var
   Text: WideString;
+  Item: TTextReceiptItem;
 begin
   try
     CheckEnabled;
@@ -3270,11 +3314,58 @@ begin
 
     if Length(Text) = 0 then
       Text := ' ';
-    Receipt.PrintRecMessage(Text);
+
+    if FPrinterState.IsReceiptEnding then
+    begin
+      if Device.IsCapFooterFlag then
+      begin
+        Item := TTextReceiptItem.Create(FBeforeCloseItems);
+      end else
+      begin
+        Item := TTextReceiptItem.Create(FAfterCloseItems);
+      end;
+      Item.Data.Text := Text;
+      Item.Data.Station := PRINTER_STATION_REC;
+      Item.Data.Font := Parameters.FontNumber;
+      Item.Data.Alignment := taLeft;
+      Item.Data.Wrap := Parameters.WrapText;
+    end else
+    begin
+      Receipt.PrintRecMessage(Text);
+    end;
     Result := ClearResult;
   except
     on E: Exception do
       Result := HandleException(E);
+  end;
+end;
+
+procedure TFiscalPrinterImpl.PrintBarcode(const Barcode: TBarcodeRec);
+var
+  Item: TBarcodeReceiptItem;
+begin
+  if FPrinterState.IsReceiptEnding then
+  begin
+    if Device.IsCapFooterFlag then
+    begin
+      if (Device.IsCapBarcode2D and (Barcode.BarcodeType in [
+        DIO_BARCODE_QRCODE, DIO_BARCODE_QRCODE2])) then
+      begin
+        Item := TBarcodeReceiptItem.Create(FAfterCloseItems);
+        Item.Data := Barcode;
+      end else
+      begin
+        Item := TBarcodeReceiptItem.Create(FBeforeCloseItems);
+        Item.Data := Barcode;
+      end;
+    end else
+    begin
+      Item := TBarcodeReceiptItem.Create(FAfterCloseItems);
+      Item.Data := Barcode;
+    end;
+  end else
+  begin
+    Receipt.PrintBarcode(Barcode);
   end;
 end;
 
@@ -3551,7 +3642,7 @@ begin
     CheckState(FPTR_PS_MONITOR);
     SetPrinterState(FPTR_PS_REPORT);
     try
-      if not Device.IsDayOpened(Printer.GetPrinterStatus.Mode) then
+      if not Device.IsDayOpened(Device.ReadPrinterStatus.Mode) then
       begin
         Printer.Device.OpenDay;
       end;
@@ -3632,6 +3723,8 @@ begin
     CheckEnabled;
     CancelReceipt;
     SetPrinterState(FPTR_PS_MONITOR);
+    FBeforeCloseItems.Clear;
+    FAfterCloseItems.Clear;
     FReceiptItems := 0;
     Result := ClearResult;
   except
@@ -4126,11 +4219,6 @@ begin
   finally
     Lines.Free;
   end;
-end;
-
-procedure TFiscalPrinterImpl.PrintBarcode(const Barcode: TBarcodeRec);
-begin
-  Receipt.PrintBarcode(Barcode);
 end;
 
 procedure TFiscalPrinterImpl.CancelReceipt2;

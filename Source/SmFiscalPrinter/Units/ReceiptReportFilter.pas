@@ -109,7 +109,7 @@ procedure TReceiptReportFilter.ReadReceiptDate;
 var
   Status: TLongPrinterStatus;
 begin
-  Status := FPrinter.GetLongStatus;
+  Status := FPrinter.ReadLongStatus;
   FReceipt.DocID := (Status.DocumentNumber + 1) mod 9999;
   FReceipt.Date := Status.Date;
   FReceipt.Time := Status.Time;
@@ -133,7 +133,7 @@ procedure TReceiptReportFilter.BeforeCloseReceipt;
 var
   Mode: Integer;
 begin
-  Mode := FPrinter.GetShortStatus.Mode;
+  Mode := FPrinter.ReadPrinterStatus.Mode;
   case Mode of
     ECRMODE_RECSELL		 : FReceipt.RecType := XML_RT_SALE;
     ECRMODE_RECBUY		 : FReceipt.RecType := XML_RT_BUY;

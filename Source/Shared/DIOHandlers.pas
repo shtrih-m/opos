@@ -904,7 +904,7 @@ procedure TDIOCheckEndDay.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
   Printer.CheckEnabled;
-  if Printer.Printer.GetPrinterStatus.Mode = ECRMODE_24OVER then pData := 1
+  if Printer.Device.ReadPrinterStatus.Mode = ECRMODE_24OVER then pData := 1
   else pData := 0;
 end;
 
@@ -1476,7 +1476,7 @@ end;
 procedure TDIOReadDayNumber.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
-  pData := Printer.Device.GetLongStatus.DayNumber;
+  pData := Printer.Device.ReadLongStatus.DayNumber;
 end;
 
 { TDIOWaitForPrint }
