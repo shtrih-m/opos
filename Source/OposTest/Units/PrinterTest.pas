@@ -4130,7 +4130,7 @@ procedure TReceiptTest11.Execute;
 
     Barcode.Text := '';
     Barcode.Height := 100;
-    Barcode.BarcodeType := DIO_BARCODE_QRCODE4;
+    Barcode.BarcodeType := DIO_BARCODE_QRCODE2;
     Barcode.ModuleWidth := 4;
     Barcode.Alignment := BARCODE_ALIGNMENT_CENTER;
     Check(FiscalPrinter.PrintBarcode2(Barcode));
@@ -4175,4 +4175,29 @@ begin
 end;
 
 
+(*
+  FiscalPrinter.SetPropertyNumber('PIDXFptr_FiscalReceiptType', 4)
+  FiscalPrinter.BeginFiscalReceipt(True)
+  FiscalPrinter.DirectIO(9, 5, '                   КАССОВЫЙ ЧЕК                    ')
+  FiscalPrinter.DirectIO(9, 5, 'Касса:3                                      Док:49')
+  FiscalPrinter.PrintRecItem('3757 Бананы 1кг', 62.9, 1000, 1, 62.9, 'кг')
+  FiscalPrinter.GetData(1, 0, '')
+  FiscalPrinter.PrintRecSubtotal(62.9)
+  FiscalPrinter.PrintRecSubtotalAdjustment(1, 'ОКРУГЛЕНИЕ', 0.9)
+  FiscalPrinter.DirectIO(9, 5, 'ИТОГ:                                         62.00')
+  FiscalPrinter.PrintRecTotal(0, 100, '0')
+  FiscalPrinter.DirectIO(9, 5, '                                                   ')
+  FiscalPrinter.DirectIO(9, 5, 'Акция от: 25.08.2017 15:06                         ')
+  FiscalPrinter.DirectIO(9, 5, '                                                   ')
+  FiscalPrinter.DirectIO(9, 5, '  За эту покупку Вы могли бы получить              ')
+  FiscalPrinter.DirectIO(9, 5, '    6 баллов Клуба Перекресток.                    ')
+  FiscalPrinter.DirectIO(9, 5, '         Спросите кассира, как                     ')
+  FiscalPrinter.DirectIO(9, 5, '                                                   ')
+  FiscalPrinter.DirectIO(9, 5, '                                                   ')
+  FiscalPrinter.DirectIO(9, 5, '---------------------------------------------------')
+  FiscalPrinter.DirectIO(9, 5, 'Участвуйте в акции, копите наклейки                ')
+  FiscalPrinter.DirectIO(9, 5, '---------------------------------------------------')
+  FiscalPrinter.DirectIO(40, 1203, '123456789012')
+  FiscalPrinter.EndFiscalReceipt(True)
+*)
 end.

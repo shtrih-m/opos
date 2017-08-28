@@ -321,18 +321,10 @@ const
   DefFSUpdatePrice = False;
   DefWrapText = False;
 
-  DefReceiptItemsHeader =
-    '------------------------------------------' + CRLF +
-    ' №                  Цена со  Кол-         ' + CRLF +
-    ' пп  Цена    Скидка скидкой  во    ИТОГО  ' + CRLF +
-    '------------------------------------------';
+  DefReceiptItemsHeader   =  '------------------------------------------';
+  DefReceiptItemsTrailer  = '------------------------------------------';
+  DefReceiptItemFormat    = '%3cPOS% %20lTITLE% %6lSUM% * %6QUAN% =%10TOTAL_TAX%';
 
-  DefReceiptItemsTrailer =
-    '------------------------------------------';
-
-  DefReceiptItemFormat =
-    '%3cPOS% %30lTITLE%' + CRLF +
-    '    %6lPRICE% %5lDISCOUNT% %6lSUM% * %6QUAN% =%10TOTAL_TAX%';
   DefRecPrintType = RecPrintTypePrinter;
   DefVatCodeEnabled = False;
   DefHandleErrorCode = False;
