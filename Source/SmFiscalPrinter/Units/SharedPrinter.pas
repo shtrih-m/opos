@@ -425,7 +425,8 @@ begin
 
     ConnectionTypeSocket:
     begin
-      Port := TSocketPort.Create(Parameters.RemoteHost, Parameters.RemotePort, Logger);
+      Port := TSocketPort.Create(Parameters.RemoteHost, Parameters.RemotePort,
+        Parameters.ByteTimeout, Logger);
       Result := CreateProtocol(Port);
     end;
   else
@@ -435,8 +436,10 @@ end;
 
 procedure TSharedPrinter.Close;
 begin
+  Logger.Error('TSharedPrinter.Close.0');
   try
     FOpened := False;
+    FConnection := nil;
     Device.Close;
   except
     on E: Exception do
@@ -444,6 +447,7 @@ begin
       Logger.Error('TSharedPrinter.Close: ', E);
     end;
   end;
+  Logger.Error('TSharedPrinter.Close.1');
 end;
 
 procedure TSharedPrinter.Open(const DeviceName: string);

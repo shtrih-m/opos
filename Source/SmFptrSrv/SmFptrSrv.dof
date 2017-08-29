@@ -115,7 +115,7 @@ AutoIncBuild=1
 MajorVer=1
 MinorVer=12
 Release=0
-Build=356
+Build=357
 Debug=0
 PreRelease=0
 Special=0
@@ -126,7 +126,7 @@ CodePage=1252
 [Version Info Keys]
 CompanyName=SHTRIH-M
 FileDescription=Fiscal printer print server
-FileVersion=1.12.0.356
+FileVersion=1.12.0.357
 InternalName=Fiscal printer driver
 LegalCopyright=SHTRIH-M © 2013
 LegalTrademarks=
@@ -138,14 +138,12 @@ Comments=http://www.shtrih-m.ru
 Count=1
 Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;
 [HistoryLists\hlSearchPath]
-Count=2
-Item0=$(DELPHI)\Lib\Debug;c:\PROGRA~2\Borland\Delphi7\Comp\jcl\lib\d7\debug
-Item1=$(DELPHI)\Lib\Debug
+Count=1
+Item0=$(DELPHI)\Lib\Debug
 [HistoryLists\hlUnitOutputDirectory]
-Count=3
-Item0=..\..\DCU
-Item1=DCU
-Item2=..\lib\D7
+Count=2
+Item0=DCU
+Item1=..\lib\D7
 [HistoryLists\hlBPLOutput]
 Count=3
 Item0=$(DELPHI)\Bin\

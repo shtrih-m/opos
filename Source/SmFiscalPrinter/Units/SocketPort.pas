@@ -27,7 +27,7 @@ type
     property Logger: ILogFile read FLogger;
   public
     constructor Create(const ARemoteHost: string; ARemotePort: Integer;
-      ALogger: ILogFile);
+      ATimeout: Integer; ALogger: ILogFile);
     destructor Destroy; override;
 
     procedure Lock;
@@ -53,7 +53,7 @@ var
   Ports: TInterfaceList = nil;
 
 function GetSocketPort(const ARemoteHost: string; ARemotePort: Integer;
-  ALogger: ILogFile): IPrinterPort;
+  ATimeout: Integer; ALogger: ILogFile): IPrinterPort;
 var
   i: Integer;
 begin
@@ -67,7 +67,7 @@ begin
         Exit;
       end;
     end;
-    Result := TSocketPort.Create(ARemoteHost, ARemotePort, ALogger);
+    Result := TSocketPort.Create(ARemoteHost, ARemotePort, ATimeout, ALogger);
     Ports.Add(Result);
   finally
     Ports.Unlock;
@@ -77,10 +77,11 @@ end;
 { TSocketPort }
 
 constructor TSocketPort.Create(const ARemoteHost: string; ARemotePort: Integer;
-  ALogger: ILogFile);
+  ATimeout: Integer; ALogger: ILogFile);
 begin
   inherited Create;
   FLogger := ALogger;
+  FByteTimeout := ATimeout;
   FRemoteHost := ARemoteHost;
   FRemotePort := ARemotePort;
   FConnection := TIdTCPClient.Create;
@@ -101,12 +102,12 @@ begin
   begin
     FConnection.Host := FRemoteHost;
     FConnection.Port := FRemotePort;
-    FConnection.ReuseSocket := rsTrue;
+    FConnection.ReuseSocket := rsFalse;
     FConnection.ReadTimeout := FByteTimeout;
     FConnection.ConnectTimeout := FByteTimeout;
 
-    Logger.Debug('TSocketPort.Connect(' + FConnection.Host + ',' +
-      IntToStr(FConnection.Port) + ')');
+    Logger.Debug(Format('TSocketPort.Connect(%s,%d,%d)', [
+      FConnection.Host, FConnection.Port, FByteTimeout]));
 
     FConnection.Connect();
   end;
@@ -114,6 +115,7 @@ end;
 
 procedure TSocketPort.Close;
 begin
+  Logger.Debug('TSocketPort.Close.0');
   try
     FConnection.Disconnect;
     if (FConnection.IOHandler <> nil)and(FConnection.IOHandler.InputBuffer <> nil) then
@@ -126,6 +128,7 @@ begin
     on E: Exception do
       Logger.Error(E.Message);
   end;
+  Logger.Debug('TSocketPort.Close.1');
 end;
 
 procedure TSocketPort.Write(const Data: string);
@@ -219,6 +222,7 @@ end;
 
 procedure TSocketPort.SetTimeout(Value: DWORD);
 begin
+  Logger.Debug(Format('TSocketPort.SetTimeout(%d)', [Value]));
   FByteTimeout := Value;
 end;
 

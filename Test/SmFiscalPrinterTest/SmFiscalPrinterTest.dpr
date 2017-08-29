@@ -1,6 +1,7 @@
 program SmFiscalPrinterTest;
 
 uses
+  FastMM4,
   Forms,
   TestFramework,
   GUITestRunner,

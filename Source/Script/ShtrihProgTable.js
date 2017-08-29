@@ -83,10 +83,10 @@ var ResultString = "";
 var FSO = new ActiveXObject("Scripting.FileSystemObject");
 var AddressFile = FSO.OpenTextFile("IPAddress.txt", 1);
 var ResultFile = FSO.CreateTextFile("Result.txt", true);
-var Driver = new ActiveXObject ("OPOS.FiscalPrinter");
 
 function LoadTable(IPAddress)
 {
+	var Driver = new ActiveXObject ("OPOS.FiscalPrinter");
 	var rc = 0;
 	while (true)
 	{

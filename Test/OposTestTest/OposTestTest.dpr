@@ -1,6 +1,7 @@
 program OposTestTest;
 
 uses
+  FastMM4,
   TestFramework,
   GUITestRunner,
   AutoScrollTest in 'Units\AutoScrollTest.pas',

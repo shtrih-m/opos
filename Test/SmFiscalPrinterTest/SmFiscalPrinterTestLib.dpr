@@ -1,6 +1,7 @@
 library SmFiscalPrinterTestLib;
 
 uses
+  FastMM4,
   Forms,
   TestFramework,
   GUITestRunner,

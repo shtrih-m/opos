@@ -1,6 +1,7 @@
 library OposConfigTestLib;
 
 uses
+  FastMM4,
   TestFramework,
   GUITestRunner,
   TextDfmTest in 'Units\TextDfmTest.pas',
