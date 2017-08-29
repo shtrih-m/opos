@@ -20,7 +20,7 @@ const
   CRLF = #13#10;
   DIO_CUSTOM_COMMAND = $FFFF;
 
-  DIODescriptions: array[1..33] of TDirectIODescription = (
+  DIODescriptions: array[1..34] of TDirectIODescription = (
     (Command: DIO_COMMAND_PRINTER_XML;
      Description: 'XML command';
      DescriptionEx:  'Data: Printer command code' + #13#10 +
@@ -152,6 +152,11 @@ const
      'DIO_FPTR_PARAMETER_OFD_TIMEOUT    = 3' + CRLF +
      'DIO_FPTR_PARAMETER_RNM            = 4' + CRLF +
                     'String: returns parameter value';),
+
+    (Command: DIO_WRITE_TABLE_FILE;
+     Description: 'Write tables file';
+     DescriptionEx: 'Data: not used;' + CRLF +
+                    'String: tables file path';),
 
     (Command: DIO_FS_READ_DOCUMENT;
      Description: 'FS: Read fiscal document';

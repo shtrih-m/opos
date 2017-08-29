@@ -81,7 +81,8 @@ type
     function ClaimDevice(Timeout: Integer): Integer; safecall;
     function ClearOutput: Integer; safecall;
     function Close: Integer; safecall;
-    function DirectIO(Command: Integer; var pData: Integer; var pString: WideString): Integer; safecall;
+    function DirectIO(Command: Integer; var pData: Integer; var pString: WideString): Integer; overload; safecall;
+    function DirectIO2(Command: Integer; const pData: Integer; const pString: WideString): Integer; overload; safecall;
     function Open(const DeviceName: WideString): Integer; safecall;
     function ReleaseDevice: Integer; safecall;
     function Get_AmountDecimalPlaces: Integer; safecall;
@@ -698,6 +699,17 @@ begin
   pString := EncodeString(pString);
   Result := Driver.DirectIO(Command, pData, pString);
   pString := DecodeString(pString);
+end;
+
+function TSMFiscalPrinter.DirectIO2(Command: Integer; const pData: Integer;
+  const pString: WideString): Integer;
+var
+  pData2: Integer;
+  pString2: WideString;
+begin
+  pData2 := pData;
+  pString2 := EncodeString(pString);
+  Result := Driver.DirectIO(Command, pData2, pString2);
 end;
 
 function TSMFiscalPrinter.Open(const DeviceName: WideString): Integer;

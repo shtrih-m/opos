@@ -72,9 +72,9 @@ var DriverParameterBarLineByteMode          = 67;
 var DriverParameterLogFilePath              = 68;
 
 /////////////////////////////////////////////////////////////////////////////
-// Выполнение
+// Р’С‹РїРѕР»РЅРµРЅРёРµ
 
-var FilePath = "." // имя папки файлов таблиц
+var FilePath = "." // РёРјСЏ РїР°РїРєРё С„Р°Р№Р»РѕРІ С‚Р°Р±Р»РёС†
 var DIO_SET_DRIVER_PARAMETER  = 30; // write internal driver parameter
 var DIO_WRITE_TABLE_FILE      = 47; // write table file
 
@@ -138,7 +138,7 @@ while (AddressFile.AtEndOfStream == false)
 	ResultFile.writeLine(IPAddress + " " + ResultString);
 }
 AddressFile.close();
-WScript.Echo ("СКРИПТ ЗАКОНЧЕН");
+WScript.Echo ("РЎРљР РРџРў Р—РђРљРћРќР§Р•Рќ");
 
 
 

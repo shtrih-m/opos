@@ -141,7 +141,7 @@ begin
     Strings.LoadFromStream(Stream);
     for i := 0 to Strings.Count-1 do
     begin
-      Line := Trim(UTF8ToWideString(Strings[i]));
+      Line := Trim(Strings[i]);
       // skip comment lines
       if Pos('//', Line) <> 1 then
       begin

@@ -12,10 +12,10 @@ unit FptrServerLib_TLB;
 // ************************************************************************ //
 
 // PASTLWTR : 1.2
-// File generated on 28.08.2017 18:56:48 from Type Library described below.
+// File generated on 29.08.2017 4:54:36 from Type Library described below.
 
 // ************************************************************************  //
-// Type Lib: C:\projects\OPOSShtrih\Source\SmFptrSrv\SmFptrSrv.tlb (1)
+// Type Lib: C:\Projects\OPOSShtrih\Source\SmFptrSrv\SmFptrSrv.tlb (1)
 // LIBID: {B082E684-3F10-4B82-8D81-79F0B2D4F0AF}
 // LCID: 0
 // Helpfile: 

@@ -718,6 +718,15 @@ type
     function GetDisplayText: string; override;
   end;
 
+  { TReceiptTest12 }
+
+  TReceiptTest12 = class(TDriverTest)
+  public
+    procedure Execute; override;
+    function GetDisplayText: string; override;
+  end;
+
+
 implementation
 
 const
@@ -4174,30 +4183,38 @@ begin
   Check(FiscalPrinter.endFiscalReceipt(false));
 end;
 
+{ TReceiptTest12 }
 
-(*
-  FiscalPrinter.SetPropertyNumber('PIDXFptr_FiscalReceiptType', 4)
-  FiscalPrinter.BeginFiscalReceipt(True)
-  FiscalPrinter.DirectIO(9, 5, '                   КАССОВЫЙ ЧЕК                    ')
-  FiscalPrinter.DirectIO(9, 5, 'Касса:3                                      Док:49')
-  FiscalPrinter.PrintRecItem('3757 Бананы 1кг', 62.9, 1000, 1, 62.9, 'кг')
-  FiscalPrinter.GetData(1, 0, '')
-  FiscalPrinter.PrintRecSubtotal(62.9)
-  FiscalPrinter.PrintRecSubtotalAdjustment(1, 'ОКРУГЛЕНИЕ', 0.9)
-  FiscalPrinter.DirectIO(9, 5, 'ИТОГ:                                         62.00')
-  FiscalPrinter.PrintRecTotal(0, 100, '0')
-  FiscalPrinter.DirectIO(9, 5, '                                                   ')
-  FiscalPrinter.DirectIO(9, 5, 'Акция от: 25.08.2017 15:06                         ')
-  FiscalPrinter.DirectIO(9, 5, '                                                   ')
-  FiscalPrinter.DirectIO(9, 5, '  За эту покупку Вы могли бы получить              ')
-  FiscalPrinter.DirectIO(9, 5, '    6 баллов Клуба Перекресток.                    ')
-  FiscalPrinter.DirectIO(9, 5, '         Спросите кассира, как                     ')
-  FiscalPrinter.DirectIO(9, 5, '                                                   ')
-  FiscalPrinter.DirectIO(9, 5, '                                                   ')
-  FiscalPrinter.DirectIO(9, 5, '---------------------------------------------------')
-  FiscalPrinter.DirectIO(9, 5, 'Участвуйте в акции, копите наклейки                ')
-  FiscalPrinter.DirectIO(9, 5, '---------------------------------------------------')
-  FiscalPrinter.DirectIO(40, 1203, '123456789012')
-  FiscalPrinter.EndFiscalReceipt(True)
-*)
+procedure TReceiptTest12.Execute;
+begin
+  Check(FiscalPrinter.resetPrinter());
+  FiscalPrinter.set_FiscalReceiptType(4);
+  FiscalPrinter.BeginFiscalReceipt(True);
+  FiscalPrinter.DirectIO2(9, 5, '                   КАССОВЫЙ ЧЕК                    ');
+  FiscalPrinter.DirectIO2(9, 5, 'Касса:3                                      Док:49');
+  FiscalPrinter.PrintRecItem('3757 Бананы 1кг', 62.9, 1000, 1, 62.9, 'кг');;
+  FiscalPrinter.PrintRecSubtotal(62.9);
+  FiscalPrinter.PrintRecSubtotalAdjustment(1, 'ОКРУГЛЕНИЕ', 0.9);
+  FiscalPrinter.DirectIO2(9, 5, 'ИТОГ:                                         62.00');
+  FiscalPrinter.PrintRecTotal(0, 100, '0');
+  FiscalPrinter.DirectIO2(9, 5, '                                                   ');
+  FiscalPrinter.DirectIO2(9, 5, 'Акция от: 25.08.2017 15:06                         ');
+  FiscalPrinter.DirectIO2(9, 5, '                                                   ');
+  FiscalPrinter.DirectIO2(9, 5, '  За эту покупку Вы могли бы получить              ');
+  FiscalPrinter.DirectIO2(9, 5, '    6 баллов Клуба Перекресток.                    ');
+  FiscalPrinter.DirectIO2(9, 5, '         Спросите кассира, как                     ');
+  FiscalPrinter.DirectIO2(9, 5, '                                                   ');
+  FiscalPrinter.DirectIO2(9, 5, '                                                   ');
+  FiscalPrinter.DirectIO2(9, 5, '---------------------------------------------------');
+  FiscalPrinter.DirectIO2(9, 5, 'Участвуйте в акции, копите наклейки                ');
+  FiscalPrinter.DirectIO2(9, 5, '---------------------------------------------------');
+  FiscalPrinter.DirectIO2(40, 1203, '123456789012');
+  FiscalPrinter.EndFiscalReceipt(True);
+end;
+
+function TReceiptTest12.GetDisplayText: string;
+begin
+  Result := 'ReceiptTest12';
+end;
+
 end.
