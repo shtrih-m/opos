@@ -319,7 +319,7 @@ const
   DefCapRecNearEndSensorMode = SensorModeAuto;
   DefReportDateStamp = False;
   DefFSUpdatePrice = False;
-  DefWrapText = False;
+  DefWrapText = True;
 
   DefReceiptItemsHeader   =  '------------------------------------------';
   DefReceiptItemsTrailer  = '------------------------------------------';

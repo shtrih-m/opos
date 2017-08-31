@@ -9,7 +9,7 @@ uses
   TntSysUtils,
   // This
   StringUtils, RegExpr, LogFile, MalinaParams, PrinterParameters,
-  DriverContext;
+  DriverContext, gnugettext;
 
 type
   { TRetalix }
@@ -224,7 +224,7 @@ function TRetalix.ReadTaxGroup(ItemName: WideString): Integer;
   procedure CheckItemName(const ItemName: WideString);
   begin
     if ItemName = '' then
-      raise Exception.Create('ItemName cannot be empty');
+      raise Exception.Create(_('ItemName cannot be empty'));
   end;
 
 var

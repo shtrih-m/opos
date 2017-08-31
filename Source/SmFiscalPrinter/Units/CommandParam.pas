@@ -6,7 +6,8 @@ Uses
   // VCL
   Windows, Classes, SysUtils,
   // This
-  PrinterCommand, PrinterTypes, BinStream, XmlParser, StringUtils, BStrUtil;
+  PrinterCommand, PrinterTypes, BinStream, XmlParser, StringUtils, BStrUtil,
+  gnugettext;
 
 
 const
@@ -208,7 +209,7 @@ function TCommandParams.ItemByName(const Name: string): TCommandParam;
 begin
   Result := FindItem(Name);
   if Result = nil then
-    raise Exception.Create('Parameter not found');
+    raise Exception.Create(_('Parameter not found'));
 end;
 
 function TCommandParams.ItemByType(ParamType: Integer): TCommandParam;
@@ -382,7 +383,7 @@ begin
       Item.Value := IntToStr(ByteToTimeout(Data.ReadInt(Item.Size)));
     end;
   else
-    raise Exception.Create('Invalid parameter type');
+    raise Exception.Create(_('Invalid parameter type'));
   end;
 end;
 
@@ -467,7 +468,7 @@ begin
       Data.WriteInt(TimeoutToByte(I), Item.Size);
     end;
   else
-    raise Exception.Create('Invalid parameter type');
+    raise Exception.Create(_('Invalid parameter type'));
   end;
 end;
 

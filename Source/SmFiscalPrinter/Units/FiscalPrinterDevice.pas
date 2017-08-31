@@ -19,7 +19,7 @@ uses
   FiscalPrinterStatistics, ParameterValue, EJReportParser,
   PrinterParameters, DirectIOAPI, FileUtils,
   PrinterDeviceFilter, TLV, CsvPrinterTableFormat, MalinaParams, DriverContext,
-  PrinterFonts;
+  PrinterFonts, gnugettext;
 
 type
   { TFiscalPrinterDevice }
@@ -510,7 +510,7 @@ end;
 procedure CheckMinLength(const Data: string; MinLength: Integer);
 begin
   if Length(Data) < MinLength then
-    raise ECommunicationError.Create('Answer data length is too short');
+    raise ECommunicationError.Create(_('Answer data length is too short'));
 end;
 
 { TFiscalPrinterDevice }
@@ -1115,7 +1115,7 @@ begin
   end;
 
   if Length(Command.RxData) < 1 then
-    raise ECommunicationError.Create('Invalid answer length');
+    raise ECommunicationError.Create(_('Invalid answer length'));
 
   CommandCode := Ord(Command.RxData[1]);
 
@@ -1131,7 +1131,7 @@ begin
   end else
   begin
     if CommandCode <> Command.Code then
-      raise ECommunicationError.Create('Invalid answer code');
+      raise ECommunicationError.Create(_('Invalid answer code'));
     Result := Ord(Command.RxData[2]);
   end;
 
@@ -1554,7 +1554,7 @@ begin
     Stream.WriteByte(SMFP_COMMAND_PRINT_BOLD_LINE);
     Stream.WriteDWORD(GetUsrPassword);
     Stream.WriteByte(Flags);
-    Stream.WriteString(GetLine(Text, 20, GetPrintWidth div 2));
+    Stream.WriteString(GetLine(Text, 20, GetPrintWidth(2)));
     Result := ExecuteStream(Stream);
   finally
     Stream.Free;
@@ -2376,8 +2376,7 @@ begin
   FLogger.Debug(Format('PrintStringFont(%d,%d, ''%s'')',
     [Flags, Font, Text]));
 
-  Execute(#$2F + IntToBin(GetUsrPassword, 4) + Chr(Flags) + Chr(Font) +
-    GetLine(Text));
+  Execute(#$2F + IntToBin(GetUsrPassword, 4) + Chr(Flags) + Chr(Font) + Text);
 end;
 
 (******************************************************************************
@@ -2962,7 +2961,7 @@ begin
     Stream.WriteInt(Operation.Tax2, 1);
     Stream.WriteInt(Operation.Tax3, 1);
     Stream.WriteInt(Operation.Tax4, 1);
-    Stream.WriteString(GetLine(Operation.Text));
+    Stream.WriteString(Operation.Text);
     Result := ExecuteStream(Stream);
   finally
     Stream.Free;
@@ -3007,7 +3006,7 @@ begin
     Stream.WriteInt(Operation.Tax2, 1);
     Stream.WriteInt(Operation.Tax3, 1);
     Stream.WriteInt(Operation.Tax4, 1);
-    Stream.WriteString(GetLine(Operation.Text));
+    Stream.WriteString(Operation.Text);
     Result := ExecuteStream(Stream);
   finally
     Stream.Free;
@@ -3064,7 +3063,7 @@ begin
     Stream.WriteInt(Discount.Tax2, 1);
     Stream.WriteInt(Discount.Tax3, 1);
     Stream.WriteInt(Discount.Tax4, 1);
-    Stream.WriteString(GetLine(Discount.Text));
+    Stream.WriteString(Discount.Text);
     Result := ExecuteStream(Stream);
   finally
     Stream.Free;
@@ -3107,7 +3106,7 @@ begin
     Stream.WriteInt(Discount.Tax2, 1);
     Stream.WriteInt(Discount.Tax3, 1);
     Stream.WriteInt(Discount.Tax4, 1);
-    Stream.WriteString(GetLine(Discount.Text));
+    Stream.WriteString(Discount.Text);
     Result := ExecuteStream(Stream);
   finally
     Stream.Free;
@@ -3328,7 +3327,7 @@ begin
     Stream.WriteInt(Operation.Tax2, 1);
     Stream.WriteInt(Operation.Tax3, 1);
     Stream.WriteInt(Operation.Tax4, 1);
-    Stream.WriteString(GetLine(Operation.Text));
+    Stream.WriteString(Operation.Text);
     Result := ExecuteStream(Stream);
     if Result = 0 then
       FFilter.Sale(Operation);
@@ -3373,7 +3372,7 @@ begin
     Stream.WriteInt(Operation.Tax2, 1);
     Stream.WriteInt(Operation.Tax3, 1);
     Stream.WriteInt(Operation.Tax4, 1);
-    Stream.WriteString(GetLine(Operation.Text));
+    Stream.WriteString(Operation.Text);
     Result := ExecuteStream(Stream);
     if Result = 0 then
       FFilter.Buy(Operation);
@@ -3418,7 +3417,7 @@ begin
     Stream.WriteInt(Operation.Tax2, 1);
     Stream.WriteInt(Operation.Tax3, 1);
     Stream.WriteInt(Operation.Tax4, 1);
-    Stream.WriteString(GetLine(Operation.Text));
+    Stream.WriteString(Operation.Text);
     Result := ExecuteStream(Stream);
     if Result = 0 then
       FFilter.RetSale(Operation);
@@ -3463,7 +3462,7 @@ begin
     Stream.WriteInt(Operation.Tax2, 1);
     Stream.WriteInt(Operation.Tax3, 1);
     Stream.WriteInt(Operation.Tax4, 1);
-    Stream.WriteString(GetLine(Operation.Text));
+    Stream.WriteString(Operation.Text);
     Result := ExecuteStream(Stream);
     if Result = 0 then
       FFilter.RetBuy(Operation);
@@ -3507,7 +3506,7 @@ begin
     Stream.WriteInt(Operation.Tax2, 1);
     Stream.WriteInt(Operation.Tax3, 1);
     Stream.WriteInt(Operation.Tax4, 1);
-    Stream.WriteString(GetLine(Operation.Text));
+    Stream.WriteString(Operation.Text);
     Result := ExecuteStream(Stream);
     if Result = 0 then
       FFilter.Storno(Operation);
@@ -3558,7 +3557,7 @@ begin
     Stream.WriteInt(P.Tax2, 1);
     Stream.WriteInt(P.Tax3, 1);
     Stream.WriteInt(P.Tax4, 1);
-    Stream.WriteString(GetLine(P.Text));
+    Stream.WriteString(P.Text);
     Result := ExecuteStream(Stream);
     if Result = 0 then
     begin
@@ -3602,7 +3601,7 @@ begin
     Stream.WriteInt(Operation.Tax2, 1);
     Stream.WriteInt(Operation.Tax3, 1);
     Stream.WriteInt(Operation.Tax4, 1);
-    Stream.WriteString(GetLine(Operation.Text));
+    Stream.WriteString(Operation.Text);
     Result := ExecuteStream(Stream);
     if Result = 0 then
       FFilter.ReceiptDiscount(Operation);
@@ -3635,7 +3634,7 @@ begin
     IntToBin(Operation.Discount, 5) +
     IntToBin(Operation.Charge, 5) +
     IntToBin(Operation.Tax, 1) +
-    GetLine(Operation.Text);
+    Operation.Text;
   Result := ExecuteData(Command, Answer);
   FCapReceiptDiscount2 := IsSupported(Result);
 end;
@@ -3672,7 +3671,7 @@ begin
     Stream.WriteInt(Operation.Tax2, 1);
     Stream.WriteInt(Operation.Tax3, 1);
     Stream.WriteInt(Operation.Tax4, 1);
-    Stream.WriteString(GetLine(Operation.Text));
+    Stream.WriteString(Operation.Text);
     Result := ExecuteStream(Stream);
     if Result = 0 then
       FFilter.ReceiptDiscount(Operation);
@@ -3816,7 +3815,7 @@ begin
     Stream.WriteInt(Operation.Tax2, 1);
     Stream.WriteInt(Operation.Tax3, 1);
     Stream.WriteInt(Operation.Tax4, 1);
-    Stream.WriteString(GetLine(Operation.Text));
+    Stream.WriteString(Operation.Text);
     Result := ExecuteStream(Stream);
   finally
     Stream.Free;
@@ -3855,7 +3854,7 @@ begin
     Stream.WriteInt(Operation.Tax2, 1);
     Stream.WriteInt(Operation.Tax3, 1);
     Stream.WriteInt(Operation.Tax4, 1);
-    Stream.WriteString(GetLine(Operation.Text));
+    Stream.WriteString(Operation.Text);
     Result := ExecuteStream(Stream);
   finally
     Stream.Free;
@@ -4185,9 +4184,9 @@ function TFiscalPrinterDevice.FieldToInt(FieldInfo: TPrinterFieldRec;
 begin
   case FieldInfo.FieldType of
     PRINTER_FIELD_TYPE_INT: Result := BinToInt(Value, 1, FieldInfo.Size);
-    PRINTER_FIELD_TYPE_STR: raise Exception.Create('Field type is not integer');
+    PRINTER_FIELD_TYPE_STR: raise Exception.Create(_('Field type is not integer'));
   else
-    raise Exception.Create('Invalid field type');
+    raise Exception.Create(_('Invalid field type'));
   end;
 end;
 
@@ -4198,7 +4197,7 @@ begin
     PRINTER_FIELD_TYPE_INT: Result := IntToStr(BinToInt(Value, 1, FieldInfo.Size));
     PRINTER_FIELD_TYPE_STR: Result := PChar(Value);
   else
-    raise Exception.Create('Invalid field type');
+    raise Exception.Create(_('Invalid field type'));
   end;
 end;
 
@@ -4210,7 +4209,7 @@ begin
     PRINTER_FIELD_TYPE_INT: Result := IntToStr(BinToInt(Value, 1, FieldInfo.Size));
     PRINTER_FIELD_TYPE_STR: Result := Value;
   else
-    raise Exception.Create('Invalid field type');
+    raise Exception.Create(_('Invalid field type'));
   end;
 end;
 
@@ -4220,7 +4219,7 @@ begin
     PRINTER_FIELD_TYPE_INT: Result := IntToBin(StrToInt(Value), FieldInfo.Size);
     PRINTER_FIELD_TYPE_STR: Result := GetLine(Value, FieldInfo.Size, FieldInfo.Size);
   else
-    raise Exception.Create('Invalid field type');
+    raise Exception.Create(_('Invalid field type'));
   end;
 end;
 
@@ -4663,7 +4662,7 @@ begin
   end;
 
   if Result = nil then
-    raise Exception.CreateFmt('Device model ID=%d not found', [ModelID]);
+    raise Exception.CreateFmt(_('Device model ID=%d not found'), [ModelID]);
 
   FModelData := Result.Data;
   FModelData.CapGraphics := True;
@@ -4789,7 +4788,7 @@ var
   PrintWidth: Integer;
 begin
   Lines.Clear;
-  PrintWidth := GetPrintWidth;
+  PrintWidth := GetPrintWidth(Font);
   AText := Text;
   Line := Copy(AText, 1, PrintWidth);
   AText := Copy(AText, PrintWidth + 1, Length(AText));
@@ -5177,7 +5176,7 @@ begin
     Result := LoadGraphics1(Line, Data);
     Exit;
   end;
-  raise Exception.Create('Graphics is not supported');
+  raise Exception.Create(_('Graphics is not supported'));
 end;
 
 function TFiscalPrinterDevice.PrintGraphics(Line1, Line2: Word): Integer;
@@ -5216,7 +5215,7 @@ begin
     Result := PrintGraphics1(Line1, Line2);
     Exit;
   end;
-  raise Exception.Create('Graphics is not supported');
+  raise Exception.Create(_('Graphics is not supported'));
 end;
 
 function TFiscalPrinterDevice.IsDayOpened(Mode: Integer): Boolean;
@@ -5483,7 +5482,7 @@ begin
     DIO_BARCODE_CODEONE             : Result := tBARCODE_CODEONE;
     DIO_BARCODE_GRIDMATRIX          : Result := tBARCODE_GRIDMATRIX;
   else
-    Raise Exception.CreateFmt('Invalid barcode type, %d', [DIOBarcodeType]);
+    Raise Exception.CreateFmt(_('Invalid barcode type, %d'), [DIOBarcodeType]);
   end;
 end;
 
@@ -5694,11 +5693,11 @@ begin
 
 
     if Bitmap.Width > MaxGraphicsWidth then
-      raise Exception.CreateFmt('Bitmap width more than maximum, %d > %d', [
+      raise Exception.CreateFmt(_('Bitmap width more than maximum, %d > %d'), [
         Bitmap.Width, MaxGraphicsWidth]);
 
     if Bitmap.Height > MaxGraphicsHeight then
-      raise Exception.CreateFmt('Bitmap height more than maximum, %d > %d', [
+      raise Exception.CreateFmt(_('Bitmap height more than maximum, %d > %d'), [
         Bitmap.Height, MaxGraphicsHeight]);
 
     BitmapWidth := Bitmap.Width;
@@ -5810,11 +5809,11 @@ begin
     end;
 
     if Bitmap.Width > MaxGraphicsWidth then
-      raise Exception.CreateFmt('Bitmap width more than maximum, %d > %d', [
+      raise Exception.CreateFmt(_('Bitmap width more than maximum, %d > %d'), [
         Bitmap.Width, MaxGraphicsWidth]);
 
     if Bitmap.Height > MaxGraphicsHeight then
-      raise Exception.CreateFmt('Bitmap height more than maximum, %d > %d', [
+      raise Exception.CreateFmt(_('Bitmap height more than maximum, %d > %d'), [
         Bitmap.Height, MaxGraphicsHeight]);
 
     AlignBitmap(Bitmap, Barcode, HScale, MaxGraphicsWidth);
@@ -5922,7 +5921,7 @@ var
   NewHeight: Integer;
 begin
   if Bitmap.Width = 0 then
-    raise Exception.Create('Bitmap.Width = 0');
+    raise Exception.Create(_('Bitmap.Width = 0'));
 
   NewHeight := Trunc(Bitmap.Height*(NewWidth/Bitmap.Width));
   Bitmap.Canvas.StretchDraw(
@@ -5992,10 +5991,10 @@ begin
   Bitmap.PixelFormat := pf1Bit;
 
   if Bitmap.Height = 0 then
-    raise Exception.Create(MsgImageHeightIsZero);
+    raise Exception.Create(_('Image height is zero, must be > 0'));
 
   if Bitmap.Width = 0 then
-    raise Exception.Create(MsgImageWidthIsZero);
+    raise Exception.Create(_('Image width is zero, must be > 0'));
 
   if Bitmap.Width > GetMaxGraphicsWidth then
     AlignBitmapWidth(Bitmap, GetMaxGraphicsWidth);
@@ -6272,21 +6271,21 @@ begin
       begin
         // No receipt paper
         if GetModel.CapRecPresent and Result.Flags.RecEmpty then
-          raiseExtendedError(OPOS_EFPTR_REC_EMPTY, 'Receipt station is empty');
+          raiseOposFptrRecEmpty;
         // No control paper
         if GetModel.CapJrnPresent and Result.Flags.JrnEmpty then
-          raiseExtendedError(OPOS_EFPTR_JRN_EMPTY, 'Journal station is empty');
+          raiseOposFptrJrnEmpty;
         // Cover is opened
         if GetModel.CapCoverSensor and Result.Flags.CoverOpened then
-          raiseExtendedError(OPOS_EFPTR_COVER_OPEN, 'Cover is opened');
+          raiseOposFptrCoverOpened;
 
-        raiseExtendedError(OPOS_EFPTR_REC_EMPTY, 'Receipt station is empty');
+        raiseOposFptrRecEmpty;
       end;
 
       AMODE_AFTER:
       begin
         if TryCount > MaxTryCount then
-          raise Exception.Create('Failed to continue print');
+          raise Exception.Create(_('Failed to continue print'));
         ContinuePrint;
         Inc(TryCount);
       end;
@@ -6460,7 +6459,7 @@ var
   Command: string;
 begin
   if Length(Data) > 64 then
-    raise Exception.Create('Image data length > 64 bytes');
+    raise Exception.Create(_('Image data length > 64 bytes'));
 
   Command := #$4E + IntToBin(GetUsrPassword, 4) + Chr(Length(Data)) +
     IntToBin(Line, 2) + IntToBin(1, 2) + #1 + Data;
@@ -7049,7 +7048,7 @@ begin
   try
     Check(FSStartWrite(Length(BlockData), BlockSize));
     if BlockSize = 0 then
-      raise Exception.Create('BlockSize = 0');
+      raise Exception.Create(_('BlockSize = 0'));
 
     Count := (Length(BlockData)+ BlockSize-1) div BlockSize;
     for i := 0 to Count-1 do
@@ -7306,7 +7305,7 @@ begin
       Result := ReadTableStr(18, 1, 6);
     end;
   else
-    raise Exception.CreateFmt('Invalid parameter ID value, %d', [ParamId]);
+    raise Exception.CreateFmt(_('Invalid parameter ID value, %d'), [ParamId]);
   end;
 end;
 
@@ -7406,7 +7405,7 @@ begin
     end;
 
   else
-    raise Exception.Create('Invalid pData parameter value');
+    raise Exception.Create(_('Invalid pData parameter value'));
   end;
 end;
 
@@ -7433,7 +7432,7 @@ begin
       WriteTable(19, 1, 3, Value);
     end;
   else
-    raise Exception.CreateFmt('Invalid parameter ID value, %d', [ParamId]);
+    raise Exception.CreateFmt(_('Invalid parameter ID value, %d'), [ParamId]);
   end;
 end;
 

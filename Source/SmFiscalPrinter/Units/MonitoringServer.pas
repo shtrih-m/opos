@@ -7,7 +7,7 @@ uses
   Windows, SysUtils, WinSock, DateUtils,
   // This
   LogFile, NotifyThread, DebugUtils, SimpleSocket, FiscalPrinterTypes,
-  PrinterTypes, BStrUtil, OposFptrUtils;
+  PrinterTypes, BStrUtil, OposFptrUtils, gnugettext;
 
 type
   { TMonitoringServer }
@@ -89,17 +89,17 @@ begin
   try
     ErrorCode := WSAStartup($0101, WSAData);
     if ErrorCode <> 0 then
-      raise Exception.CreateFmt('WSAStartup error, %d', [WSAGetLastError()]);
+      raise Exception.CreateFmt(_('WSAStartup error, %d'), [WSAGetLastError()]);
 
     ServerSocket.Socket := socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if ServerSocket.Socket = INVALID_SOCKET then
-      raise Exception.CreateFmt('Socket failed with error: %d', [WSAGetLastError()]);
+      raise Exception.CreateFmt(_('Socket failed with error: %d'), [WSAGetLastError()]);
 
     if not ServerSocket.Bind(AF_INET, '127.0.0.1', FPort) then
-      raise Exception.CreateFmt('Failed bind with error: %d', [WSAGetLastError()]);
+      raise Exception.CreateFmt(_('Failed bind with error: %d'), [WSAGetLastError()]);
 
     if not ServerSocket.Listen(SOMAXCONN) then
-      raise Exception.CreateFmt('Failed listen with error: %d', [WSAGetLastError()]);
+      raise Exception.CreateFmt(_('Failed listen with error: %d'), [WSAGetLastError()]);
 
     while not FThread.Terminated do
     begin

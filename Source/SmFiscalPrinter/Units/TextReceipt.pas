@@ -8,7 +8,7 @@ uses
   // This
   CustomReceipt, PrinterTypes, ByteUtils, OposFptr, OposException,
   Opos, PayType, ReceiptPrinter, FiscalPrinterState, FiscalPrinterTypes,
-  PrinterParameters, PrinterParametersX, MathUtils;
+  PrinterParameters, PrinterParametersX, MathUtils, gnugettext;
 
 type
   { TTextReceipt }
@@ -44,6 +44,7 @@ type
     function GetVatText(VatInfo: Integer): string;
     procedure UpdateRecType;
     procedure PrintFiscalReceipt;
+    procedure CheckDiscountAmount(Amount: Int64);
   public
     constructor CreateReceipt(AContext: TReceiptContext; ARecType: Integer);
 
@@ -167,7 +168,7 @@ begin
     FPTR_AT_PERCENTAGE_SURCHARGE:
       CheckPercents(Amount);
   else
-    RaiseOposException(OPOS_E_ILLEGAL, 'Invalid AdjustmentType parameter value');
+    InvalidParameterValue('AdjustmentType', IntToStr(AdjustmentType));
   end;
 end;
 
@@ -188,7 +189,6 @@ begin
   CheckPrice(Price);
   CheckQuantity(Quantity);
   CheckPrice(UnitPrice);
-  CheckVatInfo(VatInfo);
 
   if UnitPrice = 0 then
   begin
@@ -241,8 +241,7 @@ procedure TTextReceipt.PrintDiscount(const Description: string;
 var
   Text: string;
 begin
-  if Amount > FTotal then
-    RaiseExtendedError(OPOS_EFPTR_NEGATIVE_TOTAL, 'Negative receipt total');
+  CheckDiscountAmount(Amount);
 
   FDiscountAmount[VatInfo] := FDiscountAmount[VatInfo] + Amount;
   FTotal := FTotal - Amount;
@@ -272,7 +271,6 @@ var
   ItemAmount: Int64;
 begin
   CheckAdjAmount(AdjustmentType, Amount);
-  CheckVatInfo(VatInfo);
 
   case AdjustmentType of
     FPTR_AT_AMOUNT_DISCOUNT:
@@ -299,7 +297,7 @@ begin
       PrintCharge(Description, ItemAmount, VatInfo);
     end;
   else
-    RaiseOposException(OPOS_E_ILLEGAL, 'Invalid AdjustmentType parameter');
+    InvalidParameterValue('AdjustmentType', IntToStr(AdjustmentType));
   end;
 end;
 
@@ -344,7 +342,6 @@ procedure TTextReceipt.PrintRecRefund(const Description: string;
   Amount: Currency; VatInfo: Integer);
 begin
   CheckAmount(Amount);
-  CheckVatInfo(VatInfo);
   UpdateRecType;
   PrintReceiptItem(Description, Amount, 1, Amount, VatInfo);
 end;
@@ -354,7 +351,6 @@ procedure TTextReceipt.PrintRecRefundVoid(
   Amount: Currency; VatInfo: Integer);
 begin
   CheckAmount(Amount);
-  CheckVatInfo(VatInfo);
 
   PrintReceiptItem(Description, Amount, -1, -Amount, VatInfo);
 end;
@@ -406,6 +402,12 @@ begin
   end;
 end;
 
+procedure TTextReceipt.CheckDiscountAmount(Amount: Int64);
+begin
+  if Amount > FTotal then
+    RaiseExtendedError(OPOS_EFPTR_NEGATIVE_TOTAL, _('Negative receipt total'));
+end;
+
 procedure TTextReceipt.SubtotalDiscount(const Description: WideString;
   Amount: Int64);
 var
@@ -413,8 +415,7 @@ var
   Text: WideString;
   TaxAmounts: TTaxTotals;
 begin
-  if Amount > FTotal then
-    RaiseExtendedError(OPOS_EFPTR_NEGATIVE_TOTAL, 'Negative receipt total');
+  CheckDiscountAmount(Amount);
 
   Text := Format('= %.2f', [Abs(Amount/100)]);
   Printer.PrintLines(PrinterDiscountText + ' ' + Description, Text);
@@ -477,7 +478,7 @@ begin
       SubtotalCharge(Description, Summ);
     end;
   else
-    RaiseOposException(OPOS_E_ILLEGAL, 'Invalid AdjustmentType parameter value');
+    InvalidParameterValue('AdjustmentType', IntToStr(AdjustmentType));
   end;
 end;
 
@@ -493,9 +494,6 @@ begin
 
   // Check payment code
   PayCode := Printer.GetPayCode(Description);
-  if not (PayCode in [0..3]) then
-    raiseOposException(OPOS_E_ILLEGAL, 'Invalid payment code');
-
   PayAmount := Printer.CurrencyToInt(Payment);
   if IsCashlessPayCode(PayCode) and ((PayAmount + GetPayment) > FTotal) then
     PayAmount := FTotal - GetPayment;
@@ -644,7 +642,6 @@ var
 begin
   CheckAmount(Amount);
   CheckQuantity(Quantity);
-  CheckVatInfo(VatInfo);
 
   ItemQuantity := 1;
   if Quantity > 0 then
@@ -665,7 +662,6 @@ begin
   CheckPrice(Price);
   CheckQuantity(Quantity);
   CheckPrice(UnitPrice);
-  CheckVatInfo(VatInfo);
 
   if UnitPrice = 0 then
   begin
@@ -691,7 +687,6 @@ begin
   CheckAmount(Amount);
   CheckAmount(UnitAmount);
   CheckQuantity(Quantity);
-  CheckVatInfo(VatInfo);
 
   if (UnitAmount = 0)or(Quantity = 0) then
   begin
@@ -721,7 +716,6 @@ begin
   CheckAmount(Amount);
   CheckAmount(UnitAmount);
   CheckQuantity(Quantity);
-  CheckVatInfo(VatInfo);
 
   if (UnitAmount = 0)or(Quantity = 0) then
   begin

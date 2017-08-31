@@ -185,6 +185,10 @@ var
   TotalizerID: Integer;
   TaxSumm: array [0..3] of Int64;
 begin
+  for i := Low(Result) to High(Result) do
+  begin
+    Result[i] := 0;
+  end;
   ReceiptTotal := GetSubtotal;
   if ReceiptTotal = 0 then Exit;
   RecType := Device.ReadPrinterStatus.Mode shr 4;

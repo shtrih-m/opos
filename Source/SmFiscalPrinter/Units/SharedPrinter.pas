@@ -6,7 +6,7 @@ uses
   // VCL
   Windows, Classes, SysUtils, SyncObjs, Graphics,
   // Opos
-  Opos, OposFptr, OposException, OposMessages, OposSemaphore,
+  Opos, OposFptr, OposFptrUtils, OposException, OposMessages, OposSemaphore,
   // This
   FiscalPrinterDevice, PrinterTypes, PrinterConnection,
   LogFile, SerialPorts, StringUtils, FiscalPrinterStatistics,
@@ -14,7 +14,7 @@ uses
   PrinterProtocol1, PrinterProtocol2, TCPConnection, DCOMConnection, VSysUtils,
   PayType, DebugUtils, ByteUtils, DriverTypes, NotifyThread, NotifyLink,
   PrinterParameters, PrinterParametersX, DriverError, DirectIOAPI,
-  ReceiptReportFilter, EscFilter, SerialPort, SocketPort, PrinterPort;
+  ReceiptReportFilter, EscFilter, SerialPort, SocketPort, PrinterPort, gnugettext;
 
 type
   { TSharedPrinter }
@@ -1011,21 +1011,22 @@ begin
       begin
         // No receipt paper
         if Device.GetModel.CapRecPresent and Result.Flags.RecEmpty then
-          raiseExtendedError(OPOS_EFPTR_REC_EMPTY, 'Receipt station is empty');
+          raiseOposFptrRecEmpty;
         // No control paper
         if Device.GetModel.CapJrnPresent and Result.Flags.JrnEmpty then
-          raiseExtendedError(OPOS_EFPTR_JRN_EMPTY, 'Journal station is empty');
+          raiseOposFptrJrnEmpty;
+
         // Cover is opened
         if Device.GetModel.CapCoverSensor and Result.Flags.CoverOpened then
-          raiseExtendedError(OPOS_EFPTR_COVER_OPEN, 'Cover is opened');
+           raiseOposFptrCoverOpened;
 
-        raiseExtendedError(OPOS_EFPTR_REC_EMPTY, 'Receipt station is empty');
+        raiseOposFptrRecEmpty;
       end;
 
       AMODE_AFTER:
       begin
         if TryCount > MaxTryCount then
-          raise Exception.Create('Failed to continue print');
+          raise Exception.Create(_('Failed to continue print'));
         Device.ContinuePrint;
         Inc(TryCount);
       end;

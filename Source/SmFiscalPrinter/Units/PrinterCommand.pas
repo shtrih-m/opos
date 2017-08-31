@@ -6,7 +6,7 @@ uses
   // VCL
   Windows, Classes, SysUtils,
   // This
-  PrinterTypes, BinStream, OposException, Opos, StringUtils;
+  PrinterTypes, BinStream, OposException, Opos, StringUtils, gnugettext;
 
 type
   { TPrinterCommand }
@@ -180,10 +180,10 @@ implementation
 procedure CheckParam(Value, Min, Max: Int64; const ParamName: string);
 begin
   if Value < Min then
-    RaiseOPOSException(OPOS_E_ILLEGAL, 'Invalid parameter value, ' + ParamName);
+    RaiseOPOSException(OPOS_E_ILLEGAL, _('Invalid parameter value, ') + ParamName);
 
   if Value > Max then
-    RaiseOPOSException(OPOS_E_ILLEGAL, 'Invalid parameter value, ' + ParamName);
+    RaiseOPOSException(OPOS_E_ILLEGAL, _('Invalid parameter value, ') + ParamName);
 end;
 
 (*******************************************************************************

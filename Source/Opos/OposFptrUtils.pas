@@ -6,7 +6,7 @@ uses
   // VCL
   SysUtils,
   // This
-  Opos, OposUtils, Oposhi, OposFptr, OposFptrhi, OposException;
+  Opos, OposUtils, Oposhi, OposFptr, OposFptrhi, OposException, gnugettext;
 
 function PrinterStateToStr(Value: Integer): string;
 function EncodeOposDate(const Date: TOposDate): string;
@@ -26,7 +26,26 @@ function MessageTypeToStr(Value: Integer): string;
 function TotalizerTypeToStr(Value: Integer): string;
 function StationToStr(Value: Integer): string;
 
+procedure raiseOposFptrRecEmpty;
+procedure raiseOposFptrJrnEmpty;
+procedure raiseOposFptrCoverOpened;
+
 implementation
+
+procedure raiseOposFptrRecEmpty;
+begin
+  raiseExtendedError(OPOS_EFPTR_REC_EMPTY, _('Receipt station is empty'));
+end;
+
+procedure raiseOposFptrJrnEmpty;
+begin
+  raiseExtendedError(OPOS_EFPTR_JRN_EMPTY, _('Journal station is empty'));
+end;
+
+procedure raiseOposFptrCoverOpened;
+begin
+  raiseExtendedError(OPOS_EFPTR_COVER_OPEN, _('Cover is opened'));
+end;
 
 function OposFptrGetErrorText(Driver: OleVariant): string;
 begin
@@ -170,19 +189,19 @@ begin
   Result.Min := StrToInt(Copy(Date, 11, 2));
 
   if not(Result.Day in [1..31]) then
-    raiseExtendedError(OPOS_EFPTR_BAD_DATE, 'Invalid day');
+    raiseExtendedError(OPOS_EFPTR_BAD_DATE, _('Invalid day'));
 
   if not(Result.Month in [1..12]) then
-    raiseExtendedError(OPOS_EFPTR_BAD_DATE, 'Invalid month');
+    raiseExtendedError(OPOS_EFPTR_BAD_DATE, _('Invalid month'));
 
   if Result.Year < 2000 then
-    raiseExtendedError(OPOS_EFPTR_BAD_DATE, 'Invalid year');
+    raiseExtendedError(OPOS_EFPTR_BAD_DATE, _('Invalid year'));
 
   if not(Result.Hour in [0..23]) then
-    raiseExtendedError(OPOS_EFPTR_BAD_DATE, 'Invalid hour');
+    raiseExtendedError(OPOS_EFPTR_BAD_DATE, _('Invalid hour'));
 
   if not(Result.Min in [0..59]) then
-    raiseExtendedError(OPOS_EFPTR_BAD_DATE, 'Invalid minutes');
+    raiseExtendedError(OPOS_EFPTR_BAD_DATE, _('Invalid minutes'));
 end;
 
 function EncodeOposDate(const Date: TOposDate): string;

@@ -4127,22 +4127,45 @@ procedure TReceiptTest11.Execute;
   end;
 
   procedure printQRCode;
-  var
-    Barcode: TBarcodeRec;
-  begin
-    // в формате <ссылка><ПРОБЕЛ><подпись 128 символов><0x00>
-    Barcode.Data :=
+  const
+    BarcodeData =
       'http://check.egais.ru?id=38d02af6-bfd2-409f-8041-b011d8160700&dt=2311161430&cn=030000290346 ' +
       '0123456789012345678901234567890123456789012345678901234567890123456789' +
       '0123456789012345678901234567890123456789012345678901234567890123456789' +
       '01234567';
-
+  var
+    Line: string;
+    OptArgs: Integer;
+    Data: WideString;
+    TextLength: Integer;
+    Barcode: TBarcodeRec;
+  begin
+    // в формате <ссылка><ПРОБЕЛ><подпись 128 символов><0x00>
+    Barcode.Data := BarcodeData;
     Barcode.Text := '';
     Barcode.Height := 100;
     Barcode.BarcodeType := DIO_BARCODE_QRCODE2;
     Barcode.ModuleWidth := 4;
     Barcode.Alignment := BARCODE_ALIGNMENT_CENTER;
     Check(FiscalPrinter.PrintBarcode2(Barcode));
+
+
+    OptArgs := 5;
+    Check(FiscalPrinter.getData(FPTR_GD_DESCRIPTION_LENGTH, OptArgs, Data));
+    TextLength := StrToInt(Data);
+    if TextLength <= 0 then
+      raise Exception.Create('TextLength <= 0');
+    if TextLength > 100 then
+      raise Exception.Create('TextLength > 100');
+
+    FiscalPrinter.PrintText(BarcodeData, 5);
+
+    Line := BarcodeData;
+    while Length(Line) > 0 do
+    begin
+      FiscalPrinter.PrintText(Copy(Line, 1, TextLength), 5);
+      Line := Copy(Line, TextLength + 1, Length(Line));
+    end;
   end;
 
   procedure printAztecCode;
@@ -4173,11 +4196,11 @@ begin
   Check(FiscalPrinter.beginFiscalReceipt(true));
 
   Check(FiscalPrinter.PrintRecItem('АИ-92-3', 1000.43, 55090, 4, 18.16, ''));
-  Check(FiscalPrinter.PrintRecSubtotalAdjustment(1, 'Округление', 0.43));
+  //Check(FiscalPrinter.PrintRecSubtotalAdjustment(1, 'Округление', 0.43));
 
   printEndingItems;
 
-  Check(FiscalPrinter.PrintRecTotal(1000, 1000, '0'));
+  Check(FiscalPrinter.PrintRecTotal(1100, 1100, '0'));
 
   printEndingItems;
   Check(FiscalPrinter.endFiscalReceipt(false));

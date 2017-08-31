@@ -8,7 +8,8 @@ uses
   // JVCL
   DBT,
   // This
-  LogFile, DeviceNotification, PortUtil, TextReport, PrinterPort;
+  LogFile, DeviceNotification, PortUtil, TextReport, PrinterPort,
+  gnugettext;
 
 type
   { TSerialPort }
@@ -383,7 +384,7 @@ begin
     if FHandle <> INVALID_HANDLE_VALUE then Break;
 
     if GetLastError = ERROR_ACCESS_DENIED then
-      raise ENoPortError.Create('Port is opened by another application');
+      raise ENoPortError.Create(_('Port is opened by another application'));
 
     if ReconnectPort and (i <> MaxReconnectCount) then
     begin
@@ -398,14 +399,14 @@ begin
     Logger.Error(Format('CreateFile ERROR: 0x%.8x, %s', [
       GetLastError, SysErrorMessage(GetLastError)]));
 
-    raise ENoPortError.Create('Cannot open port');
+    raise ENoPortError.Create(_('Cannot open port'));
   end;
 end;
 
 procedure TSerialPort.CheckOpened;
 begin
   if not OPened then
-    raise ESerialPortError.Create('Port not opened');
+    raise ESerialPortError.Create(_('Port not opened'));
 end;
 
 procedure TSerialPort.ReadCommConfig;

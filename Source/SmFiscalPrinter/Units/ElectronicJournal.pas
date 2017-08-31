@@ -8,7 +8,8 @@ uses
   // Opos
   OposUtils, OposFptrUtils,
   // This
-  PrinterTypes, RegExpr, FiscalPrinterDevice, FiscalPrinterTypes;
+  PrinterTypes, RegExpr, FiscalPrinterDevice, FiscalPrinterTypes,
+  gnugettext;
 
 type
   { TElectronicJournal }
@@ -102,11 +103,11 @@ begin
   Printer.Check(Printer.EJReportStop);
 
   if LineCount > MaxLineCount then
-    raise Exception.Create('Date line not found');
+    raise Exception.Create(_('Date line not found'));
 
   Result := DecodeDateLine(Result);
   if Result = '' then
-    raise Exception.Create('Failed parsing electronic journal report. Date not found');
+    raise Exception.Create(_('Failed parsing electronic journal report. Date not found'));
 end;
 
 function TElectronicJournal.ReadEJSesssionResult(

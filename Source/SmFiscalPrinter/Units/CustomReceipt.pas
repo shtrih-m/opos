@@ -6,7 +6,7 @@ uses
   // This
   ReceiptPrinter, OposException, PrinterParameters, Opos, OposFptr,
   FiscalPrinterDevice, FiscalPrinterTypes, FiscalPrinterState,
-  PrinterTypes, EscFilter, TextItem, LogFile, MalinaParams;
+  PrinterTypes, EscFilter, TextItem, LogFile, MalinaParams, gnugettext;
 
 type
   { TReceiptContext }
@@ -47,7 +47,6 @@ type
     class procedure CheckPercents(Value: Currency);
     class procedure CheckQuantity(Quantity: Integer);
     class procedure CheckAmount(Amount: Currency);
-    class procedure CheckVatInfo(VatInfo: Integer);
 
     procedure OpenReceipt(ARecType: Integer); virtual;
     procedure BeginFiscalReceipt(PrintHeader: Boolean); virtual;
@@ -153,7 +152,7 @@ implementation
 
 procedure RaiseIllegalError;
 begin
-  RaiseOposException(OPOS_E_ILLEGAL, 'Receipt method is not supported');
+  RaiseOposException(OPOS_E_ILLEGAL, _('Receipt method is not supported'));
 end;
 
 { TCustomReceipt }
@@ -353,33 +352,25 @@ end;
 class procedure TCustomReceipt.CheckPrice(Value: Currency);
 begin
   if Value < 0 then
-    raiseExtendedError(OPOS_EFPTR_BAD_PRICE, 'Negative price');
+    raiseExtendedError(OPOS_EFPTR_BAD_PRICE, _('Negative price'));
 end;
 
 class procedure TCustomReceipt.CheckPercents(Value: Currency);
 begin
   if (Value < 0)or(Value > 9999) then
-    raiseExtendedError(OPOS_EFPTR_BAD_ITEM_AMOUNT, 'Invalid percents value');
+    raiseExtendedError(OPOS_EFPTR_BAD_ITEM_AMOUNT, _('Invalid percents value'));
 end;
 
 class procedure TCustomReceipt.CheckQuantity(Quantity: Integer);
 begin
   if Quantity < 0 then
-    raiseExtendedError(OPOS_EFPTR_BAD_ITEM_QUANTITY, 'Negative quantity');
+    raiseExtendedError(OPOS_EFPTR_BAD_ITEM_QUANTITY, _('Negative quantity'));
 end;
 
 class procedure TCustomReceipt.CheckAmount(Amount: Currency);
 begin
   if Amount < 0 then
-    raiseExtendedError(OPOS_EFPTR_BAD_ITEM_AMOUNT, 'Negative amount');
-end;
-
-class procedure TCustomReceipt.CheckVatInfo(VatInfo: Integer);
-begin
-(*
-  if not(VatInfo in [0..4]) then
-    RaiseExtendedError(OPOS_EFPTR_BAD_VAT, 'Invalid VatInfo value');
-*)
+    raiseExtendedError(OPOS_EFPTR_BAD_ITEM_AMOUNT, _('Negative amount'));
 end;
 
 procedure TCustomReceipt.PrintRecItemRefund(const ADescription: string;

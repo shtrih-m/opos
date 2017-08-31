@@ -10,7 +10,7 @@ uses
   Opos, PayType, ReceiptPrinter, FiscalPrinterState,
   ReceiptItem, RecDiscount, PrinterParameters, TextItem, MathUtils,
   fmuSelect, fmuPhone, fmuEMail, TLV, LogFile, RegExpr, MalinaParams,
-  StringUtils, Retalix, FiscalPrinterTypes, ReceiptTemplate;
+  StringUtils, Retalix, FiscalPrinterTypes, ReceiptTemplate, gnugettext;
 
 type
   { TFSSalesReceipt }
@@ -265,7 +265,7 @@ end;
 function TFSSalesReceipt.GetLastItem: TFSSaleItem;
 begin
   if FLastItem = nil then
-    raise Exception.Create('Last receipt item not defined');
+    raise Exception.Create(_('Last receipt item not defined'));
   Result := FLastItem;
 end;
 
@@ -306,7 +306,7 @@ begin
     ItemAmount := Round2(GetLastItem.Quantity/1000 * GetLastItem.Price);
     DiscountAmount := GetLastItem.Discount + Abs(Discount.Amount);
     if DiscountAmount > (ItemAmount + GetLastItem.Charge) then
-      raise Exception.Create('Discount amount more than item amount');
+      raise Exception.Create(_('Discount amount more than item amount'));
 
     GetLastItem.Discount := GetLastItem.Discount + Abs(Discount.Amount);
   end else
@@ -386,7 +386,7 @@ begin
       CheckPercents(Amount);
 
   else
-    RaiseOposException(OPOS_E_ILLEGAL, 'Invalid AdjustmentType parameter value');
+    InvalidParameterValue('AdjustmentType', IntToStr(AdjustmentType));
   end;
 end;
 
@@ -399,7 +399,6 @@ begin
   CheckPrice(Price);
   CheckQuantity(Quantity);
   CheckPrice(UnitPrice);
-  CheckVatInfo(VatInfo);
 
   Operation.Quantity := Quantity;
   if UnitPrice = 0 then
@@ -437,7 +436,6 @@ var
 begin
   CheckDescription(Description);
   CheckAdjAmount(AdjustmentType, Amount);
-  CheckVatInfo(VatInfo);
 
   case AdjustmentType of
     FPTR_AT_AMOUNT_DISCOUNT:
@@ -487,7 +485,7 @@ begin
       AddItemDiscount(Operation);
     end;
   else
-    RaiseOposException(OPOS_E_ILLEGAL, 'Invalid AdjustmentType parameter');
+    InvalidParameterValue('AdjustmentType', IntToStr(AdjustmentType));
   end;
 end;
 
@@ -530,7 +528,6 @@ var
 begin
   SetRefundReceipt;
   CheckAmount(Amount);
-  CheckVatInfo(VatInfo);
 
   Operation.Quantity := 1000;
   Operation.Price := Printer.CurrencyToInt(Amount);
@@ -558,7 +555,6 @@ begin
   SetRefundReceipt;
   CheckDescription(Description);
   CheckAmount(Amount);
-  CheckVatInfo(VatInfo);
 
   Operation.Quantity := -1000;
   Operation.Price := Printer.CurrencyToInt(Amount);
@@ -630,7 +626,7 @@ begin
     FPTR_AT_PERCENTAGE_DISCOUNT: Result := Round2(FReceiptItems.GetTotal * Amount/100);
     FPTR_AT_PERCENTAGE_SURCHARGE: Result := -Round2(FReceiptItems.GetTotal * Amount/100);
   else
-    RaiseOposException(OPOS_E_ILLEGAL, 'Invalid AdjustmentType parameter value');
+    InvalidParameterValue('AdjustmentType', IntToStr(AdjustmentType));
   end;
 end;
 
@@ -664,7 +660,7 @@ begin
       SubtotalDiscount(-Summ, Description);
     end;
   else
-    RaiseOposException(OPOS_E_ILLEGAL, 'Invalid AdjustmentType parameter value');
+    InvalidParameterValue('AdjustmentType', IntToStr(AdjustmentType));
   end;
 end;
 
@@ -764,10 +760,6 @@ begin
 
   // Check payment code
   PayCode := Printer.GetPayCode(Description);
-  if not (PayCode in [0..15]) then
-    raiseOposException(OPOS_E_ILLEGAL, 'Invalid payment code');
-
-  //
   Subtotal := GetTotal;
   PayAmount := Printer.CurrencyToInt(Payment);
   if IsCashlessPayCode(PayCode) and ((PayAmount + GetPaymentTotal) > Subtotal) then
@@ -1382,7 +1374,6 @@ begin
   CheckAmount(Amount);
   CheckQuantity(Quantity);
   CheckDescription(Description);
-  CheckVatInfo(VatInfo);
 
   DiscountAmount := GetAdjustmentAmount(AdjustmentType, Adjustment);
 
@@ -1415,7 +1406,6 @@ begin
   CheckPrice(Price);
   CheckQuantity(Quantity);
   CheckPrice(UnitPrice);
-  CheckVatInfo(VatInfo);
 
   if UnitPrice = 0 then
   begin
@@ -1461,7 +1451,6 @@ begin
   CheckAmount(Amount);
   CheckAmount(UnitAmount);
   CheckQuantity(Quantity);
-  CheckVatInfo(VatInfo);
 
   Operation.Quantity := Quantity;
   if (UnitAmount = 0)or(Operation.Quantity = 0) then
@@ -1499,7 +1488,6 @@ begin
   CheckAmount(Amount);
   CheckAmount(UnitAmount);
   CheckQuantity(Quantity);
-  CheckVatInfo(VatInfo);
 
   if (UnitAmount = 0)or(Quantity = 0) then
   begin

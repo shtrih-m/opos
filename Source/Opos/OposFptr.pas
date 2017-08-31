@@ -415,6 +415,7 @@ const
    OPOS_EFPTR_MISSING_SET_CURRENCY       = 223;
    OPOS_EFPTR_DAY_END_REQUIRED           = 224; // (added in 1.11)
 
+
 implementation
 
 end.

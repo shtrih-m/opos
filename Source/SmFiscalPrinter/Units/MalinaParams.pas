@@ -9,8 +9,7 @@ uses
   TntRegistry, TntClasses, TntSysUtils,
   // This
   Oposhi, PrinterTypes, LogFile, FileUtils,
-  //SmFiscalPrinterLib_TLB,
-  StringUtils, TextMap, RegUtils;
+  StringUtils, TextMap, RegUtils, gnugettext;
 
 const
   /////////////////////////////////////////////////////////////////////////////
@@ -183,7 +182,7 @@ end;
 procedure TMalinaParams.CheckFuelAmountPrecision(const Value: Currency);
 begin
   if not ValidFuelAmountPrecision(Value) then
-    raise Exception.CreateFmt('Invalid FuelAmountPrecision value, %.2f', [Value]);
+    raise Exception.CreateFmt(_('Invalid FuelAmountPrecision value, %.2f'), [Value]);
 end;
 
 function TMalinaParams.ValidFuelAmountPrecision(const Value: Currency): Boolean;

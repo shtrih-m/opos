@@ -6,7 +6,7 @@ uses
   // VCL
   Windows, SysUtils, Classes, Registry,
   // This
-  PrinterParameters, FileUtils, LogFile, SmIniFile, Oposhi;
+  PrinterParameters, FileUtils, LogFile, SmIniFile, Oposhi, gnugettext;
 
 type
   { TPrinterParametersReg }
@@ -713,7 +713,7 @@ begin
       Reg.WriteInteger('ZeroReceiptNumber', Parameters.ZeroReceiptNumber);
     end else
     begin
-      raise Exception.Create('Registry key open error');
+      raise Exception.Create(_('Registry key open error'));
     end;
   finally
     Reg.Free;

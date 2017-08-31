@@ -3,10 +3,12 @@ unit CachedSalesReceipt;
 interface
 
 uses
+  // VCL
+  SysUtils,
   // This
   CustomReceipt, PrinterTypes, ByteUtils, OposFptr, OposException,
   Opos, PayType, ReceiptPrinter, FiscalPrinterState, ReceiptItem,
-  PrinterParameters, MathUtils;
+  PrinterParameters, MathUtils, gnugettext;
 
 type
   { TCachedSalesReceipt }
@@ -239,7 +241,7 @@ begin
       CheckPercents(Amount);
 
   else
-    RaiseOposException(OPOS_E_ILLEGAL, 'Invalid AdjustmentType parameter value');
+    RaiseOposException(OPOS_E_ILLEGAL, _('Invalid parameter value') + ', AdjustmentType');
   end;
 end;
 
@@ -252,7 +254,6 @@ begin
   CheckPrice(Price);
   CheckQuantity(Quantity);
   CheckPrice(UnitPrice);
-  CheckVatInfo(VatInfo);
 
   OpenReceipt(RecTypeSale);
   PrintPreLine;
@@ -295,7 +296,6 @@ var
   Operation: TAmountOperation;
 begin
   CheckAdjAmount(AdjustmentType, Amount);
-  CheckVatInfo(VatInfo);
 
   OpenReceipt(RecTypeSale);
   PrintPreLine;
@@ -348,7 +348,7 @@ begin
       PrintCharge(Operation);
     end;
   else
-    RaiseOposException(OPOS_E_ILLEGAL, 'Invalid AdjustmentType parameter');
+    InvalidParameterValue('AdjustmentType', IntToStr(AdjustmentType));
   end;
 end;
 
@@ -388,7 +388,6 @@ var
   Operation: TPriceReg;
 begin
   CheckAmount(Amount);
-  CheckVatInfo(VatInfo);
 
   OpenReceipt(RecTypeRetSale);
   PrintPreLine;
@@ -413,7 +412,6 @@ var
   Operation: TPriceReg;
 begin
   CheckAmount(Amount);
-  CheckVatInfo(VatInfo);
 
   Operation.Quantity := 1000;
   Operation.Price := Printer.CurrencyToInt(Amount);
@@ -528,7 +526,7 @@ begin
       SubtotalCharge(Summ, Description);
     end;
   else
-    RaiseOposException(OPOS_E_ILLEGAL, 'Invalid AdjustmentType parameter value');
+    InvalidParameterValue('AdjustmentType', IntToStr(AdjustmentType));
   end;
 end;
 
@@ -554,8 +552,8 @@ begin
 
   // Check payment code
   PayCode := Printer.GetPayCode(Description);
-  if not (PayCode in [0..3]) then
-    raiseOposException(OPOS_E_ILLEGAL, 'Invalid payment code');
+  if not (PayCode in [0..16]) then
+    raiseOposException(OPOS_E_ILLEGAL, _('Invalid payment code'));
 
   //
   Subtotal := Printer.GetSubtotal;
@@ -661,7 +659,6 @@ var
 begin
   CheckAmount(Amount);
   CheckQuantity(Quantity);
-  CheckVatInfo(VatInfo);
 
   Operation.Quantity := Quantity;
   Operation.Price := Printer.CurrencyToInt(Amount);
@@ -685,7 +682,6 @@ begin
   CheckPrice(Price);
   CheckQuantity(Quantity);
   CheckPrice(UnitPrice);
-  CheckVatInfo(VatInfo);
 
   if UnitPrice = 0 then
   begin
@@ -717,7 +713,6 @@ begin
   CheckAmount(Amount);
   CheckAmount(UnitAmount);
   CheckQuantity(Quantity);
-  CheckVatInfo(VatInfo);
 
   OpenReceipt(RecTypeRetSale);
   PrintPreLine;
@@ -751,7 +746,6 @@ begin
   CheckAmount(Amount);
   CheckAmount(UnitAmount);
   CheckQuantity(Quantity);
-  CheckVatInfo(VatInfo);
 
   if (UnitAmount = 0)or(Quantity = 0) then
   begin

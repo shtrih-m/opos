@@ -3,6 +3,8 @@ unit SalesReceipt;
 interface
 
 uses
+  // VCL
+  SysUtils, 
   // This
   CustomReceipt, PrinterTypes, ByteUtils, OposFptr, OposException,
   Opos, PayType, ReceiptPrinter, FiscalPrinterState,
@@ -177,7 +179,7 @@ begin
       CheckPercents(Amount);
 
   else
-    RaiseOposException(OPOS_E_ILLEGAL, 'Invalid AdjustmentType parameter value');
+    InvalidParameterValue('AdjustmentType', IntToStr(AdjustmentType));
   end;
 end;
 
@@ -190,7 +192,6 @@ begin
   CheckPrice(Price);
   CheckQuantity(Quantity);
   CheckPrice(UnitPrice);
-  CheckVatInfo(VatInfo);
 
   if UnitPrice = 0 then
   begin
@@ -230,7 +231,6 @@ var
 begin
   CheckDescription(Description);
   CheckAdjAmount(AdjustmentType, Amount);
-  CheckVatInfo(VatInfo);
 
   case AdjustmentType of
     FPTR_AT_AMOUNT_DISCOUNT:
@@ -280,7 +280,7 @@ begin
       Printer.ReceiptCharge(Operation);
     end;
   else
-    RaiseOposException(OPOS_E_ILLEGAL, 'Invalid AdjustmentType parameter');
+    InvalidParameterValue('AdjustmentType', IntToStr(AdjustmentType));
   end;
 end;
 
@@ -322,7 +322,6 @@ var
   Operation: TPriceReg;
 begin
   CheckAmount(Amount);
-  CheckVatInfo(VatInfo);
 
   Operation.Quantity := 1000;
   Operation.Price := Printer.CurrencyToInt(Amount);
@@ -344,7 +343,6 @@ var
 begin
   CheckDescription(Description);
   CheckAmount(Amount);
-  CheckVatInfo(VatInfo);
 
   Operation.Quantity := 1000;
   Operation.Price := Printer.CurrencyToInt(Amount);
@@ -371,7 +369,6 @@ procedure TSalesReceipt.PrintRecSubtotalAdjustment(AdjustmentType: Integer;
 begin
   CheckDescription(Description);
   CheckAdjAmount(AdjustmentType, Amount);
-
   RecSubtotalAdjustment(AdjustmentType, Amount);
 end;
 
@@ -458,7 +455,7 @@ begin
       SubtotalCharge(Summ);
     end;
   else
-    RaiseOposException(OPOS_E_ILLEGAL, 'Invalid AdjustmentType parameter value');
+    InvalidParameterValue('AdjustmentType', IntToStr(AdjustmentType));
   end;
 end;
 
@@ -484,10 +481,6 @@ begin
 
   // Check payment code
   PayCode := Printer.GetPayCode(Description);
-  if not (PayCode in [0..3]) then
-    raiseOposException(OPOS_E_ILLEGAL, 'Invalid payment code');
-
-  //
   Subtotal := Printer.GetSubtotal;
   PayAmount := Printer.CurrencyToInt(Payment);
   FPayments[PayCode] := FPayments[PayCode] + PayAmount;
@@ -601,7 +594,6 @@ begin
   CheckAmount(Amount);
   CheckQuantity(Quantity);
   CheckDescription(Description);
-  CheckVatInfo(VatInfo);
 
   Operation.Quantity := Quantity;
   Operation.Price := Printer.CurrencyToInt(Amount);
@@ -624,7 +616,6 @@ begin
   CheckPrice(Price);
   CheckQuantity(Quantity);
   CheckPrice(UnitPrice);
-  CheckVatInfo(VatInfo);
 
   if UnitPrice = 0 then
   begin
@@ -657,7 +648,6 @@ begin
   CheckAmount(Amount);
   CheckAmount(UnitAmount);
   CheckQuantity(Quantity);
-  CheckVatInfo(VatInfo);
 
   if (UnitAmount = 0)or(Quantity = 0) then
   begin
@@ -690,7 +680,6 @@ begin
   CheckAmount(Amount);
   CheckAmount(UnitAmount);
   CheckQuantity(Quantity);
-  CheckVatInfo(VatInfo);
 
   if (UnitAmount = 0)or(Quantity = 0) then
   begin
