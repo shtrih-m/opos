@@ -1,79 +1,61 @@
-﻿# SOME DESCRIPTIVE TITLE.
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
-#, fuzzy
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-08-31 12:30\n"
-"PO-Revision-Date: 2017-08-31 12:30\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2017-09-01 15:13\n"
+"PO-Revision-Date: 2017-09-01 15:29+0300\n"
 "Last-Translator: Somebody <your.email@address.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: dxgettext 1.2.2\n"
+"X-Generator: Poedit 2.0.3\n"
+"Language-Team: \n"
+"Language: ru\n"
 
 #. fmEMail..Font.Name
-#: Fmu/fmuEMail.dfm:13
 #. fmEMail..Label1..Font.Name
-#: Fmu/fmuEMail.dfm:29
 #. fmEMail..btnOK..Font.Name
-#: Fmu/fmuEMail.dfm:42
 #. fmEMail..btnCancel..Font.Name
-#: Fmu/fmuEMail.dfm:57
 #. fmEMail..edtAddress..Font.Name
-#: Fmu/fmuEMail.dfm:107
 #. fmGraph..Font.Name
-#: Fmu/fmuGraph.dfm:12
 #. fmLogo..Font.Name
-#: Fmu/fmuLogo.dfm:15
 #. fmPhone..Font.Name
-#: Fmu/fmuPhone.dfm:14
 #. fmPhone..Label1..Font.Name
-#: Fmu/fmuPhone.dfm:29
 #. fmPhone..btnOK..Font.Name
-#: Fmu/fmuPhone.dfm:42
 #. fmPhone..btnCancel..Font.Name
-#: Fmu/fmuPhone.dfm:57
 #. fmPhone..pnlKeyboard..btn1..Font.Name
-#: Fmu/fmuPhone.dfm:79
 #. fmPhone..pnlKeyboard..btn2..Font.Name
-#: Fmu/fmuPhone.dfm:93
 #. fmPhone..pnlKeyboard..btn3..Font.Name
-#: Fmu/fmuPhone.dfm:108
 #. fmPhone..pnlKeyboard..btn4..Font.Name
-#: Fmu/fmuPhone.dfm:123
 #. fmPhone..pnlKeyboard..btn5..Font.Name
-#: Fmu/fmuPhone.dfm:138
 #. fmPhone..pnlKeyboard..btn6..Font.Name
-#: Fmu/fmuPhone.dfm:153
 #. fmPhone..pnlKeyboard..btn7..Font.Name
-#: Fmu/fmuPhone.dfm:168
 #. fmPhone..pnlKeyboard..btn8..Font.Name
-#: Fmu/fmuPhone.dfm:183
 #. fmPhone..pnlKeyboard..btn9..Font.Name
-#: Fmu/fmuPhone.dfm:198
 #. fmPhone..pnlKeyboard..btn0..Font.Name
-#: Fmu/fmuPhone.dfm:213
 #. fmPhone..pnlKeyboard..btnPlus..Font.Name
-#: Fmu/fmuPhone.dfm:228
 #. fmPhone..pnlKeyboard..btnBack..Font.Name
-#: Fmu/fmuPhone.dfm:242
 #. fmPhone..edtAddress..Font.Name
-#: Fmu/fmuPhone.dfm:281
 #. fmSelect..Font.Name
-#: Fmu/fmuSelect.dfm:13
 #. fmSelect..btnPhone..Font.Name
-#: Fmu/fmuSelect.dfm:28
 #. fmSelect..btnEMail..Font.Name
-#: Fmu/fmuSelect.dfm:138
 #. fmSelect..btnCancel..Font.Name
-#: Fmu/fmuSelect.dfm:274
 #. fmTimeSync..Font.Name
-#: Fmu/fmuTimeSync.dfm:12
 #. fmTimeSync..btnCancel..Font.Name
+#: Fmu/fmuEMail.dfm:13 Fmu/fmuEMail.dfm:29 Fmu/fmuEMail.dfm:42
+#: Fmu/fmuEMail.dfm:57 Fmu/fmuEMail.dfm:107 Fmu/fmuGraph.dfm:12
+#: Fmu/fmuLogo.dfm:15 Fmu/fmuPhone.dfm:14 Fmu/fmuPhone.dfm:29
+#: Fmu/fmuPhone.dfm:42 Fmu/fmuPhone.dfm:57 Fmu/fmuPhone.dfm:79
+#: Fmu/fmuPhone.dfm:93 Fmu/fmuPhone.dfm:108 Fmu/fmuPhone.dfm:123
+#: Fmu/fmuPhone.dfm:138 Fmu/fmuPhone.dfm:153 Fmu/fmuPhone.dfm:168
+#: Fmu/fmuPhone.dfm:183 Fmu/fmuPhone.dfm:198 Fmu/fmuPhone.dfm:213
+#: Fmu/fmuPhone.dfm:228 Fmu/fmuPhone.dfm:242 Fmu/fmuPhone.dfm:281
+#: Fmu/fmuSelect.dfm:13 Fmu/fmuSelect.dfm:28 Fmu/fmuSelect.dfm:138
+#: Fmu/fmuSelect.dfm:274 Fmu/fmuTimeSync.dfm:12
 #: Fmu/fmuTimeSync.dfm:79
 msgid "MS Sans Serif"
 msgstr ""
@@ -84,16 +66,14 @@ msgid "Адрес электронной почты:"
 msgstr ""
 
 #. fmEMail..btnOK..Caption
-#: Fmu/fmuEMail.dfm:38
 #. fmPhone..btnOK..Caption
-#: Fmu/fmuPhone.dfm:38
+#: Fmu/fmuEMail.dfm:38 Fmu/fmuPhone.dfm:38
 msgid "Да"
 msgstr ""
 
 #. fmEMail..btnCancel..Caption
-#: Fmu/fmuEMail.dfm:53
 #. fmPhone..btnCancel..Caption
-#: Fmu/fmuPhone.dfm:53
+#: Fmu/fmuEMail.dfm:53 Fmu/fmuPhone.dfm:53
 msgid "Нет"
 msgstr ""
 
@@ -153,23 +133,20 @@ msgid "Загрузка одной командой"
 msgstr ""
 
 #. fmGraph..GroupBox1..btnMonochrome1..Hint
-#: Fmu/fmuGraph.dfm:70
 #. fmGraph..GroupBox1..btnMonochrome1..Caption
-#: Fmu/fmuGraph.dfm:72
+#: Fmu/fmuGraph.dfm:70 Fmu/fmuGraph.dfm:72
 msgid "Монохромизировать1"
 msgstr ""
 
 #. fmGraph..GroupBox1..btnMonochrome2..Hint
-#: Fmu/fmuGraph.dfm:83
 #. fmGraph..GroupBox1..btnMonochrome2..Caption
-#: Fmu/fmuGraph.dfm:85
+#: Fmu/fmuGraph.dfm:83 Fmu/fmuGraph.dfm:85
 msgid "Монохромизировать2"
 msgstr ""
 
 #. fmGraph..GroupBox1..btnOpenPicture..Hint
-#: Fmu/fmuGraph.dfm:123
 #. fmGraph..GroupBox1..btnOpenPicture..Caption
-#: Fmu/fmuGraph.dfm:125
+#: Fmu/fmuGraph.dfm:123 Fmu/fmuGraph.dfm:125
 msgid "Открыть файл"
 msgstr ""
 
@@ -250,8 +227,7 @@ msgstr ""
 
 #. fmLogo..Panel1..lblInfo1..Caption
 #: Fmu/fmuLogo.dfm:88
-msgid "Select monochrome image and press \"Load\" "
-"button"
+msgid "Select monochrome image and press \"Load\" button"
 msgstr ""
 
 #. fmLogo..Panel1..lblImageSize..Caption
@@ -270,9 +246,8 @@ msgid "Center logo on page"
 msgstr ""
 
 #. fmPhone..Caption
-#: Fmu/fmuPhone.dfm:7
 #. fmSelect..btnPhone..Caption
-#: Fmu/fmuSelect.dfm:24
+#: Fmu/fmuPhone.dfm:7 Fmu/fmuSelect.dfm:24
 msgid "Номер телефона"
 msgstr ""
 
@@ -297,27 +272,23 @@ msgid "Электронная почта"
 msgstr ""
 
 #. fmSelect..btnCancel..Caption
-#: Fmu/fmuSelect.dfm:270
 #. fmTimeSync..btnCancel..Caption
-#: Fmu/fmuTimeSync.dfm:75
+#: Fmu/fmuSelect.dfm:270 Fmu/fmuTimeSync.dfm:75
 msgid "Отмена"
 msgstr ""
 
 #. fmTimeSync..Caption
-#: Fmu/fmuTimeSync.dfm:7
 #. fmTimeSync..lblTimeSync..Caption
-#: Fmu/fmuTimeSync.dfm:22
+#: Fmu/fmuTimeSync.dfm:7 Fmu/fmuTimeSync.dfm:22
 msgid "Синхронизация времени"
 msgstr ""
 
 #. fmTimeSync..lblTimeSync..Font.Name
-#: Fmu/fmuTimeSync.dfm:26
 #. fmTimeSync..Label1..Font.Name
-#: Fmu/fmuTimeSync.dfm:39
 #. fmTimeSync..lblTimeLeft..Font.Name
-#: Fmu/fmuTimeSync.dfm:52
 #. fmTimeSync..Label2..Font.Name
-#: Fmu/fmuTimeSync.dfm:65
+#: Fmu/fmuTimeSync.dfm:26 Fmu/fmuTimeSync.dfm:39
+#: Fmu/fmuTimeSync.dfm:52 Fmu/fmuTimeSync.dfm:65
 msgid "Arial Narrow"
 msgstr ""
 
@@ -338,35 +309,30 @@ msgstr ""
 
 #: Units/CachedSalesReceipt.pas:244
 msgid "Invalid parameter value"
-msgstr ""
+msgstr "Неверное значение параметра"
 
 #. Check payment code
-#: Units/CachedSalesReceipt.pas:556
 #. Check payment code
-#: Units/GlobusTextReceipt.pas:568
+#: Units/CachedSalesReceipt.pas:556 Units/GlobusTextReceipt.pas:568
 msgid "Invalid payment code"
-msgstr ""
+msgstr "Неверный  код типа оплаты"
 
-#: Units/CommandParam.pas:212
-#: Units/XmlValue.pas:121
+#: Units/CommandParam.pas:212 Units/XmlValue.pas:121
 msgid "Parameter not found"
-msgstr ""
+msgstr "Параметр не найден"
 
-#: Units/CommandParam.pas:269
-#: Units/XmlValue.pas:166
+#: Units/CommandParam.pas:269 Units/XmlValue.pas:166
 msgid "Name"
-msgstr ""
+msgstr "Имя"
 
-#: Units/CommandParam.pas:270
-#: Units/XmlValue.pas:167
+#: Units/CommandParam.pas:270 Units/XmlValue.pas:167
 msgid "Value"
-msgstr ""
+msgstr "Значение"
 
 #. Power supply voltage
-#: Units/CommandParam.pas:386
-#: Units/CommandParam.pas:471
+#: Units/CommandParam.pas:386 Units/CommandParam.pas:471
 msgid "Invalid parameter type"
-msgstr ""
+msgstr "Неверный тип параметра"
 
 #. Programmer's name for it: STable
 #: Units/CsvPrinterTableFormat.pas:30
@@ -380,8 +346,9 @@ msgstr ""
 
 #. Programmer's name for it: STableFormat
 #: Units/CsvPrinterTableFormat.pas:32
-msgid "Номер таблицы,Ряд,Поле,Размер поля,Тип поля,Мин. значение, "
-"Макс.значение, Название,Значение"
+msgid ""
+"Номер таблицы,Ряд,Поле,Размер поля,Тип поля,Мин. значение, Макс."
+"значение, Название,Значение"
 msgstr ""
 
 #: Units/CustomReceipt.pas:155
@@ -474,8 +441,7 @@ msgid "Date line not found"
 msgstr ""
 
 #: Units/ElectronicJournal.pas:110
-msgid "Failed parsing electronic journal report. Date not "
-"found"
+msgid "Failed parsing electronic journal report. Date not found"
 msgstr ""
 
 #. Programmer's name for it: SCommandNotSupported
@@ -488,8 +454,7 @@ msgstr ""
 msgid "Неверная длина команды"
 msgstr ""
 
-#: Units/EscPrinter.pas:322
-#: Units/FiscalPrinterDevice.pas:5486
+#: Units/EscPrinter.pas:322 Units/FiscalPrinterDevice.pas:5485
 msgid "Invalid barcode type, %d"
 msgstr ""
 
@@ -509,69 +474,66 @@ msgstr ""
 msgid "Invalid answer code"
 msgstr ""
 
-#: Units/FiscalPrinterDevice.pas:4188
+#: Units/FiscalPrinterDevice.pas:4187
 msgid "Field type is not integer"
 msgstr ""
 
-#: Units/FiscalPrinterDevice.pas:4190
-#: Units/FiscalPrinterDevice.pas:4201
-#: Units/FiscalPrinterDevice.pas:4213
-#: Units/FiscalPrinterDevice.pas:4223
+#: Units/FiscalPrinterDevice.pas:4189
+#: Units/FiscalPrinterDevice.pas:4200
+#: Units/FiscalPrinterDevice.pas:4212
+#: Units/FiscalPrinterDevice.pas:4222
 msgid "Invalid field type"
 msgstr ""
 
-#: Units/FiscalPrinterDevice.pas:4666
+#: Units/FiscalPrinterDevice.pas:4665
 msgid "Device model ID=%d not found"
 msgstr ""
 
-#: Units/FiscalPrinterDevice.pas:5180
-#: Units/FiscalPrinterDevice.pas:5219
+#: Units/FiscalPrinterDevice.pas:5179
+#: Units/FiscalPrinterDevice.pas:5218
 msgid "Graphics is not supported"
 msgstr ""
 
-#: Units/FiscalPrinterDevice.pas:5697
-#: Units/FiscalPrinterDevice.pas:5813
-msgid "Bitmap width more than maximum, %d > "
-"%d"
+#: Units/FiscalPrinterDevice.pas:5696
+#: Units/FiscalPrinterDevice.pas:5812
+msgid "Bitmap width more than maximum, %d > %d"
 msgstr ""
 
-#: Units/FiscalPrinterDevice.pas:5701
-#: Units/FiscalPrinterDevice.pas:5817
-msgid "Bitmap height more than maximum, %d > "
-"%d"
+#: Units/FiscalPrinterDevice.pas:5700
+#: Units/FiscalPrinterDevice.pas:5816
+msgid "Bitmap height more than maximum, %d > %d"
 msgstr ""
 
-#: Units/FiscalPrinterDevice.pas:5925
+#: Units/FiscalPrinterDevice.pas:5924
 msgid "Bitmap.Width = 0"
 msgstr ""
 
-#: Units/FiscalPrinterDevice.pas:5995
+#: Units/FiscalPrinterDevice.pas:5994
 msgid "Image height is zero, must be > 0"
 msgstr ""
 
-#: Units/FiscalPrinterDevice.pas:5998
+#: Units/FiscalPrinterDevice.pas:5997
 msgid "Image width is zero, must be > 0"
 msgstr ""
 
-#: Units/FiscalPrinterDevice.pas:6289
-#: Units/SharedPrinter.pas:1029
+#: Units/FiscalPrinterDevice.pas:6288 Units/SharedPrinter.pas:1029
 msgid "Failed to continue print"
 msgstr ""
 
-#: Units/FiscalPrinterDevice.pas:6463
+#: Units/FiscalPrinterDevice.pas:6462
 msgid "Image data length > 64 bytes"
 msgstr ""
 
-#: Units/FiscalPrinterDevice.pas:7052
+#: Units/FiscalPrinterDevice.pas:7051
 msgid "BlockSize = 0"
 msgstr ""
 
-#: Units/FiscalPrinterDevice.pas:7309
-#: Units/FiscalPrinterDevice.pas:7436
+#: Units/FiscalPrinterDevice.pas:7308
+#: Units/FiscalPrinterDevice.pas:7435
 msgid "Invalid parameter ID value, %d"
 msgstr ""
 
-#: Units/FiscalPrinterDevice.pas:7409
+#: Units/FiscalPrinterDevice.pas:7408
 msgid "Invalid pData parameter value"
 msgstr ""
 
@@ -593,8 +555,7 @@ msgid "Can not change state"
 msgstr ""
 
 #: Units/FiscalPrinterImpl.pas:1697
-msgid "Day end required. Print ZReport and try "
-"again"
+msgid "Day end required. Print ZReport and try again"
 msgstr ""
 
 #: Units/FiscalPrinterImpl.pas:1735
@@ -604,7 +565,7 @@ msgstr ""
 #. Cover opened
 #: Units/FiscalPrinterImpl.pas:1770
 msgid "Cover opened"
-msgstr "Открыта крышка корпуса"
+msgstr "Крышка открыта"
 
 #. Receipt paper
 #: Units/FiscalPrinterImpl.pas:1776
@@ -664,8 +625,7 @@ msgid "Training mode not supported"
 msgstr ""
 
 #: Units/FiscalPrinterImpl.pas:2388
-#: Units/FiscalPrinterImpl.pas:3563
-#: Units/oleCashDrawer.pas:389
+#: Units/FiscalPrinterImpl.pas:3583 Units/oleCashDrawer.pas:389
 msgid "Not implemented"
 msgstr ""
 
@@ -685,8 +645,8 @@ msgstr ""
 msgid "Date1 > Date2"
 msgstr ""
 
-#: Units/FiscalPrinterImpl.pas:3570
-#: Units/FiscalPrinterImpl.pas:3581
+#: Units/FiscalPrinterImpl.pas:3590
+#: Units/FiscalPrinterImpl.pas:3601
 msgid "StartNum > EndNum"
 msgstr ""
 
@@ -702,8 +662,7 @@ msgstr ""
 msgid "Discount amount more than item amount"
 msgstr ""
 
-#: Units/GlobusTextReceipt.pas:292
-#: Units/TextReceipt.pas:408
+#: Units/GlobusTextReceipt.pas:292 Units/TextReceipt.pas:408
 msgid "Negative receipt total"
 msgstr ""
 
@@ -735,26 +694,24 @@ msgstr ""
 msgid "Shared printer = nil"
 msgstr ""
 
-#: Units/ParameterValue.pas:127
-#: Units/TableParameter.pas:124
+#: Units/ParameterValue.pas:127 Units/TableParameter.pas:124
 msgid "Not unique item ID"
 msgstr ""
 
-#: Units/PrinterCommand.pas:183
-#: Units/PrinterCommand.pas:186
+#: Units/PrinterCommand.pas:183 Units/PrinterCommand.pas:186
 msgid "Invalid parameter value, "
 msgstr ""
 
 #. Programmer's name for it: MsgKeyOpenError
-#: Units/PrinterParameters2.pas:313
 #. Programmer's name for it: MsgKeyOpenError
+#: Units/PrinterParameters2.pas:313
 #: Units/XmlPrinterParameters.pas:237
 msgid "Error opening registry key: %s"
 msgstr ""
 
 #. Programmer's name for it: SInvalidLogoPosition
-#: Units/PrinterParameters2.pas:1087
 #. Programmer's name for it: SInvalidLogoPosition
+#: Units/PrinterParameters2.pas:1087
 #: Units/XmlPrinterParameters.pas:583
 msgid "Invalid LogoPosition value (%d)."
 msgstr ""
@@ -938,4 +895,3 @@ msgstr ""
 #: SmFiscalPrinter.rc:32
 msgid "MAINICON.ico"
 msgstr ""
-

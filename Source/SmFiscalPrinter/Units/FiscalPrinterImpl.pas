@@ -56,7 +56,6 @@ type
     FPrinterState: TFiscalPrinterState;
     FVatValues: array [1..4] of Integer;
     FBeforeCloseItems: TReceiptItems;
-    FAfterCloseItems: TReceiptItems;
     FPrinter: ISharedPrinter;
     FReceiptPrinter: IReceiptPrinter;
 
@@ -494,7 +493,6 @@ begin
   FPrinterState := TFiscalPrinterState.Create;
   FJournal := TElectronicJournal.Create;
   FBeforeCloseItems := TReceiptItems.Create;
-  FAfterCloseItems := TReceiptItems.Create;
   SetPrinter(SharedPrinter.GetPrinter(''));
 end;
 
@@ -519,7 +517,6 @@ begin
   FNonFiscalDoc.Free;
   FRetalix.Free;
   FBeforeCloseItems.Free;
-  FAfterCloseItems.Free;
   FPrinter := nil;
   inherited Destroy;
 end;
@@ -1012,12 +1009,7 @@ procedure TFiscalPrinterImpl.BeforeCommand(Sender: TObject;
 begin
   if (Command.Code = $85) or (Command.Code = $FF45) then
   begin
-    Device.SetFooterFlag(True);
-    try
-      PrintReceiptItems(FBeforeCloseItems);
-    finally
-      Device.SetFooterFlag(False);
-    end;
+    PrintReceiptItems(FBeforeCloseItems);
   end;
 end;
 
@@ -2248,7 +2240,6 @@ begin
     Receipt.BeginFiscalReceipt(PrintHeader);
     Filters.BeginFiscalReceipt2(FReceipt);
     FBeforeCloseItems.Clear;
-    FAfterCloseItems.Clear;
     Result := ClearResult;
   except
     on E: Exception do
@@ -2496,8 +2487,6 @@ begin
     Filters.BeforeCloseReceipt;
     Receipt.EndFiscalReceipt;
     Filters.AfterCloseReceipt;
-
-    PrintReceiptItems(FAfterCloseItems);
 
     //if PrintHeader then
     begin
@@ -3121,7 +3110,6 @@ begin
     if (Data <> '') or (AData = '') then
     begin
       Data := FOposDevice.ConvertBinary(Data);
-      //Receipt.PrintNormal(Data, PrinterStation);
     end;
     NonFiscalDoc.PrintNormal(PrinterStation, Data);
     Result := ClearResult;
@@ -3305,13 +3293,7 @@ begin
 
     if FPrinterState.IsReceiptEnding then
     begin
-      if Device.IsCapFooterFlag then
-      begin
-        Item := TTextReceiptItem.Create(FBeforeCloseItems);
-      end else
-      begin
-        Item := TTextReceiptItem.Create(FAfterCloseItems);
-      end;
+      Item := TTextReceiptItem.Create(FBeforeCloseItems);
       Item.Data.Text := Text;
       Item.Data.Station := PRINTER_STATION_REC;
       Item.Data.Font := Parameters.FontNumber;
@@ -3334,13 +3316,7 @@ var
 begin
   if FPrinterState.IsReceiptEnding then
   begin
-    if Device.IsCapFooterFlag then
-    begin
-      Item := TTextReceiptItem.Create(FBeforeCloseItems);
-    end else
-    begin
-      Item := TTextReceiptItem.Create(FAfterCloseItems);
-    end;
+    Item := TTextReceiptItem.Create(FBeforeCloseItems);
     Item.Data := Data;
   end else
   begin
@@ -3354,23 +3330,8 @@ var
 begin
   if FPrinterState.IsReceiptEnding then
   begin
-    if Device.IsCapFooterFlag then
-    begin
-      if (Device.IsCapBarcode2D and (Barcode.BarcodeType in [
-        DIO_BARCODE_QRCODE, DIO_BARCODE_QRCODE2])) then
-      begin
-        Item := TBarcodeReceiptItem.Create(FAfterCloseItems);
-        Item.Data := Barcode;
-      end else
-      begin
-        Item := TBarcodeReceiptItem.Create(FBeforeCloseItems);
-        Item.Data := Barcode;
-      end;
-    end else
-    begin
-      Item := TBarcodeReceiptItem.Create(FAfterCloseItems);
-      Item.Data := Barcode;
-    end;
+    Item := TBarcodeReceiptItem.Create(FBeforeCloseItems);
+    Item.Data := Barcode;
   end else
   begin
     Receipt.PrintBarcode(Barcode);
@@ -3732,7 +3693,6 @@ begin
     CancelReceipt;
     SetPrinterState(FPTR_PS_MONITOR);
     FBeforeCloseItems.Clear;
-    FAfterCloseItems.Clear;
     FReceiptItems := 0;
     Result := ClearResult;
   except

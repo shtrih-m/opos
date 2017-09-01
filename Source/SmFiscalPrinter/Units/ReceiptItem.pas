@@ -19,14 +19,14 @@ type
     FList: TList;
     function GetCount: Integer;
     function GetItem(Index: Integer): TReceiptItem;
-    procedure InsertItem(AItem: TReceiptItem);
-    procedure RemoveItem(AItem: TReceiptItem);
   public
     constructor Create;
     destructor Destroy; override;
 
     function GetTotal: Int64;
     procedure Clear;
+    procedure InsertItem(AItem: TReceiptItem);
+    procedure RemoveItem(AItem: TReceiptItem);
     procedure Assign(Items: TReceiptItems);
     procedure Insert(Index: Integer; AItem: TReceiptItem);
 
