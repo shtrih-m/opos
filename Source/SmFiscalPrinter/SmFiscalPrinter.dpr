@@ -166,7 +166,8 @@ uses
   TextParser in 'Units\TextParser.pas',
   PrinterPort in 'Units\PrinterPort.pas',
   PrinterProtocol1 in 'Units\PrinterProtocol1.pas',
-  PrinterFonts in 'Units\PrinterFonts.pas';
+  PrinterFonts in 'Units\PrinterFonts.pas',
+  SmResourceStrings in 'Units\SmResourceStrings.pas';
 
 exports
   DllGetClassObject,

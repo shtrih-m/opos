@@ -6,7 +6,7 @@ uses
   // This
   ReceiptPrinter, OposException, PrinterParameters, Opos, OposFptr,
   FiscalPrinterDevice, FiscalPrinterTypes, FiscalPrinterState,
-  PrinterTypes, EscFilter, TextItem, LogFile, MalinaParams, gnugettext;
+  PrinterTypes, EscFilter, TextItem, LogFile, MalinaParams;
 
 type
   { TReceiptContext }
@@ -150,9 +150,16 @@ type
 
 implementation
 
+resourcestring
+  MsgReceiptMethodNotSupported = 'Receipt method is not supported';
+  MsgNegativePrice = 'Negative price';
+  MsgInvalidPercentsValue = 'Invalid percents value';
+  MsgNegativeQuantity = 'Negative quantity';
+  MsgNegativeAmount = 'Negative amount';
+
 procedure RaiseIllegalError;
 begin
-  RaiseOposException(OPOS_E_ILLEGAL, _('Receipt method is not supported'));
+  RaiseOposException(OPOS_E_ILLEGAL, MsgReceiptMethodNotSupported);
 end;
 
 { TCustomReceipt }
@@ -352,25 +359,25 @@ end;
 class procedure TCustomReceipt.CheckPrice(Value: Currency);
 begin
   if Value < 0 then
-    raiseExtendedError(OPOS_EFPTR_BAD_PRICE, _('Negative price'));
+    raiseExtendedError(OPOS_EFPTR_BAD_PRICE, MsgNegativePrice);
 end;
 
 class procedure TCustomReceipt.CheckPercents(Value: Currency);
 begin
   if (Value < 0)or(Value > 9999) then
-    raiseExtendedError(OPOS_EFPTR_BAD_ITEM_AMOUNT, _('Invalid percents value'));
+    raiseExtendedError(OPOS_EFPTR_BAD_ITEM_AMOUNT, MsgInvalidPercentsValue);
 end;
 
 class procedure TCustomReceipt.CheckQuantity(Quantity: Integer);
 begin
   if Quantity < 0 then
-    raiseExtendedError(OPOS_EFPTR_BAD_ITEM_QUANTITY, _('Negative quantity'));
+    raiseExtendedError(OPOS_EFPTR_BAD_ITEM_QUANTITY, MsgNegativeQuantity);
 end;
 
 class procedure TCustomReceipt.CheckAmount(Amount: Currency);
 begin
   if Amount < 0 then
-    raiseExtendedError(OPOS_EFPTR_BAD_ITEM_AMOUNT, _('Negative amount'));
+    raiseExtendedError(OPOS_EFPTR_BAD_ITEM_AMOUNT, MsgNegativeAmount);
 end;
 
 procedure TCustomReceipt.PrintRecItemRefund(const ADescription: string;

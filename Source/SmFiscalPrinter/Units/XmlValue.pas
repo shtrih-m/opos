@@ -6,7 +6,7 @@ Uses
   // VCL
   Classes, SysUtils,
   // This
-  XmlParser, gnugettext;
+  XmlParser, SmResourceStrings;
 
 type
   TXmlValue = class;
@@ -118,7 +118,7 @@ function TXmlValues.ItemByName(const Name: string): TXmlValue;
 begin
   Result := FindItem(Name);
   if Result = nil then
-    raise Exception.Create(_('Parameter not found'));
+    raise Exception.Create(MsgParameterNotFound);
 end;
 
 function TXmlValues.GetAsXml: string;

@@ -7,7 +7,7 @@ Uses
   Windows, Classes, SysUtils,
   // This
   PrinterCommand, PrinterTypes, BinStream, XmlParser, StringUtils, BStrUtil,
-  gnugettext;
+  SmResourceStrings;
 
 
 const
@@ -114,6 +114,9 @@ type
 
 implementation
 
+resourcestring
+  MsgInvalidParameterType = 'Invalid parameter type';
+
 function ByteToTimeout(Value: Byte): DWORD;
 begin
   case Value of
@@ -209,7 +212,7 @@ function TCommandParams.ItemByName(const Name: string): TCommandParam;
 begin
   Result := FindItem(Name);
   if Result = nil then
-    raise Exception.Create(_('Parameter not found'));
+    raise Exception.Create(MsgParameterNotFound);
 end;
 
 function TCommandParams.ItemByType(ParamType: Integer): TCommandParam;
@@ -383,7 +386,7 @@ begin
       Item.Value := IntToStr(ByteToTimeout(Data.ReadInt(Item.Size)));
     end;
   else
-    raise Exception.Create(_('Invalid parameter type'));
+    raise Exception.Create(MsgInvalidParameterType);
   end;
 end;
 
@@ -468,7 +471,7 @@ begin
       Data.WriteInt(TimeoutToByte(I), Item.Size);
     end;
   else
-    raise Exception.Create(_('Invalid parameter type'));
+    raise Exception.Create(MsgInvalidParameterType);
   end;
 end;
 

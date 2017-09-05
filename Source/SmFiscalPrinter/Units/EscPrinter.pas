@@ -7,7 +7,7 @@ uses
   Windows, Classes, SysUtils,
   // This
   //AsBarcode,
-  FiscalPrinterTypes, PrinterTypes, PrinterParameters, DirectIOAPI, gnugettext;
+  FiscalPrinterTypes, PrinterTypes, PrinterParameters, DirectIOAPI;
 
 const
   /////////////////////////////////////////////////////////////////////////////
@@ -296,6 +296,9 @@ begin
     FPrinter.PrintText(Data, FPrinter.Station, 1, taCenter);
 end;
 
+resourcestring
+  MsgInvalidBarcodeType = 'Invalid barcode type';
+
 function DecodeBarcodeType(Value: Integer): Integer;
 begin
   case Value of
@@ -319,7 +322,7 @@ begin
     BARCODE_TYPE2_CODE128: Result := DIO_BARCODE_HIBC_128;
     BARCODE_TYPE2_PDF417: Result := DIO_BARCODE_PDF417;
   else
-    raise Exception.CreateFmt(_('Invalid barcode type, %d'), [Value]);
+    raise Exception.CreateFmt('%s, %d', [MsgInvalidBarcodeType, Value]);
   end;
 end;
 
@@ -356,7 +359,7 @@ end;
 procedure TStringStream.CheckEOF;
 begin
   if EOF then
-    raise Exception.Create(_('TStringStream.CheckEOF'));
+    raise Exception.Create('TStringStream.CheckEOF');
 end;
 
 function TStringStream.ReadData(EndFlag: Char): string;

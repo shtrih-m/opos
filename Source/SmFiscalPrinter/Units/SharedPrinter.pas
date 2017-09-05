@@ -14,7 +14,7 @@ uses
   PrinterProtocol1, PrinterProtocol2, TCPConnection, DCOMConnection, VSysUtils,
   PayType, DebugUtils, ByteUtils, DriverTypes, NotifyThread, NotifyLink,
   PrinterParameters, PrinterParametersX, DriverError, DirectIOAPI,
-  ReceiptReportFilter, EscFilter, SerialPort, SocketPort, PrinterPort, gnugettext;
+  ReceiptReportFilter, EscFilter, SerialPort, SocketPort, PrinterPort;
 
 type
   { TSharedPrinter }
@@ -976,6 +976,9 @@ end;
 // Mode: 0x04, amode: 0x01, Flags: 0x04B2
 // 0000 0100 1011 0010
 
+resourcestring
+  MsgFailedContinuePrint = 'Failed to continue print';
+
 function TSharedPrinter.WaitForPrinting: TPrinterStatus;
 var
   Mode: Byte;
@@ -1026,7 +1029,7 @@ begin
       AMODE_AFTER:
       begin
         if TryCount > MaxTryCount then
-          raise Exception.Create(_('Failed to continue print'));
+          raise Exception.Create(MsgFailedContinuePrint);
         Device.ContinuePrint;
         Inc(TryCount);
       end;

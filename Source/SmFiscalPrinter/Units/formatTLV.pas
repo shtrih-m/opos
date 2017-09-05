@@ -2,9 +2,6 @@ unit formatTLV;
 
 interface
 
-uses
-  gnugettext;
-
 type
   TypeTLV = (tlvUnknown, tlvByte, tlvInt32, tlvInt16, tlvSTLV, tlvUnixTime, tlvVLN, tlvFVLN, tlvASCII);
 type
@@ -89,9 +86,11 @@ class function TFormatTLV.Int2ValueTLV(aValue: UInt64; aSizeInBytes: Integer): s
 var
   d: UInt64;
   i, c: Integer;
+resourcestring
+  MsgTooLargeData = 'too large data';
 begin
   if (aSizeInBytes > 8) or (aSizeInBytes < 1) then
-    raise Exception.Create(_('too large data'));
+    raise Exception.Create(MsgTooLargeData);
 
   SetLength(Result, aSizeInBytes);
 

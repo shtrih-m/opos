@@ -36,6 +36,7 @@ Source: "Setup\zlib1.dll"; DestDir: "{app}\Bin"; Flags: ignoreversion; component
 Source: "Setup\libpng15.dll"; DestDir: "{app}\Bin"; Flags: ignoreversion; components: main;
 Source: "Bin\SmScale.dll"; DestDir: "{app}\Bin"; Flags: ignoreversion regserver; components: main;
 Source: "Bin\SmFiscalPrinter.dll"; DestDir: "{app}\Bin"; Flags: ignoreversion regserver; components: main;
+Source: "Bin\SmFiscalPrinter.RUS"; DestDir: "{app}\Bin"; components: main;
 ; Print server
 Source: "Bin\SmFptrSrv.exe"; DestDir: "{app}\Bin"; Flags: ignoreversion; components: main;
 ; Configuration utility

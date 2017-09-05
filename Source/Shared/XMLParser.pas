@@ -6,7 +6,7 @@ uses
   // VCL
   Classes, SysUtils, ActiveX, ComObj,
   // This
-  XMLDoc, XMLIntf, MSXML, gnugettext;
+  XMLDoc, XMLIntf, MSXML;
 
 type
   TXmlItem = class;
@@ -237,11 +237,14 @@ begin
   xmlDoc.save(FileName);
 end;
 
+resourcestring
+  MsgFileReadingError = 'File reading error';
+
 procedure TXmlParser.LoadFromFile(const FileName: WideString);
 begin
   if not xmlDoc.Load(FileName) then
   begin
-    raise Exception.CreateFmt(_('File reading error %s.'), [FileName]);
+    raise Exception.CreateFmt('%s %s.', [MsgFileReadingError, FileName]);
   end;
   UpdateItems;
 end;
@@ -251,6 +254,9 @@ begin
   Root.Clear;
 end;
 
+resourcestring
+  MsgXmlDocumentReadingError = 'Xml document reading error';
+
 procedure TXmlParser.LoadFromStream(Stream: TStream);
 var
   OleStream: IStream;
@@ -258,7 +264,7 @@ begin
   OleStream := TStreamAdapter.Create(stream);
   if not xmlDoc.load(OleStream) then
   begin
-    raise Exception.Create(_('Xml document reading error'));
+    raise Exception.Create(MsgXmlDocumentReadingError);
   end;
   UpdateItems;
 end;
@@ -296,7 +302,7 @@ begin
   SetOwner(AOwner);
 
   if AxmlNode = nil then
-    raise Exception.Create(_('AxmlNode = nil'));
+    raise Exception.Create('AxmlNode = nil');
 end;
 
 destructor TXmlItem.Destroy;
@@ -438,11 +444,14 @@ begin
   AddText(Name, BoolToStr[Value]);
 end;
 
+resourcestring
+  MsgElementNotFound = 'Element not found';
+
 function TXmlItem.GetItem(const Name: WideString): TXmlItem;
 begin
   Result := FindItem(Name);
   if Result = nil then
-    raise Exception.CreateFmt(_('Element %s is not found'), [Name]);
+    raise Exception.CreateFmt('%s, %s', [MsgElementNotFound, Name]);
 end;
 
 function TXmlItem.GetText(const Name: WideString): WideString;
@@ -477,7 +486,7 @@ begin
   inherited Create;
   FxmlNode := AxmlNode;
   if AxmlNode = nil then
-    raise Exception.Create(_('AxmlNode = nil'));
+    raise Exception.Create('AxmlNode = nil');
 end;
 
 function TXmlItemParams.GetCount: Integer;

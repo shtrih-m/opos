@@ -8,7 +8,7 @@ uses
   // This
   CustomReceipt, PrinterTypes, ByteUtils, OposFptr, OposException,
   Opos, PayType, ReceiptPrinter, FiscalPrinterState, FiscalPrinterTypes,
-  PrinterParameters, PrinterParametersX, MathUtils, gnugettext;
+  PrinterParameters, PrinterParametersX, MathUtils, SmResourceStrings;
 
 type
   { TTextReceipt }
@@ -405,7 +405,7 @@ end;
 procedure TTextReceipt.CheckDiscountAmount(Amount: Int64);
 begin
   if Amount > FTotal then
-    RaiseExtendedError(OPOS_EFPTR_NEGATIVE_TOTAL, _('Negative receipt total'));
+    RaiseExtendedError(OPOS_EFPTR_NEGATIVE_TOTAL, MsgNegativeReceiptTotal);
 end;
 
 procedure TTextReceipt.SubtotalDiscount(const Description: WideString;

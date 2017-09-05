@@ -105,9 +105,18 @@ HostApplication=C:\Projects\OPOSShtrih\Bin\OposTest.exe
 Launcher=
 UseLauncher=0
 DebugCWD=
+[Resource DLL Projects]
+Item0=Russian (Russia)*$00000419*RUS*RUS
+[RDP Source Files]
+Item0=Fmu\fmuLogo.dfm
+Item1=Fmu\fmuPhone.dfm
+Item2=Fmu\fmuSelect.dfm
+Item3=Fmu\fmuEMail.dfm
+Item4=Fmu\fmuTimeSync.dfm
+Item5=SmFiscalPrinter.drc
 [Language]
 ActiveLang=
-ProjectLang=
+ProjectLang=$00000409
 RootDir=
 [Version Info]
 IncludeVerInfo=1
@@ -128,7 +137,7 @@ CompanyName=SHTRIH-M
 FileDescription=Fiscal printer service
 FileVersion=1.13.0.432
 InternalName=Fiscal printer driver
-LegalCopyright=SHTRIH-M © 2013 
+LegalCopyright=SHTRIH-M © 2013
 LegalTrademarks=
 OriginalFilename=SmFiscalPrinter.dll
 ProductName=OPOS drivers
@@ -141,10 +150,9 @@ Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;
 Count=1
 Item0=$(DELPHI)\Lib\Debug
 [HistoryLists\hlUnitOutputDirectory]
-Count=3
-Item0=..\..\DCU
-Item1=DCU
-Item2=..\lib\D7
+Count=2
+Item0=DCU
+Item1=..\lib\D7
 [HistoryLists\hlBPLOutput]
 Count=3
 Item0=$(DELPHI)\Bin\

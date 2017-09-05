@@ -208,7 +208,8 @@ uses
   PrinterProtocol1 in '..\..\Source\SmFiscalPrinter\Units\PrinterProtocol1.pas',
   duTankFilter in 'Units\duTankFilter.pas',
   duCommandDefs in 'Units\duCommandDefs.pas',
-  PrinterFonts in '..\..\Source\SmFiscalPrinter\Units\PrinterFonts.pas';
+  PrinterFonts in '..\..\Source\SmFiscalPrinter\Units\PrinterFonts.pas',
+  SmResourceStrings in '..\..\Source\SmFiscalPrinter\Units\SmResourceStrings.pas';
 
 {$R *.RES}
 {$R ..\..\Source\SmFiscalPrinter\SmFiscalPrinter.TLB}

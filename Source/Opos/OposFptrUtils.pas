@@ -6,7 +6,7 @@ uses
   // VCL
   SysUtils,
   // This
-  Opos, OposUtils, Oposhi, OposFptr, OposFptrhi, OposException, gnugettext;
+  Opos, OposUtils, Oposhi, OposFptr, OposFptrhi, OposException;
 
 function PrinterStateToStr(Value: Integer): string;
 function EncodeOposDate(const Date: TOposDate): string;
@@ -32,19 +32,24 @@ procedure raiseOposFptrCoverOpened;
 
 implementation
 
+resourcestring
+  MsgCoverOpened = 'Cover is opened';
+  MsgReceiptStationEmpty = 'Receipt station is empty';
+  MsgJournalStationEmpty = 'Journal station is empty';
+
 procedure raiseOposFptrRecEmpty;
 begin
-  raiseExtendedError(OPOS_EFPTR_REC_EMPTY, _('Receipt station is empty'));
+  raiseExtendedError(OPOS_EFPTR_REC_EMPTY, MsgReceiptStationEmpty);
 end;
 
 procedure raiseOposFptrJrnEmpty;
 begin
-  raiseExtendedError(OPOS_EFPTR_JRN_EMPTY, _('Journal station is empty'));
+  raiseExtendedError(OPOS_EFPTR_JRN_EMPTY, MsgJournalStationEmpty);
 end;
 
 procedure raiseOposFptrCoverOpened;
 begin
-  raiseExtendedError(OPOS_EFPTR_COVER_OPEN, _('Cover is opened'));
+  raiseExtendedError(OPOS_EFPTR_COVER_OPEN, MsgCoverOpened);
 end;
 
 function OposFptrGetErrorText(Driver: OleVariant): string;
@@ -180,6 +185,13 @@ end;
 // hh hour (0-23)
 // mm minutes (0-59)
 
+resourcestring
+  MsgInvalidDay = 'Invalid day';
+  MsgInvalidMonth = 'Invalid month';
+  MsgInvalidYear = 'Invalid year';
+  MsgInvalidHour = 'Invalid hour';
+  MsgInvalidMinutes = 'Invalid minutes';
+
 function DecodeOposDate(const Date: string): TOposDate;
 begin
   Result.Day := StrToInt(Copy(Date, 1, 2));
@@ -189,19 +201,19 @@ begin
   Result.Min := StrToInt(Copy(Date, 11, 2));
 
   if not(Result.Day in [1..31]) then
-    raiseExtendedError(OPOS_EFPTR_BAD_DATE, _('Invalid day'));
+    raiseExtendedError(OPOS_EFPTR_BAD_DATE, MsgInvalidDay);
 
   if not(Result.Month in [1..12]) then
-    raiseExtendedError(OPOS_EFPTR_BAD_DATE, _('Invalid month'));
+    raiseExtendedError(OPOS_EFPTR_BAD_DATE, MsgInvalidMonth);
 
   if Result.Year < 2000 then
-    raiseExtendedError(OPOS_EFPTR_BAD_DATE, _('Invalid year'));
+    raiseExtendedError(OPOS_EFPTR_BAD_DATE, MsgInvalidYear);
 
   if not(Result.Hour in [0..23]) then
-    raiseExtendedError(OPOS_EFPTR_BAD_DATE, _('Invalid hour'));
+    raiseExtendedError(OPOS_EFPTR_BAD_DATE, MsgInvalidHour);
 
   if not(Result.Min in [0..59]) then
-    raiseExtendedError(OPOS_EFPTR_BAD_DATE, _('Invalid minutes'));
+    raiseExtendedError(OPOS_EFPTR_BAD_DATE, MsgInvalidMinutes);
 end;
 
 function EncodeOposDate(const Date: TOposDate): string;

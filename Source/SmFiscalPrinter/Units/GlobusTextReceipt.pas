@@ -9,7 +9,7 @@ uses
   CustomReceipt, PrinterTypes, ByteUtils, OposFptr, OposException,
   Opos, PayType, ReceiptPrinter, FiscalPrinterState, FiscalPrinterTypes,
   PrinterParameters, PrinterParametersX, DirectIOAPI, TextItem, MathUtils,
-  StringUtils, gnugettext;
+  StringUtils, SmResourceStrings;
 
 type
   { TGlobusTextReceipt }
@@ -289,7 +289,7 @@ end;
 procedure TGlobusTextReceipt.CheckDiscountAmount(Amount: Int64);
 begin
   if Amount > FTotal then
-    RaiseExtendedError(OPOS_EFPTR_NEGATIVE_TOTAL, _('Negative receipt total'));
+    RaiseExtendedError(OPOS_EFPTR_NEGATIVE_TOTAL, MsgNegativeReceiptTotal);
 end;
 
 procedure TGlobusTextReceipt.PrintDiscount(const Description: string;
@@ -362,7 +362,7 @@ begin
       PrintCharge(Description, ItemAmount, VatInfo);
     end;
   else
-    RaiseOposException(OPOS_E_ILLEGAL, _('Invalid AdjustmentType parameter'));
+    RaiseOposException(OPOS_E_ILLEGAL, MsgInvalidAdjustmentTypeParameter);
   end;
 end;
 
@@ -565,7 +565,7 @@ begin
   // Check payment code
   PayCode := Printer.GetPayCode(Description);
   if not (PayCode in [0..3]) then
-    raiseOposException(OPOS_E_ILLEGAL, _('Invalid payment code'));
+    raiseOposException(OPOS_E_ILLEGAL, MsgInvalidPaymentCode);
 
   PayAmount := Printer.CurrencyToInt(Payment);
   if IsCashlessPayCode(PayCode) and ((PayAmount + GetPayment) > FTotal) then

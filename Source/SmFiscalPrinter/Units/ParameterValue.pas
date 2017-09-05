@@ -6,7 +6,7 @@ Uses
   // VCL
   Classes, SysUtils,
   // This
-  DriverTypes, gnugettext;
+  DriverTypes;
 
 type
   TParameterValue = class;
@@ -122,9 +122,11 @@ begin
 end;
 
 procedure TParameterValues.CheckID(ID: Integer);
+resourcestring
+  MsgNotUniqueItemID = 'Not unique item ID';
 begin
   if ItemByID(ID) <> nil then
-    raise Exception.Create(_('Not unique item ID'))
+    raise Exception.Create(MsgNotUniqueItemID);
 end;
 
 { TParameterValue }

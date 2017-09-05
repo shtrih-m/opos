@@ -4,8 +4,7 @@ interface
 
 Uses
   // VCL
-  Classes, SysUtils,
-  gnugettext;
+  Classes, SysUtils;
 
 type
   TVatCode = class;
@@ -91,9 +90,11 @@ begin
 end;
 
 function TVatCodes.Add(AppVatCode, FptrVatCode: Integer): TVatCode;
+resourcestring
+  MsgVATCodeExists = 'Item with app VAT code %d already exists.';
 begin
   if ItemByAppVatCode(AppVatCode) <> nil then
-    raise Exception.CreateFmt(_('Item with app VAT code %d already exists.'), [AppVatCode]);
+    raise Exception.CreateFmt(MsgVATCodeExists, [AppVatCode]);
 
   Result := TVatCode.Create(Self, AppVatCode, FptrVatCode);
 end;

@@ -6,7 +6,7 @@ uses
   // VCL
   Windows, Classes, SysUtils,
   // This
-  PrinterTypes, BinStream, OposException, Opos, StringUtils, gnugettext;
+  PrinterTypes, BinStream, OposException, Opos, StringUtils;
 
 type
   { TPrinterCommand }
@@ -165,25 +165,21 @@ type
     function GetCode: Byte; override;
     procedure Encode(Data: TBinStream); override;
     procedure Decode(Data: TBinStream); override;
-
   end;
 
-
-
-
-
-
-
-
 implementation
+
+resourcestring
+  MsgInvalidParameterValue = 'Invalid parameter value';
+
 
 procedure CheckParam(Value, Min, Max: Int64; const ParamName: string);
 begin
   if Value < Min then
-    RaiseOPOSException(OPOS_E_ILLEGAL, _('Invalid parameter value, ') + ParamName);
+    RaiseOPOSException(OPOS_E_ILLEGAL, MsgInvalidParameterValue + ', ' + ParamName);
 
   if Value > Max then
-    RaiseOPOSException(OPOS_E_ILLEGAL, _('Invalid parameter value, ') + ParamName);
+    RaiseOPOSException(OPOS_E_ILLEGAL, MsgInvalidParameterValue + ', ' + ParamName);
 end;
 
 (*******************************************************************************

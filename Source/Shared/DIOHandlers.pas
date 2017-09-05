@@ -10,7 +10,7 @@ uses
   FiscalPrinterDevice, CommandDef, CommandParam, XmlParser, BinStream,
   OposException, PrinterTypes, Opos, StringUtils, FiscalPrinterImpl,
   fmuLogo, FiscalPrinterTypes, ZReport, LogFile, PrinterParameters,
-  OposUtils, OposFptrUtils, gnugettext;
+  OposUtils, OposFptrUtils, SmResourceStrings;
 
 const
   ValueDelimiters = [';'];
@@ -832,7 +832,7 @@ begin
 
   Command := FCommands.ItemByCode(pData);
   if Command = nil then
-    raise Exception.Create(_('Invalid command code'));
+    raise Exception.Create(MsgInvalidCommandCode);
 
   Stream := TBinStream.Create;
   try
@@ -1056,7 +1056,7 @@ var
 begin
   Command := FCommands.ItemByCode(pData);
   if Command = nil then
-    raise Exception.Create(_('Invalid command code'));
+    raise Exception.Create(MsgInvalidCommandCode);
 
   Stream := TBinStream.Create;
   try
@@ -1160,7 +1160,7 @@ var
 begin
   Command := FCommands.ItemByCode(pData);
   if Command = nil then
-    raise Exception.Create(_('Invalid command code'));
+    raise Exception.Create(MsgInvalidCommandCode);
 
   Stream := TBinStream.Create;
   try

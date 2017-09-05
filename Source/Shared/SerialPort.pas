@@ -8,8 +8,7 @@ uses
   // JVCL
   DBT,
   // This
-  LogFile, DeviceNotification, PortUtil, TextReport, PrinterPort,
-  gnugettext;
+  LogFile, DeviceNotification, PortUtil, TextReport, PrinterPort;
 
 type
   { TSerialPort }
@@ -374,6 +373,9 @@ var
   DevName: string;
 const
   MaxReconnectCount = 3;
+resourcestring
+  MsgPortOpenedAnotherApplication = 'Port is opened by another application';
+  MsgCannotOpenPort = 'Cannot open port';
 begin
   DevName := '\\.\' + GetDeviceName;
   for i := 1 to MaxReconnectCount do
@@ -384,7 +386,7 @@ begin
     if FHandle <> INVALID_HANDLE_VALUE then Break;
 
     if GetLastError = ERROR_ACCESS_DENIED then
-      raise ENoPortError.Create(_('Port is opened by another application'));
+      raise ENoPortError.Create(MsgPortOpenedAnotherApplication);
 
     if ReconnectPort and (i <> MaxReconnectCount) then
     begin
@@ -399,14 +401,16 @@ begin
     Logger.Error(Format('CreateFile ERROR: 0x%.8x, %s', [
       GetLastError, SysErrorMessage(GetLastError)]));
 
-    raise ENoPortError.Create(_('Cannot open port'));
+    raise ENoPortError.Create(MsgCannotOpenPort);
   end;
 end;
 
 procedure TSerialPort.CheckOpened;
+resourcestring
+  MsgPortNotOpened = 'Port not opened';
 begin
   if not OPened then
-    raise ESerialPortError.Create(_('Port not opened'));
+    raise ESerialPortError.Create(MsgPortNotOpened);
 end;
 
 procedure TSerialPort.ReadCommConfig;

@@ -6,7 +6,7 @@ uses
   // VCL
   SysUtils,
   // This
-  OPOS, OPOShi, gnugettext;
+  OPOS, OPOShi;
 
 type
   { TOPOSError }
@@ -72,18 +72,22 @@ procedure RaiseExtendedError(
 procedure InvalidPropertyValue(const PropName, PropValue: string);
 procedure InvalidParameterValue(const ParamName, ParamValue: string);
 
+resourcestring
+  MsgInvalidParameterValue = 'Invalid parameter value';
+  MsgInvalidPropertyValue = 'Invalid property value';
+
 implementation
 
 procedure InvalidParameterValue(const ParamName, ParamValue: string);
 begin
   RaiseOposException(OPOS_E_ILLEGAL, Format('%s, %s=''%s''',
-    [_('Invalid parameter value'), ParamName]));
+    [MsgInvalidParameterValue, ParamName]));
 end;
 
 procedure InvalidPropertyValue(const PropName, PropValue: string);
 begin
   RaiseOposException(OPOS_E_ILLEGAL, Format('%s, %s=''%s''',
-    [_('Invalid property value'), PropName, PropValue]));
+    [MsgInvalidPropertyValue, PropName, PropValue]));
 end;
 
 procedure RaiseOPOSException(AResultCode, AResultCodeExtended: Integer;

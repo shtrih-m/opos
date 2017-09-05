@@ -203,6 +203,42 @@ See http://www.suigeneris.org/want/ for details.
     </dcc>
   </target>
 
+  <target name="Compile-SmFiscalPrinterRus" depends="prepare">
+    
+    <delete dir="${dcu}" >
+      <include name="*.dcu" />
+    </delete>
+	
+    <dcc basedir="${SmFiscalPrinter}/RUS" source="SmFiscalPrinter.dpr">
+
+
+      <exeoutput path="${bin}" />
+      <dcuoutput path="${dcu}" />
+
+      <console   value="false" />
+      <hugestrings value="true" />
+      <writeableconst value="true" />
+      <align value="false" />
+      <optimize value="false" />
+      <warnings value="true" />
+      <warning name="SYMBOL_PLATFORM" value="off" />
+      <warning name="SYMBOL_DEPRECATED" value="off" />
+      <warning name="UNIT_PLATFORM" value="off" />	
+      <warning name="UNSAFE_CODE" value="off" /> 
+      <warning name="UNSAFE_TYPE" value="off" /> 
+      <warning name="UNSAFE_CAST" value="off" /> 
+      <hints value="true" />
+      <overflowchecks value="false" />
+      <rangechecks value="false" />
+      <iochecks value="false" />
+      <build value="true" />
+      <debug     value="true" />
+	  <arguments value="-DDEBUG" /> 
+    </dcc>
+  </target>
+
+  
+  
   <!-- ***** Compile SmFptrSrv ***** -->
 
   <target name="Compile-SmFptrSrv" depends="prepare">
@@ -431,7 +467,7 @@ See http://www.suigeneris.org/want/ for details.
     </ini>
   </target>
 
-  <target name="release" depends="clean,prepare,Test-SmFiscalPrinter,test-smscale,OposConfigTest,OposTestTest,Compile-OposConfig,Compile-OposTest,Compile-SmFptrSrv,compile-smscale,Compile-SmFiscalPrinter,sign,makesetup,finalclean"/>
-  <target name="buildns" depends="clean,prepare,Test-SmFiscalPrinter,test-smscale,OposConfigTest,OposTestTest,Compile-OposConfig,Compile-OposTest,Compile-SmFptrSrv,compile-smscale,Compile-SmFiscalPrinter,makesetupns,finalclean"/>
+  <target name="release" depends="clean,prepare,Test-SmFiscalPrinter,test-smscale,OposConfigTest,OposTestTest,Compile-OposConfig,Compile-OposTest,Compile-SmFptrSrv,compile-smscale,Compile-SmFiscalPrinter,Compile-SmFiscalPrinterRus,sign,makesetup,finalclean"/>
+  <target name="buildns" depends="clean,prepare,Test-SmFiscalPrinter,test-smscale,OposConfigTest,OposTestTest,Compile-OposConfig,Compile-OposTest,Compile-SmFptrSrv,compile-smscale,Compile-SmFiscalPrinter,Compile-SmFiscalPrinterRus,makesetupns,finalclean"/>
   
 </project>

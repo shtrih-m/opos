@@ -7,8 +7,7 @@ uses
   Windows, Classes, SysUtils,
   // This
   ReceiptPrinter, FiscalPrinterDevice, PrinterParameters, StringUtils,
-  PrinterTypes, SharedPrinter, FiscalPrinterTypes, DeviceTables, MathUtils,
-  gnugettext;
+  PrinterTypes, SharedPrinter, FiscalPrinterTypes, DeviceTables, MathUtils;
 
 type
   { TTrainingReceiptPrinter }
@@ -231,10 +230,13 @@ begin
   FIsRecOpened := False;
 end;
 
+resourcestring
+  MsgReceiptNotOpened = 'Receipt is not opened';
+
 function TTrainingReceiptPrinter.GetSubtotal: Int64;
 begin
   if not FIsRecOpened then
-    raise Exception.Create(_('Receipt is not opened'));
+    raise Exception.Create(MsgReceiptNotOpened);
   Result := FTotal;
 end;
 

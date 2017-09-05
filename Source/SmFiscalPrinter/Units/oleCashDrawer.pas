@@ -13,7 +13,7 @@ uses
   FiscalPrinterDevice, CashDrawerParameters, LogFile, SharedPrinter,
   PrinterTypes, FiscalPrinterTypes, ServiceVersion, StringUtils,
   OposEventsRCS, OposEventsNull, NotifyLink, PrinterParameters,
-  DriverError, gnugettext;
+  DriverError, SmResourceStrings;
 
 type
   { ToleCashDrawer }
@@ -182,7 +182,7 @@ end;
 function ToleCashDrawer.GetPrinter: ISharedPrinter;
 begin
   if FPrinter = nil then
-    raise Exception.Create(_('Shared printer = nil'));
+    raise Exception.Create('Shared printer = nil');
   Result := FPrinter;
 end;
 
@@ -386,7 +386,7 @@ begin
     Logger.Debug(Format('ToleCashDrawer.CheckHealth(%d)', [Level]));
 
     FOposDevice.CheckEnabled;
-    RaiseOposException(OPOS_E_ILLEGAL, _('Not implemented'));
+    RaiseOposException(OPOS_E_ILLEGAL, MsgNotImplemented);
     Result := ClearResult;
   except
     on E: Exception do

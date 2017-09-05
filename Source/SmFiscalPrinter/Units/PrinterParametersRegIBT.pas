@@ -6,7 +6,7 @@ uses
   // VCL
   Windows, SysUtils, Classes, Registry,
   // This
-  PrinterParameters, FileUtils, LogFile, SmIniFile, Oposhi, gnugettext;
+  PrinterParameters, FileUtils, LogFile, SmIniFile, Oposhi;
 
 type
   { TPrinterParametersRegIBT }
@@ -709,6 +709,9 @@ begin
   end;
 end;
 
+resourcestring
+  MsgRegistryKeyOpenError = 'Registry key open error';
+
 procedure TPrinterParametersRegIBT.SaveUsrParameters(const DeviceName: string);
 var
   Reg: TRegistry;
@@ -730,7 +733,7 @@ begin
       Reg.WriteInteger('ZeroReceiptNumber', Parameters.ZeroReceiptNumber);
     end else
     begin
-      raise Exception.Create(_('Registry key open error'));
+      raise Exception.Create(MsgRegistryKeyOpenError);
     end;
   finally
     Reg.Free;

@@ -1,0 +1,71 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2017-09-04 11:46\n"
+"PO-Revision-Date: 2017-09-04 11:46\n"
+"Last-Translator: Somebody <your.email@address.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: dxgettext 1.2.2\n"
+
+#: CommandDef.pas:1421
+#: CommandDef.pas:1469
+msgid "Text"
+msgstr ""
+
+#: CommandDef.pas:1422
+#: CommandDef.pas:1470
+msgid "Name"
+msgstr ""
+
+#: DIOHandler.pas:112
+msgid "Invalid DirectIO command code"
+msgstr ""
+
+#: DIOHandlers.pas:835
+#: DIOHandlers.pas:1059
+#: DIOHandlers.pas:1163
+msgid "Invalid command code"
+msgstr ""
+
+#. Programmer's name for it: SDeviceNotConnected
+#: SerialPort.pas:111
+msgid "Device not connected"
+msgstr ""
+
+#: SerialPort.pas:387
+msgid "Port is opened by another application"
+msgstr ""
+
+#: SerialPort.pas:402
+msgid "Cannot open port"
+msgstr ""
+
+#: SerialPort.pas:409
+msgid "Port not opened"
+msgstr ""
+
+#: XMLParser.pas:244
+msgid "File reading error %s."
+msgstr ""
+
+#: XMLParser.pas:261
+msgid "Xml document reading error"
+msgstr ""
+
+#: XMLParser.pas:299
+#: XMLParser.pas:480
+msgid "AxmlNode = nil"
+msgstr ""
+
+#: XMLParser.pas:445
+msgid "Element %s is not found"
+msgstr ""
+

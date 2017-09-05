@@ -10,7 +10,8 @@ uses
   Opos, PayType, ReceiptPrinter, FiscalPrinterState,
   ReceiptItem, RecDiscount, PrinterParameters, TextItem, MathUtils,
   fmuSelect, fmuPhone, fmuEMail, TLV, LogFile, RegExpr, MalinaParams,
-  StringUtils, Retalix, FiscalPrinterTypes, ReceiptTemplate, gnugettext;
+  StringUtils, Retalix, FiscalPrinterTypes, ReceiptTemplate,
+  SmResourceStrings;
 
 type
   { TFSSalesReceipt }
@@ -265,7 +266,7 @@ end;
 function TFSSalesReceipt.GetLastItem: TFSSaleItem;
 begin
   if FLastItem = nil then
-    raise Exception.Create(_('Last receipt item not defined'));
+    raise Exception.Create(MsgLastReceiptItemNotDefined);
   Result := FLastItem;
 end;
 
@@ -306,8 +307,7 @@ begin
     ItemAmount := Round2(GetLastItem.Quantity/1000 * GetLastItem.Price);
     DiscountAmount := GetLastItem.Discount + Abs(Discount.Amount);
     if DiscountAmount > (ItemAmount + GetLastItem.Charge) then
-      raise Exception.Create(_('Discount amount more than item amount'));
-
+      raise Exception.Create(MsgDiscountAmountMoreItemAmount);
     GetLastItem.Discount := GetLastItem.Discount + Abs(Discount.Amount);
   end else
   begin

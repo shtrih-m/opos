@@ -6,7 +6,7 @@ Uses
   // VCL
   Classes, SysUtils, 
   // This
-  ParameterValue, DriverTypes, gnugettext;
+  ParameterValue, DriverTypes;
 
 type
   TTableParameter = class;
@@ -119,9 +119,11 @@ begin
 end;
 
 procedure TTableParameters.CheckID(ID: Integer);
+resourcestring
+  MsgNotUniqueItemID = 'Not unique item ID';
 begin
   if ItemByID(ID) <> nil then
-    raise Exception.Create(_('Not unique item ID'))
+    raise Exception.Create(MsgNotUniqueItemID);
 end;
 
 { TTableParameter }
@@ -155,10 +157,12 @@ end;
 function TTableParameter.GetValue(ValueID: Integer): Integer;
 var
   ParameterValue: TParameterValue;
+resourcestring
+  ParameterValueNotFound = 'Parameter value not found';
 begin
   ParameterValue := Values.ItemByID(ValueID);
   if ParameterValue = nil then
-    Raise Exception.Create(_('Parameter value not found'));
+    Raise Exception.Create(ParameterValueNotFound);
   Result := ParameterValue.Value;
 end;
 

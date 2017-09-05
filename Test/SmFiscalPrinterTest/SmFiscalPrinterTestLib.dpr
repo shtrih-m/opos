@@ -204,7 +204,8 @@ uses
   TextParser in '..\..\Source\SmFiscalPrinter\Units\TextParser.pas',
   PrinterPort in '..\..\Source\SmFiscalPrinter\Units\PrinterPort.pas',
   PrinterProtocol1 in '..\..\Source\SmFiscalPrinter\Units\PrinterProtocol1.pas',
-  PrinterFonts in '..\..\Source\SmFiscalPrinter\Units\PrinterFonts.pas';
+  PrinterFonts in '..\..\Source\SmFiscalPrinter\Units\PrinterFonts.pas',
+  SmResourceStrings in '..\..\Source\SmFiscalPrinter\Units\SmResourceStrings.pas';
 
 {$R *.RES}
 {$R ..\..\Source\SmFiscalPrinter\SmFiscalPrinter.TLB}

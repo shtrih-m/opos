@@ -25,7 +25,8 @@ uses
   TextItem, FptrFilter, NonFiscalDoc, RosneftSalesReceipt, FSSalesReceipt,
   PrinterConnection, Retalix, RegExpr, TLV,
   DriverError, MathUtils, fmuTimeSync, CorrectionReceipt,
-  CsvPrinterTableFormat, PrinterTable, FSService, ReceiptItem, gnugettext;
+  CsvPrinterTableFormat, PrinterTable, FSService, ReceiptItem,
+  SmResourceStrings;
 
 type
   { TFiscalPrinterImpl }
@@ -915,7 +916,7 @@ end;
 function TFiscalPrinterImpl.GetPrinter: ISharedPrinter;
 begin
   if FPrinter = nil then
-    raise Exception.Create(_('Printer = nil'));
+    raise Exception.Create('Printer = nil');
 
   Result := FPrinter;
 end;
@@ -946,18 +947,17 @@ begin
     Format('%s, ¹ %s, %s: %s.%s.%d %s, %s: %s.%s.%d %s', [
     FDeviceMetrics.DeviceName,
     Status.SerialNumber,
-    _('Printer firmware'),
+    MsgPrinterFirmware,
     Status.FirmwareVersionHi,
     Status.FirmwareVersionLo,
     Status.FirmwareBuild,
     PrinterDateToStr(Status.FirmwareDate),
-    _('FM firmware'),
+    MsgFMFirmware,
     Status.FMVersionHi,
     Status.FMVersionLo,
     Status.FMBuild,
     PrinterDateToStr(Status.FMFirmwareDate)]);
   Logger.Debug('PhysicalDeviceDescription: ' + FOposDevice.PhysicalDeviceDescription);
-
 
   FCapCoverSensor := Device.GetModel.CapCoverSensor;
   FCapJrnPresent := Device.GetModel.CapJrnPresent;
@@ -1392,7 +1392,7 @@ end;
 
 function TFiscalPrinterImpl.GetStateErrorMessage(const Mode: Integer): string;
 begin
-  Result := Format('%s: %d, %s', [_('Can not change state'), Mode, GetModeText(Mode)]);
+  Result := Format('%s: %d, %s', [MsgCantChangeState, Mode, GetModeText(Mode)]);
 end;
 
 procedure TFiscalPrinterImpl.CheckPrinterStatus;
@@ -1685,8 +1685,7 @@ end;
 procedure TFiscalPrinterImpl.CheckEndDay;
 begin
   if Device.ReadPrinterStatus.Mode = ECRMODE_24OVER then
-    raiseExtendedError(OPOS_EFPTR_DAY_END_REQUIRED,
-    _('Day end required. Print ZReport and try again'));
+    raiseExtendedError(OPOS_EFPTR_DAY_END_REQUIRED, MsgDayEndRequired);
 end;
 
 procedure TFiscalPrinterImpl.CheckCapSlpFiscalDocument;
@@ -1724,7 +1723,7 @@ procedure TFiscalPrinterImpl.CheckHealthExternal;
 var
   PrinterStatus: TPrinterStatus;
 begin
-  FOposDevice.CheckHealthText := _('External HCheck: ');
+  FOposDevice.CheckHealthText := MsgExternalHCheck;
   try
     PrinterStatus := WaitForPrinting;
     if (PrinterStatus.Mode <> ECRMODE_TEST) then
@@ -1759,55 +1758,56 @@ begin
     // Cover opened
     if FCapCoverSensor and PrinterFlags.CoverOpened then
     begin
-      Lines.Add(_('Cover opened'));
+      Lines.Add(MsgCoverOpened);
     end;
     // Receipt paper
     if FCapRecPresent then
     begin
       if FCapRecEmptySensor and PrinterFlags.RecEmpty then
-        Lines.Add(_('The receipt station has run out of paper'));
+        Lines.Add(MsgNoReceiptPaper);
 
       if FCapRecNearEndSensor and PrinterFlags.RecNearEnd then
-        Lines.Add(_('The receipt station paper is near end'));
+        Lines.Add(MsgReceiptPaperNearEnd);
 
       if Device.GetModel.CapRecLever and PrinterFlags.RecLeverUp then
-        Lines.Add(_('The receipt station lever is up'));
+        Lines.Add(MsgReceiptStationLeverUp);
     end;
     // Journal paper
     if FCapJrnPresent then
     begin
       if FCapJrnEmptySensor and PrinterFlags.JrnEmpty then
-        Lines.Add(_('The journal station has run out of paper'));
+        Lines.Add(MsgJournalStationOutOfPaper);
 
       if FCapJrnNearEndSensor and PrinterFlags.JrnNearEnd then
-        Lines.Add(_('The journal station paper is near end'));
+        Lines.Add(MsgJournalStationPaperNearEnd);
 
       if Device.GetModel.CapJrnLever and PrinterFlags.JrnLeverUp then
-        Lines.Add(_('The journal station lever is up'));
+        Lines.Add(MsgJournalStationLeverUp);
     end;
     // EJ
     if (PrinterFlags.EJPresent and PrinterFlags.EJNearEnd) then
-      Lines.Add(_('EKLZ is almost full'));
+      Lines.Add(MsgEKLZAlmostFull);
+
     // FM
     if FMFlags.Overflow then
-      Lines.Add(_('Fiscal memory overflow'));
+      Lines.Add(MsgFiscalMemoryOverflow);
 
     if FMFlags.LowBattery then
-      Lines.Add(_('Fiscal memory battery is low'));
+      Lines.Add(MsgFiscalMemoryBatteryLow);
 
     if FMFlags.LastRecordCorrupted then
-      Lines.Add(_('Last fiscal memory record is corrupted'));
+      Lines.Add(MsgLastRecordCorrupted);
 
     if FMFlags.Is24HoursLeft then
-      Lines.Add(_('24 hours in fiscal memory are over'));
+      Lines.Add(MsgFMFiscalDayOver);
 
     if Lines.Count <> 0 then
     begin
-      Lines.Insert(0, _('Internal HCheck: '));
+      Lines.Insert(0, MsgInternalHCheck);
       FOposDevice.CheckHealthText := Lines.Text;
     end else
     begin
-      FOposDevice.CheckHealthText := _('Internal HCheck: ') + 'OK';
+      FOposDevice.CheckHealthText := MsgInternalHCheck + 'OK';
     end;
   finally
     Lines.Free;
@@ -2352,7 +2352,7 @@ begin
     CheckEnabled;
     CheckState(FPTR_PS_MONITOR);
     if not FCapTrainingMode then
-      RaiseOposException(OPOS_E_ILLEGAL, _('Training mode not supported'));
+      RaiseOposException(OPOS_E_ILLEGAL, MsgTrainingModeNotSupported);
 
     FTrainingModeActive := True;
     FReceiptPrinter := TTrainingReceiptPrinter.Create(Printer);
@@ -2376,7 +2376,7 @@ begin
         CheckHealthExternal;
 
       OPOS_CH_INTERACTIVE:
-        RaiseOposException(OPOS_E_ILLEGAL, _('Not implemented'));
+        RaiseOposException(OPOS_E_ILLEGAL, MsgNotImplemented);
     else
       InvalidParameterValue('Level', IntToStr(Level));
     end;
@@ -2946,7 +2946,7 @@ function TFiscalPrinterImpl.GetTotalizer(VatID, OptArgs: Integer;
 
   procedure TotalizerNotSupported;
   begin
-    RaiseOposException(OPOS_E_ILLEGAL, _('Totalizer not supported'));
+    RaiseOposException(OPOS_E_ILLEGAL, MsgTotalizerNotSupported);
   end;
 
 begin
@@ -3072,14 +3072,14 @@ begin
   if (Station and FPTR_S_RECEIPT) <> 0 then
   begin
     if not FCapRecPresent then
-      RaiseOposException(OPOS_E_ILLEGAL, _('Receipt station is not present'));
+      RaiseOposException(OPOS_E_ILLEGAL, MsgReceiptStationNotPresent);
     PrinterStation := PrinterStation + PRINTER_STATION_REC;
   end;
 
   if (Station and FPTR_S_JOURNAL) <> 0 then
   begin
     if not FCapJrnPresent then
-      RaiseOposException(OPOS_E_ILLEGAL, _('Journal station is not present'));
+      RaiseOposException(OPOS_E_ILLEGAL, MsgJournalStationNotPresent);
     PrinterStation := PrinterStation + PRINTER_STATION_JRN;
   end;
 
@@ -3134,7 +3134,7 @@ begin
     Parameters.Date1 := OposDateToPrinterDate(DecodeOposDate(Date1));
     Parameters.Date2 := OposDateToPrinterDate(DecodeOposDate(Date2));
     if ComparePrinterDate(Parameters.Date1, Parameters.Date2) = 1 then
-      RaiseOposException(OPOS_E_ILLEGAL, _('Date1 > Date2'));
+      RaiseOposException(OPOS_E_ILLEGAL, 'Date1 > Date2');
 
     Device.EJTotalsReportDate(Parameters);
     PrintReportEnd;
@@ -3541,14 +3541,14 @@ begin
   try
     CheckState(FPTR_PS_MONITOR);
     case ReportType of
-      FPTR_RT_ORDINAL: RaiseOposException(OPOS_E_ILLEGAL, _('Not implemented'));
+      FPTR_RT_ORDINAL: RaiseOposException(OPOS_E_ILLEGAL, MsgNotImplemented);
       FPTR_RT_DATE:
       begin
         DateReport.ReportType := PRINTER_REPORT_TYPE_FULL;
         DateReport.Date1 := OposDateToPrinterDate(DecodeOposDate(StartNum));
         DateReport.Date2 := OposDateToPrinterDate(DecodeOposDate(EndNum));
         if ComparePrinterDate(DateReport.Date1, DateReport.Date2) = 1 then
-          RaiseOposException(OPOS_E_ILLEGAL, _('StartNum > EndNum'));
+          RaiseOposException(OPOS_E_ILLEGAL, 'StartNum > EndNum');
 
         Device.EJTotalsReportDate(DateReport);
         PrintReportEnd;
@@ -3559,7 +3559,7 @@ begin
         NumberReport.Number1 := GetDayNumber(StartNum, 'StartNum');
         NumberReport.Number2 := GetDayNumber(EndNum, 'EndNum');
         if (NumberReport.Number2 <> 0)and(NumberReport.Number1 > NumberReport.Number2) then
-          RaiseOposException(OPOS_E_ILLEGAL, _('StartNum > EndNum'));
+          RaiseOposException(OPOS_E_ILLEGAL, 'StartNum > EndNum');
         if NumberReport.Number2 = 0 then NumberReport.Number2 := $FFFF;
 
         Device.EJTotalsReportNumber(NumberReport);
