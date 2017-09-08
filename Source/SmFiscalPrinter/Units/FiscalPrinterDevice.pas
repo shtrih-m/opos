@@ -340,6 +340,7 @@ type
     function DecodeEJFlags(Flags: Byte): TEJFlags;
     function GetLine(const Text: string): string; overload;
     function GetLine(const Text: string; MinLength, MaxLength: Integer): string; overload;
+    function GetText(const Text: string; MinLength: Integer): string;
     class function BaudRateToCode(BaudRate: Integer): Integer;
     class function CodeToBaudRate(BaudRate: Integer): Integer;
     function FieldToInt(FieldInfo: TPrinterFieldRec; const Value: string): Integer;
@@ -772,6 +773,16 @@ function TFiscalPrinterDevice.GetLine(const Text: string;
 begin
   Result := TrimText(Text, MaxLength);
   Result := Result + StringOfChar(#0, MinLength - Length(Result));
+end;
+
+function TFiscalPrinterDevice.GetText(const Text: string;
+  MinLength: Integer): string;
+begin
+  Result := Text;
+  if Length(Text) < MinLength then
+    Result := Result + StringOfChar(#0, MinLength - Length(Result));
+  if not FCapFiscalStorage then
+    Result := Copy(Result, 1, GetPrintWidth);
 end;
 
 function TFiscalPrinterDevice.GetPrintWidth: Integer;
@@ -2973,7 +2984,7 @@ begin
     Stream.WriteInt(Operation.Tax2, 1);
     Stream.WriteInt(Operation.Tax3, 1);
     Stream.WriteInt(Operation.Tax4, 1);
-    Stream.WriteString(Operation.Text);
+    Stream.WriteString(GetText(Operation.Text, 40));
     Result := ExecuteStream(Stream);
   finally
     Stream.Free;
@@ -3018,7 +3029,7 @@ begin
     Stream.WriteInt(Operation.Tax2, 1);
     Stream.WriteInt(Operation.Tax3, 1);
     Stream.WriteInt(Operation.Tax4, 1);
-    Stream.WriteString(Operation.Text);
+    Stream.WriteString(GetText(Operation.Text, 40));
     Result := ExecuteStream(Stream);
   finally
     Stream.Free;
@@ -3075,7 +3086,7 @@ begin
     Stream.WriteInt(Discount.Tax2, 1);
     Stream.WriteInt(Discount.Tax3, 1);
     Stream.WriteInt(Discount.Tax4, 1);
-    Stream.WriteString(Discount.Text);
+    Stream.WriteString(GetText(Discount.Text, 40));
     Result := ExecuteStream(Stream);
   finally
     Stream.Free;
@@ -3118,7 +3129,7 @@ begin
     Stream.WriteInt(Discount.Tax2, 1);
     Stream.WriteInt(Discount.Tax3, 1);
     Stream.WriteInt(Discount.Tax4, 1);
-    Stream.WriteString(Discount.Text);
+    Stream.WriteString(GetText(Discount.Text, 40));
     Result := ExecuteStream(Stream);
   finally
     Stream.Free;
@@ -3339,7 +3350,7 @@ begin
     Stream.WriteInt(Operation.Tax2, 1);
     Stream.WriteInt(Operation.Tax3, 1);
     Stream.WriteInt(Operation.Tax4, 1);
-    Stream.WriteString(Operation.Text);
+    Stream.WriteString(GetText(Operation.Text, 40));
     Result := ExecuteStream(Stream);
     if Result = 0 then
       FFilter.Sale(Operation);
@@ -3384,7 +3395,7 @@ begin
     Stream.WriteInt(Operation.Tax2, 1);
     Stream.WriteInt(Operation.Tax3, 1);
     Stream.WriteInt(Operation.Tax4, 1);
-    Stream.WriteString(Operation.Text);
+    Stream.WriteString(GetText(Operation.Text, 40));
     Result := ExecuteStream(Stream);
     if Result = 0 then
       FFilter.Buy(Operation);
@@ -3429,7 +3440,7 @@ begin
     Stream.WriteInt(Operation.Tax2, 1);
     Stream.WriteInt(Operation.Tax3, 1);
     Stream.WriteInt(Operation.Tax4, 1);
-    Stream.WriteString(Operation.Text);
+    Stream.WriteString(GetText(Operation.Text, 40));
     Result := ExecuteStream(Stream);
     if Result = 0 then
       FFilter.RetSale(Operation);
@@ -3474,7 +3485,7 @@ begin
     Stream.WriteInt(Operation.Tax2, 1);
     Stream.WriteInt(Operation.Tax3, 1);
     Stream.WriteInt(Operation.Tax4, 1);
-    Stream.WriteString(Operation.Text);
+    Stream.WriteString(GetText(Operation.Text, 40));
     Result := ExecuteStream(Stream);
     if Result = 0 then
       FFilter.RetBuy(Operation);
@@ -3518,7 +3529,7 @@ begin
     Stream.WriteInt(Operation.Tax2, 1);
     Stream.WriteInt(Operation.Tax3, 1);
     Stream.WriteInt(Operation.Tax4, 1);
-    Stream.WriteString(Operation.Text);
+    Stream.WriteString(GetText(Operation.Text, 40));
     Result := ExecuteStream(Stream);
     if Result = 0 then
       FFilter.Storno(Operation);
@@ -3569,7 +3580,7 @@ begin
     Stream.WriteInt(P.Tax2, 1);
     Stream.WriteInt(P.Tax3, 1);
     Stream.WriteInt(P.Tax4, 1);
-    Stream.WriteString(P.Text);
+    Stream.WriteString(GetText(P.Text, 40));
     Result := ExecuteStream(Stream);
     if Result = 0 then
     begin
@@ -3613,7 +3624,7 @@ begin
     Stream.WriteInt(Operation.Tax2, 1);
     Stream.WriteInt(Operation.Tax3, 1);
     Stream.WriteInt(Operation.Tax4, 1);
-    Stream.WriteString(Operation.Text);
+    Stream.WriteString(GetText(Operation.Text, 40));
     Result := ExecuteStream(Stream);
     if Result = 0 then
       FFilter.ReceiptDiscount(Operation);
@@ -3646,7 +3657,7 @@ begin
     IntToBin(Operation.Discount, 5) +
     IntToBin(Operation.Charge, 5) +
     IntToBin(Operation.Tax, 1) +
-    Operation.Text;
+    GetText(Operation.Text, 40);
   Result := ExecuteData(Command, Answer);
   FCapReceiptDiscount2 := IsSupported(Result);
 end;
@@ -3683,7 +3694,7 @@ begin
     Stream.WriteInt(Operation.Tax2, 1);
     Stream.WriteInt(Operation.Tax3, 1);
     Stream.WriteInt(Operation.Tax4, 1);
-    Stream.WriteString(Operation.Text);
+    Stream.WriteString(GetText(Operation.Text, 40));
     Result := ExecuteStream(Stream);
     if Result = 0 then
       FFilter.ReceiptDiscount(Operation);
@@ -3827,7 +3838,7 @@ begin
     Stream.WriteInt(Operation.Tax2, 1);
     Stream.WriteInt(Operation.Tax3, 1);
     Stream.WriteInt(Operation.Tax4, 1);
-    Stream.WriteString(Operation.Text);
+    Stream.WriteString(GetText(Operation.Text, 40));
     Result := ExecuteStream(Stream);
   finally
     Stream.Free;
@@ -3866,7 +3877,7 @@ begin
     Stream.WriteInt(Operation.Tax2, 1);
     Stream.WriteInt(Operation.Tax3, 1);
     Stream.WriteInt(Operation.Tax4, 1);
-    Stream.WriteString(Operation.Text);
+    Stream.WriteString(GetText(Operation.Text, 40));
     Result := ExecuteStream(Stream);
   finally
     Stream.Free;
