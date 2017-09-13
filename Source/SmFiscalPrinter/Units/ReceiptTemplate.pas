@@ -4,7 +4,7 @@ interface
 
 uses
   // This
-  Classes, SysUtils,
+  Windows, Classes, SysUtils,
   // This
   ReceiptItem, PrinterParameters, TextParser, StringUtils;
 
@@ -17,6 +17,7 @@ type
 
   TTemplateFieldRec = record
     Name: string;
+    Prefix: string;
     Length: Integer;
     Alignment: TFieldAlignment;
   end;
@@ -26,7 +27,8 @@ type
   TReceiptTemplate = class
   private
     FTemplate: string;
-    function GetFieldValue(const Field: string; const Item: TFSSaleItem): string;
+    function GetFieldValue(const Field, Prefix: string;
+      const Item: TFSSaleItem): string;
   public
     function getItemText(const Item: TFSSaleItem): string;
     function ParseField(const Field: string): TTemplateFieldRec;
@@ -49,9 +51,11 @@ var
   C: Char;
   i: Integer;
   Field: string;
+  Prefix: string;
   State: TParserState;
 begin
   Field := '';
+  Prefix := '';
   Result := '';
   State := stNone;
   for i := 1 to Length(FormatLine) do
@@ -64,7 +68,7 @@ begin
         case State of
           stField:
           begin
-            Result := Result + GetFieldValue(Field, Item);
+            Result := Result + GetFieldValue(Field, Prefix, Item);
             State := stChar;
           end;
           stESC:
@@ -74,13 +78,20 @@ begin
           end;
         else
           Field := '';
+          Prefix := '';
           State := stField;
         end;
       end;
     else
       if State = stField then
       begin
-        Field := Field + C;
+        if (Field = '')and (not IsCharAlphaNumeric(C)) then
+        begin
+          Prefix := Prefix + C;
+        end else
+        begin
+          Field := Field + C;
+        end;
       end else
       begin
         State := stChar;
@@ -102,7 +113,7 @@ begin
 end;
 
 
-function TReceiptTemplate.GetFieldValue(const Field: string;
+function TReceiptTemplate.GetFieldValue(const Field, Prefix: string;
   const Item: TFSSaleItem): string;
 var
   L: Integer;
@@ -162,6 +173,7 @@ begin
     else Result := '*';
   end;
 
+  Result := Prefix + Result;
   if FieldData.Length <> 0 then
   begin
     Result := Copy(Result, 1, FieldData.Length);

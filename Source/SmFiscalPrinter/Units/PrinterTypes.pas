@@ -693,6 +693,7 @@ type
     Parameter2: string;
     Parameter3: string;
     Parameter4: string;
+    UnitName: string;
   end;
 
   { TFSSale }
@@ -706,6 +707,7 @@ type
     Department: Byte;   // Department (1 byte) 0Е16
     Tax: Byte;          // Tax 1 (1 byte) '0' - no tax, '1'Е'4' - tax group
     Text: string;         // Ќазвание товара
+    UnitName: string;
     PaymentType: Byte;
     PaymentItem: Byte;
   end;

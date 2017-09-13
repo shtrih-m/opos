@@ -320,6 +320,7 @@ begin
       FParameters.HandleErrorCode := IniFile.ReadBool(Section, 'HandleErrorCode', DefHandleErrorCode);
       FParameters.FSServiceEnabled := IniFile.ReadBool(Section, 'FSServiceEnabled', False);
       FParameters.PrinterProtocol := IniFile.ReadInteger(Section, 'PrinterProtocol', DefPrinterProtocol);
+      FParameters.PrintUnitName := IniFile.ReadBool(Section, 'PrintUnitName', DefPrintUnitName);
     end;
     // VatCodes
     Section := GetSectionName(DeviceName) + '_VatCodes';
@@ -466,7 +467,7 @@ begin
     IniFile.WriteBool(Section, 'HandleErrorCode', FParameters.HandleErrorCode);
     IniFile.WriteBool(Section, 'FSServiceEnabled', FParameters.FSServiceEnabled);
     IniFile.WriteInteger(Section, 'PrinterProtocol', FParameters.PrinterProtocol);
-
+    IniFile.WriteBool(Section, 'PrintUnitName', FParameters.PrintUnitName);
 
     // PayTypes
     Section := GetSectionName(DeviceName) + '_PaymentTypes';

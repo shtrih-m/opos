@@ -487,7 +487,10 @@ begin
       if Reg.ValueExists('PrinterProtocol') then
         Parameters.PrinterProtocol := Reg.ReadInteger('PrinterProtocol');
 
-      // VatCodes
+      if Reg.ValueExists('PrintUnitName') then
+        Parameters.PrintUnitName := Reg.ReadBool('PrintUnitName');
+
+     // VatCodes
       if Reg.OpenKey(REG_KEY_VATCODES, False) then
       begin
         Parameters.VatCodes.Clear;
@@ -638,6 +641,7 @@ begin
     Reg.WriteBool('HandleErrorCode', FParameters.HandleErrorCode);
     Reg.WriteBool('FSServiceEnabled', FParameters.FSServiceEnabled);
     Reg.WriteInteger('PrinterProtocol', FParameters.PrinterProtocol);
+    Reg.WriteBool('PrintUnitName', FParameters.PrintUnitName);
 
     // VatCodes
     Reg.DeleteKey(REG_KEY_VATCODES);

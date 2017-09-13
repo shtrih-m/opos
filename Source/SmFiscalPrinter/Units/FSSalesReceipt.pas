@@ -413,6 +413,7 @@ begin
   end;
   Operation.Tax := VatInfo;
   Operation.Text := Description;
+  Operation.UnitName := UnitName;
   Operation.RecType := FRecType;
   Operation.Department := Parameters.Department;
   Operation.Charge := 0;
@@ -963,11 +964,6 @@ begin
       Device.FsWriteTLV((ReceiptItem as TTLVReceiptItem).Data);
     end;
   end;
-
-  if Parameters.RecPrintType = RecPrintTypeTemplate then
-  begin
-    Printer.Printer.PrintText(Parameters.ReceiptItemsTrailer);
-  end;
 end;
 
 procedure TFSSalesReceipt.PrintFSSale(Item: TFSSaleItem);
@@ -1114,9 +1110,11 @@ begin
     Line2 := Format('= %s', [AmountToStr(Amount/100)]) +  GetTaxLetter(TaxNumber);
   end else
   begin
-    Line2 := Format('%s X %s = %s', [QuantityToStr(Item.Quantity/1000),
-      AmountToStr(Item.Price/100), AmountToStr(Amount/100)]) +
-      GetTaxLetter(TaxNumber);
+    Line2 := QuantityToStr(Item.Quantity/1000);
+    if Parameters.PrintUnitName then
+      Line2 := Line2 + ' ' + Item.Data.UnitName;
+    Line2 := Format('%s X %s = %s', [Line2, AmountToStr(Item.Price/100),
+      AmountToStr(Amount/100)]) +  GetTaxLetter(TaxNumber);
   end;
   if Length(Line1 + Line2) > Device.GetPrintWidth then
   begin
@@ -1220,7 +1218,13 @@ begin
       if AdditionalText <> '' then
         PrintText2(AdditionalText);
 
+      if Parameters.RecPrintType = RecPrintTypeTemplate then
+      begin
+        Printer.Printer.PrintText(Parameters.ReceiptItemsTrailer);
+      end;
+
       Printer.WaitForPrinting;
+
 
       if Device.CapFSCloseReceipt2 then
       begin
@@ -1422,6 +1426,7 @@ begin
   Operation.Quantity := -Abs(Operation.Quantity);
   Operation.Tax := VatInfo;
   Operation.Text := Description;
+  Operation.UnitName := UnitName;
   Operation.Department := Parameters.Department;
   Operation.RecType := FRecType;
   Operation.Charge := 0;
@@ -1465,6 +1470,7 @@ begin
   end;
   Operation.Tax := VatInfo;
   Operation.Text := ADescription;
+  Operation.UnitName := AUnitName;
   Operation.Department := Parameters.Department;
   Operation.RecType := FRecType;
   Operation.Charge := 0;
@@ -1504,6 +1510,7 @@ begin
   Operation.Quantity := -Abs(Operation.Quantity);
   Operation.Tax := VatInfo;
   Operation.Text := ADescription;
+  Operation.UnitName := AUnitName;
   Operation.Department := Parameters.Department;
   Operation.RecType := FRecType;
   Operation.Charge := 0;

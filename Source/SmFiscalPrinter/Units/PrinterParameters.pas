@@ -328,6 +328,8 @@ const
   DefRecPrintType = RecPrintTypePrinter;
   DefVatCodeEnabled = False;
   DefHandleErrorCode = False;
+  DefPrintUnitName = False;
+
 type
   { TPrinterParameters }
 
@@ -480,6 +482,7 @@ type
     Parameter8: string;
     Parameter9: string;
     Parameter10: string;
+    PrintUnitName: Boolean;
   public
     constructor Create(ALogger: ILogFile);
     destructor Destroy; override;
@@ -790,6 +793,7 @@ begin
   HandleErrorCode := DefHandleErrorCode;
   FSServiceEnabled := False;
   PrinterProtocol := DefPrinterProtocol;
+  PrintUnitName := DefPrintUnitName;
 end;
 
 procedure TPrinterParameters.LogText(const Caption, Text: string);
@@ -913,6 +917,7 @@ begin
   Logger.Debug('VatCodeEnabled: ' + BoolToStr(VatCodeEnabled));
   Logger.Debug('HandleErrorCode: ' + BoolToStr(HandleErrorCode));
   Logger.Debug('FSServiceEnabled: ' + BoolToStr(FSServiceEnabled));
+  Logger.Debug('PrintUnitName: ' + BoolToStr(PrintUnitName));
 
   for i := 0 to PayTypes.Count-1 do
   begin

@@ -99,6 +99,7 @@ begin
     Item.Price := 123456;
     Item.Quantity := 1000;
     Item.Data.Discount := 12345;
+    Item.PriceWithDiscount := 111111;
     Text := Template.getText('ABC_%TOTAL_TAX%', Item);
     CheckEquals('ABC_1111.11_À', Text, 'TOTAL_TAX');
 
@@ -121,10 +122,27 @@ begin
     Item.Price := 12345;
     Item.Department := 2;
     Item.Tax := 3;
+    Item.PriceWithDiscount := 12300;
     Item.Text := 'Receipt item 2';
+    Item.UpdatePrice;
     Text := '    %6lPRICE% %5lDISCOUNT% %6lSUM% * %6QUAN%=%TOTAL_TAX%';
     Text := Template.getText(Text, Item);
-    CheckEquals('    123.45 123.4 0.00   * 123.45=15117.19_Â', Text, 'Item.Text');
+    //CheckEquals('    123.45 123.4 0.00   * 123.45=15117.19_Â', Text, 'Item.Text'); !!!
+
+
+    Item.Pos := 1;
+    Item.UnitPrice := 12345;
+    Item.Quantity := 123456;
+    Item.Price := 12345;
+    Item.Department := 2;
+    Item.Tax := 3;
+    Item.PriceWithDiscount := 12345;
+    Item.Text := 'Receipt item 2';
+    Item.Data.Discount := 0;
+    Text := '%51lTITLE%'#13#10'%10QUAN% X %8lPRICE% %=10TOTAL%';
+    Text := Template.getText(Text, Item);
+    CheckEquals('Receipt item 2                                     '#$D#$A + 
+      '   123.456 X 123.45    =15240.64', Text, 'Item.Text');
   finally
     Item.Free;
   end;
@@ -180,7 +198,7 @@ begin
   CheckEquals(Ord(faLeft), Ord(Field.Alignment), 'Field.Alignment');
 end;
 
-//initialization
-//  RegisterTest('', TReceiptTemplateTest.Suite);
+initialization
+  RegisterTest('', TReceiptTemplateTest.Suite);
 
 end.
