@@ -616,23 +616,6 @@ begin
       end;
       Device.OpenPort(PortNumber, BaudRate, Parameters.ByteTimeout);
     end;
-
-    if FLongPrinterStatus.PortNumber = 0 then
-    begin
-      // always set port parameters
-      PortParams.BaudRate := PrinterBaudRate;
-      PortParams.Timeout := Parameters.DeviceByteTimeout;
-      if Device.SetPortParams(FLongPrinterStatus.PortNumber, PortParams) = 0 then
-      begin
-        if BaudRate <> PrinterBaudRate then
-        begin
-          // To ensure that last ACK is delivered
-          Sleep(100);
-          Device.OpenPort(PortNumber, PrinterBaudRate, Parameters.ByteTimeout);
-          Device.ReadPrinterStatus;
-        end;
-      end;
-    end;
     Result := True;
   except
     on E: ECommunicationError do
