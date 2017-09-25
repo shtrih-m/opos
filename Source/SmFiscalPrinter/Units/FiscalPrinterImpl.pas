@@ -1555,7 +1555,6 @@ var
   Flags: TPrinterFlags;
   Status: TPrinterStatus;
 begin
-  Logger.Debug('StatusChanged.0');
   try
     Status := Device.PrinterStatus;
     Flags := Status.Flags;
@@ -1572,7 +1571,6 @@ begin
     on E: Exception do
       Logger.Error('TFiscalPrinterImpl.StatusChanged', E);
   end;
-  Logger.Debug('StatusChanged.1');
 end;
 
 procedure TFiscalPrinterImpl.InternalInit;
@@ -1969,16 +1967,8 @@ const
 begin
   if Parameters.LogoPosition = LogoBeforeHeader then
   begin
-    // if logo size < fixed header size
     if Parameters.LogoSize <= (Device.GetModel.NumHeaderLines * HeaderFontHeight) then
     begin
-      Data.Text := '';
-      Data.Station := PRINTER_STATION_REC;
-      Data.Font := Parameters.HeaderFont;
-      Data.Alignment := taLeft;
-      Data.Wrap := Parameters.WrapText;
-      Device.PrintText(Data);
-
       PrintLogo;
       LineCount := Device.GetModel.NumHeaderLines - 1 -
         (Parameters.LogoSize + HeaderFontHeight - 1) div HeaderFontHeight;

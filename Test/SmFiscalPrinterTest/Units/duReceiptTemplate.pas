@@ -79,6 +79,18 @@ begin
     Text := Template.getText('%QUAN%', Item);
     CheckEquals('123.456', Text, 'QUAN');
 
+    Item.Quantity := 12000;
+    Text := Template.getText('%10lQUAN%', Item);
+    CheckEquals('12.000    ', Text, 'QUAN');
+
+    Item.Quantity := 12000;
+    Text := Template.getText('%10QUAN%', Item);
+    CheckEquals('    12.000', Text, 'QUAN');
+
+    Item.Quantity := 12000;
+    Text := Template.getText('%5lQUAN%', Item);
+    CheckEquals('12.00', Text, 'QUAN');
+
     Item.Price := 123456;
     Item.UpdatePrice;
     Text := Template.getText('%SUM%', Item);
