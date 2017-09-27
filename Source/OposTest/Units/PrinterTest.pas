@@ -4213,6 +4213,7 @@ begin
   Check(FiscalPrinter.resetPrinter());
   FiscalPrinter.set_FiscalReceiptType(4);
   FiscalPrinter.BeginFiscalReceipt(True);
+  FiscalPrinter.WriteFPParameter(DIO_FPTR_PARAMETER_ENABLE_PRINT, '1');
   FiscalPrinter.DirectIO2(9, 5, '                   КАССОВЫЙ ЧЕК                    ');
   FiscalPrinter.DirectIO2(9, 5, 'Касса:3                                      Док:49');
   FiscalPrinter.PrintRecItem('3757 Бананы 1кг', 62.9, 15000, 1, 62.9, 'кг');;

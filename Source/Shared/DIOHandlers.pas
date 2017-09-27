@@ -615,8 +615,6 @@ type
   TDIOWriteFPParameter = class(TDIOHandler)
   private
     FPrinter: TFiscalPrinterImpl;
-    function GetDevice: IFiscalPrinterDevice;
-    property Device: IFiscalPrinterDevice read GetDevice;
   public
     constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
       APrinter: TFiscalPrinterImpl);
@@ -2105,15 +2103,10 @@ begin
   FPrinter := APrinter;
 end;
 
-function TDIOWriteFPParameter.GetDevice: IFiscalPrinterDevice;
-begin
-  Result := FPrinter.Device;
-end;
-
 procedure TDIOWriteFPParameter.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
-  Device.WriteFPParameter(pData, pString);
+  FPrinter.WriteFPParameter(pData, pString);
 end;
 
 { TDIOWriteCustomerAddress }

@@ -279,6 +279,7 @@ type
     function SetAdjustmentAmount(Amount: Integer): Integer;
     function FSReadTicketHex(Number: Integer; var Ticket: string): Integer;
     function FSReadTicketStr(Number: Integer; var Ticket: string): Integer;
+    function WriteFPParameter(ParamId: Integer; const Value: string): Integer;
 
     property OpenResult: Integer read Get_OpenResult;
     property BinaryConversion: Integer read Get_BinaryConversion write Set_BinaryConversion;
@@ -2045,6 +2046,15 @@ begin
   Ticket := pString;
 end;
 
-
+function TSMFiscalPrinter.WriteFPParameter(ParamId: Integer;
+  const Value: string): Integer;
+var
+  pData: Integer;
+  pString: WideString;
+begin
+  pData := ParamId;
+  pString := Value;
+  Result := Driver.DirectIO(DIO_WRITE_FPTR_PARAMETER, pData, pString);
+end;
 
 end.

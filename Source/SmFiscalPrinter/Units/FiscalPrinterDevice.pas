@@ -77,6 +77,7 @@ type
     FShortStatus: TShortPrinterStatus;
     FCapFooterFlag: Boolean;
     FFooterFlag: Boolean;
+    FCapEnablePrint: Boolean;
 
     procedure PrintLineFont(const Data: TTextRec);
     procedure SetPrinterStatus(Value: TPrinterStatus);
@@ -421,6 +422,7 @@ type
     function FSReFiscalization(const P: TFSReFiscalization; var R: TFDDocument): Integer;
     function GetPrinterStatus: TPrinterStatus;
     function IsCapBarcode2D: Boolean;
+    function IsCapEnablePrint: Boolean;
 
     property IsOnline: Boolean read GetIsOnline;
     property Tables: TPrinterTables read FTables;
@@ -6223,6 +6225,7 @@ begin
   begin
     FDiscountMode := ReadDiscountMode;
   end;
+  FCapEnablePrint := GetDeviceMetrics.Model <> 19;
   FCapSubtotalRound := FCapFiscalStorage and ((GetDeviceMetrics.Model = 19) or (DiscountMode = 2));
   FCapFSCloseReceipt2 := FCapFiscalStorage and (GetDeviceMetrics.Model <> 19);
   if FCapFSCloseReceipt2 then
@@ -7340,6 +7343,16 @@ begin
     begin
       Result := ReadTableStr(18, 1, 6);
     end;
+
+    DIO_FPTR_PARAMETER_ENABLE_PRINT:
+    begin
+      Result := '0';
+      if FCapEnablePrint then
+      begin
+        Result := ReadTableStr(17, 1, 7);
+      end;
+    end;
+
   else
     raise Exception.CreateFmt('%s, %d', [MsgInvalidParameterIDValue, ParamId]);
   end;
@@ -7469,6 +7482,15 @@ begin
     begin
       WriteTable(19, 1, 3, Value);
     end;
+
+    DIO_FPTR_PARAMETER_ENABLE_PRINT:
+    begin
+      if FCapEnablePrint then
+      begin
+        WriteTable(17, 1, 7, Value);
+      end;
+    end;
+
   else
     raise Exception.CreateFmt('%s, %d', [MsgInvalidParameterIDValue, ParamId]);
   end;
@@ -8140,6 +8162,11 @@ end;
 function TFiscalPrinterDevice.IsCapBarcode2D: Boolean;
 begin
   Result := FCapBarcode2D;
+end;
+
+function TFiscalPrinterDevice.IsCapEnablePrint: Boolean;
+begin
+  Result := FCapEnablePrint;
 end;
 
 end.

@@ -11,7 +11,7 @@ uses
   ReceiptItem, RecDiscount, PrinterParameters, TextItem, MathUtils,
   fmuSelect, fmuPhone, fmuEMail, TLV, LogFile, RegExpr, MalinaParams,
   StringUtils, Retalix, FiscalPrinterTypes, ReceiptTemplate,
-  SmResourceStrings;
+  SmResourceStrings, DirectioAPI;
 
 type
   { TFSSalesReceipt }
@@ -21,8 +21,8 @@ type
     FOpened: Boolean;
     FRecType: Integer;
     FIsVoided: Boolean;
-    FPayments: TPayments;
     FRetalix: TRetalix;
+    FPayments: TPayments;
     FLastItem: TFSSaleItem;
     FDiscounts: TReceiptItems;
     FHasReceiptItems: Boolean;
@@ -30,6 +30,7 @@ type
     FRecDiscount: TDiscountReceiptItem;
     FAdjustmentAmount: Integer;
     FTemplate: TReceiptTemplate;
+    FAdditionalHeader: string;
 
     procedure PrintReceiptItems;
     procedure CheckTotal(Total: Currency);
@@ -37,6 +38,7 @@ type
     procedure CheckAdjAmount(AdjustmentType: Integer; Amount: Currency);
     procedure RecSubtotalAdjustment(const Description: string;
       AdjustmentType: Integer; Amount: Currency);
+
 
     function GetIsCashPayment: Boolean;
     function GetDevice: IFiscalPrinterDevice;
@@ -151,6 +153,8 @@ type
     procedure PrintText(const Data: TTextRec); override;
     procedure PrintBarcode(const Barcode: TBarcodeRec); override;
     procedure FSWriteTLV(const TLVData: string); override;
+    procedure WriteFPParameter(ParamId: Integer; const Value: string); override;
+    procedure PrintAdditionalHeader(const AdditionalHeader: string); override;
 
     property IsVoided: Boolean read FIsVoided;
     property IsCashPayment: Boolean read GetIsCashPayment;
@@ -838,6 +842,7 @@ begin
   FOpened := False;
   FIsVoided := False;
   FReceiptItems.Clear;
+  FPrintEnabled := True;
   FLastItem := nil;
   FHasReceiptItems := False;
   FRecDiscount := nil;
@@ -863,6 +868,7 @@ end;
 procedure TFSSalesReceipt.BeginFiscalReceipt(PrintHeader: Boolean);
 begin
   ClearReceipt;
+  OpenReceipt(FRecType);
 end;
 
 (*
@@ -1148,26 +1154,32 @@ var
   CustomerPhone: string;
   CustomerEMail: string;
 begin
-  if not Parameters.FSAddressEnabled then Exit;
-
-  Selection := ShowSelectDlg;
-  if Selection = SelectNone then Exit;
-  if Selection = SelectPhone then
+  if not FPrintEnabled then
   begin
-    CustomerPhone := '+7';
-    if ShowPhoneDlg(CustomerPhone) then
-    begin
-      AddRecMessage('Номер телефона: ' + CustomerPhone, PRINTER_STATION_REC, 1);
-      Device.WriteCustomerAddress(CustomerPhone);
-    end;
+    Device.WriteFPParameter(DIO_FPTR_PARAMETER_ENABLE_PRINT, '1');
   end;
-  if Selection = SelectEMail then
+
+  if Parameters.FSAddressEnabled then
   begin
-    CustomerEMail := '';
-    if ShowEMailDlg(CustomerEMail) then
+    Selection := ShowSelectDlg;
+    if Selection = SelectNone then Exit;
+    if Selection = SelectPhone then
     begin
-      AddRecMessage('Электронная почта: ' + CustomerEMail, PRINTER_STATION_REC, 1);
-      Device.WriteCustomerAddress(CustomerEMail);
+      CustomerPhone := '+7';
+      if ShowPhoneDlg(CustomerPhone) then
+      begin
+        AddRecMessage('Номер телефона: ' + CustomerPhone, PRINTER_STATION_REC, 1);
+        Device.WriteCustomerAddress(CustomerPhone);
+      end;
+    end;
+    if Selection = SelectEMail then
+    begin
+      CustomerEMail := '';
+      if ShowEMailDlg(CustomerEMail) then
+      begin
+        AddRecMessage('Электронная почта: ' + CustomerEMail, PRINTER_STATION_REC, 1);
+        Device.WriteCustomerAddress(CustomerEMail);
+      end;
     end;
   end;
 end;
@@ -1205,6 +1217,7 @@ begin
     end else
     begin
       OpenReceipt(FRecType);
+      Device.PrintText(PRINTER_STATION_REC, FAdditionalHeader);
 
       CorrectPayments;
       PrintRecMessages(0);
@@ -1264,7 +1277,6 @@ begin
           Logger.Error(E.Message);
         end;
       end;
-      ClearReceipt;
     end;
   finally
     Device.Unlock;
@@ -1651,6 +1663,24 @@ var
 begin
   Text := Template.getItemText(Item);
   Printer.Printer.PrintText(Text);
+end;
+
+procedure TFSSalesReceipt.WriteFPParameter(ParamId: Integer;
+  const Value: string);
+begin
+  if (ParamId = DIO_FPTR_PARAMETER_ENABLE_PRINT)and(Value = '1') then
+  begin
+    FPrintEnabled := False;
+  end else
+  begin
+    Device.WriteFPParameter(ParamId, Value);
+  end;
+end;
+
+procedure TFSSalesReceipt.PrintAdditionalHeader(
+  const AdditionalHeader: string);
+begin
+  FAdditionalHeader := AdditionalHeader;
 end;
 
 end.

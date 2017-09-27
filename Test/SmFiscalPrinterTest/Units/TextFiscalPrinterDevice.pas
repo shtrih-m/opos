@@ -290,6 +290,7 @@ type
     procedure SetOnPrinterStatus(Value: TNotifyEvent);
     function GetPrinterStatus: TPrinterStatus;
     function IsCapBarcode2D: Boolean;
+    function IsCapEnablePrint: Boolean;
 
     property RecStation: TStrings read FRecStation;
     property JrnStation: TStrings read FJrnStation;
@@ -1693,6 +1694,11 @@ begin
 end;
 
 function TTextFiscalPrinterDevice.IsCapBarcode2D: Boolean;
+begin
+  Result := True;
+end;
+
+function TTextFiscalPrinterDevice.IsCapEnablePrint: Boolean;
 begin
   Result := True;
 end;

@@ -35,6 +35,7 @@ type
     function GetDevice: IFiscalPrinterDevice;
     function GetParameters: TPrinterParameters;
   protected
+    FPrintEnabled: Boolean;
     property State: TFiscalPrinterState read FState;
     property Printer: IReceiptPrinter read FPrinter;
     property Device: IFiscalPrinterDevice read GetDevice;
@@ -137,13 +138,16 @@ type
     procedure PrintBarcode(const Barcode: TBarcodeRec); virtual;
     procedure FSWriteTLV(const TLVData: string); virtual;
     function GetMalinaParams: TMalinaParams;
+    procedure WriteFPParameter(ParamId: Integer; const Value: string); virtual;
+    procedure PrintAdditionalHeader(const AdditionalHeader: string); virtual;
 
     property RecType: Integer read FRecType;
-    property RecMessages: TTextItems read FRecMessages;
-    property AdditionalText: string read FAdditionalText write FAdditionalText;
-    property Parameters: TPrinterParameters read GetParameters;
     property Logger: ILogFile read GetLogger;
+    property PrintEnabled: Boolean read FPrintEnabled;
+    property RecMessages: TTextItems read FRecMessages;
     property MalinaParams: TMalinaParams read GetMalinaParams;
+    property Parameters: TPrinterParameters read GetParameters;
+    property AdditionalText: string read FAdditionalText write FAdditionalText;
   end;
 
   TCustomReceiptClass = class of TCustomReceipt;
@@ -463,34 +467,6 @@ begin
 
 end;
 
-(*
-// If beginFiscalReceipt called, but receipt in fiscal printer is not opened -
-// just save lines
-function TCustomReceipt.IsStoreMessages: Boolean;
-begin
-  Result := (State.State = FPTR_PS_FISCAL_RECEIPT_ENDING) or
-    ((State.State = FPTR_PS_FISCAL_RECEIPT)and (not FIsReceiptOpened));
-end;
-
-var
-  TextItem: TTextRec;
-begin
-  TextItem.Text := Text;
-  TextItem.Station := Station;
-  TextItem.Alignment := taLeft;
-  TextItem.Wrap := Parameters.WrapText;
-  TextItem.Font := Parameters.FontNumber;
-  if IsStoreMessages then
-  begin
-    FRecMessages.Add(TextItem);
-  end else
-  begin
-    Printer.PrintText(TextItem);
-  end;
-end;
-
-*)
-
 function TCustomReceipt.GetTotal: Int64;
 begin
   Result := 0;
@@ -527,6 +503,18 @@ end;
 function TCustomReceipt.GetMalinaParams: TMalinaParams;
 begin
   Result := Device.Context.MalinaParams;
+end;
+
+procedure TCustomReceipt.WriteFPParameter(ParamId: Integer;
+  const Value: string);
+begin
+  Device.WriteFPParameter(ParamId, Value);
+end;
+
+procedure TCustomReceipt.PrintAdditionalHeader(
+  const AdditionalHeader: string);
+begin
+  Device.PrintText(PRINTER_STATION_REC, AdditionalHeader);
 end;
 
 end.

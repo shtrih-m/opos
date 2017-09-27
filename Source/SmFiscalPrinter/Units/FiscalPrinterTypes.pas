@@ -453,6 +453,7 @@ type
     procedure SetOnPrinterStatus(Value: TNotifyEvent);
     function GetPrinterStatus: TPrinterStatus;
     function IsCapBarcode2D: Boolean;
+    function IsCapEnablePrint: Boolean;
 
     property IsOnline: Boolean read GetIsOnline;
     property Model: TPrinterModelRec read GetModel;

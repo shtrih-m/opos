@@ -62,6 +62,7 @@ const
   DIO_FS_REFISCALIZE            = 53; // Print FS refiscalization report
   DIO_GET_PRINT_WIDTH           = 54; // Get print width
 
+
   DIO_PRINT_TEXT2                = 1000;  // print text
 
   /////////////////////////////////////////////////////////////////////////////
@@ -318,7 +319,7 @@ const
 
 
   /////////////////////////////////////////////////////////////////////////////
-  // DIO_READ_FPTR_PARAMETER command parameters
+  // DIO_READ_FPTR_PARAMETER DIO_WRITE_FPTR_PARAMETER command parameters
 
   DIO_FPTR_PARAMETER_QRCODE_ENABLED = 0;
   DIO_FPTR_PARAMETER_OFD_ADDRESS    = 1;
@@ -328,6 +329,7 @@ const
   DIO_FPTR_PARAMETER_INN            = 5;
   DIO_FPTR_PARAMETER_TAXSYSTEM      = 6;
   DIO_FPTR_PARAMETER_WORKMODE       = 7;
+  DIO_FPTR_PARAMETER_ENABLE_PRINT   = 8;
 
   /////////////////////////////////////////////////////////////////////////////
   // FPTR_RT_CORRECTION receipt type

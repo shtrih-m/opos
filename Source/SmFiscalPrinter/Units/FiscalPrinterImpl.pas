@@ -461,6 +461,7 @@ type
     procedure WriteCustomerAddress(const Value: string);
     procedure FSWriteTag(TagID: Integer; const Data: string);
     procedure SetPrinter(APrinter: ISharedPrinter);
+    procedure WriteFPParameter(ParamId: Integer; const Value: string);
 
 
     property Logger: ILogFile read GetLogger;
@@ -1963,7 +1964,7 @@ var
   Data: TTextRec;
   LineCount: Integer;
 const
-  HeaderFontHeight = 25;
+  HeaderFontHeight = 22;
 begin
   if Parameters.LogoPosition = LogoBeforeHeader then
   begin
@@ -2220,14 +2221,17 @@ begin
     end;
 
     Filters.BeginFiscalReceipt;
-    if FAdditionalHeader <> '' then
-      PrintText(FAdditionalHeader);
 
     SetPrinterState(FPTR_PS_FISCAL_RECEIPT);
 
     FReceipt.Free;
     FReceipt := CreateReceipt(FFiscalReceiptType);
     Receipt.BeginFiscalReceipt(PrintHeader);
+    if FAdditionalHeader <> '' then
+    begin
+      Receipt.PrintAdditionalHeader(FAdditionalHeader);
+    end;
+
     Filters.BeginFiscalReceipt2(FReceipt);
     FBeforeCloseItems.Clear;
     Result := ClearResult;
@@ -2478,9 +2482,8 @@ begin
     Receipt.EndFiscalReceipt;
     Filters.AfterCloseReceipt;
 
-    //if PrintHeader then
+    if Receipt.PrintEnabled then
     begin
-      // Receipt printing - ignore error
       try
         PrintNonFiscalEnd;
         Receipt.AfterEndFiscalReceipt;
@@ -4489,6 +4492,12 @@ end;
 function TFiscalPrinterImpl.GetLogger: ILogFile;
 begin
   Result := Device.Context.Logger;
+end;
+
+procedure TFiscalPrinterImpl.WriteFPParameter(ParamId: Integer;
+  const Value: string);
+begin
+  Receipt.WriteFPParameter(ParamId, Value);
 end;
 
 end.
