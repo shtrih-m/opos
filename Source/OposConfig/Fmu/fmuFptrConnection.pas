@@ -71,6 +71,8 @@ type
     chbZReceiptBeforeZReport: TCheckBox;
     lblPrinterProtocol: TLabel;
     cbPrinterProtocol: TComboBox;
+    chbPingEnabled: TCheckBox;
+    sePingPeriod: TSpinEdit;
     procedure FormCreate(Sender: TObject);
   public
     procedure UpdatePage; override;
@@ -101,6 +103,8 @@ begin
   cbPropertyUpdateMode.ItemIndex := Parameters.PropertyUpdateMode;
   sePollInterval.Value := Parameters.PollInterval;
   seStatusInterval.Value := Parameters.StatusInterval;
+  chbPingEnabled.Checked := Parameters.PingEnabled;
+  sePingPeriod.Value := Parameters.PingPeriodInSeconds;
 
   seDepartment.Value := Parameters.Department;
   cbCutType.ItemIndex := Parameters.CutType;
@@ -152,6 +156,9 @@ begin
   Parameters.CacheReceiptNumber := chbCacheReceiptNumber.Checked;
   Parameters.StatusTimeout := seStatusTimeout.Value;
   Parameters.ZReceiptBeforeZReport := chbZReceiptBeforeZReport.Checked;
+
+  Parameters.PingEnabled := chbPingEnabled.Checked;
+  Parameters.PingPeriodInSeconds := sePingPeriod.Value;
 end;
 
 procedure TfmFptrConnection.FormCreate(Sender: TObject);

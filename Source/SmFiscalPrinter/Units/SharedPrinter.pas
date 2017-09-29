@@ -5,6 +5,8 @@ interface
 uses
   // VCL
   Windows, Classes, SysUtils, SyncObjs, Graphics,
+  // Indy
+  IdIcmpClient,
   // Opos
   Opos, OposFptr, OposFptrUtils, OposException, OposMessages, OposSemaphore,
   // This
@@ -35,6 +37,7 @@ type
     FOnProgress: TProgressEvent;
     FPollEnabled: Boolean;
     FPollEnabledCount: Integer;
+    FPingThread: TNotifyThread;
     FDeviceThread: TNotifyThread;
     FStatusLinks: TNotifyLinks;
     FConnectLinks: TNotifyLinks;
@@ -93,6 +96,7 @@ type
     function GetLogger: ILogFile;
     function CreateProtocol(Port: IPrinterPort): IPrinterConnection;
     procedure DevicePrinterStatus(Sender: TObject);
+    procedure PingProc(Sender: TObject);
   public
     constructor Create(const ADeviceName: string);
     destructor Destroy; override;
@@ -171,6 +175,8 @@ type
     function GetConnection: IPrinterConnection;
     procedure SetConnection(const Value: IPrinterConnection);
     function GetParameters: TPrinterParameters;
+    procedure StartPing;
+    procedure StopPing;
 
     property Opened: Boolean read FOpened;
     property Header: TFixedStrings read GetHeader;
@@ -288,6 +294,7 @@ end;
 destructor TSharedPrinter.Destroy;
 begin
   ODS('TSharedPrinter.Destroy.0');
+  StopPing;
   if FFilter <> nil then
   begin
     FDevice.RemoveFilter(FFilter);
@@ -304,6 +311,7 @@ begin
   FDevice := nil;
   FStatusLinks.Free;
   FConnectLinks.Free;
+  FPingThread.Free;
   inherited Destroy;
   ODS('TSharedPrinter.Destroy.1');
 end;
@@ -1385,6 +1393,63 @@ end;
 function TSharedPrinter.GetLogger: ILogFile;
 begin
   Result := Parameters.Logger;
+end;
+
+procedure TSharedPrinter.PingProc(Sender: TObject);
+
+  procedure Sleep2(TimeinMilliseconds: Integer);
+  var
+    TickCount: Integer;
+  begin
+    TickCount := Integer(GetTickCount);
+    repeat
+      Sleep(20);
+      if FPingThread.Terminated then Exit;
+    until Integer(GetTickCount) > (TickCount + TimeinMilliseconds);
+  end;
+
+
+var
+  TickCount: Integer;
+  IcmpClient: TIdIcmpClient;
+begin
+  Logger.Debug('TSharedPrinter.PingProc.Start');
+  IcmpClient := TIdIcmpClient.Create;
+  try
+    IcmpClient.Host := Parameters.RemoteHost;
+    while not FPingThread.Terminated do
+    begin
+      try
+        TickCount := GetTickCount;
+        IcmpClient.Ping();
+        Logger.Debug(Format('PING time: %d ms', [GetTickCount - TickCount]));
+      except
+        on E: Exception do
+        begin
+          Logger.Error('PING failed: ' + E.Message);
+        end;
+      end;
+      Sleep2(Parameters.PingPeriodInSeconds * 1000);
+    end;
+  except
+    on E: Exception do
+      Logger.Error('TSharedPrinter.PingProc: ', E);
+  end;
+  IcmpClient.Free;
+  Logger.Debug('TSharedPrinter.PingProc.End');
+end;
+
+procedure TSharedPrinter.StartPing;
+begin
+  FPingThread := TNotifyThread.Create(True);
+  FPingThread.OnExecute := PingProc;
+  FPingThread.Resume;
+end;
+
+procedure TSharedPrinter.StopPing;
+begin
+  FPingThread.Free;
+  FPingThread := nil;
 end;
 
 initialization

@@ -185,7 +185,7 @@ uses
   fmuEMail in '..\..\Source\SmFiscalPrinter\Fmu\fmuEMail.pas' {fmEMail},
   fmuSelect in '..\..\Source\SmFiscalPrinter\Fmu\fmuSelect.pas' {fmSelect},
   duFiscalPrinter in 'Units\duFiscalPrinter.pas',
-  duBitUtils in 'Units\duBitUtils.pas',
+  duICMPClient in 'Units\duICMPClient.pas',
   Retalix in '..\..\Source\SmFiscalPrinter\Units\Retalix.pas',
   MalinaFilter in '..\..\Source\SmFiscalPrinter\Units\MalinaFilter.pas',
   MockFiscalPrinterDevice in 'Units\MockFiscalPrinterDevice.pas',
@@ -209,7 +209,8 @@ uses
   duTankFilter in 'Units\duTankFilter.pas',
   duCommandDefs in 'Units\duCommandDefs.pas',
   PrinterFonts in '..\..\Source\SmFiscalPrinter\Units\PrinterFonts.pas',
-  SmResourceStrings in '..\..\Source\SmFiscalPrinter\Units\SmResourceStrings.pas';
+  SmResourceStrings in '..\..\Source\SmFiscalPrinter\Units\SmResourceStrings.pas',
+  duBitUtils in 'Units\duBitUtils.pas';
 
 {$R *.RES}
 {$R ..\..\Source\SmFiscalPrinter\SmFiscalPrinter.TLB}

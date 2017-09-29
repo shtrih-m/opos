@@ -757,6 +757,8 @@ type
     procedure SetConnection(const Value: IPrinterConnection);
     procedure SetDeviceName(const Value: string);
     function GetParameters: TPrinterParameters;
+    procedure StartPing;
+    procedure StopPing;
 
     property Header: TFixedStrings read GetHeader;
     property Trailer: TFixedStrings read GetTrailer;

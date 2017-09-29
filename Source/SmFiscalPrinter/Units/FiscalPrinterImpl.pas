@@ -1170,8 +1170,13 @@ begin
     begin
       Connect;
       Printer.PollEnabled := Parameters.PropertyUpdateMode = PropertyUpdateModePolling;
+      if (Parameters.PingEnabled)and(Parameters.ConnectionType = ConnectionTypeSocket) then
+      begin
+        Printer.StartPing;
+      end;
     end else
     begin
+      Printer.StopPing;
       Printer.PollEnabled := False;
       FOposDevice.PowerState := OPOS_PS_UNKNOWN;
       Printer.Disconnect;

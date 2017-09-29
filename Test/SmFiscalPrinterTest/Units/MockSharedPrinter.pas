@@ -115,6 +115,8 @@ type
     function GetConnection: IPrinterConnection;
     procedure SetConnection(const Value: IPrinterConnection);
     procedure SetDeviceName(const Value: string);
+    procedure StartPing;
+    procedure StopPing;
 
     property DeviceName: string read GetDeviceName;
     property Header: TFixedStrings read GetHeader;
@@ -615,6 +617,16 @@ begin
 end;
 
 procedure TMockSharedPrinter.Close;
+begin
+
+end;
+
+procedure TMockSharedPrinter.StartPing;
+begin
+
+end;
+
+procedure TMockSharedPrinter.StopPing;
 begin
 
 end;
