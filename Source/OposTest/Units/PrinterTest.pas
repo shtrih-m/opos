@@ -4083,18 +4083,8 @@ begin
   Check(FiscalPrinter.resetPrinter());
   FiscalPrinter.set_FiscalReceiptType(4);
   Check(FiscalPrinter.beginFiscalReceipt(true));
-  Check(FiscalPrinter.printRecItem('3162506 МОС.ПР.Майон.КЛАСС.67% 750мл', 91.80, 1000, 1, 102, 'ST'));
-  Check(FiscalPrinter.printRecItemAdjustment(1, '', 10.20, 1));
-  Check(FiscalPrinter.printRecItem('*8041 Нектар ДОБРЫЙ МУЛЬТИФРУТ     2л', 85, 1000, 2, 85, 'ST'));
-  Check(FiscalPrinter.printRecItem('*3334592 ДОБРЫЙ Нектар пер.-ябл.2л', 85, 1000, 2, 85, 'ST'));
-  Check(FiscalPrinter.printRecItem('*3443716 GREENR.Огурчики АППЕТ.мар720мл', 75, 1000, 1, 75, 'ST'));
-  Check(FiscalPrinter.printRecItem('*3314610 GL.VIL.Томаты ЧЕРРИ мар.720мл', 59, 1000, 1, 59, 'ST'));
-  Check(FiscalPrinter.printRecItem('*3345854 МК КЛИНС.Колб.МИНИ-САЛ.с/к 300г', 246, 1000, 2, 246, 'ST'));
-  Check(FiscalPrinter.printRecItem('78004333 ОСТ.Свинина д/запекания охл.1кг', 384.63, 1299, 2, 329, 'г.'));
-  Check(FiscalPrinter.printRecItemAdjustment(1, '', 42.74, 1));
-
-
-  Check(FiscalPrinter.printRecSubtotalAdjustment(1, '', 0.39));
+  Check(FiscalPrinter.printRecItem('3162506 МОС.ПР.Майон.КЛАСС.67% 750мл', 91.80, 12789, 1, 91.80, 'ST'));
+  Check(FiscalPrinter.printRecItem('3162506 МОС.ПР.Майон.КЛАСС.67% 750мл', 0.12, 123789, 1, 0.12, 'ST'));
   Check(FiscalPrinter.printRecTotal(1000000, 1000000, '0'));
   Check(FiscalPrinter.endFiscalReceipt(false));
 end;

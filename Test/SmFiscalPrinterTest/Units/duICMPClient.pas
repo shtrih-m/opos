@@ -35,7 +35,7 @@ begin
     TickCount := GetTickCount;
     Client.Ping();
     TickCount := Integer(GetTickCount) - TickCount;
-    Check(TickCount < 10, 'TickCount >= 10 ms');
+    Check(TickCount < 100, 'TickCount >= 100 ms');
   finally
     Client.Free;
   end;

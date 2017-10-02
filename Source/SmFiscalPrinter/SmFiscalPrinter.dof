@@ -101,7 +101,7 @@ DebugSourceDirs=
 UsePackages=0
 [Parameters]
 RunParams=
-HostApplication=D:\Projects\OPOSShtrih\Bin\OposTest.exe
+HostApplication=C:\Projects\OPOSShtrih\Bin\OposTest.exe
 Launcher=
 UseLauncher=0
 DebugCWD=

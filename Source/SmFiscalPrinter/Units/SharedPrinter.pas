@@ -1422,7 +1422,7 @@ begin
       try
         TickCount := GetTickCount;
         IcmpClient.Ping();
-        Logger.Debug(Format('PING time: %d ms', [GetTickCount - TickCount]));
+        Logger.Debug(Format('PING time: %d ms', [Integer(GetTickCount) - TickCount]));
       except
         on E: Exception do
         begin

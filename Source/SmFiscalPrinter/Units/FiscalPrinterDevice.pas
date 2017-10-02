@@ -178,6 +178,7 @@ type
     function GetPrintFlags(Flags: Integer): Integer;
     procedure SetFooterFlag(Value: Boolean);
     procedure PrintQRCode3(Barcode: TBarcodeRec);
+    function GetBlockSize(BlockSize: Integer): Integer;
   protected
     function GetMaxGraphicsWidthInBytes: Integer;
   public
@@ -7039,6 +7040,15 @@ begin
   Result := ExecuteData(Command, Answer);
 end;
 
+function TFiscalPrinterDevice.GetBlockSize(BlockSize: Integer): Integer;
+const
+  MaxMobileBlockSize = 151;
+begin
+  Result := BlockSize;
+  if (GetDeviceMetrics.Model = 19)and(BlockSize > MaxMobileBlockSize) then
+    Result := MaxMobileBlockSize;
+end;
+
 function TFiscalPrinterDevice.FSReadBlockData: string;
 var
   i: Integer;
@@ -7057,6 +7067,7 @@ begin
     Check(FSReadStatus(Status));
     if Status.DataSize = 0 then Exit;
     if Status.BlockSize = 0 then Exit;
+    Status.BlockSize := GetBlockSize(Status.BlockSize);
 
     Count := (Status.DataSize + Status.BlockSize-1) div Status.BlockSize;
     DataSize := Status.DataSize;
@@ -7089,6 +7100,7 @@ begin
     if BlockSize = 0 then
       raise Exception.Create('BlockSize = 0');
 
+    BlockSize := GetBlockSize(BlockSize);
     Count := (Length(BlockData)+ BlockSize-1) div BlockSize;
     for i := 0 to Count-1 do
     begin
