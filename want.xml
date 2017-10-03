@@ -69,6 +69,7 @@ See http://www.suigeneris.org/want/ for details.
       <include name="**/*.dcu" />
       <include name="**/*.exe" />
       <include name="**/*.rsm" />
+      <include name="**/*.dsm" />
       <include name="**/*.log" />
       <include name="**/*.~*" />
       <include name="**/*.bak" />

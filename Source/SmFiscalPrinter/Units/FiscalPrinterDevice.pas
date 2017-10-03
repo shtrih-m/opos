@@ -7874,8 +7874,7 @@ begin
   end;
 end;
 
-(*
-
+(******************************************************************************
 –асширенный запрос
  оманда: F7H. ƒлина сообщени€: 2+X байта.
 “ип запроса (1 байт) 0Е255
@@ -7945,80 +7944,39 @@ C3H и печати графической линии C5H
 41 Ц ѕечать графики с масштабированием (команда 4FH)
 42 Ц «агрузка и печать графики-512 (команды 4DH, 4EH)
 43Е63 Ц «арезервированы
-Ўирина печати
-шрифтом 1
-(1 байт)
-0 Ц запросить командой 26H "ѕрочитать параметры шрифта"; 1Е255
-Ўирина печати
-шрифтом 2
-(1 байт)
-0 Ц запросить командой 26H "ѕрочитать параметры шрифта"; 1Е255
-Ќомер первой
-печатаемой линии в
-графике
-(1 байт)
-0, 1, 2
- оличество цифр в
-»ЌЌ
-(1 байт)
-12, 13, 14
- оличество цифр в
-–Ќћ
-(1 байт)
-8, 10
- оличество цифр в
-длинном –Ќћ
-0 Ц длинный –Ќћ не поддерживаетс€; 8, 14
-ѕротокол   “ v. 2.0
-83
-(1 байт)
- оличество цифр в
-длинном заводском
-номере
-(1 байт)
-0 Ц длинный заводской номер не поддерживаетс€; 10, 12, 14
-ѕароль налогового
-инспектора по
-умолчанию
-(4 байта)
-00000000Е99999999
-ѕароль сист.админа
-по умолчанию
-(4 байта)
-00000000Е99999999
-Ќомер таблицы
-"BLUETOOTH
-Ѕ≈—ѕ–ќ¬ќƒЌќ…
-ћќƒ”Ћ№" настроек
-Bluetooth
-(1 байт)
-0 Ц таблица не поддерживаетс€; 1Е255
-Ќомер пол€
-"Ќј„»—Ћ≈Ќ»≈
-ЌјЋќ√ќ¬"
-(1 байт)
-0 Ц поле не поддерживаетс€; 1Е255
-ћаксимальна€ длина
-команды (N/LEN16)
-(2 байта)
-0 Ц по умолчанию; >>1Е65535
-Ўирина
-произвольной
-графической линии в
-байтах (печать
-одномерного штрих-
-кода)
-(1 байт)
-40 Ц дл€ узких принтеров; 64, 72 Ц дл€ широких принтеров
-Ўирина графической
-линии в буфере
-графики-512 (1 байт)
-0 Ц поле не поддерживаетс€; 64
- оличество линий в
-буфере графики-512
-(2 байта)
-0 Ц поле не поддерживаетс€
-*)
+- Ўирина печати шрифтом 1 (1 байт)
+  0 Ц запросить командой 26H "ѕрочитать параметры шрифта"; 1Е255
+- Ўирина печати шрифтом 2 (1 байт)
+  0 Ц запросить командой 26H "ѕрочитать параметры шрифта"; 1Е255
+- Ќомер первой печатаемой линии в графике (1 байт)
+  0, 1, 2
+-  оличество цифр в »ЌЌ (1 байт)
+  12, 13, 14
+-  оличество цифр в –Ќћ (1 байт)
+  8, 10
+-  оличество цифр в длинном –Ќћ (1 байт)
+  0 Ц длинный –Ќћ не поддерживаетс€; 8, 14
+-  оличество цифр в длинном заводском номере (1 байт)
+  0 Ц длинный заводской номер не поддерживаетс€; 10, 12, 14
+- ѕароль налогового инспектора по умолчанию (4 байта)
+  00000000Е99999999
+- ѕароль сист.админа по умолчанию (4 байта)
+  00000000Е99999999
+- Ќомер таблицы "BLUETOOTH Ѕ≈—ѕ–ќ¬ќƒЌќ… ћќƒ”Ћ№" настроек Bluetooth (1 байт)
+  0 Ц таблица не поддерживаетс€; 1Е255
+- Ќомер пол€ "Ќј„»—Ћ≈Ќ»≈ ЌјЋќ√ќ¬" (1 байт)
+  0 Ц поле не поддерживаетс€; 1Е255
+- ћаксимальна€ длина команды (N/LEN16)(2 байта)
+  0 Ц по умолчанию; >>1Е65535
+- Ўирина произвольной графической линии в байтах (печать
+  одномерного штрих-кода) (1 байт)
+  40 Ц дл€ узких принтеров; 64, 72 Ц дл€ широких принтеров
+- Ўирина графической линии в буфере графики-512 (1 байт)
+  0 Ц поле не поддерживаетс€; 64
+-  оличество линий в буфере графики-512 (2 байта)
+  0 Ц поле не поддерживаетс€
+
+*******************************************************************************)
 
 function TFiscalPrinterDevice.ReadParameters2(
   var R: TPrinterParameters2): Integer;
@@ -8030,50 +7988,82 @@ begin
   Result := ExecuteData(Command, Answer);
   if Result = 0 then
   begin
-    CheckMinLength(Answer, 31);
-    Move(Answer[1], R, 31);
-    R.Flags.CapJrnNearEndSensor := TestBit(R.FlagsValue, 0);    // 0 Ц ¬есовой датчик контрольной ленты
-    R.Flags.CapRecNearEndSensor := TestBit(R.FlagsValue, 1);    // 1 Ц ¬есовой датчик чековой ленты
-    R.Flags.CapJrnEmptySensor := TestBit(R.FlagsValue, 2);      // 2 Ц ќптический датчик контрольной ленты
-    R.Flags.CapRecEmptySensor := TestBit(R.FlagsValue, 3);      // 3 Ц ќптический датчик чековой ленты
-    R.Flags.CapCoverSensor := TestBit(R.FlagsValue, 4);         // 4 Ц ƒатчик крышки
-    R.Flags.CapJrnLeverSensor := TestBit(R.FlagsValue, 5);      // 5 Ц –ычаг термоголовки контрольной ленты
-    R.Flags.CapRecLeverSensor := TestBit(R.FlagsValue, 6);      // 6 Ц –ычаг термоголовки чековой ленты
-    R.Flags.CapSlpNearEndSensor := TestBit(R.FlagsValue, 7);    // 7 Ц ¬ерхний датчик подкладного документа
-    R.Flags.CapSlpEmptySensor := TestBit(R.FlagsValue, 8);      // 8 Ц Ќижний датчик подкладного документа
-    R.Flags.CapPresenter := TestBit(R.FlagsValue, 9);           // 9 Ц ѕрезентер поддерживаетс€
-    R.Flags.CapPresenterCommands := TestBit(R.FlagsValue, 10);  // 10 Ц ѕоддержка команд работы с презентером
-    R.Flags.CapEJNearFull := TestBit(R.FlagsValue, 11);         // 11 Ц ‘лаг заполнени€ Ё Ћ«
-    R.Flags.CapEJ := TestBit(R.FlagsValue, 12);                 // 12 Ц Ё Ћ« поддерживаетс€
-    R.Flags.CapCutter := TestBit(R.FlagsValue, 13);             // 13 Ц ќтрезчик поддерживаетс€
-    R.Flags.CapDrawerStateAsPaper := TestBit(R.FlagsValue, 14); // 14 Ц —осто€ние ƒя как датчик бумаги в презентере
-    R.Flags.CapDrawerSensor := TestBit(R.FlagsValue, 15);       // 15 Ц ƒатчик денежного €щика
-    R.Flags.CapPrsInSensor := TestBit(R.FlagsValue, 16);        // 16 Ц ƒатчик бумаги на входе в презентер
-    R.Flags.CapPrsOutSensor := TestBit(R.FlagsValue, 17);       // 17 Ц ƒатчик бумаги на выходе из презентера
-    R.Flags.CapBillAcceptor := TestBit(R.FlagsValue, 18);       // 18 Ц  упюроприемник поддерживаетс€
-    R.Flags.CapTaxKeyPad := TestBit(R.FlagsValue, 19);          // 19 Ц  лавиатура Ќ» поддерживаетс€
-    R.Flags.CapJrnPresent := TestBit(R.FlagsValue, 20);         // 20 Ц  онтрольна€ лента поддерживаетс€
-    R.Flags.CapSlpPresent := TestBit(R.FlagsValue, 21);         // 21 Ц ѕодкладной документ поддерживаетс€
-    R.Flags.CapNonfiscalDoc := TestBit(R.FlagsValue, 22);       // 22 Ц ѕоддержка команд нефискального документа
-    R.Flags.CapCashCore := TestBit(R.FlagsValue, 23);           // 23 Ц ѕоддержка протокола  ассового ядра (cashcore)
-    R.Flags.CapInnLeadingZero := TestBit(R.FlagsValue, 24);     // 24 Ц ¬едущие нули в »ЌЌ
-    R.Flags.CapRnmLeadingZero := TestBit(R.FlagsValue, 25);     // 25 Ц ¬едущие нули в –Ќћ
-    R.Flags.SwapGraphicsLine := TestBit(R.FlagsValue, 26);      // 26 Ц ѕереворачивать байты при печати линии
-    R.Flags.CapTaxPasswordLock := TestBit(R.FlagsValue, 27);    // 27 Ц Ѕлокировка   “ по неверному паролю налогового инспектора
-    R.Flags.CapProtocol2 := TestBit(R.FlagsValue, 28);          // 28 Ц ѕоддержка альтернативного нижнего уровн€ протокола   “
-    R.Flags.CapLFInPrintText := TestBit(R.FlagsValue, 29);      // 29 Ц ѕоддержка переноса строк символом '\n' (код 10) в командах печати строк 12H, 17H, 2FH
-    R.Flags.CapFontInPrintText := TestBit(R.FlagsValue, 30);    // 30 Ц ѕоддержка переноса строк номером шрифта (коды 1Е9) в команде печати строк 2FH
-    R.Flags.CapLFInFiscalCommands := TestBit(R.FlagsValue, 31); // 31 Ц ѕоддержка переноса строк символом '\n' (код 10) в фискальных командах 80HЕ87H, 8AH, 8BH
+    CheckMinLength(Answer, 8);
+    FillChar(R, Sizeof(R), 0);
+    R.FlagsValue := BinToInt(Answer, 1, 8);
+    R.Flags.CapJrnNearEndSensor := TestBit(R.FlagsValue, 0);      // 0 Ц ¬есовой датчик контрольной ленты
+    R.Flags.CapRecNearEndSensor := TestBit(R.FlagsValue, 1);      // 1 Ц ¬есовой датчик чековой ленты
+    R.Flags.CapJrnEmptySensor := TestBit(R.FlagsValue, 2);        // 2 Ц ќптический датчик контрольной ленты
+    R.Flags.CapRecEmptySensor := TestBit(R.FlagsValue, 3);        // 3 Ц ќптический датчик чековой ленты
+    R.Flags.CapCoverSensor := TestBit(R.FlagsValue, 4);           // 4 Ц ƒатчик крышки
+    R.Flags.CapJrnLeverSensor := TestBit(R.FlagsValue, 5);        // 5 Ц –ычаг термоголовки контрольной ленты
+    R.Flags.CapRecLeverSensor := TestBit(R.FlagsValue, 6);        // 6 Ц –ычаг термоголовки чековой ленты
+    R.Flags.CapSlpNearEndSensor := TestBit(R.FlagsValue, 7);      // 7 Ц ¬ерхний датчик подкладного документа
+    R.Flags.CapSlpEmptySensor := TestBit(R.FlagsValue, 8);        // 8 Ц Ќижний датчик подкладного документа
+    R.Flags.CapPresenter := TestBit(R.FlagsValue, 9);             // 9 Ц ѕрезентер поддерживаетс€
+    R.Flags.CapPresenterCommands := TestBit(R.FlagsValue, 10);    // 10 Ц ѕоддержка команд работы с презентером
+    R.Flags.CapEJNearFull := TestBit(R.FlagsValue, 11);           // 11 Ц ‘лаг заполнени€ Ё Ћ«
+    R.Flags.CapEJ := TestBit(R.FlagsValue, 12);                   // 12 Ц Ё Ћ« поддерживаетс€
+    R.Flags.CapCutter := TestBit(R.FlagsValue, 13);               // 13 Ц ќтрезчик поддерживаетс€
+    R.Flags.CapDrawerStateAsPaper := TestBit(R.FlagsValue, 14);   // 14 Ц —осто€ние ƒя как датчик бумаги в презентере
+    R.Flags.CapDrawerSensor := TestBit(R.FlagsValue, 15);         // 15 Ц ƒатчик денежного €щика
+    R.Flags.CapPrsInSensor := TestBit(R.FlagsValue, 16);          // 16 Ц ƒатчик бумаги на входе в презентер
+    R.Flags.CapPrsOutSensor := TestBit(R.FlagsValue, 17);         // 17 Ц ƒатчик бумаги на выходе из презентера
+    R.Flags.CapBillAcceptor := TestBit(R.FlagsValue, 18);         // 18 Ц  упюроприемник поддерживаетс€
+    R.Flags.CapTaxKeyPad := TestBit(R.FlagsValue, 19);            // 19 Ц  лавиатура Ќ» поддерживаетс€
+    R.Flags.CapJrnPresent := TestBit(R.FlagsValue, 20);           // 20 Ц  онтрольна€ лента поддерживаетс€
+    R.Flags.CapSlpPresent := TestBit(R.FlagsValue, 21);           // 21 Ц ѕодкладной документ поддерживаетс€
+    R.Flags.CapNonfiscalDoc := TestBit(R.FlagsValue, 22);         // 22 Ц ѕоддержка команд нефискального документа
+    R.Flags.CapCashCore := TestBit(R.FlagsValue, 23);             // 23 Ц ѕоддержка протокола  ассового ядра (cashcore)
+    R.Flags.CapInnLeadingZero := TestBit(R.FlagsValue, 24);       // 24 Ц ¬едущие нули в »ЌЌ
+    R.Flags.CapRnmLeadingZero := TestBit(R.FlagsValue, 25);       // 25 Ц ¬едущие нули в –Ќћ
+    R.Flags.SwapGraphicsLine := TestBit(R.FlagsValue, 26);        // 26 Ц ѕереворачивать байты при печати линии
+    R.Flags.CapTaxPasswordLock := TestBit(R.FlagsValue, 27);      // 27 Ц Ѕлокировка   “ по неверному паролю налогового инспектора
+    R.Flags.CapProtocol2 := TestBit(R.FlagsValue, 28);            // 28 Ц ѕоддержка альтернативного нижнего уровн€ протокола   “
+    R.Flags.CapLFInPrintText := TestBit(R.FlagsValue, 29);        // 29 Ц ѕоддержка переноса строк символом '\n' (код 10) в командах печати строк 12H, 17H, 2FH
+    R.Flags.CapFontInPrintText := TestBit(R.FlagsValue, 30);      // 30 Ц ѕоддержка переноса строк номером шрифта (коды 1Е9) в команде печати строк 2FH
+    R.Flags.CapLFInFiscalCommands := TestBit(R.FlagsValue, 31);   // 31 Ц ѕоддержка переноса строк символом '\n' (код 10) в фискальных командах 80HЕ87H, 8AH, 8BH
     R.Flags.CapFontInFiscalCommands := TestBit(R.FlagsValue, 32); // 32 Ц ѕоддержка переноса строк номером шрифта (коды 1Е9) в фискальных командах 80HЕ87H, 8AH, 8BH
-    R.Flags.CapTopCashierReports := TestBit(R.FlagsValue, 33);   // 33 Ц ѕрава "—“ј–Ў»…  ј——»–" (28) на сн€тие отчетов: X, операционных регистров, по отделам, по налогам, по кассирам, почасового, по товарам
-    R.Flags.CapSlpInPrintCommands := TestBit(R.FlagsValue, 34); // 34 Ц ѕоддержка Ѕит 3 "слип чек" в командах печати: строк 12H, 17H, 2FH,расширенной графики 4DH, C3H, графической линии C5H; поддержка
-    R.Flags.CapGraphicsC4 := TestBit(R.FlagsValue, 35);         // 35 Ц ѕоддержка блочной загрузки графики в команде C4H
-    R.Flags.CapCommand6B := TestBit(R.FlagsValue, 36);          // 36 Ц ѕоддержка команды 6BH "¬озврат названи€ ошибоки"
-    R.Flags.CapFlagsGraphicsEx := TestBit(R.FlagsValue, 37);    // 37 Ц ѕоддержка флагов печати дл€ команд печати расширенной графики C3H и печати графической линии C5H
-    R.Flags.CapMFP := TestBit(R.FlagsValue, 39);                // 39 Ц ѕоддержка ћ‘ѕ
-    R.Flags.CapEJ5 := TestBit(R.FlagsValue, 40);                // 40 Ц ѕоддержка Ё Ћ«5
-    R.Flags.CapScaleGraphics := TestBit(R.FlagsValue, 41);      // 41 Ц ѕечать графики с масштабированием (команда 4FH)
-    R.Flags.CapGraphics512 := TestBit(R.FlagsValue, 42);        // 42 Ц «агрузка и печать графики-512 (команды 4DH, 4EH)
+    R.Flags.CapTopCashierReports := TestBit(R.FlagsValue, 33);    // 33 Ц ѕрава "—“ј–Ў»…  ј——»–" (28) на сн€тие отчетов: X, операционных регистров, по отделам, по налогам, по кассирам, почасового, по товарам
+    R.Flags.CapSlpInPrintCommands := TestBit(R.FlagsValue, 34);   // 34 Ц ѕоддержка Ѕит 3 "слип чек" в командах печати: строк 12H, 17H, 2FH,расширенной графики 4DH, C3H, графической линии C5H; поддержка
+    R.Flags.CapGraphicsC4 := TestBit(R.FlagsValue, 35);           // 35 Ц ѕоддержка блочной загрузки графики в команде C4H
+    R.Flags.CapCommand6B := TestBit(R.FlagsValue, 36);            // 36 Ц ѕоддержка команды 6BH "¬озврат названи€ ошибоки"
+    R.Flags.CapFlagsGraphicsEx := TestBit(R.FlagsValue, 37);      // 37 Ц ѕоддержка флагов печати дл€ команд печати расширенной графики C3H и печати графической линии C5H
+    R.Flags.CapMFP := TestBit(R.FlagsValue, 39);                  // 39 Ц ѕоддержка ћ‘ѕ
+    R.Flags.CapEJ5 := TestBit(R.FlagsValue, 40);                  // 40 Ц ѕоддержка Ё Ћ«5
+    R.Flags.CapScaleGraphics := TestBit(R.FlagsValue, 41);        // 41 Ц ѕечать графики с масштабированием (команда 4FH)
+    R.Flags.CapGraphics512 := TestBit(R.FlagsValue, 42);          // 42 Ц «агрузка и печать графики-512 (команды 4DH, 4EH)
+
+    if Length(Answer) < 9 then Exit;
+    R.Font1Width := Ord(Answer[9]);
+    if Length(Answer) < 10 then Exit;
+    R.Font2Width := Ord(Answer[10]);
+    if Length(Answer) < 11 then Exit;
+    R.GraphicsStartLine := Ord(Answer[11]);
+    if Length(Answer) < 12 then Exit;
+    R.InnDigits := Ord(Answer[12]);
+    if Length(Answer) < 13 then Exit;
+    R.RnmDigits := Ord(Answer[13]);
+    if Length(Answer) < 14 then Exit;
+    R.LongRnmDigits := Ord(Answer[14]);
+    if Length(Answer) < 15 then Exit;
+    R.LongSerialDigits := Ord(Answer[15]);
+    if Length(Answer) < 19 then Exit;
+    R.DefTaxPassword := BinToInt(Answer, 16, 4);
+    if Length(Answer) < 23 then Exit;
+    R.DefSysPassword := BinToInt(Answer, 20, 4);
+    if Length(Answer) < 24 then Exit;
+    R.BluetoothTable := Ord(Answer[24]);
+    if Length(Answer) < 25 then Exit;
+    R.TaxFieldNumber := Ord(Answer[25]);
+    if Length(Answer) < 27 then Exit;
+    R.MaxCommandLength := BinToInt(Answer, 26, 2);
+    if Length(Answer) < 28 then Exit;
+    R.GraphicsWidthInBytes := Ord(Answer[28]);
+    if Length(Answer) < 29 then Exit;
+    R.Graphics512WidthInBytes := Ord(Answer[29]);
+    if Length(Answer) < 31 then Exit;
+    R.Graphics512MaxHeight := BinToInt(Answer, 30, 2);
   end;
 end;
 
