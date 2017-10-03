@@ -124,6 +124,14 @@ object fmReceiptFormat: TfmReceiptFormat
         ScrollBars = ssVertical
         TabOrder = 4
       end
+      object chbPrintUnitName: TCheckBox
+        Left = 160
+        Top = 39
+        Width = 273
+        Height = 17
+        Caption = 'Print unitName parameter'
+        TabOrder = 5
+      end
     end
     object TabSheet2: TTabSheet
       BorderWidth = 3

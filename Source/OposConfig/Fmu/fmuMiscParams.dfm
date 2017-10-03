@@ -176,12 +176,4 @@ object fmMiscParams: TfmMiscParams
     Caption = 'Fiscal storage service enabled'
     TabOrder = 10
   end
-  object chbPrintUnitName: TCheckBox
-    Left = 8
-    Top = 424
-    Width = 273
-    Height = 17
-    Caption = 'Print unitName parameter'
-    TabOrder = 11
-  end
 end

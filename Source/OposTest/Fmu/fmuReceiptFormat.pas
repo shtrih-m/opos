@@ -26,6 +26,7 @@ type
     chbPrintSingleQuantity: TCheckBox;
     memReceiptItemsTrailer: TMemo;
     Memo: TMemo;
+    chbPrintUnitName: TCheckBox;
   public
     procedure UpdatePage; override;
     procedure UpdateObject; override;
@@ -47,6 +48,7 @@ begin
   Parameters.ReceiptItemsHeader := memReceiptItemsHeader.Text;
   Parameters.ReceiptItemFormat := memReceiptItemFormat.Text;
   Parameters.ReceiptItemsTrailer := memReceiptItemsTrailer.Text;
+  Parameters.PrintUnitName := chbPrintUnitName.Checked;
 end;
 
 procedure TfmReceiptFormat.UpdatePage;
@@ -56,6 +58,7 @@ begin
   memReceiptItemsHeader.Text := Parameters.ReceiptItemsHeader;
   memReceiptItemFormat.Text := Parameters.ReceiptItemFormat;
   memReceiptItemsTrailer.Text := Parameters.ReceiptItemsTrailer;
+  chbPrintUnitName.Checked := Parameters.PrintUnitName;
 end;
 
 end.

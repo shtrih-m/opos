@@ -142,6 +142,10 @@ begin
   begin
     Result := QuantityToStr(Item.Data.Quantity/1000);
   end;
+  if AnsiCompareText(FieldData.Name, 'UnitName') = 0 then
+  begin
+    Result := Item.Data.UnitName;
+  end;
   if AnsiCompareText(FieldData.Name, 'SUM') = 0 then
   begin
     Result := AmountToStr(Item.PriceWithDiscount/100);
