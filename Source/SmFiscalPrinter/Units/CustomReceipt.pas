@@ -177,6 +177,7 @@ begin
   FPrinter := AContext.Printer;
   FFiscalReceiptStation := AContext.FiscalReceiptStation;
   FRecMessages := TTextItems.Create;
+  FPrintEnabled := True;
 end;
 
 destructor TCustomReceipt.Destroy;
@@ -195,6 +196,7 @@ begin
   Printer.PrintMode;
   FRecMessages.Clear;
   FAdditionalText := '';
+  FPrintEnabled := True;
 end;
 
 procedure TCustomReceipt.EndFiscalReceipt;
