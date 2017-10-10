@@ -4199,11 +4199,14 @@ end;
 { TReceiptTest12 }
 
 procedure TReceiptTest12.Execute;
+var
+  pInteger: Integer;
+  pString: WideString;
 begin
   Check(FiscalPrinter.resetPrinter());
   FiscalPrinter.set_FiscalReceiptType(4);
   FiscalPrinter.BeginFiscalReceipt(True);
-  FiscalPrinter.WriteFPParameter(DIO_FPTR_PARAMETER_ENABLE_PRINT, '1');
+  //FiscalPrinter.WriteFPParameter(DIO_FPTR_PARAMETER_ENABLE_PRINT, '1');
   FiscalPrinter.DirectIO2(9, 5, '                   КАССОВЫЙ ЧЕК                    ');
   FiscalPrinter.DirectIO2(9, 5, 'Касса:3                                      Док:49');
   FiscalPrinter.PrintRecItem('3757 Бананы 1кг', 62.9, 15000, 1, 62.9, 'кг');;
@@ -4221,6 +4224,17 @@ begin
   FiscalPrinter.DirectIO2(9, 5, 'Участвуйте в акции, копите наклейки                ');
   FiscalPrinter.DirectIO2(40, 1203, '123456789012');
   FiscalPrinter.EndFiscalReceipt(True);
+
+  // read FS document number
+  pString := '';
+  pInteger := DIO_FS_PARAMETER_LAST_DOC_NUM;
+  Check(FiscalPrinter.DirectIO(DIO_READ_FS_PARAMETER, pInteger, pString));
+  AddLine('FS document number : ' + pString);
+  // read FS document MAC
+  pString := '';
+  pInteger := DIO_FS_PARAMETER_LAST_DOC_MAC;
+  Check(FiscalPrinter.DirectIO(DIO_READ_FS_PARAMETER, pInteger, pString));
+  AddLine('FS document MAC    : ' + pString);
 end;
 
 function TReceiptTest12.GetDisplayText: string;

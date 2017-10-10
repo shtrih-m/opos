@@ -78,6 +78,8 @@ type
     FCapFooterFlag: Boolean;
     FFooterFlag: Boolean;
     FCapEnablePrint: Boolean;
+    FFSDocNum: Int64;
+    FFSDocMac: Int64;
 
     procedure PrintLineFont(const Data: TTextRec);
     procedure SetPrinterStatus(Value: TPrinterStatus);
@@ -544,6 +546,8 @@ begin
   FFilter := TFiscalPrinterFilter.Create(Parameters.Logger);
   FAmountDecimalPlaces := 2;
   FCapReceiptDiscount2 := True;
+  FFSDocNum := 0;
+  FFSDocMac := 0;
   LoadModels;
 end;
 
@@ -7385,7 +7389,6 @@ function TFiscalPrinterDevice.ReadFSParameter(ParamID: Integer;
   *)
 
 var
-  DocMac: Int64;
   Ticket: TFSTicket;
   FSState: TFSState;
   OposDate: TOposDate;
@@ -7404,14 +7407,12 @@ begin
 
     DIO_FS_PARAMETER_LAST_DOC_NUM:
     begin
-      Check(FSReadState(FSState));
-      Result := IntToStr(FSState.DocNumber);
+      Result := IntToStr(FFSDocNum);
     end;
 
     DIO_FS_PARAMETER_LAST_DOC_MAC:
     begin
-      Check(FSReadDocMac(DocMac));
-      Result := IntToStr(DocMac);
+      Result := IntToStr(FFSDocMac);
     end;
 
     DIO_FS_PARAMETER_QUEUE_SIZE:
@@ -7871,6 +7872,9 @@ begin
     R.Change := BinToInt(Answer, 1, 5);
     R.DocNumber := BinToInt(Answer, 6, 4);
     R.MacValue := BinToInt(Answer, 10, 4);
+
+    FFSDocNum := R.DocNumber;
+    FFSDocMac := R.MacValue;
   end;
 end;
 

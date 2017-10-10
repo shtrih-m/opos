@@ -1252,6 +1252,7 @@ begin
         CloseParams2.TaxSystem := StrToInt64Def(Parameters.Parameter7, 0);
         CloseParams2.Text := Parameters.CloseRecText;
         Device.Check(Device.ReceiptClose2(CloseParams2, CloseResult2));
+
       end else
       begin
         CloseParams.CashAmount := FPayments[0];

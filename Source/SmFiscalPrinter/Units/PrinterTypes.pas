@@ -1053,8 +1053,8 @@ type
 
   TFSCloseReceiptResult2 = record
     Change: Int64;
-    DocNumber: Integer;
-    MacValue: Integer;
+    DocNumber: DWORD;
+    MacValue: DWORD;
   end;
 
   { TPrinterParameters2Flags }
