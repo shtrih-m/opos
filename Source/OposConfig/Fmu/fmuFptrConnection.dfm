@@ -2,7 +2,7 @@ object fmFptrConnection: TfmFptrConnection
   Left = 375
   Top = 200
   Width = 512
-  Height = 484
+  Height = 460
   Caption = 'Connection'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -16,7 +16,7 @@ object fmFptrConnection: TfmFptrConnection
   TextHeight = 13
   object lblStorage: TLabel
     Left = 16
-    Top = 416
+    Top = 384
     Width = 94
     Height = 13
     Caption = 'Parameters storage:'
@@ -25,11 +25,11 @@ object fmFptrConnection: TfmFptrConnection
     Left = 8
     Top = 8
     Width = 249
-    Height = 401
+    Height = 369
     TabOrder = 0
     DesignSize = (
       249
-      401)
+      369)
     object lblComPort: TLabel
       Left = 8
       Top = 112
@@ -268,24 +268,6 @@ object fmFptrConnection: TfmFptrConnection
       Items.Strings = (
         'Standard'
         'Protocol 2.0')
-    end
-    object chbPingEnabled: TCheckBox
-      Left = 8
-      Top = 360
-      Width = 133
-      Height = 17
-      Caption = 'Ping device, period, sec'
-      TabOrder = 14
-    end
-    object sePingPeriod: TSpinEdit
-      Left = 152
-      Top = 360
-      Width = 89
-      Height = 22
-      MaxValue = 10
-      MinValue = 1
-      TabOrder = 15
-      Value = 0
     end
   end
   object gbParams: TGroupBox
@@ -559,7 +541,7 @@ object fmFptrConnection: TfmFptrConnection
   end
   object cbStorage: TComboBox
     Left = 128
-    Top = 416
+    Top = 384
     Width = 129
     Height = 21
     Style = csDropDownList

@@ -490,12 +490,6 @@ begin
       if Reg.ValueExists('PrintUnitName') then
         Parameters.PrintUnitName := Reg.ReadBool('PrintUnitName');
 
-      if Reg.ValueExists('PingEnabled') then
-        Parameters.PingEnabled := Reg.ReadBool('PingEnabled');
-
-      if Reg.ValueExists('PingPeriodInSeconds') then
-        Parameters.PingPeriodInSeconds := Reg.ReadInteger('PingPeriodInSeconds');
-
       // VatCodes
       if Reg.OpenKey(REG_KEY_VATCODES, False) then
       begin
@@ -648,8 +642,6 @@ begin
     Reg.WriteBool('FSServiceEnabled', FParameters.FSServiceEnabled);
     Reg.WriteInteger('PrinterProtocol', FParameters.PrinterProtocol);
     Reg.WriteBool('PrintUnitName', FParameters.PrintUnitName);
-    Reg.WriteBool('PingEnabled', FParameters.PingEnabled);
-    Reg.WriteInteger('PingPeriodInSeconds', FParameters.PingPeriodInSeconds);
 
     // VatCodes
     Reg.DeleteKey(REG_KEY_VATCODES);

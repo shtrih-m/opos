@@ -138,6 +138,10 @@ var
 begin
   try
     Open;
+
+    FConnection.IOHandler.WriteBufferClear;
+    FConnection.IOHandler.InputBuffer.Clear;
+
     SetLength(Buffer, Length(Data));
     for i := 1 to Length(Data) do
     begin
@@ -207,7 +211,8 @@ end;
 
 procedure TSocketPort.Purge;
 begin
-
+  FConnection.IOHandler.WriteBufferClear;
+  FConnection.IOHandler.InputBuffer.Clear;
 end;
 
 procedure TSocketPort.Unlock;

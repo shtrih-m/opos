@@ -8,54 +8,51 @@
   resources were bound to the produced executable.
 */
 
-#define pnglang_EPNGMissingMultipleIDATText 65200
-#define pnglang_EPNGZLIBErrorText 65201
-#define pnglang_EPNGInvalidPaletteText 65202
-#define pnglang_EPNGInvalidFileHeaderText 65203
-#define pnglang_EPNGIHDRNotFirstText 65204
-#define pnglang_EPNGSizeExceedsText 65205
-#define pnglang_EPNGUnknownPalEntryText 65206
-#define pnglang_EPNGUnknownCriticalChunkText 65207
-#define pnglang_EPNGUnknownCompressionText 65208
-#define pnglang_EPNGUnknownInterlaceText 65209
-#define pnglang_EPNGCannotAssignChunkText 65210
-#define pnglang_EPNGUnexpectedEndText 65211
-#define pnglang_EPNGNoImageDataText 65212
-#define pnglang_EPNGCannotChangeSizeText 65213
-#define pnglang_EPNGOutMemoryText 65214
-#define pnglang_EPNGHeaderNotPresentText 65215
-#define ComConst_SNoCloseActiveServer2 65216
-#define OposDevice_MsgKeyOpenError 65217
-#define VatCode_MsgVATCodeExists 65218
-#define PrinterParametersReg_MsgRegistryKeyOpenError 65219
-#define PrinterParametersRegIBT_MsgRegistryKeyOpenError 65220
-#define TntSystem_SBufferOverflow 65221
-#define TntSystem_SInvalidUTF7 65222
-#define MalinaParams_MsgInvalidFuelAmountPrecision 65223
-#define SynEditStrConst_SYNS_ScrollInfoFmt 65224
-#define SynEditStrConst_SYNS_ScrollInfoFmtTop 65225
-#define SynEditStrConst_SYNS_EDuplicateShortcut 65226
-#define SynEditStrConst_SYNS_FriendlyLangUnknown 65227
-#define SynEditTextBuffer_SListIndexOutOfBounds 65228
-#define SynEditTextBuffer_SInvalidCapacity 65229
-#define pnglang_EPngInvalidCRCText 65230
-#define pnglang_EPNGInvalidIHDRText 65231
+#define pnglang_EPNGInvalidFileHeaderText 65200
+#define pnglang_EPNGIHDRNotFirstText 65201
+#define pnglang_EPNGSizeExceedsText 65202
+#define pnglang_EPNGUnknownPalEntryText 65203
+#define pnglang_EPNGUnknownCriticalChunkText 65204
+#define pnglang_EPNGUnknownCompressionText 65205
+#define pnglang_EPNGUnknownInterlaceText 65206
+#define pnglang_EPNGCannotAssignChunkText 65207
+#define pnglang_EPNGUnexpectedEndText 65208
+#define pnglang_EPNGNoImageDataText 65209
+#define pnglang_EPNGCannotChangeSizeText 65210
+#define pnglang_EPNGOutMemoryText 65211
+#define pnglang_EPNGHeaderNotPresentText 65212
+#define OposDevice_MsgKeyOpenError 65216
+#define VatCode_MsgVATCodeExists 65217
+#define PrinterParametersReg_MsgRegistryKeyOpenError 65218
+#define PrinterParametersRegIBT_MsgRegistryKeyOpenError 65219
+#define MalinaParams_MsgInvalidFuelAmountPrecision 65220
+#define SynEditStrConst_SYNS_ScrollInfoFmt 65221
+#define SynEditStrConst_SYNS_ScrollInfoFmtTop 65222
+#define SynEditStrConst_SYNS_EDuplicateShortcut 65223
+#define SynEditStrConst_SYNS_FriendlyLangUnknown 65224
+#define SynEditTextBuffer_SListIndexOutOfBounds 65225
+#define SynEditTextBuffer_SInvalidCapacity 65226
+#define pnglang_EPngInvalidCRCText 65227
+#define pnglang_EPNGInvalidIHDRText 65228
+#define pnglang_EPNGMissingMultipleIDATText 65229
+#define pnglang_EPNGZLIBErrorText 65230
+#define pnglang_EPNGInvalidPaletteText 65231
 #define ComStrs_sTabFailRetrieve 65232
 #define ComStrs_sTabFailGetObject 65233
 #define ComStrs_sTabFailSet 65234
 #define ComStrs_sTabFailSetObject 65235
 #define ComStrs_sTabMustBeMultiLine 65236
 #define ComStrs_sInvalidOwner 65237
-#define ComStrs_sUDAssociated 65238
-#define ComStrs_sPageIndexError 65239
-#define ComStrs_sInvalidComCtl32 65240
-#define WinHelpViewer_hNoKeyword 65241
-#define ComConst_SOleError 65242
-#define ComConst_SNoMethod 65243
-#define ComConst_SVarNotObject 65244
-#define ComConst_STooManyParams 65245
-#define ComConst_SAutomationWarning 65246
-#define ComConst_SNoCloseActiveServer1 65247
+#define ComStrs_sPageIndexError 65238
+#define ComStrs_sInvalidComCtl32 65239
+#define WinHelpViewer_hNoKeyword 65240
+#define ComConst_SOleError 65241
+#define ComConst_SNoMethod 65242
+#define ComConst_SVarNotObject 65243
+#define ComConst_STooManyParams 65244
+#define ComConst_SAutomationWarning 65245
+#define ComConst_SNoCloseActiveServer1 65246
+#define ComConst_SNoCloseActiveServer2 65247
 #define ExtCtrls_clNameInactiveBorder 65248
 #define ExtCtrls_clNameInactiveCaption 65249
 #define ExtCtrls_clNameInactiveCaptionText 65250
@@ -346,9 +343,6 @@
 #define SysConst_SDiskFull 65535
 STRINGTABLE
 BEGIN
-	pnglang_EPNGMissingMultipleIDATText,	"This \"Portable Network Graphics\" image is invalid because it has missing image parts."
-	pnglang_EPNGZLIBErrorText,	"Could not decompress the image because it contains invalid compressed data.\r\n Description: "
-	pnglang_EPNGInvalidPaletteText,	"The \"Portable Network Graphics\" image contains an invalid palette."
 	pnglang_EPNGInvalidFileHeaderText,	"The file being readed is not a valid \"Portable Network Graphics\" image because it contains an invalid header. This file may be corruped, try obtaining it again."
 	pnglang_EPNGIHDRNotFirstText,	"This \"Portable Network Graphics\" image is not supported or it might be invalid.\r\n(IHDR chunk is not the first)"
 	pnglang_EPNGSizeExceedsText,	"This \"Portable Network Graphics\" image is not supported because either it's width or height exceeds the maximum size, which is 65535 pixels length."
@@ -362,13 +356,10 @@ BEGIN
 	pnglang_EPNGCannotChangeSizeText,	"The \"Portable Network Graphics\" image can not be resize by changing width and height properties. Try assigning the image from a bitmap."
 	pnglang_EPNGOutMemoryText,	"Some operation could not be performed because the system is out of resources. Close some windows and try again."
 	pnglang_EPNGHeaderNotPresentText,	"This operation is not valid because the current image contains no valid header."
-	ComConst_SNoCloseActiveServer2,	"приложения может вызвать сбой клиентских приложений.\r\n\r\nВы уверены, что хотите закрыть это приложение?"
 	OposDevice_MsgKeyOpenError,	"Error opening registry key: %s"
 	VatCode_MsgVATCodeExists,	"Item with app VAT code %d already exists."
 	PrinterParametersReg_MsgRegistryKeyOpenError,	"Registry key open error"
 	PrinterParametersRegIBT_MsgRegistryKeyOpenError,	"Registry key open error"
-	TntSystem_SBufferOverflow,	"Buffer overflow"
-	TntSystem_SInvalidUTF7,	"Invalid UTF7"
 	MalinaParams_MsgInvalidFuelAmountPrecision,	"Invalid FuelAmountPrecision value"
 	SynEditStrConst_SYNS_ScrollInfoFmt,	"%d - %d"
 	SynEditStrConst_SYNS_ScrollInfoFmtTop,	"Top Line: %d"
@@ -378,13 +369,15 @@ BEGIN
 	SynEditTextBuffer_SInvalidCapacity,	"Stringlist capacity cannot be smaller than count"
 	pnglang_EPngInvalidCRCText,	"This \"Portable Network Graphics\" image is not valid because it contains invalid pieces of data (crc error)"
 	pnglang_EPNGInvalidIHDRText,	"The \"Portable Network Graphics\" image could not be loaded because one of its main piece of data (ihdr) might be corrupted"
+	pnglang_EPNGMissingMultipleIDATText,	"This \"Portable Network Graphics\" image is invalid because it has missing image parts."
+	pnglang_EPNGZLIBErrorText,	"Could not decompress the image because it contains invalid compressed data.\r\n Description: "
+	pnglang_EPNGInvalidPaletteText,	"The \"Portable Network Graphics\" image contains an invalid palette."
 	ComStrs_sTabFailRetrieve,	"Не удалось восстановить страницу (tab) с индексом %d"
 	ComStrs_sTabFailGetObject,	"Не удалось получить объект с индексом %d"
 	ComStrs_sTabFailSet,	"Не удалось установить страницу (tab) \"%s\" с индексом %d"
 	ComStrs_sTabFailSetObject,	"Не удалось установить объект с индексом %d"
 	ComStrs_sTabMustBeMultiLine,	"MultiLine должно быть True, когда TabPosition равно tpLeft или tpRight"
 	ComStrs_sInvalidOwner,	"Неверный владелец"
-	ComStrs_sUDAssociated,	"%s уже связан с %s"
 	ComStrs_sPageIndexError,	"Неверное значение PageIndex (%d).  PageIndex должен быть между 0 и %d"
 	ComStrs_sInvalidComCtl32,	"Этот компонент требует COMCTL32.DLL версии 4.70 или выше"
 	WinHelpViewer_hNoKeyword,	"No help keyword specified."
@@ -394,6 +387,7 @@ BEGIN
 	ComConst_STooManyParams,	"Dispatch методы не поддерживают более 64 параметров"
 	ComConst_SAutomationWarning,	"Предупреждение COM Сервера"
 	ComConst_SNoCloseActiveServer1,	"В приложении имеются активные COM объекты. Один или более клиентов могут ссылаться на эти объекты, таким образом, закрытие "
+	ComConst_SNoCloseActiveServer2,	"приложения может вызвать сбой клиентских приложений.\r\n\r\nВы уверены, что хотите закрыть это приложение?"
 	ExtCtrls_clNameInactiveBorder,	"Inactive Border"
 	ExtCtrls_clNameInactiveCaption,	"Inactive Caption"
 	ExtCtrls_clNameInactiveCaptionText,	"Inactive Caption Text"

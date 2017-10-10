@@ -1422,6 +1422,7 @@ begin
       try
         TickCount := GetTickCount;
         IcmpClient.Ping();
+
         Logger.Debug(Format('PING time: %d ms', [Integer(GetTickCount) - TickCount]));
       except
         on E: Exception do
@@ -1429,7 +1430,7 @@ begin
           Logger.Error('PING failed: ' + E.Message);
         end;
       end;
-      Sleep2(Parameters.PingPeriodInSeconds * 1000);
+      Sleep2(3000);
     end;
   except
     on E: Exception do

@@ -1,19 +1,31 @@
 [Closed Files]
-File_0=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterDevice.pas',0,1,6795,27,6806,0,0
-File_1=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterTypes.pas',0,1,1,1,1,0,0
-File_2=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FSSalesReceipt.pas',0,1,397,31,413,0,0
-File_3=SourceModule,'C:\projects\OPOSShtrih\Source\OposTest\Units\PrinterTest.pas',0,1,4081,58,4096,0,0
-File_4=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterImpl.pas',0,1,1,1,1,0,0
-File_5=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\oleXmlParams.pas',0,1,1,1,1,0,0
-File_6=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\oleCashDrawer.pas',0,1,1,1,1,0,0
-File_7=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\PrinterParameters.pas',0,1,900,51,916,0,0
-File_8=SourceModule,'C:\projects\OPOSShtrih\Test\SmFiscalPrinterTest\Units\duICMPClient.pas',0,1,27,29,47,0,0
-File_9=SourceModule,'C:\projects\OPOSShtrih\Source\OposConfig\Units\CashDrawerDevice.pas',0,1,1,1,1,0,0
+File_0=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterImpl.pas',0,1,1,1,1,0,0
+File_1=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\oleXmlParams.pas',0,1,1,1,1,0,0
+File_2=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\oleCashDrawer.pas',0,1,1,1,1,0,0
+File_3=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Fmu\fmuPhone.pas',0,1,1,1,1,1,1
+File_4=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Fmu\fmuSelect.pas',0,1,1,1,1,1,1
+File_5=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Fmu\fmuTimeSync.pas',0,1,1,71,3,1,0
+File_6=SourceModule,'C:\projects\OPOSShtrih\Source\SmFptrSrv\Units\oleMain.pas',0,1,1,59,7,0,0
+File_7=SourceModule,'C:\projects\OPOSShtrih\Test\SmFiscalPrinterTest\Units\duReceiptTemplate.pas',0,1,196,5,196,0,0
+File_8=SourceModule,'C:\projects\OPOSShtrih\Test\SmFiscalPrinterTest\Units\duResourceString.pas',0,1,23,107,30,0,0
+File_9=SourceModule,'C:\Program Files (x86)\Borland\Delphi7\Comp\Indy10\Lib\System\IdResourceStrings.pas',0,1,109,5,127,0,0
 
 [Modules]
 Count=0
 EditWindowCount=0
 TypeLibWindowCount=3
+
+[C:\projects\OPOSShtrih\Test\SmFiscalPrinterTest\SmFiscalPrinterTest.dpr]
+FormState=0
+FormOnTop=0
+SymbolFile=C:\projects\OPOSShtrih\Test\SmFiscalPrinterTest\SmFiscalPrinterTest.dsm
+ModSinceCompile=1
+
+[C:\projects\OPOSShtrih\Test\SmScaleTest\SmScaleTestLib.dpr]
+FormState=0
+FormOnTop=0
+SymbolFile=C:\projects\OPOSShtrih\Test\SmScaleTest\SmScaleTestLib.dsm
+ModSinceCompile=1
 
 [C:\projects\OPOSShtrih\Source\OposShtrih.bpg]
 FormState=0
@@ -28,10 +40,14 @@ ModSinceCompile=1
 [C:\projects\OPOSShtrih\Source\OposTest\OposTest.dpr]
 FormState=0
 FormOnTop=0
+SymbolFile=C:\projects\OPOSShtrih\Source\OposTest\OposTest.dsm
+ModSinceCompile=1
 
 [C:\projects\OPOSShtrih\Source\SmFiscalPrinter\SmFiscalPrinter.dpr]
 FormState=0
 FormOnTop=0
+SymbolFile=C:\projects\OPOSShtrih\Source\SmFiscalPrinter\SmFiscalPrinter.dsm
+ModSinceCompile=1
 
 [C:\projects\OPOSShtrih\Source\SmFiscalPrinter\SmFiscalPrinter.todo]
 FormState=0
@@ -44,10 +60,14 @@ FormOnTop=0
 [C:\projects\OPOSShtrih\Source\SmFiscalPrinter\RUS\SmFiscalPrinter.dpr]
 FormState=0
 FormOnTop=0
+SymbolFile=C:\projects\OPOSShtrih\Source\SmFiscalPrinter\RUS\SmFiscalPrinter.dsm
+ModSinceCompile=1
 
 [C:\projects\OPOSShtrih\Source\SmScale\SmScale.dpr]
 FormState=0
 FormOnTop=0
+SymbolFile=C:\projects\OPOSShtrih\Source\SmScale\SmScale.dsm
+ModSinceCompile=1
 
 [C:\projects\OPOSShtrih\Source\SmScale\SmScale.tlb]
 FormState=0
@@ -56,6 +76,8 @@ FormOnTop=0
 [C:\projects\OPOSShtrih\Source\SmFptrSrv\SmFptrSrv.dpr]
 FormState=0
 FormOnTop=0
+SymbolFile=C:\projects\OPOSShtrih\Source\SmFptrSrv\SmFptrSrv.dsm
+ModSinceCompile=1
 
 [C:\projects\OPOSShtrih\Source\SmFptrSrv\SmFptrSrv.tlb]
 FormState=0
@@ -64,32 +86,44 @@ FormOnTop=0
 [C:\projects\OPOSShtrih\Test\OposConfigTest\OposConfigTest.dpr]
 FormState=0
 FormOnTop=0
+SymbolFile=C:\projects\OPOSShtrih\Test\OposConfigTest\OposConfigTest.dsm
+ModSinceCompile=1
 
 [C:\projects\OPOSShtrih\Test\OposConfigTest\OposConfigTestLib.dpr]
 FormState=0
 FormOnTop=0
-
-[C:\projects\OPOSShtrih\Test\SmFiscalPrinterTest\SmFiscalPrinterTest.dpr]
-FormState=0
-FormOnTop=0
+SymbolFile=C:\projects\OPOSShtrih\Test\OposConfigTest\OposConfigTestLib.dsm
+ModSinceCompile=1
 
 [C:\projects\OPOSShtrih\Test\SmFiscalPrinterTest\SmFiscalPrinterTestLib.dpr]
 FormState=0
 FormOnTop=0
+SymbolFile=C:\projects\OPOSShtrih\Test\SmFiscalPrinterTest\SmFiscalPrinterTestLib.dsm
+ModSinceCompile=1
 
 [C:\projects\OPOSShtrih\Test\OposTestTest\OposTestTest.dpr]
 FormState=0
 FormOnTop=0
+SymbolFile=C:\projects\OPOSShtrih\Test\OposTestTest\OposTestTest.dsm
+ModSinceCompile=1
 
 [C:\projects\OPOSShtrih\Test\OposTestTest\OposTestTestLib.dpr]
 FormState=0
 FormOnTop=0
+SymbolFile=C:\projects\OPOSShtrih\Test\OposTestTest\OposTestTestLib.dsm
+ModSinceCompile=1
 
 [C:\projects\OPOSShtrih\Test\SmScaleTest\SmScaleTest.dpr]
 FormState=0
 FormOnTop=0
+SymbolFile=C:\projects\OPOSShtrih\Test\SmScaleTest\SmScaleTest.dsm
+ModSinceCompile=1
 
-[C:\projects\OPOSShtrih\Test\SmScaleTest\SmScaleTestLib.dpr]
+[C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Fmu\fmuLogo.pas]
+FormState=0
+FormOnTop=0
+
+[C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Fmu\fmuEMail.pas]
 FormState=0
 FormOnTop=0
 
@@ -163,8 +197,7 @@ LRDockWidth=320
 Dockable=1
 
 [Breakpoints]
-Count=1
-Breakpoint0='D:\Projects\OPOSShtrih\Source\SmFiscalPrinter\Units\SharedPrinter.pas',1175,'',0,1,'',1,0,0,'',1,'','',''
+Count=0
 
 [AddressBreakpoints]
 Count=0
@@ -177,8 +210,8 @@ Left=651
 Top=2
 Width=629
 Height=122
-MaxLeft=-1
-MaxTop=-1
+MaxLeft=-8
+MaxTop=-8
 MaxWidth=1296
 MaxHeight=122
 ClientWidth=1280
@@ -190,11 +223,11 @@ Visible=1
 State=0
 Left=2
 Top=118
-Width=521
+Width=525
 Height=534
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=505
+ClientWidth=509
 ClientHeight=500
 TBDockHeight=681
 LRDockWidth=445
@@ -232,7 +265,7 @@ ClientHeight=60
 
 [PropertyInspector]
 Create=1
-Visible=0
+Visible=1
 State=0
 Left=0
 Top=108
@@ -277,10 +310,10 @@ Column5Width=75
 Create=1
 Visible=0
 State=0
-Left=0
-Top=12
-Width=632
-Height=362
+Left=406
+Top=206
+Width=648
+Height=396
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=632
@@ -418,26 +451,7 @@ EntryPointPane=225
 CompUnitPane=104
 
 [DockHosts]
-DockHostCount=1
-
-[DockSite0]
-DockSiteType=0
-Create=1
-Visible=0
-State=0
-Left=406
-Top=206
-Width=648
-Height=408
-MaxLeft=-1
-MaxTop=-1
-ClientWidth=632
-ClientHeight=374
-TBDockHeight=690
-LRDockWidth=328
-Dockable=1
-DockClients=CallStackWindow
-DockSiteData=00000400010000000F00000043616C6C537461636B57696E646F7776010000000000000178020000000000000100000000870000000000000001000000027601000000000000020000000078020000000000000200000000F7010000000000000100000000080100000000000001000000008C010000000000000100000000100200000000000001000000009802000000000000FFFFFFFF
+DockHostCount=0
 
 [ActiveProject]
 ActiveProject=3

@@ -321,10 +321,6 @@ begin
       FParameters.FSServiceEnabled := IniFile.ReadBool(Section, 'FSServiceEnabled', False);
       FParameters.PrinterProtocol := IniFile.ReadInteger(Section, 'PrinterProtocol', DefPrinterProtocol);
       FParameters.PrintUnitName := IniFile.ReadBool(Section, 'PrintUnitName', DefPrintUnitName);
-      FParameters.PingEnabled := IniFile.ReadBool(Section, 'PingEnabled', DefPingEnabled);
-      FParameters.PingPeriodInSeconds := IniFile.ReadInteger(Section, 'PingPeriodInSeconds', DefPingPeriodInSeconds);
-
-
     end;
     // VatCodes
     Section := GetSectionName(DeviceName) + '_VatCodes';
@@ -472,8 +468,6 @@ begin
     IniFile.WriteBool(Section, 'FSServiceEnabled', FParameters.FSServiceEnabled);
     IniFile.WriteInteger(Section, 'PrinterProtocol', FParameters.PrinterProtocol);
     IniFile.WriteBool(Section, 'PrintUnitName', FParameters.PrintUnitName);
-    IniFile.WriteBool(Section, 'PingEnabled', FParameters.PingEnabled);
-    IniFile.WriteInteger(Section, 'PingPeriodInSeconds', FParameters.PingPeriodInSeconds);
 
     // PayTypes
     Section := GetSectionName(DeviceName) + '_PaymentTypes';

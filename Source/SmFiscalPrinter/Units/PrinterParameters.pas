@@ -329,8 +329,6 @@ const
   DefVatCodeEnabled = False;
   DefHandleErrorCode = False;
   DefPrintUnitName = False;
-  DefPingEnabled = False;
-  DefPingPeriodInSeconds = 1;
 
 type
   { TPrinterParameters }
@@ -485,8 +483,6 @@ type
     Parameter9: string;
     Parameter10: string;
     PrintUnitName: Boolean;
-    PingEnabled: Boolean;
-    PingPeriodInSeconds: Integer;
   public
     constructor Create(ALogger: ILogFile);
     destructor Destroy; override;
@@ -798,8 +794,6 @@ begin
   FSServiceEnabled := False;
   PrinterProtocol := DefPrinterProtocol;
   PrintUnitName := DefPrintUnitName;
-  PingEnabled := DefPingEnabled;
-  PingPeriodInSeconds := DefPingPeriodInSeconds;
 end;
 
 procedure TPrinterParameters.LogText(const Caption, Text: string);
@@ -924,8 +918,6 @@ begin
   Logger.Debug('HandleErrorCode: ' + BoolToStr(HandleErrorCode));
   Logger.Debug('FSServiceEnabled: ' + BoolToStr(FSServiceEnabled));
   Logger.Debug('PrintUnitName: ' + BoolToStr(PrintUnitName));
-  Logger.Debug('PingEnabled: ' + BoolToStr(PingEnabled));
-  Logger.Debug('PingPeriodInSeconds: ' + IntToStr(PingPeriodInSeconds));
 
   for i := 0 to PayTypes.Count-1 do
   begin

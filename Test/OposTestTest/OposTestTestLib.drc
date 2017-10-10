@@ -18,8 +18,6 @@
 #define pnglang_EPNGCannotChangeSizeText 65079
 #define pnglang_EPNGOutMemoryText 65080
 #define pnglang_EPNGHeaderNotPresentText 65081
-#define TntSystem_SBufferOverflow 65082
-#define TntSystem_SInvalidUTF7 65083
 #define IdResourceStringsCore_RSMaximumNumberOfCaptureLineExceeded 65088
 #define IdResourceStringsCore_RSInterceptIsDifferent 65089
 #define IdResourceStringsCore_RSTransparentProxyCannotBind 65090
@@ -480,8 +478,6 @@ BEGIN
 	pnglang_EPNGCannotChangeSizeText,	"The \"Portable Network Graphics\" image can not be resize by changing width and height properties. Try assigning the image from a bitmap."
 	pnglang_EPNGOutMemoryText,	"Some operation could not be performed because the system is out of resources. Close some windows and try again."
 	pnglang_EPNGHeaderNotPresentText,	"This operation is not valid because the current image contains no valid header."
-	TntSystem_SBufferOverflow,	"Buffer overflow"
-	TntSystem_SInvalidUTF7,	"Invalid UTF7"
 	IdResourceStringsCore_RSMaximumNumberOfCaptureLineExceeded,	"Maximum number of line allowed exceeded"
 	IdResourceStringsCore_RSInterceptIsDifferent,	"The IOHandler already has a different Intercept assigned"
 	IdResourceStringsCore_RSTransparentProxyCannotBind,	"Transparent proxy cannot bind."
