@@ -118,12 +118,7 @@ begin
   Logger.Debug('TSocketPort.Close.0');
   try
     FConnection.Disconnect;
-    if (FConnection.IOHandler <> nil)and(FConnection.IOHandler.InputBuffer <> nil) then
-    begin
-      FConnection.IOHandler.InputBuffer.Clear;
-    end;
-    //FConnection.Free;
-    //FConnection := TIdTCPClient.Create;
+    Purge;
   except
     on E: Exception do
       Logger.Error(E.Message);
@@ -138,9 +133,7 @@ var
 begin
   try
     Open;
-
-    FConnection.IOHandler.WriteBufferClear;
-    FConnection.IOHandler.InputBuffer.Clear;
+    Purge;
 
     SetLength(Buffer, Length(Data));
     for i := 1 to Length(Data) do
@@ -211,8 +204,11 @@ end;
 
 procedure TSocketPort.Purge;
 begin
-  FConnection.IOHandler.WriteBufferClear;
-  FConnection.IOHandler.InputBuffer.Clear;
+  if (FConnection.IOHandler <> nil)and(FConnection.IOHandler.InputBuffer <> nil) then
+  begin
+    FConnection.IOHandler.WriteBufferClear;
+    FConnection.IOHandler.InputBuffer.Clear;
+  end;
 end;
 
 procedure TSocketPort.Unlock;
