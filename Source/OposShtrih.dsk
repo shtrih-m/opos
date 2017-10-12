@@ -1,5 +1,5 @@
 [Closed Files]
-File_0=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\SocketPort.pas',0,1,1,53,14,0,0
+File_0=SourceModule,'C:\Program Files (x86)\Borland\Delphi7\Comp\Indy10\Lib\System\IdResourceStrings.pas',0,1,1,7,20,0,0
 File_1=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\DirectIOAPI.pas',0,1,30,76,35,0,0
 File_2=SourceModule,'C:\projects\OPOSShtrih\Source\OposTest\Units\PrinterTest.pas',0,1,4201,95,4208,0,0
 File_3=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterDevice.pas',0,1,7865,36,7875,0,0
@@ -8,12 +8,47 @@ File_5=SourceModule,'C:\projects\OPOSShtrih\Source\Shared\StringUtils.pas',0,1,9
 File_6=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FSSalesReceipt.pas',0,1,1,1,1,0,0
 File_7=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterTypes.pas',0,1,79,1,92,0,0
 File_8=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterImpl.pas',0,1,1,1,1,0,0
-File_9=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\CashInReceipt.pas',0,1,75,67,86,0,0
 
 [Modules]
-Count=0
-EditWindowCount=0
+Module0=c:\program files (x86)\borland\delphi7\Comp\Indy10\Lib\Core\IdBuffer.pas
+Module1=c:\program files (x86)\borland\delphi7\Comp\Indy10\Lib\Core\IdIOHandler.pas
+Module2=c:\program files (x86)\borland\delphi7\Comp\Indy10\Lib\Core\IdIOHandlerSocket.pas
+Module3=c:\program files (x86)\borland\delphi7\Comp\Indy10\Lib\Core\IdTCPConnection.pas
+Module4=c:\program files (x86)\borland\delphi7\Comp\Indy10\Lib\Core\IdTCPClient.pas
+Module5=C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\SocketPort.pas
+Count=6
+EditWindowCount=1
 TypeLibWindowCount=3
+
+[c:\program files (x86)\borland\delphi7\Comp\Indy10\Lib\Core\IdBuffer.pas]
+ModuleType=SourceModule
+FormState=0
+FormOnTop=0
+
+[c:\program files (x86)\borland\delphi7\Comp\Indy10\Lib\Core\IdIOHandler.pas]
+ModuleType=SourceModule
+FormState=0
+FormOnTop=0
+
+[c:\program files (x86)\borland\delphi7\Comp\Indy10\Lib\Core\IdIOHandlerSocket.pas]
+ModuleType=SourceModule
+FormState=0
+FormOnTop=0
+
+[c:\program files (x86)\borland\delphi7\Comp\Indy10\Lib\Core\IdTCPConnection.pas]
+ModuleType=SourceModule
+FormState=0
+FormOnTop=0
+
+[c:\program files (x86)\borland\delphi7\Comp\Indy10\Lib\Core\IdTCPClient.pas]
+ModuleType=SourceModule
+FormState=0
+FormOnTop=0
+
+[C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\SocketPort.pas]
+ModuleType=SourceModule
+FormState=0
+FormOnTop=0
 
 [C:\projects\OPOSShtrih\Source\OposShtrih.bpg]
 FormState=0
@@ -22,6 +57,8 @@ FormOnTop=0
 [C:\projects\OPOSShtrih\Source\OposConfig\OposConfig.dpr]
 FormState=0
 FormOnTop=0
+SymbolFile=C:\projects\OPOSShtrih\Source\OposConfig\OposConfig.dsm
+ModSinceCompile=0
 
 [C:\projects\OPOSShtrih\Source\OposTest\OposTest.dpr]
 FormState=0
@@ -90,6 +127,80 @@ FormOnTop=0
 [C:\projects\OPOSShtrih\Test\SmScaleTest\SmScaleTestLib.dpr]
 FormState=0
 FormOnTop=0
+
+[EditWindow0]
+ViewCount=6
+CurrentView=5
+View0=0
+View1=1
+View2=2
+View3=3
+View4=4
+View5=5
+CodeExplorer=CodeExplorer@EditWindow0
+MessageView=MessageView@EditWindow0
+Create=1
+Visible=1
+State=2
+Left=320
+Top=138
+Width=868
+Height=646
+MaxLeft=-8
+MaxTop=106
+MaxWidth=1296
+MaxHeight=896
+ClientWidth=1280
+ClientHeight=858
+LeftPanelSize=0
+LeftPanelClients=CodeExplorer@EditWindow0
+LeftPanelData=00000400010000000C000000436F64654578706C6F7265720000000000000000000000000000000000FFFFFFFF
+RightPanelSize=0
+BottomPanelSize=0
+BottomPanelClients=MessageView@EditWindow0
+BottomPanelData=00000400010000000B0000004D657373616765566965770000000000000000000000000000000000FFFFFFFF
+
+[View0]
+Module=C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\SocketPort.pas
+CursorX=1
+CursorY=163
+TopLine=153
+LeftCol=1
+
+[View1]
+Module=c:\program files (x86)\borland\delphi7\Comp\Indy10\Lib\Core\IdTCPClient.pas
+CursorX=39
+CursorY=147
+TopLine=126
+LeftCol=1
+
+[View2]
+Module=c:\program files (x86)\borland\delphi7\Comp\Indy10\Lib\Core\IdTCPConnection.pas
+CursorX=33
+CursorY=444
+TopLine=424
+LeftCol=1
+
+[View3]
+Module=c:\program files (x86)\borland\delphi7\Comp\Indy10\Lib\Core\IdIOHandlerSocket.pas
+CursorX=33
+CursorY=166
+TopLine=146
+LeftCol=1
+
+[View4]
+Module=c:\program files (x86)\borland\delphi7\Comp\Indy10\Lib\Core\IdIOHandler.pas
+CursorX=26
+CursorY=1684
+TopLine=1668
+LeftCol=1
+
+[View5]
+Module=c:\program files (x86)\borland\delphi7\Comp\Indy10\Lib\Core\IdBuffer.pas
+CursorX=44
+CursorY=519
+TopLine=502
+LeftCol=1
 
 [TypeLibEditWindow0]
 Create=1
@@ -413,6 +524,38 @@ Column1Width=100
 Column2Width=545
 EntryPointPane=225
 CompUnitPane=104
+
+[CodeExplorer@EditWindow0]
+Create=1
+Visible=0
+State=0
+Left=-124
+Top=-6
+Width=140
+Height=305
+MaxLeft=-1
+MaxTop=-1
+ClientWidth=140
+ClientHeight=305
+TBDockHeight=305
+LRDockWidth=140
+Dockable=1
+
+[MessageView@EditWindow0]
+Create=1
+Visible=0
+State=0
+Left=-130
+Top=-669
+Width=443
+Height=85
+MaxLeft=-1
+MaxTop=-1
+ClientWidth=443
+ClientHeight=85
+TBDockHeight=85
+LRDockWidth=443
+Dockable=1
 
 [DockHosts]
 DockHostCount=0

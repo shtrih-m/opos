@@ -1091,7 +1091,7 @@ begin
     $FF30, // FS: Read data in buffer
     $FF31, // FS: Read data block from buffer
     $FF32, // FS: Start write buffer
-    $FF33, // FS: Write daya block in buffer
+    $FF33, // FS: Write data block in buffer
     $FF34, // FS: Create fiscalization report
     $FF35, // FS: Start correction receipt
     $FF36, // FS: Create correction receipt

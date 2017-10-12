@@ -2010,7 +2010,7 @@ begin
     $FF30: Result := 'FS: Read data in buffer';
     $FF31: Result := 'FS: Read data block from buffer';
     $FF32: Result := 'FS: Start write buffer';
-    $FF33: Result := 'FS: Write daya block in buffer';
+    $FF33: Result := 'FS: Write data block in buffer';
     $FF34: Result := 'FS: Create fiscalization report';
     $FF35: Result := 'FS: Start correction receipt';
     $FF36: Result := 'FS: Create correction receipt';

@@ -115,15 +115,18 @@ end;
 
 procedure TSocketPort.Close;
 begin
-  Logger.Debug('TSocketPort.Close.0');
+  Lock;
   try
     FConnection.Disconnect;
-    Purge;
+    if (FConnection.IOHandler <> nil)and(FConnection.IOHandler.InputBuffer <> nil) then
+    begin
+      FConnection.IOHandler.InputBuffer.Clear;
+    end;
   except
     on E: Exception do
       Logger.Error(E.Message);
   end;
-  Logger.Debug('TSocketPort.Close.1');
+  Unlock;
 end;
 
 procedure TSocketPort.Write(const Data: string);
@@ -133,7 +136,6 @@ var
 begin
   try
     Open;
-    Purge;
 
     SetLength(Buffer, Length(Data));
     for i := 1 to Length(Data) do
@@ -144,6 +146,7 @@ begin
   except
     on E: Exception do
     begin
+      Logger.Error(E.Message);
       Close;
       raise;
     end;
@@ -166,6 +169,7 @@ begin
   except
     on E: Exception do
     begin
+      Logger.Error(E.Message);
       Close;
       raise;
     end;
@@ -181,6 +185,7 @@ begin
   except
     on E: Exception do
     begin
+      Logger.Error(E.Message);
       Close;
       Result := False;
     end;
@@ -202,18 +207,13 @@ begin
   FLock.Enter;
 end;
 
-procedure TSocketPort.Purge;
-begin
-  if (FConnection.IOHandler <> nil)and(FConnection.IOHandler.InputBuffer <> nil) then
-  begin
-    FConnection.IOHandler.WriteBufferClear;
-    FConnection.IOHandler.InputBuffer.Clear;
-  end;
-end;
-
 procedure TSocketPort.Unlock;
 begin
   FLock.Leave;
+end;
+
+procedure TSocketPort.Purge;
+begin
 end;
 
 function TSocketPort.GetPortName: string;
