@@ -1666,7 +1666,7 @@ begin
     DriverParameterSubtotalText: pString := Printer.Parameters.SubtotalText;
     DriverParameterCloseRecText: pString := Printer.Parameters.CloseRecText;
     DriverParameterVoidRecText: pString := Printer.Parameters.VoidRecText;
-    DriverParameterPollInterval: pString := IntToStr(Printer.Parameters.PollInterval);
+    DriverParameterPollInterval: pString := IntToStr(Printer.Parameters.PollIntervalInSeconds);
     DriverParameterMaxRetryCount: pString := IntToStr(Printer.Parameters.MaxRetryCount);
     DriverParameterDeviceByteTimeout: pString := IntToStr(Printer.Parameters.DeviceByteTimeout);
     DriverParameterSearchByPortEnabled: pString := BoolToStr(Printer.Parameters.SearchByPortEnabled);
@@ -1761,7 +1761,7 @@ begin
     DriverParameterSubtotalText: Parameters.SubtotalText := pString;
     DriverParameterCloseRecText: Parameters.CloseRecText := pString;
     DriverParameterVoidRecText: Parameters.VoidRecText := pString;
-    DriverParameterPollInterval: Parameters.PollInterval := StrToINt(pString);
+    DriverParameterPollInterval: Parameters.PollIntervalInSeconds := StrToInt(pString);
     DriverParameterMaxRetryCount: Parameters.MaxRetryCount := StrToInt(pString);
     DriverParameterDeviceByteTimeout: Parameters.DeviceByteTimeout := StrToInt(pString);
     DriverParameterSearchByPortEnabled: Parameters.SearchByPortEnabled := StrToBool(pString);

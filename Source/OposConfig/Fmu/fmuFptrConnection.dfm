@@ -82,9 +82,9 @@ object fmFptrConnection: TfmFptrConnection
     object lblPollInterval: TLabel
       Left = 8
       Top = 288
-      Width = 90
+      Width = 117
       Height = 13
-      Caption = 'Polling interval, ms:'
+      Caption = 'Polling interval, seconds:'
     end
     object lblStatusInterval: TLabel
       Left = 8
@@ -218,8 +218,8 @@ object fmFptrConnection: TfmFptrConnection
       Top = 288
       Width = 105
       Height = 22
-      MaxValue = 0
-      MinValue = 0
+      MaxValue = 60
+      MinValue = 1
       TabOrder = 11
       Value = 0
     end

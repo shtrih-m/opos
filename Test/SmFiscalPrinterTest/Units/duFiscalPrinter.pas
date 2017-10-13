@@ -1735,7 +1735,7 @@ begin
   Parameters.MaxRetryCount := 10;
   Parameters.SearchByPortEnabled := True;
   Parameters.SearchByBaudRateEnabled := True;
-  Parameters.PollInterval := 1000;
+  Parameters.PollIntervalInSeconds := 1000;
   Parameters.StatusInterval := 1000;
   Parameters.DeviceByteTimeout := 1000;
   Parameters.LogFileEnabled := True;

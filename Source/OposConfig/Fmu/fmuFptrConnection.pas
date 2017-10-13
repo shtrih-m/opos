@@ -99,7 +99,7 @@ begin
   chbSearchByBaudRate.Checked := Parameters.SearchByBaudRateEnabled;
   chbSearchByPort.Checked := Parameters.SearchByPortEnabled;
   cbPropertyUpdateMode.ItemIndex := Parameters.PropertyUpdateMode;
-  sePollInterval.Value := Parameters.PollInterval;
+  sePollInterval.Value := Parameters.PollIntervalInSeconds;
   seStatusInterval.Value := Parameters.StatusInterval;
 
   seDepartment.Value := Parameters.Department;
@@ -134,7 +134,7 @@ begin
   Parameters.SearchByBaudRateEnabled := chbSearchByBaudRate.Checked;
   Parameters.SearchByPortEnabled := chbSearchByPort.Checked;
   Parameters.PropertyUpdateMode := cbPropertyUpdateMode.ItemIndex;
-  Parameters.PollInterval := sePollInterval.Value;
+  Parameters.PollIntervalInSeconds := sePollInterval.Value;
   Parameters.StatusInterval := seStatusInterval.Value;
   Parameters.Department := seDepartment.Value;
   Parameters.CutType := cbCutType.ItemIndex;

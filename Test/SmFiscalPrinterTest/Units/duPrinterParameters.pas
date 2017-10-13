@@ -53,7 +53,7 @@ const
   NonDefByteTimeout = 101;
   NonDefDeviceByteTimeout = 657;
   NonDefMaxRetryCount = 76;
-  NonDefPollInterval = 98;
+  NonDefPollIntervalInSeconds = 18;
   NonDefStatusInterval = 76;
   NonDefSearchByPortEnabled = True;
   NonDefSearchByBaudRateEnabled = True;
@@ -119,7 +119,7 @@ begin
   CheckEquals(DefSubtotalText, Params.SubtotalText, 'Params.SubtotalText');
   CheckEquals(DefCloseRecText, Params.CloseRecText, 'Params.CloseRecText');
   CheckEquals(DefVoidRecText, Params.VoidRecText, 'Params.VoidRecText');
-  CheckEquals(DefPollInterval, Params.PollInterval, 'Params.PollInterval');
+  CheckEquals(DefPollIntervalInSeconds, Params.PollIntervalInSeconds, 'Params.PollIntervalInSeconds');
   CheckEquals(DefMaxRetryCount, Params.MaxRetryCount, 'Params.MaxRetryCount');
   CheckEquals(DefDeviceByteTimeout, Params.DeviceByteTimeout, 'Params.DeviceByteTimeout');
   CheckEquals(DefSearchByPortEnabled, Params.SearchByPortEnabled, 'Params.SearchByPortEnabled');
@@ -190,7 +190,7 @@ begin
   Params.ByteTimeout := NonDefByteTimeout;
   Params.DeviceByteTimeout := NonDefDeviceByteTimeout;
   Params.MaxRetryCount := NonDefMaxRetryCount;
-  Params.PollInterval := NonDefPollInterval;
+  Params.PollIntervalInSeconds := NonDefPollIntervalInSeconds;
   Params.StatusInterval := NonDefStatusInterval;
   Params.SearchByPortEnabled := NonDefSearchByPortEnabled;
   Params.SearchByBaudRateEnabled := NonDefSearchByBaudRateEnabled;
@@ -242,7 +242,7 @@ begin
   CheckEquals(NonDefSubtotalText, Params.SubtotalText, 'Params.SubtotalText');
   CheckEquals(NonDefCloseRecText, Params.CloseRecText, 'Params.CloseRecText');
   CheckEquals(NonDefVoidRecText, Params.VoidRecText, 'Params.VoidRecText');
-  CheckEquals(NonDefPollInterval, Params.PollInterval, 'Params.PollInterval');
+  CheckEquals(NonDefPollIntervalInSeconds, Params.PollIntervalInSeconds, 'Params.PollIntervalInSeconds');
   CheckEquals(NonDefMaxRetryCount, Params.MaxRetryCount, 'Params.MaxRetryCount');
   CheckEquals(NonDefDeviceByteTimeout, Params.DeviceByteTimeout, 'Params.DeviceByteTimeout');
   CheckEquals(NonDefSearchByPortEnabled, Params.SearchByPortEnabled, 'Params.SearchByPortEnabled');

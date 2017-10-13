@@ -224,7 +224,7 @@ begin
       FParameters.MaxRetryCount := IniFile.ReadInteger(Section, 'MaxRetryCount', DefMaxRetryCount);
       FParameters.SearchByPortEnabled := IniFile.ReadBool(Section, 'SearchByPortEnabled', DefSearchByPortEnabled);
       FParameters.SearchByBaudRateEnabled := IniFile.ReadBool(Section, 'SearchByBaudRateEnabled', DefSearchByBaudRateEnabled);
-      FParameters.PollInterval := IniFile.ReadInteger(Section, 'PollInterval', DefPollInterval);
+      FParameters.PollIntervalInSeconds := IniFile.ReadInteger(Section, 'PollIntervalInSeconds', DefPollIntervalInSeconds);
       FParameters.DeviceByteTimeout := IniFile.ReadInteger(Section, 'DeviceByteTimeout', DefDeviceByteTimeout);
       FParameters.StatusInterval := IniFile.ReadInteger(Section, 'StatusInterval', DefStatusInterval);
       FParameters.LogFileEnabled := IniFile.ReadBool(Section, 'LogFileEnabled', DefLogFileEnabled);
@@ -388,7 +388,7 @@ begin
     IniFile.WriteInteger(Section, 'MaxRetryCount', Parameters.MaxRetryCount);
     IniFile.WriteBool(Section, 'SearchByPortEnabled', Parameters.SearchByPortEnabled);
     IniFile.WriteBool(Section, 'SearchByBaudRateEnabled', Parameters.SearchByBaudRateEnabled);
-    IniFile.WriteInteger(Section, 'PollInterval', Parameters.PollInterval);
+    IniFile.WriteInteger(Section, 'PollIntervalInSeconds', Parameters.PollIntervalInSeconds);
     IniFile.WriteInteger(Section, 'DeviceByteTimeout', Parameters.DeviceByteTimeout);
     IniFile.WriteInteger(Section, 'StatusInterval', Parameters.StatusInterval);
     IniFile.WriteBool(Section, 'LogFileEnabled', Parameters.LogFileEnabled);

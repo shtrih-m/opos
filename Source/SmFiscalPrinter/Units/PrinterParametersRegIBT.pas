@@ -259,8 +259,8 @@ begin
       if Reg.ValueExists('SearchByBaudRateEnabled') then
         Parameters.SearchByBaudRateEnabled := Reg.ReadBool('SearchByBaudRateEnabled');
 
-      if Reg.ValueExists('PollInterval') then
-        Parameters.PollInterval := Reg.ReadInteger('PollInterval');
+      if Reg.ValueExists('PollIntervalInSeconds') then
+        Parameters.PollIntervalInSeconds := Reg.ReadInteger('PollIntervalInSeconds');
 
       if Reg.ValueExists('DeviceByteTimeout') then
         Parameters.DeviceByteTimeout := Reg.ReadInteger('DeviceByteTimeout');
@@ -565,7 +565,7 @@ begin
     Reg.WriteInteger('FontNumber', Parameters.FontNumber);
     Reg.WriteInteger('ByteTimeout', Parameters.ByteTimeout);
     Reg.WriteInteger('MaxRetryCount', Parameters.MaxRetryCount);
-    Reg.WriteInteger('PollInterval', Parameters.PollInterval);
+    Reg.WriteInteger('PollIntervalInSeconds', Parameters.PollIntervalInSeconds);
 
     Reg.WriteInteger('StatusInterval', Parameters.StatusInterval);
 

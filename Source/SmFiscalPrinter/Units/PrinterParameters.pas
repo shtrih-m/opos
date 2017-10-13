@@ -251,7 +251,7 @@ const
   DefByteTimeout = 1000;
   DefDeviceByteTimeout = 1000;
   DefMaxRetryCount = 3;
-  DefPollInterval = 1000;
+  DefPollIntervalInSeconds = 5;
   DefStatusInterval = 100;
   DefSearchByPortEnabled = False;
   DefSearchByBaudRateEnabled = True;
@@ -350,7 +350,7 @@ type
     FByteTimeout: Integer;              // driver byte timeout
     FDeviceByteTimeout: Integer;        // device byte timeout
     FMaxRetryCount: Integer;
-    FPollInterval: Integer;             // printer polling interval
+    FPollIntervalInSeconds: Integer;             // printer polling interval
     FSearchByPortEnabled: Boolean;
     FSearchByBaudRateEnabled: Boolean;
     FStatusInterval: Integer;              // time to sleep when printer is busy
@@ -439,6 +439,7 @@ type
     procedure SetCutType(const Value: Integer);
     procedure SetBaudRate(const Value: Integer);
     procedure SetPortNumber(const Value: Integer);
+    procedure SetPollIntervalInSeconds(const Value: Integer);
   public
     XReport: Integer;
     FSBarcodeEnabled: Boolean;
@@ -508,7 +509,7 @@ type
     property SubtotalText: string read FSubtotalText write FSubtotalText;
     property CloseRecText: string read FCloseRecText write FCloseRecText;
     property VoidRecText: string read FVoidRecText write FVoidRecText;
-    property PollInterval: Integer read FPollInterval write FPollInterval;
+    property PollIntervalInSeconds: Integer read FPollIntervalInSeconds write SetPollIntervalInSeconds;
     property MaxRetryCount: Integer read FMaxRetryCount write FMaxRetryCount;
     property DeviceByteTimeout: Integer read FDeviceByteTimeout write SetDeviceByteTimeout;
     property SearchByPortEnabled: Boolean read FSearchByPortEnabled write FSearchByPortEnabled;
@@ -689,7 +690,7 @@ begin
   FByteTimeout := DefByteTimeout;
   FDeviceByteTimeout := DefDeviceByteTimeout;
   FMaxRetryCount := DefMaxRetryCount;
-  FPollInterval := DefPollInterval;
+  FPollIntervalInSeconds := DefPollIntervalInSeconds;
   FStatusInterval := DefStatusInterval;
   FSearchByPortEnabled := DefSearchByPortEnabled;
   FSearchByBaudRateEnabled := DefSearchByBaudRateEnabled;
@@ -844,7 +845,7 @@ begin
   Logger.Debug('MaxRetryCount: ' + IntToStr(MaxRetryCount));
   Logger.Debug('SearchByPortEnabled: ' + BoolToStr(SearchByPortEnabled));
   Logger.Debug('SearchByBaudRateEnabled: ' + BoolToStr(SearchByBaudRateEnabled));
-  Logger.Debug('PollInterval: ' + IntToStr(PollInterval));
+  Logger.Debug('PollIntervalInSeconds: ' + IntToStr(PollIntervalInSeconds));
   Logger.Debug('StatusInterval: ' + IntToStr(StatusInterval));
   Logger.Debug('DeviceByteTimeout: ' + IntToStr(DeviceByteTimeout));
   Logger.Debug('LogFileEnabled: ' + BoolToStr(LogFileEnabled));
@@ -1112,6 +1113,13 @@ end;
 function TPrinterParameters.IsLocalConnection: Boolean;
 begin
   Result := ConnectionType = ConnectionTypeLocal;
+end;
+
+procedure TPrinterParameters.SetPollIntervalInSeconds(
+  const Value: Integer);
+begin
+  if Value in [1..60] then
+    FPollIntervalInSeconds := Value;
 end;
 
 end.

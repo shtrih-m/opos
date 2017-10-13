@@ -1193,7 +1193,7 @@ begin
           Logger.Error('TSharedPrinter.DeviceProc', E);
         end;
       end;
-      SleepEx(Parameters.PollInterval);
+      SleepEx(Parameters.PollIntervalInSeconds * 1000);
     end;
   except
     on E: Exception do
