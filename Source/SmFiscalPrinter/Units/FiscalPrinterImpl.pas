@@ -663,6 +663,7 @@ begin
   TDIOFSFiscalize.CreateCommand(FDIOHandlers, DIO_FS_FISCALIZE, Self);
   TDIOFSReFiscalize.CreateCommand(FDIOHandlers, DIO_FS_REFISCALIZE, Self);
   TDIOGetPrintWidth.CreateCommand(FDIOHandlers, DIO_GET_PRINT_WIDTH, Self);
+  TDIOBarcodeHex2.CreateCommand(FDIOHandlers, DIO_PRINT_BARCODE_HEX2, Self);
 end;
 
 procedure TFiscalPrinterImpl.CreateDIOHandlers1;
@@ -724,6 +725,7 @@ begin
   TDIOFSFiscalize.CreateCommand(FDIOHandlers, DIO_FS_FISCALIZE, Self);
   TDIOFSReFiscalize.CreateCommand(FDIOHandlers, DIO_FS_REFISCALIZE, Self);
   TDIOGetPrintWidth.CreateCommand(FDIOHandlers, DIO_GET_PRINT_WIDTH, Self);
+  TDIOBarcodeHex2.CreateCommand(FDIOHandlers, DIO_PRINT_BARCODE_HEX2, Self);
 end;
 
 procedure TFiscalPrinterImpl.CreateDIOHandlers2;
@@ -786,6 +788,7 @@ begin
   TDIOFSFiscalize.CreateCommand(FDIOHandlers, DIO_FS_FISCALIZE, Self);
   TDIOFSReFiscalize.CreateCommand(FDIOHandlers, DIO_FS_REFISCALIZE, Self);
   TDIOGetPrintWidth.CreateCommand(FDIOHandlers, DIO_GET_PRINT_WIDTH, Self);
+  TDIOBarcodeHex2.CreateCommand(FDIOHandlers, DIO_PRINT_BARCODE_HEX2, Self);
 end;
 
 procedure TFiscalPrinterImpl.SetPrinter(APrinter: ISharedPrinter);

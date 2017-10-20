@@ -61,6 +61,7 @@ const
   DIO_FS_FISCALIZE              = 52; // Print FS fiscalization report
   DIO_FS_REFISCALIZE            = 53; // Print FS refiscalization report
   DIO_GET_PRINT_WIDTH           = 54; // Get print width
+  DIO_PRINT_BARCODE_HEX2        = 55; // print barcode data from hex 2
 
 
   DIO_PRINT_TEXT2                = 1000;  // print text

@@ -89,7 +89,7 @@ object fmEMail: TfmEMail
   end
   object pnlEn2: TPanel
     Left = 8
-    Top = 88
+    Top = 80
     Width = 225
     Height = 393
     BevelOuter = bvNone

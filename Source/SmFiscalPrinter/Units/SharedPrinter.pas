@@ -6,7 +6,9 @@ uses
   // VCL
   Windows, Classes, SysUtils, SyncObjs, Graphics,
   // Indy
-  IdIcmpClient,
+  IdGlobal, IdIcmpClient,
+  // JWA
+  //JwaIcmpApi,
   // Opos
   Opos, OposFptr, OposFptrUtils, OposException, OposMessages, OposSemaphore,
   // This
@@ -1408,22 +1410,147 @@ procedure TSharedPrinter.PingProc(Sender: TObject);
     until Integer(GetTickCount) > (TickCount + TimeinMilliseconds);
   end;
 
+  function DoPing: Integer;
+  var
+    IcmpClient: TIdIcmpClient;
+  begin
+    IcmpClient := TIdIcmpClient.Create;
+    try
+      IcmpClient.Protocol := 1;
+      IcmpClient.PacketSize := 24;
+      IcmpClient.IPVersion := Id_IPv4;
+      IcmpClient.Host := Parameters.RemoteHost;
+      IcmpClient.Ping('32');
+      Result := IcmpClient.ReplyStatus.MsRoundTripTime;
+    finally
+      IcmpClient.Free;
+    end;
+  end;
+
+(*
+  procedure Ping(const Address, EchoString: PChar;
+    var PingReply: TsmICMP_Echo_Reply;
+    const PingTimeout: Integer = 5000);
+  var
+    IPAddress: TipAddr;
+    ICMPPort: THandle;
+  begin
+    IPAddress := inet_addr (Address);
+    if (IPAddress = INADDR_NONE) then
+    begin
+      raise Exception.Create ('Function call inet_addr failed. ' +
+      'The IP address is probably invalid.');
+    end;
+    ICMPPort := IcmpCreateFile;
+    if (ICMPPort = INVALID_HANDLE_VALUE) then
+      raise Exception.Create ('Function call IcmpCreateFile failed.');
+    IcmpSendEcho (ICMPPort, IPAddress, EchoString, Length (EchoString), nil,
+      @PingReply, SizeOf (PingReply), PingTimeout);
+
+    PingReply.
+    case EchoReply^.Status of
+          ICMP_SUCCESS:
+            If assigned(FOnPing) then
+  //            If (not FResolveIP) then
+                FOnPing(Self, StrPas(inet_ntoa(ReplyAddress)), EchoReply^.DataSize, EchoReply^.RTT);
+  //            else
+  //              FOnPing(Self, HostName, EchoReply^.DataSize, EchoReply^.RTT);
+          DEST_NET_UNREACHABLE, DEST_HOST_UNREACHABLE:
+            If assigned(FHostUnreachable) then
+  //            If (not FResolveIP) then
+                FHostUnreachable(Self, StrPas(inet_ntoa(ReplyAddress)));
+  //            else
+  //              FHostUnreachable(Self, HostName);
+          REQ_TIMED_OUT:
+            if assigned(FOnTimeout) then
+              FOnTimeOut(Self);
+        end;
+
+
+    IcmpCloseHandle (ICMPPort);
+  end;
+
+  function DoPing2: Integer;
+  var
+    Tms, ReplySize: Integer;
+    ReqData: Pointer;
+    ReplyAddress: TInAddr;
+    EchoReply: PIPEchoReply;
+
+  begin
+    ResolveAddresses;
+    JwaIcmpApi.pas
+    If ICMPHandle = -1 then
+      raise EICMPError.Create(con_icmperr);
+    GetMem(ReqData, FPacketSize);
+    ReplySize := SizeOf(TIPEchoReply)+FPacketSize+16;
+    GetMem(EchoReply, ReplySize);
+    try
+      with IPOptions^ do
+      Begin
+        TTL := 255; // TTL 255 for a ping
+        TOS := 0; // Type of Service
+        Flags := 0;
+        OptionSize := 0;
+        OptionData := nil;
+      End;
+      FillChar(ReqData^,FPacketSize, con_datachar);
+      For Tms := 1 to FPings do
+      Begin
+        // Pinging
+        // If the operation has been aborted, exit the loop
+        Application.ProcessMessages;
+        If FAborted then
+        Begin
+          FAborted := FALSE;
+          Exit;
+        End;
+        ICMPSendEcho(ICMPHandle, NetworkAddress, ReqData, FPacketSize, IPOptions, EchoReply, ReplySize, FTimeOut);
+        ReplyAddress.S_addr := EchoReply^.Address;
+        Case EchoReply^.Status of
+          ICMP_SUCCESS:
+            If assigned(FOnPing) then
+  //            If (not FResolveIP) then
+                FOnPing(Self, StrPas(inet_ntoa(ReplyAddress)), EchoReply^.DataSize, EchoReply^.RTT);
+  //            else
+  //              FOnPing(Self, HostName, EchoReply^.DataSize, EchoReply^.RTT);
+          DEST_NET_UNREACHABLE, DEST_HOST_UNREACHABLE:
+            If assigned(FHostUnreachable) then
+  //            If (not FResolveIP) then
+                FHostUnreachable(Self, StrPas(inet_ntoa(ReplyAddress)));
+  //            else
+  //              FHostUnreachable(Self, HostName);
+          REQ_TIMED_OUT:
+            if assigned(FOnTimeout) then
+              FOnTimeOut(Self);
+        end;
+        if assigned(FOnStatus) then
+  //        If (not FResolveIP) then
+            FOnStatus(Self, EchoReply^.Status, StrPas(inet_ntoa(ReplyAddress)));
+  //        else
+  //          FOnStatus(Self, EchoReply^.Status, HostName);
+      End;
+    finally
+      If ReqData <> nil then
+        FreeMem(ReqData, FPacketSize);
+      If EchoReply <> nil then
+        FreeMem(EchoReply, ReplySize);
+    end;
+
+  end;
+  end;
+*)
 
 var
-  TickCount: Integer;
-  IcmpClient: TIdIcmpClient;
+  TimeInMs: Integer;
 begin
   Logger.Debug('TSharedPrinter.PingProc.Start');
-  IcmpClient := TIdIcmpClient.Create;
   try
-    IcmpClient.Host := Parameters.RemoteHost;
     while not FPingThread.Terminated do
     begin
       try
-        TickCount := GetTickCount;
-        IcmpClient.Ping();
-
-        Logger.Debug(Format('PING time: %d ms', [Integer(GetTickCount) - TickCount]));
+        TimeInMs := DoPing;
+        Logger.Debug(Format('PING time: %d ms', [TimeInMs]));
       except
         on E: Exception do
         begin
@@ -1436,7 +1563,6 @@ begin
     on E: Exception do
       Logger.Error('TSharedPrinter.PingProc: ', E);
   end;
-  IcmpClient.Free;
   Logger.Debug('TSharedPrinter.PingProc.End');
 end;
 

@@ -276,6 +276,7 @@ type
     procedure PrintBarcode(const Data: string; BarcodeType: Integer);
     function PrintBarcode2(const Barcode: TBarcodeRec): Integer;
     function PrintBarcodeHex(const Barcode: TBarcodeRec): Integer;
+    function PrintBarcodeHex2(const Barcode: TBarcodeRec): Integer;
     function SetAdjustmentAmount(Amount: Integer): Integer;
     function FSReadTicketHex(Number: Integer; var Ticket: string): Integer;
     function FSReadTicketStr(Number: Integer; var Ticket: string): Integer;
@@ -1936,6 +1937,21 @@ begin
   pString := Format('%s;%s;%d;%d;%d;', [
     StrToHexText(Barcode.Data),
     Barcode.Text,
+    Barcode.Height,
+    Barcode.ModuleWidth,
+    Barcode.Alignment]);
+  Result := Driver.DirectIO(DIO_PRINT_BARCODE_HEX, pData, pString);
+end;
+
+function TSMFiscalPrinter.PrintBarcodeHex2(const Barcode: TBarcodeRec): Integer;
+var
+  pData: Integer;
+  pString: WideString;
+begin
+  pData := Barcode.BarcodeType;
+  pString := Format('%s;%s;%d;%d;%d;', [
+    StrToHexText(Barcode.Data),
+    StrToHexText(Barcode.Text),
     Barcode.Height,
     Barcode.ModuleWidth,
     Barcode.Alignment]);

@@ -1,6 +1,6 @@
 object fmTimeSync: TfmTimeSync
-  Left = 678
-  Top = 285
+  Left = 916
+  Top = 297
   Width = 270
   Height = 326
   BorderIcons = []

@@ -127,6 +127,19 @@ type
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
+  { TDIOBarcodeHex2 }
+
+  TDIOBarcodeHex2 = class(TDIOHandler)
+  private
+    FPrinter: TFiscalPrinterImpl;
+    property Printer: TFiscalPrinterImpl read FPrinter;
+  public
+    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
+      APrinter: TFiscalPrinterImpl);
+
+    procedure DirectIO(var pData: Integer; var pString: WideString); override;
+  end;
+
   { TDIOStrCommand }
 
   TDIOStrCommand = class(TDIOHandler)
@@ -1021,6 +1034,46 @@ begin
     Barcode.BarcodeType := pData;
     Barcode.Data := HexToStr(GetString(pString, 1, ValueDelimiters));
     Barcode.Text := GetString(pString, 2, ValueDelimiters);
+    Barcode.Height := GetInteger(pString, 3, ValueDelimiters);
+    Barcode.ModuleWidth := GetInteger(pString, 4, ValueDelimiters);
+    Barcode.Alignment := GetInteger(pString, 5, ValueDelimiters);
+    Barcode.Parameter1 := GetInteger(pString, 6, ValueDelimiters);
+    Barcode.Parameter2 := GetInteger(pString, 7, ValueDelimiters);
+    Barcode.Parameter3 := GetInteger(pString, 8, ValueDelimiters);
+  end;
+  Printer.PrintBarcode(Barcode);
+end;
+
+{ TDIOBarcodeHex2 }
+
+constructor TDIOBarcodeHex2.CreateCommand(AOwner: TDIOHandlers;
+  ACommand: Integer; APrinter: TFiscalPrinterImpl);
+begin
+  inherited Create(AOwner, ACommand);
+  FPrinter := APrinter;
+end;
+
+procedure TDIOBarcodeHex2.DirectIO(var pData: Integer;
+  var pString: WideString);
+var
+  Barcode: TBarcodeRec;
+begin
+  if Pos(';', pString) = 0 then
+  begin
+    Barcode.BarcodeType := pData;
+    Barcode.Data := HexToStr(pString);
+    Barcode.Text := pString;
+    Barcode.Height := 100;
+    Barcode.ModuleWidth := 2;
+    Barcode.Alignment := BARCODE_ALIGNMENT_CENTER;
+    Barcode.Parameter1 := 0;
+    Barcode.Parameter2 := 0;
+    Barcode.Parameter3 := 0;
+  end else
+  begin
+    Barcode.BarcodeType := pData;
+    Barcode.Data := HexToStr(GetString(pString, 1, ValueDelimiters));
+    Barcode.Text := HexToStr(GetString(pString, 2, ValueDelimiters));
     Barcode.Height := GetInteger(pString, 3, ValueDelimiters);
     Barcode.ModuleWidth := GetInteger(pString, 4, ValueDelimiters);
     Barcode.Alignment := GetInteger(pString, 5, ValueDelimiters);
