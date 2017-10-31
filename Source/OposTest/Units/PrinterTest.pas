@@ -726,6 +726,13 @@ type
     function GetDisplayText: string; override;
   end;
 
+  { TReceiptTest13 }
+
+  TReceiptTest13 = class(TDriverTest)
+  public
+    procedure Execute; override;
+    function GetDisplayText: string; override;
+  end;
 
 implementation
 
@@ -4200,46 +4207,61 @@ end;
 
 procedure TReceiptTest12.Execute;
 var
-  pInteger: Integer;
-  pString: WideString;
+  EgaisQRCode: string;
+  Barcode: TBarcodeRec;
 begin
+  EgaisQRCode := 'https://check.egais.ru?id=a9e56cb9-21d6-4404-9f24-668020fadf6a&dt=0910141104&cn=Magazin2014 ' +
+  '418E6A105B60250CEB20F9F9A556FA4A9575B0C07EC536DE89CA868C884E296E5' +
+  '6BA7EC7762C9BEC285CB4D8CD90EEE9F9FC16F92CCF324829E70862F0DFEC1B41' +
+  '8E6A105B60250CEB20F9F9A556FA4A9575B0C07EC536DE89CA868C884E296E56B' +
+  'A7EC7762C9BEC285CB4D8CD90EEE9F9FC16F92CCF324829E70862F0DFEC1B';
+
   Check(FiscalPrinter.resetPrinter());
   FiscalPrinter.set_FiscalReceiptType(4);
   FiscalPrinter.BeginFiscalReceipt(True);
-  //FiscalPrinter.WriteFPParameter(DIO_FPTR_PARAMETER_ENABLE_PRINT, '1');
-  FiscalPrinter.DirectIO2(9, 5, '                   КАССОВЫЙ ЧЕК                    ');
-  FiscalPrinter.DirectIO2(9, 5, 'Касса:3                                      Док:49');
   FiscalPrinter.PrintRecItem('3757 Бананы 1кг', 62.9, 15000, 1, 62.9, 'кг');;
-  FiscalPrinter.PrintRecSubtotal(62.9);
-  FiscalPrinter.PrintRecSubtotalAdjustment(1, 'ОКРУГЛЕНИЕ', 0.9);
   FiscalPrinter.PrintRecTotal(0, 100000, '0');
-  FiscalPrinter.DirectIO2(9, 5, 'ИТОГ:                                        942.60');
-  FiscalPrinter.DirectIO2(9, 5, '                                                   ');
-  FiscalPrinter.DirectIO2(9, 5, 'Акция от: 25.08.2017 15:06                         ');
-  FiscalPrinter.DirectIO2(9, 5, '                                                   ');
-  FiscalPrinter.DirectIO2(9, 5, '          За эту покупку Вы могли бы получить      ');
-  FiscalPrinter.DirectIO2(9, 5, '            6 баллов Клуба Перекресток.            ');
-  FiscalPrinter.DirectIO2(9, 5, '               Спросите кассира, как               ');
-  FiscalPrinter.DirectIO2(9, 5, '---------------------------------------------------');
-  FiscalPrinter.DirectIO2(9, 5, 'Участвуйте в акции, копите наклейки                ');
-  FiscalPrinter.DirectIO2(40, 1203, '123456789012');
-  FiscalPrinter.EndFiscalReceipt(True);
 
-  // read FS document number
-  pString := '';
-  pInteger := DIO_FS_PARAMETER_LAST_DOC_NUM;
-  Check(FiscalPrinter.DirectIO(DIO_READ_FS_PARAMETER, pInteger, pString));
-  AddLine('FS document number : ' + pString);
-  // read FS document MAC
-  pString := '';
-  pInteger := DIO_FS_PARAMETER_LAST_DOC_MAC;
-  Check(FiscalPrinter.DirectIO(DIO_READ_FS_PARAMETER, pInteger, pString));
-  AddLine('FS document MAC    : ' + pString);
+  Barcode.Data :=
+    'https://check.egais.ru?id=a9e56cb9-21d6-4404-9f24-668020fadf6a&dt=0910141104&cn=Magazin2014';
+  Barcode.Text :=
+    '418E6A105B60250CEB20F9F9A556FA4A9575B0C07EC536DE89CA868C884E296E5' +
+    '6BA7EC7762C9BEC285CB4D8CD90EEE9F9FC16F92CCF324829E70862F0DFEC1B41' +
+    '8E6A105B60250CEB20F9F9A556FA4A9575B0C07EC536DE89CA868C884E296E56B' +
+    'A7EC7762C9BEC285CB4D8CD90EEE9F9FC16F92CCF324829E70862F0DFEC1B';
+
+  Barcode.Height := 100;
+  Barcode.BarcodeType := DIO_BARCODE_QRCODE2;
+  Barcode.ModuleWidth := 4;
+  Barcode.Alignment := BARCODE_ALIGNMENT_CENTER;
+  Check(FiscalPrinter.PrintBarcodeHex2(Barcode));
+
+  FiscalPrinter.EndFiscalReceipt(True);
 end;
 
 function TReceiptTest12.GetDisplayText: string;
 begin
   Result := 'ReceiptTest12';
+end;
+
+{ TReceiptTest13 }
+
+procedure TReceiptTest13.Execute;
+begin
+  Check(FiscalPrinter.resetPrinter());
+  Check(FiscalPrinter.BeginFiscalReceipt(True));
+  Check(FiscalPrinter.PrintRecItem('1:2065179 Сельдерей черешковый 1шт', 84.9, 1000, 2, 84.9, 'шт'));
+  Check(FiscalPrinter.PrintRecItem('2:2159 СПм Печень говяжья 1кг', 186.15, 692, 2, 269, 'кг'));
+  Check(FiscalPrinter.PrintRecItem('3:1536 Лимоны 1кг', 22.37, 188, 1, 119, 'кг'));
+  Check(FiscalPrinter.PrintRecSubtotal(293.42));
+  Check(FiscalPrinter.PrintRecSubtotalAdjustment(1, 'ОКРУГЛЕНИЕ', 0.42));
+  Check(FiscalPrinter.PrintRecTotal(0, 300, '0'));
+  Check(FiscalPrinter.EndFiscalReceipt(True));
+end;
+
+function TReceiptTest13.GetDisplayText: string;
+begin
+  Result := 'ReceiptTest13';
 end;
 
 end.

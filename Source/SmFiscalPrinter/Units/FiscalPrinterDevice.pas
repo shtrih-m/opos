@@ -126,7 +126,7 @@ type
       HScale: Integer; PrintWidthInDots: Integer);
     function PrintBarcode2D(const Barcode: TBarcode2D): Integer;
     function LoadBarcode2D(const Data: TBarcode2DData): Integer;
-    function PrintQRCode2D(const Barcode: TBarcodeRec): Integer;
+    function PrintQRCode2D(Barcode: TBarcodeRec): Integer;
     function GetMaxGraphicsHeight: Integer;
     function GetMaxGraphicsWidth: Integer;
     procedure LoadBitmap320(StartLine: Integer; Bitmap: TBitmap);
@@ -5290,6 +5290,11 @@ begin
     if (ABarcode.BarcodeType in [
       DIO_BARCODE_QRCODE, DIO_BARCODE_QRCODE2, DIO_BARCODE_QRCODE4])and FCapBarcode2D then
     begin
+      if (ABarcode.BarcodeType in [DIO_BARCODE_QRCODE2, DIO_BARCODE_QRCODE4]) then
+      begin
+        ABarcode.Data := ABarcode.Data + ' ' + ABarcode.Text;
+        ABarcode.Text := '';
+      end;
       Check(PrintQRCode2D(ABarcode))
     end else
     begin
@@ -5308,7 +5313,7 @@ begin
   WaitForPrinting;
 end;
 
-function TFiscalPrinterDevice.PrintQRCode2D(const Barcode: TBarcodeRec): Integer;
+function TFiscalPrinterDevice.PrintQRCode2D(Barcode: TBarcodeRec): Integer;
 
   // 0	По левому краю
   // 1	По центру
@@ -5331,6 +5336,7 @@ var
   Barcode2D: TBarcode2D;
   Block: TBarcode2DData;
 begin
+  Barcode.Data := Barcode.Data + #0;
   Count := (Length(Barcode.Data) + DATA_BLOCK_SIZE -1) div DATA_BLOCK_SIZE;
   for i := 0 to Count-1 do
   begin

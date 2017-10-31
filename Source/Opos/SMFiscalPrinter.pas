@@ -1955,7 +1955,7 @@ begin
     Barcode.Height,
     Barcode.ModuleWidth,
     Barcode.Alignment]);
-  Result := Driver.DirectIO(DIO_PRINT_BARCODE_HEX, pData, pString);
+  Result := Driver.DirectIO(DIO_PRINT_BARCODE_HEX2, pData, pString);
 end;
 
 function TSMFiscalPrinter.SetAdjustmentAmount(Amount: Integer): Integer;
