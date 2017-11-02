@@ -34,15 +34,18 @@ type
     function GetMaxCount: Integer;
     function GetEnabled: Boolean;
     function GetFilePath: string;
+    function GetDeviceName: string;
     procedure SetEnabled(Value: Boolean);
     procedure SetFilePath(const Value: string);
     procedure SetSeparator(const Value: string);
     procedure SetMaxCount(const Value: Integer);
+    procedure SetDeviceName(const Value: string);
 
     property Enabled: Boolean read GetEnabled write SetEnabled;
     property FilePath: string read GetFilePath write SetFilePath;
     property MaxCount: Integer read GetMaxCount write SetMaxCount;
     property Separator: string read GetSeparator write SetSeparator;
+    property DeviceName: string read GetDeviceName write SetDeviceName;
   end;
 
 
@@ -57,6 +60,7 @@ type
     FSeparator: string;
     FMaxCount: Integer;
     FLock: TCriticalSection;
+    FDeviceName: string;
 
     procedure OpenFile;
     procedure CloseFile;
@@ -81,6 +85,8 @@ type
     procedure SetEnabled(Value: Boolean);
     function GetFilePath: string;
     procedure SetFilePath(const Value: string);
+    function GetDeviceName: string;
+    procedure SetDeviceName(const Value: string);
   public
     constructor Create;
     destructor Destroy; override;
@@ -112,6 +118,7 @@ type
     property FileName: string read FFileName write SetFileName;
     property MaxCount: Integer read GetMaxCount write SetMaxCount;
     property Separator: string read GetSeparator write SetSeparator;
+    property DeviceName: string read GetDeviceName write SetDeviceName;
   end;
 
 implementation
@@ -236,6 +243,7 @@ begin
   inherited Create;
   FLock := TCriticalSection.Create;
   FHandle := INVALID_HANDLE_VALUE;
+  FDeviceName := 'Device1';
   FSeparator := SDefaultSeparator;
   SetDefaults;
 end;
@@ -261,8 +269,7 @@ end;
 
 function TLogFile.GetFileName: string;
 begin
-  Result := IncludeTrailingBackSlash(FilePath) +
-    ChangeFileExt(ExtractFileName(ExpandFileName(GetModuleFileName)), '') + '_' +
+  Result := IncludeTrailingBackSlash(FilePath) + DeviceName + '_' +
     FormatDateTime('yyyy.mm.dd', Date) + '.log';
 end;
 
@@ -637,6 +644,16 @@ end;
 procedure TLogFile.SetFilePath(const Value: string);
 begin
   FFilePath := Value;
+end;
+
+function TLogFile.GetDeviceName: string;
+begin
+  Result := FDeviceName;
+end;
+
+procedure TLogFile.SetDeviceName(const Value: string);
+begin
+  FDeviceName := Value;
 end;
 
 end.
