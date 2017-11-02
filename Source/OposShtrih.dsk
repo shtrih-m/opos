@@ -1,14 +1,14 @@
 [Closed Files]
-File_0=SourceModule,'C:\projects\OPOSShtrih\Source\OposTest\Units\PrinterTest.pas',0,1,4208,2,4210,0,0
-File_1=SourceModule,'C:\projects\OPOSShtrih\Source\Opos\SMFiscalPrinter.pas',0,1,1949,41,1958,0,0
-File_2=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\DirectIOAPI.pas',0,1,35,1,53,0,0
-File_3=SourceModule,'C:\projects\OPOSShtrih\Source\Shared\DIOHandlers.pas',0,1,1056,23,1085,0,0
-File_4=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\SharedPrinter.pas',0,1,1,1,1,0,0
-File_5=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterDevice.pas',0,1,5265,35,5268,0,0
-File_6=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterImpl.pas',0,1,1,1,1,0,0
-File_7=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\CustomReceipt.pas',0,1,484,32,486,0,0
-File_8=SourceModule,'C:\projects\OPOSShtrih\Source\Shared\LogFile.pas',0,1,37,10,50,0,0
-File_9=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\DriverContext.pas',0,1,10,39,26,0,0
+File_0=SourceModule,'C:\projects\OPOSShtrih\Test\SmFiscalPrinterTest\Units\duResourceString.pas',0,1,1,1,1,0,0
+File_1=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterImpl.pas',0,1,616,17,628,0,0
+File_2=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\oleXmlParams.pas',0,1,1,1,1,0,0
+File_3=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\oleCashDrawer.pas',0,1,1,45,15,0,0
+File_4=SourceModule,'C:\projects\OPOSShtrih\Test\SmFiscalPrinterTest\Units\duDfmFile.pas',0,1,101,98,107,0,0
+File_5=SourceModule,'C:\projects\OPOSShtrih\Source\Shared\DIOHandlers.pas',0,1,1,1,1,0,0
+File_6=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\DirectIOAPI.pas',0,1,1,1,25,0,0
+File_7=SourceModule,'C:\projects\OPOSShtrih\Test\SmFiscalPrinterTest\Units\TextFiscalPrinterDevice.pas',0,1,1696,3,1711,0,0
+File_8=SourceModule,'C:\projects\OPOSShtrih\Test\SmFiscalPrinterTest\Units\MockFiscalPrinterDevice.pas',0,1,1676,46,1694,0,0
+File_9=SourceModule,'C:\projects\OPOSShtrih\Source\SmFptrSrv\Units\oleMain.pas',0,1,1,64,12,0,0
 
 [Modules]
 Count=0
@@ -22,6 +22,8 @@ FormOnTop=0
 [C:\projects\OPOSShtrih\Source\OposConfig\OposConfig.dpr]
 FormState=0
 FormOnTop=0
+SymbolFile=C:\projects\OPOSShtrih\Source\OposConfig\OposConfig.dsm
+ModSinceCompile=1
 
 [C:\projects\OPOSShtrih\Source\OposTest\OposTest.dpr]
 FormState=0
@@ -32,6 +34,8 @@ ModSinceCompile=1
 [C:\projects\OPOSShtrih\Source\SmFiscalPrinter\SmFiscalPrinter.dpr]
 FormState=0
 FormOnTop=0
+SymbolFile=C:\projects\OPOSShtrih\Source\SmFiscalPrinter\SmFiscalPrinter.dsm
+ModSinceCompile=1
 
 [C:\projects\OPOSShtrih\Source\SmFiscalPrinter\SmFiscalPrinter.todo]
 FormState=0
@@ -44,10 +48,14 @@ FormOnTop=0
 [C:\projects\OPOSShtrih\Source\SmFiscalPrinter\RUS\SmFiscalPrinter.dpr]
 FormState=0
 FormOnTop=0
+SymbolFile=C:\projects\OPOSShtrih\Source\SmFiscalPrinter\RUS\SmFiscalPrinter.dsm
+ModSinceCompile=1
 
 [C:\projects\OPOSShtrih\Source\SmScale\SmScale.dpr]
 FormState=0
 FormOnTop=0
+SymbolFile=C:\projects\OPOSShtrih\Source\SmScale\SmScale.dsm
+ModSinceCompile=1
 
 [C:\projects\OPOSShtrih\Source\SmScale\SmScale.tlb]
 FormState=0
@@ -56,6 +64,8 @@ FormOnTop=0
 [C:\projects\OPOSShtrih\Source\SmFptrSrv\SmFptrSrv.dpr]
 FormState=0
 FormOnTop=0
+SymbolFile=C:\projects\OPOSShtrih\Source\SmFptrSrv\SmFptrSrv.dsm
+ModSinceCompile=1
 
 [C:\projects\OPOSShtrih\Source\SmFptrSrv\SmFptrSrv.tlb]
 FormState=0
@@ -64,32 +74,68 @@ FormOnTop=0
 [C:\projects\OPOSShtrih\Test\OposConfigTest\OposConfigTest.dpr]
 FormState=0
 FormOnTop=0
+SymbolFile=C:\projects\OPOSShtrih\Test\OposConfigTest\OposConfigTest.dsm
+ModSinceCompile=1
 
 [C:\projects\OPOSShtrih\Test\OposConfigTest\OposConfigTestLib.dpr]
 FormState=0
 FormOnTop=0
+SymbolFile=C:\projects\OPOSShtrih\Test\OposConfigTest\OposConfigTestLib.dsm
+ModSinceCompile=1
 
 [C:\projects\OPOSShtrih\Test\SmFiscalPrinterTest\SmFiscalPrinterTest.dpr]
 FormState=0
 FormOnTop=0
+SymbolFile=C:\projects\OPOSShtrih\Test\SmFiscalPrinterTest\SmFiscalPrinterTest.dsm
+ModSinceCompile=0
 
 [C:\projects\OPOSShtrih\Test\SmFiscalPrinterTest\SmFiscalPrinterTestLib.dpr]
 FormState=0
 FormOnTop=0
+SymbolFile=C:\projects\OPOSShtrih\Test\SmFiscalPrinterTest\SmFiscalPrinterTestLib.dsm
+ModSinceCompile=1
 
 [C:\projects\OPOSShtrih\Test\OposTestTest\OposTestTest.dpr]
 FormState=0
 FormOnTop=0
+SymbolFile=C:\projects\OPOSShtrih\Test\OposTestTest\OposTestTest.dsm
+ModSinceCompile=1
 
 [C:\projects\OPOSShtrih\Test\OposTestTest\OposTestTestLib.dpr]
 FormState=0
 FormOnTop=0
+SymbolFile=C:\projects\OPOSShtrih\Test\OposTestTest\OposTestTestLib.dsm
+ModSinceCompile=1
 
 [C:\projects\OPOSShtrih\Test\SmScaleTest\SmScaleTest.dpr]
 FormState=0
 FormOnTop=0
+SymbolFile=C:\projects\OPOSShtrih\Test\SmScaleTest\SmScaleTest.dsm
+ModSinceCompile=1
 
 [C:\projects\OPOSShtrih\Test\SmScaleTest\SmScaleTestLib.dpr]
+FormState=0
+FormOnTop=0
+SymbolFile=C:\projects\OPOSShtrih\Test\SmScaleTest\SmScaleTestLib.dsm
+ModSinceCompile=1
+
+[C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Fmu\fmuLogo.pas]
+FormState=0
+FormOnTop=0
+
+[C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Fmu\fmuPhone.pas]
+FormState=0
+FormOnTop=0
+
+[C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Fmu\fmuSelect.pas]
+FormState=0
+FormOnTop=0
+
+[C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Fmu\fmuEMail.pas]
+FormState=0
+FormOnTop=0
+
+[C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Fmu\fmuTimeSync.pas]
 FormState=0
 FormOnTop=0
 
@@ -163,7 +209,8 @@ LRDockWidth=320
 Dockable=1
 
 [Breakpoints]
-Count=0
+Count=1
+Breakpoint0='C:\projects\OPOSShtrih\Source\Opos\SMFiscalPrinter.pas',1958,'',0,1,'',1,0,0,'',1,'','',''
 
 [AddressBreakpoints]
 Count=0
@@ -188,7 +235,7 @@ Create=1
 Visible=1
 State=0
 Left=2
-Top=118
+Top=122
 Width=525
 Height=521
 MaxLeft=-1
@@ -231,7 +278,7 @@ ClientHeight=60
 
 [PropertyInspector]
 Create=1
-Visible=1
+Visible=0
 State=0
 Left=0
 Top=108
@@ -420,5 +467,5 @@ CompUnitPane=104
 DockHostCount=0
 
 [ActiveProject]
-ActiveProject=2
+ActiveProject=9
 

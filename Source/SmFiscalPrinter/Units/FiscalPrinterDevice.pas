@@ -215,8 +215,8 @@ type
     function SetPortParams(Port: Byte; const PortParams: TPortParams): Integer;
     procedure PrintDocHeader(const DocName: string; DocNumber: Word);
     procedure StartTest(Interval: Byte);
-    function ReadCashRegister(ID: Byte): Int64;
-    function ReadCashReg(ID: Byte; var R: TCashRegisterRec): Integer;
+    function ReadCashRegister(ID: Integer): Int64;
+    function ReadCashReg2(RegID: Integer): Int64;
     function ReadOperatingRegister(ID: Byte): Word;
     function ReadOperatingReg(ID: Byte; var R: TOperRegisterRec): Integer;
     procedure WriteLicense(License: Int64);
@@ -426,6 +426,7 @@ type
     function GetPrinterStatus: TPrinterStatus;
     function IsCapBarcode2D: Boolean;
     function IsCapEnablePrint: Boolean;
+    function ReadCashReg(ID: Integer; var R: TCashRegisterRec): Integer;
 
     property IsOnline: Boolean read GetIsOnline;
     property Tables: TPrinterTables read FTables;
@@ -1845,7 +1846,7 @@ end;
 
 ******************************************************************************)
 
-function TFiscalPrinterDevice.ReadCashReg(ID: Byte; var R: TCashRegisterRec): Integer;
+function TFiscalPrinterDevice.ReadCashReg(ID: Integer; var R: TCashRegisterRec): Integer;
 var
   Stream: TBinStream;
 begin
@@ -1855,7 +1856,10 @@ begin
   try
     Stream.WriteByte(SMFP_COMMAND_READ_CASH_TOTALIZER);
     Stream.WriteDWORD(GetUsrPassword);
-    Stream.WriteByte(ID);
+    if (ID <= $FF) then
+      Stream.WriteByte(ID)
+    else
+      Stream.WriteWord(ID);
     Result := ExecuteStream(Stream);
     if Result = 0 then
     begin
@@ -1867,7 +1871,76 @@ begin
   end;
 end;
 
-function TFiscalPrinterDevice.ReadCashRegister(ID: Byte): Int64;
+function TFiscalPrinterDevice.ReadCashReg2(RegID: Integer): Int64;
+
+  function ReadDayTotals(RecType: Integer): Int64;
+  var
+    i: Integer;
+  begin
+    Result := 0;
+    for i := 0 to 15 do
+    begin
+      Result := Result + ReadCashRegister(121 + RecType + i*4);
+    end;
+  end;
+
+var
+  T: TFMTotals;
+begin
+  case RegID of
+    SMFPTR_CASHREG_GRAND_TOTAL:
+    begin
+      T := ReadFPTotals(0);
+      Result := T.SaleTotal - T.BuyTotal - T.RetSale + T.RetBuy;
+    end;
+
+    SMFPTR_CASHREG_LASTFISC_TOTAL:
+    begin
+      T := ReadFPTotals(1);
+      Result := T.SaleTotal - T.BuyTotal - T.RetSale + T.RetBuy;
+    end;
+
+    SMFPTR_CASHREG_DAY_TOTAL_SALE:
+      Result := ReadDayTotals(0);
+
+    SMFPTR_CASHREG_DAY_TOTAL_RETSALE:
+      Result := ReadDayTotals(2);
+
+    SMFPTR_CASHREG_DAY_TOTAL_BUY:
+      Result := ReadDayTotals(1);
+
+    SMFPTR_CASHREG_DAY_TOTAL_RETBUY:
+      Result := ReadDayTotals(3);
+
+    SMFPTR_CASHREG_GRAND_TOTAL_SALE:
+    begin
+      T := ReadFPTotals(0);
+      Result := T.SaleTotal;
+    end;
+
+    SMFPTR_CASHREG_GRAND_TOTAL_RETSALE:
+    begin
+      T := ReadFPTotals(0);
+      Result := T.RetSale;
+    end;
+
+    SMFPTR_CASHREG_GRAND_TOTAL_BUY:
+    begin
+      T := ReadFPTotals(0);
+      Result := T.BuyTotal;
+    end;
+
+    SMFPTR_CASHREG_GRAND_TOTAL_RETBUY:
+    begin
+      T := ReadFPTotals(0);
+      Result := T.RetBuy;
+    end;
+  else
+    Result := ReadCashRegister(RegID);
+  end;
+end;
+
+function TFiscalPrinterDevice.ReadCashRegister(ID: Integer): Int64;
 var
   R: TCashRegisterRec;
 begin

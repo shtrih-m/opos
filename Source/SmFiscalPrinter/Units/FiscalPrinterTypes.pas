@@ -270,8 +270,9 @@ type
     function PrintBoldString(Flags: Byte; const Text: string): Integer;
     function Beep: Integer;
     function GetPortParams(Port: Byte): TPortParams;
-    function ReadCashRegister(ID: Byte): Int64;
-    function ReadCashReg(ID: Byte; var R: TCashRegisterRec): Integer;
+    function ReadCashReg2(RegID: Integer): Int64;
+    function ReadCashRegister(ID: Integer): Int64;
+    function ReadCashReg(ID: Integer; var R: TCashRegisterRec): Integer;
     function ReadOperatingRegister(ID: Byte): Word;
     function ReadOperatingReg(ID: Byte; var R: TOperRegisterRec): Integer;
     function ReadLicense: Int64;

@@ -41,7 +41,7 @@ begin
   end;
 end;
 
-initialization
-  RegisterTest('', TICMPClientTest.Suite);
+//initialization
+//  RegisterTest('', TICMPClientTest.Suite);
 
 end.

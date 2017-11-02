@@ -107,8 +107,11 @@ type
     function PrintBoldString(Flags: Byte; const Text: string): Integer;
     function Beep: Integer;
     function GetPortParams(Port: Byte): TPortParams;
-    function ReadCashRegister(ID: Byte): Int64;
-    function ReadCashReg(ID: Byte; var R: TCashRegisterRec): Integer;
+
+    function ReadCashReg2(RegID: Integer): Int64;
+    function ReadCashRegister(ID: Integer): Int64;
+    function ReadCashReg(ID: Integer; var R: TCashRegisterRec): Integer;
+
     function ReadOperatingRegister(ID: Byte): Word;
     function ReadOperatingReg(ID: Byte; var R: TOperRegisterRec): Integer;
     function ReadLicense: Int64;
@@ -793,7 +796,7 @@ begin
   Result := 0;
 end;
 
-function TTextFiscalPrinterDevice.ReadCashRegister(ID: Byte): Int64;
+function TTextFiscalPrinterDevice.ReadCashRegister(ID: Integer): Int64;
 begin
   Result := 0;
 end;
@@ -1177,7 +1180,7 @@ begin
   Result := 0;
 end;
 
-function TTextFiscalPrinterDevice.ReadCashReg(ID: Byte;
+function TTextFiscalPrinterDevice.ReadCashReg(ID: Integer;
   var R: TCashRegisterRec): Integer;
 begin
   Result := 0;
@@ -1701,6 +1704,11 @@ end;
 function TTextFiscalPrinterDevice.IsCapEnablePrint: Boolean;
 begin
   Result := True;
+end;
+
+function TTextFiscalPrinterDevice.ReadCashReg2(RegID: Integer): Int64;
+begin
+  Result := 0;
 end;
 
 end.

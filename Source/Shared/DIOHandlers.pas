@@ -319,7 +319,6 @@ type
   private
     FPrinter: TFiscalPrinterImpl;
     property Printer: TFiscalPrinterImpl read FPrinter;
-    function ReadFMTotal(Flags: Integer): Int64;
   public
     constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
       APrinter: TFiscalPrinterImpl);
@@ -1442,23 +1441,10 @@ begin
   FPrinter := APrinter;
 end;
 
-function TDIOReadCashRegister.ReadFMTotal(Flags: Integer): Int64;
-var
-  Totals: TFMTotals;
-begin
-  Totals := Printer.Device.ReadFPTotals(Flags);
-  Result := Totals.SaleTotal - Totals.BuyTotal - Totals.RetSale + Totals.RetBuy;
-end;
-
 procedure TDIOReadCashRegister.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
-  case pData of
-    1000: pString := IntToStr(ReadFMTotal(0));
-    1001: pString := IntToStr(ReadFMTotal(1));
-  else
-    pString := IntTostr(Printer.Printer.Device.ReadCashRegister(pData));
-  end;
+  pString := IntTostr(Printer.Printer.Device.ReadCashReg2(pData));
 end;
 
 { TDIOReadOperatingRegister }

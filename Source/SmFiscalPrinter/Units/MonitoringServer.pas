@@ -276,7 +276,7 @@ begin
     Result := 'WRONG_PARAM';
     Exit;
   end;
-  Result := IntToStr(Device.ReadCashRegister(V));
+  Result := IntToStr(Device.ReadCashReg2(V));
 end;
 
 (*

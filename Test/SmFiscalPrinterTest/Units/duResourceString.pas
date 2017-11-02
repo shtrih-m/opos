@@ -46,7 +46,7 @@ begin
   end;
 end;
 
-initialization
-  RegisterTest('', TResourceStringTest.Suite);
+//initialization
+//  RegisterTest('', TResourceStringTest.Suite);
 
 end.

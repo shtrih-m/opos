@@ -19,6 +19,7 @@ type
     function ReadDWord: DWORD;
     function ReadChar: Char;
     procedure WriteByte(Value: Byte);
+    procedure WriteWORD(Value: WORD);
     procedure WriteDWORD(Value: DWORD);
     function ReadString: string; overload;
     function ReadString(Size: Integer): string; overload;
@@ -83,6 +84,11 @@ end;
 procedure TBinStream.WriteByte(Value: Byte);
 begin
   Write(Value, 1);
+end;
+
+procedure TBinStream.WriteWORD(Value: WORD);
+begin
+  Write(Value, 2);
 end;
 
 procedure TBinStream.WriteDWORD(Value: DWORD);

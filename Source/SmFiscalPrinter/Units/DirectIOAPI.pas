@@ -7,6 +7,24 @@ uses
   Windows;
 
 const
+  /////////////////////////////////////////////////////////////////////////////
+  // Virtual cash registers for DIO_READ_CASH_REG request
+
+  SMFPTR_CASHREG_GRAND_TOTAL          = 1000;
+  SMFPTR_CASHREG_LASTFISC_TOTAL       = 1001;
+  // Day totals
+  SMFPTR_CASHREG_DAY_TOTAL_SALE       = 1002;
+  SMFPTR_CASHREG_DAY_TOTAL_RETSALE    = 1003;
+  SMFPTR_CASHREG_DAY_TOTAL_BUY        = 1004;
+  SMFPTR_CASHREG_DAY_TOTAL_RETBUY     = 1005;
+  // grand totals
+  SMFPTR_CASHREG_GRAND_TOTAL_SALE     = 1006;
+  SMFPTR_CASHREG_GRAND_TOTAL_RETSALE  = 1007;
+  SMFPTR_CASHREG_GRAND_TOTAL_BUY      = 1008;
+  SMFPTR_CASHREG_GRAND_TOTAL_RETBUY   = 1009;
+
+
+const
   DIO_COMMAND_PRINTER_XML       = 1;
   DIO_COMMAND_PRINTER_HEX       = 2;
   DIO_CHECK_END_DAY             = 3;

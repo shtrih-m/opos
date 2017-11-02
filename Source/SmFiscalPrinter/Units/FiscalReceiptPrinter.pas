@@ -140,7 +140,7 @@ end;
 
 function TFiscalReceiptPrinter.ReadCashRegister(ID: Byte): Int64;
 begin
-  Result := Device.ReadCashRegister(ID);
+  Result := Device.ReadCashReg2(ID);
 end;
 
 function TFiscalReceiptPrinter.ReadOperatingRegister(ID: Byte): Word;

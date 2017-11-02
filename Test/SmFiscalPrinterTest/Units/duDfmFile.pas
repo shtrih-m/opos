@@ -111,7 +111,7 @@ var
   FilePath: string;
 begin
   FilePath := IncludeTrailingPathDelimiter(ExtractFilePath(
-    FileUtils.GetModuleFileName)) + '..\..\..\Source\SmFiscalPrinter\';
+    FileUtils.GetModuleFileName)) + '..\..\..\Source\SmFiscalPrinter\Fmu';
   CheckDfmFilePath(FilePath);
 end;
 
