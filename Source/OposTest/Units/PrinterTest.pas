@@ -4249,13 +4249,11 @@ end;
 procedure TReceiptTest13.Execute;
 begin
   Check(FiscalPrinter.resetPrinter());
+  FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
   Check(FiscalPrinter.BeginFiscalReceipt(True));
-  Check(FiscalPrinter.PrintRecItem('1:2065179 Сельдерей черешковый 1шт', 84.9, 1000, 2, 84.9, 'шт'));
-  Check(FiscalPrinter.PrintRecItem('2:2159 СПм Печень говяжья 1кг', 186.15, 692, 2, 269, 'кг'));
-  Check(FiscalPrinter.PrintRecItem('3:1536 Лимоны 1кг', 22.37, 188, 1, 119, 'кг'));
-  Check(FiscalPrinter.PrintRecSubtotal(293.42));
-  Check(FiscalPrinter.PrintRecSubtotalAdjustment(1, 'ОКРУГЛЕНИЕ', 0.42));
-  Check(FiscalPrinter.PrintRecTotal(0, 300, '0'));
+  Check(FiscalPrinter.PrintRecItemRefund('AI-92', 499.98, 15290, 4, 32.7, ''));
+  Check(FiscalPrinter.PrintRecSubtotalAdjustment(1, 'Discount', 0.98));
+  Check(FiscalPrinter.PrintRecTotal(499, 499, '0'));
   Check(FiscalPrinter.EndFiscalReceipt(True));
 end;
 
