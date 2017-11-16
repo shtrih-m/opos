@@ -4248,12 +4248,20 @@ end;
 
 procedure TReceiptTest13.Execute;
 begin
-  Check(FiscalPrinter.resetPrinter());
+  //Check(FiscalPrinter.resetPrinter());
   FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
   Check(FiscalPrinter.BeginFiscalReceipt(True));
+  Check(FiscalPrinter.PrintRecMessage('PrintRecMessage1'));
   Check(FiscalPrinter.PrintRecItemRefund('AI-92', 499.98, 15290, 4, 32.7, ''));
+  Check(FiscalPrinter.PrintRecMessage('PrintRecMessage2'));
   Check(FiscalPrinter.PrintRecSubtotalAdjustment(1, 'Discount', 0.98));
+  Check(FiscalPrinter.PrintRecMessage('PrintRecMessage3'));
   Check(FiscalPrinter.PrintRecTotal(499, 499, '0'));
+  Check(FiscalPrinter.PrintRecMessage('PrintRecMessage4'));
+  Check(FiscalPrinter.PrintRecMessage('PrintRecMessage5'));
+  Check(FiscalPrinter.PrintRecMessage('PrintRecMessage6'));
+  Check(FiscalPrinter.PrintRecMessage('PrintRecMessage7'));
+  Check(FiscalPrinter.PrintRecMessage('PrintRecMessage8'));
   Check(FiscalPrinter.EndFiscalReceipt(True));
 end;
 

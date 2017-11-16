@@ -2481,6 +2481,7 @@ begin
       Device.PrintBarcode2((ReceiptItem as TBarcodeReceiptItem).Data);
     end;
   end;
+  Items.Clear;
 end;
 
 function TFiscalPrinterImpl.EndFiscalReceipt(PrintHeader: WordBool): Integer;
