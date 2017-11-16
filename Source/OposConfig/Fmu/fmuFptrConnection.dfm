@@ -2,7 +2,7 @@ object fmFptrConnection: TfmFptrConnection
   Left = 375
   Top = 200
   Width = 512
-  Height = 460
+  Height = 498
   Caption = 'Connection'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -221,7 +221,7 @@ object fmFptrConnection: TfmFptrConnection
       MaxValue = 60
       MinValue = 1
       TabOrder = 11
-      Value = 0
+      Value = 1
     end
     object seStatusInterval: TSpinEdit
       Left = 136
@@ -274,11 +274,11 @@ object fmFptrConnection: TfmFptrConnection
     Left = 264
     Top = 8
     Width = 225
-    Height = 305
+    Height = 329
     TabOrder = 1
     DesignSize = (
       225
-      305)
+      329)
     object lblDefaultDepartment: TLabel
       Left = 8
       Top = 16
@@ -496,12 +496,20 @@ object fmFptrConnection: TfmFptrConnection
       Caption = 'Zero receipt before Z report (day closed)'
       TabOrder = 11
     end
+    object chbOpenReceiptEnabled: TCheckBox
+      Left = 8
+      Top = 304
+      Width = 214
+      Height = 17
+      Caption = 'Open receipt in beginFiscalReceipt'
+      TabOrder = 12
+    end
   end
   object gbPassword: TGroupBox
     Left = 264
-    Top = 320
+    Top = 344
     Width = 225
-    Height = 89
+    Height = 73
     Caption = 'Passwords'
     TabOrder = 2
     object lblUsrPassword: TLabel

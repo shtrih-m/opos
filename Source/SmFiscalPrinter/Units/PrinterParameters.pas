@@ -329,6 +329,7 @@ const
   DefVatCodeEnabled = False;
   DefHandleErrorCode = False;
   DefPrintUnitName = False;
+  DefOpenReceiptEnabled = False;
 
 type
   { TPrinterParameters }
@@ -484,6 +485,7 @@ type
     Parameter9: string;
     Parameter10: string;
     PrintUnitName: Boolean;
+    OpenReceiptEnabled: Boolean;
   public
     constructor Create(ALogger: ILogFile);
     destructor Destroy; override;
@@ -795,6 +797,7 @@ begin
   FSServiceEnabled := False;
   PrinterProtocol := DefPrinterProtocol;
   PrintUnitName := DefPrintUnitName;
+  OpenReceiptEnabled := DefOpenReceiptEnabled;
 end;
 
 procedure TPrinterParameters.LogText(const Caption, Text: string);
@@ -919,6 +922,8 @@ begin
   Logger.Debug('HandleErrorCode: ' + BoolToStr(HandleErrorCode));
   Logger.Debug('FSServiceEnabled: ' + BoolToStr(FSServiceEnabled));
   Logger.Debug('PrintUnitName: ' + BoolToStr(PrintUnitName));
+  Logger.Debug('OpenReceiptEnabled: ' + BoolToStr(OpenReceiptEnabled));
+
 
   for i := 0 to PayTypes.Count-1 do
   begin

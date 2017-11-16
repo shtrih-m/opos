@@ -71,6 +71,7 @@ type
     chbZReceiptBeforeZReport: TCheckBox;
     lblPrinterProtocol: TLabel;
     cbPrinterProtocol: TComboBox;
+    chbOpenReceiptEnabled: TCheckBox;
     procedure FormCreate(Sender: TObject);
   public
     procedure UpdatePage; override;
@@ -119,6 +120,7 @@ begin
   cbStorage.ItemIndex := Parameters.Storage;
   seStatusTimeout.Value := Parameters.StatusTimeout;
   chbZReceiptBeforeZReport.Checked := Parameters.ZReceiptBeforeZReport;
+  chbOpenReceiptEnabled.Checked := Parameters.OpenReceiptEnabled;
 end;
 
 procedure TfmFptrConnection.UpdateObject;
@@ -152,6 +154,7 @@ begin
   Parameters.CacheReceiptNumber := chbCacheReceiptNumber.Checked;
   Parameters.StatusTimeout := seStatusTimeout.Value;
   Parameters.ZReceiptBeforeZReport := chbZReceiptBeforeZReport.Checked;
+  Parameters.OpenReceiptEnabled := chbOpenReceiptEnabled.Checked;
 end;
 
 procedure TfmFptrConnection.FormCreate(Sender: TObject);

@@ -459,6 +459,9 @@ begin
       if Reg.ValueExists('PrintUnitName') then
         Parameters.PrintUnitName := Reg.ReadBool('PrintUnitName');
 
+      if Reg.ValueExists('OpenReceiptEnabled') then
+        Parameters.OpenReceiptEnabled := Reg.ReadBool('OpenReceiptEnabled');
+
       // VatCodes
       if Reg.OpenKey(REG_KEY_VATCODES, False) then
       begin
@@ -612,6 +615,7 @@ begin
     Reg.WriteBool('FSServiceEnabled', FParameters.FSServiceEnabled);
     Reg.WriteInteger('PrinterProtocol', FParameters.PrinterProtocol);
     Reg.WriteBool('PrintUnitName', FParameters.PrintUnitName);
+    Reg.WriteBool('OpenReceiptEnabled', FParameters.OpenReceiptEnabled);
 
     // VatCodes
     Reg.DeleteKey(REG_KEY_VATCODES);

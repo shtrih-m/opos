@@ -868,6 +868,10 @@ end;
 procedure TFSSalesReceipt.BeginFiscalReceipt(PrintHeader: Boolean);
 begin
   ClearReceipt;
+  if Parameters.OpenReceiptEnabled then
+  begin
+    OpenReceipt(FRecType);
+  end;
 end;
 
 (*

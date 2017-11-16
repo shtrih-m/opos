@@ -321,6 +321,7 @@ begin
       FParameters.FSServiceEnabled := IniFile.ReadBool(Section, 'FSServiceEnabled', False);
       FParameters.PrinterProtocol := IniFile.ReadInteger(Section, 'PrinterProtocol', DefPrinterProtocol);
       FParameters.PrintUnitName := IniFile.ReadBool(Section, 'PrintUnitName', DefPrintUnitName);
+      FParameters.OpenReceiptEnabled := IniFile.ReadBool(Section, 'OpenReceiptEnabled', DefOpenReceiptEnabled);
     end;
     // VatCodes
     Section := GetSectionName(DeviceName) + '_VatCodes';
@@ -468,6 +469,7 @@ begin
     IniFile.WriteBool(Section, 'FSServiceEnabled', FParameters.FSServiceEnabled);
     IniFile.WriteInteger(Section, 'PrinterProtocol', FParameters.PrinterProtocol);
     IniFile.WriteBool(Section, 'PrintUnitName', FParameters.PrintUnitName);
+    IniFile.WriteBool(Section, 'OpenReceiptEnabled', FParameters.OpenReceiptEnabled);
 
     // PayTypes
     Section := GetSectionName(DeviceName) + '_PaymentTypes';
