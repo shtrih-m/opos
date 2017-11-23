@@ -329,7 +329,7 @@ const
   DefVatCodeEnabled = False;
   DefHandleErrorCode = False;
   DefPrintUnitName = False;
-  DefOpenReceiptEnabled = False;
+  DefOpenReceiptEnabled = True;
 
 type
   { TPrinterParameters }

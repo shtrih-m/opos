@@ -135,7 +135,6 @@ const
   DIO_BARCODE_EAN128A             = 21;
   DIO_BARCODE_EAN128B             = 22;
   DIO_BARCODE_EAN128C             = 23;
-
   DIO_BARCODE_CODE11              = 24;
   DIO_BARCODE_C25IATA             = 25;
   DIO_BARCODE_C25LOGIC            = 26;

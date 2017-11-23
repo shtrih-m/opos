@@ -829,7 +829,9 @@ begin
     if Device.CapOpenReceipt then
     begin
       if not Device.IsRecOpened then
-        Printer.OpenReceipt(ARecType);
+      begin
+        Device.Check(Device.OpenReceipt(ARecType));
+      end;
     end;
     FOpened := True;
   end;

@@ -1,43 +1,43 @@
 
---------------------------------2017/11/2 16:42:04--------------------------------
+--------------------------------2017/11/23 10:52:02--------------------------------
 A memory block has been leaked. The size is: 36
 
-This block was allocated by thread 0x1F78, and the stack trace (return addresses) at the time was:
+This block was allocated by thread 0x1148, and the stack trace (return addresses) at the time was:
 402ED8 
 403CCF 
 4040AA 
-43BD56 
-504E50 
-5063C3 
+43BD92 
+507FFC 
+50956F 
 4048CF 
 404937 
 40755B 
-5DB9B5 
-7533336A [BaseThreadInitThunk]
+5E6735 
+7694336A [BaseThreadInitThunk]
 
 The block is currently used for an object of class: TIdCriticalSection
 
 The allocation number is: 293
 
 Current memory dump of 256 bytes starting at pointer address 7EE743E0:
-0C 80 4F 00 E0 02 6D 00 FF FF FF FF 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 54 DE E0 08
+B8 B1 4F 00 30 03 7E 00 FF FF FF FF 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 68 DB 7E 07
 80 80 80 80 80 80 80 80 00 00 00 00 C1 44 E7 7E 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-2A 01 00 00 D8 2E 40 00 4D 4D 40 00 78 4D 40 00 0E 72 40 00 16 34 52 77 41 34 52 77 0E 09 5C 77
-92 11 5C 77 76 11 5C 77 24 A2 57 77 76 11 5C 77 78 1F 00 00 78 1F 00 00 03 2F 40 00 C2 4C 40 00
-97 5A 40 00 D6 8C 50 00 5F 48 40 00 3A 4B 40 00 FA B9 5D 00 6A 33 33 75 F2 98 52 77 B9 6C 34 77
-C5 98 52 77 16 00 00 00 00 00 00 00 91 8A 51 A0 90 AC 5E 00 80 80 80 80 80 80 80 80 80 80 80 80
-80 80 80 80 80 80 6E 75 AE 5F 80 80 80 80 80 80 80 80 80 80 80 80 80 80 00 00 00 00 71 45 E7 7E
+2A 01 00 00 D8 2E 40 00 4D 4D 40 00 78 4D 40 00 0E 72 40 00 16 34 AB 77 41 34 AB 77 0E 09 B5 77
+92 11 B5 77 76 11 B5 77 24 A2 B0 77 76 11 B5 77 48 11 00 00 48 11 00 00 03 2F 40 00 C2 4C 40 00
+97 5A 40 00 82 BE 50 00 5F 48 40 00 3A 4B 40 00 7A 67 5E 00 6A 33 94 76 F2 98 AB 77 B9 6C 8D 77
+C5 98 AB 77 16 00 00 00 00 00 00 00 5D 4D 2D A5 90 5C 5F 00 80 80 80 80 80 80 80 80 80 80 80 80
+80 80 80 80 80 80 A2 B2 D2 5A 80 80 80 80 80 80 80 80 80 80 80 80 80 80 00 00 00 00 71 45 E7 7E
 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 2B 01 00 00 D8 2E 40 00 4D 4D 40 00 78 4D 40 00
-.  Ä  O  .  ‡  .  m  .  ˇ  ˇ  ˇ  ˇ  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  T  ﬁ  ‡  .
+∏  ±  O  .  0  .  ~  .  ˇ  ˇ  ˇ  ˇ  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  h  €  ~  .
 Ä  Ä  Ä  Ä  Ä  Ä  Ä  Ä  .  .  .  .  ¡  D  Á  ~  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
-*  .  .  .  ÿ  .  @  .  M  M  @  .  x  M  @  .  .  r  @  .  .  4  R  w  A  4  R  w  .  .  \  w
-í  .  \  w  v  .  \  w  $  ¢  W  w  v  .  \  w  x  .  .  .  x  .  .  .  .  /  @  .  ¬  L  @  .
-ó  Z  @  .  ÷  å  P  .  _  H  @  .  :  K  @  .  ˙  π  ]  .  j  3  3  u  Ú  ò  R  w  π  l  4  w
-≈  ò  R  w  .  .  .  .  .  .  .  .  ë  ä  Q  †  ê  ¨  ^  .  Ä  Ä  Ä  Ä  Ä  Ä  Ä  Ä  Ä  Ä  Ä  Ä
-Ä  Ä  Ä  Ä  Ä  Ä  n  u  Æ  _  Ä  Ä  Ä  Ä  Ä  Ä  Ä  Ä  Ä  Ä  Ä  Ä  Ä  Ä  .  .  .  .  q  E  Á  ~
+*  .  .  .  ÿ  .  @  .  M  M  @  .  x  M  @  .  .  r  @  .  .  4  ´  w  A  4  ´  w  .  .  µ  w
+í  .  µ  w  v  .  µ  w  $  ¢  ∞  w  v  .  µ  w  H  .  .  .  H  .  .  .  .  /  @  .  ¬  L  @  .
+ó  Z  @  .  Ç  æ  P  .  _  H  @  .  :  K  @  .  z  g  ^  .  j  3  î  v  Ú  ò  ´  w  π  l  ç  w
+≈  ò  ´  w  .  .  .  .  .  .  .  .  ]  M  -  •  ê  \  _  .  Ä  Ä  Ä  Ä  Ä  Ä  Ä  Ä  Ä  Ä  Ä  Ä
+Ä  Ä  Ä  Ä  Ä  Ä  ¢  ≤  “  Z  Ä  Ä  Ä  Ä  Ä  Ä  Ä  Ä  Ä  Ä  Ä  Ä  Ä  Ä  .  .  .  .  q  E  Á  ~
 .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  +  .  .  .  ÿ  .  @  .  M  M  @  .  x  M  @  .
 
---------------------------------2017/11/2 16:42:04--------------------------------
+--------------------------------2017/11/23 10:52:02--------------------------------
 This application has leaked memory. The small block leaks are (excluding expected leaks registered by pointer):
 
 21 - 36 bytes: TIdCriticalSection x 1
