@@ -57,7 +57,6 @@ type
     chbCacheReceiptNumber: TCheckBox;
     seRemotePort: TSpinEdit;
     seByteTimeout: TSpinEdit;
-    seMaxRetryCount: TSpinEdit;
     sePollInterval: TSpinEdit;
     seStatusInterval: TSpinEdit;
     seDepartment: TSpinEdit;
@@ -72,6 +71,7 @@ type
     lblPrinterProtocol: TLabel;
     cbPrinterProtocol: TComboBox;
     chbOpenReceiptEnabled: TCheckBox;
+    cbMaxRetryCount: TComboBox;
     procedure FormCreate(Sender: TObject);
   public
     procedure UpdatePage; override;
@@ -96,7 +96,7 @@ begin
   cbComPort.ItemIndex := Parameters.PortNumber-1;
   cbBaudRate.ItemIndex := BaudRateToInt(Parameters.BaudRate);
   seByteTimeout.Value := Parameters.ByteTimeout;
-  seMaxRetryCount.Value := Parameters.MaxRetryCount;
+  cbMaxRetryCount.ItemIndex := Parameters.MaxRetryCount;
   chbSearchByBaudRate.Checked := Parameters.SearchByBaudRateEnabled;
   chbSearchByPort.Checked := Parameters.SearchByPortEnabled;
   cbPropertyUpdateMode.ItemIndex := Parameters.PropertyUpdateMode;
@@ -132,7 +132,7 @@ begin
   Parameters.PortNumber := cbComPort.ItemIndex + 1;
   Parameters.BaudRate := IntToBaudRate(cbBaudRate.ItemIndex);
   Parameters.ByteTimeout := seByteTimeout.Value;
-  Parameters.MaxRetryCount := seMaxRetryCount.Value;
+  Parameters.MaxRetryCount := cbMaxRetryCount.ItemIndex;
   Parameters.SearchByBaudRateEnabled := chbSearchByBaudRate.Checked;
   Parameters.SearchByPortEnabled := chbSearchByPort.Checked;
   Parameters.PropertyUpdateMode := cbPropertyUpdateMode.ItemIndex;

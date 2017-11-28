@@ -9,6 +9,7 @@ uses
   Oposhi, PrinterTypes, PayType, LogFile, FileUtils, DirectIOAPI, VatCode;
 
 const
+  MaxRetryCountInfinite = 0;
   DefPrintSingleQuantity = True;
 
   /////////////////////////////////////////////////////////////////////////////
@@ -441,6 +442,7 @@ type
     procedure SetBaudRate(const Value: Integer);
     procedure SetPortNumber(const Value: Integer);
     procedure SetPollIntervalInSeconds(const Value: Integer);
+    procedure SetMaxRetryCount(const Value: Integer);
   public
     XReport: Integer;
     FSBarcodeEnabled: Boolean;
@@ -512,7 +514,7 @@ type
     property CloseRecText: string read FCloseRecText write FCloseRecText;
     property VoidRecText: string read FVoidRecText write FVoidRecText;
     property PollIntervalInSeconds: Integer read FPollIntervalInSeconds write SetPollIntervalInSeconds;
-    property MaxRetryCount: Integer read FMaxRetryCount write FMaxRetryCount;
+    property MaxRetryCount: Integer read FMaxRetryCount write SetMaxRetryCount;
     property DeviceByteTimeout: Integer read FDeviceByteTimeout write SetDeviceByteTimeout;
     property SearchByPortEnabled: Boolean read FSearchByPortEnabled write FSearchByPortEnabled;
     property SearchByBaudRateEnabled: Boolean read FSearchByBaudRateEnabled write FSearchByBaudRateEnabled;
@@ -1125,6 +1127,12 @@ procedure TPrinterParameters.SetPollIntervalInSeconds(
 begin
   if Value in [1..60] then
     FPollIntervalInSeconds := Value;
+end;
+
+procedure TPrinterParameters.SetMaxRetryCount(const Value: Integer);
+begin
+  if Value in [0..10] then
+    FMaxRetryCount := Value;
 end;
 
 end.

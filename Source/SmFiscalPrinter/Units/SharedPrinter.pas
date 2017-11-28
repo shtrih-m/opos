@@ -435,8 +435,7 @@ begin
 
     ConnectionTypeSocket:
     begin
-      Port := TSocketPort.Create(Parameters.RemoteHost, Parameters.RemotePort,
-        Parameters.ByteTimeout, Logger);
+      Port := TSocketPort.Create(Parameters, Logger);
       Result := CreateProtocol(Port);
     end;
   else

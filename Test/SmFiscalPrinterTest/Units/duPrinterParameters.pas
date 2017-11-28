@@ -52,7 +52,7 @@ const
   NonDefFontNumber = 9;
   NonDefByteTimeout = 101;
   NonDefDeviceByteTimeout = 657;
-  NonDefMaxRetryCount = 76;
+  NonDefMaxRetryCount = 7;
   NonDefPollIntervalInSeconds = 18;
   NonDefStatusInterval = 76;
   NonDefSearchByPortEnabled = True;

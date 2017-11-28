@@ -9,25 +9,21 @@ uses
   IdTCPClient, IdGlobal, IdStack, IdWinsock2,
   // This
   PrinterPort, DriverError, StringUtils, FptrServerLib_TLB, VSysUtils,
-  LogFile, CommunicationError, OposMessages;
+  LogFile, CommunicationError, OposMessages, PrinterParameters;
 
 type
   { TSocketPort }
 
   TSocketPort = class(TInterfacedObject, IPrinterPort)
   private
-    FBaudRate: DWORD;
-    FRemoteHost: string;
-    FRemotePort: Integer;
-    FByteTimeout: Integer;
+    FLogger: ILogFile;
     FLock: TCriticalsection;
     FConnection: TIdTCPClient;
-    FLogger: ILogFile;
+    FParameters: TPrinterParameters;
 
     property Logger: ILogFile read FLogger;
   public
-    constructor Create(const ARemoteHost: string; ARemotePort: Integer;
-      ATimeout: Integer; ALogger: ILogFile);
+    constructor Create(AParameters: TPrinterParameters; ALogger: ILogFile);
     destructor Destroy; override;
 
     procedure Lock;
@@ -52,8 +48,8 @@ implementation
 var
   Ports: TInterfaceList = nil;
 
-function GetSocketPort(const ARemoteHost: string; ARemotePort: Integer;
-  ATimeout: Integer; ALogger: ILogFile): IPrinterPort;
+function GetSocketPort(AParameters: TPrinterParameters;
+  ALogger: ILogFile): IPrinterPort;
 var
   i: Integer;
 begin
@@ -62,12 +58,12 @@ begin
     for i := 0 to Ports.Count-1 do
     begin
       Result := IPrinterPort(Ports[i]);
-      if Result.PortName = ARemoteHost then
+      if Result.PortName = AParameters.RemoteHost then
       begin
         Exit;
       end;
     end;
-    Result := TSocketPort.Create(ARemoteHost, ARemotePort, ATimeout, ALogger);
+    Result := TSocketPort.Create(AParameters, ALogger);
     Ports.Add(Result);
   finally
     Ports.Unlock;
@@ -76,14 +72,12 @@ end;
 
 { TSocketPort }
 
-constructor TSocketPort.Create(const ARemoteHost: string; ARemotePort: Integer;
-  ATimeout: Integer; ALogger: ILogFile);
+constructor TSocketPort.Create(AParameters: TPrinterParameters;
+  ALogger: ILogFile);
 begin
   inherited Create;
   FLogger := ALogger;
-  FByteTimeout := ATimeout;
-  FRemoteHost := ARemoteHost;
-  FRemotePort := ARemotePort;
+  FParameters := AParameters;
   FConnection := TIdTCPClient.Create;
   FLock := TCriticalsection.Create;
 end;
@@ -100,16 +94,35 @@ procedure TSocketPort.Open;
 begin
   if not FConnection.Connected then
   begin
-    FConnection.Host := FRemoteHost;
-    FConnection.Port := FRemotePort;
+    FConnection.Host := FParameters.RemoteHost;
+    FConnection.Port := FParameters.RemotePort;
     FConnection.ReuseSocket := rsFalse;
-    FConnection.ReadTimeout := FByteTimeout;
-    FConnection.ConnectTimeout := FByteTimeout;
+    if FParameters.MaxRetryCount = MaxRetryCountInfinite then
+    begin
+      FConnection.ReadTimeout := 0;
+      FConnection.ConnectTimeout := 0;
+    end else
+    begin
+      FConnection.ReadTimeout := FParameters.ByteTimeout;
+      FConnection.ConnectTimeout := FParameters.ByteTimeout;
+    end;
 
-    Logger.Debug(Format('TSocketPort.Connect(%s,%d,%d)', [
-      FConnection.Host, FConnection.Port, FByteTimeout]));
+    while True do
+    begin
+      try
+        Logger.Debug(Format('TSocketPort.Connect(%s,%d,%d)', [
+          FConnection.Host, FConnection.Port, FParameters.ByteTimeout]));
 
-    FConnection.Connect();
+        FConnection.Connect();
+        Break;
+      except
+        on E: Exception do
+        begin
+          Logger.Error(E.Message);
+          if FParameters.MaxRetryCount <> MaxRetryCountInfinite then raise;
+        end;
+      end;
+    end;
   end;
 end;
 
@@ -199,7 +212,7 @@ end;
 
 function TSocketPort.GetTimeout: DWORD;
 begin
-  Result := FByteTimeout;
+  Result := FParameters.ByteTimeout;
 end;
 
 procedure TSocketPort.Lock;
@@ -218,23 +231,23 @@ end;
 
 function TSocketPort.GetPortName: string;
 begin
-  Result := FRemoteHost;
+  Result := FParameters.RemoteHost;
 end;
 
 procedure TSocketPort.SetTimeout(Value: DWORD);
 begin
   Logger.Debug(Format('TSocketPort.SetTimeout(%d)', [Value]));
-  FByteTimeout := Value;
+  FParameters.ByteTimeout := Value;
 end;
 
 procedure TSocketPort.SetBaudRate(Value: DWORD);
 begin
-  FBaudRate := Value;
+  FParameters.BaudRate := Value;
 end;
 
 function TSocketPort.GetBaudRate: DWORD;
 begin
-  Result := FBaudRate;
+  Result := FParameters.BaudRate;
 end;
 
 initialization

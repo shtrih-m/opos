@@ -54,9 +54,9 @@ object fmFptrConnection: TfmFptrConnection
     object lblMaxRetryCount: TLabel
       Left = 8
       Top = 184
-      Width = 120
+      Width = 74
       Height = 13
-      Caption = 'Maximum connect retries:'
+      Caption = 'Connect retries:'
     end
     object lblConnectionType: TLabel
       Left = 8
@@ -149,7 +149,7 @@ object fmFptrConnection: TfmFptrConnection
       Height = 17
       Alignment = taLeftJustify
       Caption = 'Find device on all available COM ports'
-      TabOrder = 9
+      TabOrder = 8
     end
     object chbSearchByBaudRate: TCheckBox
       Left = 8
@@ -158,7 +158,7 @@ object fmFptrConnection: TfmFptrConnection
       Height = 17
       Alignment = taLeftJustify
       Caption = 'Find device on all available baud rates'
-      TabOrder = 8
+      TabOrder = 7
     end
     object cbConnectionType: TComboBox
       Left = 112
@@ -203,16 +203,6 @@ object fmFptrConnection: TfmFptrConnection
       TabOrder = 6
       Value = 0
     end
-    object seMaxRetryCount: TSpinEdit
-      Left = 136
-      Top = 185
-      Width = 105
-      Height = 22
-      MaxValue = 0
-      MinValue = 0
-      TabOrder = 7
-      Value = 0
-    end
     object sePollInterval: TSpinEdit
       Left = 136
       Top = 288
@@ -220,7 +210,7 @@ object fmFptrConnection: TfmFptrConnection
       Height = 22
       MaxValue = 60
       MinValue = 1
-      TabOrder = 11
+      TabOrder = 10
       Value = 1
     end
     object seStatusInterval: TSpinEdit
@@ -230,7 +220,7 @@ object fmFptrConnection: TfmFptrConnection
       Height = 22
       MaxValue = 0
       MinValue = 0
-      TabOrder = 12
+      TabOrder = 11
       Value = 0
     end
     object seStatusTimeout: TSpinEdit
@@ -240,7 +230,7 @@ object fmFptrConnection: TfmFptrConnection
       Height = 22
       MaxValue = 0
       MinValue = 0
-      TabOrder = 13
+      TabOrder = 12
       Value = 0
     end
     object cbPropertyUpdateMode: TComboBox
@@ -250,7 +240,7 @@ object fmFptrConnection: TfmFptrConnection
       Height = 21
       Style = csDropDownList
       ItemHeight = 13
-      TabOrder = 10
+      TabOrder = 9
       Items.Strings = (
         'None'
         'Polling'
@@ -268,6 +258,27 @@ object fmFptrConnection: TfmFptrConnection
       Items.Strings = (
         'Standard'
         'Protocol 2.0')
+    end
+    object cbMaxRetryCount: TComboBox
+      Left = 112
+      Top = 184
+      Width = 129
+      Height = 21
+      Style = csDropDownList
+      ItemHeight = 13
+      TabOrder = 13
+      Items.Strings = (
+        'INFINITE'
+        '1'
+        '2'
+        '3'
+        '4'
+        '5'
+        '6'
+        '7'
+        '8'
+        '9'
+        '10')
     end
   end
   object gbParams: TGroupBox

@@ -1119,11 +1119,9 @@ var
   i: Integer;
   Index: Integer;
   CommandCode: Integer;
-  MaxRetryCount: Integer;
 begin
-  MaxRetryCount := Parameters.MaxRetryCount;
-  if MaxRetryCount <= 0 then MaxRetryCount := 1;
-  for i := 1 to Parameters.MaxRetryCount do
+  i := 0;
+  while i < Parameters.MaxRetryCount do
   begin
     try
       Logger.Debug(Format('0x%.2X, %s', [Command.Code, GetCommandName(Command.Code)]));
@@ -1140,8 +1138,12 @@ begin
       begin
         SetIsOnline(False);
         if not CanRepeatCommand(Command.Code) then Break;
-        if (i = MaxRetryCount) then raise;
+        if (i = (Parameters.MaxRetryCount-1)) then raise;
       end;
+    end;
+    if Parameters.MaxRetryCount > 0 then
+    begin
+      Inc(i);
     end;
   end;
 
