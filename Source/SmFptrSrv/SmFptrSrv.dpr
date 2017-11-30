@@ -73,7 +73,6 @@ uses
   TextReport in '..\Shared\TextReport.pas',
   OposUtils in '..\Opos\OposUtils.pas',
   TLV in '..\SmFiscalPrinter\Units\TLV.pas',
-  formatTLV in '..\SmFiscalPrinter\Units\formatTLV.pas',
   CsvPrinterTableFormat in '..\SmFiscalPrinter\Units\CsvPrinterTableFormat.pas',
   PrinterTableFormat in '..\SmFiscalPrinter\Units\PrinterTableFormat.pas',
   OposFptrUtils in '..\Opos\OposFptrUtils.pas',
@@ -84,7 +83,8 @@ uses
   DriverContext in '..\SmFiscalPrinter\Units\DriverContext.pas',
   PrinterProtocol1 in '..\SmFiscalPrinter\Units\PrinterProtocol1.pas',
   PrinterPort in '..\SmFiscalPrinter\Units\PrinterPort.pas',
-  PrinterFonts in '..\SmFiscalPrinter\Units\PrinterFonts.pas';
+  PrinterFonts in '..\SmFiscalPrinter\Units\PrinterFonts.pas',
+  TLVTags in '..\SmFiscalPrinter\Units\TLVTags.pas';
 
 {$R *.TLB}
 

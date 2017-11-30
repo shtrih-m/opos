@@ -6747,7 +6747,7 @@ var
 begin
   Command := #$FF#$46 + IntToBin(GetUsrPassword, 4) +
     Chr(Abs(P.RecType)) +
-    IntToBin(Abs(P.Quantity*1000), 6) +
+    IntToBin(Abs(P.Quantity), 6) +
     IntToBin(Abs(P.Price), 5) +
     IntToBin(Abs(P.Total), 5) +
     IntToBin(Abs(P.TaxAmount), 5) +

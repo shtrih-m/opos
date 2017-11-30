@@ -33,9 +33,25 @@ function StrToBool(const Value: string): Boolean;
 function TrimText(const Text: string; MaxWidth: Integer): string;
 function AmountToStr(Value: Currency): string;
 function AddTrailingSpaces(const S: string; Len: Integer): string;
+function StrToDouble(const S: string): Double;
 
 
 implementation
+
+function StrToDouble(const S: string): Double;
+var
+  Text: string;
+  SaveDecimalSeparator: Char;
+begin
+  SaveDecimalSeparator := DecimalSeparator;
+  try
+    DecimalSeparator := '.';
+    Text := StringReplace(S, ',', '.', []);
+    Result := StrToFloat(Text);
+  finally
+    DecimalSeparator := SaveDecimalSeparator;
+  end;
+end;
 
 function BoolToStr(Value: Boolean): string;
 begin
@@ -324,6 +340,5 @@ begin
   Result := Copy(S, 1, Len);
   Result := Result + StringOfChar(' ', Len - Length(Result));
 end;
-
 
 end.

@@ -156,7 +156,6 @@ uses
   TlvSender in '..\..\Source\Shared\TlvSender.pas',
   MathUtils in '..\..\Source\Shared\MathUtils.pas',
   duRosneftSalesReceipt in 'Units\duRosneftSalesReceipt.pas',
-  formatTLV in '..\..\Source\SmFiscalPrinter\Units\formatTLV.pas',
   SettingsParams in '..\..\Source\SmFiscalPrinter\Units\SettingsParams.pas',
   TLV in '..\..\Source\SmFiscalPrinter\Units\TLV.pas',
   duStringUtils in 'Units\duStringUtils.pas',
@@ -210,7 +209,8 @@ uses
   duCommandDefs in 'Units\duCommandDefs.pas',
   PrinterFonts in '..\..\Source\SmFiscalPrinter\Units\PrinterFonts.pas',
   SmResourceStrings in '..\..\Source\SmFiscalPrinter\Units\SmResourceStrings.pas',
-  duBitUtils in 'Units\duBitUtils.pas';
+  duBitUtils in 'Units\duBitUtils.pas',
+  TLVTags in '..\..\Source\SmFiscalPrinter\Units\TLVTags.pas';
 
 {$R *.RES}
 {$R ..\..\Source\SmFiscalPrinter\SmFiscalPrinter.TLB}

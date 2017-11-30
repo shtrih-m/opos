@@ -4480,7 +4480,8 @@ end;
 
 procedure TFiscalPrinterImpl.FSWriteTag(TagID: Integer; const Data: string);
 begin
-  FSWriteTLV(StrTagToTLV(TagID, Data));
+  //FSWriteTLV(TagToStr(TagID, Data));
+  Device.Check(Device.FSWriteTag(TagID, Data));
 end;
 
 procedure TFiscalPrinterImpl.FSWriteTLV(const TLVData: string);

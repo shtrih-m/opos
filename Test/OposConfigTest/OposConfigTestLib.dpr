@@ -72,7 +72,6 @@ uses
   fmuRosneftDiscountCard in '..\..\Source\OposConfig\Fmu\fmuRosneftDiscountCard.pas' {fmRosneftDiscountCard},
   MalinaReceipt in '..\..\Source\OposConfig\Units\MalinaReceipt.pas',
   fmuFptrHeader in '..\..\Source\OposConfig\Fmu\fmuFptrHeader.pas' {fmFptrHeader},
-  formatTLV in '..\..\Source\SmFiscalPrinter\Units\formatTLV.pas',
   SettingsParams in '..\..\Source\SmFiscalPrinter\Units\SettingsParams.pas',
   TLV in '..\..\Source\SmFiscalPrinter\Units\TLV.pas',
   fmuFptrPawnTicket in '..\..\Source\OposConfig\Fmu\fmuFptrPawnTicket.pas' {fmFptrPawnTicket},
@@ -85,7 +84,9 @@ uses
   VatCode in '..\..\Source\SmFiscalPrinter\Units\VatCode.pas',
   fmuFptrPayType in '..\..\Source\OposConfig\Fmu\fmuFptrPayType.pas' {fmFptrPayType},
   DriverContext in '..\..\Source\SmFiscalPrinter\Units\DriverContext.pas',
-  OposMessages in '..\..\Source\SmFiscalPrinter\Units\OposMessages.pas';
+  OposMessages in '..\..\Source\SmFiscalPrinter\Units\OposMessages.pas',
+  TLVTags in '..\..\Source\SmFiscalPrinter\Units\TLVTags.pas',
+  ByteUtils in '..\..\Source\Shared\ByteUtils.pas';
 
 {$R *.RES}
 

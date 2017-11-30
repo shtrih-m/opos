@@ -6,10 +6,9 @@ Uses
   // VCL
   Classes,
   // This
-  FormatTLV;
+  TLVTags;
 
 type
-
   TTLV = class;
 
   { TTLVList }
@@ -61,22 +60,34 @@ type
     property Len: Word read FLen write FLen;
   end;
 
-function StrTagToTLV(TagID: Integer; const Data: string): string;
+function TagToStr(TagID: Integer; const Data: string): string;
 
 implementation
 
-function StrTagToTLV(TagID: Integer; const Data: string): string;
+function TagToStr(TagID: Integer; const Data: string): string;
 var
+  Tag: TTLVTag;
+  Tags: TTLVTags;
   Values: TTLVList;
 begin
+  Tags := TTLVTags.Create;
   Values := TTLVList.Create;
   try
-    Values.AddStr(TagID, Data, 0);
-    Result := Values.GetRawData;
+    Tag := Tags.FindTag(TagID);
+    if Tag = nil then
+    begin
+      Values.AddStr(TagID, Data, 0);
+      Result := Values.GetRawData;
+    end else
+    begin
+      Result := Tag.ValueToBin(Data);
+    end;
   finally
+    Tags.Free;
     Values.Free;
   end;
 end;
+
 
 function IntToBin(Value, Count: Int64): string;
 begin
@@ -150,25 +161,25 @@ end;
 function TTLVList.AddByte(ATag: Word; Value: Byte): TTLV;
 begin
   Result := Add(ATag);
-  Result.Data := TFormatTLV.Int2ValueTLV(Value, 1);
+  Result.Data := TTLVTag.Int2ValueTLV(Value, 1);
 end;
 
 function TTLVList.AddDateTime(ATag: Word; Value: TDateTime): TTLV;
 begin
   Result := Add(ATag);
-  Result.Data := TFormatTLV.UnixTime2ValueTLV(Value);
+  Result.Data := TTLVTag.UnixTime2ValueTLV(Value);
 end;
 
 function TTLVList.AddInt(ATag: Word; Value: Integer): TTLV;
 begin
   Result := Add(ATag);
-  Result.Data := TFormatTLV.Int2ValueTLV(Value, 4);
+  Result.Data := TTLVTag.Int2ValueTLV(Value, 4);
 end;
 
 function TTLVList.AddIntFixed(ATag: Word; Value: Int64; Len: Integer): TTLV;
 begin
   Result := Add(ATag);
-  Result.Data := TFormatTLV.Int2Bytes(Value, Len);
+  Result.Data := TTLVTag.Int2Bytes(Value, Len);
 end;
 
 function TTLVList.AddStr(ATag: Word; Value: string; Len: Integer): TTLV;
@@ -176,7 +187,7 @@ var
   S: string;
 begin
   Result := Add(ATag);
-  S := TFormatTLV.ASCII2ValueTLV(Value);
+  S := TTLVTag.ASCII2ValueTLV(Value);
   if Len <> 0 then
   begin
     S := Copy(S, 1, Len);
@@ -191,7 +202,7 @@ var
 begin
   Result := Add(ATag);
 
-  S := TFormatTLV.ASCII2ValueTLV(Value);
+  S := TTLVTag.ASCII2ValueTLV(Value);
   if Len <> 0 then
   begin
     S := Copy(S, 1, Len);
@@ -203,13 +214,13 @@ end;
 function TTLVList.AddCurrency(ATag: Word; Value: Currency): TTLV;
 begin
   Result := Add(ATag);
-  Result.Data := TFormatTLV.FVLN2ValueTLV(Value);
+  Result.Data := TTLVTag.FVLN2ValueTLV(Value);
 end;
 
 function TTLVList.AddInt64(ATag: Word; Value: UInt64): TTLV;
 begin
   Result := Add(ATag);
-  Result.Data := TFormatTLV.VLN2ValueTLV(Value);
+  Result.Data := TTLVTag.VLN2ValueTLV(Value);
 end;
 
 { TTLV }
@@ -234,12 +245,12 @@ begin
   begin
     Result := FItems.GetRawData;
     FLen := Length(Result);
-    Result := TFormatTLV.Int2ValueTLV(Tag, 2) + TFormatTLV.Int2ValueTLV(Len, 2) + Result;
+    Result := TTLVTag.Int2ValueTLV(Tag, 2) + TTLVTag.Int2ValueTLV(Len, 2) + Result;
   end
   else
   begin
     FLen := Length(Data);
-    Result := TFormatTLV.Int2ValueTLV(Tag, 2) + TFormatTLV.Int2ValueTLV(Len, 2) + Data;
+    Result := TTLVTag.Int2ValueTLV(Tag, 2) + TTLVTag.Int2ValueTLV(Len, 2) + Data;
   end;
 end;
 

@@ -163,21 +163,6 @@ type
 
 implementation
 
-function StrToDouble(const S: string): Double;
-var
-  Text: string;
-  SaveDecimalSeparator: Char;
-begin
-  SaveDecimalSeparator := DecimalSeparator;
-  try
-    DecimalSeparator := '.';
-    Text := StringReplace(S, ',', '.', []);
-    Result := StrToFloat(Text);
-  finally
-    DecimalSeparator := SaveDecimalSeparator;
-  end;
-end;
-
 // Parse price and quantity
 
 function ParsePrice(const Line: string;
@@ -1063,7 +1048,7 @@ begin
     if Device.CapFSCloseReceipt2 then
     begin
       FSSale2.RecType := FRecType;
-      FSSale2.Quantity := Abs(FSRegistration.Quantity);
+      FSSale2.Quantity := Abs(FSRegistration.Quantity) * 1000;
       FSSale2.Price := Item.PriceWithDiscount;
       FSSale2.Total := StrToInt64Def(FSRegistration.Parameter1, $FFFFFFFFFF);
       FSSale2.TaxAmount := StrToInt64Def(FSRegistration.Parameter2, $FFFFFFFFFF);

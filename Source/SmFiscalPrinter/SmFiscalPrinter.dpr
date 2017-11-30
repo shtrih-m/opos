@@ -135,7 +135,6 @@ uses
   ReceiptReportFilter in 'Units\ReceiptReportFilter.pas',
   SettingsParams in 'Units\SettingsParams.pas',
   MathUtils in '..\Shared\MathUtils.pas',
-  formatTLV in 'Units\formatTLV.pas',
   TLV in 'Units\TLV.pas',
   SalesReceipt in 'Units\SalesReceipt.pas',
   fmuPhone in 'Fmu\fmuPhone.pas' {fmPhone},
@@ -167,7 +166,8 @@ uses
   PrinterPort in 'Units\PrinterPort.pas',
   PrinterProtocol1 in 'Units\PrinterProtocol1.pas',
   PrinterFonts in 'Units\PrinterFonts.pas',
-  SmResourceStrings in 'Units\SmResourceStrings.pas';
+  SmResourceStrings in 'Units\SmResourceStrings.pas',
+  TLVTags in 'Units\TLVTags.pas';
 
 exports
   DllGetClassObject,

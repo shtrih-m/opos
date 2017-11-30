@@ -20,7 +20,7 @@ const
   CRLF = #13#10;
   DIO_CUSTOM_COMMAND = $FFFF;
 
-  DIODescriptions: array[1..34] of TDirectIODescription = (
+  DIODescriptions: array[1..35] of TDirectIODescription = (
     (Command: DIO_COMMAND_PRINTER_XML;
      Description: 'XML command';
      DescriptionEx:  'Data: Printer command code' + #13#10 +
@@ -143,6 +143,11 @@ const
      DescriptionEx: 'Data: image scale;' + CRLF +
                     'String: image file name';),
 
+    (Command: DIO_WRITE_FS_STRING_TAG;
+     Description: 'Write tag to opened receipt';
+     DescriptionEx: 'Data: tag number' + CRLF +
+     '[in] String: tag value';),
+
     (Command: DIO_READ_FPTR_PARAMETER;
      Description: 'Read fiscal printer parameter';
      DescriptionEx: 'Data: parameter identifier;' + CRLF +
@@ -215,6 +220,7 @@ const
      Description: 'Get print width';
      DescriptionEx: 'Data: font number 1..7' + CRLF +
      '[out] String: print width';)
+
   );
 
 function GetDIODescription(ADIOCommand: Integer): TDirectIODescription;
