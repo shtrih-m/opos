@@ -1,8 +1,8 @@
 object fmFptrConnection: TfmFptrConnection
-  Left = 375
-  Top = 200
+  Left = 533
+  Top = 150
   Width = 512
-  Height = 498
+  Height = 381
   Caption = 'Connection'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -15,8 +15,8 @@ object fmFptrConnection: TfmFptrConnection
   PixelsPerInch = 96
   TextHeight = 13
   object lblStorage: TLabel
-    Left = 16
-    Top = 384
+    Left = 8
+    Top = 304
     Width = 94
     Height = 13
     Caption = 'Parameters storage:'
@@ -25,98 +25,71 @@ object fmFptrConnection: TfmFptrConnection
     Left = 8
     Top = 8
     Width = 249
-    Height = 369
+    Height = 289
+    Caption = 'Connection'
     TabOrder = 0
     DesignSize = (
       249
-      369)
+      289)
     object lblComPort: TLabel
       Left = 8
-      Top = 112
+      Top = 120
       Width = 48
       Height = 13
       Caption = 'COM port:'
     end
     object lblBaudRate: TLabel
       Left = 8
-      Top = 136
+      Top = 144
       Width = 46
       Height = 13
       Caption = 'Baudrate:'
     end
     object lblByteTimeout: TLabel
       Left = 8
-      Top = 160
+      Top = 168
       Width = 80
       Height = 13
       Caption = 'Byte timeout, ms:'
     end
     object lblMaxRetryCount: TLabel
       Left = 8
-      Top = 184
+      Top = 192
       Width = 74
       Height = 13
       Caption = 'Connect retries:'
     end
     object lblConnectionType: TLabel
       Left = 8
-      Top = 16
+      Top = 24
       Width = 80
       Height = 13
       Caption = 'Connection type:'
     end
     object lblRemoteHost: TLabel
       Left = 8
-      Top = 64
+      Top = 72
       Width = 25
       Height = 13
       Caption = 'Host:'
     end
     object lblRemotePort: TLabel
       Left = 8
-      Top = 88
+      Top = 96
       Width = 22
       Height = 13
       Caption = 'Port:'
     end
-    object lblPollInterval: TLabel
-      Left = 8
-      Top = 288
-      Width = 117
-      Height = 13
-      Caption = 'Polling interval, seconds:'
-    end
-    object lblStatusInterval: TLabel
-      Left = 8
-      Top = 312
-      Width = 118
-      Height = 13
-      Caption = 'Status query interval, ms:'
-    end
-    object lblStatusTimeout: TLabel
-      Left = 8
-      Top = 336
-      Width = 113
-      Height = 13
-      Caption = 'Status timeout, seconds'
-    end
-    object lblPropertyUpdateMode: TLabel
-      Left = 8
-      Top = 264
-      Width = 115
-      Height = 13
-      Caption = 'Properties update mode:'
-    end
     object lblPrinterProtocol: TLabel
       Left = 8
-      Top = 40
+      Top = 48
       Width = 65
       Height = 13
       Caption = 'Protocol type:'
     end
     object cbComPort: TComboBox
       Left = 112
-      Top = 112
+      Top = 120
       Width = 129
       Height = 21
       Style = csDropDownList
@@ -126,7 +99,7 @@ object fmFptrConnection: TfmFptrConnection
     end
     object cbBaudRate: TComboBox
       Left = 112
-      Top = 136
+      Top = 144
       Width = 129
       Height = 21
       Style = csDropDownList
@@ -144,7 +117,7 @@ object fmFptrConnection: TfmFptrConnection
     end
     object chbSearchByPort: TCheckBox
       Left = 8
-      Top = 240
+      Top = 248
       Width = 233
       Height = 17
       Alignment = taLeftJustify
@@ -153,7 +126,7 @@ object fmFptrConnection: TfmFptrConnection
     end
     object chbSearchByBaudRate: TCheckBox
       Left = 8
-      Top = 216
+      Top = 224
       Width = 233
       Height = 17
       Alignment = taLeftJustify
@@ -162,7 +135,7 @@ object fmFptrConnection: TfmFptrConnection
     end
     object cbConnectionType: TComboBox
       Left = 112
-      Top = 16
+      Top = 24
       Width = 129
       Height = 21
       Style = csDropDownList
@@ -177,7 +150,7 @@ object fmFptrConnection: TfmFptrConnection
     end
     object edtRemoteHost: TEdit
       Left = 112
-      Top = 64
+      Top = 72
       Width = 129
       Height = 21
       TabOrder = 2
@@ -185,7 +158,7 @@ object fmFptrConnection: TfmFptrConnection
     end
     object seRemotePort: TSpinEdit
       Left = 112
-      Top = 88
+      Top = 96
       Width = 129
       Height = 22
       MaxValue = 0
@@ -195,7 +168,7 @@ object fmFptrConnection: TfmFptrConnection
     end
     object seByteTimeout: TSpinEdit
       Left = 112
-      Top = 160
+      Top = 168
       Width = 129
       Height = 22
       MaxValue = 0
@@ -203,52 +176,9 @@ object fmFptrConnection: TfmFptrConnection
       TabOrder = 6
       Value = 0
     end
-    object sePollInterval: TSpinEdit
-      Left = 136
-      Top = 288
-      Width = 105
-      Height = 22
-      MaxValue = 60
-      MinValue = 1
-      TabOrder = 10
-      Value = 1
-    end
-    object seStatusInterval: TSpinEdit
-      Left = 136
-      Top = 312
-      Width = 105
-      Height = 22
-      MaxValue = 0
-      MinValue = 0
-      TabOrder = 11
-      Value = 0
-    end
-    object seStatusTimeout: TSpinEdit
-      Left = 136
-      Top = 336
-      Width = 105
-      Height = 22
-      MaxValue = 0
-      MinValue = 0
-      TabOrder = 12
-      Value = 0
-    end
-    object cbPropertyUpdateMode: TComboBox
-      Left = 136
-      Top = 264
-      Width = 105
-      Height = 21
-      Style = csDropDownList
-      ItemHeight = 13
-      TabOrder = 9
-      Items.Strings = (
-        'None'
-        'Polling'
-        'Query')
-    end
     object cbPrinterProtocol: TComboBox
       Left = 112
-      Top = 40
+      Top = 48
       Width = 129
       Height = 21
       Style = csDropDownList
@@ -261,12 +191,12 @@ object fmFptrConnection: TfmFptrConnection
     end
     object cbMaxRetryCount: TComboBox
       Left = 112
-      Top = 184
+      Top = 192
       Width = 129
       Height = 21
       Style = csDropDownList
       ItemHeight = 13
-      TabOrder = 13
+      TabOrder = 9
       Items.Strings = (
         'INFINITE'
         '1'
@@ -281,248 +211,13 @@ object fmFptrConnection: TfmFptrConnection
         '10')
     end
   end
-  object gbParams: TGroupBox
-    Left = 264
-    Top = 8
-    Width = 225
-    Height = 329
-    TabOrder = 1
-    DesignSize = (
-      225
-      329)
-    object lblDefaultDepartment: TLabel
-      Left = 8
-      Top = 16
-      Width = 79
-      Height = 13
-      Caption = 'Def. department:'
-    end
-    object lblCutType: TLabel
-      Left = 8
-      Top = 40
-      Width = 42
-      Height = 13
-      Caption = 'Cut type:'
-    end
-    object lblEncoding: TLabel
-      Left = 8
-      Top = 64
-      Width = 48
-      Height = 13
-      Caption = 'Encoding:'
-    end
-    object lblStatusCommand: TLabel
-      Left = 8
-      Top = 88
-      Width = 82
-      Height = 13
-      Caption = 'Status command:'
-    end
-    object lblHeaderType: TLabel
-      Left = 8
-      Top = 112
-      Width = 61
-      Height = 13
-      Caption = 'Header type:'
-    end
-    object lblZeroReceipt: TLabel
-      Left = 8
-      Top = 184
-      Width = 60
-      Height = 13
-      Caption = 'Zero receipt:'
-    end
-    object lblCompatLevel: TLabel
-      Left = 8
-      Top = 136
-      Width = 61
-      Height = 13
-      Caption = 'Compatibility:'
-    end
-    object lblReceiptType: TLabel
-      Left = 8
-      Top = 160
-      Width = 63
-      Height = 13
-      Caption = 'Receipt type:'
-    end
-    object lblZeroReceiptNumber: TLabel
-      Left = 8
-      Top = 208
-      Width = 98
-      Height = 13
-      Caption = 'Zero receipt number:'
-    end
-    object lblEventsType: TLabel
-      Left = 8
-      Top = 232
-      Width = 59
-      Height = 13
-      Caption = 'Events type:'
-    end
-    object cbCutType: TComboBox
-      Left = 96
-      Top = 40
-      Width = 121
-      Height = 21
-      Style = csDropDownList
-      Anchors = [akLeft, akTop, akRight]
-      ItemHeight = 13
-      TabOrder = 1
-      Items.Strings = (
-        'Full cut'
-        'Partial cut'
-        'No cut')
-    end
-    object cbEncoding: TComboBox
-      Left = 96
-      Top = 64
-      Width = 121
-      Height = 21
-      Style = csDropDownList
-      Anchors = [akLeft, akTop, akRight]
-      ItemHeight = 13
-      TabOrder = 2
-      Items.Strings = (
-        'Windows'
-        'CP866')
-    end
-    object cbStatusCommand: TComboBox
-      Left = 96
-      Top = 88
-      Width = 121
-      Height = 21
-      Style = csDropDownList
-      Anchors = [akLeft, akTop, akRight]
-      ItemHeight = 13
-      TabOrder = 3
-      Items.Strings = (
-        'Driver selection'
-        'Short status, 10h'
-        'Long status, 11h')
-    end
-    object cbHeaderType: TComboBox
-      Left = 96
-      Top = 112
-      Width = 121
-      Height = 21
-      Style = csDropDownList
-      Anchors = [akLeft, akTop, akRight]
-      ItemHeight = 13
-      TabOrder = 4
-      Items.Strings = (
-        'Printer header'
-        'Driver header'
-        'None')
-    end
-    object cbZeroReceipt: TComboBox
-      Left = 96
-      Top = 184
-      Width = 121
-      Height = 21
-      Style = csDropDownList
-      Anchors = [akLeft, akTop, akRight]
-      ItemHeight = 13
-      TabOrder = 7
-      Items.Strings = (
-        'Normal'
-        'Nonfiscal')
-    end
-    object cbCompatLevel: TComboBox
-      Left = 96
-      Top = 136
-      Width = 121
-      Height = 21
-      Style = csDropDownList
-      Anchors = [akLeft, akTop, akRight]
-      ItemHeight = 13
-      TabOrder = 5
-      Items.Strings = (
-        'None'
-        'Level 1'
-        'Level 2')
-    end
-    object cbReceiptType: TComboBox
-      Left = 96
-      Top = 160
-      Width = 121
-      Height = 21
-      Style = csDropDownList
-      Anchors = [akLeft, akTop, akRight]
-      ItemHeight = 13
-      TabOrder = 6
-      Items.Strings = (
-        'Normal receipt'
-        'Single position'
-        'GLOBUS receipt'
-        'GLOBUS text receipt')
-    end
-    object cbCCOType: TComboBox
-      Left = 96
-      Top = 232
-      Width = 121
-      Height = 21
-      Style = csDropDownList
-      Anchors = [akLeft, akTop, akRight]
-      ItemHeight = 13
-      TabOrder = 9
-      Items.Strings = (
-        'RCS CCO (default)'
-        'NCR CCO'
-        'NONE')
-    end
-    object chbCacheReceiptNumber: TCheckBox
-      Left = 8
-      Top = 256
-      Width = 201
-      Height = 17
-      Caption = 'Cache receipt number'
-      TabOrder = 10
-    end
-    object seDepartment: TSpinEdit
-      Left = 96
-      Top = 16
-      Width = 121
-      Height = 22
-      MaxValue = 0
-      MinValue = 0
-      TabOrder = 0
-      Value = 0
-    end
-    object seZeroReceiptNumber: TSpinEdit
-      Left = 120
-      Top = 208
-      Width = 97
-      Height = 22
-      MaxValue = 0
-      MinValue = 0
-      TabOrder = 8
-      Value = 0
-    end
-    object chbZReceiptBeforeZReport: TCheckBox
-      Left = 8
-      Top = 280
-      Width = 214
-      Height = 17
-      Caption = 'Zero receipt before Z report (day closed)'
-      TabOrder = 11
-    end
-    object chbOpenReceiptEnabled: TCheckBox
-      Left = 8
-      Top = 304
-      Width = 214
-      Height = 17
-      Caption = 'Open receipt in beginFiscalReceipt'
-      TabOrder = 12
-    end
-  end
   object gbPassword: TGroupBox
     Left = 264
-    Top = 344
+    Top = 224
     Width = 225
     Height = 73
     Caption = 'Passwords'
-    TabOrder = 2
+    TabOrder = 1
     object lblUsrPassword: TLabel
       Left = 8
       Top = 20
@@ -559,16 +254,119 @@ object fmFptrConnection: TfmFptrConnection
     end
   end
   object cbStorage: TComboBox
-    Left = 128
-    Top = 384
+    Left = 120
+    Top = 304
     Width = 129
     Height = 21
     Style = csDropDownList
     ItemHeight = 13
-    TabOrder = 3
+    TabOrder = 2
     Items.Strings = (
       'Registry'
       'Ini file'
       'Registry IBT')
+  end
+  object GroupBox1: TGroupBox
+    Left = 264
+    Top = 8
+    Width = 225
+    Height = 209
+    Caption = 'Polling'
+    TabOrder = 3
+    DesignSize = (
+      225
+      209)
+    object lblPropertyUpdateMode: TLabel
+      Left = 8
+      Top = 32
+      Width = 79
+      Height = 13
+      Caption = 'Properties mode:'
+    end
+    object lblPollInterval: TLabel
+      Left = 8
+      Top = 56
+      Width = 80
+      Height = 13
+      Caption = 'Poll interval, sec:'
+    end
+    object lblStatusInterval: TLabel
+      Left = 8
+      Top = 80
+      Width = 89
+      Height = 13
+      Caption = 'Status interval, ms:'
+    end
+    object lblStatusTimeout: TLabel
+      Left = 8
+      Top = 104
+      Width = 90
+      Height = 13
+      Caption = 'Status timeout, sec'
+    end
+    object lblEventsType: TLabel
+      Left = 8
+      Top = 128
+      Width = 59
+      Height = 13
+      Caption = 'Events type:'
+    end
+    object cbPropertyUpdateMode: TComboBox
+      Left = 104
+      Top = 32
+      Width = 113
+      Height = 21
+      Style = csDropDownList
+      ItemHeight = 13
+      TabOrder = 0
+      Items.Strings = (
+        'None'
+        'Polling'
+        'Query')
+    end
+    object sePollInterval: TSpinEdit
+      Left = 104
+      Top = 56
+      Width = 113
+      Height = 22
+      MaxValue = 60
+      MinValue = 1
+      TabOrder = 1
+      Value = 1
+    end
+    object seStatusInterval: TSpinEdit
+      Left = 104
+      Top = 80
+      Width = 113
+      Height = 22
+      MaxValue = 0
+      MinValue = 0
+      TabOrder = 2
+      Value = 0
+    end
+    object seStatusTimeout: TSpinEdit
+      Left = 104
+      Top = 104
+      Width = 113
+      Height = 22
+      MaxValue = 0
+      MinValue = 0
+      TabOrder = 3
+      Value = 0
+    end
+    object cbCCOType: TComboBox
+      Left = 104
+      Top = 128
+      Width = 113
+      Height = 21
+      Style = csDropDownList
+      Anchors = [akLeft, akTop, akRight]
+      ItemHeight = 13
+      TabOrder = 4
+      Items.Strings = (
+        'RCS CCO (default)'
+        'NCR CCO'
+        'NONE')
+    end
   end
 end

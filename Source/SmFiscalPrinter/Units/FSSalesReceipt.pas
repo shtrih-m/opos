@@ -1031,6 +1031,9 @@ begin
   FSRegistration := Item.Data;
 
   Operation.Quantity := Abs(FSRegistration.Quantity);
+  if Parameters.QuantityLength = QuantityLength6 then
+    Operation.Quantity := Round(Abs(FSRegistration.Quantity) / 1000);
+
   Operation.Price := FSRegistration.Price;
   Operation.Department := FSRegistration.Department;
   Operation.Tax1 := GetTax(FSRegistration.Text, FSRegistration.Tax);
@@ -1048,7 +1051,10 @@ begin
     if Device.CapFSCloseReceipt2 then
     begin
       FSSale2.RecType := FRecType;
-      FSSale2.Quantity := Abs(FSRegistration.Quantity) * 1000;
+      FSSale2.Quantity := Abs(FSRegistration.Quantity);
+      if Parameters.QuantityLength = QuantityLength3 then
+        FSSale2.Quantity := Abs(FSRegistration.Quantity) * 1000;
+
       FSSale2.Price := Item.PriceWithDiscount;
       FSSale2.Total := StrToInt64Def(FSRegistration.Parameter1, $FFFFFFFFFF);
       FSSale2.TaxAmount := StrToInt64Def(FSRegistration.Parameter2, $FFFFFFFFFF);

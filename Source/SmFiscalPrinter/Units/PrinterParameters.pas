@@ -9,6 +9,13 @@ uses
   Oposhi, PrinterTypes, PayType, LogFile, FileUtils, DirectIOAPI, VatCode;
 
 const
+  /////////////////////////////////////////////////////////////////////////////
+  // QuantityLength constants
+  QuantityLength3 = 0;
+  QuantityLength6 = 1;
+  DefQuantityLength = QuantityLength3;
+
+
   MaxRetryCountInfinite = 0;
   DefPrintSingleQuantity = True;
 
@@ -330,7 +337,7 @@ const
   DefVatCodeEnabled = False;
   DefHandleErrorCode = False;
   DefPrintUnitName = False;
-  DefOpenReceiptEnabled = True;
+  DefOpenReceiptEnabled = False;
 
 type
   { TPrinterParameters }
@@ -488,6 +495,7 @@ type
     Parameter10: string;
     PrintUnitName: Boolean;
     OpenReceiptEnabled: Boolean;
+    QuantityLength: Integer;
   public
     constructor Create(ALogger: ILogFile);
     destructor Destroy; override;
@@ -800,6 +808,7 @@ begin
   PrinterProtocol := DefPrinterProtocol;
   PrintUnitName := DefPrintUnitName;
   OpenReceiptEnabled := DefOpenReceiptEnabled;
+  QuantityLength := DefQuantityLength;
 end;
 
 procedure TPrinterParameters.LogText(const Caption, Text: string);
@@ -925,7 +934,7 @@ begin
   Logger.Debug('FSServiceEnabled: ' + BoolToStr(FSServiceEnabled));
   Logger.Debug('PrintUnitName: ' + BoolToStr(PrintUnitName));
   Logger.Debug('OpenReceiptEnabled: ' + BoolToStr(OpenReceiptEnabled));
-
+  Logger.Debug('QuantityLength: ' + IntToStr(QuantityLength));
 
   for i := 0 to PayTypes.Count-1 do
   begin

@@ -37,7 +37,7 @@ uses
   untPages in '..\..\Source\OposConfig\Units\untPages.pas',
   FptrTypes in '..\..\Source\OposConfig\Units\FptrTypes.pas',
   fmuFptrBarcode in '..\..\Source\OposConfig\Fmu\fmuFptrBarcode.pas' {fmFptrBarcode},
-  fmuFptrConnection in '..\..\Source\OposConfig\Fmu\fmuFptrConnection.pas' {fmFptrConnection},
+  fmuFptrReceipt in '..\..\Source\OposConfig\Fmu\fmuFptrReceipt.pas' {fmFptrReceipt},
   fmuFiscalStorage in '..\..\Source\OposConfig\Fmu\fmuFiscalStorage.pas' {fmFiscalStorage},
   fmuFptrJournal in '..\..\Source\OposConfig\Fmu\fmuFptrJournal.pas' {fmFptrJournal},
   fmuFptrLogo in '..\..\Source\OposConfig\Fmu\fmuFptrLogo.pas' {fmFptrLogo},
@@ -86,7 +86,8 @@ uses
   DriverContext in '..\..\Source\SmFiscalPrinter\Units\DriverContext.pas',
   OposMessages in '..\..\Source\SmFiscalPrinter\Units\OposMessages.pas',
   TLVTags in '..\..\Source\SmFiscalPrinter\Units\TLVTags.pas',
-  ByteUtils in '..\..\Source\Shared\ByteUtils.pas';
+  ByteUtils in '..\..\Source\Shared\ByteUtils.pas',
+  fmuFptrConnection in '..\..\Source\OposConfig\Fmu\fmuFptrConnection.pas' {fmFptrConnection};
 
 {$R *.RES}
 

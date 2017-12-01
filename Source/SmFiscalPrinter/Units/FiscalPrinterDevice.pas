@@ -1125,7 +1125,7 @@ begin
   begin
     try
       Logger.Debug(Format('0x%.2X, %s', [Command.Code, GetCommandName(Command.Code)]));
-      if (i <> 1) then
+      if (i <> 0) then
       begin
         Logger.Debug(Format('Retry %d...', [i]));
       end;

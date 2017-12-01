@@ -29,7 +29,7 @@ uses
   untPages in 'Units\untPages.pas',
   FptrTypes in 'Units\FptrTypes.pas',
   fmuFptrBarcode in 'Fmu\fmuFptrBarcode.pas' {fmFptrBarcode},
-  fmuFptrConnection in 'Fmu\fmuFptrConnection.pas' {fmFptrConnection},
+  fmuFptrReceipt in 'Fmu\fmuFptrReceipt.pas' {fmFptrReceipt},
   fmuFptrJournal in 'Fmu\fmuFptrJournal.pas' {fmFptrJournal},
   fmuFptrLogo in 'Fmu\fmuFptrLogo.pas' {fmFptrLogo},
   fmuFptrVatCode in 'Fmu\fmuFptrVatCode.pas' {fmFptrVatCode},
@@ -78,7 +78,8 @@ uses
   fmuFptrPayType in 'Fmu\fmuFptrPayType.pas' {fmFptrPayType},
   VatCode in '..\SmFiscalPrinter\Units\VatCode.pas',
   DriverContext in '..\SmFiscalPrinter\Units\DriverContext.pas',
-  OposMessages in '..\SmFiscalPrinter\Units\OposMessages.pas';
+  OposMessages in '..\SmFiscalPrinter\Units\OposMessages.pas',
+  fmuFptrConnection in 'Fmu\fmuFptrConnection.pas' {fmFptrConnection};
 
 {$R *.RES}
 {$R WindowsXP.RES}
@@ -87,14 +88,6 @@ begin
   Application.Initialize;
   Application.Title := 'OPOS setup utility';
   Application.CreateForm(TfmMain, fmMain);
-  Application.CreateForm(TfmFptrBarcode, fmFptrBarcode);
-  Application.CreateForm(TfmFptrConnection, fmFptrConnection);
-  Application.CreateForm(TfmReceiptFormat, fmReceiptFormat);
-  Application.CreateForm(TfmXReport, fmXReport);
-  Application.CreateForm(TfmZReport, fmZReport);
-  Application.CreateForm(TfmFptrTables, fmFptrTables);
-  Application.CreateForm(TfmMiscParams, fmMiscParams);
-  Application.CreateForm(TfmMiscParams, fmMiscParams);
   Application.Run;
 end.
 

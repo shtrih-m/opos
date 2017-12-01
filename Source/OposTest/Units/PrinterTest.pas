@@ -4248,21 +4248,22 @@ end;
 
 procedure TReceiptTest13.Execute;
 begin
-  //Check(FiscalPrinter.resetPrinter());
+  Check(FiscalPrinter.resetPrinter());
   FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
   Check(FiscalPrinter.BeginFiscalReceipt(True));
-  Check(FiscalPrinter.PrintRecMessage('PrintRecMessage1'));
-  Check(FiscalPrinter.PrintRecItemRefund('AI-92', 499.98, 15290, 4, 32.7, ''));
-  Check(FiscalPrinter.PrintRecMessage('PrintRecMessage2'));
-  Check(FiscalPrinter.PrintRecSubtotalAdjustment(1, 'Discount', 0.98));
-  Check(FiscalPrinter.PrintRecMessage('PrintRecMessage3'));
-  Check(FiscalPrinter.PrintRecTotal(499, 499, '0'));
-  Check(FiscalPrinter.PrintRecMessage('PrintRecMessage4'));
-  Check(FiscalPrinter.PrintRecMessage('PrintRecMessage5'));
-  Check(FiscalPrinter.PrintRecMessage('PrintRecMessage6'));
-  Check(FiscalPrinter.PrintRecMessage('PrintRecMessage7'));
-  Check(FiscalPrinter.PrintRecMessage('PrintRecMessage8'));
-  Check(FiscalPrinter.EndFiscalReceipt(True));
+  FiscalPrinter.PreLine := 'ТРК 3:                      Трз179';
+  Check(FiscalPrinter.PrintRecItemRefund('АИ-92', 485, 15290, 4, 31.72, ''));
+  Check(FiscalPrinter.PrintRecItemRefund('1П 205/60 Р15 MICHELIN', 1129, 1000, 4, 1129, ''));
+  Check(FiscalPrinter.PrintRecItemRefund('Газета Из Рук в Руки', 1, 1000, 4, 1, ''));
+  Check(FiscalPrinter.PrintRecItemRefund('Тосол  5л TATNEFT', 160, 1000, 4, 160, ''));
+  Check(FiscalPrinter.PrintRecItemRefund('Антифриз FELIX CARBOX G12 ТС-40 кр.5кг', 160, 1000, 4, 160, ''));
+  Check(FiscalPrinter.PrintRecItemRefund('Сигареты Ява Золотая Современная', 101, 1000, 4, 101, ''));
+  Check(FiscalPrinter.PrintRecSubtotalAdjustment(1, 'Округление', 0.02));
+  Check(FiscalPrinter.PrintRecTotal(2035.98, 2035.98, '0'));
+  Check(FiscalPrinter.PrintRecMessage('Скидка ЛНР            =-258.00'));
+  Check(FiscalPrinter.PrintRecMessage('Транз.:      39728 '));
+  Check(FiscalPrinter.PrintRecMessage('Транз. продажи: 39727 (2035.98 руб)'));
+  Check(FiscalPrinter.EndFiscalReceipt(False));
 end;
 
 function TReceiptTest13.GetDisplayText: string;

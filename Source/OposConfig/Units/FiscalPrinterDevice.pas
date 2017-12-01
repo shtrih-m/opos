@@ -57,7 +57,8 @@ type
 implementation
 
 uses
-  fmuFptrConnection, fmuFptrHeader, fmuFptrTrailer, fmuFptrText,
+  // VCL
+  fmuFptrConnection, fmuFptrReceipt, fmuFptrHeader, fmuFptrTrailer, fmuFptrText,
   fmuFptrLog, fmuFptrLogo, fmuFptrPayType, fmuFptrVatCode, fmuFptrBarcode,
   fmuXReport, fmuZReport, fmuMiscParams, fmuFiscalStorage, fmuFptrTables,
   fmuReceiptFormat, 
@@ -127,6 +128,7 @@ begin
     {$ENDIF}
     //
     AddPage(fm, TfmFptrConnection);
+    AddPage(fm, TfmFptrReceipt);
     AddPage(fm, TfmFptrTables);
     AddPage(fm, TfmFptrHeader);
     AddPage(fm, TfmFptrTrailer);
