@@ -462,8 +462,8 @@ begin
       if Reg.ValueExists('OpenReceiptEnabled') then
         Parameters.OpenReceiptEnabled := Reg.ReadBool('OpenReceiptEnabled');
 
-      if Reg.ValueExists('QuantityLength') then
-        Parameters.QuantityLength := Reg.ReadInteger('QuantityLength');
+      if Reg.ValueExists('QuantityDecimalPlaces') then
+        Parameters.QuantityDecimalPlaces := Reg.ReadInteger('QuantityDecimalPlaces');
 
 
       // VatCodes
@@ -620,7 +620,7 @@ begin
     Reg.WriteInteger('PrinterProtocol', FParameters.PrinterProtocol);
     Reg.WriteBool('PrintUnitName', FParameters.PrintUnitName);
     Reg.WriteBool('OpenReceiptEnabled', FParameters.OpenReceiptEnabled);
-    Reg.WriteInteger('QuantityLength', FParameters.QuantityLength);
+    Reg.WriteInteger('QuantityDecimalPlaces', FParameters.QuantityDecimalPlaces);
 
     // VatCodes
     Reg.DeleteKey(REG_KEY_VATCODES);

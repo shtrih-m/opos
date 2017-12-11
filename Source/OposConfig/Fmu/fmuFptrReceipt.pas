@@ -36,7 +36,7 @@ type
     seZeroReceiptNumber: TSpinEdit;
     chbZReceiptBeforeZReport: TCheckBox;
     chbOpenReceiptEnabled: TCheckBox;
-    cbQuantityLength: TComboBox;
+    cbQuantityDecimalPlaces: TComboBox;
     lblQuantityLength: TLabel;
     gbReceipt: TGroupBox;
   public
@@ -67,7 +67,7 @@ begin
   chbCacheReceiptNumber.Checked := Parameters.CacheReceiptNumber;
   chbZReceiptBeforeZReport.Checked := Parameters.ZReceiptBeforeZReport;
   chbOpenReceiptEnabled.Checked := Parameters.OpenReceiptEnabled;
-  cbQuantityLength.ItemIndex := Parameters.QuantityLength;
+  cbQuantityDecimalPlaces.ItemIndex := Parameters.QuantityDecimalPlaces;
 end;
 
 procedure TfmFptrReceipt.UpdateObject;
@@ -84,7 +84,7 @@ begin
   Parameters.CacheReceiptNumber := chbCacheReceiptNumber.Checked;
   Parameters.ZReceiptBeforeZReport := chbZReceiptBeforeZReport.Checked;
   Parameters.OpenReceiptEnabled := chbOpenReceiptEnabled.Checked;
-  Parameters.QuantityLength := cbQuantityLength.ItemIndex;
+  Parameters.QuantityDecimalPlaces := cbQuantityDecimalPlaces.ItemIndex;
 end;
 
 end.

@@ -831,8 +831,14 @@ begin
     Logger.Debug('  ServiceObjectVersion     : ' + IntToStr(FOposDevice.ServiceObjectVersion));
     Logger.Debug('  File version             : ' + GetFileVersionInfoStr);
     Logger.Debug(Logger.Separator);
-    Parameters.WriteLogParameters;
 
+    if Parameters.QuantityDecimalPlaces = QuantityDecimalPlaces3 then
+      FQuantityDecimalPlaces := 3;
+    if Parameters.QuantityDecimalPlaces = QuantityDecimalPlaces6 then
+      FQuantityDecimalPlaces := 6;
+
+
+    Parameters.WriteLogParameters;
     Statistics.IniLoad('FiscalPrinter' + DeviceName);
     Statistics.DeviceCategory := 'FiscalPrinter';
     Statistics.UnifiedPOSVersion := '1.12.0';

@@ -209,8 +209,9 @@ uses
   duCommandDefs in 'Units\duCommandDefs.pas',
   PrinterFonts in '..\..\Source\SmFiscalPrinter\Units\PrinterFonts.pas',
   SmResourceStrings in '..\..\Source\SmFiscalPrinter\Units\SmResourceStrings.pas',
-  duBitUtils in 'Units\duBitUtils.pas',
-  TLVTags in '..\..\Source\SmFiscalPrinter\Units\TLVTags.pas';
+  duSocketPort in 'Units\duSocketPort.pas',
+  TLVTags in '..\..\Source\SmFiscalPrinter\Units\TLVTags.pas',
+  duBitUtils in 'Units\duBitUtils.pas';
 
 {$R *.RES}
 {$R ..\..\Source\SmFiscalPrinter\SmFiscalPrinter.TLB}

@@ -1031,7 +1031,7 @@ begin
   FSRegistration := Item.Data;
 
   Operation.Quantity := Abs(FSRegistration.Quantity);
-  if Parameters.QuantityLength = QuantityLength6 then
+  if Parameters.QuantityDecimalPlaces = QuantityDecimalPlaces6 then
     Operation.Quantity := Round(Abs(FSRegistration.Quantity) / 1000);
 
   Operation.Price := FSRegistration.Price;
@@ -1052,7 +1052,7 @@ begin
     begin
       FSSale2.RecType := FRecType;
       FSSale2.Quantity := Abs(FSRegistration.Quantity);
-      if Parameters.QuantityLength = QuantityLength3 then
+      if Parameters.QuantityDecimalPlaces = QuantityDecimalPlaces3 then
         FSSale2.Quantity := Abs(FSRegistration.Quantity) * 1000;
 
       FSSale2.Price := Item.PriceWithDiscount;

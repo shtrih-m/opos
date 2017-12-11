@@ -233,7 +233,7 @@ object fmFptrReceipt: TfmFptrReceipt
       Caption = 'Open receipt in beginFiscalReceipt'
       TabOrder = 12
     end
-    object cbQuantityLength: TComboBox
+    object cbQuantityDecimalPlaces: TComboBox
       Left = 96
       Top = 232
       Width = 121

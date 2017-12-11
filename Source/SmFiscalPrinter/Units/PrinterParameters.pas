@@ -11,9 +11,10 @@ uses
 const
   /////////////////////////////////////////////////////////////////////////////
   // QuantityLength constants
-  QuantityLength3 = 0;
-  QuantityLength6 = 1;
-  DefQuantityLength = QuantityLength3;
+  QuantityDecimalPlacesAuto = 0;
+  QuantityDecimalPlaces3 = 1;
+  QuantityDecimalPlaces6 = 2;
+  DefQuantityDecimalPlaces = QuantityDecimalPlacesAuto;
 
 
   MaxRetryCountInfinite = 0;
@@ -495,7 +496,7 @@ type
     Parameter10: string;
     PrintUnitName: Boolean;
     OpenReceiptEnabled: Boolean;
-    QuantityLength: Integer;
+    QuantityDecimalPlaces: Integer;
   public
     constructor Create(ALogger: ILogFile);
     destructor Destroy; override;
@@ -808,7 +809,7 @@ begin
   PrinterProtocol := DefPrinterProtocol;
   PrintUnitName := DefPrintUnitName;
   OpenReceiptEnabled := DefOpenReceiptEnabled;
-  QuantityLength := DefQuantityLength;
+  QuantityDecimalPlaces := DefQuantityDecimalPlaces;
 end;
 
 procedure TPrinterParameters.LogText(const Caption, Text: string);
@@ -934,7 +935,7 @@ begin
   Logger.Debug('FSServiceEnabled: ' + BoolToStr(FSServiceEnabled));
   Logger.Debug('PrintUnitName: ' + BoolToStr(PrintUnitName));
   Logger.Debug('OpenReceiptEnabled: ' + BoolToStr(OpenReceiptEnabled));
-  Logger.Debug('QuantityLength: ' + IntToStr(QuantityLength));
+  Logger.Debug('QuantityDecimalPlaces: ' + IntToStr(QuantityDecimalPlaces));
 
   for i := 0 to PayTypes.Count-1 do
   begin

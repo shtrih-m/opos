@@ -1121,7 +1121,7 @@ var
   CommandCode: Integer;
 begin
   i := 0;
-  while i < Parameters.MaxRetryCount do
+  while (Parameters.MaxRetryCount = MaxRetryCountInfinite)or(i < Parameters.MaxRetryCount) do
   begin
     try
       Logger.Debug(Format('0x%.2X, %s', [Command.Code, GetCommandName(Command.Code)]));
