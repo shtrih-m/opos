@@ -210,6 +210,10 @@ const
   DIO_BARCODE_QRCODE3             = 94;
   // Компактный вид QR кода, печатается быстро средствами ФР, перепечатываться будет
   DIO_BARCODE_QRCODE4             = 95;
+  // Read document from fiscal storage device
+  DIO_READ_FS_DOCUMENT            = 96;
+  // Print document from fiscal storage device
+  DIO_PRINT_FS_DOCUMENT           = 97;
 
   DIO_BARCODE_MIN = 0;
   DIO_BARCODE_MAX = 95;

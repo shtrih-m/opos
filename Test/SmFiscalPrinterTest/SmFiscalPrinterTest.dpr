@@ -211,7 +211,8 @@ uses
   SmResourceStrings in '..\..\Source\SmFiscalPrinter\Units\SmResourceStrings.pas',
   duSocketPort in 'Units\duSocketPort.pas',
   TLVTags in '..\..\Source\SmFiscalPrinter\Units\TLVTags.pas',
-  duBitUtils in 'Units\duBitUtils.pas';
+  duBitUtils in 'Units\duBitUtils.pas',
+  TLVParser in '..\..\Source\SmFiscalPrinter\Units\TLVParser.pas';
 
 {$R *.RES}
 {$R ..\..\Source\SmFiscalPrinter\SmFiscalPrinter.TLB}

@@ -808,6 +808,30 @@ type
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
+  { TDIOReadFSDocument }
+
+  TDIOReadFSDocument = class(TDIOHandler)
+  private
+    FPrinter: TFiscalPrinterImpl;
+  public
+    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
+      APrinter: TFiscalPrinterImpl);
+
+    procedure DirectIO(var pData: Integer; var pString: WideString); override;
+  end;
+
+  { TDIOPrintFSDocument }
+
+  TDIOPrintFSDocument = class(TDIOHandler)
+  private
+    FPrinter: TFiscalPrinterImpl;
+  public
+    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
+      APrinter: TFiscalPrinterImpl);
+
+    procedure DirectIO(var pData: Integer; var pString: WideString); override;
+  end;
+
 implementation
 
 function BoolToStr(Value: Boolean): string;
@@ -2425,6 +2449,36 @@ procedure TDIOGetPrintWidth.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
   pString := IntToStr(FPrinter.Device.GetPrintWidth(pData));
+end;
+
+{ TDIOReadFSDocument }
+
+constructor TDIOReadFSDocument.CreateCommand(AOwner: TDIOHandlers;
+  ACommand: Integer; APrinter: TFiscalPrinterImpl);
+begin
+  inherited Create(AOwner, ACommand);
+  FPrinter := APrinter;
+end;
+
+procedure TDIOReadFSDocument.DirectIO(var pData: Integer;
+  var pString: WideString);
+begin
+  pString := FPrinter.ReadFSDocument(pData);
+end;
+
+{ TDIOPrintFSDocument }
+
+constructor TDIOPrintFSDocument.CreateCommand(AOwner: TDIOHandlers;
+  ACommand: Integer; APrinter: TFiscalPrinterImpl);
+begin
+  inherited Create(AOwner, ACommand);
+  FPrinter := APrinter;
+end;
+
+procedure TDIOPrintFSDocument.DirectIO(var pData: Integer;
+  var pString: WideString);
+begin
+  FPrinter.PrintFSDocument(pData);
 end;
 
 end.

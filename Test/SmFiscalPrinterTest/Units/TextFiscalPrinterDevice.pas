@@ -294,6 +294,8 @@ type
     function GetPrinterStatus: TPrinterStatus;
     function IsCapBarcode2D: Boolean;
     function IsCapEnablePrint: Boolean;
+    function ReadFSDocument(Number: Integer): string;
+    procedure PrintFSDocument(Number: Integer);
 
     property RecStation: TStrings read FRecStation;
     property JrnStation: TStrings read FJrnStation;
@@ -1709,6 +1711,16 @@ end;
 function TTextFiscalPrinterDevice.ReadCashReg2(RegID: Integer): Int64;
 begin
   Result := 0;
+end;
+
+procedure TTextFiscalPrinterDevice.PrintFSDocument(Number: Integer);
+begin
+
+end;
+
+function TTextFiscalPrinterDevice.ReadFSDocument(Number: Integer): string;
+begin
+
 end;
 
 end.

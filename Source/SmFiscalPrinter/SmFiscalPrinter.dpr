@@ -167,7 +167,8 @@ uses
   PrinterProtocol1 in 'Units\PrinterProtocol1.pas',
   PrinterFonts in 'Units\PrinterFonts.pas',
   SmResourceStrings in 'Units\SmResourceStrings.pas',
-  TLVTags in 'Units\TLVTags.pas';
+  TLVTags in 'Units\TLVTags.pas',
+  TLVParser in 'Units\TLVParser.pas';
 
 exports
   DllGetClassObject,

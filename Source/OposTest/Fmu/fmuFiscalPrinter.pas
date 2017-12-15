@@ -20,7 +20,7 @@ uses
   fmuFptrAddHeaderTrailer, fmuFptrGetData, fmuFptrRecCash,
   fmuFptrWritableProperties, fmuFptrSetHeadertrailer, fmuFptrDriverTest,
   fmuFptrDirectIOHex, fmuFptrDirectIOStr, fmuFptrDirectIOEndDay, fmuFptrDirectIO,
-  fmuFptrDirectIOBarcode, fmuFptrTraining, fmuFptrReceiptTest,
+  fmuFptrDirectIOBarcode, fmuFptrDirectIOFS, fmuFptrTraining, fmuFptrReceiptTest,
   fmuPrintRecVoidItem, fmuPrintRecItemRefund, fmuPrintRecItemRefundVoid,
   fmuFptrStatistics, fmuFptrMonitoring,
   fmuFptrEvents, fmuFptrTest, fmuFptrThreadTest, fmuFptrFiscalStorage,
@@ -175,6 +175,7 @@ begin
   AddPage(TfmFptrDirectIOStr);
   AddPage(TfmFptrDirectIOEndDay);
   AddPage(TfmFptrDirectIOBarcode);
+  AddPage(TfmFptrDirectIOFS);
   // Driver tests
   AddPage(TfmFptrDriverTest);
   AddPage(TfmFptrStatistics);

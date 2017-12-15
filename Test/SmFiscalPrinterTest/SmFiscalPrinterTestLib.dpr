@@ -205,7 +205,8 @@ uses
   PrinterProtocol1 in '..\..\Source\SmFiscalPrinter\Units\PrinterProtocol1.pas',
   PrinterFonts in '..\..\Source\SmFiscalPrinter\Units\PrinterFonts.pas',
   SmResourceStrings in '..\..\Source\SmFiscalPrinter\Units\SmResourceStrings.pas',
-  TLVTags in '..\..\Source\SmFiscalPrinter\Units\TLVTags.pas';
+  TLVTags in '..\..\Source\SmFiscalPrinter\Units\TLVTags.pas',
+  TLVParser in '..\..\Source\SmFiscalPrinter\Units\TLVParser.pas';
 
 {$R *.RES}
 {$R ..\..\Source\SmFiscalPrinter\SmFiscalPrinter.TLB}

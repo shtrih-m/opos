@@ -8,37 +8,50 @@
   resources were bound to the produced executable.
 */
 
-#define FiscalPrinterDevice_MsgInvalidParameterValue 64720
-#define PrinterProtocol2_IncorrectPacketFormat 64721
-#define PrinterParametersReg_MsgRegistryKeyOpenError 64722
-#define PrinterParametersRegIBT_MsgRegistryKeyOpenError 64723
-#define DIOHandler_MsgInvalidDirectIOCommandCode 64724
-#define CommandParam_MsgInvalidParameterType 64725
-#define SharedPrinter_MsgFailedContinuePrint 64726
-#define CustomReceipt_MsgReceiptMethodNotSupported 64727
-#define CustomReceipt_MsgNegativePrice 64728
-#define CustomReceipt_MsgInvalidPercentsValue 64729
-#define CustomReceipt_MsgNegativeQuantity 64730
-#define CustomReceipt_MsgNegativeAmount 64731
-#define ElectronicJournal_MsgDateLineNotFound 64732
-#define ElectronicJournal_MsgDateNotFound 64733
-#define TrainingReceiptPrinter_MsgReceiptNotOpened 64734
-#define CsvPrinterTableFormat_STableFormat 64736
-#define FiscalPrinterDevice_MsgInvalidFieldType 64737
-#define FiscalPrinterDevice_MsgInvalidFieldValue 64738
-#define FiscalPrinterDevice_MsgFieldTypeNotInteger 64739
-#define FiscalPrinterDevice_MsgInvalidAnswerCode 64740
-#define FiscalPrinterDevice_MsgInvalidAnswerLength 64741
-#define FiscalPrinterDevice_MsgDeviceModelNotFound 64742
-#define FiscalPrinterDevice_MsgAnswerDataLengthTooShort 64743
-#define FiscalPrinterDevice_MsgGraphicsNotSupported 64744
-#define FiscalPrinterDevice_MsgInvalidBarcodeType 64745
-#define FiscalPrinterDevice_MsgInvalidParameterIDValue 64746
-#define FiscalPrinterDevice_MsgBitmapWidthMoreThanMaximum 64747
-#define FiscalPrinterDevice_MsgBitmapHeightMoreThanMaximum 64748
-#define FiscalPrinterDevice_MsgImageWidthZero 64749
-#define FiscalPrinterDevice_MsgImageHeightZero 64750
-#define FiscalPrinterDevice_MsgFailedContinuePrint 64751
+#define PrinterParametersRegIBT_MsgRegistryKeyOpenError 64704
+#define DIOHandler_MsgInvalidDirectIOCommandCode 64705
+#define CommandParam_MsgInvalidParameterType 64706
+#define SharedPrinter_MsgFailedContinuePrint 64707
+#define CustomReceipt_MsgReceiptMethodNotSupported 64708
+#define CustomReceipt_MsgNegativePrice 64709
+#define CustomReceipt_MsgInvalidPercentsValue 64710
+#define CustomReceipt_MsgNegativeQuantity 64711
+#define CustomReceipt_MsgNegativeAmount 64712
+#define ElectronicJournal_MsgDateLineNotFound 64713
+#define ElectronicJournal_MsgDateNotFound 64714
+#define TrainingReceiptPrinter_MsgReceiptNotOpened 64715
+#define FiscalPrinterDevice_MsgFieldTypeNotInteger 64720
+#define FiscalPrinterDevice_MsgInvalidAnswerCode 64721
+#define FiscalPrinterDevice_MsgInvalidAnswerLength 64722
+#define FiscalPrinterDevice_MsgDeviceModelNotFound 64723
+#define FiscalPrinterDevice_MsgAnswerDataLengthTooShort 64724
+#define FiscalPrinterDevice_MsgGraphicsNotSupported 64725
+#define FiscalPrinterDevice_MsgInvalidBarcodeType 64726
+#define FiscalPrinterDevice_MsgInvalidParameterIDValue 64727
+#define FiscalPrinterDevice_MsgBitmapWidthMoreThanMaximum 64728
+#define FiscalPrinterDevice_MsgBitmapHeightMoreThanMaximum 64729
+#define FiscalPrinterDevice_MsgImageWidthZero 64730
+#define FiscalPrinterDevice_MsgImageHeightZero 64731
+#define FiscalPrinterDevice_MsgFailedContinuePrint 64732
+#define FiscalPrinterDevice_MsgInvalidParameterValue 64733
+#define PrinterProtocol2_IncorrectPacketFormat 64734
+#define PrinterParametersReg_MsgRegistryKeyOpenError 64735
+#define TLVTags_SBuy 64736
+#define TLVTags_SReturnBuy 64737
+#define TLVTags_SUnknownType 64738
+#define TLVTags_SOSN 64739
+#define TLVTags_SUD 64740
+#define TLVTags_SUDMR 64741
+#define TLVTags_SENVD 64742
+#define TLVTags_SESN 64743
+#define TLVTags_SPSN 64744
+#define CsvPrinterTableFormat_STable 64745
+#define CsvPrinterTableFormat_CsvFilterString 64746
+#define CsvPrinterTableFormat_STableFormat 64747
+#define TLVParser_SWrongTagLength 64748
+#define TLVParser_SUnknownTag 64749
+#define FiscalPrinterDevice_MsgInvalidFieldType 64750
+#define FiscalPrinterDevice_MsgInvalidFieldValue 64751
 #define pnglang_EPNGIHDRNotFirstText 64752
 #define pnglang_EPNGSizeExceedsText 64753
 #define pnglang_EPNGUnknownPalEntryText 64754
@@ -53,8 +66,8 @@
 #define pnglang_EPNGCannotAddInvalidImageText 64763
 #define pnglang_EPNGOutMemoryText 64764
 #define pnglang_EPNGHeaderNotPresentText 64765
-#define CsvPrinterTableFormat_STable 64766
-#define CsvPrinterTableFormat_CsvFilterString 64767
+#define TLVTags_SSale 64766
+#define TLVTags_SReturnSale 64767
 #define JvResources_RsClInfoText 64768
 #define JvResources_RsClInfoBk 64769
 #define JvResources_RsGradientActiveCaption 64770
@@ -825,9 +838,6 @@
 #define SysConst_SDiskFull 65535
 STRINGTABLE
 BEGIN
-	FiscalPrinterDevice_MsgInvalidParameterValue,	"Invalid pData parameter value"
-	PrinterProtocol2_IncorrectPacketFormat,	"Некорректный формат пакета"
-	PrinterParametersReg_MsgRegistryKeyOpenError,	"Registry key open error"
 	PrinterParametersRegIBT_MsgRegistryKeyOpenError,	"Registry key open error"
 	DIOHandler_MsgInvalidDirectIOCommandCode,	"Invalid DirectIO command code"
 	CommandParam_MsgInvalidParameterType,	"Invalid parameter type"
@@ -840,9 +850,6 @@ BEGIN
 	ElectronicJournal_MsgDateLineNotFound,	"Date line not found"
 	ElectronicJournal_MsgDateNotFound,	"Failed parsing electronic journal report. Date not found"
 	TrainingReceiptPrinter_MsgReceiptNotOpened,	"Receipt is not opened"
-	CsvPrinterTableFormat_STableFormat,	"Номер таблицы,Ряд,Поле,Размер поля,Тип поля,Мин. значение, Макс.значение, Название,Значение"
-	FiscalPrinterDevice_MsgInvalidFieldType,	"Invalid field type"
-	FiscalPrinterDevice_MsgInvalidFieldValue,	"Invalid field value"
 	FiscalPrinterDevice_MsgFieldTypeNotInteger,	"Field type is not integer"
 	FiscalPrinterDevice_MsgInvalidAnswerCode,	"Invalid answer code"
 	FiscalPrinterDevice_MsgInvalidAnswerLength,	"Invalid answer length"
@@ -856,6 +863,25 @@ BEGIN
 	FiscalPrinterDevice_MsgImageWidthZero,	"Image width is zero, must be > 0"
 	FiscalPrinterDevice_MsgImageHeightZero,	"Image height is zero, must be > 0"
 	FiscalPrinterDevice_MsgFailedContinuePrint,	"Failed to continue print"
+	FiscalPrinterDevice_MsgInvalidParameterValue,	"Invalid pData parameter value"
+	PrinterProtocol2_IncorrectPacketFormat,	"Некорректный формат пакета"
+	PrinterParametersReg_MsgRegistryKeyOpenError,	"Registry key open error"
+	TLVTags_SBuy,	"Расход"
+	TLVTags_SReturnBuy,	"Возврат расхода"
+	TLVTags_SUnknownType,	"Неизв. тип: "
+	TLVTags_SOSN,	"ОБЩ."
+	TLVTags_SUD,	"+УД"
+	TLVTags_SUDMR,	"+УДМР"
+	TLVTags_SENVD,	"+ЕНВД"
+	TLVTags_SESN,	"+ЕСН"
+	TLVTags_SPSN,	"+ПСН"
+	CsvPrinterTableFormat_STable,	"Таблица"
+	CsvPrinterTableFormat_CsvFilterString,	"Файлы таблиц (*.csv)|*.csv|"
+	CsvPrinterTableFormat_STableFormat,	"Номер таблицы,Ряд,Поле,Размер поля,Тип поля,Мин. значение, Макс.значение, Название,Значение"
+	TLVParser_SWrongTagLength,	"Ошибка! Некорректная длина"
+	TLVParser_SUnknownTag,	"НЕИЗВЕСТНЫЙ ТЕГ"
+	FiscalPrinterDevice_MsgInvalidFieldType,	"Invalid field type"
+	FiscalPrinterDevice_MsgInvalidFieldValue,	"Invalid field value"
 	pnglang_EPNGIHDRNotFirstText,	"This \"Portable Network Graphics\" image is not supported or it might be invalid.\r\n(IHDR chunk is not the first)"
 	pnglang_EPNGSizeExceedsText,	"This \"Portable Network Graphics\" image is not supported because either it's width or height exceeds the maximum size, which is 65535 pixels length."
 	pnglang_EPNGUnknownPalEntryText,	"There is no such palette entry."
@@ -870,8 +896,8 @@ BEGIN
 	pnglang_EPNGCannotAddInvalidImageText,	"It's not allowed to add a new chunk because the current image is invalid."
 	pnglang_EPNGOutMemoryText,	"Some operation could not be performed because the system is out of resources. Close some windows and try again."
 	pnglang_EPNGHeaderNotPresentText,	"This operation is not valid because the current image contains no valid header."
-	CsvPrinterTableFormat_STable,	"Таблица"
-	CsvPrinterTableFormat_CsvFilterString,	"Файлы таблиц (*.csv)|*.csv|"
+	TLVTags_SSale,	"Приход"
+	TLVTags_SReturnSale,	"Возврат прихода"
 	JvResources_RsClInfoText,	"Tooltip text"
 	JvResources_RsClInfoBk,	"Tooltip background"
 	JvResources_RsGradientActiveCaption,	"Gradient Active Caption"

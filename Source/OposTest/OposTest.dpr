@@ -44,7 +44,7 @@ uses
   Oposhi in '..\Opos\Oposhi.pas',
   DirectIOAPI in '..\SmFiscalPrinter\Units\DirectIOAPI.pas',
   fmuFptrTraining in 'Fmu\fmuFptrTraining.pas' {fmFptrTraining},
-  fmuFptrDirectIOBarcode in 'Fmu\fmuFptrDirectIOBarcode.pas' {fmFptrDirectIOBarcode},
+  fmuFptrDirectIOFS in 'Fmu\fmuFptrDirectIOFS.pas' {fmFptrDirectIOFS},
   fmuFptrDirectIO in 'Fmu\fmuFptrDirectIO.pas' {fmFptrDirectIO},
   fmuFptrDirectIOStr in 'Fmu\fmuFptrDirectIOStr.pas' {fmFptrDirectIOStr},
   fmuFptrDirectIOEndDay in 'Fmu\fmuFptrDirectIOEndDay.pas' {fmFptrDirectIOEndDay},
@@ -135,7 +135,8 @@ uses
   fmuFptrThreadTest in 'Fmu\fmuFptrThreadTest.pas' {fmFptrThreadTest},
   VatCode in '..\SmFiscalPrinter\Units\VatCode.pas',
   DriverTest in 'Units\DriverTest.pas',
-  OposMessages in '..\SmFiscalPrinter\Units\OposMessages.pas';
+  OposMessages in '..\SmFiscalPrinter\Units\OposMessages.pas',
+  fmuFptrDirectIOBarcode in 'Fmu\fmuFptrDirectIOBarcode.pas' {fmFptrDirectIOBarcode};
 
 {$R *.RES}
 {$R WindowsXP.RES}

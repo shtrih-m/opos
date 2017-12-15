@@ -84,7 +84,8 @@ uses
   PrinterProtocol1 in '..\SmFiscalPrinter\Units\PrinterProtocol1.pas',
   PrinterPort in '..\SmFiscalPrinter\Units\PrinterPort.pas',
   PrinterFonts in '..\SmFiscalPrinter\Units\PrinterFonts.pas',
-  TLVTags in '..\SmFiscalPrinter\Units\TLVTags.pas';
+  TLVTags in '..\SmFiscalPrinter\Units\TLVTags.pas',
+  TLVParser in '..\SmFiscalPrinter\Units\TLVParser.pas';
 
 {$R *.TLB}
 

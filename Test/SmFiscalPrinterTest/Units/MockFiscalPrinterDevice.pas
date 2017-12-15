@@ -292,6 +292,8 @@ type
     procedure SetOnPrinterStatus(Value: TNotifyEvent);
     function IsCapBarcode2D: Boolean;
     function IsCapEnablePrint: Boolean;
+    function ReadFSDocument(Number: Integer): string;
+    procedure PrintFSDocument(Number: Integer);
 
     property Status: TPrinterStatus read FStatus write FStatus;
     property Parameters: TPrinterParameters read GetParameters;
@@ -1694,6 +1696,16 @@ end;
 function TMockFiscalPrinterDevice.ReadCashReg2(RegID: Integer): Int64;
 begin
   Result := 0;
+end;
+
+procedure TMockFiscalPrinterDevice.PrintFSDocument(Number: Integer);
+begin
+
+end;
+
+function TMockFiscalPrinterDevice.ReadFSDocument(Number: Integer): string;
+begin
+
 end;
 
 end.

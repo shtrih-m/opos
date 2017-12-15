@@ -1152,6 +1152,24 @@ type
     DocMac: DWORD;
   end;
 
+  { TFSReadDocument }
+
+  TFSReadDocument = record
+    Password: Integer;
+    Number: Integer;
+    DocType: Word;
+    DocLength: Word;
+  end;
+
+  { TFSReadDocData }
+
+  TFSReadDocData = record
+    Password: Integer;
+    TLVData: string;
+  end;
+
+
+
 function GetCommandName(Command: Integer): string;
 function GetModeDescription(Value: Integer): string;
 function GetDeviceCodeDescription(Value: Integer): string;

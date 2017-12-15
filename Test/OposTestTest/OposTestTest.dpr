@@ -17,7 +17,7 @@ uses
   fmuFptrFiscalStorage in '..\..\Source\OposTest\Fmu\fmuFptrFiscalStorage.pas' {fmFptrFiscalStorage},
   fmuFptrMonitoring in '..\..\Source\OposTest\Fmu\fmuFptrMonitoring.pas' {fmFptrMonitoring},
   fmuFptrDirectIO in '..\..\Source\OposTest\Fmu\fmuFptrDirectIO.pas' {fmFptrDirectIO},
-  fmuFptrDirectIOBarcode in '..\..\Source\OposTest\Fmu\fmuFptrDirectIOBarcode.pas' {fmFptrDirectIOBarcode},
+  fmuFptrDirectIOFS in '..\..\Source\OposTest\Fmu\fmuFptrDirectIOFS.pas' {fmFptrDirectIOFS},
   fmuFptrDirectIOEndDay in '..\..\Source\OposTest\Fmu\fmuFptrDirectIOEndDay.pas' {fmFptrDirectIOEndDay},
   fmuFptrDirectIOHex in '..\..\Source\OposTest\Fmu\fmuFptrDirectIOHex.pas' {fmFptrDirectIOHex},
   fmuFptrDirectIOStr in '..\..\Source\OposTest\Fmu\fmuFptrDirectIOStr.pas' {fmFptrDirectIOStr},
@@ -137,7 +137,8 @@ uses
   fmuFptrThreadTest in '..\..\Source\OposTest\Fmu\fmuFptrThreadTest.pas' {fmFptrThreadTest},
   fmuFptrTest2 in '..\..\Source\OposTest\Fmu\fmuFptrTest2.pas' {fmFptrTest2},
   VatCode in '..\..\Source\SmFiscalPrinter\Units\VatCode.pas',
-  OposMessages in '..\..\Source\SmFiscalPrinter\Units\OposMessages.pas';
+  OposMessages in '..\..\Source\SmFiscalPrinter\Units\OposMessages.pas',
+  fmuFptrDirectIOBarcode in '..\..\Source\OposTest\Fmu\fmuFptrDirectIOBarcode.pas' {fmFptrDirectIOBarcode};
 
 {$R *.RES}
 

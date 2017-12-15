@@ -281,6 +281,8 @@ type
     function FSReadTicketHex(Number: Integer; var Ticket: string): Integer;
     function FSReadTicketStr(Number: Integer; var Ticket: string): Integer;
     function WriteFPParameter(ParamId: Integer; const Value: string): Integer;
+    function PrintFSDocument(Number: Integer): Integer;
+    function ReadFSDocument(Number: Integer; var S: string): Integer;
 
     property OpenResult: Integer read Get_OpenResult;
     property BinaryConversion: Integer read Get_BinaryConversion write Set_BinaryConversion;
@@ -2071,6 +2073,27 @@ begin
   pData := ParamId;
   pString := Value;
   Result := Driver.DirectIO(DIO_WRITE_FPTR_PARAMETER, pData, pString);
+end;
+
+function TSMFiscalPrinter.PrintFSDocument(Number: Integer): Integer;
+var
+  pData: Integer;
+  pString: WideString;
+begin
+  pData := Number;
+  pString := '';
+  Result := Driver.DirectIO(DIO_PRINT_FS_DOCUMENT, pData, pString);
+end;
+
+function TSMFiscalPrinter.ReadFSDocument(Number: Integer; var S: string): Integer;
+var
+  pData: Integer;
+  pString: WideString;
+begin
+  pData := Number;
+  pString := '';
+  Result := Driver.DirectIO(DIO_READ_FS_DOCUMENT, pData, pString);
+  S := pString;
 end;
 
 end.

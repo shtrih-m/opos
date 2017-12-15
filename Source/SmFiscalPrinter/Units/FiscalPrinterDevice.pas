@@ -19,7 +19,7 @@ uses
   FiscalPrinterStatistics, ParameterValue, EJReportParser,
   PrinterParameters, DirectIOAPI, FileUtils,
   PrinterDeviceFilter, TLV, CsvPrinterTableFormat, MalinaParams, DriverContext,
-  PrinterFonts;
+  PrinterFonts, TLVParser;
 
 type
   { TFiscalPrinterDevice }
@@ -181,6 +181,10 @@ type
     procedure SetFooterFlag(Value: Boolean);
     procedure PrintQRCode3(Barcode: TBarcodeRec);
     function GetBlockSize(BlockSize: Integer): Integer;
+    function ReadFSDocument(Number: Integer): string;
+    procedure PrintFSDocument(Number: Integer);
+    function FSReadDocData(var P: TFSReadDocData): Integer;
+    function FSReadDocument(var P: TFSReadDocument): Integer;
   protected
     function GetMaxGraphicsWidthInBytes: Integer;
   public
@@ -8254,6 +8258,90 @@ end;
 function TFiscalPrinterDevice.IsCapEnablePrint: Boolean;
 begin
   Result := FCapEnablePrint;
+end;
+
+function TFiscalPrinterDevice.ReadFSDocument(Number: Integer): string;
+
+  function TLVToText(const TLVData: string): string;
+  var
+    Parser: TTLVParser;
+  begin
+    Parser := TTLVParser.Create;
+    try
+      Result := Parser.ParseTLV(TLVData);
+    finally
+      Parser.Free;
+    end;
+  end;
+
+var
+  P: TFSReadDocument;
+  FSDocData: TFSReadDocData;
+begin
+  Result := '';
+  P.Number := Number;
+  P.Password := FSysPassword;
+  Check(FSReadDocument(P));
+  FSDocData.Password := FSysPassword;
+  while FSReadDocData(FSDocData) = 0 do
+  begin
+    Result := Result + FSDocData.TLVData;
+  end;
+  Result := TLVToText(Result);
+end;
+
+procedure TFiscalPrinterDevice.PrintFSDocument(Number: Integer);
+begin
+  PrintText(PRINTER_STATION_REC, ReadFSDocument(Number));
+end;
+
+(*
+Запросить фискальный документ в TLV формате
+Код команды FF3Аh . Длина сообщения: 10 байт.
+  Пароль системного администратора: 4 байта
+  Номер фискального документа: 4 байта
+Ответ: FF3Аh Длина сообщения: 5 байт.
+  Код ошибки: 1 байт
+  Тип фискального документа: 2 байта STLV
+  Длина фискального документа: 2 байта
+*)
+
+function TFiscalPrinterDevice.FSReadDocument(var P: TFSReadDocument): Integer;
+var
+  Answer: string;
+  Command: string;
+begin
+  Command := #$FF#$3A + IntToBin(P.Password, 4) + IntToBin(P.Number, 4);
+  Result := ExecuteData(Command, Answer);
+  if Result = 0 then
+  begin
+    CheckMinLength(Answer, 4);
+    P.DocType := BinToInt(Answer, 1, 2);
+    P.DocLength := BinToInt(Answer, 3, 2);
+  end;
+end;
+
+(*
+Чтение TLV фискального документа
+Код команды FF3Bh . Длина сообщения: 6 байт.
+  Пароль системного администратора: 4 байта
+Ответ: FF3Bh Длина сообщения: 1+N байт.
+  Код ошибки:1 байт
+  TLV структура: N байт
+
+*)
+
+function TFiscalPrinterDevice.FSReadDocData(var P: TFSReadDocData): Integer;
+var
+  Answer: string;
+  Command: string;
+begin
+  Command := #$FF#$3B + IntToBin(P.Password, 4);
+  Result := ExecuteData(Command, Answer);
+  if Result = 0 then
+  begin
+    P.TLVData := Answer;
+  end;
 end;
 
 end.

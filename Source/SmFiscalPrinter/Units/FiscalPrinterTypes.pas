@@ -455,6 +455,8 @@ type
     function GetPrinterStatus: TPrinterStatus;
     function IsCapBarcode2D: Boolean;
     function IsCapEnablePrint: Boolean;
+    function ReadFSDocument(Number: Integer): string;
+    procedure PrintFSDocument(Number: Integer);
 
     property IsOnline: Boolean read GetIsOnline;
     property Model: TPrinterModelRec read GetModel;

@@ -162,8 +162,6 @@ resourcestring
   SESN = '+еям';
   SPSN = '+оям';
 
-
-
 function TaxSystemToStr(AType: Integer): string;
 begin
   If AType = 0 then

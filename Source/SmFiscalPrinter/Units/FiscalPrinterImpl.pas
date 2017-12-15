@@ -462,7 +462,8 @@ type
     procedure FSWriteTag(TagID: Integer; const Data: string);
     procedure SetPrinter(APrinter: ISharedPrinter);
     procedure WriteFPParameter(ParamId: Integer; const Value: string);
-
+    function ReadFSDocument(Number: Integer): string;
+    procedure PrintFSDocument(Number: Integer);
 
     property Logger: ILogFile read GetLogger;
     property Printer: ISharedPrinter read GetPrinter;
@@ -664,6 +665,8 @@ begin
   TDIOFSReFiscalize.CreateCommand(FDIOHandlers, DIO_FS_REFISCALIZE, Self);
   TDIOGetPrintWidth.CreateCommand(FDIOHandlers, DIO_GET_PRINT_WIDTH, Self);
   TDIOBarcodeHex2.CreateCommand(FDIOHandlers, DIO_PRINT_BARCODE_HEX2, Self);
+  TDIOReadFSDocument.CreateCommand(FDIOHandlers, DIO_READ_FS_DOCUMENT, Self);
+  TDIOPrintFSDocument.CreateCommand(FDIOHandlers, DIO_PRINT_FS_DOCUMENT, Self);
 end;
 
 procedure TFiscalPrinterImpl.CreateDIOHandlers1;
@@ -726,6 +729,8 @@ begin
   TDIOFSReFiscalize.CreateCommand(FDIOHandlers, DIO_FS_REFISCALIZE, Self);
   TDIOGetPrintWidth.CreateCommand(FDIOHandlers, DIO_GET_PRINT_WIDTH, Self);
   TDIOBarcodeHex2.CreateCommand(FDIOHandlers, DIO_PRINT_BARCODE_HEX2, Self);
+  TDIOReadFSDocument.CreateCommand(FDIOHandlers, DIO_READ_FS_DOCUMENT, Self);
+  TDIOPrintFSDocument.CreateCommand(FDIOHandlers, DIO_PRINT_FS_DOCUMENT, Self);
 end;
 
 procedure TFiscalPrinterImpl.CreateDIOHandlers2;
@@ -789,6 +794,8 @@ begin
   TDIOFSReFiscalize.CreateCommand(FDIOHandlers, DIO_FS_REFISCALIZE, Self);
   TDIOGetPrintWidth.CreateCommand(FDIOHandlers, DIO_GET_PRINT_WIDTH, Self);
   TDIOBarcodeHex2.CreateCommand(FDIOHandlers, DIO_PRINT_BARCODE_HEX2, Self);
+  TDIOReadFSDocument.CreateCommand(FDIOHandlers, DIO_READ_FS_DOCUMENT, Self);
+  TDIOPrintFSDocument.CreateCommand(FDIOHandlers, DIO_PRINT_FS_DOCUMENT, Self);
 end;
 
 procedure TFiscalPrinterImpl.SetPrinter(APrinter: ISharedPrinter);
@@ -4513,6 +4520,17 @@ procedure TFiscalPrinterImpl.WriteFPParameter(ParamId: Integer;
   const Value: string);
 begin
   Receipt.WriteFPParameter(ParamId, Value);
+end;
+
+procedure TFiscalPrinterImpl.PrintFSDocument(Number: Integer);
+begin
+  Device.PrintFSDocument(Number);
+  PrintNonFiscalEnd;
+end;
+
+function TFiscalPrinterImpl.ReadFSDocument(Number: Integer): string;
+begin
+  Result := Device.ReadFSDocument(Number);
 end;
 
 end.
