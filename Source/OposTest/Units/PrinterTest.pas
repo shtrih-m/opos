@@ -734,6 +734,14 @@ type
     function GetDisplayText: string; override;
   end;
 
+  { TReceiptTest14 }
+
+  TReceiptTest14 = class(TDriverTest)
+  public
+    procedure Execute; override;
+    function GetDisplayText: string; override;
+  end;
+
 implementation
 
 const
@@ -4269,6 +4277,61 @@ end;
 function TReceiptTest13.GetDisplayText: string;
 begin
   Result := 'ReceiptTest13';
+end;
+
+{ TReceiptTest14 }
+
+function TReceiptTest14.GetDisplayText: string;
+begin
+  Result := 'ReceiptTest14';
+end;
+
+procedure TReceiptTest14.Execute;
+begin
+  FiscalPrinter.FiscalReceiptType := 4;
+  Check(FiscalPrinter.BeginFiscalReceipt(True));
+  Check(FiscalPrinter.PrintRecItem('1: 3246505 Морковь 1кг', 0, 1088, 2, 19.9, 'кг'));
+  Check(FiscalPrinter.PrintRecItemAdjustment(1, '', 2.92, 0));
+  Check(FiscalPrinter.PrintRecItem('2: 3226436 Свекла 1кг', 0, 938, 2, 11.88, 'кг'));
+  Check(FiscalPrinter.PrintRecItemAdjustment(1, '', 1.5, 0));
+  Check(FiscalPrinter.PrintRecItem('3: 14301 Крупа АГРО-АЛЬЯНС ЭКСТРА 900г', 0, 1000, 2, 59.99, 'шт'));
+  Check(FiscalPrinter.PrintRecItemAdjustment(1, '', 8.1, 0));
+  Check(FiscalPrinter.PrintRecItem('4* 2159 СПм Печень говяжья 1кг', 0, 1006, 2, 279.9, 'кг'));
+  Check(FiscalPrinter.PrintRecItemAdjustment(1, '', 81.39, 0));
+  Check(FiscalPrinter.PrintRecItem('5: 3445579 Лук зеленый пакет 100г', 0, 1000, 2, 33.9, 'шт'));
+  Check(FiscalPrinter.PrintRecItemAdjustment(1, '', 4.58, 0));
+  Check(FiscalPrinter.PrintRecItem('6* 1913 Вода СВЯТОЙ ИСТОЧНИК 1.5л', 0, 2000, 1, 29.9, 'шт'));
+  Check(FiscalPrinter.PrintRecItemAdjustment(1, '', 20, 0));
+  Check(FiscalPrinter.PrintRecItem('7* 2160076 Филе ПЕРВАЯ СВЕЖЕСТЬ 1кг', 0, 816, 2, 279, 'кг'));
+  Check(FiscalPrinter.PrintRecItemAdjustment(1, '', 44.88, 0));
+  Check(FiscalPrinter.PrintRecItem('8* 2160076 Филе ПЕРВАЯ СВЕЖЕСТЬ 1кг', 0, 764, 2, 279, 'кг'));
+  Check(FiscalPrinter.PrintRecItemAdjustment(1, '', 42.02, 0));
+  Check(FiscalPrinter.PrintRecItem('9: 3502731 Паштет КРУГЛЫЙ ГОД 100г', 0, 3000, 2, 15.99, 'шт'));
+  Check(FiscalPrinter.PrintRecItemAdjustment(1, '', 6.48, 0));
+  Check(FiscalPrinter.PrintRecItem('10: 3416473 Сметана ТУЛЬСКАЯ 400г', 0, 2000, 2, 62.6, 'шт'));
+  Check(FiscalPrinter.PrintRecItemAdjustment(1, '', 16.9, 0));
+  Check(FiscalPrinter.PrintRecItem('11: 3490394 Полотенце махровое 35х60', 0, 2000, 1, 69.9, 'шт'));
+  Check(FiscalPrinter.PrintRecItemAdjustment(1, '', 18.88, 0));
+  Check(FiscalPrinter.PrintRecItem('12: 3490395 Полотенце махровое 35х60', 0, 3000, 1, 69.9, 'шт'));
+  Check(FiscalPrinter.PrintRecItemAdjustment(1, '', 28.32, 0));
+  Check(FiscalPrinter.PrintRecItem('13: 3603169 Крупа УВЕЛКА РИС 400г', 0, 2000, 2, 59.99, 'шт'));
+  Check(FiscalPrinter.PrintRecItemAdjustment(1, '', 16.2, 0));
+  Check(FiscalPrinter.PrintRecItem('14: 3024158 Колбаса ДУБКИ вареная 100г', 0, 1008, 2, 424, 'кг'));
+  Check(FiscalPrinter.PrintRecItemAdjustment(1, '', 57.72, 0));
+  Check(FiscalPrinter.PrintRecItem('15: 3374533 Батон ТХК НАРЕЗНОЙ в/с 350г', 0, 2000, 2, 23.99, 'шт'));
+  Check(FiscalPrinter.PrintRecItemAdjustment(1, '', 6.48, 0));
+  Check(FiscalPrinter.PrintRecItem('16: 2163136 Губки РУСАЛОЧКА МАКСИ 10шт', 0, 3000, 1, 35.99, 'шт'));
+  Check(FiscalPrinter.PrintRecItemAdjustment(1, '', 14.58, 0));
+  Check(FiscalPrinter.PrintRecItem('17* 3484315 Яйцо КРУГЛЫЙ ГОД 10шт', 0, 1000, 2, 41.9, 'шт'));
+  Check(FiscalPrinter.PrintRecItemAdjustment(1, '', 0, 0));
+  Check(FiscalPrinter.PrintRecItem('18* 3471166 Печенье ЮБИЛЕЙНОЕ 112г', 0, 4000, 1, 23.99, 'шт'));
+  Check(FiscalPrinter.PrintRecItemAdjustment(1, '', 32.36, 0));
+  Check(FiscalPrinter.PrintRecItem('19: 3498263 Зуб.паста COLGATE 75мл', 0, 1000, 1, 129, 'шт'));
+  Check(FiscalPrinter.PrintRecItemAdjustment(1, '', 17.42, 0));
+
+  Check(FiscalPrinter.PrintRecSubtotal(1981));
+  Check(FiscalPrinter.PrintRecTotal(0, 2000, '0'));
+  Check(FiscalPrinter.EndFiscalReceipt(True));
 end;
 
 end.

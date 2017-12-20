@@ -11,11 +11,9 @@ uses
 const
   /////////////////////////////////////////////////////////////////////////////
   // QuantityLength constants
-  QuantityDecimalPlacesAuto = 0;
-  QuantityDecimalPlaces3 = 1;
-  QuantityDecimalPlaces6 = 2;
-  DefQuantityDecimalPlaces = QuantityDecimalPlacesAuto;
-
+  QuantityDecimalPlaces3 = 0;
+  QuantityDecimalPlaces6 = 1;
+  DefQuantityDecimalPlaces = QuantityDecimalPlaces3;
 
   MaxRetryCountInfinite = 0;
   DefPrintSingleQuantity = True;
@@ -422,6 +420,7 @@ type
     FCenterHeader: Boolean;
     FAmountDecimalPlaces: Integer;
     FCapRecNearEndSensorMode: Integer;
+    FQuantityDecimalPlaces: Integer;
 
     procedure LogText(const Caption, Text: string);
     procedure SetLogoPosition(const Value: Integer);
@@ -451,6 +450,7 @@ type
     procedure SetPortNumber(const Value: Integer);
     procedure SetPollIntervalInSeconds(const Value: Integer);
     procedure SetMaxRetryCount(const Value: Integer);
+    procedure SetQuantityDecimalPlaces(const Value: Integer);
   public
     XReport: Integer;
     FSBarcodeEnabled: Boolean;
@@ -496,7 +496,6 @@ type
     Parameter10: string;
     PrintUnitName: Boolean;
     OpenReceiptEnabled: Boolean;
-    QuantityDecimalPlaces: Integer;
   public
     constructor Create(ALogger: ILogFile);
     destructor Destroy; override;
@@ -589,6 +588,7 @@ type
     property AmountDecimalPlaces: Integer read FAmountDecimalPlaces write SetAmountDecimalPlaces;
     property CapRecNearEndSensorMode: Integer read FCapRecNearEndSensorMode write FCapRecNearEndSensorMode;
     property Logger: ILogFile read FLogger;
+    property QuantityDecimalPlaces: Integer read FQuantityDecimalPlaces write SetQuantityDecimalPlaces;
   end;
 
 const
@@ -1143,6 +1143,13 @@ procedure TPrinterParameters.SetMaxRetryCount(const Value: Integer);
 begin
   if Value in [0..10] then
     FMaxRetryCount := Value;
+end;
+
+procedure TPrinterParameters.SetQuantityDecimalPlaces(
+  const Value: Integer);
+begin
+  if Value in [0..1] then
+    FQuantityDecimalPlaces := Value;
 end;
 
 end.
