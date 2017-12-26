@@ -1,27 +1,22 @@
-unit FSSalesReceipt;
+unit OposSalesReceipt;
 
 interface
 
 uses
   // VCL
-  Windows, SysUtils, Forms, Controls, Classes, Messages,
+  SysUtils,
   // This
-  CustomReceipt, PrinterTypes, ByteUtils, OposFptr, OposException,
-  Opos, PayType, ReceiptPrinter, FiscalPrinterState,
-  ReceiptItem, RecDiscount, PrinterParameters, TextItem, MathUtils,
-  fmuSelect, fmuPhone, fmuEMail, TLV, LogFile, RegExpr, MalinaParams,
-  StringUtils, Retalix, FiscalPrinterTypes, ReceiptTemplate,
-  SmResourceStrings, DirectioAPI;
+  Opos, OposFptr, OposException, CustomReceipt, PrinterTypes, ReceiptItem,
+  RegExpr, StringUtils, SmResourceStrings, MathUtils, PrinterParameters;
 
 type
-  { TFSSalesReceipt }
+  { TOposSalesReceipt }
 
-  TFSSalesReceipt = class(TCustomReceipt)
+  TOposSalesReceipt = class(TCustomReceipt)
   private
     FOpened: Boolean;
     FRecType: Integer;
     FIsVoided: Boolean;
-    FRetalix: TRetalix;
     FPayments: TPayments;
     FLastItem: TFSSaleItem;
     FDiscounts: TReceiptItems;
@@ -29,59 +24,43 @@ type
     FReceiptItems: TReceiptItems;
     FRecDiscount: TDiscountReceiptItem;
     FAdjustmentAmount: Integer;
-    FTemplate: TReceiptTemplate;
-    FAdditionalHeader: string;
-
-    procedure PrintReceiptItems;
-    procedure CheckTotal(Total: Currency);
-    procedure SubtotalDiscount(Amount: Int64; const Description: string);
-    procedure CheckAdjAmount(AdjustmentType: Integer; Amount: Currency);
-    procedure RecSubtotalAdjustment(const Description: string;
-      AdjustmentType: Integer; Amount: Currency);
-
 
     function GetIsCashPayment: Boolean;
-    function GetDevice: IFiscalPrinterDevice;
     function IsCashlessPayCode(PayCode: Integer): Boolean;
 
-    procedure BeforeCloseReceipt;
+    procedure CheckTotal(Total: Currency);
     procedure AddItemDiscount(Discount: TAmountOperation);
-    function GetAdjustmentAmount(AdjustmentType: Integer;
-      Amount: Currency): Int64;
-    function GetLastItem: TFSSaleItem;
-    procedure AddSale(const P: TFSSale);
+    procedure RecSubtotalAdjustment(const Description: string;
+      AdjustmentType: Integer; Amount: Currency);
+    procedure CheckAdjAmount(AdjustmentType: Integer; Amount: Currency);
+    procedure SubtotalDiscount(Amount: Int64; const Description: string);
+
     procedure ClearReceipt;
     procedure SetRefundReceipt;
-    procedure UpdateDiscounts;
+    procedure UpdateReceiptItems;
+    procedure AddSale(const P: TFSSale);
     function IsLoyaltyCard(const Text: string): Boolean;
     procedure PrintDiscounts;
     function GetTax(const ItemName: string; Tax: Integer): Integer;
     function GetCapReceiptDiscount2: Boolean;
     procedure PrintText2(const Text: string);
-    procedure PrintFSSale(Item: TFSSaleItem);
     procedure AddTextItem(const Text: string; Station: Integer);
     procedure ParseReceiptItemsLines(Items: TReceiptItems);
     procedure ParseReceiptItemsLines2(Items: TReceiptItems);
-    procedure PrintFSSale0(Item: TFSSaleItem);
-    procedure PrintFSSale2(SaleItem: TFSSaleItem);
-    procedure DoPrintFSSale(Item: TFSSaleItem);
     procedure printReceiptItemAsText(Item: TFSSaleItem);
     procedure PrintTotalAndTax(const Item: TFSSaleItem);
-    procedure printReceiptItemTemplate(Item: TFSSaleItem);
 
-    property Template: TReceiptTemplate read FTemplate;
-    property Device: IFiscalPrinterDevice read GetDevice;
-    procedure UpdateReceiptItems;
     procedure PrintDiscount(Discount: TAmountOperation);
+
+    function GetAdjustmentAmount(AdjustmentType: Integer;
+      Amount: Currency): Int64;
+    function GetLastItem: TFSSaleItem;
+
   public
     constructor CreateReceipt(AContext: TReceiptContext; ARecType: Integer);
     destructor Destroy; override;
 
-    procedure CorrectPayments;
     function GetTotal: Int64; override;
-
-    procedure PrintPreLine;
-    procedure PrintPostLine;
 
     procedure CheckRececiptState;
     procedure OpenReceipt(ARecType: Integer); override;
@@ -153,8 +132,6 @@ type
     procedure PrintText(const Data: TTextRec); override;
     procedure PrintBarcode(const Barcode: TBarcodeRec); override;
     procedure FSWriteTLV(const TLVData: string); override;
-    procedure WriteFPParameter(ParamId: Integer; const Value: string); override;
-    procedure PrintAdditionalHeader(const AdditionalHeader: string); override;
 
     property IsVoided: Boolean read FIsVoided;
     property IsCashPayment: Boolean read GetIsCashPayment;
@@ -193,40 +170,29 @@ begin
   end;
 end;
 
-{ TFSSalesReceipt }
+{ TOposSalesReceipt }
 
-constructor TFSSalesReceipt.CreateReceipt(AContext: TReceiptContext; ARecType: Integer);
+constructor TOposSalesReceipt.CreateReceipt(AContext: TReceiptContext; ARecType: Integer);
 begin
   inherited Create(AContext);
   FRecType := ARecType;
   FDiscounts := TReceiptItems.Create;
   FReceiptItems := TReceiptItems.Create;
   ClearReceipt;
-
-  FTemplate := TReceiptTemplate.Create;
-  FTemplate.Template := AContext.Printer.Printer.Parameters.ReceiptItemFormat;
 end;
 
-destructor TFSSalesReceipt.Destroy;
+destructor TOposSalesReceipt.Destroy;
 begin
-  FRetalix.Free;
-  FTemplate.Free;
   FDiscounts.Free;
   FReceiptItems.Free;
   inherited Destroy;
 end;
 
-function TFSSalesReceipt.GetTax(const ItemName: string; Tax: Integer): Integer;
+function TOposSalesReceipt.GetTax(const ItemName: string; Tax: Integer): Integer;
 begin
   Result := Tax;
   {$IFDEF MALINA}
-  if GetMalinaParams.RetalixDBEnabled then
-  begin
-    if FREtalix = nil then
-    begin
-      FRetalix := TRetalix.Create(GetMalinaParams.RetalixDBPath, Device.Context);
-      FRetalix.Open;
-    end;
+   end;
     Result := FRetalix.ReadTaxGroup(ItemName);
     if Result = -1 then
       Result := Tax;
@@ -236,12 +202,12 @@ begin
   if not (Result in [0..6]) then Result := 0;
 end;
 
-procedure TFSSalesReceipt.PrintText2(const Text: string);
+procedure TOposSalesReceipt.PrintText2(const Text: string);
 begin
   Printer.Printer.PrintText(Text);
 end;
 
-procedure TFSSalesReceipt.AddSale(const P: TFSSale);
+procedure TOposSalesReceipt.AddSale(const P: TFSSale);
 begin
   FLastItem := TFSSaleItem.Create(FReceiptItems);
   FLastItem.Data := P;
@@ -252,14 +218,14 @@ begin
   FHasReceiptItems := True;
 end;
 
-function TFSSalesReceipt.GetLastItem: TFSSaleItem;
+function TOposSalesReceipt.GetLastItem: TFSSaleItem;
 begin
   if FLastItem = nil then
     raise Exception.Create(MsgLastReceiptItemNotDefined);
   Result := FLastItem;
 end;
 
-procedure TFSSalesReceipt.AddItemDiscount(Discount: TAmountOperation);
+procedure TOposSalesReceipt.AddItemDiscount(Discount: TAmountOperation);
 var
   ItemAmount: Int64;
   DiscountAmount: Int64;
@@ -308,12 +274,12 @@ begin
     GetLastItem.AdjText := '';
 end;
 
-function TFSSalesReceipt.IsCashlessPayCode(PayCode: Integer): Boolean;
+function TOposSalesReceipt.IsCashlessPayCode(PayCode: Integer): Boolean;
 begin
   Result := PayCode in [1..15];
 end;
 
-function TFSSalesReceipt.GetPaymentTotal: Int64;
+function TOposSalesReceipt.GetPaymentTotal: Int64;
 var
   i: Integer;
 begin
@@ -324,7 +290,7 @@ begin
   end;
 end;
 
-function TFSSalesReceipt.GetCashlessTotal: Int64;
+function TOposSalesReceipt.GetCashlessTotal: Int64;
 var
   i: Integer;
 begin
@@ -335,19 +301,19 @@ begin
   end;
 end;
 
-function TFSSalesReceipt.GetIsCashPayment: Boolean;
+function TOposSalesReceipt.GetIsCashPayment: Boolean;
 begin
   Result := GetCashlessTotal = 0;
 end;
 
-procedure TFSSalesReceipt.PrintRecVoid(const Description: string);
+procedure TOposSalesReceipt.PrintRecVoid(const Description: string);
 begin
   OpenReceipt(RecTypeSale);
   Printer.PrintTextLine(Description);
   FIsVoided := True;
 end;
 
-procedure TFSSalesReceipt.CheckTotal(Total: Currency);
+procedure TOposSalesReceipt.CheckTotal(Total: Currency);
 begin
   if Printer.Printer.CheckTotal then
   begin
@@ -362,7 +328,7 @@ begin
   end;
 end;
 
-procedure TFSSalesReceipt.CheckAdjAmount(AdjustmentType: Integer; Amount: Currency);
+procedure TOposSalesReceipt.CheckAdjAmount(AdjustmentType: Integer; Amount: Currency);
 begin
   case AdjustmentType of
 
@@ -379,7 +345,7 @@ begin
   end;
 end;
 
-procedure TFSSalesReceipt.PrintRecItem(const Description: string; Price: Currency;
+procedure TOposSalesReceipt.PrintRecItem(const Description: string; Price: Currency;
   Quantity: Integer; VatInfo: Integer; UnitPrice: Currency;
   const UnitName: string);
 var
@@ -389,10 +355,13 @@ begin
   CheckQuantity(Quantity);
   CheckPrice(UnitPrice);
 
+(*
+  !!!
   if Parameters.QuantityDecimalPlaces = QuantityDecimalPlaces3 then
     Operation.Quantity := Quantity/1000
   else
     Operation.Quantity := Quantity/1000000;
+*)
 
   if UnitPrice = 0 then
   begin
@@ -420,7 +389,7 @@ begin
   AddSale(Operation);
 end;
 
-procedure TFSSalesReceipt.PrintRecItemAdjustment(
+procedure TOposSalesReceipt.PrintRecItemAdjustment(
   AdjustmentType: Integer;
   const Description: string;
   Amount: Currency;
@@ -483,7 +452,7 @@ begin
   end;
 end;
 
-procedure TFSSalesReceipt.PrintRecPackageAdjustment(
+procedure TOposSalesReceipt.PrintRecPackageAdjustment(
   AdjustmentType: Integer;
   const Description, VatAdjustment: string);
 begin
@@ -500,7 +469,7 @@ begin
   end;
 end;
 
-procedure TFSSalesReceipt.PrintRecPackageAdjustVoid(AdjustmentType: Integer;
+procedure TOposSalesReceipt.PrintRecPackageAdjustVoid(AdjustmentType: Integer;
   const VatAdjustment: string);
 begin
   CheckDescription(VatAdjustment);
@@ -515,7 +484,7 @@ begin
   end;
 end;
 
-procedure TFSSalesReceipt.PrintRecRefund(const Description: string;
+procedure TOposSalesReceipt.PrintRecRefund(const Description: string;
   Amount: Currency; VatInfo: Integer);
 var
   Operation: TFSSale;
@@ -540,7 +509,7 @@ begin
   AddSale(Operation);
 end;
 
-procedure TFSSalesReceipt.PrintRecRefundVoid(
+procedure TOposSalesReceipt.PrintRecRefundVoid(
   const Description: string;
   Amount: Currency; VatInfo: Integer);
 var
@@ -567,7 +536,7 @@ begin
   AddSale(Operation);
 end;
 
-procedure TFSSalesReceipt.PrintRecSubtotal(Amount: Currency);
+procedure TOposSalesReceipt.PrintRecSubtotal(Amount: Currency);
 var
   Text: string;
 begin
@@ -576,7 +545,7 @@ begin
   PrintNormal(Text, PRINTER_STATION_REC);
 end;
 
-procedure TFSSalesReceipt.PrintRecSubtotalAdjustment(AdjustmentType: Integer;
+procedure TOposSalesReceipt.PrintRecSubtotalAdjustment(AdjustmentType: Integer;
   const Description: string; Amount: Currency);
 begin
   CheckDescription(Description);
@@ -586,7 +555,7 @@ end;
 
 // Discount void consider to taxes turnover
 
-procedure TFSSalesReceipt.SubtotalDiscount(Amount: Int64; const Description: string);
+procedure TOposSalesReceipt.SubtotalDiscount(Amount: Int64; const Description: string);
 var
   Item: TDiscountReceiptItem;
 begin
@@ -605,12 +574,12 @@ begin
   Printer.Printer.PostLine := '';
 end;
 
-function TFSSalesReceipt.GetTotal: Int64;
+function TOposSalesReceipt.GetTotal: Int64;
 begin
   Result := FReceiptItems.GetTotal - FDiscounts.GetTotal;
 end;
 
-function TFSSalesReceipt.GetAdjustmentAmount(
+function TOposSalesReceipt.GetAdjustmentAmount(
  AdjustmentType: Integer; Amount: Currency): Int64;
 begin
   Result := 0;
@@ -624,7 +593,7 @@ begin
   end;
 end;
 
-procedure TFSSalesReceipt.RecSubtotalAdjustment(const Description: string;
+procedure TOposSalesReceipt.RecSubtotalAdjustment(const Description: string;
   AdjustmentType: Integer; Amount: Currency);
 var
   Summ: Int64;
@@ -658,14 +627,14 @@ begin
   end;
 end;
 
-procedure TFSSalesReceipt.PrintRecSubtotalAdjustVoid(
+procedure TOposSalesReceipt.PrintRecSubtotalAdjustVoid(
   AdjustmentType: Integer; Amount: Currency);
 begin
   CheckAdjAmount(AdjustmentType, Amount);
   RecSubtotalAdjustment('', AdjustmentType, Amount);
 end;
 
-procedure TFSSalesReceipt.ParseReceiptItemsLines(Items: TReceiptItems);
+procedure TOposSalesReceipt.ParseReceiptItemsLines(Items: TReceiptItems);
 var
   i: Integer;
   Item: TFSSaleItem;
@@ -702,7 +671,7 @@ begin
   end;
 end;
 
-procedure TFSSalesReceipt.ParseReceiptItemsLines2(Items: TReceiptItems);
+procedure TOposSalesReceipt.ParseReceiptItemsLines2(Items: TReceiptItems);
 var
   i: Integer;
   Item: TFSSaleItem;
@@ -739,7 +708,7 @@ begin
   end;
 end;
 
-procedure TFSSalesReceipt.PrintRecTotal(Total: Currency; Payment: Currency;
+procedure TOposSalesReceipt.PrintRecTotal(Total: Currency; Payment: Currency;
   const Description: string);
 var
   Subtotal: Int64;
@@ -798,7 +767,7 @@ begin
   end;
 end;
 
-procedure TFSSalesReceipt.CheckRececiptState;
+procedure TOposSalesReceipt.CheckRececiptState;
 begin
   if GetPaymentTotal >= GetTotal then
   begin
@@ -809,9 +778,9 @@ begin
   end;
 end;
 
-procedure TFSSalesReceipt.OpenReceipt(ARecType: Integer);
+procedure TOposSalesReceipt.OpenReceipt(ARecType: Integer);
 begin
-  Logger.Debug('TFSSalesReceipt.OpenReceipt');
+  Logger.Debug('TOposSalesReceipt.OpenReceipt');
 
   if not FOpened then
   begin
@@ -826,7 +795,7 @@ begin
   end;
 end;
 
-procedure TFSSalesReceipt.ClearReceipt;
+procedure TOposSalesReceipt.ClearReceipt;
 var
   i: Integer;
 begin
@@ -856,7 +825,7 @@ begin
   Parameters.Parameter10 := '';
 end;
 
-procedure TFSSalesReceipt.BeginFiscalReceipt(PrintHeader: Boolean);
+procedure TOposSalesReceipt.BeginFiscalReceipt(PrintHeader: Boolean);
 begin
   ClearReceipt;
   if Parameters.OpenReceiptEnabled then
@@ -893,7 +862,7 @@ begin
     Result := '_' + Result;
 end;
 
-procedure TFSSalesReceipt.UpdateReceiptItems;
+procedure TOposSalesReceipt.UpdateReceiptItems;
 var
   i: Integer;
   ItemNumber: Integer;
@@ -929,168 +898,7 @@ begin
   end;
 end;
 
-procedure TFSSalesReceipt.PrintReceiptItems;
-var
-  i: Integer;
-  ReceiptItem: TReceiptItem;
-begin
-  if Parameters.RecPrintType = RecPrintTypeTemplate then
-  begin
-    Printer.Printer.PrintText(Parameters.ReceiptItemsHeader);
-  end;
-
-  for i := 0 to FReceiptItems.Count-1 do
-  begin
-    ReceiptItem := ReceiptItems[i];
-    if ReceiptItem is TFSSaleItem then
-    begin
-      PrintFSSale(ReceiptItem as TFSSaleItem);
-    end;
-    if ReceiptItem is TTextReceiptItem then
-    begin
-      Printer.PrintText((ReceiptItem as TTextReceiptItem).Data);
-    end;
-    if ReceiptItem is TBarcodeReceiptItem then
-    begin
-      Device.PrintBarcode2((ReceiptItem as TBarcodeReceiptItem).Data);
-    end;
-  end;
-  // Write tags after all items
-  for i := 0 to FReceiptItems.Count-1 do
-  begin
-    ReceiptItem := ReceiptItems[i];
-    if ReceiptItem is TTLVReceiptItem then
-    begin
-      Device.FsWriteTLV((ReceiptItem as TTLVReceiptItem).Data);
-    end;
-  end;
-end;
-
-procedure TFSSalesReceipt.PrintFSSale(Item: TFSSaleItem);
-begin
-  if Device.CapDiscount then
-  begin
-    PrintFSSale0(Item);
-  end else
-  begin
-    PrintFSSale2(Item);
-  end;
-end;
-
-(*
-  if Parameters.FSUpdatePrice then
-  begin
-    Item.Data.Price := Item.Data.Price -
-      Round2((Item.Data.Discount - Item.Data.Charge)*1000/Item.Data.Quantity);
-  end;
-*)
-
-procedure TFSSalesReceipt.PrintFSSale0(Item: TFSSaleItem);
-begin
-  DoPrintFSSale(Item);
-end;
-
-procedure TFSSalesReceipt.PrintFSSale2(SaleItem: TFSSaleItem);
-var
-  Amount: Int64;
-  Amount1: Int64;
-begin
-  if (SaleItem.Data.Discount > 0)or(SaleItem.Data.Charge > 0) then
-  begin
-    Amount := Round(SaleItem.Data.Price * SaleItem.Data.Quantity/1000) -
-      SaleItem.Data.Discount + SaleItem.Data.Charge;
-
-    SaleItem.Data.Price := 0;
-    if SaleItem.Data.Quantity <> 0 then
-    begin
-      SaleItem.Data.Price := Trunc(Amount *1000 / SaleItem.Data.Quantity);
-    end;
-
-    Amount1 := Round(SaleItem.Data.Price * SaleItem.Data.Quantity/1000);
-    SaleItem.Data.Discount := 0;
-    SaleItem.Data.Charge := 0;
-    DoPrintFSSale(SaleItem);
-
-    SaleItem.Data.Price := Amount - Amount1;
-    SaleItem.Data.Quantity := 1;
-    if SaleItem.Data.Price <> 0 then
-    begin
-      DoPrintFSSale(SaleItem);
-    end;
-  end else
-  begin
-    DoPrintFSSale(SaleItem);
-  end;
-end;
-
-procedure TFSSalesReceipt.DoPrintFSSale(Item: TFSSaleItem);
-var
-  FSSale2: TFSSale2;
-  FSRegistration: TFSSale;
-  Operation: TPriceReg;
-begin
-  if Item.PreLine <> '' then
-    PrintText2(Item.PreLine);
-
-  FSRegistration := Item.Data;
-
-  Operation.Price := FSRegistration.Price;
-  Operation.Department := FSRegistration.Department;
-  Operation.Tax1 := GetTax(FSRegistration.Text, FSRegistration.Tax);
-  Operation.Tax2 := 0;
-  Operation.Tax3 := 0;
-  Operation.Tax4 := 0;
-  Operation.Text := FSRegistration.Text;
-  if Parameters.RecPrintType <> RecPrintTypePrinter then
-  begin
-    Operation.Text := '//' + FSRegistration.Text;
-  end;
-
-  if FSRegistration.Quantity >= 0 then
-  begin
-    if Device.CapFSCloseReceipt2 then
-    begin
-      FSSale2.RecType := FRecType;
-      if Parameters.QuantityDecimalPlaces = QuantityDecimalPlaces3 then
-        FSSale2.Quantity := Abs(FSRegistration.Quantity) * 1000
-      else
-        FSSale2.Quantity := Abs(FSRegistration.Quantity) * 1000000;
-
-      FSSale2.Price := Item.PriceWithDiscount;
-      FSSale2.Total := StrToInt64Def(FSRegistration.Parameter1, $FFFFFFFFFF);
-      FSSale2.TaxAmount := StrToInt64Def(FSRegistration.Parameter2, $FFFFFFFFFF);
-      FSSale2.Department := FSRegistration.Department;
-      FSSale2.Tax := GetTax(FSRegistration.Text, FSRegistration.Tax);
-      FSSale2.Text := Operation.Text;
-      FSSale2.PaymentType := StrToInt64Def(FSRegistration.Parameter3, 0);
-      FSSale2.PaymentItem := StrToInt64Def(FSRegistration.Parameter4, 0);
-      Device.Check(Device.FSSale2(FSSale2));
-    end else
-    begin
-      if FRecType = RecTypeSale then
-        Printer.Sale(Operation)
-      else
-        Printer.RetSale(Operation);
-    end;
-  end else
-  begin
-    Printer.Storno(Operation);
-  end;
-
-  if Parameters.RecPrintType = RecPrintTypeDriver then
-  begin
-    printReceiptItemAsText(Item);
-  end;
-  if Parameters.RecPrintType = RecPrintTypeTemplate then
-  begin
-    printReceiptItemTemplate(Item);
-  end;
-
-  if Item.PostLine <> '' then
-    PrintText2(Item.PostLine);
-end;
-
-procedure TFSSalesReceipt.printReceiptItemAsText(Item: TFSSaleItem);
+procedure TOposSalesReceipt.printReceiptItemAsText(Item: TFSSaleItem);
 var
   Amount: Int64;
   TaxNumber: Integer;
@@ -1130,7 +938,7 @@ begin
   PrintTotalAndTax(Item);
 end;
 
-procedure TFSSalesReceipt.PrintTotalAndTax(const Item: TFSSaleItem);
+procedure TOposSalesReceipt.PrintTotalAndTax(const Item: TFSSaleItem);
 var
   Tax: Integer;
   Line: string;
@@ -1145,153 +953,17 @@ begin
   Printer.Printer.PrintLines(Line, AmountToStr(TaxAmount/100));
 end;
 
-procedure TFSSalesReceipt.BeforeCloseReceipt;
-var
-  Selection: Integer;
-  CustomerPhone: string;
-  CustomerEMail: string;
-begin
-  if not FPrintEnabled then
-  begin
-    Device.WriteFPParameter(DIO_FPTR_PARAMETER_ENABLE_PRINT, '1');
-  end;
-
-  if Parameters.FSAddressEnabled then
-  begin
-    Selection := ShowSelectDlg;
-    if Selection = SelectNone then Exit;
-    if Selection = SelectPhone then
-    begin
-      CustomerPhone := '+7';
-      if ShowPhoneDlg(CustomerPhone) then
-      begin
-        AddRecMessage('Номер телефона: ' + CustomerPhone, PRINTER_STATION_REC, 1);
-        Device.WriteCustomerAddress(CustomerPhone);
-      end;
-    end;
-    if Selection = SelectEMail then
-    begin
-      CustomerEMail := '';
-      if ShowEMailDlg(CustomerEMail) then
-      begin
-        AddRecMessage('Электронная почта: ' + CustomerEMail, PRINTER_STATION_REC, 1);
-        Device.WriteCustomerAddress(CustomerEMail);
-      end;
-    end;
-  end;
-end;
-
-procedure TFSSalesReceipt.CorrectPayments;
-var
-  i: Integer;
-  Total: Int64;
-  PaidAmount: Int64;
-begin
-  PaidAmount := 0;
-  Total := GetTotal;
-  for i := High(FPayments) downto (Low(FPayments)+1) do
-  begin
-    if (PaidAmount + FPayments[i] > Total) then
-    begin
-      FPayments[i] := Total - PaidAmount;
-    end;
-    PaidAmount := PaidAmount + FPayments[i];
-  end;
-end;
-
-procedure TFSSalesReceipt.EndFiscalReceipt;
-var
-  CloseParams: TCloseReceiptParams;
-  CloseParams2: TFSCloseReceiptParams2;
-  CloseResult2: TFSCloseReceiptResult2;
-begin
-  Device.Lock;
-  try
-    State.CheckState(FPTR_PS_FISCAL_RECEIPT_ENDING);
-    if FIsVoided then
-    begin
-      Device.CancelReceipt;
-    end else
-    begin
-      OpenReceipt(FRecType);
-      Device.PrintText(PRINTER_STATION_REC, FAdditionalHeader);
-
-      CorrectPayments;
-      PrintRecMessages(0);
-      UpdateDiscounts;
-      UpdateReceiptItems;
-
-      PrintReceiptItems;
-      PrintDiscounts;
-
-      BeforeCloseReceipt;
-      if AdditionalText <> '' then
-        PrintText2(AdditionalText);
-
-      if Parameters.RecPrintType = RecPrintTypeTemplate then
-      begin
-        Printer.Printer.PrintText(Parameters.ReceiptItemsTrailer);
-      end;
-
-      Printer.WaitForPrinting;
-
-
-      if Device.CapFSCloseReceipt2 then
-      begin
-        CloseParams2.Payments := FPayments;
-        CloseParams2.Discount := FAdjustmentAmount;
-        CloseParams2.TaxAmount[1] := StrToInt64Def(Parameters.Parameter1, 0);
-        CloseParams2.TaxAmount[2] := StrToInt64Def(Parameters.Parameter2, 0);
-        CloseParams2.TaxAmount[3] := StrToInt64Def(Parameters.Parameter3, 0);
-        CloseParams2.TaxAmount[4] := StrToInt64Def(Parameters.Parameter4, 0);
-        CloseParams2.TaxAmount[5] := StrToInt64Def(Parameters.Parameter5, 0);
-        CloseParams2.TaxAmount[6] := StrToInt64Def(Parameters.Parameter6, 0);
-        CloseParams2.TaxSystem := StrToInt64Def(Parameters.Parameter7, 0);
-        CloseParams2.Text := Parameters.CloseRecText;
-        Device.Check(Device.ReceiptClose2(CloseParams2, CloseResult2));
-
-      end else
-      begin
-        CloseParams.CashAmount := FPayments[0];
-        CloseParams.Amount2 := FPayments[1];
-        CloseParams.Amount3 := FPayments[2];
-        CloseParams.Amount4 := FPayments[3];
-        CloseParams.PercentDiscount := FAdjustmentAmount;
-        CloseParams.Tax1 := 0;
-        CloseParams.Tax2 := 0;
-        CloseParams.Tax3 := 0;
-        CloseParams.Tax4 := 0;
-        CloseParams.Text := Parameters.CloseRecText;
-        Printer.ReceiptClose(CloseParams);
-      end;
-
-      try
-        Printer.WaitForPrinting;
-        PrintRecMessages(1);
-        PrintRecMessages;
-      except
-        on E: Exception do
-        begin
-          Logger.Error(E.Message);
-        end;
-      end;
-    end;
-  finally
-    Device.Unlock;
-  end;
-end;
-
-function TFSSalesReceipt.IsLoyaltyCard(const Text: string): Boolean;
+function TOposSalesReceipt.IsLoyaltyCard(const Text: string): Boolean;
 begin
   Result := ExecRegExpr(GetMalinaParams.RosneftCardMask, Text);
 end;
 
-function TFSSalesReceipt.GetCapReceiptDiscount2: Boolean;
+function TOposSalesReceipt.GetCapReceiptDiscount2: Boolean;
 begin
   Result := Device.CapReceiptDiscount2;
 end;
 
-procedure TFSSalesReceipt.PrintDiscounts;
+procedure TOposSalesReceipt.PrintDiscounts;
 var
   i: Integer;
   Item: TReceiptItem;
@@ -1309,7 +981,7 @@ begin
   end;
 end;
 
-procedure TFSSalesReceipt.PrintDiscount(Discount: TAmountOperation);
+procedure TOposSalesReceipt.PrintDiscount(Discount: TAmountOperation);
 var
   ResultCode: Integer;
   Discount2: TReceiptDiscount2;
@@ -1343,42 +1015,7 @@ begin
   end;
 end;
 
-procedure TFSSalesReceipt.UpdateDiscounts;
-var
-  i: Integer;
-  Amount: Int64;
-  Item: TReceiptItem;
-  SaleItem: TFSSaleItem;
-  DiscountAmount: Int64;
-begin
-  DiscountAmount := Abs(FDiscounts.GetTotal);
-  if DiscountAmount = 0 then Exit;
-
-  if (Device.CapSubtotalRound) and (DiscountAmount < 100) then
-  begin
-    FDiscounts.Clear;
-    FAdjustmentAmount := DiscountAmount;
-    Exit;
-  end;
-
-  for i := 0 to FReceiptItems.Count-1 do
-  begin
-    Item := FReceiptItems[i];
-    if Item is TFSSaleItem then
-    begin
-      SaleItem := Item as TFSSaleItem;
-      Amount := DiscountAmount;
-      if Amount > SaleItem.GetTotal then
-        Amount := SaleItem.GetTotal;
-
-      SaleItem.Discount := SaleItem.Discount + Amount;
-      DiscountAmount := DiscountAmount - Amount;
-      if DiscountAmount = 0 then Break;
-    end;
-  end;
-end;
-
-procedure TFSSalesReceipt.PrintRecVoidItem(const Description: string;
+procedure TOposSalesReceipt.PrintRecVoidItem(const Description: string;
   Amount: Currency; Quantity, AdjustmentType: Integer;
   Adjustment: Currency; VatInfo: Integer);
 var
@@ -1411,7 +1048,7 @@ begin
   AddSale(Operation);
 end;
 
-procedure TFSSalesReceipt.PrintRecItemVoid(const Description: string;
+procedure TOposSalesReceipt.PrintRecItemVoid(const Description: string;
   Price: Currency; Quantity, VatInfo: Integer; UnitPrice: Currency;
   const UnitName: string);
 var
@@ -1450,13 +1087,13 @@ begin
   AddSale(Operation);
 end;
 
-procedure TFSSalesReceipt.SetRefundReceipt;
+procedure TOposSalesReceipt.SetRefundReceipt;
 begin
   if FReceiptItems.Count = 0 then
     FRecType := RecTypeRetSale;
 end;
 
-procedure TFSSalesReceipt.PrintRecItemRefund(const ADescription: string;
+procedure TOposSalesReceipt.PrintRecItemRefund(const ADescription: string;
   Amount: Currency; Quantity, VatInfo: Integer; UnitAmount: Currency;
   const AUnitName: string);
 var
@@ -1494,7 +1131,7 @@ begin
   AddSale(Operation);
 end;
 
-procedure TFSSalesReceipt.PrintRecItemRefundVoid(const ADescription: string;
+procedure TOposSalesReceipt.PrintRecItemRefundVoid(const ADescription: string;
   Amount: Currency; Quantity, VatInfo: Integer; UnitAmount: Currency;
   const AUnitName: string);
 var
@@ -1534,7 +1171,7 @@ begin
   AddSale(Operation);
 end;
 
-procedure TFSSalesReceipt.PaymentAdjustment(Amount: Int64);
+procedure TOposSalesReceipt.PaymentAdjustment(Amount: Int64);
 var
   i: Integer;
 begin
@@ -1548,12 +1185,12 @@ begin
   end;
 end;
 
-procedure TFSSalesReceipt.PrintRecMessage(const Message: string);
+procedure TOposSalesReceipt.PrintRecMessage(const Message: string);
 begin
   PrintNormal(Message, PRINTER_STATION_REC);
 end;
 
-procedure TFSSalesReceipt.PrintNormal(const Text: string; Station: Integer);
+procedure TOposSalesReceipt.PrintNormal(const Text: string; Station: Integer);
 begin
   if not FHasReceiptItems then
   begin
@@ -1589,7 +1226,7 @@ begin
   Printer.Printer.PostLine := '';
 end;
 
-procedure TFSSalesReceipt.AddTextItem(const Text: string; Station: Integer);
+procedure TOposSalesReceipt.AddTextItem(const Text: string; Station: Integer);
 var
   Data: TTextRec;
   Item: TTextReceiptItem;
@@ -1604,17 +1241,7 @@ begin
   Item.Data := Data;
 end;
 
-procedure TFSSalesReceipt.PrintPostLine;
-begin
-  Printer.PrintPostLine;
-end;
-
-procedure TFSSalesReceipt.PrintPreLine;
-begin
-  Printer.PrintPreLine;
-end;
-
-procedure TFSSalesReceipt.SetAdjustmentAmount(Amount: Integer);
+procedure TOposSalesReceipt.SetAdjustmentAmount(Amount: Integer);
 begin
   FAdjustmentAmount := Amount;
   if GetPaymentTotal >= (GetTotal - FAdjustmentAmount) then
@@ -1626,7 +1253,7 @@ begin
   end;
 end;
 
-procedure TFSSalesReceipt.PrintText(const Data: TTextRec);
+procedure TOposSalesReceipt.PrintText(const Data: TTextRec);
 var
   Item: TTextReceiptItem;
 begin
@@ -1634,7 +1261,7 @@ begin
   Item.Data := Data;
 end;
 
-procedure TFSSalesReceipt.PrintBarcode(const Barcode: TBarcodeRec);
+procedure TOposSalesReceipt.PrintBarcode(const Barcode: TBarcodeRec);
 var
   Item: TBarcodeReceiptItem;
 begin
@@ -1642,46 +1269,13 @@ begin
   Item.Data := Barcode;
 end;
 
-procedure TFSSalesReceipt.FSWriteTLV(const TLVData: string);
+procedure TOposSalesReceipt.FSWriteTLV(const TLVData: string);
 var
   Item: TTLVReceiptItem;
 begin
   Item := TTLVReceiptItem.Create(FReceiptItems);
   Item.Data := TLVData;
 end;
-
-function TFSSalesReceipt.GetDevice: IFiscalPrinterDevice;
-begin
-  Result := Printer.Printer.Device;
-end;
-
-procedure TFSSalesReceipt.printReceiptItemTemplate(Item: TFSSaleItem);
-var
-  Text: string;
-begin
-  Text := Template.getItemText(Item);
-  Printer.Printer.PrintText(Text);
-end;
-
-procedure TFSSalesReceipt.WriteFPParameter(ParamId: Integer;
-  const Value: string);
-begin
-  if (ParamId = DIO_FPTR_PARAMETER_ENABLE_PRINT)and(Value = '1') then
-  begin
-    FPrintEnabled := False;
-  end else
-  begin
-    Device.WriteFPParameter(ParamId, Value);
-  end;
-end;
-
-procedure TFSSalesReceipt.PrintAdditionalHeader(
-  const AdditionalHeader: string);
-begin
-  FAdditionalHeader := AdditionalHeader;
-end;
-
-//OposSalesReceipt -> FiscalReceipt
 
 end.
 

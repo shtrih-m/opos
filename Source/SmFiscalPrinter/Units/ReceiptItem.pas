@@ -128,7 +128,7 @@ type
     property SplittedItem: TFSSaleItem read FSplittedItem;
     property Price: Int64 read Data.Price write Data.Price;
     property RecType: Integer read Data.RecType write Data.RecType;
-    property Quantity: Int64 read Data.Quantity write Data.Quantity;
+    property Quantity: Double read Data.Quantity write Data.Quantity;
     property Department: Byte read Data.Department write Data.Department;
     property Tax: Byte read Data.Tax write Data.Tax;
     property Text: string read Data.Text write Data.Text;
@@ -272,7 +272,7 @@ end;
 
 function TFSSaleItem.GetAmount: int64;
 begin
-  Result := Abs(Round2(Price * Quantity/1000));
+  Result := Abs(Round2(Price * Quantity));
 end;
 
 function TFSSaleItem.GetTotal: Int64;
@@ -282,7 +282,7 @@ end;
 
 function TFSSaleItem.getTotal2: Int64;
 begin
-  Result := Abs(Round2(FPriceWithDiscount * Quantity /1000));
+  Result := Abs(Round2(FPriceWithDiscount * Quantity));
 end;
 
 function TFSSaleItem.GetDiscounts: TReceiptItems;
@@ -321,7 +321,7 @@ begin
     Result := Price;
     Exit;
   end;
-  Result := Trunc(Abs(getTotal() * 1000 / quantity));
+  Result := Trunc(Abs(getTotal() / quantity));
 end;
 
 procedure TFSSaleItem.UpdatePrice;
@@ -333,10 +333,12 @@ var
   quantity2: Int64;
   price2: Int64;
   itemTotal: Int64;
+  AQuantity: Int64;
 begin
   if FPriceUpdated then Exit;
   FSplittedItem := nil;
 
+  AQuantity := Round(Quantity * 1000);
   FUnitPrice := Price;
   FPriceWithDiscount := Price;
   if Discounts.GetTotal = 0 then
@@ -346,7 +348,7 @@ begin
     Exit;
   end;
 
-  if Quantity = 1000 then
+  if AQuantity = 1000 then
   begin
     FPriceWithDiscount := price - discounts.getTotal();
     FPriceUpdated := True;
@@ -354,23 +356,23 @@ begin
   end;
 
   FPriceWithDiscount := calcPriceWithDiscount();
-  amount := Round(priceWithDiscount * quantity / 1000.0);
+  amount := Round(priceWithDiscount * Quantity);
   total := getTotal();
   total2 := getTotal2();
   if (total - amount > 0) then
   begin
-    quantity2 := quantity;
+    quantity2 := AQuantity;
     price2 := priceWithDiscount;
-    if ((quantity mod 1000) = 0) then
+    if ((AQuantity mod 1000) = 0) then
     begin
       price2 := priceWithDiscount + 1;
-      quantity2 := Trunc((quantity / 1000 - (total - total2)) * 1000);
+      quantity2 := Trunc((AQuantity / 1000 - (total - total2)) * 1000);
     end else
     begin
-      for i := 1 to quantity do
+      for i := 1 to AQuantity do
       begin
         itemTotal := Round(i * priceWithDiscount / 1000.0)
-          + Round((priceWithDiscount) * (quantity - i) / 1000.0);
+          + Round((priceWithDiscount) * (AQuantity - i) / 1000.0);
         if (itemTotal = total) then
         begin
           quantity2 := i;
@@ -378,7 +380,7 @@ begin
           break;
         end;
         itemTotal := Round(i * priceWithDiscount / 1000.0)
-          + Round((priceWithDiscount + 1) * (quantity - i) / 1000.0);
+          + Round((priceWithDiscount + 1) * (AQuantity - i) / 1000.0);
         if (itemTotal = total) then
         begin
           quantity2 := i;
@@ -387,18 +389,18 @@ begin
         end;
       end;
     end;
-    if (quantity2 <> quantity) then
+    if (quantity2 <> AQuantity) then
     begin
       FSplittedItem := TFSSaleItem.Create(nil);
       FSplittedItem.Price := Price;
       FSplittedItem.UnitPrice := Price;
       FSplittedItem.FPriceWithDiscount := Price2;
-      FSplittedItem.Quantity := Quantity - Quantity2;
+      FSplittedItem.Quantity := (AQuantity - Quantity2)/1000;
       FSplittedItem.Department := Department;
       FSplittedItem.Tax := Tax;
       FSplittedItem.Text := Text;
     end;
-    Quantity := Quantity2;
+    Quantity := Quantity2 / 1000;
   end;
   FPriceUpdated := True;
 end;

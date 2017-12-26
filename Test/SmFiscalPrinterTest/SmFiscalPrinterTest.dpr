@@ -188,7 +188,7 @@ uses
   Retalix in '..\..\Source\SmFiscalPrinter\Units\Retalix.pas',
   MalinaFilter in '..\..\Source\SmFiscalPrinter\Units\MalinaFilter.pas',
   MockFiscalPrinterDevice in 'Units\MockFiscalPrinterDevice.pas',
-  FSSalesReceipt in '..\..\Source\SmFiscalPrinter\Units\FSSalesReceipt.pas',
+  OposSalesReceipt in '..\..\Source\SmFiscalPrinter\Units\OposSalesReceipt.pas',
   FormUtils in '..\..\Source\SmFiscalPrinter\Fmu\FormUtils.pas',
   NonfiscalDoc in '..\..\Source\SmFiscalPrinter\Units\NonfiscalDoc.pas',
   fmuTest in 'Units\fmuTest.pas' {fmTest},

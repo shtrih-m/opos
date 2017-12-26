@@ -23,10 +23,9 @@ uses
   OposEventsRCS, OposEventsNull, NotifyLink, ZReport, CachedSalesReceipt,
   GlobusReceipt, GlobusTextReceipt, PrinterParametersX, MonitoringServer,
   TextItem, FptrFilter, NonFiscalDoc, RosneftSalesReceipt, FSSalesReceipt,
-  PrinterConnection, Retalix, RegExpr, TLV,
-  DriverError, MathUtils, fmuTimeSync, CorrectionReceipt,
-  CsvPrinterTableFormat, PrinterTable, FSService, ReceiptItem,
-  SmResourceStrings;
+  PrinterConnection, Retalix, RegExpr, TLV, DriverError, MathUtils,
+  fmuTimeSync, CorrectionReceipt, CsvPrinterTableFormat, PrinterTable,
+  FSService, ReceiptItem, SmResourceStrings;
 
 type
   { TFiscalPrinterImpl }

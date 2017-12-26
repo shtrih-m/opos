@@ -680,15 +680,15 @@ type
 
   TFSSale = record
     RecType: Integer;
-    Quantity: Int64;    // Quantity (5 bytes)
-    Price: Int64;       // Price (5 bytes)
-    Department: Byte;   // Department (1 byte) 0…16
-    Tax: Byte;          // Tax 1 (1 byte) '0' - no tax, '1'…'4' - tax group
+    Quantity: Double;           // Quantity (5 bytes)
+    Price: Int64;               // Price (5 bytes)
+    Department: Byte;           // Department (1 byte) 0…16
+    Tax: Byte;                  // Tax 1 (1 byte) '0' - no tax, '1'…'4' - tax group
     Charge: Int64;
     Discount: Int64;
     Barcode: Int64;
-    Text: string;         // Название товара
-    AdjText: string;      // Название скидки или надбавки
+    Text: string;               // Название товара
+    AdjText: string;            // Название скидки или надбавки
     Parameter1: string;
     Parameter2: string;
     Parameter3: string;
@@ -700,7 +700,7 @@ type
 
   TFSSale2 = record
     RecType: Integer;
-    Quantity: Int64;    // Quantity (5 bytes)
+    Quantity: Double;    // Quantity (5 bytes)
     Price: Int64;       // Price (5 bytes)
     Total: Int64;
     TaxAmount: Int64;

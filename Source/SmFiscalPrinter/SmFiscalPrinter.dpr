@@ -151,7 +151,6 @@ uses
   fmuEMail in 'Fmu\fmuEMail.pas' {fmEMail},
   Retalix in 'Units\Retalix.pas',
   MalinaFilter in 'Units\MalinaFilter.pas',
-  FSSalesReceipt in 'Units\FSSalesReceipt.pas',
   FormUtils in 'Fmu\FormUtils.pas',
   NonfiscalDoc in 'Units\NonfiscalDoc.pas',
   fmuTimeSync in 'Fmu\fmuTimeSync.pas' {fmTimeSync},
@@ -168,7 +167,8 @@ uses
   PrinterFonts in 'Units\PrinterFonts.pas',
   SmResourceStrings in 'Units\SmResourceStrings.pas',
   TLVTags in 'Units\TLVTags.pas',
-  TLVParser in 'Units\TLVParser.pas';
+  TLVParser in 'Units\TLVParser.pas',
+  FSSalesReceipt in 'Units\FSSalesReceipt.pas';
 
 exports
   DllGetClassObject,

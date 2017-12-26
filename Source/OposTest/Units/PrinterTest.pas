@@ -4100,7 +4100,7 @@ begin
   Check(FiscalPrinter.beginFiscalReceipt(true));
   Check(FiscalPrinter.printRecItem('3162506 МОС.ПР.Майон.КЛАСС.67% 750мл', 91.80, 12789, 1, 91.80, 'ST'));
   Check(FiscalPrinter.printRecItem('3162506 МОС.ПР.Майон.КЛАСС.67% 750мл', 0.12, 123789, 1, 0.12, 'ST'));
-  Check(FiscalPrinter.printRecTotal(1000000, 1000000, '0'));
+  Check(FiscalPrinter.printRecTotal(10, 10, '0'));
   Check(FiscalPrinter.endFiscalReceipt(false));
 end;
 

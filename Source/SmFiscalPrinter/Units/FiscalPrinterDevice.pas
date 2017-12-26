@@ -6709,7 +6709,7 @@ var
 begin
   Command := #$FF#$0D + IntToBin(GetUsrPassword, 4) +
     Chr(Abs(P.RecType)) +
-    IntToBin(Abs(P.Quantity), 5) +
+    IntToBin(Abs(Round(P.Quantity * 1000)), 5) +
     IntToBin(Abs(P.Price), 5) +
     IntToBin(Abs(P.Discount), 5) +
     IntToBin(Abs(P.Charge), 5) +
@@ -6748,10 +6748,11 @@ function TFiscalPrinterDevice.FSSale2(const P: TFSSale2): Integer;
 var
   Answer: string;
   Command: string;
+  Quantity: Int64;
 begin
   Command := #$FF#$46 + IntToBin(GetUsrPassword, 4) +
     Chr(Abs(P.RecType)) +
-    IntToBin(Abs(P.Quantity), 6) +
+    IntToBin(Abs(Round(P.Quantity * 1000000)), 6) +
     IntToBin(Abs(P.Price), 5) +
     IntToBin(Abs(P.Total), 5) +
     IntToBin(Abs(P.TaxAmount), 5) +
@@ -6771,7 +6772,7 @@ var
 begin
   Command := #$FF#$0E + IntToBin(GetUsrPassword, 4) +
     Chr(Abs(P.RecType)) +
-    IntToBin(Abs(P.Quantity), 5) +
+    IntToBin(Abs(Round(P.Quantity * 1000)), 5) +
     IntToBin(Abs(P.Price), 5) +
     IntToBin(Abs(P.Discount), 5) +
     IntToBin(Abs(P.Charge), 5) +
