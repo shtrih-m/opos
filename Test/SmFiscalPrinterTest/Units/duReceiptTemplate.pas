@@ -75,19 +75,19 @@ begin
     Text := Template.getText('%PRICE%', Item);
     CheckEquals('1234.56', Text, 'PRICE');
 
-    Item.Quantity := 123456;
+    Item.Data.Quantity := 123.456;
     Text := Template.getText('%QUAN%', Item);
     CheckEquals('123.456', Text, 'QUAN');
 
-    Item.Quantity := 12000;
+    Item.Data.Quantity := 12.000;
     Text := Template.getText('%10lQUAN%', Item);
     CheckEquals('12.000    ', Text, 'QUAN');
 
-    Item.Quantity := 12000;
+    Item.Data.Quantity := 12.000;
     Text := Template.getText('%10QUAN%', Item);
     CheckEquals('    12.000', Text, 'QUAN');
 
-    Item.Quantity := 12000;
+    Item.Quantity := 12.000;
     Text := Template.getText('%5lQUAN%', Item);
     CheckEquals('12.00', Text, 'QUAN');
 
@@ -102,14 +102,14 @@ begin
     CheckEquals('1234.56', Text, 'DISCOUNT');
 
     Item.Price := 123456;
-    Item.Quantity := 1000;
+    Item.Quantity := 1;
     Item.Data.Discount := 12345;
     Text := Template.getText('%TOTAL%', Item);
     CheckEquals('1111.11', Text, 'TOTAL');
 
     Item.Tax := 1;
     Item.Price := 123456;
-    Item.Quantity := 1000;
+    Item.Quantity := 1;
     Item.Data.Discount := 12345;
     Item.PriceWithDiscount := 111111;
     Text := Template.getText('ABC_%TOTAL_TAX%', Item);
@@ -119,7 +119,7 @@ begin
     Text := Template.getText('%TAX_LETTER%', Item);
     CheckEquals('Á', Text, 'TAX_LETTER');
 
-    Item.Quantity := 123;
+    Item.Quantity := 0.123;
     Text := Template.getText('%MULT_NE_ONE%', Item);
     CheckEquals('*', Text, 'MULT_NE_ONE');
 
@@ -130,7 +130,7 @@ begin
 
     Item.Pos := 1;
     Item.UnitPrice := 12345;
-    Item.Quantity := 123456;
+    Item.Quantity := 123.456;
     Item.Price := 12345;
     Item.Department := 2;
     Item.Tax := 3;
@@ -144,7 +144,7 @@ begin
 
     Item.Pos := 1;
     Item.UnitPrice := 12345;
-    Item.Quantity := 123456;
+    Item.Quantity := 123.456;
     Item.Price := 12345;
     Item.Department := 2;
     Item.Tax := 3;

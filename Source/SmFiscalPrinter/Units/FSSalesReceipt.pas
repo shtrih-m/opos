@@ -62,9 +62,6 @@ type
     procedure AddTextItem(const Text: string; Station: Integer);
     procedure ParseReceiptItemsLines(Items: TReceiptItems);
     procedure ParseReceiptItemsLines2(Items: TReceiptItems);
-    procedure PrintFSSale0(Item: TFSSaleItem);
-    procedure PrintFSSale2(SaleItem: TFSSaleItem);
-    procedure DoPrintFSSale(Item: TFSSaleItem);
     procedure printReceiptItemAsText(Item: TFSSaleItem);
     procedure PrintTotalAndTax(const Item: TFSSaleItem);
     procedure printReceiptItemTemplate(Item: TFSSaleItem);
@@ -293,7 +290,7 @@ begin
 
   if Discount.Amount > 0 then
   begin
-    ItemAmount := Round2(GetLastItem.Quantity/1000 * GetLastItem.Price);
+    ItemAmount := Round2(GetLastItem.Quantity * GetLastItem.Price);
     DiscountAmount := GetLastItem.Discount + Abs(Discount.Amount);
     if DiscountAmount > (ItemAmount + GetLastItem.Charge) then
       raise Exception.Create(MsgDiscountAmountMoreItemAmount);
@@ -689,7 +686,7 @@ begin
       if ParsedText or ParsedPreLine or ParsedPostLine then
       begin
         Item.Data.Price := Round2(Price * 100);
-        Item.Data.Quantity := Round2(Quantity * 1000);
+        Item.Data.Quantity := Quantity;
       end;
       if ParsedText then
       begin
@@ -967,63 +964,6 @@ begin
 end;
 
 procedure TFSSalesReceipt.PrintFSSale(Item: TFSSaleItem);
-begin
-  if Device.CapDiscount then
-  begin
-    PrintFSSale0(Item);
-  end else
-  begin
-    PrintFSSale2(Item);
-  end;
-end;
-
-(*
-  if Parameters.FSUpdatePrice then
-  begin
-    Item.Data.Price := Item.Data.Price -
-      Round2((Item.Data.Discount - Item.Data.Charge)*1000/Item.Data.Quantity);
-  end;
-*)
-
-procedure TFSSalesReceipt.PrintFSSale0(Item: TFSSaleItem);
-begin
-  DoPrintFSSale(Item);
-end;
-
-procedure TFSSalesReceipt.PrintFSSale2(SaleItem: TFSSaleItem);
-var
-  Amount: Int64;
-  Amount1: Int64;
-begin
-  if (SaleItem.Data.Discount > 0)or(SaleItem.Data.Charge > 0) then
-  begin
-    Amount := Round(SaleItem.Data.Price * SaleItem.Data.Quantity/1000) -
-      SaleItem.Data.Discount + SaleItem.Data.Charge;
-
-    SaleItem.Data.Price := 0;
-    if SaleItem.Data.Quantity <> 0 then
-    begin
-      SaleItem.Data.Price := Trunc(Amount *1000 / SaleItem.Data.Quantity);
-    end;
-
-    Amount1 := Round(SaleItem.Data.Price * SaleItem.Data.Quantity/1000);
-    SaleItem.Data.Discount := 0;
-    SaleItem.Data.Charge := 0;
-    DoPrintFSSale(SaleItem);
-
-    SaleItem.Data.Price := Amount - Amount1;
-    SaleItem.Data.Quantity := 1;
-    if SaleItem.Data.Price <> 0 then
-    begin
-      DoPrintFSSale(SaleItem);
-    end;
-  end else
-  begin
-    DoPrintFSSale(SaleItem);
-  end;
-end;
-
-procedure TFSSalesReceipt.DoPrintFSSale(Item: TFSSaleItem);
 var
   FSSale2: TFSSale2;
   FSRegistration: TFSSale;
@@ -1041,6 +981,11 @@ begin
   Operation.Tax3 := 0;
   Operation.Tax4 := 0;
   Operation.Text := FSRegistration.Text;
+  if Parameters.QuantityDecimalPlaces = QuantityDecimalPlaces3 then
+    Operation.Quantity := Round2(Abs(FSRegistration.Quantity) * 1000)
+  else
+    Operation.Quantity := Round2(Abs(FSRegistration.Quantity) * 1000000);
+
   if Parameters.RecPrintType <> RecPrintTypePrinter then
   begin
     Operation.Text := '//' + FSRegistration.Text;
@@ -1051,11 +996,7 @@ begin
     if Device.CapFSCloseReceipt2 then
     begin
       FSSale2.RecType := FRecType;
-      if Parameters.QuantityDecimalPlaces = QuantityDecimalPlaces3 then
-        FSSale2.Quantity := Abs(FSRegistration.Quantity) * 1000
-      else
-        FSSale2.Quantity := Abs(FSRegistration.Quantity) * 1000000;
-
+      FSSale2.Quantity := Abs(FSRegistration.Quantity);
       FSSale2.Price := Item.PriceWithDiscount;
       FSSale2.Total := StrToInt64Def(FSRegistration.Parameter1, $FFFFFFFFFF);
       FSSale2.TaxAmount := StrToInt64Def(FSRegistration.Parameter2, $FFFFFFFFFF);
@@ -1107,13 +1048,13 @@ begin
   TaxNumber := Item.Tax;
   if TaxNumber = 0 then TaxNumber := 4;
 
-  Amount := Round2(Item.Quantity/1000 * Item.Price);
-  if ((Item.Quantity = 1000) and (not Parameters.PrintSingleQuantity)) then
+  Amount := Round2(Item.Quantity * Item.Price);
+  if ((Item.Quantity = 1) and (not Parameters.PrintSingleQuantity)) then
   begin
     Line2 := Format('= %s', [AmountToStr(Amount/100)]) +  GetTaxLetter(TaxNumber);
   end else
   begin
-    Line2 := QuantityToStr(Item.Quantity/1000);
+    Line2 := QuantityToStr(Item.Quantity);
     if Parameters.PrintUnitName then
       Line2 := Line2 + ' ' + Item.Data.UnitName;
     Line2 := Format('%s X %s = %s', [Line2, AmountToStr(Item.Price/100),
@@ -1424,11 +1365,11 @@ begin
   if UnitPrice = 0 then
   begin
     // If no price - use single quantity cost
-    Operation.Quantity := 1000;
+    Operation.Quantity := 1;
     Operation.Price := Printer.CurrencyToInt(Price);
   end else
   begin
-    if Quantity = 0 then Quantity := 1000;
+    if Quantity = 0 then Quantity := 1;
     Operation.Quantity := Quantity;
     Operation.Price := Printer.CurrencyToInt(UnitPrice);
   end;
@@ -1471,11 +1412,11 @@ begin
   if (UnitAmount = 0)or(Operation.Quantity = 0) then
   begin
     // If no price - use single quantity cost
-    if UnitAmount <> 0 then Operation.Quantity := 1000;
+    if UnitAmount <> 0 then Operation.Quantity := 1;
     Operation.Price := Printer.CurrencyToInt(Amount);
   end else
   begin
-    if Operation.Quantity = 0 then Operation.Quantity := 1000;
+    if Operation.Quantity = 0 then Operation.Quantity := 1;
     Operation.Price := Printer.CurrencyToInt(UnitAmount);
   end;
   Operation.Tax := VatInfo;
@@ -1508,11 +1449,11 @@ begin
   if (UnitAmount = 0)or(Quantity = 0) then
   begin
     // If no price - use single quantity cost
-    Operation.Quantity := 1000;
+    Operation.Quantity := 1;
     Operation.Price := Printer.CurrencyToInt(Amount);
   end else
   begin
-    if Quantity = 0 then Quantity := 1000;
+    if Quantity = 0 then Quantity := 1;
     Operation.Quantity := Quantity;
     Operation.Price := Printer.CurrencyToInt(UnitAmount);
   end;

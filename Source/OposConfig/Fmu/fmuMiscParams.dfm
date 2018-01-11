@@ -176,4 +176,12 @@ object fmMiscParams: TfmMiscParams
     Caption = 'Fiscal storage service enabled'
     TabOrder = 10
   end
+  object chbPingEnabled: TCheckBox
+    Left = 8
+    Top = 424
+    Width = 209
+    Height = 17
+    Caption = 'PING device enabled'
+    TabOrder = 11
+  end
 end

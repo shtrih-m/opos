@@ -33,6 +33,7 @@ type
     lblTimeUpdateMode: TLabel;
     cbTimeUpdateMode: TComboBox;
     chbFSServiceEnabled: TCheckBox;
+    chbPingEnabled: TCheckBox;
   public
     procedure UpdatePage; override;
     procedure UpdateObject; override;
@@ -60,6 +61,7 @@ begin
   Parameters.WrapText := chbWrapText.Checked;
   Parameters.TimeUpdateMode := cbTimeUpdateMode.ItemIndex;
   Parameters.FSServiceEnabled := chbFSServiceEnabled.Checked;
+  Parameters.PingEnabled := chbPingEnabled.Checked;
 end;
 
 procedure TfmMiscParams.UpdatePage;
@@ -75,6 +77,7 @@ begin
   chbWrapText.Checked := Parameters.WrapText;
   cbTimeUpdateMode.ItemIndex := Parameters.TimeUpdateMode;
   chbFSServiceEnabled.Checked := Parameters.FSServiceEnabled;
+  chbPingEnabled.Checked := Parameters.PingEnabled;
 end;
 
 end.

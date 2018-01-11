@@ -356,7 +356,7 @@ begin
   end;
 
   FPriceWithDiscount := calcPriceWithDiscount();
-  amount := Round(priceWithDiscount * Quantity);
+  amount := getTotal2;
   total := getTotal();
   total2 := getTotal2();
   if (total - amount > 0) then
@@ -399,6 +399,7 @@ begin
       FSplittedItem.Department := Department;
       FSplittedItem.Tax := Tax;
       FSplittedItem.Text := Text;
+      FSplittedItem.FPriceUpdated := True;
     end;
     Quantity := Quantity2 / 1000;
   end;

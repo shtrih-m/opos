@@ -6748,7 +6748,6 @@ function TFiscalPrinterDevice.FSSale2(const P: TFSSale2): Integer;
 var
   Answer: string;
   Command: string;
-  Quantity: Int64;
 begin
   Command := #$FF#$46 + IntToBin(GetUsrPassword, 4) +
     Chr(Abs(P.RecType)) +

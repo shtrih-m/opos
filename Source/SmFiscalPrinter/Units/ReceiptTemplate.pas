@@ -140,7 +140,7 @@ begin
   end;
   if AnsiCompareText(FieldData.Name, 'QUAN') = 0 then
   begin
-    Result := QuantityToStr(Item.Data.Quantity/1000);
+    Result := QuantityToStr(Item.Data.Quantity);
   end;
   if AnsiCompareText(FieldData.Name, 'UnitName') = 0 then
   begin
@@ -173,7 +173,7 @@ begin
   end;
   if AnsiCompareText(FieldData.Name, 'MULT_NE_ONE') = 0 then
   begin
-    if Item.Data.Quantity = 1000 then Result := ' '
+    if Item.Data.Quantity = 1 then Result := ' '
     else Result := '*';
   end;
 

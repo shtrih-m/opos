@@ -188,7 +188,6 @@ uses
   Retalix in '..\..\Source\SmFiscalPrinter\Units\Retalix.pas',
   MalinaFilter in '..\..\Source\SmFiscalPrinter\Units\MalinaFilter.pas',
   MockFiscalPrinterDevice in 'Units\MockFiscalPrinterDevice.pas',
-  OposSalesReceipt in '..\..\Source\SmFiscalPrinter\Units\OposSalesReceipt.pas',
   FormUtils in '..\..\Source\SmFiscalPrinter\Fmu\FormUtils.pas',
   fmuTest in 'Units\fmuTest.pas' {fmTest},
   NonfiscalDoc in '..\..\Source\SmFiscalPrinter\Units\NonfiscalDoc.pas',
@@ -206,7 +205,8 @@ uses
   PrinterFonts in '..\..\Source\SmFiscalPrinter\Units\PrinterFonts.pas',
   SmResourceStrings in '..\..\Source\SmFiscalPrinter\Units\SmResourceStrings.pas',
   TLVTags in '..\..\Source\SmFiscalPrinter\Units\TLVTags.pas',
-  TLVParser in '..\..\Source\SmFiscalPrinter\Units\TLVParser.pas';
+  TLVParser in '..\..\Source\SmFiscalPrinter\Units\TLVParser.pas',
+  FSSalesReceipt in '..\..\Source\SmFiscalPrinter\Units\FSSalesReceipt.pas';
 
 {$R *.RES}
 {$R ..\..\Source\SmFiscalPrinter\SmFiscalPrinter.TLB}

@@ -337,6 +337,7 @@ const
   DefHandleErrorCode = False;
   DefPrintUnitName = False;
   DefOpenReceiptEnabled = False;
+  DefPingEnabled = False;
 
 type
   { TPrinterParameters }
@@ -496,6 +497,7 @@ type
     Parameter10: string;
     PrintUnitName: Boolean;
     OpenReceiptEnabled: Boolean;
+    PingEnabled: Boolean;
   public
     constructor Create(ALogger: ILogFile);
     destructor Destroy; override;
@@ -810,6 +812,7 @@ begin
   PrintUnitName := DefPrintUnitName;
   OpenReceiptEnabled := DefOpenReceiptEnabled;
   QuantityDecimalPlaces := DefQuantityDecimalPlaces;
+  PingEnabled := DefPingEnabled;
 end;
 
 procedure TPrinterParameters.LogText(const Caption, Text: string);
@@ -936,6 +939,7 @@ begin
   Logger.Debug('PrintUnitName: ' + BoolToStr(PrintUnitName));
   Logger.Debug('OpenReceiptEnabled: ' + BoolToStr(OpenReceiptEnabled));
   Logger.Debug('QuantityDecimalPlaces: ' + IntToStr(QuantityDecimalPlaces));
+  Logger.Debug('PingEnabled: ' + BoolToStr(PingEnabled));
 
   for i := 0 to PayTypes.Count-1 do
   begin

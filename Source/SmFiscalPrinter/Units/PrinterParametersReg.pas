@@ -465,6 +465,8 @@ begin
       if Reg.ValueExists('QuantityDecimalPlaces') then
         Parameters.QuantityDecimalPlaces := Reg.ReadInteger('QuantityDecimalPlaces');
 
+      if Reg.ValueExists('PingEnabled') then
+        Parameters.PingEnabled := Reg.ReadBool('PingEnabled');
 
       // VatCodes
       if Reg.OpenKey(REG_KEY_VATCODES, False) then
@@ -621,6 +623,7 @@ begin
     Reg.WriteBool('PrintUnitName', FParameters.PrintUnitName);
     Reg.WriteBool('OpenReceiptEnabled', FParameters.OpenReceiptEnabled);
     Reg.WriteInteger('QuantityDecimalPlaces', FParameters.QuantityDecimalPlaces);
+    Reg.WriteBool('PingEnabled', FParameters.PingEnabled);
 
     // VatCodes
     Reg.DeleteKey(REG_KEY_VATCODES);

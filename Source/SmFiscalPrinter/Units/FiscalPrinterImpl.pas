@@ -1185,7 +1185,7 @@ begin
     begin
       Connect;
       Printer.PollEnabled := Parameters.PropertyUpdateMode = PropertyUpdateModePolling;
-      if (Parameters.ConnectionType = ConnectionTypeSocket) then
+      if (Parameters.PingEnabled and (Parameters.ConnectionType = ConnectionTypeSocket)) then
       begin
         Printer.StartPing;
       end;
