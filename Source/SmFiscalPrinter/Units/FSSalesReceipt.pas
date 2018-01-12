@@ -70,6 +70,7 @@ type
     property Device: IFiscalPrinterDevice read GetDevice;
     procedure UpdateReceiptItems;
     procedure PrintDiscount(Discount: TAmountOperation);
+    function GetDoubleQuantity(Quantity: Int64): Double;
   public
     constructor CreateReceipt(AContext: TReceiptContext; ARecType: Integer);
     destructor Destroy; override;
@@ -376,6 +377,14 @@ begin
   end;
 end;
 
+function TFSSalesReceipt.GetDoubleQuantity(Quantity: Int64): Double;
+begin
+  if (Device.CapFSCloseReceipt2 and (Parameters.QuantityDecimalPlaces = QuantityDecimalPlaces6)) then
+    Result := Quantity/1000000
+  else
+    Result := Quantity/1000;
+end;
+
 procedure TFSSalesReceipt.PrintRecItem(const Description: string; Price: Currency;
   Quantity: Integer; VatInfo: Integer; UnitPrice: Currency;
   const UnitName: string);
@@ -384,13 +393,9 @@ var
 begin
   CheckPrice(Price);
   CheckQuantity(Quantity);
+
   CheckPrice(UnitPrice);
-
-  if Parameters.QuantityDecimalPlaces = QuantityDecimalPlaces3 then
-    Operation.Quantity := Quantity/1000
-  else
-    Operation.Quantity := Quantity/1000000;
-
+  Operation.Quantity := GetDoubleQuantity(Quantity);
   if UnitPrice = 0 then
   begin
     // If no price - use single quanity cost
@@ -974,17 +979,17 @@ begin
 
   FSRegistration := Item.Data;
 
-  Operation.Price := FSRegistration.Price;
+  Operation.Price := Item.PriceWithDiscount;
   Operation.Department := FSRegistration.Department;
   Operation.Tax1 := GetTax(FSRegistration.Text, FSRegistration.Tax);
   Operation.Tax2 := 0;
   Operation.Tax3 := 0;
   Operation.Tax4 := 0;
   Operation.Text := FSRegistration.Text;
-  if Parameters.QuantityDecimalPlaces = QuantityDecimalPlaces3 then
-    Operation.Quantity := Round2(Abs(FSRegistration.Quantity) * 1000)
+  if (Device.CapFSCloseReceipt2 and (Parameters.QuantityDecimalPlaces = QuantityDecimalPlaces6)) then
+    Operation.Quantity := Round2(Abs(FSRegistration.Quantity) * 1000000)
   else
-    Operation.Quantity := Round2(Abs(FSRegistration.Quantity) * 1000000);
+    Operation.Quantity := Round2(Abs(FSRegistration.Quantity) * 1000);
 
   if Parameters.RecPrintType <> RecPrintTypePrinter then
   begin
@@ -1334,7 +1339,7 @@ begin
 
   Operation.RecType := FRecType;
   Operation.Price := Printer.CurrencyToInt(Amount);
-  Operation.Quantity := -Abs(Quantity);
+  Operation.Quantity := -Abs(GetDoubleQuantity(Quantity));
   Operation.Department := Parameters.Department;
   Operation.Tax := VatInfo;
   Operation.Text := Description;
@@ -1370,7 +1375,7 @@ begin
   end else
   begin
     if Quantity = 0 then Quantity := 1;
-    Operation.Quantity := Quantity;
+    Operation.Quantity := GetDoubleQuantity(Quantity);
     Operation.Price := Printer.CurrencyToInt(UnitPrice);
   end;
 
@@ -1407,8 +1412,7 @@ begin
   CheckAmount(Amount);
   CheckAmount(UnitAmount);
   CheckQuantity(Quantity);
-
-  Operation.Quantity := Quantity;
+  Operation.Quantity := GetDoubleQuantity(Quantity);
   if (UnitAmount = 0)or(Operation.Quantity = 0) then
   begin
     // If no price - use single quantity cost
@@ -1454,7 +1458,7 @@ begin
   end else
   begin
     if Quantity = 0 then Quantity := 1;
-    Operation.Quantity := Quantity;
+    Operation.Quantity := GetDoubleQuantity(Quantity);
     Operation.Price := Printer.CurrencyToInt(UnitAmount);
   end;
 

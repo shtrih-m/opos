@@ -4106,9 +4106,10 @@ begin
   Check(FiscalPrinter.resetPrinter());
   FiscalPrinter.set_FiscalReceiptType(4);
   Check(FiscalPrinter.beginFiscalReceipt(true));
-  Check(FiscalPrinter.printRecItem('3162506 ÃŒ—.œ–.Ã‡ÈÓÌ. À¿——.67% 750ÏÎ', 91.80, 12789, 1, 91.80, 'ST'));
-  Check(FiscalPrinter.printRecItem('3162506 ÃŒ—.œ–.Ã‡ÈÓÌ. À¿——.67% 750ÏÎ', 0.12, 123789, 1, 0.12, 'ST'));
-  Check(FiscalPrinter.printRecTotal(118, 118, '0'));
+
+  Check(FiscalPrinter.PrintRecItem('Item 1', 99, 1000000, 4, 99, ''));
+  Check(FiscalPrinter.PrintRecTotal(99, 99, '0'));
+
   Check(FiscalPrinter.endFiscalReceipt(false));
 end;
 
@@ -4414,7 +4415,5 @@ begin
   Check(FiscalPrinter.PrintRecTotal(0, 3404, '1'));
   Check(FiscalPrinter.EndFiscalReceipt(True));
 end;
-
-//1.350 * 119-93.29
 
 end.
