@@ -379,7 +379,7 @@ end;
 
 function TFSSalesReceipt.GetDoubleQuantity(Quantity: Int64): Double;
 begin
-  if (Device.CapFSCloseReceipt2 and (Parameters.QuantityDecimalPlaces = QuantityDecimalPlaces6)) then
+  if Parameters.QuantityDecimalPlaces = QuantityDecimalPlaces6 then
     Result := Quantity/1000000
   else
     Result := Quantity/1000;
@@ -986,10 +986,7 @@ begin
   Operation.Tax3 := 0;
   Operation.Tax4 := 0;
   Operation.Text := FSRegistration.Text;
-  if (Device.CapFSCloseReceipt2 and (Parameters.QuantityDecimalPlaces = QuantityDecimalPlaces6)) then
-    Operation.Quantity := Round2(Abs(FSRegistration.Quantity) * 1000000)
-  else
-    Operation.Quantity := Round2(Abs(FSRegistration.Quantity) * 1000);
+  Operation.Quantity := Round2(Abs(FSRegistration.Quantity) * 1000);
 
   if Parameters.RecPrintType <> RecPrintTypePrinter then
   begin
