@@ -832,6 +832,30 @@ type
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
+  { TDIOPrintCorrection }
+
+  TDIOPrintCorrection = class(TDIOHandler)
+  private
+    FPrinter: TFiscalPrinterImpl;
+  public
+    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
+      APrinter: TFiscalPrinterImpl);
+
+    procedure DirectIO(var pData: Integer; var pString: WideString); override;
+  end;
+
+  { TDIOPrintCorrection2 }
+
+  TDIOPrintCorrection2 = class(TDIOHandler)
+  private
+    FPrinter: TFiscalPrinterImpl;
+  public
+    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
+      APrinter: TFiscalPrinterImpl);
+
+    procedure DirectIO(var pData: Integer; var pString: WideString); override;
+  end;
+
 implementation
 
 function BoolToStr(Value: Boolean): string;
@@ -2479,6 +2503,63 @@ procedure TDIOPrintFSDocument.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
   FPrinter.PrintFSDocument(pData);
+end;
+
+{ TDIOPrintCorrection }
+
+constructor TDIOPrintCorrection.CreateCommand(AOwner: TDIOHandlers;
+  ACommand: Integer; APrinter: TFiscalPrinterImpl);
+begin
+  inherited Create(AOwner, ACommand);
+  FPrinter := APrinter;
+end;
+
+procedure TDIOPrintCorrection.DirectIO(var pData: Integer;
+  var pString: WideString);
+var
+  Data: TFSCorrectionReceipt;
+begin
+  Data.RecType := GetInteger(pString, 1, ValueDelimiters);
+  Data.Total := GetInteger(pString, 2, ValueDelimiters);
+  FPrinter.Device.Check(FPrinter.FSPrintCorrectionReceipt(Data));
+  pString := Format('%d;%d;%d;%d', [
+    Data.ResultCode, Data.ReceiptNumber,
+    Data.DocumentNumber, Data.DocumentMac]);
+end;
+
+{ TDIOPrintCorrection2 }
+
+constructor TDIOPrintCorrection2.CreateCommand(AOwner: TDIOHandlers;
+  ACommand: Integer; APrinter: TFiscalPrinterImpl);
+begin
+  inherited Create(AOwner, ACommand);
+  FPrinter := APrinter;
+end;
+
+procedure TDIOPrintCorrection2.DirectIO(var pData: Integer;
+  var pString: WideString);
+var
+  Data: TFSCorrectionReceipt2;
+begin
+  Data.CorrectionType := GetInteger(pString, 1, ValueDelimiters);
+  Data.CalculationSign := GetInteger(pString, 2, ValueDelimiters);
+  Data.Amount1 := GetInteger(pString, 3, ValueDelimiters);
+  Data.Amount2 := GetInteger(pString, 4, ValueDelimiters);
+  Data.Amount3 := GetInteger(pString, 5, ValueDelimiters);
+  Data.Amount4 := GetInteger(pString, 6, ValueDelimiters);
+  Data.Amount5 := GetInteger(pString, 7, ValueDelimiters);
+  Data.Amount6 := GetInteger(pString, 8, ValueDelimiters);
+  Data.Amount7 := GetInteger(pString, 9, ValueDelimiters);
+  Data.Amount8 := GetInteger(pString, 10, ValueDelimiters);
+  Data.Amount9 := GetInteger(pString, 11, ValueDelimiters);
+  Data.Amount10 := GetInteger(pString, 12, ValueDelimiters);
+  Data.Amount11 := GetInteger(pString, 13, ValueDelimiters);
+  Data.Amount12 := GetInteger(pString, 14, ValueDelimiters);
+  Data.TaxType := GetInteger(pString, 15, ValueDelimiters);
+  FPrinter.Device.Check(FPrinter.FSPrintCorrectionReceipt2(Data));
+  pString := Format('%d;%d;%d;%d', [
+    Data.ResultCode, Data.ReceiptNumber,
+    Data.DocumentNumber, Data.DocumentMac]);
 end;
 
 end.

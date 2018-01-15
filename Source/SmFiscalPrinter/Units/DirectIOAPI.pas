@@ -80,6 +80,8 @@ const
   DIO_FS_REFISCALIZE            = 53; // Print FS refiscalization report
   DIO_GET_PRINT_WIDTH           = 54; // Get print width
   DIO_PRINT_BARCODE_HEX2        = 55; // print barcode data from hex 2
+  DIO_PRINT_CORRECTION          = 56; // print correction receipt 1
+  DIO_PRINT_CORRECTION2         = 57; // print correction receipt 2
 
 
   DIO_PRINT_TEXT2                = 1000;  // print text

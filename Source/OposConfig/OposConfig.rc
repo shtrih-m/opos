@@ -1,6 +1,6 @@
 VS_VERSION_INFO VERSIONINFO
-FILEVERSION 1,13,0,465
-PRODUCTVERSION 1,13,0,465 
+FILEVERSION 1,13,0,466
+PRODUCTVERSION 1,13,0,466 
 FILEFLAGSMASK 0x3fL
 FILEFLAGS 0x0L
 FILEOS 0x4L
@@ -13,7 +13,7 @@ BEGIN
     BEGIN
       VALUE "CompanyName", "SHTRIH-M\0"
       VALUE "FileDescription", "OPOS setup utility\0"
-      VALUE "FileVersion", "1.13.0.465\0"
+      VALUE "FileVersion", "1.13.0.466\0"
       VALUE "InternalName", "OPOS setup \0"
       VALUE "LegalCopyright", "SHTRIH-M \251 2013 \0"
       VALUE "OriginalFilename", "OposConfig.exe\0"

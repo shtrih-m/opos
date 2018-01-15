@@ -420,6 +420,7 @@ type
     function ReadFPDayTotals(Flags: Integer): TFMTotals;
     function ReadTotalsByReceiptType(Index: Integer): Int64;
     function FSPrintCorrectionReceipt(var Command: TFSCorrectionReceipt): Integer;
+    function FSPrintCorrectionReceipt2(var Data: TFSCorrectionReceipt2): Integer;
     function GetParameters: TPrinterParameters;
     function GetContext: TDriverContext;
     function IsRecOpened: Boolean;
@@ -7740,7 +7741,6 @@ begin
 end;
 
 (*
-
 Сформировать чек коррекции FF36H
 Код команды FF36h . Длина сообщения: 12 байт.
 Пароль системного администратора: 4 байта
@@ -7752,7 +7752,6 @@ end;
 Номер чека: 2 байта
 Номер ФД: 4 байта
 Фискальный признак: 4 байт
-
 *)
 
 function TFiscalPrinterDevice.FSPrintCorrectionReceipt(
@@ -7761,6 +7760,8 @@ var
   Cmd: string;
   Data: string;
 begin
+  OpenFiscalDay;
+
   Cmd := #$FF#$36 +
     IntToBin(GetSysPassword, 4) +
     IntToBin(Command.Total, 5) +
@@ -7773,6 +7774,64 @@ begin
     Command.ReceiptNumber := BinToInt(Data, 1, 2);
     Command.DocumentNumber := BinToInt(Data, 3, 4);
     Command.DocumentMac := BinToInt(Data, 7, 4);
+  end;
+end;
+
+(*
+Сформировать чек коррекции V2 FF4AH
+Код команды FF4Ah . Длина сообщения: 69 байт.
+Пароль системного администратора: 4 байта
+Тип коррекции :1 байт
+Признак расчета:1байт
+Сумма расчёта :5 байт
+Сумма по чеку наличными:5 байт
+Сумма по чеку электронными:5 байт
+Сумма по чеку предоплатой:5 байт
+Сумма по чеку постоплатой:5 байт
+Сумма по чеку встречным представлением:5 байт
+Сумма НДС 18%:5 байт
+Сумма НДС 10%:5 байт
+Сумма расчёта по ставке 0%:5 байт
+Сумма расчёта по чеку без НДС:5 байт
+Сумма расчёта по расч. ставке 18/118:5 байт
+Сумма расчёта по расч. ставке 10/110:5 байт
+Применяемая система налогообложения:1байт
+*)
+
+function TFiscalPrinterDevice.FSPrintCorrectionReceipt2(
+  var Data: TFSCorrectionReceipt2): Integer;
+var
+  Command: string;
+  Answer: string;
+begin
+  OpenFiscalDay;
+
+  Command := #$FF#$4A +
+    IntToBin(GetSysPassword, 4) +
+    IntToBin(Data.CorrectionType, 1) +
+    IntToBin(Data.CalculationSign, 1) +
+    IntToBin(Data.Amount1, 5) +
+    IntToBin(Data.Amount2, 5) +
+    IntToBin(Data.Amount3, 5) +
+    IntToBin(Data.Amount4, 5) +
+    IntToBin(Data.Amount5, 5) +
+    IntToBin(Data.Amount6, 5) +
+    IntToBin(Data.Amount7, 5) +
+    IntToBin(Data.Amount8, 5) +
+    IntToBin(Data.Amount9, 5) +
+    IntToBin(Data.Amount10, 5) +
+    IntToBin(Data.Amount11, 5) +
+    IntToBin(Data.Amount12, 5) +
+    IntToBin(Data.TaxType, 1);
+
+  Result := ExecuteData(Command, Answer);
+  if Result = 0 then
+  begin
+    CheckMinLength(Answer, 10);
+    Data.ResultCode := Result;
+    Data.ReceiptNumber := BinToInt(Answer, 1, 2);
+    Data.DocumentNumber := BinToInt(Answer, 3, 4);
+    Data.DocumentMac := BinToInt(Answer, 7, 4);
   end;
 end;
 

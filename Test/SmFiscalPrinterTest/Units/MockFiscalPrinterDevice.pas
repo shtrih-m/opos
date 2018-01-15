@@ -271,6 +271,7 @@ type
     function ReadDayTotals: TFMTotals;
     function ReadFPTotals(Flags: Integer): TFMTotals;
     function FSPrintCorrectionReceipt(var Command: TFSCorrectionReceipt): Integer;
+    function FSPrintCorrectionReceipt2(var Data: TFSCorrectionReceipt2): Integer;
     procedure LoadTables(const Path: WideString);
     function FSReadTicket(var R: TFSTicket): Integer;
     function GetContext: TDriverContext;
@@ -1706,6 +1707,12 @@ end;
 function TMockFiscalPrinterDevice.ReadFSDocument(Number: Integer): string;
 begin
 
+end;
+
+function TMockFiscalPrinterDevice.FSPrintCorrectionReceipt2(
+  var Data: TFSCorrectionReceipt2): Integer;
+begin
+  Result := 0;
 end;
 
 end.

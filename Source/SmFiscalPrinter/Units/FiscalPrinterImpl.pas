@@ -81,6 +81,7 @@ type
 
     property NonFiscalDoc: TNonFiscalDoc read GetNonFiscalDoc;
     procedure PrintReceiptItems(Items: TReceiptItems);
+    procedure PrintDocumentEnd;
   public
     procedure ReadHeader;
     procedure CheckEndDay;
@@ -463,6 +464,8 @@ type
     procedure WriteFPParameter(ParamId: Integer; const Value: string);
     function ReadFSDocument(Number: Integer): string;
     procedure PrintFSDocument(Number: Integer);
+    function FSPrintCorrectionReceipt(var Command: TFSCorrectionReceipt): Integer;
+    function FSPrintCorrectionReceipt2(var Data: TFSCorrectionReceipt2): Integer;
 
     property Logger: ILogFile read GetLogger;
     property Printer: ISharedPrinter read GetPrinter;
@@ -666,6 +669,8 @@ begin
   TDIOBarcodeHex2.CreateCommand(FDIOHandlers, DIO_PRINT_BARCODE_HEX2, Self);
   TDIOReadFSDocument.CreateCommand(FDIOHandlers, DIO_READ_FS_DOCUMENT, Self);
   TDIOPrintFSDocument.CreateCommand(FDIOHandlers, DIO_PRINT_FS_DOCUMENT, Self);
+  TDIOPrintCorrection.CreateCommand(FDIOHandlers, DIO_PRINT_CORRECTION, Self);
+  TDIOPrintCorrection2.CreateCommand(FDIOHandlers, DIO_PRINT_CORRECTION2, Self);
 end;
 
 procedure TFiscalPrinterImpl.CreateDIOHandlers1;
@@ -730,6 +735,8 @@ begin
   TDIOBarcodeHex2.CreateCommand(FDIOHandlers, DIO_PRINT_BARCODE_HEX2, Self);
   TDIOReadFSDocument.CreateCommand(FDIOHandlers, DIO_READ_FS_DOCUMENT, Self);
   TDIOPrintFSDocument.CreateCommand(FDIOHandlers, DIO_PRINT_FS_DOCUMENT, Self);
+  TDIOPrintCorrection.CreateCommand(FDIOHandlers, DIO_PRINT_CORRECTION, Self);
+  TDIOPrintCorrection2.CreateCommand(FDIOHandlers, DIO_PRINT_CORRECTION2, Self);
 end;
 
 procedure TFiscalPrinterImpl.CreateDIOHandlers2;
@@ -795,6 +802,8 @@ begin
   TDIOBarcodeHex2.CreateCommand(FDIOHandlers, DIO_PRINT_BARCODE_HEX2, Self);
   TDIOReadFSDocument.CreateCommand(FDIOHandlers, DIO_READ_FS_DOCUMENT, Self);
   TDIOPrintFSDocument.CreateCommand(FDIOHandlers, DIO_PRINT_FS_DOCUMENT, Self);
+  TDIOPrintCorrection.CreateCommand(FDIOHandlers, DIO_PRINT_CORRECTION, Self);
+  TDIOPrintCorrection2.CreateCommand(FDIOHandlers, DIO_PRINT_CORRECTION2, Self);
 end;
 
 procedure TFiscalPrinterImpl.SetPrinter(APrinter: ISharedPrinter);
@@ -2502,18 +2511,8 @@ begin
     Filters.BeforeCloseReceipt;
     Receipt.EndFiscalReceipt;
     Filters.AfterCloseReceipt;
+    PrintDocumentEnd;
 
-    if Receipt.PrintEnabled then
-    begin
-      try
-        PrintNonFiscalEnd;
-        Receipt.AfterEndFiscalReceipt;
-        Filters.AfterPrintReceipt;
-      except
-        on E: Exception do
-          Logger.Error('TFiscalPrinterImpl.EndFiscalReceipt', E);
-      end;
-    end;
     FReceipt.Free;
     FReceipt := CreateNullReceipt;
     SetPrinterState(FPTR_PS_MONITOR);
@@ -4530,6 +4529,42 @@ end;
 function TFiscalPrinterImpl.ReadFSDocument(Number: Integer): string;
 begin
   Result := Device.ReadFSDocument(Number);
+end;
+
+
+procedure TFiscalPrinterImpl.PrintDocumentEnd;
+begin
+  if Receipt.PrintEnabled then
+  begin
+    try
+      PrintNonFiscalEnd;
+      Receipt.AfterEndFiscalReceipt;
+      Filters.AfterPrintReceipt;
+    except
+      on E: Exception do
+        Logger.Error('TFiscalPrinterImpl.EndFiscalReceipt', E);
+    end;
+  end;
+end;
+
+function TFiscalPrinterImpl.FSPrintCorrectionReceipt(
+  var Command: TFSCorrectionReceipt): Integer;
+begin
+  Result := Device.FSPrintCorrectionReceipt(Command);
+  if Result = 0 then
+  begin
+    PrintDocumentEnd;
+  end;
+end;
+
+function TFiscalPrinterImpl.FSPrintCorrectionReceipt2(
+  var Data: TFSCorrectionReceipt2): Integer;
+begin
+  Result := Device.FSPrintCorrectionReceipt2(Data);
+  if Result = 0 then
+  begin
+    PrintDocumentEnd;
+  end;
 end;
 
 end.

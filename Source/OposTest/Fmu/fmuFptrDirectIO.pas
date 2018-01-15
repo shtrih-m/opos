@@ -10,6 +10,8 @@ uses
   untPages, OposFiscalPrinter, DirectIOAPI, Opos, DIODescription;
 
 type
+  { TfmFptrDirectIO }
+
   TfmFptrDirectIO = class(TPage)
     lblData: TLabel;
     btnExecute: TButton;

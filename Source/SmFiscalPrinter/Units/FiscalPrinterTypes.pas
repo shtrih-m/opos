@@ -436,6 +436,7 @@ type
     function ReadFPTotals(Flags: Integer): TFMTotals;
     procedure WriteFPParameter(ParamId: Integer; const Value: string);
     function FSPrintCorrectionReceipt(var Command: TFSCorrectionReceipt): Integer;
+    function FSPrintCorrectionReceipt2(var Data: TFSCorrectionReceipt2): Integer;
     procedure LoadTables(const Path: WideString);
     function FSReadTicket(var R: TFSTicket): Integer;
     function GetParameters: TPrinterParameters;
