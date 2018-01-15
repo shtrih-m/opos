@@ -750,6 +750,14 @@ type
     function GetDisplayText: string; override;
   end;
 
+  { TReceiptTest16 }
+
+  TReceiptTest16 = class(TDriverTest)
+  public
+    procedure Execute; override;
+    function GetDisplayText: string; override;
+  end;
+
 implementation
 
 const
@@ -4413,6 +4421,23 @@ begin
 
   Check(FiscalPrinter.PrintRecSubtotal(3404));
   Check(FiscalPrinter.PrintRecTotal(0, 3404, '1'));
+  Check(FiscalPrinter.EndFiscalReceipt(True));
+end;
+
+{ TReceiptTest16 }
+
+function TReceiptTest16.GetDisplayText: string;
+begin
+  Result := 'ReceiptTest16';
+end;
+
+procedure TReceiptTest16.Execute;
+begin
+  Check(FiscalPrinter.ResetPrinter());
+  FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
+  Check(FiscalPrinter.BeginFiscalReceipt(True));
+  Check(FiscalPrinter.PrintRecItem('¿»-92', 101, 3088700, 4, 32.7, ''));
+  Check(FiscalPrinter.PrintRecTotal(101, 101, '0'));
   Check(FiscalPrinter.EndFiscalReceipt(True));
 end;
 

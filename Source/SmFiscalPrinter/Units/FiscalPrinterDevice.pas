@@ -6319,7 +6319,6 @@ begin
   FCapEnablePrint := GetDeviceMetrics.Model <> 19;
   FCapSubtotalRound := FCapFiscalStorage and ((GetDeviceMetrics.Model = 19) or (DiscountMode = 2));
   FCapFSCloseReceipt2 := FCapFiscalStorage and (GetDeviceMetrics.Model <> 19);
-  FCapFSCloseReceipt2 := False;
   if FCapFSCloseReceipt2 then
   begin
     FCapFSCloseReceipt2 := TestCommand($FF45);
