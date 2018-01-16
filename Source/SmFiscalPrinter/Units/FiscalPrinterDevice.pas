@@ -185,6 +185,7 @@ type
     procedure PrintFSDocument(Number: Integer);
     function FSReadDocData(var P: TFSReadDocData): Integer;
     function FSReadDocument(var P: TFSReadDocument): Integer;
+    function IsFiscalPrinter2: Boolean;
   protected
     function GetMaxGraphicsWidthInBytes: Integer;
   public
@@ -6328,6 +6329,12 @@ begin
   FIsFiscalized := FCapFiscalStorage or (FLongStatus.RegistrationNumber <> 0);
 end;
 
+// Is fiscal printer firmware 2 (Semenov)
+function TFiscalPrinterDevice.IsFiscalPrinter2: Boolean;
+begin
+  Result := GetDeviceMetrics.Model = 19;
+end;
+
 function TFiscalPrinterDevice.GetTaxInfo(Tax: Integer): TTaxInfo;
 begin
   Result.Rate := 0;
@@ -7415,35 +7422,56 @@ begin
     end;
     DIO_FPTR_PARAMETER_OFD_ADDRESS:
     begin
-      Result := ReadTableStr(19, 1, 1);
+      if IsFiscalPrinter2 then
+        Result := ReadTableStr(15, 1, 1)
+      else
+        Result := ReadTableStr(19, 1, 1);
     end;
 
     DIO_FPTR_PARAMETER_OFD_PORT:
     begin
-      Result := ReadTableStr(19, 1, 2);
+      if IsFiscalPrinter2 then
+        Result := ReadTableStr(15, 1, 2)
+      else
+        Result := ReadTableStr(19, 1, 2);
     end;
 
     DIO_FPTR_PARAMETER_OFD_TIMEOUT:
     begin
-      Result := ReadTableStr(19, 1, 3);
+      if IsFiscalPrinter2 then
+        Result := ReadTableStr(15, 1, 3)
+      else
+        Result := ReadTableStr(19, 1, 3);
     end;
 
     DIO_FPTR_PARAMETER_RNM:
     begin
-      Result := ReadTableStr(18, 1, 3);
+      if IsFiscalPrinter2 then
+        Result := ReadTableStr(14, 1, 3)
+      else
+        Result := ReadTableStr(18, 1, 3);
     end;
 
     DIO_FPTR_PARAMETER_INN:
     begin
-      Result := ReadTableStr(18, 1, 2);
+      if IsFiscalPrinter2 then
+        Result := ReadTableStr(14, 1, 2)
+      else
+        Result := ReadTableStr(18, 1, 2);
     end;
     DIO_FPTR_PARAMETER_TAXSYSTEM:
     begin
-      Result := ReadTableStr(18, 1, 5);
+      if IsFiscalPrinter2 then
+        Result := ReadTableStr(14, 1, 5)
+      else
+        Result := ReadTableStr(18, 1, 5);
     end;
     DIO_FPTR_PARAMETER_WORKMODE:
     begin
-      Result := ReadTableStr(18, 1, 6);
+      if IsFiscalPrinter2 then
+        Result := ReadTableStr(14, 1, 6)
+      else
+        Result := ReadTableStr(18, 1, 6);
     end;
 
     DIO_FPTR_PARAMETER_ENABLE_PRINT:
