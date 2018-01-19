@@ -4437,7 +4437,7 @@ begin
   FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
   Check(FiscalPrinter.BeginFiscalReceipt(True));
   Check(FiscalPrinter.PrintRecItem('¿»-92', 101, 3088700, 4, 32.7, ''));
-  Check(FiscalPrinter.PrintRecTotal(101, 101, '0'));
+  Check(FiscalPrinter.PrintRecTotal(101, 101, '2'));
   Check(FiscalPrinter.EndFiscalReceipt(True));
 end;
 
