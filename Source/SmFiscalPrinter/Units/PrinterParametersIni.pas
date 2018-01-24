@@ -324,6 +324,7 @@ begin
       FParameters.OpenReceiptEnabled := IniFile.ReadBool(Section, 'OpenReceiptEnabled', DefOpenReceiptEnabled);
       FParameters.QuantityDecimalPlaces := IniFile.ReadInteger(Section, 'QuantityDecimalPlaces', DefQuantityDecimalPlaces);
       FParameters.PingEnabled := IniFile.ReadBool(Section, 'PingEnabled', DefPingEnabled);
+      FParameters.DocumentBlockSize := IniFile.ReadInteger(Section, 'DocumentBlockSize', DefDocumentBlockSize);
     end;
     // VatCodes
     Section := GetSectionName(DeviceName) + '_VatCodes';
@@ -474,6 +475,7 @@ begin
     IniFile.WriteBool(Section, 'OpenReceiptEnabled', FParameters.OpenReceiptEnabled);
     IniFile.WriteInteger(Section, 'QuantityDecimalPlaces', FParameters.QuantityDecimalPlaces);
     IniFile.WriteBool(Section, 'PingEnabled', FParameters.PingEnabled);
+    IniFile.WriteInteger(Section, 'DocumentBlockSize', FParameters.DocumentBlockSize);
 
     // PayTypes
     Section := GetSectionName(DeviceName) + '_PaymentTypes';

@@ -10,6 +10,12 @@ uses
 
 const
   /////////////////////////////////////////////////////////////////////////////
+  // Maximum block size for FF31 command, read FS data block
+  MinDocumentBlockSize = 10;
+  MaxDocumentBlockSize = 151;
+  DefDocumentBlockSize = 50;
+
+  /////////////////////////////////////////////////////////////////////////////
   // QuantityLength constants
   QuantityDecimalPlaces3 = 0;
   QuantityDecimalPlaces6 = 1;
@@ -422,6 +428,7 @@ type
     FAmountDecimalPlaces: Integer;
     FCapRecNearEndSensorMode: Integer;
     FQuantityDecimalPlaces: Integer;
+    FDocumentBlockSize: Integer;
 
     procedure LogText(const Caption, Text: string);
     procedure SetLogoPosition(const Value: Integer);
@@ -452,6 +459,7 @@ type
     procedure SetPollIntervalInSeconds(const Value: Integer);
     procedure SetMaxRetryCount(const Value: Integer);
     procedure SetQuantityDecimalPlaces(const Value: Integer);
+    procedure SetDocumentBlockSize(const Value: Integer);
   public
     XReport: Integer;
     FSBarcodeEnabled: Boolean;
@@ -591,6 +599,7 @@ type
     property CapRecNearEndSensorMode: Integer read FCapRecNearEndSensorMode write FCapRecNearEndSensorMode;
     property Logger: ILogFile read FLogger;
     property QuantityDecimalPlaces: Integer read FQuantityDecimalPlaces write SetQuantityDecimalPlaces;
+    property DocumentBlockSize: Integer read FDocumentBlockSize write SetDocumentBlockSize; 
   end;
 
 const
@@ -813,6 +822,7 @@ begin
   OpenReceiptEnabled := DefOpenReceiptEnabled;
   QuantityDecimalPlaces := DefQuantityDecimalPlaces;
   PingEnabled := DefPingEnabled;
+  DocumentBlockSize := DefDocumentBlockSize;
 end;
 
 procedure TPrinterParameters.LogText(const Caption, Text: string);
@@ -940,6 +950,7 @@ begin
   Logger.Debug('OpenReceiptEnabled: ' + BoolToStr(OpenReceiptEnabled));
   Logger.Debug('QuantityDecimalPlaces: ' + IntToStr(QuantityDecimalPlaces));
   Logger.Debug('PingEnabled: ' + BoolToStr(PingEnabled));
+  Logger.Debug('DocumentBlockSize: ' + IntToStr(DocumentBlockSize));
 
   for i := 0 to PayTypes.Count-1 do
   begin
@@ -1154,6 +1165,12 @@ procedure TPrinterParameters.SetQuantityDecimalPlaces(
 begin
   if Value in [0..1] then
     FQuantityDecimalPlaces := Value;
+end;
+
+procedure TPrinterParameters.SetDocumentBlockSize(const Value: Integer);
+begin
+  if (Value >= MinDocumentBlockSize)and(Value <= MaxDocumentBlockSize) then
+    FDocumentBlockSize := Value;
 end;
 
 end.

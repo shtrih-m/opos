@@ -1,6 +1,6 @@
 object fmMiscParams: TfmMiscParams
-  Left = 346
-  Top = 151
+  Left = 411
+  Top = 129
   Width = 391
   Height = 547
   Caption = 'Misc parameters'
@@ -11,6 +11,7 @@ object fmMiscParams: TfmMiscParams
   Font.Name = 'MS Sans Serif'
   Font.Style = []
   OldCreateOrder = False
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object lblMaxReceiptItems: TLabel
@@ -68,6 +69,13 @@ object fmMiscParams: TfmMiscParams
     Width = 91
     Height = 13
     Caption = 'Time update mode:'
+  end
+  object lblDocumentBlockSize: TLabel
+    Left = 32
+    Top = 424
+    Width = 102
+    Height = 13
+    Caption = 'Document block size:'
   end
   object chbVoidReceiptOnMaxItems: TCheckBox
     Left = 16
@@ -178,10 +186,30 @@ object fmMiscParams: TfmMiscParams
   end
   object chbPingEnabled: TCheckBox
     Left = 8
-    Top = 424
+    Top = 456
     Width = 209
     Height = 17
     Caption = 'PING device enabled'
+    TabOrder = 12
+  end
+  object seDocumentBlockSize: TSpinEdit
+    Left = 152
+    Top = 424
+    Width = 105
+    Height = 22
+    MaxLength = 10
+    MaxValue = 151
+    MinValue = 0
     TabOrder = 11
+    Value = 0
+  end
+  object btnSetMaxDocumentBlockSize: TButton
+    Left = 264
+    Top = 424
+    Width = 75
+    Height = 25
+    Caption = 'Max value'
+    TabOrder = 13
+    OnClick = btnSetMaxDocumentBlockSizeClick
   end
 end

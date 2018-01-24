@@ -1,23 +1,19 @@
 [Closed Files]
-File_0=SourceModule,'C:\projects\OPOSShtrih\Source\OposTest\Units\PrinterTest.pas',0,1,4429,74,4444,0,0
-File_1=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\DirectIOAPI.pas',0,1,289,28,305,0,0
-File_2=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FSSalesReceipt.pas',0,1,392,47,419,0,0
-File_3=SourceModule,'C:\projects\OPOSShtrih\Source\Shared\DIOHandlers.pas',0,1,1807,26,1816,0,0
-File_4=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterImpl.pas',0,1,628,65,654,0,0
-File_5=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterTypes.pas',0,1,383,30,398,0,0
-File_6=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterDevice.pas',0,1,6737,1,6769,0,0
-File_7=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\PrinterTypes.pas',0,1,1002,50,1016,0,0
-File_8=SourceModule,'C:\projects\OPOSShtrih\Source\OposTest\Fmu\fmuFptrReceiptTest.pas',0,1,94,19,107,0,0
-File_9=SourceModule,'C:\projects\OPOSShtrih\Source\OposTest\Units\DIODescription.pas',0,1,1,25,12,0,0
+File_0=SourceModule,'C:\projects\OPOSShtrih\Test\SmFiscalPrinterTest\Units\duPrinterParameters.pas',0,1,1,130,7,0,0
+File_1=SourceModule,'C:\projects\OPOSShtrih\Source\OposConfig\Fmu\fmuMiscParams.pas',0,1,1,88,16,1,0
+File_2=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterDevice.pas',0,1,7300,32,7337,0,0
+File_3=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FSService.pas',0,1,131,45,144,0,0
+File_4=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\SharedPrinter.pas',0,1,1390,3,1392,0,0
+File_5=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\PrinterParameters.pas',0,1,647,30,671,0,0
+File_6=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\PrinterTypes.pas',0,1,1115,27,1138,0,0
+File_7=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\PrinterParametersIni.pas',0,1,1,95,19,0,0
+File_8=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\PrinterParametersReg.pas',0,1,599,2,630,0,0
+File_9=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\PrinterParametersRegIBT.pas',0,1,484,56,503,0,0
 
 [Modules]
 Count=0
 EditWindowCount=0
 TypeLibWindowCount=3
-
-[C:\projects\OPOSShtrih\Test\SmScaleTest\SmScaleTestLib.dpr]
-FormState=0
-FormOnTop=0
 
 [C:\projects\OPOSShtrih\Source\OposShtrih.bpg]
 FormState=0
@@ -88,6 +84,10 @@ FormState=0
 FormOnTop=0
 
 [C:\projects\OPOSShtrih\Test\SmScaleTest\SmScaleTest.dpr]
+FormState=0
+FormOnTop=0
+
+[C:\projects\OPOSShtrih\Test\SmScaleTest\SmScaleTestLib.dpr]
 FormState=0
 FormOnTop=0
 
@@ -170,8 +170,8 @@ Count=0
 Create=1
 Visible=1
 State=2
-Left=528
-Top=0
+Left=336
+Top=9
 Width=1392
 Height=122
 MaxLeft=-8
@@ -229,7 +229,7 @@ ClientHeight=60
 
 [PropertyInspector]
 Create=1
-Visible=0
+Visible=1
 State=0
 Left=3
 Top=118
@@ -418,5 +418,5 @@ CompUnitPane=104
 DockHostCount=0
 
 [ActiveProject]
-ActiveProject=3
+ActiveProject=9
 

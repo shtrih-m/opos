@@ -87,6 +87,7 @@ const
   NonDefXmlZReportFileName = 'skdfhksjdfh';
   NonDefCsvZReportFileName = 'sldfjlskdjf';
   NonDefLogMaxCount = 14;
+  NonDefDocumentBlockSize = 10;
 
 { TPrinterParametersTest }
 
@@ -156,6 +157,7 @@ begin
   CheckEquals(Params.DefXmlZReportFileName, Params.XmlZReportFileName, 'Params.XmlZReportFileName');
   CheckEquals(Params.DefCsvZReportFileName, Params.CsvZReportFileName, 'Params.CsvZReportFileName');
   CheckEquals(DefLogMaxCount, Params.LogMaxCount, 'Params.LogMaxCount');
+  CheckEquals(DefDocumentBlockSize, Params.DocumentBlockSize, 'Params.DocumentBlockSize');
 
   CheckEquals(16, Params.PayTypes.Count, 'Params.PayTypes.Count');
   CheckEquals(0, Params.PayTypes[0].Code, 'Params.PayTypes[0].Code');
@@ -166,6 +168,7 @@ begin
   CheckEquals('1', Params.PayTypes[1].Text, 'Params.PayTypes[1].Text');
   CheckEquals('2', Params.PayTypes[2].Text, 'Params.PayTypes[2].Text');
   CheckEquals('3', Params.PayTypes[3].Text, 'Params.PayTypes[3].Text');
+
 end;
 
 procedure TPrinterParametersTest.CheckSetDefaults;
@@ -228,6 +231,7 @@ begin
   Params.XmlZReportFileName := NonDefXmlZReportFileName;
   Params.CsvZReportFileName := NonDefCsvZReportFileName;
   Params.LogMaxCount := NonDefLogMaxCount;
+  Params.DocumentBlockSize := NonDefDocumentBlockSize;
 end;
 
 procedure TPrinterParametersTest.CheckNonDefaultParams;
@@ -279,6 +283,7 @@ begin
   CheckEquals(NonDefXmlZReportFileName, Params.XmlZReportFileName, 'Params.XmlZReportFileName');
   CheckEquals(NonDefCsvZReportFileName, Params.CsvZReportFileName, 'Params.CsvZReportFileName');
   CheckEquals(NonDefLogMaxCount, Params.LogMaxCount, 'Params.LogMaxCount');
+  CheckEquals(NonDefDocumentBlockSize, Params.DocumentBlockSize, 'Params.DocumentBlockSize');
 
   CheckEquals(3, Params.PayTypes.Count, 'Params.PayTypes.Count');
   CheckEquals(12, Params.PayTypes[0].Code, 'Params.PayTypes[0].Code');

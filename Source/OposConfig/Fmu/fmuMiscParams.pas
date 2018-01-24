@@ -5,10 +5,9 @@ interface
 uses
   // VCL
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls,
+  Dialogs, StdCtrls, Spin, ExtCtrls,
   // This
-  FiscalPrinterDevice, untUtil, FptrTypes, PrinterParameters, Spin,
-  ExtCtrls;
+  FiscalPrinterDevice, untUtil, FptrTypes, PrinterParameters;
 
 type
   { TfmZReport }
@@ -34,6 +33,11 @@ type
     cbTimeUpdateMode: TComboBox;
     chbFSServiceEnabled: TCheckBox;
     chbPingEnabled: TCheckBox;
+    lblDocumentBlockSize: TLabel;
+    seDocumentBlockSize: TSpinEdit;
+    btnSetMaxDocumentBlockSize: TButton;
+    procedure FormCreate(Sender: TObject);
+    procedure btnSetMaxDocumentBlockSizeClick(Sender: TObject);
   public
     procedure UpdatePage; override;
     procedure UpdateObject; override;
@@ -62,6 +66,7 @@ begin
   Parameters.TimeUpdateMode := cbTimeUpdateMode.ItemIndex;
   Parameters.FSServiceEnabled := chbFSServiceEnabled.Checked;
   Parameters.PingEnabled := chbPingEnabled.Checked;
+  Parameters.DocumentBlockSize := seDocumentBlockSize.Value;
 end;
 
 procedure TfmMiscParams.UpdatePage;
@@ -78,6 +83,18 @@ begin
   cbTimeUpdateMode.ItemIndex := Parameters.TimeUpdateMode;
   chbFSServiceEnabled.Checked := Parameters.FSServiceEnabled;
   chbPingEnabled.Checked := Parameters.PingEnabled;
+  seDocumentBlockSize.Value := Parameters.DocumentBlockSize;
+end;
+
+procedure TfmMiscParams.FormCreate(Sender: TObject);
+begin
+  seDocumentBlockSize.MinValue := MinDocumentBlockSize;
+  seDocumentBlockSize.MaxValue := MaxDocumentBlockSize;
+end;
+
+procedure TfmMiscParams.btnSetMaxDocumentBlockSizeClick(Sender: TObject);
+begin
+  seDocumentBlockSize.Value := MaxDocumentBlockSize;
 end;
 
 end.

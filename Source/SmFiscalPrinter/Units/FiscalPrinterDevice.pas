@@ -7310,12 +7310,10 @@ begin
 end;
 
 function TFiscalPrinterDevice.GetBlockSize(BlockSize: Integer): Integer;
-const
-  MaxMobileBlockSize = 151;
 begin
   Result := BlockSize;
-  if (GetDeviceMetrics.Model = 19)and(BlockSize > MaxMobileBlockSize) then
-    Result := MaxMobileBlockSize;
+  if (GetDeviceMetrics.Model = 19)and(BlockSize > GetParameters.DocumentBlockSize) then
+    Result := GetParameters.DocumentBlockSize;
 end;
 
 function TFiscalPrinterDevice.FSReadBlockData: string;
