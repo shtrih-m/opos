@@ -105,6 +105,7 @@ begin
   AddTest(TReceiptTest14);
   AddTest(TReceiptTest15);
   AddTest(TReceiptTest16);
+  AddTest(TReceiptTest17);
 
   cbTest.ItemIndex := 0;
 end;

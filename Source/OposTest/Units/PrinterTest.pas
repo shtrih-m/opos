@@ -758,6 +758,14 @@ type
     function GetDisplayText: string; override;
   end;
 
+  { TReceiptTest17 }
+
+  TReceiptTest17 = class(TDriverTest)
+  public
+    procedure Execute; override;
+    function GetDisplayText: string; override;
+  end;
+
 implementation
 
 const
@@ -4439,6 +4447,33 @@ begin
   Check(FiscalPrinter.PrintRecItem('¿»-92', 101, 3088700, 4, 32.7, ''));
   Check(FiscalPrinter.PrintRecTotal(101, 101, '2'));
   Check(FiscalPrinter.EndFiscalReceipt(True));
+end;
+
+{ TReceiptTest17 }
+
+function TReceiptTest17.GetDisplayText: string;
+begin
+  Result := 'Open fiscal day test';
+end;
+
+procedure TReceiptTest17.Execute;
+var
+  pData: Integer;
+  pString: WideString;
+begin
+  Check(FiscalPrinter.ResetPrinter());
+
+  pData := 0;
+  pString := '';
+  Check(FiscalPrinter.DirectIO(DIO_START_OPEN_DAY, pData, pString));
+
+  pData := 1203;
+  pString := '505303696069';
+  Check(FiscalPrinter.DirectIO(DIO_WRITE_FS_STRING_TAG, pData, pString));
+
+  pData := 0;
+  pString := '';
+  Check(FiscalPrinter.DirectIO(DIO_OPEN_DAY, pData, pString));
 end;
 
 end.

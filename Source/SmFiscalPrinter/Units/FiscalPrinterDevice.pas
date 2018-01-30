@@ -185,6 +185,7 @@ type
     procedure PrintFSDocument(Number: Integer);
     function FSReadDocData(var P: TFSReadDocData): Integer;
     function FSReadDocument(var P: TFSReadDocument): Integer;
+    function FSStartOpenDay: Integer;
     function IsFiscalPrinter2: Boolean;
   protected
     function GetMaxGraphicsWidthInBytes: Integer;
@@ -8599,6 +8600,15 @@ begin
   begin
     P.TLVData := Answer;
   end;
+end;
+
+function TFiscalPrinterDevice.FSStartOpenDay: Integer;
+var
+  Answer: string;
+  Command: string;
+begin
+  Command := #$FF#$41 + IntToBin(FSysPassword, 4);
+  Result := ExecuteData(Command, Answer);
 end;
 
 end.

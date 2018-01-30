@@ -465,6 +465,7 @@ type
     procedure PrintFSDocument(Number: Integer);
     function FSPrintCorrectionReceipt(var Command: TFSCorrectionReceipt): Integer;
     function FSPrintCorrectionReceipt2(var Data: TFSCorrectionReceipt2): Integer;
+    procedure OpenFiscalDay;
 
     property Logger: ILogFile read GetLogger;
     property Printer: ISharedPrinter read GetPrinter;
@@ -670,6 +671,8 @@ begin
   TDIOPrintFSDocument.CreateCommand(FDIOHandlers, DIO_PRINT_FS_DOCUMENT, Self);
   TDIOPrintCorrection.CreateCommand(FDIOHandlers, DIO_PRINT_CORRECTION, Self);
   TDIOPrintCorrection2.CreateCommand(FDIOHandlers, DIO_PRINT_CORRECTION2, Self);
+  TDIOStartOpenDay.CreateCommand(FDIOHandlers, DIO_START_OPEN_DAY, Self);
+  TDIOOpenDay.CreateCommand(FDIOHandlers, DIO_OPEN_DAY, Self);
 end;
 
 procedure TFiscalPrinterImpl.CreateDIOHandlers1;
@@ -736,6 +739,8 @@ begin
   TDIOPrintFSDocument.CreateCommand(FDIOHandlers, DIO_PRINT_FS_DOCUMENT, Self);
   TDIOPrintCorrection.CreateCommand(FDIOHandlers, DIO_PRINT_CORRECTION, Self);
   TDIOPrintCorrection2.CreateCommand(FDIOHandlers, DIO_PRINT_CORRECTION2, Self);
+  TDIOStartOpenDay.CreateCommand(FDIOHandlers, DIO_START_OPEN_DAY, Self);
+  TDIOOpenDay.CreateCommand(FDIOHandlers, DIO_OPEN_DAY, Self);
 end;
 
 procedure TFiscalPrinterImpl.CreateDIOHandlers2;
@@ -803,6 +808,8 @@ begin
   TDIOPrintFSDocument.CreateCommand(FDIOHandlers, DIO_PRINT_FS_DOCUMENT, Self);
   TDIOPrintCorrection.CreateCommand(FDIOHandlers, DIO_PRINT_CORRECTION, Self);
   TDIOPrintCorrection2.CreateCommand(FDIOHandlers, DIO_PRINT_CORRECTION2, Self);
+  TDIOStartOpenDay.CreateCommand(FDIOHandlers, DIO_START_OPEN_DAY, Self);
+  TDIOOpenDay.CreateCommand(FDIOHandlers, DIO_OPEN_DAY, Self);
 end;
 
 procedure TFiscalPrinterImpl.SetPrinter(APrinter: ISharedPrinter);
@@ -2213,6 +2220,12 @@ begin
     CheckPrinterStatus;
     FInitPrinter := True;
   end;
+end;
+
+procedure TFiscalPrinterImpl.OpenFiscalDay;
+begin
+  if Device.OpenFiscalDay then
+    PrintNonFiscalEnd;
 end;
 
 function TFiscalPrinterImpl.BeginFiscalReceipt(PrintHeader: WordBool): Integer;

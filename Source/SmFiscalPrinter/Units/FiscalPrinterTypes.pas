@@ -458,6 +458,7 @@ type
     function IsCapEnablePrint: Boolean;
     function ReadFSDocument(Number: Integer): string;
     procedure PrintFSDocument(Number: Integer);
+    function FSStartOpenDay: Integer;
 
     property IsOnline: Boolean read GetIsOnline;
     property Model: TPrinterModelRec read GetModel;

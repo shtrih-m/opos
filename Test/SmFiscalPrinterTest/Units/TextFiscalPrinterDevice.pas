@@ -297,6 +297,7 @@ type
     function IsCapEnablePrint: Boolean;
     function ReadFSDocument(Number: Integer): string;
     procedure PrintFSDocument(Number: Integer);
+    function FSStartOpenDay: Integer;
 
     property RecStation: TStrings read FRecStation;
     property JrnStation: TStrings read FJrnStation;
@@ -1726,6 +1727,11 @@ end;
 
 function TTextFiscalPrinterDevice.FSPrintCorrectionReceipt2(
   var Data: TFSCorrectionReceipt2): Integer;
+begin
+  Result := 0;
+end;
+
+function TTextFiscalPrinterDevice.FSStartOpenDay: Integer;
 begin
   Result := 0;
 end;

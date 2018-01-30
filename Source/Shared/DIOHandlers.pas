@@ -856,6 +856,30 @@ type
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
+  { TDIOStartOpenDay }
+
+  TDIOStartOpenDay = class(TDIOHandler)
+  private
+    FPrinter: TFiscalPrinterImpl;
+  public
+    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
+      APrinter: TFiscalPrinterImpl);
+
+    procedure DirectIO(var pData: Integer; var pString: WideString); override;
+  end;
+
+  { TDIOOpenDay }
+
+  TDIOOpenDay = class(TDIOHandler)
+  private
+    FPrinter: TFiscalPrinterImpl;
+  public
+    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
+      APrinter: TFiscalPrinterImpl);
+
+    procedure DirectIO(var pData: Integer; var pString: WideString); override;
+  end;
+
 implementation
 
 function BoolToStr(Value: Boolean): string;
@@ -2560,6 +2584,36 @@ begin
   pString := Format('%d;%d;%d;%d', [
     Data.ResultCode, Data.ReceiptNumber,
     Data.DocumentNumber, Data.DocumentMac]);
+end;
+
+{ TDIOStartOpenDay }
+
+constructor TDIOStartOpenDay.CreateCommand(AOwner: TDIOHandlers;
+  ACommand: Integer; APrinter: TFiscalPrinterImpl);
+begin
+  inherited Create(AOwner, ACommand);
+  FPrinter := APrinter;
+end;
+
+procedure TDIOStartOpenDay.DirectIO(var pData: Integer;
+  var pString: WideString);
+begin
+  FPrinter.Device.Check(FPrinter.Device.FSStartOpenDay());
+end;
+
+{ TDIOOpenDay }
+
+constructor TDIOOpenDay.CreateCommand(AOwner: TDIOHandlers;
+  ACommand: Integer; APrinter: TFiscalPrinterImpl);
+begin
+  inherited Create(AOwner, ACommand);
+  FPrinter := APrinter;
+end;
+
+procedure TDIOOpenDay.DirectIO(var pData: Integer;
+  var pString: WideString);
+begin
+  FPrinter.OpenFiscalDay;
 end;
 
 end.

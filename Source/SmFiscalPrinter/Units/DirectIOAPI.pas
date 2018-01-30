@@ -82,6 +82,8 @@ const
   DIO_PRINT_BARCODE_HEX2        = 55; // print barcode data from hex 2
   DIO_PRINT_CORRECTION          = 56; // print correction receipt 1
   DIO_PRINT_CORRECTION2         = 57; // print correction receipt 2
+  DIO_START_OPEN_DAY            = 58; // start open day
+  DIO_OPEN_DAY                  = 59; // open day
 
 
   DIO_PRINT_TEXT2                = 1000;  // print text
