@@ -85,7 +85,9 @@ uses
   PrinterPort in '..\SmFiscalPrinter\Units\PrinterPort.pas',
   PrinterFonts in '..\SmFiscalPrinter\Units\PrinterFonts.pas',
   TLVTags in '..\SmFiscalPrinter\Units\TLVTags.pas',
-  TLVParser in '..\SmFiscalPrinter\Units\TLVParser.pas';
+  TLVParser in '..\SmFiscalPrinter\Units\TLVParser.pas',
+  GS1Barcode in '..\SmFiscalPrinter\Units\GS1Barcode.pas',
+  EkmClient in '..\SmFiscalPrinter\Units\EkmClient.pas';
 
 {$R *.TLB}
 

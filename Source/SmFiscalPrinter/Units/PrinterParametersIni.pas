@@ -325,6 +325,13 @@ begin
       FParameters.QuantityDecimalPlaces := IniFile.ReadInteger(Section, 'QuantityDecimalPlaces', DefQuantityDecimalPlaces);
       FParameters.PingEnabled := IniFile.ReadBool(Section, 'PingEnabled', DefPingEnabled);
       FParameters.DocumentBlockSize := IniFile.ReadInteger(Section, 'DocumentBlockSize', DefDocumentBlockSize);
+      FParameters.PrintRecMessageMode := IniFile.ReadInteger(Section, 'PrintRecMessageMode', DefPrintRecMessageMode);
+
+      FParameters.EkmServerHost := IniFile.ReadString(Section, 'EkmServerHost', DefEkmServerHost);
+      FParameters.EkmServerPort := IniFile.ReadInteger(Section, 'EkmServerPort', DefEkmServerPort);
+      FParameters.EkmServerTimeout := IniFile.ReadInteger(Section, 'EkmServerTimeout', DefEkmServerTimeout);
+      FParameters.EkmServerEnabled := IniFile.ReadBool(Section, 'EkmServerEnabled', DefEkmServerEnabled);
+      FParameters.FSMarkCheckEnabled := IniFile.ReadBool(Section, 'FSMarkCheckEnabled', DefFSMarkCheckEnabled);
     end;
     // VatCodes
     Section := GetSectionName(DeviceName) + '_VatCodes';
@@ -476,6 +483,13 @@ begin
     IniFile.WriteInteger(Section, 'QuantityDecimalPlaces', FParameters.QuantityDecimalPlaces);
     IniFile.WriteBool(Section, 'PingEnabled', FParameters.PingEnabled);
     IniFile.WriteInteger(Section, 'DocumentBlockSize', FParameters.DocumentBlockSize);
+    IniFile.WriteInteger(Section, 'PrintRecMessageMode', FParameters.PrintRecMessageMode);
+
+    IniFile.WriteString(Section, 'EkmServerHost', FParameters.EkmServerHost);
+    IniFile.WriteInteger(Section, 'EkmServerPort', FParameters.EkmServerPort);
+    IniFile.WriteInteger(Section, 'EkmServerTimeout', FParameters.EkmServerTimeout);
+    IniFile.WriteBool(Section, 'EkmServerEnabled', FParameters.EkmServerEnabled);
+    IniFile.WriteBool(Section, 'FSMarkCheckEnabled', FParameters.FSMarkCheckEnabled);
 
     // PayTypes
     Section := GetSectionName(DeviceName) + '_PaymentTypes';

@@ -125,6 +125,7 @@ type
 
     procedure BeginFiscalReceipt(PrintHeader: Boolean); override;
     procedure EndFiscalReceipt;  override;
+    procedure EndFiscalReceipt2;  override;
 
     procedure PrintRecSubtotalAdjustVoid(AdjustmentType: Integer;
       Amount: Currency); override;
@@ -1143,10 +1144,6 @@ begin
 end;
 
 procedure TFSSalesReceipt.EndFiscalReceipt;
-var
-  CloseParams: TCloseReceiptParams;
-  CloseParams2: TFSCloseReceiptParams2;
-  CloseResult2: TFSCloseReceiptResult2;
 begin
   Device.Lock;
   try
@@ -1175,48 +1172,58 @@ begin
       begin
         Printer.Printer.PrintText(Parameters.ReceiptItemsTrailer);
       end;
+    end;
+  finally
+    Device.Unlock;
+  end;
+end;
 
+procedure TFSSalesReceipt.EndFiscalReceipt2;
+var
+  CloseParams: TCloseReceiptParams;
+  CloseParams2: TFSCloseReceiptParams2;
+  CloseResult2: TFSCloseReceiptResult2;
+begin
+  Device.Lock;
+  try
+    Printer.WaitForPrinting;
+    if Device.CapFSCloseReceipt2 then
+    begin
+      CloseParams2.Payments := FPayments;
+      CloseParams2.Discount := FAdjustmentAmount;
+      CloseParams2.TaxAmount[1] := StrToInt64Def(Parameters.Parameter1, 0);
+      CloseParams2.TaxAmount[2] := StrToInt64Def(Parameters.Parameter2, 0);
+      CloseParams2.TaxAmount[3] := StrToInt64Def(Parameters.Parameter3, 0);
+      CloseParams2.TaxAmount[4] := StrToInt64Def(Parameters.Parameter4, 0);
+      CloseParams2.TaxAmount[5] := StrToInt64Def(Parameters.Parameter5, 0);
+      CloseParams2.TaxAmount[6] := StrToInt64Def(Parameters.Parameter6, 0);
+      CloseParams2.TaxSystem := StrToInt64Def(Parameters.Parameter7, 0);
+      CloseParams2.Text := Parameters.CloseRecText;
+      Device.Check(Device.ReceiptClose2(CloseParams2, CloseResult2));
+
+    end else
+    begin
+      CloseParams.CashAmount := FPayments[0];
+      CloseParams.Amount2 := FPayments[1];
+      CloseParams.Amount3 := FPayments[2];
+      CloseParams.Amount4 := FPayments[3];
+      CloseParams.PercentDiscount := FAdjustmentAmount;
+      CloseParams.Tax1 := 0;
+      CloseParams.Tax2 := 0;
+      CloseParams.Tax3 := 0;
+      CloseParams.Tax4 := 0;
+      CloseParams.Text := Parameters.CloseRecText;
+      Printer.ReceiptClose(CloseParams);
+    end;
+
+    try
       Printer.WaitForPrinting;
-
-
-      if Device.CapFSCloseReceipt2 then
+      PrintRecMessages(1);
+      PrintRecMessages;
+    except
+      on E: Exception do
       begin
-        CloseParams2.Payments := FPayments;
-        CloseParams2.Discount := FAdjustmentAmount;
-        CloseParams2.TaxAmount[1] := StrToInt64Def(Parameters.Parameter1, 0);
-        CloseParams2.TaxAmount[2] := StrToInt64Def(Parameters.Parameter2, 0);
-        CloseParams2.TaxAmount[3] := StrToInt64Def(Parameters.Parameter3, 0);
-        CloseParams2.TaxAmount[4] := StrToInt64Def(Parameters.Parameter4, 0);
-        CloseParams2.TaxAmount[5] := StrToInt64Def(Parameters.Parameter5, 0);
-        CloseParams2.TaxAmount[6] := StrToInt64Def(Parameters.Parameter6, 0);
-        CloseParams2.TaxSystem := StrToInt64Def(Parameters.Parameter7, 0);
-        CloseParams2.Text := Parameters.CloseRecText;
-        Device.Check(Device.ReceiptClose2(CloseParams2, CloseResult2));
-
-      end else
-      begin
-        CloseParams.CashAmount := FPayments[0];
-        CloseParams.Amount2 := FPayments[1];
-        CloseParams.Amount3 := FPayments[2];
-        CloseParams.Amount4 := FPayments[3];
-        CloseParams.PercentDiscount := FAdjustmentAmount;
-        CloseParams.Tax1 := 0;
-        CloseParams.Tax2 := 0;
-        CloseParams.Tax3 := 0;
-        CloseParams.Tax4 := 0;
-        CloseParams.Text := Parameters.CloseRecText;
-        Printer.ReceiptClose(CloseParams);
-      end;
-
-      try
-        Printer.WaitForPrinting;
-        PrintRecMessages(1);
-        PrintRecMessages;
-      except
-        on E: Exception do
-        begin
-          Logger.Error(E.Message);
-        end;
+        Logger.Error(E.Message);
       end;
     end;
   finally

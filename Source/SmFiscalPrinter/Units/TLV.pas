@@ -73,7 +73,7 @@ begin
   Tags := TTLVTags.Create;
   Values := TTLVList.Create;
   try
-    Tag := Tags.FindTag(TagID);
+    Tag := Tags.Find(TagID);
     if Tag = nil then
     begin
       Values.AddStr(TagID, Data, 0);

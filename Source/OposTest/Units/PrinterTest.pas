@@ -766,6 +766,14 @@ type
     function GetDisplayText: string; override;
   end;
 
+  { TReceiptTest18 }
+
+  TReceiptTest18 = class(TDriverTest)
+  public
+    procedure Execute; override;
+    function GetDisplayText: string; override;
+  end;
+
 implementation
 
 const
@@ -4440,12 +4448,25 @@ begin
 end;
 
 procedure TReceiptTest16.Execute;
+var
+  Text: string;
 begin
+  Text :=
+    '01234567890123456789012345678901234567890123456789' +
+    '01234567890123456789012345678901234567890123456789' +
+    '0123456789012345678901234567';
+
   Check(FiscalPrinter.ResetPrinter());
   FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
   Check(FiscalPrinter.BeginFiscalReceipt(True));
-  Check(FiscalPrinter.PrintRecItem('АИ-92', 101, 3088700, 4, 32.7, ''));
+  Check(FiscalPrinter.PrintRecItem(Text, 101, 3088, 4, 32.7, ''));
   Check(FiscalPrinter.PrintRecTotal(101, 101, '2'));
+  Check(FiscalPrinter.PrintRecMessage('Транз.:      41895 '));
+  Check(FiscalPrinter.FSWriteTag(1203, '505303696069'));
+  Check(FiscalPrinter.FSWriteTag(1203, '505303696069'));
+
+
+
   Check(FiscalPrinter.EndFiscalReceipt(True));
 end;
 
@@ -4474,6 +4495,37 @@ begin
   pData := 0;
   pString := '';
   Check(FiscalPrinter.DirectIO(DIO_OPEN_DAY, pData, pString));
+end;
+
+{ TReceiptTest18 }
+
+function TReceiptTest18.GetDisplayText: string;
+begin
+  Result := 'Check item marking';
+end;
+
+procedure TReceiptTest18.Execute;
+var
+  pData: Integer;
+  pString: WideString;
+begin
+  Check(FiscalPrinter.ResetPrinter());
+  FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
+  Check(FiscalPrinter.BeginFiscalReceipt(True));
+
+  pData := 0;
+  pString :=
+    '(01)18901148006025(21)5L1DNSVZD716T(10)DEMO(17)201231' +
+    '(240)1111(91)1129(92)mUfZBFCQmjupbDczH0kCErEiLNCktMzv' +
+    '+tWG24jDtHwRbPARdskMHHxuHE3h2fGRFX6wtXeQo11QXzLMGWqNcg==';
+
+  Check(FiscalPrinter.DirectIO(DIO_CHECK_MARKING, pData, pString));
+
+  Check(FiscalPrinter.PrintRecItem('Item 1', 101, 3088, 4, 32.7, ''));
+  Check(FiscalPrinter.PrintRecTotal(101, 101, '2'));
+  Check(FiscalPrinter.PrintRecMessage('Транз.:      41895 '));
+  Check(FiscalPrinter.FSWriteTag(1203, '505303696069'));
+  Check(FiscalPrinter.EndFiscalReceipt(True));
 end;
 
 end.

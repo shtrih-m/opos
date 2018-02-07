@@ -79,7 +79,8 @@ uses
   VatCode in '..\SmFiscalPrinter\Units\VatCode.pas',
   DriverContext in '..\SmFiscalPrinter\Units\DriverContext.pas',
   OposMessages in '..\SmFiscalPrinter\Units\OposMessages.pas',
-  fmuFptrConnection in 'Fmu\fmuFptrConnection.pas' {fmFptrConnection};
+  fmuFptrConnection in 'Fmu\fmuFptrConnection.pas' {fmFptrConnection},
+  fmuMarkChecker in 'Fmu\fmuMarkChecker.pas' {fmMarkChecker};
 
 {$R *.RES}
 {$R WindowsXP.RES}

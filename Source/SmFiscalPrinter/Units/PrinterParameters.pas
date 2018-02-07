@@ -10,6 +10,13 @@ uses
 
 const
   /////////////////////////////////////////////////////////////////////////////
+  // PrintRecMessageMode
+
+  PrintRecMessageModeNormal = 0;
+  PrintRecMessageModeBefore = 1;
+  DefPrintRecMessageMode = PrintRecMessageModeNormal;
+
+  /////////////////////////////////////////////////////////////////////////////
   // Maximum block size for FF31 command, read FS data block
   MinDocumentBlockSize = 10;
   MaxDocumentBlockSize = 151;
@@ -333,17 +340,21 @@ const
   DefReportDateStamp = False;
   DefFSUpdatePrice = False;
   DefWrapText = True;
-
   DefReceiptItemsHeader   =  '------------------------------------------';
   DefReceiptItemsTrailer  = '------------------------------------------';
   DefReceiptItemFormat    = '%3cPOS% %20lTITLE% %6lSUM% * %6QUAN% =%10TOTAL_TAX%';
-
   DefRecPrintType = RecPrintTypePrinter;
   DefVatCodeEnabled = False;
   DefHandleErrorCode = False;
   DefPrintUnitName = False;
   DefOpenReceiptEnabled = False;
   DefPingEnabled = False;
+
+  DefEkmServerHost = '80.243.2.202';
+  DefEkmServerPort = 2003;
+  DefEkmServerTimeout = 5;
+  DefEkmServerEnabled = False;
+  DefFSMarkCheckEnabled = False;
 
 type
   { TPrinterParameters }
@@ -506,6 +517,14 @@ type
     PrintUnitName: Boolean;
     OpenReceiptEnabled: Boolean;
     PingEnabled: Boolean;
+    Barcode: string;
+    PrintRecMessageMode: Integer;
+
+    EkmServerHost: string;
+    EkmServerPort: Integer;
+    EkmServerTimeout: Integer;
+    EkmServerEnabled: Boolean;
+    FSMarkCheckEnabled: Boolean;
   public
     constructor Create(ALogger: ILogFile);
     destructor Destroy; override;
@@ -823,6 +842,13 @@ begin
   QuantityDecimalPlaces := DefQuantityDecimalPlaces;
   PingEnabled := DefPingEnabled;
   DocumentBlockSize := DefDocumentBlockSize;
+  PrintRecMessageMode := DefPrintRecMessageMode;
+
+  EkmServerHost := DefEkmServerHost;
+  EkmServerPort := DefEkmServerPort;
+  EkmServerTimeout := DefEkmServerTimeout;
+  EkmServerEnabled := DefEkmServerEnabled;
+  FSMarkCheckEnabled := DefFSMarkCheckEnabled;
 end;
 
 procedure TPrinterParameters.LogText(const Caption, Text: string);
@@ -951,6 +977,12 @@ begin
   Logger.Debug('QuantityDecimalPlaces: ' + IntToStr(QuantityDecimalPlaces));
   Logger.Debug('PingEnabled: ' + BoolToStr(PingEnabled));
   Logger.Debug('DocumentBlockSize: ' + IntToStr(DocumentBlockSize));
+  Logger.Debug('PrintRecMessageMode: ' + IntToStr(PrintRecMessageMode));
+  Logger.Debug('EkmServerHost: ' + EkmServerHost);
+  Logger.Debug('EkmServerPort: ' + IntToStr(EkmServerPort));
+  Logger.Debug('EkmServerTimeout: ' + IntToStr(EkmServerTimeout));
+  Logger.Debug('EkmServerEnabled: ' + BoolToStr(EkmServerEnabled));
+  Logger.Debug('FSMarkCheckEnabled: ' + BoolToStr(FSMarkCheckEnabled));
 
   for i := 0 to PayTypes.Count-1 do
   begin

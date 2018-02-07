@@ -298,6 +298,7 @@ type
     function ReadFSDocument(Number: Integer): string;
     procedure PrintFSDocument(Number: Integer);
     function FSStartOpenDay: Integer;
+    function CheckItemBarcode(const Barcode: string): Integer;
 
     property RecStation: TStrings read FRecStation;
     property JrnStation: TStrings read FJrnStation;
@@ -1732,6 +1733,12 @@ begin
 end;
 
 function TTextFiscalPrinterDevice.FSStartOpenDay: Integer;
+begin
+  Result := 0;
+end;
+
+function TTextFiscalPrinterDevice.CheckItemBarcode(
+  const Barcode: string): Integer;
 begin
   Result := 0;
 end;

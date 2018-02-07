@@ -5,10 +5,9 @@ interface
 uses
   // VCL
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls,
+  Dialogs, StdCtrls, ComCtrls, Spin,
   // This
-  untUtil, PrinterParameters, FptrTypes, ComCtrls, Spin,
-  FiscalPrinterDevice;
+  untUtil, FptrTypes, PrinterParameters, FiscalPrinterDevice;
 
 type
   { TfmFptrConnection }

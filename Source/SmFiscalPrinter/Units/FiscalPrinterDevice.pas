@@ -19,7 +19,7 @@ uses
   FiscalPrinterStatistics, ParameterValue, EJReportParser,
   PrinterParameters, DirectIOAPI, FileUtils,
   PrinterDeviceFilter, TLV, CsvPrinterTableFormat, MalinaParams, DriverContext,
-  PrinterFonts, TLVParser;
+  PrinterFonts, TLVParser, TLVTags, GS1Barcode, EKMClient;
 
 type
   { TFiscalPrinterDevice }
@@ -187,6 +187,9 @@ type
     function FSReadDocument(var P: TFSReadDocument): Integer;
     function FSStartOpenDay: Integer;
     function IsFiscalPrinter2: Boolean;
+    procedure EkmCheckBarcode(const Barcode: TGS1Barcode);
+    function CheckItemBarcode(const Barcode: string): Integer;
+    function LoadBarcodeData(const Barcode: string): Integer;
   protected
     function GetMaxGraphicsWidthInBytes: Integer;
   public
@@ -5567,6 +5570,26 @@ begin
   WaitForPrinting;
 end;
 
+function TFiscalPrinterDevice.LoadBarcodeData(const Barcode: string): Integer;
+const
+  DATA_BLOCK_SIZE = 64;
+var
+  i: Integer;
+  Count: Integer;
+  Block: TBarcode2DData;
+begin
+  Result := 0;
+  Count := (Length(Barcode) + DATA_BLOCK_SIZE -1) div DATA_BLOCK_SIZE;
+  for i := 0 to Count-1 do
+  begin
+    Block.BlockType := 0;
+    Block.BlockNumber := i;
+    Block.BlockData := Copy(Barcode, 1 + i * DATA_BLOCK_SIZE, DATA_BLOCK_SIZE);
+    Result := LoadBarcode2D(Block);
+    if Result <> 0 then Exit;
+  end;
+end;
+
 function TFiscalPrinterDevice.PrintQRCode2D(Barcode: TBarcodeRec): Integer;
 
   // 0	По левому краю
@@ -5582,24 +5605,13 @@ function TFiscalPrinterDevice.PrintQRCode2D(Barcode: TBarcodeRec): Integer;
     end;
   end;
 
-const
-  DATA_BLOCK_SIZE = 64;
 var
-  i: Integer;
-  Count: Integer;
   Barcode2D: TBarcode2D;
-  Block: TBarcode2DData;
 begin
   Barcode.Data := Barcode.Data + #0;
-  Count := (Length(Barcode.Data) + DATA_BLOCK_SIZE -1) div DATA_BLOCK_SIZE;
-  for i := 0 to Count-1 do
-  begin
-    Block.BlockType := 0;
-    Block.BlockNumber := i;
-    Block.BlockData := Copy(Barcode.Data, 1 + i * DATA_BLOCK_SIZE, DATA_BLOCK_SIZE);
-    Result := LoadBarcode2D(Block);
-    if Result <> 0 then Exit;
-  end;
+  Result := LoadBarcodeData(Barcode.Data);
+  if Result <> 0 then Exit;
+
   case Barcode.BarcodeType of
     DIO_BARCODE_QRCODE: Barcode2D.BarcodeType := 3;
     DIO_BARCODE_QRCODE2: Barcode2D.BarcodeType := $83;
@@ -7571,16 +7583,8 @@ begin
 end;
 
 function TFiscalPrinterDevice.FSWriteTag(TagID: Integer; const Data: string): Integer;
-var
-  Values: TTLVList;
 begin
-  Values := TTLVList.Create;
-  try
-    Values.AddStr(TagID, Data, 0);
-    Result := FSWriteTLV(Values.GetRawData);
-  finally
-    Values.Free;
-  end;
+  Result := FSWriteTLV(TagToStr(TagID, Data));
 end;
 
 function TFiscalPrinterDevice.ReadFPParameter(ParamId: Integer): string;
@@ -8610,5 +8614,58 @@ begin
   Command := #$FF#$41 + IntToBin(FSysPassword, 4);
   Result := ExecuteData(Command, Answer);
 end;
+
+procedure TFiscalPrinterDevice.EkmCheckBarcode(const Barcode: TGS1Barcode);
+resourcestring
+  SSaleNotEnabled = 'Продажа товара запрещена';
+var
+  Client: TEkmClient;
+  SaleEnabled: Boolean;
+begin
+  Client := TEkmClient.Create;
+  try
+    Client.Host := Parameters.EkmServerHost;
+    Client.Port := Parameters.EkmServerPort;
+    Client.Timeout := Parameters.EkmServerTimeout;
+    SaleEnabled := Client.ReadSaleEnabled(Barcode.GTIN, Barcode.Serial);
+    if not SaleEnabled then
+      raiseError(E_SALE_NOT_ENABLED, SSaleNotEnabled);
+  finally
+    Client.Free;
+  end;
+end;
+
+function TFiscalPrinterDevice.CheckItemBarcode(const Barcode: string): Integer;
+var
+  Data: string;
+  Answer: string;
+  Command: string;
+  GS1Barcode: TGS1Barcode;
+begin
+  Result := 0;
+
+  if Parameters.EkmServerEnabled or Parameters.FSMarkCheckEnabled then
+  begin
+    Data := GS1DecodeBraces(Barcode);
+    Data := GS1FilterTockens(Data);
+    GS1Barcode := DecodeGS1(Data);
+  end;
+
+  if Parameters.EkmServerEnabled then
+  begin
+    EkmCheckBarcode(GS1Barcode);
+  end;
+
+  if Parameters.FSMarkCheckEnabled then
+  begin
+    Result := LoadBarcodeData(Data);
+    if Result = 0 then
+    begin
+      Command := #$FF#$61 + IntToBin(FSysPassword, 4) + IntToBin(Length(Data), 2);
+      Result := ExecuteData(Command, Answer);
+    end;
+  end;
+end;
+
 
 end.

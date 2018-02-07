@@ -66,7 +66,7 @@ begin
     l := TTLVTag.ValueTLV2Int(Copy(AData, i, 2));
     Inc(i, 2);
 
-    Item := FList.FindTag(t);
+    Item := FList.Find(t);
     if Item = nil then
     begin
       if ShowTagNumbers then

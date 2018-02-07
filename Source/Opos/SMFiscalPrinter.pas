@@ -283,6 +283,7 @@ type
     function WriteFPParameter(ParamId: Integer; const Value: string): Integer;
     function PrintFSDocument(Number: Integer): Integer;
     function ReadFSDocument(Number: Integer; var S: string): Integer;
+    function CheckItemBarcode(const Barcode: string): Integer;
 
     property OpenResult: Integer read Get_OpenResult;
     property BinaryConversion: Integer read Get_BinaryConversion write Set_BinaryConversion;
@@ -2094,6 +2095,16 @@ begin
   pString := '';
   Result := Driver.DirectIO(DIO_READ_FS_DOCUMENT, pData, pString);
   S := pString;
+end;
+
+function TSMFiscalPrinter.CheckItemBarcode(const Barcode: string): Integer;
+var
+  pData: Integer;
+  pString: WideString;
+begin
+  pData := 0;
+  pString := Barcode;
+  Result := Driver.DirectIO(DIO_CHECK_MARKING, pData, pString);
 end;
 
 end.

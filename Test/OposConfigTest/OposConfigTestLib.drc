@@ -8,35 +8,37 @@
   resources were bound to the produced executable.
 */
 
-#define pnglang_EPNGInvalidFileHeaderText 65200
-#define pnglang_EPNGIHDRNotFirstText 65201
-#define pnglang_EPNGSizeExceedsText 65202
-#define pnglang_EPNGUnknownPalEntryText 65203
-#define pnglang_EPNGUnknownCriticalChunkText 65204
-#define pnglang_EPNGUnknownCompressionText 65205
-#define pnglang_EPNGUnknownInterlaceText 65206
-#define pnglang_EPNGCannotAssignChunkText 65207
-#define pnglang_EPNGUnexpectedEndText 65208
-#define pnglang_EPNGNoImageDataText 65209
-#define pnglang_EPNGCannotChangeSizeText 65210
-#define pnglang_EPNGOutMemoryText 65211
-#define pnglang_EPNGHeaderNotPresentText 65212
+#define pnglang_EPNGZLIBErrorText 65200
+#define pnglang_EPNGInvalidPaletteText 65201
+#define pnglang_EPNGInvalidFileHeaderText 65202
+#define pnglang_EPNGIHDRNotFirstText 65203
+#define pnglang_EPNGSizeExceedsText 65204
+#define pnglang_EPNGUnknownPalEntryText 65205
+#define pnglang_EPNGUnknownCriticalChunkText 65206
+#define pnglang_EPNGUnknownCompressionText 65207
+#define pnglang_EPNGUnknownInterlaceText 65208
+#define pnglang_EPNGCannotAssignChunkText 65209
+#define pnglang_EPNGUnexpectedEndText 65210
+#define pnglang_EPNGNoImageDataText 65211
+#define pnglang_EPNGCannotChangeSizeText 65212
+#define pnglang_EPNGOutMemoryText 65213
+#define pnglang_EPNGHeaderNotPresentText 65214
 #define OposDevice_MsgKeyOpenError 65216
 #define VatCode_MsgVATCodeExists 65217
 #define PrinterParametersReg_MsgRegistryKeyOpenError 65218
 #define PrinterParametersRegIBT_MsgRegistryKeyOpenError 65219
-#define MalinaParams_MsgInvalidFuelAmountPrecision 65220
-#define SynEditStrConst_SYNS_ScrollInfoFmt 65221
-#define SynEditStrConst_SYNS_ScrollInfoFmtTop 65222
-#define SynEditStrConst_SYNS_EDuplicateShortcut 65223
-#define SynEditStrConst_SYNS_FriendlyLangUnknown 65224
-#define SynEditTextBuffer_SListIndexOutOfBounds 65225
-#define SynEditTextBuffer_SInvalidCapacity 65226
-#define pnglang_EPngInvalidCRCText 65227
-#define pnglang_EPNGInvalidIHDRText 65228
-#define pnglang_EPNGMissingMultipleIDATText 65229
-#define pnglang_EPNGZLIBErrorText 65230
-#define pnglang_EPNGInvalidPaletteText 65231
+#define TntSystem_SBufferOverflow 65220
+#define TntSystem_SInvalidUTF7 65221
+#define MalinaParams_MsgInvalidFuelAmountPrecision 65222
+#define SynEditStrConst_SYNS_ScrollInfoFmt 65223
+#define SynEditStrConst_SYNS_ScrollInfoFmtTop 65224
+#define SynEditStrConst_SYNS_EDuplicateShortcut 65225
+#define SynEditStrConst_SYNS_FriendlyLangUnknown 65226
+#define SynEditTextBuffer_SListIndexOutOfBounds 65227
+#define SynEditTextBuffer_SInvalidCapacity 65228
+#define pnglang_EPngInvalidCRCText 65229
+#define pnglang_EPNGInvalidIHDRText 65230
+#define pnglang_EPNGMissingMultipleIDATText 65231
 #define ComStrs_sTabFailRetrieve 65232
 #define ComStrs_sTabFailGetObject 65233
 #define ComStrs_sTabFailSet 65234
@@ -343,6 +345,8 @@
 #define SysConst_SDiskFull 65535
 STRINGTABLE
 BEGIN
+	pnglang_EPNGZLIBErrorText,	"Could not decompress the image because it contains invalid compressed data.\r\n Description: "
+	pnglang_EPNGInvalidPaletteText,	"The \"Portable Network Graphics\" image contains an invalid palette."
 	pnglang_EPNGInvalidFileHeaderText,	"The file being readed is not a valid \"Portable Network Graphics\" image because it contains an invalid header. This file may be corruped, try obtaining it again."
 	pnglang_EPNGIHDRNotFirstText,	"This \"Portable Network Graphics\" image is not supported or it might be invalid.\r\n(IHDR chunk is not the first)"
 	pnglang_EPNGSizeExceedsText,	"This \"Portable Network Graphics\" image is not supported because either it's width or height exceeds the maximum size, which is 65535 pixels length."
@@ -360,6 +364,8 @@ BEGIN
 	VatCode_MsgVATCodeExists,	"Item with app VAT code %d already exists."
 	PrinterParametersReg_MsgRegistryKeyOpenError,	"Registry key open error"
 	PrinterParametersRegIBT_MsgRegistryKeyOpenError,	"Registry key open error"
+	TntSystem_SBufferOverflow,	"Buffer overflow"
+	TntSystem_SInvalidUTF7,	"Invalid UTF7"
 	MalinaParams_MsgInvalidFuelAmountPrecision,	"Invalid FuelAmountPrecision value"
 	SynEditStrConst_SYNS_ScrollInfoFmt,	"%d - %d"
 	SynEditStrConst_SYNS_ScrollInfoFmtTop,	"Top Line: %d"
@@ -370,8 +376,6 @@ BEGIN
 	pnglang_EPngInvalidCRCText,	"This \"Portable Network Graphics\" image is not valid because it contains invalid pieces of data (crc error)"
 	pnglang_EPNGInvalidIHDRText,	"The \"Portable Network Graphics\" image could not be loaded because one of its main piece of data (ihdr) might be corrupted"
 	pnglang_EPNGMissingMultipleIDATText,	"This \"Portable Network Graphics\" image is invalid because it has missing image parts."
-	pnglang_EPNGZLIBErrorText,	"Could not decompress the image because it contains invalid compressed data.\r\n Description: "
-	pnglang_EPNGInvalidPaletteText,	"The \"Portable Network Graphics\" image contains an invalid palette."
 	ComStrs_sTabFailRetrieve,	"Failed to retrieve tab at index %d"
 	ComStrs_sTabFailGetObject,	"Failed to get object at index %d"
 	ComStrs_sTabFailSet,	"Failed to set tab \"%s\" at index %d"

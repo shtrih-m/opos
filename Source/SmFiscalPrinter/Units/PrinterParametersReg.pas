@@ -471,6 +471,20 @@ begin
       if Reg.ValueExists('DocumentBlockSize') then
         Parameters.DocumentBlockSize := Reg.ReadInteger('DocumentBlockSize');
 
+      if Reg.ValueExists('PrintRecMessageMode') then
+        Parameters.PrintRecMessageMode := Reg.ReadInteger('PrintRecMessageMode');
+
+      if Reg.ValueExists('EkmServerHost') then
+        FParameters.EkmServerHost := Reg.ReadString('EkmServerHost');
+      if Reg.ValueExists('EkmServerPort') then
+        FParameters.EkmServerPort := Reg.ReadInteger('EkmServerPort');
+      if Reg.ValueExists('EkmServerTimeout') then
+        FParameters.EkmServerTimeout := Reg.ReadInteger('EkmServerTimeout');
+      if Reg.ValueExists('EkmServerEnabled') then
+        FParameters.EkmServerEnabled := Reg.ReadBool('EkmServerEnabled');
+      if Reg.ValueExists('FSMarkCheckEnabled') then
+        FParameters.FSMarkCheckEnabled := Reg.ReadBool('FSMarkCheckEnabled');
+
       // VatCodes
       if Reg.OpenKey(REG_KEY_VATCODES, False) then
       begin
@@ -628,6 +642,12 @@ begin
     Reg.WriteInteger('QuantityDecimalPlaces', FParameters.QuantityDecimalPlaces);
     Reg.WriteBool('PingEnabled', FParameters.PingEnabled);
     Reg.WriteInteger('DocumentBlockSize', FParameters.DocumentBlockSize);
+    Reg.WriteInteger('PrintRecMessageMode', FParameters.PrintRecMessageMode);
+    Reg.WriteString('EkmServerHost', FParameters.EkmServerHost);
+    Reg.WriteInteger('EkmServerPort', FParameters.EkmServerPort);
+    Reg.WriteInteger('EkmServerTimeout', FParameters.EkmServerTimeout);
+    Reg.WriteBool('EkmServerEnabled', FParameters.EkmServerEnabled);
+    Reg.WriteBool('FSMarkCheckEnabled', FParameters.FSMarkCheckEnabled);
 
     // VatCodes
     Reg.DeleteKey(REG_KEY_VATCODES);

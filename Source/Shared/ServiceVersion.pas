@@ -7,7 +7,7 @@ uses
   DeviceService;
 
 const
-  GenericServiceVersion = deviceVersion113 + 470;
+  GenericServiceVersion = deviceVersion113 + 471;
 
 implementation
 

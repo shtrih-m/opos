@@ -57,6 +57,7 @@ type
     procedure PrintPostLine;
     procedure ClearRecMessages;
     procedure EndFiscalReceipt; virtual;
+    procedure EndFiscalReceipt2; virtual;
     procedure AfterEndFiscalReceipt; virtual;
     procedure PrintRecMessages; overload;
     procedure PrintRecMessages(ID: Integer); overload;
@@ -517,6 +518,11 @@ procedure TCustomReceipt.PrintAdditionalHeader(
   const AdditionalHeader: string);
 begin
   Device.PrintText(PRINTER_STATION_REC, AdditionalHeader);
+end;
+
+procedure TCustomReceipt.EndFiscalReceipt2;
+begin
+
 end;
 
 end.

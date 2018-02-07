@@ -42,7 +42,7 @@ type
       const AShortDescription: string; AType: TTagType;
       ALength: Integer; AFixedLength: Boolean = False);
     procedure Clear;
-    function FindTag(ANumber: Integer): TTLVTag;
+    function Find(ANumber: Integer): TTLVTag;
     property Count: Integer read GetCount;
     property Items[Index: Integer]: TTLVTag read GetItem; default;
   end;
@@ -58,6 +58,7 @@ type
     FTagType: TTagType;
     FShortDescription: string;
     FFixedLength: Boolean;
+
     procedure SetOwner(AOwner: TTLVTags);
   public
     constructor Create(AOwner: TTLVTags);
@@ -406,10 +407,9 @@ begin
   AddTag(1224, 'данные поставщика', 'ДАННЫЕ ПОСТАВЩИКА', ttSTLV, 512);
   AddTag(1225, 'наименование поставщика', 'НАИМЕН. ПОСТАВЩИКА', ttString, 256);
   AddTag(1226, 'ИНН поставщика', 'ИНН ПОСТАВЩИКА', ttString, 12, True);
-
 end;
 
-function TTLVTags.FindTag(ANumber: Integer): TTLVTag;
+function TTLVTags.Find(ANumber: Integer): TTLVTag;
 var
   i: Integer;
 begin

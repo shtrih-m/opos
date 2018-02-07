@@ -880,6 +880,18 @@ type
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
+  { TDIOCheckMarking }
+
+  TDIOCheckMarking = class(TDIOHandler)
+  private
+    FPrinter: TFiscalPrinterImpl;
+  public
+    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
+      APrinter: TFiscalPrinterImpl);
+
+    procedure DirectIO(var pData: Integer; var pString: WideString); override;
+  end;
+
 implementation
 
 function BoolToStr(Value: Boolean): string;
@@ -1845,6 +1857,7 @@ begin
     DriverParameterParam8: pString := Printer.Parameters.Parameter8;
     DriverParameterParam9: pString := Printer.Parameters.Parameter9;
     DriverParameterParam10: pString := Printer.Parameters.Parameter10;
+    DriverParameterBarcode: pString := Printer.Parameters.Barcode;
   end;
 end;
 
@@ -1941,6 +1954,7 @@ begin
     DriverParameterParam8: Parameters.Parameter8 := pString;
     DriverParameterParam9: Parameters.Parameter9 := pString;
     DriverParameterParam10: Parameters.Parameter10 := pString;
+    DriverParameterBarcode: Parameters.Barcode := pString;
   end;
 end;
 
@@ -2614,6 +2628,21 @@ procedure TDIOOpenDay.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
   FPrinter.OpenFiscalDay;
+end;
+
+{ TDIOCheckMarking }
+
+constructor TDIOCheckMarking.CreateCommand(AOwner: TDIOHandlers;
+  ACommand: Integer; APrinter: TFiscalPrinterImpl);
+begin
+  inherited Create(AOwner, ACommand);
+  FPrinter := APrinter;
+end;
+
+procedure TDIOCheckMarking.DirectIO(var pData: Integer;
+  var pString: WideString);
+begin
+  FPrinter.Device.Check(FPrinter.Device.CheckItemBarcode(pString));
 end;
 
 end.

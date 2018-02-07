@@ -168,7 +168,9 @@ uses
   SmResourceStrings in 'Units\SmResourceStrings.pas',
   TLVTags in 'Units\TLVTags.pas',
   TLVParser in 'Units\TLVParser.pas',
-  FSSalesReceipt in 'Units\FSSalesReceipt.pas';
+  FSSalesReceipt in 'Units\FSSalesReceipt.pas',
+  EkmClient in 'Units\EkmClient.pas',
+  GS1Barcode in 'Units\GS1Barcode.pas';
 
 exports
   DllGetClassObject,

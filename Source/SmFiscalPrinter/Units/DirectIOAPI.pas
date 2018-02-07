@@ -84,6 +84,7 @@ const
   DIO_PRINT_CORRECTION2         = 57; // print correction receipt 2
   DIO_START_OPEN_DAY            = 58; // start open day
   DIO_OPEN_DAY                  = 59; // open day
+  DIO_CHECK_MARKING             = 60; // check marking
 
 
   DIO_PRINT_TEXT2                = 1000;  // print text
@@ -311,6 +312,7 @@ const
   DriverParameterParam8                   = 77;
   DriverParameterParam9                   = 78;
   DriverParameterParam10                  = 79;
+  DriverParameterBarcode                  = 80;
 
 
   /////////////////////////////////////////////////////////////////////////////

@@ -206,7 +206,9 @@ uses
   SmResourceStrings in '..\..\Source\SmFiscalPrinter\Units\SmResourceStrings.pas',
   TLVTags in '..\..\Source\SmFiscalPrinter\Units\TLVTags.pas',
   TLVParser in '..\..\Source\SmFiscalPrinter\Units\TLVParser.pas',
-  FSSalesReceipt in '..\..\Source\SmFiscalPrinter\Units\FSSalesReceipt.pas';
+  FSSalesReceipt in '..\..\Source\SmFiscalPrinter\Units\FSSalesReceipt.pas',
+  GS1Barcode in '..\..\Source\SmFiscalPrinter\Units\GS1Barcode.pas',
+  EkmClient in '..\..\Source\SmFiscalPrinter\Units\EkmClient.pas';
 
 {$R *.RES}
 {$R ..\..\Source\SmFiscalPrinter\SmFiscalPrinter.TLB}

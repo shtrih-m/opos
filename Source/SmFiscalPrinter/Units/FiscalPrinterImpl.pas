@@ -82,6 +82,7 @@ type
     property NonFiscalDoc: TNonFiscalDoc read GetNonFiscalDoc;
     procedure PrintReceiptItems(Items: TReceiptItems);
     procedure PrintDocumentEnd;
+    procedure PrintRecMessages;
   public
     procedure ReadHeader;
     procedure CheckEndDay;
@@ -673,6 +674,7 @@ begin
   TDIOPrintCorrection2.CreateCommand(FDIOHandlers, DIO_PRINT_CORRECTION2, Self);
   TDIOStartOpenDay.CreateCommand(FDIOHandlers, DIO_START_OPEN_DAY, Self);
   TDIOOpenDay.CreateCommand(FDIOHandlers, DIO_OPEN_DAY, Self);
+  TDIOCheckMarking.CreateCommand(FDIOHandlers, DIO_CHECK_MARKING, Self);
 end;
 
 procedure TFiscalPrinterImpl.CreateDIOHandlers1;
@@ -741,6 +743,7 @@ begin
   TDIOPrintCorrection2.CreateCommand(FDIOHandlers, DIO_PRINT_CORRECTION2, Self);
   TDIOStartOpenDay.CreateCommand(FDIOHandlers, DIO_START_OPEN_DAY, Self);
   TDIOOpenDay.CreateCommand(FDIOHandlers, DIO_OPEN_DAY, Self);
+  TDIOCheckMarking.CreateCommand(FDIOHandlers, DIO_CHECK_MARKING, Self);
 end;
 
 procedure TFiscalPrinterImpl.CreateDIOHandlers2;
@@ -810,6 +813,7 @@ begin
   TDIOPrintCorrection2.CreateCommand(FDIOHandlers, DIO_PRINT_CORRECTION2, Self);
   TDIOStartOpenDay.CreateCommand(FDIOHandlers, DIO_START_OPEN_DAY, Self);
   TDIOOpenDay.CreateCommand(FDIOHandlers, DIO_OPEN_DAY, Self);
+  TDIOCheckMarking.CreateCommand(FDIOHandlers, DIO_CHECK_MARKING, Self);
 end;
 
 procedure TFiscalPrinterImpl.SetPrinter(APrinter: ISharedPrinter);
@@ -2510,8 +2514,12 @@ end;
 function TFiscalPrinterImpl.EndFiscalReceipt(PrintHeader: WordBool): Integer;
 begin
   try
+    if Parameters.PrintRecMessageMode = PrintRecMessageModeBefore then
+      PrintRecMessages;
+
     Filters.BeforeCloseReceipt;
     Receipt.EndFiscalReceipt;
+    Receipt.EndFiscalReceipt2;
     Filters.AfterCloseReceipt;
     PrintDocumentEnd;
 
@@ -4534,13 +4542,24 @@ begin
 end;
 
 
+procedure TFiscalPrinterImpl.PrintRecMessages;
+begin
+  try
+    PrintReceiptItems(FAfterCloseItems);
+    FAfterCloseItems.Clear;
+  except
+    on E: Exception do
+      Logger.Error('TFiscalPrinterImpl.PrintRecMessages', E);
+  end;
+end;
+
 procedure TFiscalPrinterImpl.PrintDocumentEnd;
 begin
   if Receipt.PrintEnabled then
   begin
     try
-      PrintReceiptItems(FAfterCloseItems);
-      FAfterCloseItems.Clear;
+      if Parameters.PrintRecMessageMode = PrintRecMessageModeNormal then
+        PrintRecMessages;
 
       PrintNonFiscalEnd;
       Receipt.AfterEndFiscalReceipt;

@@ -87,7 +87,8 @@ uses
   OposMessages in '..\..\Source\SmFiscalPrinter\Units\OposMessages.pas',
   TLVTags in '..\..\Source\SmFiscalPrinter\Units\TLVTags.pas',
   ByteUtils in '..\..\Source\Shared\ByteUtils.pas',
-  fmuFptrConnection in '..\..\Source\OposConfig\Fmu\fmuFptrConnection.pas' {fmFptrConnection};
+  fmuFptrConnection in '..\..\Source\OposConfig\Fmu\fmuFptrConnection.pas' {fmFptrConnection},
+  fmuMarkChecker in '..\..\Source\OposConfig\Fmu\fmuMarkChecker.pas' {fmMarkChecker};
 
 {$R *.RES}
 
