@@ -518,6 +518,7 @@ type
     OpenReceiptEnabled: Boolean;
     PingEnabled: Boolean;
     Barcode: string;
+    MarkType: Integer;
     PrintRecMessageMode: Integer;
 
     EkmServerHost: string;

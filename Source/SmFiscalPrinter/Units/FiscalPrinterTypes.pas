@@ -460,6 +460,8 @@ type
     procedure PrintFSDocument(Number: Integer);
     function FSStartOpenDay: Integer;
     function CheckItemBarcode(const Barcode: string): Integer;
+    function FSSendTLVOperation(const Data: string): Integer;
+    function SendItemBarcode(const Barcode: string; MarkType: Integer): Integer;
 
     property IsOnline: Boolean read GetIsOnline;
     property Model: TPrinterModelRec read GetModel;

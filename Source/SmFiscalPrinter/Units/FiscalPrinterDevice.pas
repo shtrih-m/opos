@@ -4,7 +4,7 @@ interface
 
 uses
   // VCL
-  Windows, SysUtils, Classes, Variants, SyncObjs, Graphics, Math,
+  Windows, SysUtils, Classes, Variants, SyncObjs, Graphics, Math, StrUtils,
   // 3'd
   // to enable loading this image formats
   JvGIF, JvPCX, PngImage, uZintBarcode, uZintInterface,
@@ -190,6 +190,8 @@ type
     procedure EkmCheckBarcode(const Barcode: TGS1Barcode);
     function CheckItemBarcode(const Barcode: string): Integer;
     function LoadBarcodeData(const Barcode: string): Integer;
+    function SendItemBarcode(const Barcode: string;
+      MarkType: Integer): Integer;
   protected
     function GetMaxGraphicsWidthInBytes: Integer;
   public
@@ -437,6 +439,7 @@ type
     function IsCapBarcode2D: Boolean;
     function IsCapEnablePrint: Boolean;
     function ReadCashReg(ID: Integer; var R: TCashRegisterRec): Integer;
+    function FSSendTLVOperation(const Data: string): Integer;
 
     property IsOnline: Boolean read GetIsOnline;
     property Tables: TPrinterTables read FTables;
@@ -969,10 +972,11 @@ function TFiscalPrinterDevice.GetText(const Text: string;
   MinLength: Integer): string;
 begin
   Result := Text;
-  if Length(Text) < MinLength then
-    Result := Result + StringOfChar(#0, MinLength - Length(Result));
   if not FCapFiscalStorage then
     Result := Copy(Result, 1, GetPrintWidth);
+
+  if Length(Result) < MinLength then
+    Result := Result + StringOfChar(#0, MinLength - Length(Result));
 end;
 
 function TFiscalPrinterDevice.GetPrintWidth: Integer;
@@ -6955,6 +6959,10 @@ begin
     Copy(P.Text, 1, 128);
 
   Result := ExecuteData(Command, Answer);
+  if Result = 0 then
+  begin
+    Result := SendItemBarcode(P.ItemBarcode, P.MarkType);
+  end;
 end;
 
 function TFiscalPrinterDevice.FSStorno(const P: TFSSale): Integer;
@@ -8665,6 +8673,57 @@ begin
       Result := ExecuteData(Command, Answer);
     end;
   end;
+end;
+
+function TFiscalPrinterDevice.SendItemBarcode(const Barcode: string;
+  MarkType: Integer): Integer;
+var
+  Data: string;
+  GTIN: string;
+  Serial: string;
+  GS1Barcode: TGS1Barcode;
+begin
+  Result := 0;
+  if Barcode = '' then Exit;
+  if not MarkType in [2, 3] then Exit;
+
+  Data := GS1DecodeBraces(Barcode);
+  Data := GS1FilterTockens(Data);
+  GS1Barcode := DecodeGS1(Data);
+
+  GTIN := ReverseString(IntToBin(StrToInt64(GS1Barcode.GTIN), 6));
+  case MarkType of
+    2:
+    begin // Меха
+      Serial := Copy(GS1Barcode.Serial, 1, 20);
+      Serial := Serial + StringOfChar(' ', 20 - Length(Serial));
+      Data := #$00#$02 + GTIN + TTLVTag.ASCII2ValueTLV(Serial);
+      Data := TTLVTag.Int2ValueTLV(1162, 2) + TTLVTag.Int2ValueTLV(Length(Data), 2) + Data;
+    end;
+
+    3:
+    begin // Лекарственные препараты
+      Serial := Copy(GS1Barcode.Serial, 1, 13);
+      Serial := Serial + StringOfChar(' ', 13 - Length(Serial));
+      Data := #$00#$03 + TTLVTag.ASCII2ValueTLV(Serial) + GTIN;
+      Data := TTLVTag.Int2ValueTLV(1162, 2) + TTLVTag.Int2ValueTLV(Length(Data), 2) + Data;
+    end;
+  else
+    raise Exception.Create('Invalid MarType value');
+  end;
+  Result := FSSendTLVOperation(Data);
+end;
+
+function TFiscalPrinterDevice.FSSendTLVOperation(const Data: string): Integer;
+var
+  Command: string;
+  Answer: string;
+begin
+  if Length(Data) > 249 then
+    raise Exception.Create('TLV data length too big');
+
+  Command := #$FF#$4D + IntToBin(FSysPassword, 4) + Copy(Data, 1, 249);
+  Result := ExecuteData(Command, Answer);
 end;
 
 

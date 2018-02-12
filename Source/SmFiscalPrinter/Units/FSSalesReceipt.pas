@@ -49,7 +49,7 @@ type
     function GetAdjustmentAmount(AdjustmentType: Integer;
       Amount: Currency): Int64;
     function GetLastItem: TFSSaleItem;
-    procedure AddSale(const P: TFSSale);
+    procedure AddSale(P: TFSSale);
     procedure ClearReceipt;
     procedure SetRefundReceipt;
     procedure UpdateDiscounts;
@@ -240,8 +240,15 @@ begin
   Printer.Printer.PrintText(Text);
 end;
 
-procedure TFSSalesReceipt.AddSale(const P: TFSSale);
+procedure TFSSalesReceipt.AddSale(P: TFSSale);
 begin
+  P.ItemBarcode := Parameters.Barcode;
+  P.MarkType := Parameters.MarkType;
+  if Parameters.Barcode <> '' then
+  begin
+    Device.Check(Device.CheckItemBarcode(Parameters.Barcode));
+  end;
+
   FLastItem := TFSSaleItem.Create(FReceiptItems);
   FLastItem.Data := P;
   FLastItem.PreLine := Printer.Printer.PreLine;
@@ -1008,6 +1015,8 @@ begin
       FSSale2.Text := Operation.Text;
       FSSale2.PaymentType := StrToInt64Def(FSRegistration.Parameter3, 0);
       FSSale2.PaymentItem := StrToInt64Def(FSRegistration.Parameter4, 0);
+      FSSale2.ItemBarcode := FSRegistration.ItemBarcode;
+      FSSale2.MarkType := FSRegistration.MarkType;
       Device.Check(Device.FSSale2(FSSale2));
     end else
     begin
@@ -1143,7 +1152,7 @@ begin
   end;
 end;
 
-procedure TFSSalesReceipt.EndFiscalReceipt;
+procedure TFSSalesReceipt.EndFiscalReceipt2;
 begin
   Device.Lock;
   try
@@ -1178,7 +1187,7 @@ begin
   end;
 end;
 
-procedure TFSSalesReceipt.EndFiscalReceipt2;
+procedure TFSSalesReceipt.EndFiscalReceipt;
 var
   CloseParams: TCloseReceiptParams;
   CloseParams2: TFSCloseReceiptParams2;

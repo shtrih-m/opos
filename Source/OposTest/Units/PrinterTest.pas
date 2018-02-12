@@ -4462,11 +4462,6 @@ begin
   Check(FiscalPrinter.PrintRecItem(Text, 101, 3088, 4, 32.7, ''));
   Check(FiscalPrinter.PrintRecTotal(101, 101, '2'));
   Check(FiscalPrinter.PrintRecMessage('Транз.:      41895 '));
-  Check(FiscalPrinter.FSWriteTag(1203, '505303696069'));
-  Check(FiscalPrinter.FSWriteTag(1203, '505303696069'));
-
-
-
   Check(FiscalPrinter.EndFiscalReceipt(True));
 end;
 
@@ -4513,18 +4508,20 @@ begin
   FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
   Check(FiscalPrinter.BeginFiscalReceipt(True));
 
-  pData := 0;
+  pString := '3';
+  pData := DriverParameterMarkType;
+  Check(FiscalPrinter.DirectIO(DIO_SET_DRIVER_PARAMETER, pData, pString));
+
+  pData := DriverParameterBarcode;
   pString :=
     '(01)18901148006025(21)5L1DNSVZD716T(10)DEMO(17)201231' +
     '(240)1111(91)1129(92)mUfZBFCQmjupbDczH0kCErEiLNCktMzv' +
     '+tWG24jDtHwRbPARdskMHHxuHE3h2fGRFX6wtXeQo11QXzLMGWqNcg==';
-
-  Check(FiscalPrinter.DirectIO(DIO_CHECK_MARKING, pData, pString));
+  Check(FiscalPrinter.DirectIO(DIO_SET_DRIVER_PARAMETER, pData, pString));
 
   Check(FiscalPrinter.PrintRecItem('Item 1', 101, 3088, 4, 32.7, ''));
   Check(FiscalPrinter.PrintRecTotal(101, 101, '2'));
   Check(FiscalPrinter.PrintRecMessage('Транз.:      41895 '));
-  Check(FiscalPrinter.FSWriteTag(1203, '505303696069'));
   Check(FiscalPrinter.EndFiscalReceipt(True));
 end;
 

@@ -37,7 +37,8 @@ type
     chbOpenReceiptEnabled: TCheckBox;
     cbQuantityDecimalPlaces: TComboBox;
     lblQuantityLength: TLabel;
-    gbReceipt: TGroupBox;
+    lblPrintRecMessageMode: TLabel;
+    cbPrintRecMessageMode: TComboBox;
   public
     procedure UpdatePage; override;
     procedure UpdateObject; override;
@@ -67,6 +68,7 @@ begin
   chbZReceiptBeforeZReport.Checked := Parameters.ZReceiptBeforeZReport;
   chbOpenReceiptEnabled.Checked := Parameters.OpenReceiptEnabled;
   cbQuantityDecimalPlaces.ItemIndex := Parameters.QuantityDecimalPlaces;
+  cbPrintRecMessageMode.ItemIndex := Parameters.PrintRecMessageMode;
 end;
 
 procedure TfmFptrReceipt.UpdateObject;
@@ -84,6 +86,7 @@ begin
   Parameters.ZReceiptBeforeZReport := chbZReceiptBeforeZReport.Checked;
   Parameters.OpenReceiptEnabled := chbOpenReceiptEnabled.Checked;
   Parameters.QuantityDecimalPlaces := cbQuantityDecimalPlaces.ItemIndex;
+  Parameters.PrintRecMessageMode := cbPrintRecMessageMode.ItemIndex;
 end;
 
 end.

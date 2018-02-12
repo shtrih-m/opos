@@ -313,6 +313,7 @@ const
   DriverParameterParam9                   = 78;
   DriverParameterParam10                  = 79;
   DriverParameterBarcode                  = 80;
+  DriverParameterMarkType                 = 81;
 
 
   /////////////////////////////////////////////////////////////////////////////

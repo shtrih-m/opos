@@ -299,6 +299,8 @@ type
     procedure PrintFSDocument(Number: Integer);
     function FSStartOpenDay: Integer;
     function CheckItemBarcode(const Barcode: string): Integer;
+    function FSSendTLVOperation(const Data: string): Integer;
+    function SendItemBarcode(const Barcode: string; MarkType: Integer): Integer;
 
     property RecStation: TStrings read FRecStation;
     property JrnStation: TStrings read FJrnStation;
@@ -1739,6 +1741,19 @@ end;
 
 function TTextFiscalPrinterDevice.CheckItemBarcode(
   const Barcode: string): Integer;
+begin
+  Result := 0;
+end;
+
+function TTextFiscalPrinterDevice.FSSendTLVOperation(
+  const Data: string): Integer;
+begin
+  Result := 0;
+end;
+
+
+function TTextFiscalPrinterDevice.SendItemBarcode(const Barcode: string;
+  MarkType: Integer): Integer;
 begin
   Result := 0;
 end;

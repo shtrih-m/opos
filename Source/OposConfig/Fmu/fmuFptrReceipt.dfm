@@ -1,6 +1,6 @@
 object fmFptrReceipt: TfmFptrReceipt
-  Left = 313
-  Top = 184
+  Left = 689
+  Top = 154
   Width = 512
   Height = 498
   Caption = 'Receipt'
@@ -16,12 +16,12 @@ object fmFptrReceipt: TfmFptrReceipt
   object gbParams: TGroupBox
     Left = 8
     Top = 8
-    Width = 225
-    Height = 345
+    Width = 481
+    Height = 417
     TabOrder = 0
     DesignSize = (
-      225
-      345)
+      481
+      417)
     object lblDefaultDepartment: TLabel
       Left = 8
       Top = 16
@@ -92,10 +92,17 @@ object fmFptrReceipt: TfmFptrReceipt
       Height = 13
       Caption = 'Quantity length:'
     end
+    object lblPrintRecMessageMode: TLabel
+      Left = 8
+      Top = 256
+      Width = 116
+      Height = 13
+      Caption = 'PrintRecMessage mode:'
+    end
     object cbCutType: TComboBox
-      Left = 96
+      Left = 136
       Top = 40
-      Width = 121
+      Width = 337
       Height = 21
       Style = csDropDownList
       Anchors = [akLeft, akTop, akRight]
@@ -107,9 +114,9 @@ object fmFptrReceipt: TfmFptrReceipt
         'No cut')
     end
     object cbEncoding: TComboBox
-      Left = 96
+      Left = 136
       Top = 64
-      Width = 121
+      Width = 337
       Height = 21
       Style = csDropDownList
       Anchors = [akLeft, akTop, akRight]
@@ -120,9 +127,9 @@ object fmFptrReceipt: TfmFptrReceipt
         'CP866')
     end
     object cbStatusCommand: TComboBox
-      Left = 96
+      Left = 136
       Top = 88
-      Width = 121
+      Width = 337
       Height = 21
       Style = csDropDownList
       Anchors = [akLeft, akTop, akRight]
@@ -134,9 +141,9 @@ object fmFptrReceipt: TfmFptrReceipt
         'Long status, 11h')
     end
     object cbHeaderType: TComboBox
-      Left = 96
+      Left = 136
       Top = 112
-      Width = 121
+      Width = 337
       Height = 21
       Style = csDropDownList
       Anchors = [akLeft, akTop, akRight]
@@ -148,9 +155,9 @@ object fmFptrReceipt: TfmFptrReceipt
         'None')
     end
     object cbZeroReceipt: TComboBox
-      Left = 96
+      Left = 136
       Top = 184
-      Width = 121
+      Width = 337
       Height = 21
       Style = csDropDownList
       Anchors = [akLeft, akTop, akRight]
@@ -161,9 +168,9 @@ object fmFptrReceipt: TfmFptrReceipt
         'Nonfiscal')
     end
     object cbCompatLevel: TComboBox
-      Left = 96
+      Left = 136
       Top = 136
-      Width = 121
+      Width = 337
       Height = 21
       Style = csDropDownList
       Anchors = [akLeft, akTop, akRight]
@@ -175,9 +182,9 @@ object fmFptrReceipt: TfmFptrReceipt
         'Level 2')
     end
     object cbReceiptType: TComboBox
-      Left = 96
+      Left = 136
       Top = 160
-      Width = 121
+      Width = 337
       Height = 21
       Style = csDropDownList
       Anchors = [akLeft, akTop, akRight]
@@ -191,16 +198,16 @@ object fmFptrReceipt: TfmFptrReceipt
     end
     object chbCacheReceiptNumber: TCheckBox
       Left = 8
-      Top = 256
+      Top = 296
       Width = 201
       Height = 17
       Caption = 'Cache receipt number'
       TabOrder = 10
     end
     object seDepartment: TSpinEdit
-      Left = 96
+      Left = 136
       Top = 16
-      Width = 121
+      Width = 337
       Height = 22
       MaxValue = 0
       MinValue = 0
@@ -208,7 +215,7 @@ object fmFptrReceipt: TfmFptrReceipt
       Value = 0
     end
     object seZeroReceiptNumber: TSpinEdit
-      Left = 120
+      Left = 136
       Top = 208
       Width = 97
       Height = 22
@@ -219,7 +226,7 @@ object fmFptrReceipt: TfmFptrReceipt
     end
     object chbZReceiptBeforeZReport: TCheckBox
       Left = 8
-      Top = 280
+      Top = 320
       Width = 214
       Height = 17
       Caption = 'Zero receipt before Z report (day closed)'
@@ -227,16 +234,16 @@ object fmFptrReceipt: TfmFptrReceipt
     end
     object chbOpenReceiptEnabled: TCheckBox
       Left = 8
-      Top = 304
+      Top = 344
       Width = 214
       Height = 17
       Caption = 'Open receipt in beginFiscalReceipt'
       TabOrder = 12
     end
     object cbQuantityDecimalPlaces: TComboBox
-      Left = 96
+      Left = 136
       Top = 232
-      Width = 121
+      Width = 337
       Height = 21
       Style = csDropDownList
       Anchors = [akLeft, akTop, akRight]
@@ -246,12 +253,18 @@ object fmFptrReceipt: TfmFptrReceipt
         '3 digits'
         '6 digits')
     end
-  end
-  object gbReceipt: TGroupBox
-    Left = 240
-    Top = 8
-    Width = 249
-    Height = 345
-    TabOrder = 1
+    object cbPrintRecMessageMode: TComboBox
+      Left = 136
+      Top = 256
+      Width = 337
+      Height = 21
+      Style = csDropDownList
+      Anchors = [akLeft, akTop, akRight]
+      ItemHeight = 13
+      TabOrder = 13
+      Items.Strings = (
+        '1. Normal - after receipt ending'
+        '2. Before receipt ending')
+    end
   end
 end

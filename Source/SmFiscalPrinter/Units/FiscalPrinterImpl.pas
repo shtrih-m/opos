@@ -2514,12 +2514,13 @@ end;
 function TFiscalPrinterImpl.EndFiscalReceipt(PrintHeader: WordBool): Integer;
 begin
   try
+    Filters.BeforeCloseReceipt;
+    Receipt.EndFiscalReceipt2;
+
     if Parameters.PrintRecMessageMode = PrintRecMessageModeBefore then
       PrintRecMessages;
 
-    Filters.BeforeCloseReceipt;
     Receipt.EndFiscalReceipt;
-    Receipt.EndFiscalReceipt2;
     Filters.AfterCloseReceipt;
     PrintDocumentEnd;
 

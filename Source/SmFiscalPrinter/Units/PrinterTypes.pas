@@ -694,6 +694,8 @@ type
     Parameter3: string;
     Parameter4: string;
     UnitName: string;
+    ItemBarcode: string;
+    MarkType: Integer;
   end;
 
   { TFSSale }
@@ -710,6 +712,8 @@ type
     UnitName: string;
     PaymentType: Byte;
     PaymentItem: Byte;
+    ItemBarcode: string;
+    MarkType: Integer;
   end;
 
   { TPriceReg }
@@ -1192,7 +1196,6 @@ type
     Password: Integer;
     TLVData: string;
   end;
-
 
 
 function GetCommandName(Command: Integer): string;

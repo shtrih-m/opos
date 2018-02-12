@@ -1858,6 +1858,7 @@ begin
     DriverParameterParam9: pString := Printer.Parameters.Parameter9;
     DriverParameterParam10: pString := Printer.Parameters.Parameter10;
     DriverParameterBarcode: pString := Printer.Parameters.Barcode;
+    DriverParameterMarkType: pString := IntToStr(Printer.Parameters.MarkType);
   end;
 end;
 
@@ -1955,6 +1956,7 @@ begin
     DriverParameterParam9: Parameters.Parameter9 := pString;
     DriverParameterParam10: Parameters.Parameter10 := pString;
     DriverParameterBarcode: Parameters.Barcode := pString;
+    DriverParameterMarkType: Parameters.MarkType := StrToInt(pString);
   end;
 end;
 
