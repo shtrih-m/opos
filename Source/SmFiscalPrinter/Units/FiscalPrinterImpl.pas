@@ -2261,12 +2261,11 @@ begin
 
     FReceipt.Free;
     FReceipt := CreateReceipt(FFiscalReceiptType);
-    Receipt.BeginFiscalReceipt(PrintHeader);
     if FAdditionalHeader <> '' then
     begin
       Receipt.PrintAdditionalHeader(FAdditionalHeader);
     end;
-
+    Receipt.BeginFiscalReceipt(PrintHeader);
     Filters.BeginFiscalReceipt2(FReceipt);
     FAfterCloseItems.Clear;
     Result := ClearResult;

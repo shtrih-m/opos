@@ -30,7 +30,6 @@ type
     FRecDiscount: TDiscountReceiptItem;
     FAdjustmentAmount: Integer;
     FTemplate: TReceiptTemplate;
-    FAdditionalHeader: string;
 
     procedure PrintReceiptItems;
     procedure CheckTotal(Total: Currency);
@@ -1163,7 +1162,6 @@ begin
     end else
     begin
       OpenReceipt(FRecType);
-      Device.PrintText(PRINTER_STATION_REC, FAdditionalHeader);
 
       CorrectPayments;
       PrintRecMessages(0);
@@ -1636,10 +1634,8 @@ end;
 procedure TFSSalesReceipt.PrintAdditionalHeader(
   const AdditionalHeader: string);
 begin
-  FAdditionalHeader := AdditionalHeader;
+  Device.PrintText(PRINTER_STATION_REC, AdditionalHeader);
 end;
-
-//OposSalesReceipt -> FiscalReceipt
 
 end.
 

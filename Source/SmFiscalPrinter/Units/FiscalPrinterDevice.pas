@@ -1925,7 +1925,8 @@ begin
   Text := TrimText(Text, GetPrintWidth);
 
   Flags := GetPrintFlags(Flags);
-  Execute(#$17 + IntToBin(GetUsrPassword, 4) + Chr(Flags) + GetLine(Text));
+  Execute(#$17 + IntToBin(GetUsrPassword, 4) + Chr(Flags) +
+    GetLine(Text, 40, GetPrintWidth(1)));
 end;
 
 (******************************************************************************
@@ -2667,7 +2668,8 @@ begin
   FLogger.Debug(Format('PrintStringFont(%d,%d, ''%s'')',
     [Flags, Font, Text]));
 
-  Execute(#$2F + IntToBin(GetUsrPassword, 4) + Chr(Flags) + Chr(Font) + Text);
+  Execute(#$2F + IntToBin(GetUsrPassword, 4) + Chr(Flags) + Chr(Font) +
+    GetLine(Text, 40, GetPrintWidth(Font)));
 end;
 
 (******************************************************************************
