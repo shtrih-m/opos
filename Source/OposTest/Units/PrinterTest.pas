@@ -4459,6 +4459,8 @@ begin
   Check(FiscalPrinter.ResetPrinter());
   FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
   Check(FiscalPrinter.BeginFiscalReceipt(True));
+  FiscalPrinter.PreLine := 'PreLIne 1';
+  FiscalPrinter.PostLine := 'PostLIne 1';
   Check(FiscalPrinter.PrintRecItem(Text, 101, 3088, 4, 32.7, ''));
   Check(FiscalPrinter.PrintRecTotal(101, 101, '2'));
   Check(FiscalPrinter.PrintRecMessage('Транз.:      41895 '));

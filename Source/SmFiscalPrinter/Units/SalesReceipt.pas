@@ -192,6 +192,9 @@ begin
   CheckPrice(Price);
   CheckQuantity(Quantity);
   CheckPrice(UnitPrice);
+  OpenReceipt(RecTypeSale);
+
+  PrintPreLine;
 
   if UnitPrice = 0 then
   begin
@@ -219,6 +222,7 @@ begin
   end;
   FItems.Add(Operation);
   FLastItemSumm := Round2(Operation.Price*Operation.Quantity/1000);
+  PrintPostLine;
 end;
 
 procedure TSalesReceipt.PrintRecItemAdjustment(
@@ -231,6 +235,7 @@ var
 begin
   CheckDescription(Description);
   CheckAdjAmount(AdjustmentType, Amount);
+  PrintPreLine;
 
   case AdjustmentType of
     FPTR_AT_AMOUNT_DISCOUNT:
@@ -282,6 +287,7 @@ begin
   else
     InvalidParameterValue('AdjustmentType', IntToStr(AdjustmentType));
   end;
+  PrintPostLine;
 end;
 
 procedure TSalesReceipt.PrintRecPackageAdjustment(
@@ -290,6 +296,7 @@ procedure TSalesReceipt.PrintRecPackageAdjustment(
 begin
   CheckDescription(Description);
 
+  PrintPreLine;
   case AdjustmentType of
     FPTR_AT_AMOUNT_DISCOUNT,
     FPTR_AT_AMOUNT_SURCHARGE:
@@ -299,11 +306,13 @@ begin
   else
     RaiseOposException(OPOS_E_ILLEGAL);
   end;
+  PrintPostLine;
 end;
 
 procedure TSalesReceipt.PrintRecPackageAdjustVoid(AdjustmentType: Integer;
   const VatAdjustment: string);
 begin
+  PrintPreLine;
   CheckDescription(VatAdjustment);
   case AdjustmentType of
     FPTR_AT_AMOUNT_DISCOUNT,
@@ -314,6 +323,7 @@ begin
   else
     RaiseOposException(OPOS_E_ILLEGAL);
   end;
+  PrintPostLine;
 end;
 
 procedure TSalesReceipt.PrintRecRefund(const Description: string;
@@ -322,6 +332,8 @@ var
   Operation: TPriceReg;
 begin
   CheckAmount(Amount);
+  OpenReceipt(RecTypeRetSale);
+  PrintPreLine;
 
   Operation.Quantity := 1000;
   Operation.Price := Printer.CurrencyToInt(Amount);
@@ -333,6 +345,7 @@ begin
   Operation.Department := Parameters.Department;
   Printer.RetSale(Operation);
   FItems.Add(Operation);
+  PrintPostLine;
 end;
 
 procedure TSalesReceipt.PrintRecRefundVoid(
@@ -343,6 +356,7 @@ var
 begin
   CheckDescription(Description);
   CheckAmount(Amount);
+  PrintPreLine;
 
   Operation.Quantity := 1000;
   Operation.Price := Printer.CurrencyToInt(Amount);
@@ -353,6 +367,7 @@ begin
   Operation.Text := Description;
   Operation.Department := Parameters.Department;
   Printer.Storno(Operation);
+  PrintPostLine;
 end;
 
 procedure TSalesReceipt.PrintRecSubtotal(Amount: Currency);
@@ -369,7 +384,9 @@ procedure TSalesReceipt.PrintRecSubtotalAdjustment(AdjustmentType: Integer;
 begin
   CheckDescription(Description);
   CheckAdjAmount(AdjustmentType, Amount);
+  PrintPreLine;
   RecSubtotalAdjustment(AdjustmentType, Amount);
+  PrintPostLine;
 end;
 
 // Discount void consider to taxes turnover
@@ -463,7 +480,9 @@ procedure TSalesReceipt.PrintRecSubtotalAdjustVoid(
   AdjustmentType: Integer; Amount: Currency);
 begin
   CheckAdjAmount(AdjustmentType, Amount);
+  PrintPreLine;
   RecSubtotalAdjustment(AdjustmentType, Amount);
+  PrintPostLine;
 end;
 
 procedure TSalesReceipt.PrintRecTotal(Total: Currency; Payment: Currency;
@@ -478,6 +497,7 @@ begin
   CheckAmount(Total);
   CheckAmount(Payment);
   CheckTotal(Total);
+  PrintPreLine;
 
   // Check payment code
   PayCode := Printer.GetPayCode(Description);
@@ -501,7 +521,7 @@ begin
   begin
     State.SetState(FPTR_PS_FISCAL_RECEIPT_TOTAL);
   end;
-  Printer.PrintPostLine;
+  PrintPostLine;
 end;
 
 procedure TSalesReceipt.CheckRececiptState;
@@ -594,6 +614,7 @@ begin
   CheckAmount(Amount);
   CheckQuantity(Quantity);
   CheckDescription(Description);
+  PrintPreLine;
 
   Operation.Quantity := Quantity;
   Operation.Price := Printer.CurrencyToInt(Amount);
@@ -605,6 +626,7 @@ begin
   Operation.Text := Description;
   Operation.Department := Parameters.Department;
   Printer.Storno(Operation);
+  PrintPostLine;
 end;
 
 procedure TSalesReceipt.PrintRecItemVoid(const Description: string;
@@ -616,7 +638,7 @@ begin
   CheckPrice(Price);
   CheckQuantity(Quantity);
   CheckPrice(UnitPrice);
-
+  PrintPreLine;
   if UnitPrice = 0 then
   begin
     // If no price - use single quantity cost
@@ -637,6 +659,7 @@ begin
   Operation.Department := Parameters.Department;
   Printer.Storno(Operation);
   FLastItemSumm := -Round2(Operation.Price*Operation.Quantity/1000);
+  PrintPostLine;
 end;
 
 procedure TSalesReceipt.PrintRecItemRefund(const ADescription: string;
@@ -648,7 +671,9 @@ begin
   CheckAmount(Amount);
   CheckAmount(UnitAmount);
   CheckQuantity(Quantity);
+  OpenReceipt(RecTypeRetSale);
 
+  PrintPreLine;
   if (UnitAmount = 0)or(Quantity = 0) then
   begin
     // If no price - use single quantity cost
@@ -669,6 +694,7 @@ begin
   Operation.Department := Parameters.Department;
   Printer.RetSale(Operation);
   FItems.Add(Operation);
+  PrintPostLine;
 end;
 
 procedure TSalesReceipt.PrintRecItemRefundVoid(const ADescription: string;
