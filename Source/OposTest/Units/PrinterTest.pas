@@ -774,6 +774,14 @@ type
     function GetDisplayText: string; override;
   end;
 
+  { TReceiptTest19 }
+
+  TReceiptTest19 = class(TDriverTest)
+  public
+    procedure Execute; override;
+    function GetDisplayText: string; override;
+  end;
+
 implementation
 
 const
@@ -4525,6 +4533,79 @@ begin
   Check(FiscalPrinter.PrintRecTotal(101, 101, '2'));
   Check(FiscalPrinter.PrintRecMessage('Транз.:      41895 '));
   Check(FiscalPrinter.EndFiscalReceipt(True));
+end;
+
+{ TReceiptTest19 }
+
+function TReceiptTest19.GetDisplayText: string;
+begin
+  Result := 'TReceiptTest19';
+end;
+
+procedure TReceiptTest19.Execute;
+begin
+  Check(FiscalPrinter.ResetPrinter());
+  FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
+  FiscalPrinter.BeginFiscalReceipt(True);
+  FiscalPrinter.DirectIO2(9, 5, '                   КАССОВЫЙ ЧЕК                    ');
+  FiscalPrinter.DirectIO2(9, 5, 'Касса:281                                     Док:8');
+  FiscalPrinter.DirectIO2(30, 72, '4');
+  FiscalPrinter.DirectIO2(30, 73, '1');
+  FiscalPrinter.PrintRecItem('1861 Напиток SPRITE 2.0л', 4.3, 1000, 1, 4.3, 'шт');
+  FiscalPrinter.DirectIO2(9, 5, 'Ваша скидка составила:                         0,70');
+  FiscalPrinter.DirectIO2(30, 72, '4');
+  FiscalPrinter.DirectIO2(30, 73, '1');
+  FiscalPrinter.PrintRecItem('1896 Средство FROSCH ЛИМОН 750мл', 196.94, 1000, 1, 196.94, 'шт');
+  FiscalPrinter.DirectIO2(9, 5, 'Ваша скидка составила:                        32,06');
+  FiscalPrinter.DirectIO2(30, 72, '4');
+  FiscalPrinter.DirectIO2(30, 73, '1');
+  FiscalPrinter.PrintRecItem('3757 Бананы 1кг', 430, 1000, 1, 430, 'кг');
+  FiscalPrinter.DirectIO2(9, 5, 'Ваша скидка составила:                        70,00');
+  FiscalPrinter.DirectIO2(30, 72, '4');
+  FiscalPrinter.DirectIO2(30, 73, '1');
+  FiscalPrinter.PrintRecItem('9654 Колбаса ЮБИЛЕЙНАЯ в специях 1кг ', 435.15, 1000, 3, 435.15, 'кг');
+  FiscalPrinter.DirectIO2(9, 5, 'Ваша скидка составила:                        70,85');
+  FiscalPrinter.PrintRecSubtotal(1066.39);
+  FiscalPrinter.DirectIO2(9, 5, 'ВАША СУММАРНАЯ СКИДКА:                       173,61');
+  FiscalPrinter.DirectIO2(9, 5, '                                                   ');
+  FiscalPrinter.DirectIO2(9, 2, 'ИТОГ: 1066,39');
+  FiscalPrinter.DirectIO2(9, 5, '                                                   ');
+  FiscalPrinter.PrintRecTotal(0, 1066.39, '1');
+  FiscalPrinter.DirectIO2(41, 2, '                                                                                                                                                                                                                                                              ');
+  FiscalPrinter.DirectIO2(41, 1, '                                                                                                                                                                                                                                                              ');
+  FiscalPrinter.DirectIO2(9, 5, '---------------------------------------------------');
+  FiscalPrinter.DirectIO2(9, 5, 'Карта Клуба:                           7789****7517');
+  FiscalPrinter.DirectIO2(9, 5, 'Начислено, баллов:                              106');
+  FiscalPrinter.DirectIO2(9, 5, 'Списано, баллов:                               1236');
+  FiscalPrinter.DirectIO2(9, 5, 'Оплачено баллами:                        123,60 руб');
+  FiscalPrinter.DirectIO2(9, 5, 'Остаток, баллов:                             195517');
+  FiscalPrinter.DirectIO2(9, 5, '---------------------------------------------------');
+  FiscalPrinter.DirectIO2(9, 5, 'Магазин "Пятёрочка"                                ');
+  FiscalPrinter.DirectIO2(9, 5, 'Москва,ул.Вавилова,д.19,                           ');
+  FiscalPrinter.DirectIO2(9, 5, 'тел. 123-4567                                      ');
+  FiscalPrinter.DirectIO2(9, 5, '13.02.18                           17:35           ');
+  FiscalPrinter.DirectIO2(9, 5, '                  ЧЕК                              ');
+  FiscalPrinter.DirectIO2(9, 5, '                 Оплата                            ');
+  FiscalPrinter.DirectIO2(9, 5, 'Номер операции:                     0002           ');
+  FiscalPrinter.DirectIO2(9, 5, 'Терминал:                       00749970           ');
+  FiscalPrinter.DirectIO2(9, 5, 'Пункт обслуживания:         744444445555           ');
+  FiscalPrinter.DirectIO2(9, 5, '                   Visa   A0000000031010           ');
+  FiscalPrinter.DirectIO2(9, 5, 'Карта:(E);               ************8943           ');
+  FiscalPrinter.DirectIO2(9, 5, 'Клиент:                                            ');
+  FiscalPrinter.DirectIO2(9, 5, 'Сумма (Руб);:                                       ');
+  FiscalPrinter.DirectIO2(9, 5, '             1066.39                               ');
+  FiscalPrinter.DirectIO2(9, 5, 'Комиссия за операцию - 0 Руб.                      ');
+  FiscalPrinter.DirectIO2(9, 5, '                ОДОБРЕНО                           ');
+  FiscalPrinter.DirectIO2(9, 5, 'Код авторизации:                  45Q861           ');
+  FiscalPrinter.DirectIO2(9, 5, 'Номер ссылки:               151853253561           ');
+  FiscalPrinter.DirectIO2(9, 5, '             Введен ПИН-код                        ');
+  FiscalPrinter.DirectIO2(9, 5, '   _________________________________               ');
+  FiscalPrinter.DirectIO2(9, 5, '      подпись кассира(контролера);                  ');
+  FiscalPrinter.DirectIO2(9, 5, 'BF65AE814907799992E9E345DD9BC2084034FFD3           ');
+  FiscalPrinter.DirectIO2(9, 5, '========================================           ');
+  FiscalPrinter.DirectIO2(9, 5, '                                                   ');
+  FiscalPrinter.DirectIO2(9, 5, '---------------------------------------------------');
+  FiscalPrinter.EndFiscalReceipt(True);
 end;
 
 end.

@@ -695,6 +695,9 @@ end;
 
 function CenterGraphicsLine(const Data: string; MaxLen, Scale: Integer): string;
 begin
+  if Scale = 0 then
+    raise Exception.Create('Scale = 0');
+
   Result := Data;
   Result := Copy(Result, 1, MaxLen);
   Result := StringOfChar(#0, (MaxLen - Length(Result)*Scale) div (2 * Scale)) + Result;
@@ -5854,6 +5857,8 @@ var
   XOffset: Integer;
 begin
   if Barcode.Alignment = BARCODE_ALIGNMENT_LEFT then Exit;
+  if HScale = 0 then
+    raise Exception.Create('HScale = 0');
   PrintWidthInDots := PrintWidthInDots div HScale;
 
   XOffset := 0;
@@ -6374,8 +6379,12 @@ const
   BytesPerCommand = 240;
 begin
   Progress := 0;
-  LineLength := Length(GetLineData(Bitmap, 1));
-  RowsPerCommand := BytesPerCommand div LineLength;
+  LineLength := (Bitmap.Width + 7) div 8;
+  RowsPerCommand := 0;
+  if LineLength <> 0 then
+    RowsPerCommand := BytesPerCommand div LineLength;
+  if RowsPerCommand = 0 then
+    raise Exception.Create('RowsPerCommand = 0');
   CommandCount := (Bitmap.Height + RowsPerCommand -1) div RowsPerCommand;
   ProgressStep := CommandCount/100;
   Row := 0;
@@ -7335,6 +7344,9 @@ end;
 function TFiscalPrinterDevice.GetBlockSize(BlockSize: Integer): Integer;
 begin
   Result := BlockSize;
+  if Result = 0 then
+    Result := DefDocumentBlockSize;
+
   if (GetDeviceMetrics.Model = 19)and(BlockSize > GetParameters.DocumentBlockSize) then
     Result := GetParameters.DocumentBlockSize;
 end;
