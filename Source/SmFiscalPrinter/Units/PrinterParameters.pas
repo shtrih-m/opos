@@ -14,7 +14,7 @@ const
 
   PrintRecMessageModeNormal = 0;
   PrintRecMessageModeBefore = 1;
-  DefPrintRecMessageMode = PrintRecMessageModeNormal;
+  DefPrintRecMessageMode = PrintRecMessageModeBefore;
 
   /////////////////////////////////////////////////////////////////////////////
   // Maximum block size for FF31 command, read FS data block

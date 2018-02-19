@@ -1014,7 +1014,15 @@ end;
 procedure TDIOLoadLogo.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
-  Printer.LoadLogo(pString);
+  try
+    Printer.LoadLogo(pString);
+  except
+    on E: Exception do
+    begin
+      Logger.Error(E.Message);
+      raise Exception.Create('Не удалось загрузить логотип');
+    end;
+  end;
 end;
 
 { TDIOPrintLogo }

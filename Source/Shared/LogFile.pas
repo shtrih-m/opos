@@ -35,17 +35,23 @@ type
     function GetEnabled: Boolean;
     function GetFilePath: string;
     function GetDeviceName: string;
+    function GetFileName: string;
+
     procedure SetEnabled(Value: Boolean);
     procedure SetFilePath(const Value: string);
     procedure SetSeparator(const Value: string);
     procedure SetMaxCount(const Value: Integer);
     procedure SetDeviceName(const Value: string);
+    function GetTimeStampEnabled: Boolean;
+    procedure SetTimeStampEnabled(const Value: Boolean);
+    procedure CloseFile;
 
     property Enabled: Boolean read GetEnabled write SetEnabled;
     property FilePath: string read GetFilePath write SetFilePath;
     property MaxCount: Integer read GetMaxCount write SetMaxCount;
     property Separator: string read GetSeparator write SetSeparator;
     property DeviceName: string read GetDeviceName write SetDeviceName;
+    property TimeStampEnabled: Boolean read GetTimeStampEnabled write SetTimeStampEnabled;
   end;
 
 
@@ -61,6 +67,7 @@ type
     FMaxCount: Integer;
     FLock: TCriticalSection;
     FDeviceName: string;
+    FTimeStampEnabled: Boolean;
 
     procedure OpenFile;
     procedure CloseFile;
@@ -87,6 +94,8 @@ type
     procedure SetFilePath(const Value: string);
     function GetDeviceName: string;
     procedure SetDeviceName(const Value: string);
+    function GetTimeStampEnabled: Boolean;
+    procedure SetTimeStampEnabled(const Value: Boolean);
   public
     constructor Create;
     destructor Destroy; override;
@@ -119,6 +128,7 @@ type
     property MaxCount: Integer read GetMaxCount write SetMaxCount;
     property Separator: string read GetSeparator write SetSeparator;
     property DeviceName: string read GetDeviceName write SetDeviceName;
+    property TimeStampEnabled: Boolean read GetTimeStampEnabled write SetTimeStampEnabled;
   end;
 
 implementation
@@ -279,6 +289,7 @@ begin
   Enabled := False;
   FilePath := IncludeTrailingBackSlash(ExtractFilePath(GetModuleFileName)) + 'Logs';
   FileName := GetFileName;
+  FTimeStampEnabled := True;
 end;
 
 procedure TLogFile.OpenFile;
@@ -440,7 +451,10 @@ const
 var
   Line: string;
 begin
-  Line := Format('[%s] [%.8d] %s', [GetTimeStamp, GetCurrentThreadID, Data]) + CRLF;
+  Line := Data;
+  if FTimeStampEnabled then
+    Line := Format('[%s] [%.8d] %s', [GetTimeStamp, GetCurrentThreadID, Line]);
+  Line := Line + CRLF;
   Write(Line);
 end;
 
@@ -654,6 +668,16 @@ end;
 procedure TLogFile.SetDeviceName(const Value: string);
 begin
   FDeviceName := Value;
+end;
+
+function TLogFile.GetTimeStampEnabled: Boolean;
+begin
+  Result := FTimeStampEnabled;
+end;
+
+procedure TLogFile.SetTimeStampEnabled(const Value: Boolean);
+begin
+  FTimeStampEnabled := Value;
 end;
 
 end.
