@@ -29,6 +29,7 @@ type
     procedure WriteRxData(Data: string);
     procedure WriteTxData(Data: string);
     procedure LogParam(const ParamName: string; const ParamValue: Variant);
+    procedure GetFileNames(const Mask: string; FileNames: TStrings);
 
     function GetSeparator: string;
     function GetMaxCount: Integer;
@@ -45,6 +46,7 @@ type
     function GetTimeStampEnabled: Boolean;
     procedure SetTimeStampEnabled(const Value: Boolean);
     procedure CloseFile;
+    procedure CheckFilesMaxCount;
 
     property Enabled: Boolean read GetEnabled write SetEnabled;
     property FilePath: string read GetFilePath write SetFilePath;
@@ -372,7 +374,7 @@ var
 begin
   FileNames := TStringList.Create;
   try
-    FileMask := IncludeTrailingBackSlash(FilePath) + '*.log';
+    FileMask := IncludeTrailingBackSlash(FilePath) + Format('*%s*.log', [DeviceName]);
     GetFileNames(FileMask, FileNames);
     FileNames.Sort;
     while FileNames.Count > MaxCount do
@@ -391,6 +393,7 @@ var
   Result: Integer;
   FileName: string;
 begin
+  FileNames.Clear;
   Result := FindFirst(Mask, faAnyFile, F);
   while Result = 0 do
   begin

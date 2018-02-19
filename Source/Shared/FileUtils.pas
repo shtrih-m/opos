@@ -13,6 +13,7 @@ procedure WriteFileData(const FileName, Data: string);
 function GetLongFileName(const FileName: string): string;
 function GetSystemPath: string;
 function CLSIDToFileName(const CLSID: TGUID): String;
+procedure DeleteFiles(const FileMask: string);
 
 implementation
 
@@ -130,6 +131,38 @@ begin
   end;
 end;
 
+procedure GetFileNames(const Mask: string; FileNames: TStrings);
+var
+  F: TSearchRec;
+  Result: Integer;
+  FileName: string;
+begin
+  Result := FindFirst(Mask, faAnyFile, F);
+  while Result = 0 do
+  begin
+    FileName := ExtractFilePath(Mask) + F.FindData.cFileName;
+    FileNames.Add(FileName);
+    Result := FindNext(F);
+  end;
+  FindClose(F);
+end;
+
+procedure DeleteFiles(const FileMask: string);
+var
+  FileNames: TStringList;
+begin
+  FileNames := TStringList.Create;
+  try
+    GetFileNames(FileMask, FileNames);
+    while FileNames.Count > 0 do
+    begin
+      DeleteFile(FileNames[0]);
+      FileNames.Delete(0);
+    end;
+  finally
+    FileNames.Free;
+  end;
+end;
 
 
 
