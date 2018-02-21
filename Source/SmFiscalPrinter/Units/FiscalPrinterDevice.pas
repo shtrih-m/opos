@@ -8699,8 +8699,6 @@ var
 begin
   Result := 0;
   if Barcode = '' then Exit;
-  if not MarkType in [2, 3] then Exit;
-
   Data := GS1DecodeBraces(Barcode);
   Data := GS1FilterTockens(Data);
   GS1Barcode := DecodeGS1(Data);
@@ -8714,12 +8712,18 @@ begin
       Data := #$00#$02 + GTIN + TTLVTag.ASCII2ValueTLV(Serial);
       Data := TTLVTag.Int2ValueTLV(1162, 2) + TTLVTag.Int2ValueTLV(Length(Data), 2) + Data;
     end;
-
     3:
     begin // Лекарственные препараты
       Serial := Copy(GS1Barcode.Serial, 1, 13);
       Serial := Serial + StringOfChar(' ', 13 - Length(Serial));
-      Data := #$00#$03 + TTLVTag.ASCII2ValueTLV(Serial) + GTIN;
+      Data := #$00#$03 + GTIN + TTLVTag.ASCII2ValueTLV(Serial);
+      Data := TTLVTag.Int2ValueTLV(1162, 2) + TTLVTag.Int2ValueTLV(Length(Data), 2) + Data;
+    end;
+    5:
+    begin // Табачные изделия
+      Serial := Copy(GS1Barcode.Serial, 1, 24);
+      Serial := Serial + StringOfChar(' ', 24 - Length(Serial));
+      Data := #$00#$05 + GTIN + TTLVTag.ASCII2ValueTLV(Serial);
       Data := TTLVTag.Int2ValueTLV(1162, 2) + TTLVTag.Int2ValueTLV(Length(Data), 2) + Data;
     end;
   else

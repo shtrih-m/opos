@@ -31,7 +31,7 @@ implementation
 
 procedure TReceiptTemplateTest.Setup;
 begin
-  Template := TReceiptTemplate.Create;
+  Template := TReceiptTemplate.Create(42);
 end;
 
 procedure TReceiptTemplateTest.Teardown;
@@ -62,6 +62,18 @@ begin
     Item.Text := 'ajdshgjasghd86876234';
     Text := Template.getText('%TITLE%', Item);
     CheckEquals(Item.Text, Text, 'Item.Text');
+
+    Item.Text := 'ajdshgjasghd86876234';
+    Text := Template.getText('%-TITLE%', Item);
+    CheckEquals('ajdshgjasghd86876234                      ', Text, 'Item.Text');
+
+    Item.Text := 'ajdshgjasghd86876234';
+    Text := Template.getText('%-lTITLE%', Item);
+    CheckEquals('ajdshgjasghd86876234                      ', Text, 'Item.Text');
+
+    Item.Text := 'ajdshgjasghd86876234';
+    Text := Template.getText('%-30lTITLE%', Item);
+    CheckEquals('ajdshgjasghd86876234                      ', Text, 'Item.Text');
 
     Item.Pos := 234;
     Text := Template.getText('%POS%', Item);

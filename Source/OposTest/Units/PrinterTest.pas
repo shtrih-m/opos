@@ -4452,7 +4452,7 @@ end;
 
 function TReceiptTest16.GetDisplayText: string;
 begin
-  Result := 'ReceiptTest16';
+  Result := 'Test multiline text in printRecItem method';
 end;
 
 procedure TReceiptTest16.Execute;

@@ -201,7 +201,7 @@ begin
   FReceiptItems := TReceiptItems.Create;
   ClearReceipt;
 
-  FTemplate := TReceiptTemplate.Create;
+  FTemplate := TReceiptTemplate.Create(Device.GetPrintWidth);
   FTemplate.Template := AContext.Printer.Printer.Parameters.ReceiptItemFormat;
 end;
 
