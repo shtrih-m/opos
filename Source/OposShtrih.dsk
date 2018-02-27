@@ -1,14 +1,14 @@
 [Closed Files]
-File_0=SourceModule,'C:\projects\OPOSShtrih\Source\SmScale\Units\oleScale.pas',0,1,1,17,12,0,0
-File_1=SourceModule,'C:\projects\OPOSShtrih\Source\SmScale\Units\ScaleDriver.pas',0,1,1,23,12,0,0
-File_2=SourceModule,'C:\projects\OPOSShtrih\Source\SmScale\Units\M5ScaleDevice.pas',0,1,440,1,457,0,0
-File_3=SourceModule,'C:\projects\OPOSShtrih\Source\SmScale\Units\M5OposDevice.pas',0,1,1,1,1,0,0
-File_4=SourceModule,'C:\projects\OPOSShtrih\Source\SmScale\Units\M5ScaleTypes.pas',0,1,27,1,41,0,0
-File_5=SourceModule,'C:\projects\OPOSShtrih\Source\SmScale\Units\OposDevice.pas',0,1,1,1,1,0,0
-File_6=SourceModule,'C:\projects\OPOSShtrih\Source\Shared\LogFile.pas',0,1,636,1,659,0,0
-File_7=SourceModule,'c:\program files (x86)\borland\delphi7\Comp\FastMM\FastMM4.pas',0,1,8698,1,8719,0,0
-File_8=SourceModule,'C:\projects\OPOSShtrih\Test\SmFiscalPrinterTest\Units\duLogFile.pas',0,1,125,51,128,0,0
-File_9=SourceModule,'C:\projects\OPOSShtrih\Source\Shared\FileUtils.pas',0,1,150,5,156,0,0
+File_0=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\SmResourceStrings.pas',0,1,1,1,1,0,0
+File_1=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\PrinterParameters.pas',0,1,1,24,7,0,0
+File_2=SourceModule,'C:\projects\OPOSShtrih\Source\OposTest\Units\PrinterTest.pas',0,1,4448,16,4465,0,0
+File_3=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterDevice.pas',0,1,5123,1,5130,0,0
+File_4=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FSSalesReceipt.pas',0,1,1617,3,1621,0,0
+File_5=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\ReceiptTemplate.pas',0,1,288,79,300,0,0
+File_6=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\SharedPrinter.pas',0,1,802,25,806,0,0
+File_7=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterImpl.pas',0,1,1,1,1,0,0
+File_8=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\GS1Barcode.pas',0,1,35,18,48,0,0
+File_9=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\DirectIOAPI.pas',0,1,296,32,313,0,0
 
 [Modules]
 Count=0
@@ -174,8 +174,8 @@ Left=336
 Top=9
 Width=1584
 Height=122
-MaxLeft=-8
-MaxTop=-8
+MaxLeft=-1
+MaxTop=-1
 MaxWidth=1936
 MaxHeight=122
 ClientWidth=1920
@@ -252,15 +252,15 @@ HiddenCategories=
 Create=1
 Visible=0
 State=0
-Left=869
-Top=144
+Left=0
+Top=933
 Width=667
 Height=327
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=651
 ClientHeight=293
-TBDockHeight=197
+TBDockHeight=177
 LRDockWidth=737
 Dockable=1
 Column0Width=149
@@ -274,15 +274,15 @@ Column5Width=75
 Create=1
 Visible=0
 State=0
-Left=976
-Top=314
+Left=0
+Top=933
 Width=648
 Height=452
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=632
 ClientHeight=418
-TBDockHeight=362
+TBDockHeight=117
 LRDockWidth=320
 Dockable=1
 
@@ -418,5 +418,5 @@ CompUnitPane=104
 DockHostCount=0
 
 [ActiveProject]
-ActiveProject=5
+ActiveProject=3
 

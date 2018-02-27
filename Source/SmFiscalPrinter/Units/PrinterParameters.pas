@@ -888,6 +888,7 @@ begin
   Logger.Debug('RemoteHost: ' + RemoteHost);
   Logger.Debug('RemotePort: ' + IntToStr(RemotePort));
   Logger.Debug('ConnectionType: ' + IntToStr(ConnectionType));
+  Logger.Debug('PrinterProtocol: ' + IntToStr(PrinterProtocol));
   Logger.Debug('PortNumber: ' + IntToStr(PortNumber));
   Logger.Debug('BaudRate: ' + IntToStr(BaudRate));
   Logger.Debug('SysPassword: ' + IntToStr(SysPassword));
@@ -984,6 +985,7 @@ begin
   Logger.Debug('EkmServerTimeout: ' + IntToStr(EkmServerTimeout));
   Logger.Debug('EkmServerEnabled: ' + BoolToStr(EkmServerEnabled));
   Logger.Debug('FSMarkCheckEnabled: ' + BoolToStr(FSMarkCheckEnabled));
+
 
   for i := 0 to PayTypes.Count-1 do
   begin

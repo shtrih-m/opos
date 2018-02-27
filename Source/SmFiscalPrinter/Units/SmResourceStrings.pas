@@ -3,37 +3,37 @@ unit SmResourceStrings;
 interface
 
 resourcestring
-  MsgFMFirmware = 'FM firmware';
-  MsgPrinterFirmware = 'Printer firmware';
-  MsgItemNameEmpty = 'ItemName cannot be empty';
-  MsgInvalidPaymentCode = 'Invalid payment code';
-  MsgNegativeReceiptTotal = 'Negative receipt total';
-  MsgInvalidAdjustmentTypeParameter = 'Invalid AdjustmentType parameter';
-  MsgLastReceiptItemNotDefined = 'Last receipt item not defined';
-  MsgDiscountAmountMoreItemAmount = 'Discount amount more than item amount';
-  MsgInvalidCommandCode = 'Invalid command code';
-  MsgCantChangeState = 'Can not change state';
-  MsgDayEndRequired = 'Day end required. Print ZReport and try again';
+  MsgFMFirmware = 'ПО ФП';
+  MsgPrinterFirmware = 'ПО ФР';
+  MsgItemNameEmpty = 'ItemName не может быть пустым';
+  MsgInvalidPaymentCode = 'Неверный код типа оплаты';
+  MsgNegativeReceiptTotal = 'Отрицательный итог чека';
+  MsgInvalidAdjustmentTypeParameter = 'Неверное значение параметра AdjustmentType';
+  MsgLastReceiptItemNotDefined = 'Не задан последний элемент чека';
+  MsgDiscountAmountMoreItemAmount = 'Сумма скидки больше суммы позиции';
+  MsgInvalidCommandCode = 'Неверный код команды';
+  MsgCantChangeState = 'Невозможно изменить состояние';
+  MsgDayEndRequired = 'Истекли 24 часа. Распечатайте Z отчет и попробуйте снова';
   MsgExternalHCheck = 'External HCheck: ';
-  MsgCoverOpened = 'Cover opened';
-  MsgNoReceiptPaper = 'The receipt station has run out of paper';
-  MsgReceiptPaperNearEnd = 'The receipt station paper is near end';
-  MsgReceiptStationLeverUp = 'The receipt station lever is up';
-  MsgJournalStationOutOfPaper = 'The journal station has run out of paper';
-  MsgJournalStationPaperNearEnd = 'The journal station paper is near end';
-  MsgJournalStationLeverUp = 'The journal station lever is up';
-  MsgEKLZAlmostFull = 'EKLZ is almost full';
-  MsgFiscalMemoryOverflow = 'Fiscal memory overflow';
-  MsgFiscalMemoryBatteryLow = 'Fiscal memory battery is low';
-  MsgLastRecordCorrupted = 'Last fiscal memory record is corrupted';
-  MsgFMFiscalDayOver = '24 hours in fiscal memory are over';
+  MsgCoverOpened = 'Крышка открыта';
+  MsgNoReceiptPaper = 'Нет чековой ленты';
+  MsgReceiptPaperNearEnd = 'Чековая лента близка к завершению';
+  MsgReceiptStationLeverUp = 'Поднят рычаг чековой ленты';
+  MsgJournalStationOutOfPaper = 'Нет контрольной ленты';
+  MsgJournalStationPaperNearEnd = 'Контрольная лента близка к завершению';
+  MsgJournalStationLeverUp = 'Поднят рычаг контрольной ленты';
+  MsgEKLZAlmostFull = 'ЭКЛЗ близка к заполнентю';
+  MsgFiscalMemoryOverflow = 'Переполнение ФП';
+  MsgFiscalMemoryBatteryLow = 'Низкое напряжение батареи ФП';
+  MsgLastRecordCorrupted = 'Последняя запись ФП повреждена';
+  MsgFMFiscalDayOver = 'Истекли 24 часа в ФП';
   MsgInternalHCheck = 'Internal HCheck: ';
-  MsgTrainingModeNotSupported = 'Training mode not supported';
-  MsgNotImplemented = 'Not implemented';
-  MsgTotalizerNotSupported = 'Totalizer not supported';
-  MsgReceiptStationNotPresent = 'Receipt station is not present';
-  MsgJournalStationNotPresent = 'Journal station is not present';
-  MsgParameterNotFound = 'Parameter not found';
+  MsgTrainingModeNotSupported = 'Режим тренировки не поддерживается';
+  MsgNotImplemented = 'Не поддерживается';
+  MsgTotalizerNotSupported = 'Счетчик не поддерживается';
+  MsgReceiptStationNotPresent = 'Нет чекового принтера';
+  MsgJournalStationNotPresent = 'Нет принтера контрольной ленты';
+  MsgParameterNotFound = 'Параметр не найден';
 
 
 implementation
