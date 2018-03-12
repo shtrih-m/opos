@@ -96,7 +96,7 @@ PackageDLLOutputDir=
 PackageDCPOutputDir=
 SearchPath=C:\COMPON~1\JVCL\jcl\lib\d7\debug
 Packages=Vcl50;SynEdit_D5;SynEdit_R5;vcl;rtl;indy
-Conditionals=MALINA
+Conditionals=
 DebugSourceDirs=
 UsePackages=0
 [Parameters]
@@ -115,7 +115,7 @@ AutoIncBuild=1
 MajorVer=1
 MinorVer=13
 Release=0
-Build=477
+Build=480
 Debug=0
 PreRelease=0
 Special=0
@@ -126,24 +126,30 @@ CodePage=1252
 [Version Info Keys]
 CompanyName=SHTRIH-M
 FileDescription=OPOS setup utility
-FileVersion=1.13.0.477
-InternalName=OPOS setup
-LegalCopyright=SHTRIH-M © 2013
+FileVersion=1.13.0.480
+InternalName=OPOS setup 
+LegalCopyright=SHTRIH-M © 2013 
 LegalTrademarks=
 OriginalFilename=OposConfig.exe
 ProductName=OPOS drivers
 ProductVersion=1.13
 Comments=http://www.shtrih-m.ru
+[Excluded Packages]
+C:\Program Files (x86)\Borland\Delphi7\Projects\Bpl\PngComponentsD7.bpl=Png components
 [HistoryLists\hlUnitAliases]
 Count=1
 Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;
 [HistoryLists\hlSearchPath]
-Count=1
-Item0=$(DELPHI)\Lib\Debug
+Count=2
+Item0=C:\COMPON~1\JVCL\jcl\lib\d7\debug
+Item1=$(DELPHI)\Lib\Debug
 [HistoryLists\hlUnitOutputDirectory]
 Count=2
 Item0=DCU
 Item1=..\lib\D7
+[HistoryLists\hlOutputDirectorry]
+Count=1
+Item0=..\..\Bin
 [HistoryLists\hlBPLOutput]
 Count=3
 Item0=$(DELPHI)\Bin\

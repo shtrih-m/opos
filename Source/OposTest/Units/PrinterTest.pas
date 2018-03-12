@@ -1504,11 +1504,11 @@ begin
 
   FiscalPrinter.FiscalReceiptStation := FPTR_RS_RECEIPT;
   Check(FiscalPrinter.BeginNonFiscal);
-  Check(FiscalPrinter.PrintNormal(FPTR_S_RECEIPT, 'Nonfiscal receipt line 1'));
-  Check(FiscalPrinter.PrintNormal(FPTR_S_RECEIPT, 'Nonfiscal receipt line 2'));
+  Check(FiscalPrinter.PrintNormal(FPTR_S_RECEIPT, '        Nonfiscal receipt line 1'));
+  Check(FiscalPrinter.PrintNormal(FPTR_S_RECEIPT, '    Nonfiscal receipt line 2'));
   Check(FiscalPrinter.PrintNormal(FPTR_S_RECEIPT, 'Nonfiscal receipt line 3'));
-  Check(FiscalPrinter.PrintText('Nonfiscal receipt line 4', 5));
-  Check(FiscalPrinter.PrintText('Nonfiscal receipt line 5', 5));
+  Check(FiscalPrinter.PrintText('        Nonfiscal receipt line 4', 5));
+  Check(FiscalPrinter.PrintText('    Nonfiscal receipt line 5', 5));
   Check(FiscalPrinter.PrintText('Nonfiscal receipt line 6', 5));
 
   Check(FiscalPrinter.EndNonFiscal);

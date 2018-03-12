@@ -158,7 +158,6 @@ uses
   duRosneftSalesReceipt in 'Units\duRosneftSalesReceipt.pas',
   SettingsParams in '..\..\Source\SmFiscalPrinter\Units\SettingsParams.pas',
   TLV in '..\..\Source\SmFiscalPrinter\Units\TLV.pas',
-  duStringUtils in 'Units\duStringUtils.pas',
   duDateTime in 'Units\duDateTime.pas',
   SalesReceipt in '..\..\Source\SmFiscalPrinter\Units\SalesReceipt.pas',
   fmuPhone in '..\..\Source\SmFiscalPrinter\Fmu\fmuPhone.pas' {fmPhone},

@@ -30,7 +30,6 @@ function AnsiStringToWideString(CodePage: Integer; const S: string): WideString;
 function BoolToStr(Value: Boolean): string;
 function BoolToStr2(Value: Boolean): string;
 function StrToBool(const Value: string): Boolean;
-function TrimText(const Text: string; MaxWidth: Integer): string;
 function AmountToStr(Value: Currency): string;
 function AddTrailingSpaces(const S: string; Len: Integer): string;
 function StrToDouble(const S: string): Double;
@@ -307,23 +306,6 @@ begin
     SetLength(Result, CharCount);
     FreeMem(P);
   end;
-end;
-
-function TrimText(const Text: string; MaxWidth: Integer): string;
-var
-  S: string;
-begin
-  S := Text;
-  if (Length(S) > MaxWidth) then
-  begin
-    while Pos('  ', S) <> 0 do
-    begin
-      S := StringReplace(S, '  ', ' ', []);
-      if Length(S) <= MaxWidth then Break;
-    end;
-    S := Copy(S, 1, MaxWidth);
-  end;
-  Result := S;
 end;
 
 function AmountToStr(Value: Currency): string;

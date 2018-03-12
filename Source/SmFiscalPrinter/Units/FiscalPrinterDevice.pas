@@ -967,7 +967,7 @@ end;
 function TFiscalPrinterDevice.GetLine(const Text: string;
   MinLength, MaxLength: Integer): string;
 begin
-  Result := TrimText(Text, MaxLength);
+  Result := Copy(Text, 1, MaxLength);
   Result := Result + StringOfChar(#0, MinLength - Length(Result));
 end;
 
@@ -1925,7 +1925,7 @@ begin
 
   Text := Line;
   if Text = '' then Text := ' ';
-  Text := TrimText(Text, GetPrintWidth);
+  Text := Copy(Text, 1, GetPrintWidth);
 
   Flags := GetPrintFlags(Flags);
   Execute(#$17 + IntToBin(GetUsrPassword, 4) + Chr(Flags) +
@@ -4994,7 +4994,7 @@ var
   L1: Integer;
   L2: Integer;
 begin
-  Result := TrimText(Line, PrintWidth);
+  Result := Copy(Line, 1, PrintWidth);
   L := Length(Result);
   case Alignment of
     taCenter:
@@ -8743,6 +8743,7 @@ begin
   Command := #$FF#$4D + IntToBin(FSysPassword, 4) + Copy(Data, 1, 249);
   Result := ExecuteData(Command, Answer);
 end;
+
 
 
 end.
