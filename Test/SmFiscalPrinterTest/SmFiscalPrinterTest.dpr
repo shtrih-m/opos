@@ -214,6 +214,7 @@ uses
   FSSalesReceipt in '..\..\Source\SmFiscalPrinter\Units\FSSalesReceipt.pas',
   GS1Barcode in '..\..\Source\SmFiscalPrinter\Units\GS1Barcode.pas',
   EkmClient in '..\..\Source\SmFiscalPrinter\Units\EkmClient.pas',
+  duGS1Barcode in 'Units\duGS1Barcode.pas',
   duBitUtils in 'Units\duBitUtils.pas';
 
 {$R *.RES}

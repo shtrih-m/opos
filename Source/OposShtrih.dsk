@@ -1,35 +1,25 @@
 [Closed Files]
-File_0=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\DirectIOAPI.pas',0,1,1,1,9,0,0
-File_1=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\SmResourceStrings.pas',0,1,1,1,1,0,0
-File_2=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\PrinterParameters.pas',0,1,1,24,7,0,0
-File_3=SourceModule,'C:\projects\OPOSShtrih\Source\OposTest\Units\PrinterTest.pas',0,1,4448,16,4465,0,0
-File_4=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterDevice.pas',0,1,5123,1,5130,0,0
-File_5=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FSSalesReceipt.pas',0,1,1617,3,1621,0,0
-File_6=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\ReceiptTemplate.pas',0,1,288,79,300,0,0
-File_7=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\SharedPrinter.pas',0,1,802,25,806,0,0
-File_8=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterImpl.pas',0,1,1,1,1,0,0
-File_9=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\GS1Barcode.pas',0,1,35,18,48,0,0
+File_0=SourceModule,'C:\projects\OPOSShtrih\Source\SmFptrSrv\Units\oleMain.pas',0,1,1,1,1,0,0
+File_1=SourceModule,'C:\projects\OPOSShtrih\Test\SmFiscalPrinterTest\Units\duGS1Barcode.pas',0,1,19,3,36,0,0
+File_2=SourceModule,'C:\projects\OPOSShtrih\Source\Shared\DriverError.pas',0,1,19,19,37,0,0
+File_3=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\GS1Barcode.pas',0,1,28,25,44,0,0
+File_4=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterDevice.pas',0,1,8656,27,8671,0,0
+File_5=SourceModule,'C:\projects\OPOSShtrih\Test\SmFiscalPrinterTest\Units\duBitUtils.pas',0,1,1,1,1,0,0
+File_6=SourceModule,'C:\projects\OPOSShtrih\Test\SmFiscalPrinterTest\Units\duStringUtils.pas',0,1,1,18,2,0,0
+File_7=SourceModule,'C:\projects\OPOSShtrih\Source\Shared\StringUtils.pas',0,1,19,1,33,0,0
+File_8=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FSSalesReceipt.pas',0,1,179,46,175,0,0
+File_9=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\Retalix.pas',0,1,205,54,217,0,0
 
 [Modules]
-Module0=c:\program files (x86)\borland\delphi7\source\rtl\common\Math.pas
-Module1=c:\program files (x86)\borland\delphi7\source\rtl\Sys\Types.pas
-Module2=c:\Program Files (x86)\Borland\Delphi7\Source\Rtl\Common\DateUtils.pas
-Count=3
-EditWindowCount=1
+Count=0
+EditWindowCount=0
 TypeLibWindowCount=3
 
-[c:\program files (x86)\borland\delphi7\source\rtl\common\Math.pas]
-ModuleType=SourceModule
+[C:\projects\OPOSShtrih\Test\SmFiscalPrinterTest\SmFiscalPrinterTest.dpr]
 FormState=0
 FormOnTop=0
 
-[c:\program files (x86)\borland\delphi7\source\rtl\Sys\Types.pas]
-ModuleType=SourceModule
-FormState=0
-FormOnTop=0
-
-[c:\Program Files (x86)\Borland\Delphi7\Source\Rtl\Common\DateUtils.pas]
-ModuleType=SourceModule
+[C:\projects\OPOSShtrih\Test\SmScaleTest\SmScaleTestLib.dpr]
 FormState=0
 FormOnTop=0
 
@@ -85,10 +75,6 @@ FormOnTop=0
 FormState=0
 FormOnTop=0
 
-[C:\projects\OPOSShtrih\Test\SmFiscalPrinterTest\SmFiscalPrinterTest.dpr]
-FormState=0
-FormOnTop=0
-
 [C:\projects\OPOSShtrih\Test\SmFiscalPrinterTest\SmFiscalPrinterTestLib.dpr]
 FormState=0
 FormOnTop=0
@@ -104,60 +90,6 @@ FormOnTop=0
 [C:\projects\OPOSShtrih\Test\SmScaleTest\SmScaleTest.dpr]
 FormState=0
 FormOnTop=0
-
-[C:\projects\OPOSShtrih\Test\SmScaleTest\SmScaleTestLib.dpr]
-FormState=0
-FormOnTop=0
-
-[EditWindow0]
-ViewCount=3
-CurrentView=1
-View0=0
-View1=1
-View2=2
-CodeExplorer=CodeExplorer@EditWindow0
-MessageView=MessageView@EditWindow0
-Create=1
-Visible=1
-State=2
-Left=323
-Top=138
-Width=1302
-Height=682
-MaxLeft=-8
-MaxTop=106
-MaxWidth=1936
-MaxHeight=952
-ClientWidth=1920
-ClientHeight=914
-LeftPanelSize=0
-LeftPanelClients=CodeExplorer@EditWindow0
-LeftPanelData=00000400010000000C000000436F64654578706C6F7265720000000000000000000000000000000000FFFFFFFF
-RightPanelSize=0
-BottomPanelSize=81
-BottomPanelClients=MessageView@EditWindow0
-BottomPanelData=000004000000000000000000000000000000000000000000000100000000000000000B0000004D65737361676556696577FFFFFFFF
-
-[View0]
-Module=c:\Program Files (x86)\Borland\Delphi7\Source\Rtl\Common\DateUtils.pas
-CursorX=16
-CursorY=46
-TopLine=26
-LeftCol=1
-
-[View1]
-Module=c:\program files (x86)\borland\delphi7\source\rtl\common\Math.pas
-CursorX=31
-CursorY=1239
-TopLine=1219
-LeftCol=1
-
-[View2]
-Module=c:\program files (x86)\borland\delphi7\source\rtl\Sys\Types.pas
-CursorX=19
-CursorY=451
-TopLine=431
-LeftCol=1
 
 [TypeLibEditWindow0]
 Create=1
@@ -255,11 +187,11 @@ Visible=1
 State=0
 Left=8
 Top=124
-Width=650
+Width=581
 Height=558
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=634
+ClientWidth=565
 ClientHeight=524
 TBDockHeight=681
 LRDockWidth=445
@@ -482,41 +414,9 @@ Column2Width=545
 EntryPointPane=225
 CompUnitPane=104
 
-[CodeExplorer@EditWindow0]
-Create=1
-Visible=0
-State=0
-Left=-127
-Top=-6
-Width=140
-Height=305
-MaxLeft=-1
-MaxTop=-1
-ClientWidth=140
-ClientHeight=305
-TBDockHeight=305
-LRDockWidth=140
-Dockable=1
-
-[MessageView@EditWindow0]
-Create=1
-Visible=1
-State=0
-Left=12
-Top=0
-Width=1908
-Height=81
-MaxLeft=-1
-MaxTop=-1
-ClientWidth=1908
-ClientHeight=81
-TBDockHeight=81
-LRDockWidth=443
-Dockable=1
-
 [DockHosts]
 DockHostCount=0
 
 [ActiveProject]
-ActiveProject=3
+ActiveProject=1
 
