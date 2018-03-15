@@ -1,6 +1,6 @@
 [Closed Files]
-File_0=SourceModule,'C:\projects\OPOSShtrih\Source\SmFptrSrv\Units\oleMain.pas',0,1,1,1,1,0,0
-File_1=SourceModule,'C:\projects\OPOSShtrih\Test\SmFiscalPrinterTest\Units\duGS1Barcode.pas',0,1,19,3,36,0,0
+File_0=SourceModule,'C:\projects\OPOSShtrih\Test\SmFiscalPrinterTest\Units\duGS1Barcode.pas',0,1,1,18,1,0,0
+File_1=SourceModule,'C:\projects\OPOSShtrih\Source\SmFptrSrv\Units\oleMain.pas',0,1,1,1,1,0,0
 File_2=SourceModule,'C:\projects\OPOSShtrih\Source\Shared\DriverError.pas',0,1,19,19,37,0,0
 File_3=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\GS1Barcode.pas',0,1,28,25,44,0,0
 File_4=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterDevice.pas',0,1,8656,27,8671,0,0
@@ -14,10 +14,6 @@ File_9=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\Retalix
 Count=0
 EditWindowCount=0
 TypeLibWindowCount=3
-
-[C:\projects\OPOSShtrih\Test\SmFiscalPrinterTest\SmFiscalPrinterTest.dpr]
-FormState=0
-FormOnTop=0
 
 [C:\projects\OPOSShtrih\Test\SmScaleTest\SmScaleTestLib.dpr]
 FormState=0
@@ -72,6 +68,10 @@ FormState=0
 FormOnTop=0
 
 [C:\projects\OPOSShtrih\Test\OposConfigTest\OposConfigTestLib.dpr]
+FormState=0
+FormOnTop=0
+
+[C:\projects\OPOSShtrih\Test\SmFiscalPrinterTest\SmFiscalPrinterTest.dpr]
 FormState=0
 FormOnTop=0
 
@@ -418,5 +418,5 @@ CompUnitPane=104
 DockHostCount=0
 
 [ActiveProject]
-ActiveProject=1
+ActiveProject=2
 

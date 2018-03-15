@@ -80,7 +80,7 @@ type
   end;
 
 const
-  AIItems: array [0..155] of TAIREc = (
+  AIItems: array [0..157] of TAIREc = (
     (id: '00'; min: 18; max: 18), // Serial Shipping Container Code (SSCC)
     (id: '01'; min: 14; max: 14), // Global Trade Item Number (GTIN)
     (id: '02'; min: 14; max: 14), // GTIN of contained trade items
@@ -97,7 +97,8 @@ const
     (id: '18'; min: 6; max: 6), // ?
     (id: '19'; min: 6; max: 6), // ?
     (id: '20'; min: 2; max: 2), // Internal product variant
-    (id: '21'; min: 1; max: 20), // Serial number (FNC1)
+    //(id: '21'; min: 1; max: 20), // Serial number (FNC1) !!!
+    (id: '21'; min: 7; max: 7), // Serial number (FNC1)
     (id: '22'; min: 1; max: 20), // Consumer product variant (FNC1)
     (id: '240'; min: 1; max: 30), // Additional item identification (FNC1)
     (id: '241'; min: 1; max: 30), // Customer part number
@@ -108,6 +109,7 @@ const
     (id: '253'; min: 1; max: 17), // Global Document Type Identifier (GDTI)
     (id: '254'; min: 1; max: 20), // GLN extension component
     (id: '255'; min: 1; max: 12), // Global Coupon Number (GCN)
+    (id: '291'; min: 1; max: 30), // CRC
     (id: '30'; min: 8; max: 8), // Variable count of items (variable measure trade item)
     (id: '310'; min: 6; max: 6), // Net weight, kilograms (variable measure trade item)
     (id: '311'; min: 6; max: 6), // Length or first dimension, metres (variable measure trade item)
@@ -228,6 +230,7 @@ const
     (id: '8112'; min: 1; max: 70), // Paperless coupon code identification for use in North America (AI 8112)
     (id: '8200'; min: 1; max: 70), // Extended Packaging URL
     (id: '90'; min: 1; max: 30), // Information mutually agreed between trading partners
+    (id: '9099'; min: 8; max: 8), // Information mutually agreed between trading partners
     (id: '91'; min: 1; max: 90), // Company internal information
     (id: '92'; min: 1; max: 90), // Company internal information
     (id: '93'; min: 1; max: 90), // Company internal information
@@ -333,6 +336,13 @@ begin
   Result := Barcode;
   if Barcode = '' then Exit;
   if Barcode[1] = '(' then Exit;
+  if Length(Barcode) = 29 then
+  begin
+    Result := '(01)' + Copy(Barcode, 1, 14) +
+      '(21)' + Copy(Barcode, 15, 7) +
+      '(291)' + Copy(Barcode, 22, Length(Barcode));
+    Exit;
+  end;
 
   i := 1;
   id := '';

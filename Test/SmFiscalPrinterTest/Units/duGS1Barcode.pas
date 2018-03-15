@@ -32,11 +32,16 @@ var
   Barcode: TGS1Barcode;
 begin
   Data := GS1DecodeBraces(Barcode2);
-  CheckEquals('(01)07000000000003(21)Ai1iJul291ErTuY7uj', Data, 'Data');
-
+  CheckEquals('(01)07000000000003(21)Ai1iJul(291)ErTuY7uj', Data, 'Data');
   Barcode := DecodeGS1(GS1FilterTockens(GS1DecodeBraces(Barcode2)));
   CheckEquals('07000000000003', Barcode.GTIN, 'Barcode.GTIN');
-  CheckEquals('Ai1iJul291ErTuY7uj', Barcode.Serial, 'Barcode.Serial');
+  CheckEquals('Ai1iJul', Barcode.Serial, 'Barcode.Serial');
+
+  Data := GS1DecodeBraces(Barcode3);
+  CheckEquals('(01)04606203084623(21)+A13gPh(291)-4Hi7uGl', Data, 'Data');
+  Barcode := DecodeGS1(GS1FilterTockens(GS1DecodeBraces(Barcode3)));
+  CheckEquals('04606203084623', Barcode.GTIN, 'Barcode.GTIN');
+  CheckEquals('+A13gPh', Barcode.Serial, 'Barcode.Serial');
 end;
 
 initialization
