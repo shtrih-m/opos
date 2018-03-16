@@ -8727,7 +8727,7 @@ begin
       Data := TTLVTag.Int2ValueTLV(1162, 2) + TTLVTag.Int2ValueTLV(Length(Data), 2) + Data;
     end;
   else
-    raise Exception.Create('Invalid MarType value');
+    raise Exception.Create('Invalid MarkType value');
   end;
   Result := FSSendTLVOperation(Data);
 end;

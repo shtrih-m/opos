@@ -696,6 +696,7 @@ begin
   FPayTypes := TPayTypes.Create;
   FVatCodes := TVatCodes.Create;
   DefTableFilePath := GetModulePath + 'Tables';
+  MarkType := 5;
   SetDefaults;
 end;
 
