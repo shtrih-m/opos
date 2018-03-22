@@ -2690,7 +2690,14 @@ end;
 procedure TFiscalPrinterDevice.PrintXReport;
 begin
   Execute(#$40 + IntToBin(GetSysPassword, 4));
-  PrintCommStatus;
+  try
+    PrintCommStatus;
+  except
+    on E: Exception do
+    begin
+      Logger.Debug('PrintXReport: ' + E.Message);
+    end;
+  end;
 end;
 
 procedure TFiscalPrinterDevice.PrintLines(const Line1, Line2: string);
@@ -2728,8 +2735,15 @@ end;
 procedure TFiscalPrinterDevice.PrintZReport;
 begin
   Execute(#$41 + IntToBin(GetSysPassword, 4));
-  PrintCommStatus;
   FFilter.PrintZReport;
+  try
+    PrintCommStatus;
+  except
+    on E: Exception do
+    begin
+      Logger.Debug('PrintZReport: ' + E.Message);
+    end;
+  end;
 end;
 
 (******************************************************************************

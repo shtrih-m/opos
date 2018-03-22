@@ -3639,7 +3639,6 @@ begin
         Printer.Device.OpenDay;
       end;
       SaveZReportFile;
-
       Filters.BeforeZReport;
       Device.PrintZReport;
       Filters.AfterZReport;
