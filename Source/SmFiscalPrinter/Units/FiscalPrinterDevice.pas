@@ -2708,16 +2708,24 @@ end;
 
 procedure TFiscalPrinterDevice.PrintCommStatus;
 var
+  i: Integer;
   R: TFSCommStatus;
 begin
   if not CapFiscalStorage then Exit;
 
   WaitForPrinting;
-  Check(FSReadCommStatus(R));
-  PrintText(PRINTER_STATION_REC, StringOfChar('-', GetPrintWidth));
-  PrintLines('йнкхвеярбн яннаыемхи дкъ нтд:', IntToStr(R.DocumentCount));
-  PrintLines('мнлеп оепбнцн днйслемрю дкъ нтд:', IntToStr(R.DocumentNumber));
-  PrintLines('дюрю оепбнцн днйслемрю:', PrinterDateTimeToStr2(R.DocumentDate));
+  for i := 1 to 10 do
+  begin
+    if FSReadCommStatus(R) = 0 then
+    begin
+      PrintText(PRINTER_STATION_REC, StringOfChar('-', GetPrintWidth));
+      PrintLines('йнкхвеярбн яннаыемхи дкъ нтд:', IntToStr(R.DocumentCount));
+      PrintLines('мнлеп оепбнцн днйслемрю дкъ нтд:', IntToStr(R.DocumentNumber));
+      PrintLines('дюрю оепбнцн днйслемрю:', PrinterDateTimeToStr2(R.DocumentDate));
+      Break;
+    end;
+    Sleep(1000)
+  end;
 end;
 
 (******************************************************************************
