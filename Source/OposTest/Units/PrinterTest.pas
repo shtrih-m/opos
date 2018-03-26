@@ -782,6 +782,14 @@ type
     function GetDisplayText: string; override;
   end;
 
+  { TReceiptTest20 }
+
+  TReceiptTest20 = class(TDriverTest)
+  public
+    procedure Execute; override;
+    function GetDisplayText: string; override;
+  end;
+
 implementation
 
 const
@@ -4608,6 +4616,27 @@ begin
   FiscalPrinter.DirectIO2(9, 5, '                                                   ');
   FiscalPrinter.DirectIO2(9, 5, '---------------------------------------------------');
   FiscalPrinter.EndFiscalReceipt(True);
+end;
+
+{ TReceiptTest20 }
+
+procedure TReceiptTest20.Execute;
+begin
+  Check(FiscalPrinter.ResetPrinter());
+  FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
+  FiscalPrinter.BeginFiscalReceipt(True);
+  FiscalPrinter.PrintRecItem('1:63326 Кетчуп HEINZ томатный 1000г', 209, 1000, 1, 209, 'шт');
+  FiscalPrinter.PrintRecItem('2:3305976 Пакет ПЕРЕКРЕСТОК майка 65х40см', 6.49, 1000, 1, 6.49, 'шт');
+  FiscalPrinter.PrintRecItem('3:3148276 Виноград черный фасованный 500г', 41.9, 1000, 1, 41.9, 'шт');
+  FiscalPrinter.PrintRecSubtotal(257.39);
+  FiscalPrinter.PrintRecSubtotalAdjustment(1, 'ОКРУГЛЕНИЕ', 0.39);
+  FiscalPrinter.PrintRecTotal(0, 300, '0');
+  FiscalPrinter.EndFiscalReceipt(True);
+end;
+
+function TReceiptTest20.GetDisplayText: string;
+begin
+  Result := 'TReceiptTest20';
 end;
 
 end.
