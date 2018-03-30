@@ -1004,7 +1004,7 @@ begin
   begin
     if Device.CapFSCloseReceipt2 then
     begin
-      FSSale2.RecType := FRecType;
+      FSSale2.RecType := FRecType + 1;
       FSSale2.Quantity := Abs(FSRegistration.Quantity);
       FSSale2.Price := Item.PriceWithDiscount;
       FSSale2.Total := StrToInt64Def(FSRegistration.Parameter1, $FFFFFFFFFF);

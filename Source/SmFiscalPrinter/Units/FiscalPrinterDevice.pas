@@ -6541,12 +6541,7 @@ begin
   end;
   FCapEnablePrint := GetDeviceMetrics.Model <> 19;
   FCapSubtotalRound := FCapFiscalStorage and ((GetDeviceMetrics.Model = 19) or (DiscountMode = 2));
-  FCapFSCloseReceipt2 := FCapFiscalStorage and (GetDeviceMetrics.Model <> 19);
-  if FCapFSCloseReceipt2 then
-  begin
-    FCapFSCloseReceipt2 := TestCommand($FF45);
-  end;
-
+  FCapFSCloseReceipt2 := FCapFiscalStorage and TestCommand($FF45);
   FCapDiscount := FCapFiscalStorage and (FDiscountMode = 0) and (GetDeviceMetrics.Model <> 19);
   FIsFiscalized := FCapFiscalStorage or (FLongStatus.RegistrationNumber <> 0);
 end;
@@ -7800,7 +7795,6 @@ begin
       Check(FSReadTicket(Ticket));
       Result := TicketToStr(Ticket);
     end;
-
   else
     raise Exception.Create(MsgInvalidParameterValue);
   end;

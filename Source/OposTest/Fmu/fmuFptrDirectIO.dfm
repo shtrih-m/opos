@@ -107,6 +107,12 @@ object fmFptrDirectIO: TfmFptrDirectIO
     BevelOuter = bvNone
     BorderStyle = bsNone
     Color = clBtnFace
+    Font.Charset = RUSSIAN_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Courier New'
+    Font.Style = []
+    ParentFont = False
     TabOrder = 6
   end
   object cbCommand: TComboBox

@@ -1,23 +1,19 @@
 [Closed Files]
-File_0=SourceModule,'C:\projects\OPOSShtrih\Source\OposTest\Units\PrinterTest.pas',0,1,4546,24,4554,0,0
-File_1=SourceModule,'C:\projects\OPOSShtrih\Source\OposTest\Fmu\fmuFptrReceiptTest.pas',0,1,1,31,9,0,0
-File_2=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterDevice.pas',0,1,2694,16,2727,0,0
-File_3=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterImpl.pas',0,1,924,54,934,0,0
-File_4=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\DirectIOAPI.pas',0,1,300,33,309,0,0
-File_5=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\oleFiscalPrinter.pas',0,1,101,91,114,0,0
-File_6=SourceModule,'C:\projects\OPOSShtrih\Source\Shared\DriverError.pas',0,1,19,1,34,0,0
-File_7=SourceModule,'C:\projects\OPOSShtrih\Source\OposTest\Units\DriverTest.pas',0,1,145,19,152,0,0
-File_8=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\PrinterProtocol1.pas',0,1,228,22,234,0,0
-File_9=SourceModule,'C:\projects\OPOSShtrih\Source\Shared\SerialPort.pas',0,1,382,114,412,0,0
+File_0=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterDevice.pas',0,1,8261,115,8271,0,0
+File_1=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\DirectIOAPI.pas',0,1,317,94,330,0,0
+File_2=SourceModule,'C:\projects\OPOSShtrih\Source\OposConfig\Units\FiscalPrinterDevice.pas',0,1,1,1,1,0,0
+File_3=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterImpl.pas',0,1,644,15,658,0,0
+File_4=SourceModule,'C:\projects\OPOSShtrih\Source\Shared\DIOHandlers.pas',0,1,2226,35,2230,0,0
+File_5=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\PrinterParameters.pas',0,1,32,23,46,0,0
+File_6=SourceModule,'C:\projects\OPOSShtrih\Source\OposTest\Units\PrinterTest.pas',0,1,4546,24,4554,0,0
+File_7=SourceModule,'C:\projects\OPOSShtrih\Source\OposTest\Fmu\fmuFptrReceiptTest.pas',0,1,1,31,9,0,0
+File_8=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\oleFiscalPrinter.pas',0,1,101,91,114,0,0
+File_9=SourceModule,'C:\projects\OPOSShtrih\Source\Shared\DriverError.pas',0,1,19,1,34,0,0
 
 [Modules]
 Count=0
 EditWindowCount=0
 TypeLibWindowCount=3
-
-[C:\projects\OPOSShtrih\Test\SmScaleTest\SmScaleTestLib.dpr]
-FormState=0
-FormOnTop=0
 
 [C:\projects\OPOSShtrih\Source\OposShtrih.bpg]
 FormState=0
@@ -88,6 +84,10 @@ FormState=0
 FormOnTop=0
 
 [C:\projects\OPOSShtrih\Test\SmScaleTest\SmScaleTest.dpr]
+FormState=0
+FormOnTop=0
+
+[C:\projects\OPOSShtrih\Test\SmScaleTest\SmScaleTestLib.dpr]
 FormState=0
 FormOnTop=0
 

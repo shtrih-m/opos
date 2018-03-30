@@ -20,7 +20,7 @@ const
   CRLF = #13#10;
   DIO_CUSTOM_COMMAND = $FFFF;
 
-  DIODescriptions: array[1..37] of TDirectIODescription = (
+  DIODescriptions: array[1..38] of TDirectIODescription = (
     (Command: DIO_COMMAND_PRINTER_XML;
      Description: 'XML command';
      DescriptionEx:  'Data: Printer command code' + #13#10 +
@@ -147,6 +147,22 @@ const
      Description: 'Write tag to opened receipt';
      DescriptionEx: 'Data: tag number' + CRLF +
      '[in] String: tag value';),
+
+    (Command: DIO_READ_FS_PARAMETER;
+     Description: 'Read fiscal storage parameter';
+     DescriptionEx: 'Data: parameter identifier;' + CRLF +
+      'DIO_FS_PARAMETER_SERIAL         = 0' + CRLF +
+      'DIO_FS_PARAMETER_LAST_DOC_NUM   = 1' + CRLF +
+      'DIO_FS_PARAMETER_LAST_DOC_MAC   = 2' + CRLF +
+      'DIO_FS_PARAMETER_QUEUE_SIZE     = 3' + CRLF +
+      'DIO_FS_PARAMETER_FIRST_DOC_NUM  = 4' + CRLF +
+      'DIO_FS_PARAMETER_FIRST_DOC_DATE = 5' + CRLF +
+      'DIO_FS_PARAMETER_FISCAL_DATE    = 6' + CRLF +
+      'DIO_FS_PARAMETER_EXPIRE_DATE    = 7' + CRLF +
+      'DIO_FS_PARAMETER_OFD_ONLINE     = 8' + CRLF +
+      'DIO_FS_PARAMETER_TICKET_HEX     = 9' + CRLF +
+      'DIO_FS_PARAMETER_TICKET_STR     = 10' + CRLF +
+      'String: returns parameter value';),
 
     (Command: DIO_READ_FPTR_PARAMETER;
      Description: 'Read fiscal printer parameter';
