@@ -215,6 +215,7 @@ uses
   GS1Barcode in '..\..\Source\SmFiscalPrinter\Units\GS1Barcode.pas',
   EkmClient in '..\..\Source\SmFiscalPrinter\Units\EkmClient.pas',
   duGS1Barcode in 'Units\duGS1Barcode.pas',
+  RegressTests in 'Units\RegressTests.pas',
   duBitUtils in 'Units\duBitUtils.pas';
 
 {$R *.RES}
