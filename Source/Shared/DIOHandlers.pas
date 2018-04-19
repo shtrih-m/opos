@@ -1590,7 +1590,7 @@ procedure TDIOPrintJournal.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
   Printer.Device.PrintJournal(pData);
-  Printer.Printer.WaitForPrinting;
+  Printer.Device.WaitForPrinting;
 end;
 
 { TDIOReadDayNumber }
@@ -1620,7 +1620,7 @@ end;
 procedure TDIOWaitForPrint.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
-  Printer.Printer.WaitForPrinting;
+  Printer.Device.WaitForPrinting;
 end;
 
 { TDIOPrintHeader }
@@ -2206,7 +2206,7 @@ end;
 procedure TDIOReadFSParameter.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
-  pString := Device.ReadFSParameter(pData, pString);
+  pString := FPrinter.ReadFSParameter(pData, pString);
 end;
 
 { TDIOReadFPParameter }

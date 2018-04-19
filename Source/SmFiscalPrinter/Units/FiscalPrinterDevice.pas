@@ -78,8 +78,7 @@ type
     FCapFooterFlag: Boolean;
     FFooterFlag: Boolean;
     FCapEnablePrint: Boolean;
-    FFSDocNum: Int64;
-    FFSDocMac: Int64;
+    FFSCloseReceiptResult2: TFSCloseReceiptResult2;
 
     procedure PrintLineFont(const Data: TTextRec);
     procedure SetPrinterStatus(Value: TPrinterStatus);
@@ -192,6 +191,7 @@ type
     function LoadBarcodeData(const Barcode: string): Integer;
     function SendItemBarcode(const Barcode: string;
       MarkType: Integer): Integer;
+    function GetFSCloseReceiptResult2: TFSCloseReceiptResult2;
   protected
     function GetMaxGraphicsWidthInBytes: Integer;
   public
@@ -422,7 +422,6 @@ type
     function GetTaxInfo(Tax: Integer): TTaxInfo;
     function ReadDiscountMode: Integer;
     function ReadFPParameter(ParamId: Integer): string;
-    function ReadFSParameter(ParamID: Integer; const pString: string): string;
     function FSReadTotals(var R: TFMTotals): Integer;
     function ReadFPDayTotals(Flags: Integer): TFMTotals;
     function ReadTotalsByReceiptType(Index: Integer): Int64;
@@ -463,6 +462,7 @@ type
     property CapDiscount: Boolean read GetCapDiscount;
     property CapSubtotalRound: Boolean read GetCapSubtotalRound;
     property CapFSCloseReceipt2: Boolean read GetCapFSCloseReceipt2;
+    property FSCloseReceiptResult2: TFSCloseReceiptResult2 read GetFSCloseReceiptResult2;
   end;
 
   { EDisabledException }
@@ -735,8 +735,10 @@ begin
   FFilter := TFiscalPrinterFilter.Create(Parameters.Logger);
   FAmountDecimalPlaces := 2;
   FCapReceiptDiscount2 := True;
-  FFSDocNum := 0;
-  FFSDocMac := 0;
+  FFSCloseReceiptResult2.Change := 0;
+  FFSCloseReceiptResult2.DocNumber := 0;
+  FFSCloseReceiptResult2.MacValue := 0;
+
   LoadModels;
 end;
 
@@ -7702,104 +7704,6 @@ begin
   end;
 end;
 
-function TFiscalPrinterDevice.ReadFSParameter(ParamID: Integer;
-  const pString: string): string;
-
-  (*
-  7.1.8 Формат квитанции, при выдаче из Архива ФН
-  ------------------------------------------------
-  Поле                        Тип            Длина
-  ------------------------------------------------
-  Дата и время                DATE_TIME      5
-  Фискальный признак ОФД      DATA           18
-  Номер ФД                    Uint32, LE     4
-  ------------------------------------------------
-  *)
-
-var
-  Ticket: TFSTicket;
-  FSState: TFSState;
-  OposDate: TOposDate;
-  ExpireDate: TPrinterDate;
-  FSCommStatus: TFSCommStatus;
-  FSFiscalResult: TFSFiscalResult;
-resourcestring
-  MsgInvalidParameterValue = 'Invalid pData parameter value';
-begin
-  case ParamID of
-    DIO_FS_PARAMETER_SERIAL:
-    begin
-      Check(FSReadState(FSState));
-      Result := String(FSState.FSNumber);
-    end;
-
-    DIO_FS_PARAMETER_LAST_DOC_NUM:
-    begin
-      Result := IntToStr(FFSDocNum);
-    end;
-
-    DIO_FS_PARAMETER_LAST_DOC_MAC:
-    begin
-      Result := IntToStr(FFSDocMac);
-    end;
-
-    DIO_FS_PARAMETER_QUEUE_SIZE:
-    begin
-      Check(FSReadCommStatus(FSCommStatus));
-      Result := IntToStr(FSCommStatus.DocumentCount);
-    end;
-
-    DIO_FS_PARAMETER_EXPIRE_DATE:
-    begin
-      Check(FSReadExpireDate(ExpireDate));
-      OposDate := PrinterDateToOposDate(ExpireDate);
-      Result := EncodeOposDate(OposDate);
-    end;
-
-    DIO_FS_PARAMETER_FIRST_DOC_NUM:
-    begin
-      Check(FSReadCommStatus(FSCommStatus));
-      Result := IntToStr(FSCommStatus.DocumentNumber);
-    end;
-
-    DIO_FS_PARAMETER_FIRST_DOC_DATE:
-    begin
-      Check(FSReadCommStatus(FSCommStatus));
-      OposDate := PrinterDateTimeToOposDate(FSCommStatus.DocumentDate);
-      Result := EncodeOposDate(OposDate);
-    end;
-
-    DIO_FS_PARAMETER_FISCAL_DATE:
-    begin
-      Check(FSReadFiscalResult(FSFiscalResult));
-      OposDate := PrinterDateTimeToOposDate(FSFiscalResult.Date);
-      Result := EncodeOposDate(OposDate);
-    end;
-
-    DIO_FS_PARAMETER_OFD_ONLINE:
-    begin
-      Check(FSReadCommStatus(FSCommStatus));
-      Result := BoolToStr(FSCommStatus.FSWriteStatus.IsConnected);
-    end;
-
-    DIO_FS_PARAMETER_TICKET_HEX:
-    begin
-      Ticket.Number := StrToInt(pString);
-      Check(FSReadTicket(Ticket));
-      Result := StrToHexText(Ticket.Data);
-    end;
-
-    DIO_FS_PARAMETER_TICKET_STR:
-    begin
-      Ticket.Number := StrToInt(pString);
-      Check(FSReadTicket(Ticket));
-      Result := TicketToStr(Ticket);
-    end;
-  else
-    raise Exception.Create(MsgInvalidParameterValue);
-  end;
-end;
-
 procedure TFiscalPrinterDevice.WriteFPParameter(ParamId: Integer;
   const Value: string);
 begin
@@ -8257,9 +8161,7 @@ begin
     R.Change := BinToInt(Answer, 1, 5);
     R.DocNumber := BinToInt(Answer, 6, 4);
     R.MacValue := BinToInt(Answer, 10, 4);
-
-    FFSDocNum := R.DocNumber;
-    FFSDocMac := R.MacValue;
+    FFSCloseReceiptResult2 := R;
   end;
 end;
 
@@ -8761,5 +8663,10 @@ begin
 end;
 
 
+
+function TFiscalPrinterDevice.GetFSCloseReceiptResult2: TFSCloseReceiptResult2;
+begin
+  Result := FFSCloseReceiptResult2;
+end;
 
 end.

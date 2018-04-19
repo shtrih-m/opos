@@ -429,7 +429,6 @@ type
     function ReadUsrOperatorNumber: Integer;
     function GetTaxInfo(Tax: Integer): TTaxInfo;
     function ReadFPParameter(ParamId: Integer): string;
-    function ReadFSParameter(ParamID: Integer; const pString: string): string;
     function GetDiscountMode: Integer;
     function GetIsFiscalized: Boolean;
     function ReadDayTotals: TFMTotals;
@@ -462,6 +461,7 @@ type
     function CheckItemBarcode(const Barcode: string): Integer;
     function FSSendTLVOperation(const Data: string): Integer;
     function SendItemBarcode(const Barcode: string; MarkType: Integer): Integer;
+    function GetFSCloseReceiptResult2: TFSCloseReceiptResult2;
 
     property IsOnline: Boolean read GetIsOnline;
     property Model: TPrinterModelRec read GetModel;
@@ -688,7 +688,6 @@ type
     procedure SaveParameters;
     function GetPrintWidth: Integer;
     function GetPrintWidthInDots: Integer;
-    function WaitForPrinting: TPrinterStatus;
     procedure PrintCancelReceipt;
     procedure PrintCurrency(const Line: string; Value: Currency);
     procedure PrintDocHeader(const DocName: string; DocNumber: Word);

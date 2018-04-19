@@ -41,6 +41,7 @@ procedure TEscPrinterTest.TearDown;
 begin
   inherited TearDown;
   EscPrinter.Free;
+  Device.Free;
 end;
 
 procedure TEscPrinterTest.CheckExecute;

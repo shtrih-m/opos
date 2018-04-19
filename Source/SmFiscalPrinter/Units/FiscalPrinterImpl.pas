@@ -150,6 +150,7 @@ type
     property Receipt: TCustomReceipt read GetReceipt;
     function GetAppAmountDecimalPlaces: Integer;
     function GetCapRecNearEnd(Value: Boolean): Boolean;
+    function ReadFSParameter(ParamID: Integer; const pString: string): string;
   private
     // boolean
     FDayOpened: Boolean;
@@ -4151,7 +4152,7 @@ end;
 
 function TFiscalPrinterImpl.WaitForPrinting: TPrinterStatus;
 begin
-  Result := Printer.WaitForPrinting;
+  Result := Device.WaitForPrinting;
   FDayOpened := Device.IsDayOpened(Result.Mode);
 end;
 
@@ -4589,6 +4590,105 @@ begin
     PrintDocumentEnd;
   end;
 end;
+
+function TFiscalPrinterImpl.ReadFSParameter(ParamID: Integer;
+  const pString: string): string;
+
+  (*
+  7.1.8 Формат квитанции, при выдаче из Архива ФН
+  ------------------------------------------------
+  Поле                        Тип            Длина
+  ------------------------------------------------
+  Дата и время                DATE_TIME      5
+  Фискальный признак ОФД      DATA           18
+  Номер ФД                    Uint32, LE     4
+  ------------------------------------------------
+  *)
+
+var
+  Ticket: TFSTicket;
+  FSState: TFSState;
+  OposDate: TOposDate;
+  ExpireDate: TPrinterDate;
+  FSCommStatus: TFSCommStatus;
+  FSFiscalResult: TFSFiscalResult;
+resourcestring
+  MsgInvalidParameterValue = 'Invalid pData parameter value';
+begin
+  case ParamID of
+    DIO_FS_PARAMETER_SERIAL:
+    begin
+      Device.Check(Device.FSReadState(FSState));
+      Result := String(FSState.FSNumber);
+    end;
+
+    DIO_FS_PARAMETER_LAST_DOC_NUM:
+    begin
+      Result := IntToStr(Device.GetFSCloseReceiptResult2.DocNumber);
+    end;
+
+    DIO_FS_PARAMETER_LAST_DOC_MAC:
+    begin
+      Result := IntToStr(Device.GetFSCloseReceiptResult2.MacValue);
+    end;
+
+    DIO_FS_PARAMETER_QUEUE_SIZE:
+    begin
+      Device.Check(Device.FSReadCommStatus(FSCommStatus));
+      Result := IntToStr(FSCommStatus.DocumentCount);
+    end;
+
+    DIO_FS_PARAMETER_EXPIRE_DATE:
+    begin
+      Device.Check(Device.FSReadExpireDate(ExpireDate));
+      OposDate := PrinterDateToOposDate(ExpireDate);
+      Result := EncodeOposDate(OposDate);
+    end;
+
+    DIO_FS_PARAMETER_FIRST_DOC_NUM:
+    begin
+      Device.Check(Device.FSReadCommStatus(FSCommStatus));
+      Result := IntToStr(FSCommStatus.DocumentNumber);
+    end;
+
+    DIO_FS_PARAMETER_FIRST_DOC_DATE:
+    begin
+      Device.Check(Device.FSReadCommStatus(FSCommStatus));
+      OposDate := PrinterDateTimeToOposDate(FSCommStatus.DocumentDate);
+      Result := EncodeOposDate(OposDate);
+    end;
+
+    DIO_FS_PARAMETER_FISCAL_DATE:
+    begin
+      Device.Check(Device.FSReadFiscalResult(FSFiscalResult));
+      OposDate := PrinterDateTimeToOposDate(FSFiscalResult.Date);
+      Result := EncodeOposDate(OposDate);
+    end;
+
+    DIO_FS_PARAMETER_OFD_ONLINE:
+    begin
+      Device.Check(Device.FSReadCommStatus(FSCommStatus));
+      Result := BoolToStr(FSCommStatus.FSWriteStatus.IsConnected);
+    end;
+
+    DIO_FS_PARAMETER_TICKET_HEX:
+    begin
+      Ticket.Number := StrToInt(pString);
+      Device.Check(Device.FSReadTicket(Ticket));
+      Result := StrToHexText(Ticket.Data);
+    end;
+
+    DIO_FS_PARAMETER_TICKET_STR:
+    begin
+      Ticket.Number := StrToInt(pString);
+      Device.Check(Device.FSReadTicket(Ticket));
+      Result := TicketToStr(Ticket);
+    end;
+  else
+    raise Exception.Create(MsgInvalidParameterValue);
+  end;
+end;
+
 
 end.
 

@@ -152,7 +152,6 @@ type
     procedure PrintImage(const FileName: string);
     procedure PrintImageScale(const FileName: string; Scale: Integer);
 
-    function WaitForPrinting: TPrinterStatus;
     function FormatBoldLines(const Line1, Line2: string): string;
     procedure AddStatusLink(Link: TNotifyLink);
     procedure AddConnectLink(Link: TNotifyLink);
@@ -992,70 +991,6 @@ end;
 resourcestring
   MsgFailedContinuePrint = 'Failed to continue print';
 
-function TSharedPrinter.WaitForPrinting: TPrinterStatus;
-var
-  Mode: Byte;
-  TryCount: Integer;
-  TickCount: Integer;
-const
-  MaxTryCount = 3;
-begin
-  Logger.Debug('TSharedPrinter.WaitForPrinting');
-  TryCount := 0;
-  TickCount := GetTickCount;
-  repeat
-    if Integer(GetTickCount) > (TickCount + Parameters.StatusTimeout*1000) then
-      raise Exception.Create(SStatusWaitTimeout);
-
-    Result := Device.ReadPrinterStatus;
-    Mode := Result.Mode and $0F;
-    case Result.AdvancedMode of
-      AMODE_IDLE:
-      begin
-        case Mode of
-          MODE_FULLREPORT,
-          MODE_EKLZREPORT,
-          MODE_SLPPRINT:
-            Sleep(Parameters.StatusInterval);
-        else
-          Exit;
-        end;
-      end;
-
-      AMODE_PASSIVE,
-      AMODE_ACTIVE:
-      begin
-        // No receipt paper
-        if Device.GetModel.CapRecPresent and Result.Flags.RecEmpty then
-          raiseOposFptrRecEmpty;
-        // No control paper
-        if Device.GetModel.CapJrnPresent and Result.Flags.JrnEmpty then
-          raiseOposFptrJrnEmpty;
-
-        // Cover is opened
-        if Device.GetModel.CapCoverSensor and Result.Flags.CoverOpened then
-           raiseOposFptrCoverOpened;
-
-        raiseOposFptrRecEmpty;
-      end;
-
-      AMODE_AFTER:
-      begin
-        if TryCount > MaxTryCount then
-          raise Exception.Create(MsgFailedContinuePrint);
-        Device.ContinuePrint;
-        Inc(TryCount);
-      end;
-
-      AMODE_REPORT,
-      AMODE_PRINT:
-        Sleep(Parameters.StatusInterval);
-    else
-      Sleep(Parameters.StatusInterval);
-    end;
-  until False;
-end;
-
 function TSharedPrinter.GetHeader: TFixedStrings;
 begin
   Result := FHeader;
@@ -1303,7 +1238,7 @@ var
 begin
   Data := GetSeparatorData(SeparatorType, GetPrintWidthInDots div 8);
   Check(Device.PrintBarLine(SeparatorHeight, Data));
-  WaitForPrinting;
+  Device.WaitForPrinting;
 end;
 
 function TSharedPrinter.IsDecimalPoint: Boolean;

@@ -33,6 +33,7 @@ type
     function GetCapSubtotalRound: Boolean;
   public
     FCapFiscalStorage: Boolean;
+    FSCloseReceiptResult2: TFSCloseReceiptResult2;
 
     constructor Create;
     destructor Destroy; override;
@@ -301,6 +302,7 @@ type
     function CheckItemBarcode(const Barcode: string): Integer;
     function FSSendTLVOperation(const Data: string): Integer;
     function SendItemBarcode(const Barcode: string; MarkType: Integer): Integer;
+    function GetFSCloseReceiptResult2: TFSCloseReceiptResult2;
 
     property RecStation: TStrings read FRecStation;
     property JrnStation: TStrings read FJrnStation;
@@ -1383,6 +1385,7 @@ function TTextFiscalPrinterDevice.FSSale(
   const P: TFSSale): Integer;
 begin
   Result := 0;
+
 end;
 
 function TTextFiscalPrinterDevice.FSStorno(
@@ -1633,6 +1636,7 @@ end;
 function TTextFiscalPrinterDevice.FSSale2(const P: TFSSale2): Integer;
 begin
   Result := 0;
+
 end;
 
 function TTextFiscalPrinterDevice.GetCapFSCloseReceipt2: Boolean;
@@ -1756,6 +1760,11 @@ function TTextFiscalPrinterDevice.SendItemBarcode(const Barcode: string;
   MarkType: Integer): Integer;
 begin
   Result := 0;
+end;
+
+function TTextFiscalPrinterDevice.GetFSCloseReceiptResult2: TFSCloseReceiptResult2;
+begin
+  Result := FSCloseReceiptResult2;
 end;
 
 end.

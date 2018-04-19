@@ -206,7 +206,7 @@ end;
 
 procedure TReceiptPrinter.WaitForPrinting;
 begin
-  Printer.WaitForPrinting;
+  Device.WaitForPrinting;
 end;
 
 procedure TReceiptPrinter.PrintDocHeaderEnd;

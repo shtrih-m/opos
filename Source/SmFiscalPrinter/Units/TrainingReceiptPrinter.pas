@@ -120,7 +120,7 @@ procedure TTrainingReceiptPrinter.CashIn(Amount: Int64);
 begin
   Printer.PrintDocHeader(Parameters.GetPrinterMessage(MsgTrainCashInText), FCashInNumber);
 
-  Printer.WaitForPrinting;
+  Device.WaitForPrinting;
   Printer.PrintCurrency('', IntToCurrency(Amount));
   Inc(FCashInNumber);
 end;
@@ -128,7 +128,7 @@ end;
 procedure TTrainingReceiptPrinter.CashOut(Amount: Int64);
 begin
   Printer.PrintDocHeader(Parameters.GetPrinterMessage(MsgTrainCashOutText), FCashOutNumber);
-  Printer.WaitForPrinting;
+  Device.WaitForPrinting;
   Printer.PrintCurrency('', IntToCurrency(Amount));
   Inc(FCashOutNumber);
 end;
@@ -393,7 +393,7 @@ begin
     end;
     FIsRecOpened := True;
     FRecType := ReceiptType;
-    Printer.WaitForPrinting;
+    Device.WaitForPrinting;
   end;
   CheckRecType(ReceiptType);
 end;

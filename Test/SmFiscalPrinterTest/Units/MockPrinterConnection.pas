@@ -12,16 +12,12 @@ type
   private
     procedure ClaimDevice(PortNumber, Timeout: Integer);
     procedure ReleaseDevice;
-
     procedure OpenPort(PortNumber, BaudRate, ByteTimeout: Integer);
     procedure ClosePort;
-
     procedure OpenReceipt(Password: Integer);
     procedure CloseReceipt;
-
     function Send(Timeout: Integer; const Data: string): string;
   end;
-
 
 implementation
 
@@ -42,8 +38,7 @@ begin
 
 end;
 
-procedure TMockPrinterConnection.OpenPort(PortNumber, BaudRate,
-  ByteTimeout: Integer);
+procedure TMockPrinterConnection.OpenPort(PortNumber, BaudRate, ByteTimeout: Integer);
 begin
 
 end;
@@ -58,10 +53,10 @@ begin
 
 end;
 
-function TMockPrinterConnection.Send(Timeout: Integer;
-  const Data: string): string;
+function TMockPrinterConnection.Send(Timeout: Integer; const Data: string): string;
 begin
   Result := '';
 end;
 
 end.
+

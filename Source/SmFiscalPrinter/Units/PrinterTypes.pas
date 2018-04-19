@@ -697,6 +697,7 @@ type
     ItemBarcode: string;
     MarkType: Integer;
   end;
+  PFSSale = ^TFSSale;
 
   { TFSSale }
 
@@ -714,6 +715,12 @@ type
     PaymentItem: Byte;
     ItemBarcode: string;
     MarkType: Integer;
+  end;
+
+  { TFSSale2Object }
+
+  TFSSale2Object = class
+    Data: TFSSale2;
   end;
 
   { TPriceReg }

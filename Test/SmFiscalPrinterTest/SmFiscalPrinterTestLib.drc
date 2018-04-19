@@ -8,19 +8,18 @@
   resources were bound to the produced executable.
 */
 
-#define PrinterParametersReg_MsgRegistryKeyOpenError 64704
-#define PrinterParametersRegIBT_MsgRegistryKeyOpenError 64705
-#define DIOHandler_MsgInvalidDirectIOCommandCode 64706
-#define CommandParam_MsgInvalidParameterType 64707
-#define SharedPrinter_MsgFailedContinuePrint 64708
-#define CustomReceipt_MsgReceiptMethodNotSupported 64709
-#define CustomReceipt_MsgNegativePrice 64710
-#define CustomReceipt_MsgInvalidPercentsValue 64711
-#define CustomReceipt_MsgNegativeQuantity 64712
-#define CustomReceipt_MsgNegativeAmount 64713
-#define ElectronicJournal_MsgDateLineNotFound 64714
-#define ElectronicJournal_MsgDateNotFound 64715
-#define TrainingReceiptPrinter_MsgReceiptNotOpened 64716
+#define PrinterParametersRegIBT_MsgRegistryKeyOpenError 64704
+#define DIOHandler_MsgInvalidDirectIOCommandCode 64705
+#define CommandParam_MsgInvalidParameterType 64706
+#define CustomReceipt_MsgReceiptMethodNotSupported 64707
+#define CustomReceipt_MsgNegativePrice 64708
+#define CustomReceipt_MsgInvalidPercentsValue 64709
+#define CustomReceipt_MsgNegativeQuantity 64710
+#define CustomReceipt_MsgNegativeAmount 64711
+#define ElectronicJournal_MsgDateLineNotFound 64712
+#define ElectronicJournal_MsgDateNotFound 64713
+#define TrainingReceiptPrinter_MsgReceiptNotOpened 64714
+#define FiscalPrinterImpl_MsgInvalidParameterValue 64715
 #define FiscalPrinterDevice_MsgFieldTypeNotInteger 64720
 #define FiscalPrinterDevice_MsgInvalidAnswerCode 64721
 #define FiscalPrinterDevice_MsgInvalidAnswerLength 64722
@@ -34,9 +33,9 @@
 #define FiscalPrinterDevice_MsgImageWidthZero 64730
 #define FiscalPrinterDevice_MsgImageHeightZero 64731
 #define FiscalPrinterDevice_MsgFailedContinuePrint 64732
-#define FiscalPrinterDevice_MsgInvalidParameterValue 64733
-#define FiscalPrinterDevice_SSaleNotEnabled 64734
-#define PrinterProtocol2_IncorrectPacketFormat 64735
+#define FiscalPrinterDevice_SSaleNotEnabled 64733
+#define PrinterProtocol2_IncorrectPacketFormat 64734
+#define PrinterParametersReg_MsgRegistryKeyOpenError 64735
 #define TLVTags_SBuy 64736
 #define TLVTags_SReturnBuy 64737
 #define TLVTags_SUnknownType 64738
@@ -839,11 +838,9 @@
 #define SysConst_SDiskFull 65535
 STRINGTABLE
 BEGIN
-	PrinterParametersReg_MsgRegistryKeyOpenError,	"Registry key open error"
 	PrinterParametersRegIBT_MsgRegistryKeyOpenError,	"Registry key open error"
 	DIOHandler_MsgInvalidDirectIOCommandCode,	"Invalid DirectIO command code"
 	CommandParam_MsgInvalidParameterType,	"Invalid parameter type"
-	SharedPrinter_MsgFailedContinuePrint,	"Failed to continue print"
 	CustomReceipt_MsgReceiptMethodNotSupported,	"Receipt method is not supported"
 	CustomReceipt_MsgNegativePrice,	"Negative price"
 	CustomReceipt_MsgInvalidPercentsValue,	"Invalid percents value"
@@ -852,6 +849,7 @@ BEGIN
 	ElectronicJournal_MsgDateLineNotFound,	"Date line not found"
 	ElectronicJournal_MsgDateNotFound,	"Failed parsing electronic journal report. Date not found"
 	TrainingReceiptPrinter_MsgReceiptNotOpened,	"Receipt is not opened"
+	FiscalPrinterImpl_MsgInvalidParameterValue,	"Invalid pData parameter value"
 	FiscalPrinterDevice_MsgFieldTypeNotInteger,	"Field type is not integer"
 	FiscalPrinterDevice_MsgInvalidAnswerCode,	"Invalid answer code"
 	FiscalPrinterDevice_MsgInvalidAnswerLength,	"Invalid answer length"
@@ -865,9 +863,9 @@ BEGIN
 	FiscalPrinterDevice_MsgImageWidthZero,	"Image width is zero, must be > 0"
 	FiscalPrinterDevice_MsgImageHeightZero,	"Image height is zero, must be > 0"
 	FiscalPrinterDevice_MsgFailedContinuePrint,	"Failed to continue print"
-	FiscalPrinterDevice_MsgInvalidParameterValue,	"Invalid pData parameter value"
 	FiscalPrinterDevice_SSaleNotEnabled,	"Продажа товара запрещена"
 	PrinterProtocol2_IncorrectPacketFormat,	"Некорректный формат пакета"
+	PrinterParametersReg_MsgRegistryKeyOpenError,	"Registry key open error"
 	TLVTags_SBuy,	"Расход"
 	TLVTags_SReturnBuy,	"Возврат расхода"
 	TLVTags_SUnknownType,	"Неизв. тип: "

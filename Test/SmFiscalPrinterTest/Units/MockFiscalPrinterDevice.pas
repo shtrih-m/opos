@@ -9,12 +9,12 @@ uses
   FiscalPrinterTypes, PrinterCommand, PrinterFrame, PrinterTypes, BinStream,
   StringUtils, SerialPort, PrinterTable, ByteUtils, DeviceTables,
   PrinterParameters, PrinterConnection, DriverTypes, FiscalPrinterStatistics,
-  DefaultModel, DriverContext, LogFile;
+  DefaultModel, DriverContext, LogFile, PascalMock;
 
 type
   { TMockFiscalPrinterDevice }
 
-  TMockFiscalPrinterDevice = class(TInterfacedObject, IFiscalPrinterDevice)
+  TMockFiscalPrinterDevice = class(TMock, IFiscalPrinterDevice)
   private
     FPort: TSerialPort;
     FContext: TDriverContext;
@@ -32,6 +32,9 @@ type
     function GetCapSubtotalRound: Boolean;
     function GetPrinterStatus: TPrinterStatus;
   public
+    FCapFiscalStorage: Boolean;
+    FSCloseReceiptResult2: TFSCloseReceiptResult2;
+
     constructor Create;
     destructor Destroy; override;
 
@@ -299,6 +302,7 @@ type
     function CheckItemBarcode(const Barcode: string): Integer;
     function FSSendTLVOperation(const Data: string): Integer;
     function SendItemBarcode(const Barcode: string; MarkType: Integer): Integer;
+    function GetFSCloseReceiptResult2: TFSCloseReceiptResult2;
 
     property Status: TPrinterStatus read FStatus write FStatus;
     property Parameters: TPrinterParameters read GetParameters;
@@ -925,6 +929,7 @@ end;
 function TMockFiscalPrinterDevice.Sale(Operation: TPriceReg): Integer;
 begin
   Result := 0;
+  AddCall('Sale').WithParams([@Operation]).Returns(0);
 end;
 
 function TMockFiscalPrinterDevice.SendCommand(
@@ -1366,18 +1371,33 @@ end;
 
 function TMockFiscalPrinterDevice.WaitForPrinting: TPrinterStatus;
 begin
-
+  Result := FStatus;
 end;
 
 function TMockFiscalPrinterDevice.GetPrinterStatus: TPrinterStatus;
 begin
-
+  Result := FStatus;
 end;
 
 function TMockFiscalPrinterDevice.FSSale(
   const P: TFSSale): Integer;
+var
+  P1: PFSSale;
 begin
   Result := 0;
+  P1 := New(PFSSale);
+  P1^ := P;
+  AddCall('FSSale').WithParams([Integer(P1)]).Returns(0);
+end;
+
+function TMockFiscalPrinterDevice.FSSale2(const P: TFSSale2): Integer;
+var
+  P1: TFSSale2Object;
+begin
+  Result := 0;
+  P1 := TFSSale2Object.Create;
+  P1.Data := P;
+  AddCall('FSSale2').WithParams([Integer(P1)]).Returns(0);
 end;
 
 function TMockFiscalPrinterDevice.FSStorno(
@@ -1433,7 +1453,7 @@ end;
 
 function TMockFiscalPrinterDevice.GetCapFiscalStorage: Boolean;
 begin
-  Result := False;
+  Result := FCapFiscalStorage;
 end;
 
 function TMockFiscalPrinterDevice.OpenFiscalDay: Boolean;
@@ -1620,11 +1640,6 @@ begin
   Result := 0;
 end;
 
-function TMockFiscalPrinterDevice.FSSale2(const P: TFSSale2): Integer;
-begin
-  Result := 0;
-end;
-
 function TMockFiscalPrinterDevice.GetCapFSCloseReceipt2: Boolean;
 begin
   Result := True;
@@ -1634,6 +1649,7 @@ function TMockFiscalPrinterDevice.ReceiptClose2(
   const P: TFSCloseReceiptParams2; var R: TFSCloseReceiptResult2): Integer;
 begin
   Result := 0;
+
 end;
 
 function TMockFiscalPrinterDevice.FSFiscalization(
@@ -1740,6 +1756,11 @@ function TMockFiscalPrinterDevice.SendItemBarcode(const Barcode: string;
   MarkType: Integer): Integer;
 begin
   Result := 0;
+end;
+
+function TMockFiscalPrinterDevice.GetFSCloseReceiptResult2: TFSCloseReceiptResult2;
+begin
+  Result := FSCloseReceiptResult2;
 end;
 
 end.
