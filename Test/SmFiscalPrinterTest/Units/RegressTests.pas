@@ -15,7 +15,7 @@ uses
   TextFiscalPrinterDevice, MockSharedPrinter, SharedPrinterInterface,
   FiscalPrinterTypes, DriverTypes, PrinterParameters, PrinterParametersX,
   SharedPrinter, LogFile, StringUtils, MockPrinterConnection, DefaultModel,
-  MalinaParams, DriverError, MockFiscalPrinterDevice, PascalMock;
+  MalinaParams, DriverError, MockFiscalPrinterDevice, PascalMock, FileUtils;
 
 type
   { TRegressTests }
@@ -27,19 +27,25 @@ type
     FDevice: TMockFiscalPrinterDevice;
     FConnection: TMockPrinterConnection;
 
-    procedure OpenClaimEnable;
-    procedure printFiscalReceipt;
-    procedure CheckResult(ResultCode: Integer);
-
     property Driver: ToleFiscalPrinter read FDriver;
     property Device: TMockFiscalPrinterDevice read FDevice;
   protected
     procedure Setup; override;
     procedure TearDown; override;
+
+    procedure OpenClaimEnable;
+    procedure printFiscalReceipt;
+    procedure CheckResult(ResultCode: Integer);
   published
     procedure CheckRefundReceipt;
-    procedure Check_NQR5154;
-    procedure Check_NQR6477;
+    procedure Check_NQR_5154;
+    procedure Check_NQR_6477;
+    procedure Check_NQR_6836;
+    procedure Check_NQR_6836_1;
+    procedure Check_NQR_2791;
+    procedure Check_NQR_5615;
+    procedure Check_NQR_5160;
+    procedure Check_NQR_6838;
   end;
 
 implementation
@@ -156,7 +162,7 @@ end;
 // "Должна быть возможность получать/задавать все необходимые теги по ФФД 1.05
 //
 
-procedure TRegressTests.Check_NQR5154;
+procedure TRegressTests.Check_NQR_5154;
 begin
   CheckResult(Driver.Open('FiscalPrinter', DeviceName, nil));
   CheckResult(Driver.Claim(0));
@@ -174,7 +180,7 @@ NQR-6463"	"Не вычитываются поля:
 
 *)
 
-procedure TRegressTests.Check_NQR6477;
+procedure TRegressTests.Check_NQR_6477;
 var
   pData: Integer;
   pString: WideString;
@@ -204,26 +210,230 @@ begin
   pString := '';
   CheckResult(Driver.DirectIO(41, pData, pString));
   CheckEquals('723645725', pString);
+end;
 
+///////////////////////////////////////////////////////////////////////////////
+//
+// NQR-6836, Слишком короткое время хранения логов
 
-  pData := 1;
-  pString := '';
-  CheckResult(Driver.DirectIO(42, pData, pString));
-  CheckEquals('', pString);
+procedure TRegressTests.Check_NQR_6836;
+var
+  Logger: ILogFile;
+  Lines: TStrings;
+begin
+  Logger := TLogFile.Create;
+  Lines := TStringList.Create;
+  try
+    Logger.MaxCount := 10;
+    Logger.Enabled := True;
+    Logger.FilePath := GetModulePath + 'Logs\';
+    Logger.DeviceName := 'DeviceName1';
+    Logger.TimeStampEnabled := False;
 
-(*
-  DIO_FPTR_PARAMETER_OFD_ADDRESS:
-  DIO_FPTR_PARAMETER_OFD_PORT:
-  DIO_FPTR_PARAMETER_OFD_TIMEOUT:
+    DeleteFile(Logger.GetFileName);
+    CheckEquals(False, FileExists(Logger.GetFileName), 'FileExists!');
 
-3) DirectIO 42, 1 - адрес ОФД
-4) DirectIO 42, 2 - порт ОФД
-5) DirectIO 42, 3 - таймаут ОФД"	high	драйвер			280318 Обнаружена проблема
-*)
+    Logger.Debug('Line1');
+    Logger.Error('Line2');
+    Logger.CloseFile;
+
+    Lines.LoadFromFile(Logger.GetFileName);
+    CheckEquals(2, Lines.Count, 'Lines.Count');
+    CheckEquals('[DEBUG] Line1', Lines[0], 'Lines[0]');
+    CheckEquals('[ERROR] Line2', Lines[1], 'Lines[1]');
+
+    Logger.Debug('Line3');
+    Logger.Error('Line4');
+    Logger.CloseFile;
+
+    Lines.LoadFromFile(Logger.GetFileName);
+    CheckEquals(4, Lines.Count, 'Lines.Count');
+    CheckEquals('[DEBUG] Line1', Lines[0], 'Lines[0]');
+    CheckEquals('[ERROR] Line2', Lines[1], 'Lines[1]');
+    CheckEquals('[DEBUG] Line3', Lines[2], 'Lines[2]');
+    CheckEquals('[ERROR] Line4', Lines[3], 'Lines[3]');
+
+    Logger.DeviceName := 'DeviceName2';
+   DeleteFile(Logger.GetFileName);
+    CheckEquals(False, FileExists(Logger.GetFileName), 'FileExists!');
+
+    Logger.Debug('Line1');
+    Logger.Error('Line2');
+    Logger.CloseFile;
+
+    Lines.LoadFromFile(Logger.GetFileName);
+    CheckEquals(2, Lines.Count, 'Lines.Count');
+    CheckEquals('[DEBUG] Line1', Lines[0], 'Lines[0]');
+    CheckEquals('[ERROR] Line2', Lines[1], 'Lines[1]');
+
+    Logger.Debug('Line3');
+    Logger.Error('Line4');
+    Logger.CloseFile;
+
+    Lines.LoadFromFile(Logger.GetFileName);
+    CheckEquals(4, Lines.Count, 'Lines.Count');
+    CheckEquals('[DEBUG] Line1', Lines[0], 'Lines[0]');
+    CheckEquals('[ERROR] Line2', Lines[1], 'Lines[1]');
+    CheckEquals('[DEBUG] Line3', Lines[2], 'Lines[2]');
+    CheckEquals('[ERROR] Line4', Lines[3], 'Lines[3]');
+    Logger.CloseFile;
+
+    DeleteFiles(Logger.FilePath  + '*.log');
+  finally
+    Lines.Free;
+  end;
+end;
+
+procedure TRegressTests.Check_NQR_6836_1;
+var
+  Logger: ILogFile;
+  FilesPath: string;
+  FileNames: TStringList;
+begin
+  FileNames := TStringList.Create;
+  try
+    Logger := TLogFile.Create;
+    Logger.MaxCount := 3;
+    Logger.Enabled := True;
+    Logger.FilePath := GetModulePath + 'Logs';
+    Logger.DeviceName := 'Device1';
+
+    FilesPath := GetModulePath + 'Logs\';
+    DeleteFiles(FilesPath + '*.log');
+    Logger.GetFileNames(FilesPath + '*.log', FileNames);
+    CheckEquals(0, FileNames.Count, 'FileNames.Count');
+
+    WriteFileData(FilesPath + 'Device1_2018.02.15.log', '');
+    WriteFileData(FilesPath +'Device1_2018.02.16.log', '');
+    WriteFileData(FilesPath +'Device1_2018.02.17.log', '');
+    WriteFileData(FilesPath +'Device1_2018.02.18.log', '');
+    WriteFileData(FilesPath +'Device1_2018.02.19.log', '');
+
+    WriteFileData(FilesPath +'Device2_2018.02.15.log', '');
+    WriteFileData(FilesPath +'Device2_2018.02.16.log', '');
+    WriteFileData(FilesPath +'Device2_2018.02.17.log', '');
+    WriteFileData(FilesPath +'Device2_2018.02.18.log', '');
+    WriteFileData(FilesPath +'Device2_2018.02.19.log', '');
+
+    Logger.GetFileNames(FilesPath + '*.log', FileNames);
+    CheckEquals(10, FileNames.Count, 'FileNames.Count');
+    Logger.CheckFilesMaxCount;
+
+    Logger.GetFileNames(FilesPath + '*.log', FileNames);
+    FileNames.Sort;
+
+    CheckEquals(8, FileNames.Count, 'FileNames.Count');
+    CheckEquals('Device1_2018.02.17.log', ExtractFileName(FileNames[0]), 'FileNames[0]');
+    CheckEquals('Device1_2018.02.18.log', ExtractFileName(FileNames[1]), 'FileNames[1]');
+    CheckEquals('Device1_2018.02.19.log', ExtractFileName(FileNames[2]), 'FileNames[2]');
+    CheckEquals('Device2_2018.02.15.log', ExtractFileName(FileNames[3]), 'FileNames[3]');
+    DeleteFiles(FilesPath + '*.log');
+  finally
+    FileNames.Free;
+  end;
+end;
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// NQR-2791	Обрезается длинное наименование товара
+// Обрезается текст
+//
+///////////////////////////////////////////////////////////////////////////////
+
+procedure TRegressTests.Check_NQR_2791;
+var
+  Text: WideString;
+  Method: TMockMethod;
+  FSSale: TFSSale2Object;
+begin
+  OpenClaimEnable;
+
+  Text := 'Превышение номинальной стоимости подарочного сертификата над продажной ценой товара';
+  Driver.SetPropertyNumber(PIDXFptr_FiscalReceiptType, FPTR_RT_SALES);
+  CheckResult(Driver.BeginFiscalReceipt(True));
+  CheckResult(Driver.PrintRecItem(Text, 100, 2551, 4, 39.2, ''));
+  CheckResult(Driver.PrintRecTotal(100, 100, '0'));
+  CheckResult(Driver.EndFiscalReceipt(True));
+  CheckResult(Driver.Close);
+
+  Method := Device.CalledMethodByName('FSSale2');
+  CheckEquals(1, Length(Method.Params), 'Length(Method.Params)');
+  FSSale := TFSSale2Object(Integer(Method.Params[0]));
+  CheckEquals(Text, FSSale.Data.Text, 'FSSale.Data.Text');
+end;
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// NQR-5615	Некорректный текст ошибки в случае, когда смена превысила 24 часа
+//
+///////////////////////////////////////////////////////////////////////////////
+
+procedure TRegressTests.Check_NQR_5615;
+var
+  ResultCode: Integer;
+  Status: TPrinterStatus;
+begin
+  OpenClaimEnable;
+  Status.Mode := ECRMODE_24OVER;
+  Status.Flags.Value := 0;
+  Status.AdvancedMode := 0;
+  Device.Status := Status;
+  Driver.SetPropertyNumber(PIDXFptr_FiscalReceiptType, FPTR_RT_SALES);
+  ResultCode := Driver.BeginFiscalReceipt(True);
+  CheckEquals(OPOS_E_EXTENDED, ResultCode,
+    'BeginFiscalReceipt <> OPOS_E_EXTENDED');
+
+  CheckEquals(OPOS_E_EXTENDED,
+    Driver.GetPropertyNumber(PIDX_ResultCode),
+    'Driver.GetPropertyNumber(PIDX_ResultCode)');
+
+  CheckEquals(OPOS_EFPTR_DAY_END_REQUIRED,
+    Driver.GetPropertyNumber(PIDX_ResultCodeExtended),
+    'GetPropertyNumber(PIDX_ResultCodeExtended)');
+
+  CheckEquals('Истекли 24 часа. Распечатайте Z отчет и попробуйте снова',
+    Driver.GetPropertyString(PIDXFptr_ErrorString),
+    'GetPropertyString(PIDXFptr_ErrorString)');
 
 end;
 
+///////////////////////////////////////////////////////////////////////////////
+//
+// NQR-5160	Открытие смены командой OPOS
+//
+///////////////////////////////////////////////////////////////////////////////
 
+procedure TRegressTests.Check_NQR_5160;
+var
+  pData: Integer;
+  Method: TMockMethod;
+  pString: WideString;
+  Status: TPrinterStatus;
+begin
+  Status.Mode := ECRMODE_CLOSED;
+  Status.Flags.Value := 0;
+  Status.AdvancedMode := 0;
+  Device.Status := Status;
+
+  OpenClaimEnable;
+
+  pData := 0;
+  pString := '';
+  CheckResult(Driver.DirectIO(DIO_OPEN_DAY, pData, pString));
+  Method := Device.CalledMethodByName('OpenFiscalDay');
+  CheckEquals(True, Method.ReturnValue, 'Method.ReturnValue');
+end;
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// NQR-6838 	Сумма всех типов оплаты меньше итога чека
+//
+///////////////////////////////////////////////////////////////////////////////
+
+procedure TRegressTests.Check_NQR_6838;
+begin
+  // ???
+end;
 
 initialization
   RegisterTest('', TRegressTests.Suite);

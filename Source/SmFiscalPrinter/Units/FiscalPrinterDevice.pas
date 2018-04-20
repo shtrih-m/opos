@@ -185,7 +185,7 @@ type
     function FSReadDocData(var P: TFSReadDocData): Integer;
     function FSReadDocument(var P: TFSReadDocument): Integer;
     function FSStartOpenDay: Integer;
-    function IsFiscalPrinter2: Boolean;
+    function IsMobilePrinter: Boolean;
     procedure EkmCheckBarcode(const Barcode: TGS1Barcode);
     function CheckItemBarcode(const Barcode: string): Integer;
     function LoadBarcodeData(const Barcode: string): Integer;
@@ -6549,7 +6549,7 @@ begin
 end;
 
 // Is fiscal printer firmware 2 (Semenov)
-function TFiscalPrinterDevice.IsFiscalPrinter2: Boolean;
+function TFiscalPrinterDevice.IsMobilePrinter: Boolean;
 begin
   Result := GetDeviceMetrics.Model = 19;
 end;
@@ -7638,7 +7638,7 @@ begin
     end;
     DIO_FPTR_PARAMETER_OFD_ADDRESS:
     begin
-      if IsFiscalPrinter2 then
+      if IsMobilePrinter then
         Result := ReadTableStr(15, 1, 1)
       else
         Result := ReadTableStr(19, 1, 1);
@@ -7646,7 +7646,7 @@ begin
 
     DIO_FPTR_PARAMETER_OFD_PORT:
     begin
-      if IsFiscalPrinter2 then
+      if IsMobilePrinter then
         Result := ReadTableStr(15, 1, 2)
       else
         Result := ReadTableStr(19, 1, 2);
@@ -7654,7 +7654,7 @@ begin
 
     DIO_FPTR_PARAMETER_OFD_TIMEOUT:
     begin
-      if IsFiscalPrinter2 then
+      if IsMobilePrinter then
         Result := ReadTableStr(15, 1, 3)
       else
         Result := ReadTableStr(19, 1, 3);
@@ -7662,7 +7662,7 @@ begin
 
     DIO_FPTR_PARAMETER_RNM:
     begin
-      if IsFiscalPrinter2 then
+      if IsMobilePrinter then
         Result := ReadTableStr(14, 1, 3)
       else
         Result := ReadTableStr(18, 1, 3);
@@ -7670,21 +7670,21 @@ begin
 
     DIO_FPTR_PARAMETER_INN:
     begin
-      if IsFiscalPrinter2 then
+      if IsMobilePrinter then
         Result := ReadTableStr(14, 1, 2)
       else
         Result := ReadTableStr(18, 1, 2);
     end;
     DIO_FPTR_PARAMETER_TAXSYSTEM:
     begin
-      if IsFiscalPrinter2 then
+      if IsMobilePrinter then
         Result := ReadTableStr(14, 1, 5)
       else
         Result := ReadTableStr(18, 1, 5);
     end;
     DIO_FPTR_PARAMETER_WORKMODE:
     begin
-      if IsFiscalPrinter2 then
+      if IsMobilePrinter then
         Result := ReadTableStr(14, 1, 6)
       else
         Result := ReadTableStr(18, 1, 6);

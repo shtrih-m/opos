@@ -1459,7 +1459,9 @@ end;
 function TMockFiscalPrinterDevice.OpenFiscalDay: Boolean;
 begin
   Result := True;
+  AddCall('OpenFiscalDay').Returns(True);
 end;
+
 
 function TMockFiscalPrinterDevice.ReceiptDiscount2(
   Operation: TReceiptDiscount2): Integer;
@@ -1686,7 +1688,7 @@ end;
 
 function TMockFiscalPrinterDevice.ReadPrinterStatus: TPrinterStatus;
 begin
-
+  Result := Status;
 end;
 
 function TMockFiscalPrinterDevice.ReadShortStatus: TShortPrinterStatus;

@@ -209,7 +209,6 @@ uses
   SmResourceStrings in '..\..\Source\SmFiscalPrinter\Units\SmResourceStrings.pas',
   duSocketPort in 'Units\duSocketPort.pas',
   TLVTags in '..\..\Source\SmFiscalPrinter\Units\TLVTags.pas',
-  duLogFile in 'Units\duLogFile.pas',
   TLVParser in '..\..\Source\SmFiscalPrinter\Units\TLVParser.pas',
   FSSalesReceipt in '..\..\Source\SmFiscalPrinter\Units\FSSalesReceipt.pas',
   GS1Barcode in '..\..\Source\SmFiscalPrinter\Units\GS1Barcode.pas',
