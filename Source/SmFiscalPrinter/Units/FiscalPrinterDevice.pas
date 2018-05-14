@@ -439,6 +439,7 @@ type
     function IsCapEnablePrint: Boolean;
     function ReadCashReg(ID: Integer; var R: TCashRegisterRec): Integer;
     function FSSendTLVOperation(const Data: string): Integer;
+    function FSStartCorrectionReceipt: Integer;
 
     property IsOnline: Boolean read GetIsOnline;
     property Tables: TPrinterTables read FTables;
@@ -8607,6 +8608,14 @@ begin
   end;
 end;
 
+(*
+Данные в массиве представлены в виде строки, в которой:
+первые 2 байта - код справочника;
+последующие 6 байт - код идентификации группы товара;
+последние 24 байта - код идентификации экземпляра товара
+*)
+
+
 function TFiscalPrinterDevice.SendItemBarcode(const Barcode: string;
   MarkType: Integer): Integer;
 var
@@ -8625,23 +8634,23 @@ begin
   case MarkType of
     2:
     begin // Меха
-      Serial := Copy(GS1Barcode.Serial, 1, 20);
-      Serial := Serial + StringOfChar(' ', 20 - Length(Serial));
-      Data := #$00#$02 + GTIN + TTLVTag.ASCII2ValueTLV(Serial);
+      Serial := Copy(GS1Barcode.Serial, 1, 24);
+      Serial := Serial + StringOfChar(' ', 24 - Length(Serial));
+      Data := ReverseString(IntToBin(2, 2)) + GTIN + Serial;
       Data := TTLVTag.Int2ValueTLV(1162, 2) + TTLVTag.Int2ValueTLV(Length(Data), 2) + Data;
     end;
     3:
     begin // Лекарственные препараты
-      Serial := Copy(GS1Barcode.Serial, 1, 13);
-      Serial := Serial + StringOfChar(' ', 13 - Length(Serial));
-      Data := #$00#$03 + GTIN + TTLVTag.ASCII2ValueTLV(Serial);
+      Serial := Copy(GS1Barcode.Serial, 1, 24);
+      Serial := Serial + StringOfChar(' ', 24 - Length(Serial));
+      Data := ReverseString(IntToBin(3, 2)) + GTIN + Serial;
       Data := TTLVTag.Int2ValueTLV(1162, 2) + TTLVTag.Int2ValueTLV(Length(Data), 2) + Data;
     end;
     5:
     begin // Табачные изделия
       Serial := Copy(GS1Barcode.Serial, 1, 24);
       Serial := Serial + StringOfChar(' ', 24 - Length(Serial));
-      Data := #$00#$05 + GTIN + TTLVTag.ASCII2ValueTLV(Serial);
+      Data := ReverseString(IntToBin(5, 2)) + GTIN + Serial;
       Data := TTLVTag.Int2ValueTLV(1162, 2) + TTLVTag.Int2ValueTLV(Length(Data), 2) + Data;
     end;
   else
@@ -8662,11 +8671,27 @@ begin
   Result := ExecuteData(Command, Answer);
 end;
 
-
-
 function TFiscalPrinterDevice.GetFSCloseReceiptResult2: TFSCloseReceiptResult2;
 begin
   Result := FFSCloseReceiptResult2;
 end;
+
+(*
+Начать формирование чека коррекции
+Код команды FF35h . Длина сообщения: 6 байт.
+Пароль системного администратора: 4 байта
+Ответ: FF35h Длина сообщения: 1 байт.
+Код ошибки: 1 байт
+*)
+
+function TFiscalPrinterDevice.FSStartCorrectionReceipt: Integer;
+var
+  Command: string;
+  Answer: string;
+begin
+  Command := #$FF#$35 + IntToBin(FSysPassword, 4);
+  Result := ExecuteData(Command, Answer);
+end;
+
 
 end.

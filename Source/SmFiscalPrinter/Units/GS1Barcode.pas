@@ -326,6 +326,12 @@ begin
   end;
 end;
 
+(*
+04606203084623
++A13gPh
+-4Hi7uGl
+*)
+
 function GS1DecodeBraces(const Barcode: string): string;
 var
   id: string;
@@ -340,7 +346,7 @@ begin
   begin
     Result := '(01)' + Copy(Barcode, 1, 14) +
       '(21)' + Copy(Barcode, 15, 7) +
-      '(291)' + Copy(Barcode, 22, Length(Barcode));
+      '(9099)' + Copy(Barcode, 22, Length(Barcode));
     Exit;
   end;
 

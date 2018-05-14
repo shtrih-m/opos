@@ -17,6 +17,7 @@ type
     FPayment: Int64;
     FIsVoided: Boolean;
   public
+    procedure BeginFiscalReceipt(PrintHeader: Boolean); override;
     procedure PrintRecCash(Amount: Currency); override;
     procedure PrintRecVoid(const Description: string); override;
     procedure EndFiscalReceipt; override;
@@ -77,6 +78,12 @@ begin
     Device.Check(Device.FSPrintCorrectionReceipt(Command));
   end;
   PrintPostLine;
+end;
+
+procedure TCorrectionReceipt.BeginFiscalReceipt(PrintHeader: Boolean);
+begin
+  inherited;
+  Device.Check(Device.FSStartCorrectionReceipt);
 end;
 
 end.

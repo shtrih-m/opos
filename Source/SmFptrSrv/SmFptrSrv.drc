@@ -8,13 +8,12 @@
   resources were bound to the produced executable.
 */
 
-#define FiscalPrinterDevice_MsgInvalidParameterValue 64800
-#define FiscalPrinterDevice_SSaleNotEnabled 64801
-#define oleMain_S_NOERROR 64802
-#define DBConsts_SBcdOverflow 64803
-#define DBConsts_SInvalidBcdValue 64804
-#define DBConsts_SCouldNotParseTimeStamp 64805
-#define DBConsts_SInvalidSqlTimeStamp 64806
+#define FiscalPrinterDevice_SSaleNotEnabled 64800
+#define oleMain_S_NOERROR 64801
+#define DBConsts_SBcdOverflow 64802
+#define DBConsts_SInvalidBcdValue 64803
+#define DBConsts_SCouldNotParseTimeStamp 64804
+#define DBConsts_SInvalidSqlTimeStamp 64805
 #define IdResourceStringsCore_RSTCPServerSchedulerAlreadyActive 64816
 #define FiscalPrinterDevice_MsgInvalidFieldType 64817
 #define FiscalPrinterDevice_MsgInvalidFieldValue 64818
@@ -737,7 +736,6 @@
 #define SysConst_SDiskFull 65535
 STRINGTABLE
 BEGIN
-	FiscalPrinterDevice_MsgInvalidParameterValue,	"Invalid pData parameter value"
 	FiscalPrinterDevice_SSaleNotEnabled,	"Продажа товара запрещена"
 	oleMain_S_NOERROR,	"No errors"
 	DBConsts_SBcdOverflow,	"BCD overflow"

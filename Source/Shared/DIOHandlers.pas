@@ -598,13 +598,14 @@ type
   private
     FPrinter: TFiscalPrinterImpl;
     function GetDevice: IFiscalPrinterDevice;
-    property Device: IFiscalPrinterDevice read GetDevice;
   public
     constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
       APrinter: TFiscalPrinterImpl);
 
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
+
     property Printer: TFiscalPrinterImpl read FPrinter;
+    property Device: IFiscalPrinterDevice read GetDevice;
   end;
 
   { TDIOReadFPParameter }

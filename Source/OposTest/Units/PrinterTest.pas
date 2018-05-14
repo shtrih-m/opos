@@ -3919,9 +3919,14 @@ begin
   FiscalPrinter.FiscalReceiptStation := FPTR_RS_RECEIPT;
   FiscalPrinter.FiscalReceiptType := FPTR_RT_CORRECTION_SALE;
   Check(FiscalPrinter.BeginFiscalReceipt(False));
+  Check(FiscalPrinter.DirectIO2(40, 1177, '77'));
+  Check(FiscalPrinter.DirectIO2(40, 1178, '11.05.2018'));
+  Check(FiscalPrinter.DirectIO2(40, 1179, '99'));
   Check(FiscalPrinter.PrintRecCash(100));
   Check(FiscalPrinter.PrintRecTotal(100, 100, '0'));
   Check(FiscalPrinter.EndFiscalReceipt(True));
+
+(*
   // RetSale
   FiscalPrinter.FiscalReceiptStation := FPTR_RS_RECEIPT;
   FiscalPrinter.FiscalReceiptType := FPTR_RT_CORRECTION_RETSALE;
@@ -3943,6 +3948,7 @@ begin
   Check(FiscalPrinter.PrintRecCash(100));
   Check(FiscalPrinter.PrintRecTotal(100, 100, '0'));
   Check(FiscalPrinter.EndFiscalReceipt(True));
+*)
 end;
 
 function TCorrectionReceiptTest.GetDisplayText: string;
@@ -4633,8 +4639,12 @@ begin
   Check(FiscalPrinter.ResetPrinter());
   FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
   FiscalPrinter.BeginFiscalReceipt(True);
+
+  FiscalPrinter.PostLine := 'PostLine 1';
   FiscalPrinter.PrintRecItem('1:63326 Кетчуп HEINZ томатный 1000г', 209, 1000, 1, 209, 'шт');
+  FiscalPrinter.PostLine := 'PostLine 2';
   FiscalPrinter.PrintRecItem('2:3305976 Пакет ПЕРЕКРЕСТОК майка 65х40см', 6.49, 1000, 1, 6.49, 'шт');
+  FiscalPrinter.PostLine := 'PostLine 3';
   FiscalPrinter.PrintRecItem('3:3148276 Виноград черный фасованный 500г', 41.9, 1000, 1, 41.9, 'шт');
   FiscalPrinter.PrintRecSubtotal(257.39);
   FiscalPrinter.PrintRecSubtotalAdjustment(1, 'ОКРУГЛЕНИЕ', 0.39);

@@ -303,6 +303,7 @@ type
     function FSSendTLVOperation(const Data: string): Integer;
     function SendItemBarcode(const Barcode: string; MarkType: Integer): Integer;
     function GetFSCloseReceiptResult2: TFSCloseReceiptResult2;
+    function FSStartCorrectionReceipt: Integer;
 
     property RecStation: TStrings read FRecStation;
     property JrnStation: TStrings read FJrnStation;
@@ -1765,6 +1766,11 @@ end;
 function TTextFiscalPrinterDevice.GetFSCloseReceiptResult2: TFSCloseReceiptResult2;
 begin
   Result := FSCloseReceiptResult2;
+end;
+
+function TTextFiscalPrinterDevice.FSStartCorrectionReceipt: Integer;
+begin
+  Result := 0;
 end;
 
 end.
