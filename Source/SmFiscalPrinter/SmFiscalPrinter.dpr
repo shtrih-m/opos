@@ -68,7 +68,6 @@ uses
   XmlUtils in 'Units\XmlUtils.pas',
   PrinterCommand in 'Units\PrinterCommand.pas',
   FileUtils in '..\Shared\FileUtils.pas',
-  OposMessages in 'Units\OposMessages.pas',
   LogFile in '..\Shared\LogFile.pas',
   oleFiscalPrinter in 'Units\oleFiscalPrinter.pas',
   EscPrinter in 'Units\EscPrinter.pas',
@@ -154,7 +153,7 @@ uses
   FormUtils in 'Fmu\FormUtils.pas',
   NonfiscalDoc in 'Units\NonfiscalDoc.pas',
   fmuTimeSync in 'Fmu\fmuTimeSync.pas' {fmTimeSync},
-  CorrectionReceipt in 'Units\CorrectionReceipt.pas',
+  CorrectionReceipt2 in 'Units\CorrectionReceipt2.pas',
   CsvPrinterTableFormat in 'Units\CsvPrinterTableFormat.pas',
   PrinterTableFormat in 'Units\PrinterTableFormat.pas',
   ReceiptTemplate in 'Units\ReceiptTemplate.pas',
@@ -165,12 +164,13 @@ uses
   PrinterPort in 'Units\PrinterPort.pas',
   PrinterProtocol1 in 'Units\PrinterProtocol1.pas',
   PrinterFonts in 'Units\PrinterFonts.pas',
-  SmResourceStrings in 'Units\SmResourceStrings.pas',
   TLVTags in 'Units\TLVTags.pas',
   TLVParser in 'Units\TLVParser.pas',
   FSSalesReceipt in 'Units\FSSalesReceipt.pas',
   EkmClient in 'Units\EkmClient.pas',
-  GS1Barcode in 'Units\GS1Barcode.pas';
+  GS1Barcode in 'Units\GS1Barcode.pas',
+  WException in '..\Shared\WException.pas',
+  CorrectionReceipt in 'Units\CorrectionReceipt.pas';
 
 exports
   DllGetClassObject,

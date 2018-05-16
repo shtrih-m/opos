@@ -5,8 +5,10 @@ interface
 Uses
   // VCL
   Windows, SysUtils, Classes, ActiveX, StrUtils, DateUtils,
+  // Tnt
+  TntSysUtils,
   // This
-  ByteUtils, StringUtils;
+  WException, ByteUtils, StringUtils, gnugettext;
 
 const
   ttByte = $00000000;
@@ -92,58 +94,38 @@ type
     property ShortDescription: string read FShortDescription write FShortDescription;
   end;
 
-function TLVDocTypeToStr(ATag: Integer): string;
+function TLVDocTypeToStr(ATag: Integer): WideString;
 
 implementation
 
-resourcestring
-  SRegReport = 'ОТЧЕТ О РЕГИСТРАЦИИ';
-  SChangeRegReport = 'ОТЧЕТ ОБ ИЗМЕНЕНИИ ПАРАМЕТРОВ РЕГИСТРАЦИИ';
-  SOpenSessionReport = 'ОТЧЕТ ОБ ОТКРЫТИИ СМЕНЫ';
-  SCurrentStateReport = 'ОТЧЕТ О ТЕКУЩЕМ СОСТОЯНИИ РАСЧЕТОВ';
-  SReceipt = 'КАССОВЫЙ ЧЕК';
-  SCorrReceipt = 'КАССОВЫЙ ЧЕК КОРРЕКЦИИ';
-  SBSO = 'БЛАНК СТРОГОЙ ОТЧЕТНОСТИ';
-  SBSOCorr = 'БЛАНК СТРОГОЙ ОТЧЕТНОСТИ КОРРЕКЦИИ';
-  SCloseSessionReport ='ОТЧЕТ О ЗАКРЫТИИ СМЕНЫ';
-  SCloseFNReport = 'ОТЧЕТ О ЗАКРЫТИИ ФН';
-  SCnofirmOperator = 'ПОДТВЕРЖДЕНИЕ ОПЕРАТОРА';
-  SUnknownDocTye = 'Неизвестный тип документа: ';
-function TLVDocTypeToStr(ATag: Integer): string;
+function TLVDocTypeToStr(ATag: Integer): WideString;
 begin
   case ATag of
-    1: Result := SRegReport;
-    11: Result := SChangeRegReport;
-    2: Result := SOpenSessionReport;
-    21: Result := SCurrentStateReport;
-    3: Result := SReceipt;
-    31: Result := SCorrReceipt;
-    4: Result := SBSO;
-    41: Result := SBSOCorr;
-    5: Result := SCloseSessionReport;
-    6: Result := SCloseFNReport;
-    7: Result := SCnofirmOperator;
+    1: Result := _('ОТЧЕТ О РЕГИСТРАЦИИ');
+    11: Result := _('ОТЧЕТ ОБ ИЗМЕНЕНИИ ПАРАМЕТРОВ РЕГИСТРАЦИИ');
+    2: Result := _('ОТЧЕТ ОБ ОТКРЫТИИ СМЕНЫ');
+    21: Result := _('ОТЧЕТ О ТЕКУЩЕМ СОСТОЯНИИ РАСЧЕТОВ');
+    3: Result := _('КАССОВЫЙ ЧЕК');
+    31: Result := _('КАССОВЫЙ ЧЕК КОРРЕКЦИИ');
+    4: Result := _('БЛАНК СТРОГОЙ ОТЧЕТНОСТИ');
+    41: Result := _('БЛАНК СТРОГОЙ ОТЧЕТНОСТИ КОРРЕКЦИИ');
+    5: Result := _('ОТЧЕТ О ЗАКРЫТИИ СМЕНЫ');
+    6: Result := _('ОТЧЕТ О ЗАКРЫТИИ ФН');
+    7: Result := _('ПОДТВЕРЖДЕНИЕ ОПЕРАТОРА');
   else
-    Result := SUnknownDocTye + IntToStr(ATag);
+    Result := Tnt_WideFormat('%s: %d', [_('Неизвестный тип документа'), ATag]);
   end;
 end;
-
-resourcestring
-  SSale = 'Приход';
-  SReturnSale = 'Возврат прихода';
-  SBuy = 'Расход';
-  SReturnBuy = 'Возврат расхода';
-  SUnknownType = 'Неизв. тип: ';
 
 function CalcTypeToStr(AType: Integer): string;
 begin
   case AType of
-    1: Result := SSale;
-    2: Result := SReturnSale;
-    3: Result := SBuy;
-    4: Result := SReturnBuy;
+    1: Result := _('Приход');
+    2: Result := _('Возврат прихода');
+    3: Result := _('Расход');
+    4: Result := _('Возврат расхода');
   else
-    Result := SUnknownType  + IntToStr(AType);
+    Result := _('Неизв. тип: ')  + IntToStr(AType);
   end;
 end;
 
@@ -155,13 +137,6 @@ end;
 3 Единый налог на вмененный доход
 4 Единый сельскохозяйственный налог
 5 Патентная система налогообложения}
-resourcestring
-  SOSN = 'ОБЩ.';
-  SUD = '+УД';
-  SUDMR = '+УДМР';
-  SENVD = '+ЕНВД';
-  SESN = '+ЕСН';
-  SPSN = '+ПСН';
 
 function TaxSystemToStr(AType: Integer): string;
 begin
@@ -171,17 +146,22 @@ begin
     Exit;
   end;
   if TestBit(AType, 0) then
-    Result := SOSN;
+    Result := _('ОБЩ.');
+
   if TestBit(AType, 1) then
-    Result := Result + SUD;
+    Result := Result + _('+УД');
+
   if TestBit(AType, 2) then
-    Result := Result + SUDMR;
+    Result := Result + _('+УДМР');
+
   if TestBit(AType, 3) then
-    Result := Result + SENVD;
+    Result := Result + _('+ЕНВД');
+
   if TestBit(AType, 4) then
-    Result := Result + SESN;
+    Result := Result + _('+ЕНВД');
+
   if TestBit(AType, 5) then
-    Result := Result + SPSN;
+    Result := Result + _('+ПСН');
 end;
 
 { TTLVTags }
@@ -489,7 +469,7 @@ var
   i, c: Integer;
 begin
   if (aSizeInBytes > 8) or (aSizeInBytes < 1) then
-    raise Exception.Create('to large data');
+    raiseException('to large data');
 
   SetLength(Result, aSizeInBytes);
 
@@ -621,10 +601,10 @@ var
   i: Byte;
 begin
   if Byte(s[1]) > 8 then
-    raise Exception.Create('Неверная длина FVLN');
+    raiseException('Неверная длина FVLN');
 
   if System.Length(s) < 2 then
-    raise Exception.Create('Неверная длина FVLN');
+    raiseException('Неверная длина FVLN');
 
   Result := ValueTLV2Int(Copy(s, 2, System.Length(s) - 1));
   for i := 1 to Byte(s[1]) do
@@ -682,10 +662,10 @@ begin
   Result := '';
   if System.Length(S) < 1 then Exit;
   if Byte(s[1]) > 8 then
-    raise Exception.Create('Неверная длина FVLN');
+    raiseException('Неверная длина FVLN');
 
   if System.Length(s) < 2 then
-    raise Exception.Create('Неверная длина FVLN');
+    raiseException('Неверная длина FVLN');
 
   R := ValueTLV2Int(Copy(s, 2, System.Length(s) - 1));
   for i := 1 to Byte(s[1]) do

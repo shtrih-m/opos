@@ -22,7 +22,6 @@ uses
   OposPtrhi in '..\..\Source\Opos\OposPtrhi.pas',
   OposPtrUtils in '..\..\Source\Opos\OposPtrUtils.pas',
   OposFptrUtils in '..\..\Source\Opos\OposFptrUtils.pas',
-  OposMessages in '..\..\Source\SmFiscalPrinter\Units\OposMessages.pas',
   OPOSException in '..\..\Source\Opos\OposException.pas',
   StatisticItem in '..\..\Source\SmFiscalPrinter\Units\StatisticItem.pas',
   FileUtils in '..\..\Source\Shared\FileUtils.pas',
@@ -192,7 +191,7 @@ uses
   fmuTest in 'Units\fmuTest.pas' {fmTest},
   duUniposReader in 'Units\duUniposReader.pas',
   fmuTimeSync in '..\..\Source\SmFiscalPrinter\Fmu\fmuTimeSync.pas' {fmTimeSync},
-  CorrectionReceipt in '..\..\Source\SmFiscalPrinter\Units\CorrectionReceipt.pas',
+  CorrectionReceipt2 in '..\..\Source\SmFiscalPrinter\Units\CorrectionReceipt2.pas',
   CsvPrinterTableFormat in '..\..\Source\SmFiscalPrinter\Units\CsvPrinterTableFormat.pas',
   PrinterTableFormat in '..\..\Source\SmFiscalPrinter\Units\PrinterTableFormat.pas',
   VatCode in '..\..\Source\SmFiscalPrinter\Units\VatCode.pas',
@@ -215,7 +214,9 @@ uses
   EkmClient in '..\..\Source\SmFiscalPrinter\Units\EkmClient.pas',
   duGS1Barcode in 'Units\duGS1Barcode.pas',
   RegressTests in 'Units\RegressTests.pas',
-  duBitUtils in 'Units\duBitUtils.pas';
+  duBitUtils in 'Units\duBitUtils.pas',
+  WException in '..\..\Source\Shared\WException.pas',
+  CorrectionReceipt in '..\..\Source\SmFiscalPrinter\Units\CorrectionReceipt.pas';
 
 {$R *.RES}
 {$R ..\..\Source\SmFiscalPrinter\SmFiscalPrinter.TLB}

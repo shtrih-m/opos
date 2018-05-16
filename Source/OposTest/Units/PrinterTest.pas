@@ -798,6 +798,14 @@ type
     function GetDisplayText: string; override;
   end;
 
+  { TCorrectionReceipt2Test }
+
+  TCorrectionReceipt2Test = class(TDriverTest)
+  public
+    procedure Execute; override;
+    function GetDisplayText: string; override;
+  end;
+
 implementation
 
 const
@@ -3919,18 +3927,10 @@ begin
   FiscalPrinter.FiscalReceiptStation := FPTR_RS_RECEIPT;
   FiscalPrinter.FiscalReceiptType := FPTR_RT_CORRECTION_SALE;
   Check(FiscalPrinter.BeginFiscalReceipt(False));
+  Check(FiscalPrinter.DirectIO2(40, 1173, '0'));
   Check(FiscalPrinter.DirectIO2(40, 1177, '77'));
   Check(FiscalPrinter.DirectIO2(40, 1178, '11.05.2018'));
   Check(FiscalPrinter.DirectIO2(40, 1179, '99'));
-  Check(FiscalPrinter.PrintRecCash(100));
-  Check(FiscalPrinter.PrintRecTotal(100, 100, '0'));
-  Check(FiscalPrinter.EndFiscalReceipt(True));
-
-(*
-  // RetSale
-  FiscalPrinter.FiscalReceiptStation := FPTR_RS_RECEIPT;
-  FiscalPrinter.FiscalReceiptType := FPTR_RT_CORRECTION_RETSALE;
-  Check(FiscalPrinter.BeginFiscalReceipt(False));
   Check(FiscalPrinter.PrintRecCash(100));
   Check(FiscalPrinter.PrintRecTotal(100, 100, '0'));
   Check(FiscalPrinter.EndFiscalReceipt(True));
@@ -3938,17 +3938,12 @@ begin
   FiscalPrinter.FiscalReceiptStation := FPTR_RS_RECEIPT;
   FiscalPrinter.FiscalReceiptType := FPTR_RT_CORRECTION_BUY;
   Check(FiscalPrinter.BeginFiscalReceipt(False));
+  Check(FiscalPrinter.DirectIO2(40, 1177, '77'));
+  Check(FiscalPrinter.DirectIO2(40, 1178, '11.05.2018'));
+  Check(FiscalPrinter.DirectIO2(40, 1179, '99'));
   Check(FiscalPrinter.PrintRecCash(100));
   Check(FiscalPrinter.PrintRecTotal(100, 100, '0'));
   Check(FiscalPrinter.EndFiscalReceipt(True));
-  // RetBuy
-  FiscalPrinter.FiscalReceiptStation := FPTR_RS_RECEIPT;
-  FiscalPrinter.FiscalReceiptType := FPTR_RT_CORRECTION_RETBUY;
-  Check(FiscalPrinter.BeginFiscalReceipt(False));
-  Check(FiscalPrinter.PrintRecCash(100));
-  Check(FiscalPrinter.PrintRecTotal(100, 100, '0'));
-  Check(FiscalPrinter.EndFiscalReceipt(True));
-*)
 end;
 
 function TCorrectionReceiptTest.GetDisplayText: string;
@@ -4672,6 +4667,53 @@ begin
   FiscalPrinter.PrintRecItemRefund('¿»-95', 100, 2551, 4, 39.2, '');
   FiscalPrinter.PrintRecTotal(100, 100, '0');
   FiscalPrinter.EndFiscalReceipt(True);
+end;
+
+{ TCorrectionReceipt2Test }
+
+procedure TCorrectionReceipt2Test.Execute;
+begin
+  // Sale
+  FiscalPrinter.FiscalReceiptStation := FPTR_RS_RECEIPT;
+  FiscalPrinter.FiscalReceiptType := FPTR_RT_CORRECTION2_SALE;
+  Check(FiscalPrinter.BeginFiscalReceipt(False));
+  Check(FiscalPrinter.DirectIO2(40, 1177, '77'));
+  Check(FiscalPrinter.DirectIO2(40, 1178, '11.05.2018'));
+  Check(FiscalPrinter.DirectIO2(40, 1179, '99'));
+  Check(FiscalPrinter.PrintRecCash(1));
+  Check(FiscalPrinter.SetParameter(DriverParameterCorrectionType, 0));
+  Check(FiscalPrinter.SetParameter(DriverParameterCalculationSign, 1));
+  Check(FiscalPrinter.SetParameter(DriverParameterAmount2, 2));
+  Check(FiscalPrinter.SetParameter(DriverParameterAmount3, 3));
+  Check(FiscalPrinter.SetParameter(DriverParameterAmount4, 4));
+  Check(FiscalPrinter.SetParameter(DriverParameterAmount5, 5));
+  Check(FiscalPrinter.SetParameter(DriverParameterAmount6, 6));
+  Check(FiscalPrinter.SetParameter(DriverParameterAmount7, 7));
+  Check(FiscalPrinter.SetParameter(DriverParameterAmount8, 8));
+  Check(FiscalPrinter.SetParameter(DriverParameterAmount9, 9));
+  Check(FiscalPrinter.SetParameter(DriverParameterAmount10, 10));
+  Check(FiscalPrinter.SetParameter(DriverParameterAmount11, 11));
+  Check(FiscalPrinter.SetParameter(DriverParameterAmount12, 12));
+  Check(FiscalPrinter.SetParameter(DriverParameterTaxType, 0));
+  Check(FiscalPrinter.PrintRecTotal(1000, 1000, '0'));
+  Check(FiscalPrinter.EndFiscalReceipt(True));
+(*
+  // Buy
+  FiscalPrinter.FiscalReceiptStation := FPTR_RS_RECEIPT;
+  FiscalPrinter.FiscalReceiptType := FPTR_RT_CORRECTION2_BUY;
+  Check(FiscalPrinter.BeginFiscalReceipt(False));
+  Check(FiscalPrinter.DirectIO2(40, 1177, '77'));
+  Check(FiscalPrinter.DirectIO2(40, 1178, '11.05.2018'));
+  Check(FiscalPrinter.DirectIO2(40, 1179, '99'));
+  Check(FiscalPrinter.PrintRecCash(100));
+  Check(FiscalPrinter.PrintRecTotal(100, 100, '0'));
+  Check(FiscalPrinter.EndFiscalReceipt(True));
+*)
+end;
+
+function TCorrectionReceipt2Test.GetDisplayText: string;
+begin
+  Result := 'Correction receipt 2 test';
 end;
 
 end.

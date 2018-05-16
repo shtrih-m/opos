@@ -17,7 +17,7 @@ uses
   uZintInterface,
   SysUtils,
   Graphics,
-  Dialogs;
+  Dialogs, gnugettext;
 
 type
   TZBRotation = (r0, r90, r180, r270);
@@ -322,15 +322,12 @@ begin
   Data := '123456789';
 end;
 
-resourcestring
-  MsgInternalSymbolStructure = 'Can not create internal symbol structure';
-
 procedure TZintBarcode.CreateSymbol;
 begin
   FSymbol := nil;
   FSymbol := ZBarcode_Create;
   if not Assigned(FSymbol) then
-    raise EZintError.Create(MsgInternalSymbolStructure);
+    raise EZintError.Create(_('Can not create internal symbol structure'));
 end;
 
 destructor TZintBarcode.Destroy;

@@ -162,7 +162,7 @@ begin
       FConnection.IOHandler.InputBuffer.Clear;
   except
     on E: Exception do
-      Logger.Error(E.Message);
+      Logger.Error(GetExceptionMessage(E));
   end;
 end;
 
@@ -365,7 +365,7 @@ begin
     end;
   except
     on E: Exception do
-      raise ECommunicationError.Create(E.Message);
+      raise ECommunicationError.Create(GetExceptionMessage(E));
   end;
 end;
 

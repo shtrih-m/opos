@@ -6,7 +6,7 @@ uses
   // VCL
   Classes, SysUtils,
   // This
-  LogFile, PrinterTypes, FiscalPrinterTypes;
+  LogFile, PrinterTypes, WException, FiscalPrinterTypes;
 
 type
   { TFiscalPrinterFilter }
@@ -79,7 +79,7 @@ begin
   except
     on E: Exception do
     begin
-      Logger.Error(E.Message);
+      Logger.Error(GetExceptionMessage(E));
     end;
   end;
 end;
@@ -95,7 +95,7 @@ begin
   except
     on E: Exception do
     begin
-      Logger.Error(E.Message);
+      Logger.Error(GetExceptionMessage(E));
     end;
   end;
 end;
@@ -110,7 +110,7 @@ begin
   except
     on E: Exception do
     begin
-      Logger.Error(E.Message);
+      Logger.Error(GetExceptionMessage(E));
     end;
   end;
 end;
@@ -125,7 +125,7 @@ begin
   except
     on E: Exception do
     begin
-      Logger.Error(E.Message);
+      Logger.Error(GetExceptionMessage(E));
     end;
   end;
 end;
@@ -140,7 +140,7 @@ begin
   except
     on E: Exception do
     begin
-      Logger.Error(E.Message);
+      Logger.Error(GetExceptionMessage(E));
     end;
   end;
 end;
@@ -155,7 +155,7 @@ begin
   except
     on E: Exception do
     begin
-      Logger.Error(E.Message);
+      Logger.Error(GetExceptionMessage(E));
     end;
   end;
 end;
@@ -170,7 +170,7 @@ begin
   except
     on E: Exception do
     begin
-      Logger.Error(E.Message);
+      Logger.Error(GetExceptionMessage(E));
     end;
   end;
 end;
@@ -185,7 +185,7 @@ begin
   except
     on E: Exception do
     begin
-      Logger.Error(E.Message);
+      Logger.Error(GetExceptionMessage(E));
     end;
   end;
 end;
@@ -200,7 +200,7 @@ begin
   except
     on E: Exception do
     begin
-      Logger.Error(E.Message);
+      Logger.Error(GetExceptionMessage(E));
     end;
   end;
 end;
@@ -215,7 +215,7 @@ begin
   except
     on E: Exception do
     begin
-      Logger.Error(E.Message);
+      Logger.Error(GetExceptionMessage(E));
     end;
   end;
 end;
@@ -230,7 +230,7 @@ begin
   except
     on E: Exception do
     begin
-      Logger.Error(E.Message);
+      Logger.Error(GetExceptionMessage(E));
     end;
   end;
 end;
@@ -246,7 +246,7 @@ begin
   except
     on E: Exception do
     begin
-      Logger.Error(E.Message);
+      Logger.Error(GetExceptionMessage(E));
     end;
   end;
 end;
@@ -262,7 +262,7 @@ begin
   except
     on E: Exception do
     begin
-      Logger.Error(E.Message);
+      Logger.Error(GetExceptionMessage(E));
     end;
   end;
 end;
@@ -277,7 +277,7 @@ begin
   except
     on E: Exception do
     begin
-      Logger.Error(E.Message);
+      Logger.Error(GetExceptionMessage(E));
     end;
   end;
 end;
@@ -292,7 +292,7 @@ begin
   except
     on E: Exception do
     begin
-      Logger.Error(E.Message);
+      Logger.Error(GetExceptionMessage(E));
     end;
   end;
 end;
@@ -307,7 +307,7 @@ begin
   except
     on E: Exception do
     begin
-      Logger.Error(E.Message);
+      Logger.Error(GetExceptionMessage(E));
     end;
   end;
 end;
@@ -322,7 +322,7 @@ begin
   except
     on E: Exception do
     begin
-      Logger.Error(E.Message);
+      Logger.Error(GetExceptionMessage(E));
     end;
   end;
 end;

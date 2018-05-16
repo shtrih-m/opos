@@ -84,11 +84,11 @@ uses
   VatCode in '..\..\Source\SmFiscalPrinter\Units\VatCode.pas',
   fmuFptrPayType in '..\..\Source\OposConfig\Fmu\fmuFptrPayType.pas' {fmFptrPayType},
   DriverContext in '..\..\Source\SmFiscalPrinter\Units\DriverContext.pas',
-  OposMessages in '..\..\Source\SmFiscalPrinter\Units\OposMessages.pas',
   TLVTags in '..\..\Source\SmFiscalPrinter\Units\TLVTags.pas',
   ByteUtils in '..\..\Source\Shared\ByteUtils.pas',
   fmuFptrConnection in '..\..\Source\OposConfig\Fmu\fmuFptrConnection.pas' {fmFptrConnection},
-  fmuMarkChecker in '..\..\Source\OposConfig\Fmu\fmuMarkChecker.pas' {fmMarkChecker};
+  fmuMarkChecker in '..\..\Source\OposConfig\Fmu\fmuMarkChecker.pas' {fmMarkChecker},
+  WException in '..\..\Source\Shared\WException.pas';
 
 {$R *.RES}
 

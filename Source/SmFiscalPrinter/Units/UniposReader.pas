@@ -6,7 +6,7 @@ uses
   // VCL
   Windows, SysUtils, Registry, ActiveX, ComObj,
   // This
-  LogFile, PrinterTypes;
+  LogFile, PrinterTypes, WException;
 
 type
   { TPrintReportRec }
@@ -165,7 +165,7 @@ begin
     end;
   except
     on E: Exception do
-      Logger.Error('TUniposReader.ReportSuccessfullPrint: ' + E.Message);
+      Logger.Error('TUniposReader.ReportSuccessfullPrint: ' + GetExceptionMessage(E));
   end;
   Reg.Free;
 end;
@@ -188,7 +188,7 @@ begin
     end;
   except
     on E: Exception do
-      Logger.Error('TUniposReader.ReportSuccessfullPrint: ' + E.Message);
+      Logger.Error('TUniposReader.ReportSuccessfullPrint: ' + GetExceptionMessage(E));
   end;
   Reg.Free;
 end;
@@ -225,7 +225,7 @@ begin
     end;
   except
     on E: Exception do
-      Logger.Error('TUniposReader.ReadTextReceipt: ' + E.Message);
+      Logger.Error('TUniposReader.ReadTextReceipt: ' + GetExceptionMessage(E));
   end;
   Reg.Free;
 end;
@@ -251,7 +251,7 @@ begin
     except
       on E: Exception do
       begin
-        Logger.Error('TUniposReader.WriteTextReceipt: ' + E.Message);
+        Logger.Error('TUniposReader.WriteTextReceipt: ' + GetExceptionMessage(E));
         Result := False;
       end;
     end;
@@ -303,7 +303,7 @@ begin
     end;
   except
     on E: Exception do
-      Logger.Error('TUniposReader.ReadHeaderBlock: ' + E.Message);
+      Logger.Error('TUniposReader.ReadHeaderBlock: ' + GetExceptionMessage(E));
   end;
   Reg.Free;
 end;
@@ -335,7 +335,7 @@ begin
     end;
   except
     on E: Exception do
-      Logger.Error('TUniposReader.ReadTrailerBlock: ' + E.Message);
+      Logger.Error('TUniposReader.ReadTrailerBlock: ' + GetExceptionMessage(E));
   end;
   Reg.Free;
 end;
@@ -356,7 +356,7 @@ begin
     end;
   except
     on E: Exception do
-      Logger.Error('TUniposReader.WriteTextBlock: ' + E.Message);
+      Logger.Error('TUniposReader.WriteTextBlock: ' + GetExceptionMessage(E));
   end;
   Reg.Free;
 end;
@@ -377,7 +377,7 @@ begin
     end;
   except
     on E: Exception do
-      Logger.Error('TUniposReader.WriteTextBlock: ' + E.Message);
+      Logger.Error('TUniposReader.WriteTextBlock: ' + GetExceptionMessage(E));
   end;
   Reg.Free;
 end;
@@ -409,7 +409,7 @@ begin
     end;
   except
     on E: Exception do
-      Logger.Error('TAntiFroudFilter.ReadReceiptFlags: ' + E.Message);
+      Logger.Error('TAntiFroudFilter.ReadReceiptFlags: ' + GetExceptionMessage(E));
   end;
   Reg.Free;
 end;
@@ -431,7 +431,7 @@ begin
     end;
   except
     on E: Exception do
-      Logger.Error('TAntiFroudFilter.ClearReceiptFlags: ' + E.Message);
+      Logger.Error('TAntiFroudFilter.ClearReceiptFlags: ' + GetExceptionMessage(E));
   end;
   Reg.Free;
 end;

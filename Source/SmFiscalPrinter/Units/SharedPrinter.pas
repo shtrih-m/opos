@@ -10,7 +10,7 @@ uses
   // JWA
   //JwaIcmpApi,
   // Opos
-  Opos, OposFptr, OposFptrUtils, OposException, OposMessages, OposSemaphore,
+  Opos, OposFptr, OposFptrUtils, OposException, OposSemaphore,
   // This
   FiscalPrinterDevice, PrinterTypes, PrinterConnection,
   LogFile, SerialPorts, StringUtils, FiscalPrinterStatistics,
@@ -18,7 +18,8 @@ uses
   PrinterProtocol1, PrinterProtocol2, TCPConnection, DCOMConnection, VSysUtils,
   PayType, DebugUtils, ByteUtils, DriverTypes, NotifyThread, NotifyLink,
   PrinterParameters, PrinterParametersX, DriverError, DirectIOAPI,
-  ReceiptReportFilter, EscFilter, SerialPort, SocketPort, PrinterPort;
+  ReceiptReportFilter, EscFilter, SerialPort, SocketPort, PrinterPort,
+  WException, gnugettext;
 
 type
   { TSharedPrinter }
@@ -401,7 +402,7 @@ begin
     PrinterProtocol10: Result := TPrinterProtocol1.Create(Logger, Port);
     PrinterProtocol20: Result := TPrinterProtocol2.Create(Logger, Port, Parameters);
   else
-    raise Exception.Create(MsgInvalidPrinterProtocol);
+    raiseException(_('Invalid printer protocol'));
   end;
 end;
 
@@ -438,7 +439,7 @@ begin
       Result := CreateProtocol(Port);
     end;
   else
-    raise Exception.Create(MsgInvalidConnectionType);
+    raiseException(_('Invalid connection type'));
   end;
 end;
 
@@ -475,7 +476,7 @@ begin
     on E: Exception do
     begin
       Logger.Error('TFiscalPrinterParameters.Load: ', E);
-      RaiseOposException(OPOS_ORS_CONFIG, E.Message);
+      RaiseOposException(OPOS_ORS_CONFIG, GetExceptionMessage(E));
     end;
   end;
 end;
@@ -688,7 +689,7 @@ begin
       end;
     end;
   end;
-  RaiseOposException(OPOS_E_NOHARDWARE, MsgDeviceNotConnected);
+  RaiseOposException(OPOS_E_NOHARDWARE, _('No connection'));
 end;
 
 function TSharedPrinter.ReadRecFormatItem(Row: Integer): TRecFormatItem;
@@ -987,9 +988,6 @@ end;
 // Mode: 0x04, amode: 0x01, Flags: 0x04B2
 // Mode: 0x04, amode: 0x01, Flags: 0x04B2
 // 0000 0100 1011 0010
-
-resourcestring
-  MsgFailedContinuePrint = 'Failed to continue print';
 
 function TSharedPrinter.GetHeader: TFixedStrings;
 begin
@@ -1375,7 +1373,7 @@ begin
       except
         on E: Exception do
         begin
-          Logger.Error('PING failed: ' + E.Message);
+          Logger.Error('PING failed: ' + GetExceptionMessage(E));
         end;
       end;
       Sleep2(3000);

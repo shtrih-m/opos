@@ -8,8 +8,8 @@ uses
   // Tnt
   TntRegistry, TntClasses, TntSysUtils,
   // This
-  Oposhi, PrinterTypes, LogFile, FileUtils,
-  StringUtils, TextMap, RegUtils;
+  Oposhi, PrinterTypes, LogFile, FileUtils, StringUtils, TextMap, RegUtils,
+  WException, gnugettext;
 
 const
   /////////////////////////////////////////////////////////////////////////////
@@ -179,13 +179,10 @@ begin
   end;
 end;
 
-resourcestring
-  MsgInvalidFuelAmountPrecision = 'Invalid FuelAmountPrecision value';
-
 procedure TMalinaParams.CheckFuelAmountPrecision(const Value: Currency);
 begin
   if not ValidFuelAmountPrecision(Value) then
-    raise Exception.CreateFmt('%s, %.2f', [MsgInvalidFuelAmountPrecision, Value]);
+    raiseExceptionFmt('%s, %.2f', [_('Invalid FuelAmountPrecision value'), Value]);
 end;
 
 function TMalinaParams.ValidFuelAmountPrecision(const Value: Currency): Boolean;
@@ -510,7 +507,7 @@ begin
     Reg.RootKey := HKEY_LOCAL_MACHINE;
     KeyName := GetSysKeyName(DeviceName);
     if not Reg.OpenKey(KeyName, True) then
-      raise Exception.CreateFmt(MsgKeyOpenError, [KeyName]);
+      raiseExceptionFmt(MsgKeyOpenError, [KeyName]);
 
     Reg.WriteString('', FiscalPrinterProgID);
     // Malina

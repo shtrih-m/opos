@@ -4,9 +4,9 @@ interface
 
 Uses
   // VCL
-  Classes, SysUtils, 
+  Classes, SysUtils,
   // This
-  ParameterValue, DriverTypes;
+  ParameterValue, DriverTypes, WException, gnugettext;
 
 type
   TTableParameter = class;
@@ -119,11 +119,9 @@ begin
 end;
 
 procedure TTableParameters.CheckID(ID: Integer);
-resourcestring
-  MsgNotUniqueItemID = 'Not unique item ID';
 begin
   if ItemByID(ID) <> nil then
-    raise Exception.Create(MsgNotUniqueItemID);
+    raiseException(_('Not unique item ID'));
 end;
 
 { TTableParameter }
@@ -157,12 +155,10 @@ end;
 function TTableParameter.GetValue(ValueID: Integer): Integer;
 var
   ParameterValue: TParameterValue;
-resourcestring
-  ParameterValueNotFound = 'Parameter value not found';
 begin
   ParameterValue := Values.ItemByID(ValueID);
   if ParameterValue = nil then
-    Raise Exception.Create(ParameterValueNotFound);
+    raiseException(_('Parameter value not found'));
   Result := ParameterValue.Value;
 end;
 

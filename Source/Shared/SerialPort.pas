@@ -8,7 +8,8 @@ uses
   // JVCL
   DBT,
   // This
-  LogFile, DeviceNotification, PortUtil, TextReport, PrinterPort;
+  LogFile, DeviceNotification, PortUtil, TextReport, PrinterPort,
+  WException, gnugettext;
 
 type
   { TSerialPort }
@@ -69,11 +70,11 @@ type
     property ReconnectPort: Boolean read FReconnectPort write FReconnectPort;
   end;
 
-  ENoPortError = class(Exception);
+  ENoPortError = class(WideException);
 
   { ESerialPortError }
 
-  ESerialPortError = class(Exception)
+  ESerialPortError = class(WideException)
   public
     ErrorCode: Integer;
   end;
@@ -105,9 +106,6 @@ begin
     Ports.Unlock;
   end;
 end;
-
-resourcestring
-  SDeviceNotConnected = 'Device not connected';
 
 function GetProviderSubTypeText(Value: Integer): string;
 begin
@@ -373,9 +371,6 @@ var
   DevName: string;
 const
   MaxReconnectCount = 3;
-resourcestring
-  MsgPortOpenedAnotherApplication = 'Port is opened by another application';
-  MsgCannotOpenPort = 'Cannot open port';
 begin
   DevName := '\\.\' + GetDeviceName;
   for i := 1 to MaxReconnectCount do
@@ -386,7 +381,7 @@ begin
     if FHandle <> INVALID_HANDLE_VALUE then Break;
 
     if GetLastError = ERROR_ACCESS_DENIED then
-      raise ENoPortError.Create(MsgPortOpenedAnotherApplication);
+      raise ENoPortError.Create(_('Port is opened by another application'));
 
     if ReconnectPort and (i <> MaxReconnectCount) then
     begin
@@ -401,16 +396,14 @@ begin
     Logger.Error(Format('CreateFile ERROR: 0x%.8x, %s', [
       GetLastError, SysErrorMessage(GetLastError)]));
 
-    raise ENoPortError.Create(MsgCannotOpenPort);
+    raise ENoPortError.Create(_('Cannot open port'));
   end;
 end;
 
 procedure TSerialPort.CheckOpened;
-resourcestring
-  MsgPortNotOpened = 'Port not opened';
 begin
   if not OPened then
-    raise ESerialPortError.Create(MsgPortNotOpened);
+    raise ESerialPortError.Create(_('Port not opened'));
 end;
 
 procedure TSerialPort.ReadCommConfig;
@@ -565,8 +558,8 @@ begin
 
     if Count <> WriteCount then
     begin
-      Logger.Error('Write failed. ' + SDeviceNotConnected);
-      raise ESerialPortError.Create(SDeviceNotConnected);
+      Logger.Error('Write failed. ' + _('Device not connected'));
+      raise ESerialPortError.Create(_('Device not connected'));
     end;
   finally
     Unlock;
@@ -612,8 +605,8 @@ begin
     if ReadCount <> Count then
     begin
       Logger.Error(Format('Read data: %d <> %d', [ReadCount, Count]));
-      Logger.Error('Read error. ' + SDeviceNotConnected);
-      raise ESerialPortError.Create(SDeviceNotConnected);
+      Logger.Error('Read error. ' + _('Device not connected'));
+      raise ESerialPortError.Create(_('Device not connected'));
     end;
   finally
     Unlock;

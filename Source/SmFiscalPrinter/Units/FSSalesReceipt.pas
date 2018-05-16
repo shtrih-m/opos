@@ -11,7 +11,7 @@ uses
   ReceiptItem, RecDiscount, PrinterParameters, TextItem, MathUtils,
   fmuSelect, fmuPhone, fmuEMail, TLV, LogFile, RegExpr, MalinaParams,
   StringUtils, Retalix, FiscalPrinterTypes, ReceiptTemplate,
-  SmResourceStrings, DirectioAPI;
+  DirectioAPI, WException, gnugettext;
 
 type
   { TFSSalesReceipt }
@@ -260,7 +260,7 @@ end;
 function TFSSalesReceipt.GetLastItem: TFSSaleItem;
 begin
   if FLastItem = nil then
-    raise Exception.Create(MsgLastReceiptItemNotDefined);
+    raiseException(_('Не задан последний элемент чека'));
   Result := FLastItem;
 end;
 
@@ -301,7 +301,7 @@ begin
     ItemAmount := Round2(GetLastItem.Quantity * GetLastItem.Price);
     DiscountAmount := GetLastItem.Discount + Abs(Discount.Amount);
     if DiscountAmount > (ItemAmount + GetLastItem.Charge) then
-      raise Exception.Create(MsgDiscountAmountMoreItemAmount);
+      raiseException(_('Сумма скидки больше суммы позиции'));
     GetLastItem.Discount := GetLastItem.Discount + Abs(Discount.Amount);
   end else
   begin
@@ -1233,7 +1233,7 @@ begin
     except
       on E: Exception do
       begin
-        Logger.Error(E.Message);
+        Logger.Error(GetExceptionMessage(E));
       end;
     end;
   finally

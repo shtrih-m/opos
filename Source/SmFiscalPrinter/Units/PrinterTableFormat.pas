@@ -6,7 +6,7 @@ uses
   // VCL
   Windows, Classes, SysUtils,
   // This
-  PrinterTable;
+  PrinterTable, WException, gnugettext;
 
 type
   TPrinterTableFormat = class;
@@ -79,11 +79,9 @@ begin
 end;
 
 function TPrinterTableFormats.GetItem(Index: Integer): TPrinterTableFormat;
-resourcestring
-  SInvalidTableFormatIndex = 'Неверный индекс формата файла';
 begin
   if not ValidIndex(Index) then
-    Raise Exception.Create(SInvalidTableFormatIndex);
+    raiseException(_('Неверный индекс формата файла'));
 
   Result := FList[Index];
 end;

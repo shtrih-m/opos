@@ -19,13 +19,13 @@ uses
   CustomReceipt, CashInReceipt, CashOutReceipt, GenericReceipt, SalesReceipt,
   TextReceipt, FiscalPrinterStatistics, FiscalPrinterTypes, VersionInfo,
   PrinterModel, ServiceVersion, CommunicationError,
-  OposMessages, EscFilter, DriverTypes, PrinterEncoding,
-  OposEventsRCS, OposEventsNull, NotifyLink, ZReport, CachedSalesReceipt,
-  GlobusReceipt, GlobusTextReceipt, PrinterParametersX, MonitoringServer,
-  TextItem, FptrFilter, NonFiscalDoc, RosneftSalesReceipt, FSSalesReceipt,
-  PrinterConnection, Retalix, RegExpr, TLV, DriverError, MathUtils,
-  fmuTimeSync, CorrectionReceipt, CsvPrinterTableFormat, PrinterTable,
-  FSService, ReceiptItem, SmResourceStrings;
+  EscFilter, DriverTypes, PrinterEncoding, OposEventsRCS, OposEventsNull,
+  NotifyLink, ZReport, CachedSalesReceipt, GlobusReceipt, GlobusTextReceipt,
+  PrinterParametersX, MonitoringServer, TextItem, FptrFilter, NonFiscalDoc,
+  RosneftSalesReceipt, FSSalesReceipt, PrinterConnection, Retalix, RegExpr,
+  TLV, DriverError, MathUtils, fmuTimeSync, CorrectionReceipt,
+  CorrectionReceipt2, CsvPrinterTableFormat, PrinterTable, FSService,
+  ReceiptItem, WException, gnugettext;
 
 type
   { TFiscalPrinterImpl }
@@ -126,6 +126,7 @@ type
     function CreateSalesReceipt: TCustomReceipt;
     function CreateRefundReceipt: TCustomReceipt;
     function CreateCorrectionReceipt(RecType: Integer): TCustomReceipt;
+    function CreateCorrectionReceipt2(RecType: Integer): TCustomReceipt;
     function GetEventInterface(FDispatch: IDispatch): IOposEvents;
     procedure StatusChanged(Sender: TObject);
     procedure PrintText(const Text: string); overload;
@@ -951,7 +952,7 @@ end;
 function TFiscalPrinterImpl.GetPrinter: ISharedPrinter;
 begin
   if FPrinter = nil then
-    raise Exception.Create('Printer = nil');
+    raiseException('Printer = nil');
 
   Result := FPrinter;
 end;
@@ -982,12 +983,12 @@ begin
     Format('%s, № %s, %s: %s.%s.%d %s, %s: %s.%s.%d %s', [
     FDeviceMetrics.DeviceName,
     Status.SerialNumber,
-    MsgPrinterFirmware,
+    _('ПО ФР'),
     Status.FirmwareVersionHi,
     Status.FirmwareVersionLo,
     Status.FirmwareBuild,
     PrinterDateToStr(Status.FirmwareDate),
-    MsgFMFirmware,
+    _('ПО ФП'),
     Status.FMVersionHi,
     Status.FMVersionLo,
     Status.FMBuild,
@@ -1229,6 +1230,12 @@ var
   Data: TTextRec;
 begin
   WaitForPrinting;
+  if Device.CapFiscalStorage then
+  begin
+    Device.CancelReceipt;
+    Exit;
+  end;
+
   if Device.IsRecOpened then
   begin
     Device.CancelReceipt;
@@ -1289,7 +1296,7 @@ begin
     end;
   except
     on E: Exception do
-      Logger.Error(E.Message);
+      Logger.Error(GetExceptionMessage(E));
   end;
 end;
 
@@ -1423,7 +1430,7 @@ end;
 
 function TFiscalPrinterImpl.GetStateErrorMessage(const Mode: Integer): string;
 begin
-  Result := Format('%s: %d, %s', [MsgCantChangeState, Mode, GetModeText(Mode)]);
+  Result := Format('%s: %d, %s', [_('Невозможно изменить состояние'), Mode, GetModeText(Mode)]);
 end;
 
 procedure TFiscalPrinterImpl.CheckPrinterStatus;
@@ -1472,7 +1479,7 @@ begin
   TickCount := GetTickCount;
   repeat
     if Integer(GetTickCount) > (TickCount + Parameters.StatusTimeout*1000) then
-      raise Exception.Create(SStatusWaitTimeout);
+      raiseException(SStatusWaitTimeout);
 
     PrinterStatus := Device.ReadPrinterStatus;
     Mode := PrinterStatus.Mode and $0F;
@@ -1714,7 +1721,8 @@ end;
 procedure TFiscalPrinterImpl.CheckEndDay;
 begin
   if Device.ReadPrinterStatus.Mode = ECRMODE_24OVER then
-    raiseExtendedError(OPOS_EFPTR_DAY_END_REQUIRED, MsgDayEndRequired);
+    raiseExtendedError(OPOS_EFPTR_DAY_END_REQUIRED,
+    _('Истекли 24 часа. Распечатайте Z отчет и попробуйте снова'));
 end;
 
 procedure TFiscalPrinterImpl.CheckCapSlpFiscalDocument;
@@ -1752,7 +1760,7 @@ procedure TFiscalPrinterImpl.CheckHealthExternal;
 var
   PrinterStatus: TPrinterStatus;
 begin
-  FOposDevice.CheckHealthText := MsgExternalHCheck;
+  FOposDevice.CheckHealthText := _('External HCheck: ');
   try
     PrinterStatus := WaitForPrinting;
     if (PrinterStatus.Mode <> ECRMODE_TEST) then
@@ -1766,7 +1774,7 @@ begin
   except
     on E: Exception do
     begin
-      FOposDevice.CheckHealthText := FOposDevice.CheckHealthText + E.Message;
+      FOposDevice.CheckHealthText := FOposDevice.CheckHealthText + GetExceptionMessage(E);
       raise;
     end;
   end;
@@ -1787,56 +1795,56 @@ begin
     // Cover opened
     if FCapCoverSensor and PrinterFlags.CoverOpened then
     begin
-      Lines.Add(MsgCoverOpened);
+      Lines.Add(_('Крышка открыта'));
     end;
     // Receipt paper
     if FCapRecPresent then
     begin
       if FCapRecEmptySensor and PrinterFlags.RecEmpty then
-        Lines.Add(MsgNoReceiptPaper);
+        Lines.Add(_('Нет чековой ленты'));
 
       if FCapRecNearEndSensor and PrinterFlags.RecNearEnd then
-        Lines.Add(MsgReceiptPaperNearEnd);
+        Lines.Add(_('Чековая лента близка к завершению'));
 
       if Device.GetModel.CapRecLever and PrinterFlags.RecLeverUp then
-        Lines.Add(MsgReceiptStationLeverUp);
+        Lines.Add(_('Поднят рычаг чековой ленты'));
     end;
     // Journal paper
     if FCapJrnPresent then
     begin
       if FCapJrnEmptySensor and PrinterFlags.JrnEmpty then
-        Lines.Add(MsgJournalStationOutOfPaper);
+      Lines.Add(_('Нет контрольной ленты'));
 
       if FCapJrnNearEndSensor and PrinterFlags.JrnNearEnd then
-        Lines.Add(MsgJournalStationPaperNearEnd);
+        Lines.Add(_('Контрольная лента близка к завершению'));
 
       if Device.GetModel.CapJrnLever and PrinterFlags.JrnLeverUp then
-        Lines.Add(MsgJournalStationLeverUp);
+        Lines.Add(_('Поднят рычаг контрольной ленты'));
     end;
     // EJ
     if (PrinterFlags.EJPresent and PrinterFlags.EJNearEnd) then
-      Lines.Add(MsgEKLZAlmostFull);
+      Lines.Add(_('ЭКЛЗ близка к заполнению'));
 
     // FM
     if FMFlags.Overflow then
-      Lines.Add(MsgFiscalMemoryOverflow);
+      Lines.Add(_('Переполнение ФП'));
 
     if FMFlags.LowBattery then
-      Lines.Add(MsgFiscalMemoryBatteryLow);
+      Lines.Add(_('Низкое напряжение батареи ФП'));
 
     if FMFlags.LastRecordCorrupted then
-      Lines.Add(MsgLastRecordCorrupted);
+      Lines.Add(_('Последняя запись ФП повреждена'));
 
     if FMFlags.Is24HoursLeft then
-      Lines.Add(MsgFMFiscalDayOver);
+      Lines.Add(_('Истекли 24 часа в ФП'));
 
     if Lines.Count <> 0 then
     begin
-      Lines.Insert(0, MsgInternalHCheck);
+      Lines.Insert(0, _('Internal HCheck: '));
       FOposDevice.CheckHealthText := Lines.Text;
     end else
     begin
-      FOposDevice.CheckHealthText := MsgInternalHCheck + 'OK';
+      FOposDevice.CheckHealthText := _('Internal HCheck: ') + 'OK';
     end;
   finally
     Lines.Free;
@@ -2110,14 +2118,14 @@ begin
     FPTR_RT_CORRECTION_SALE:
       Result := CreateCorrectionReceipt(1);
 
-    FPTR_RT_CORRECTION_RETSALE:
-      Result := CreateCorrectionReceipt(2);
-
     FPTR_RT_CORRECTION_BUY:
       Result := CreateCorrectionReceipt(3);
 
-    FPTR_RT_CORRECTION_RETBUY:
-      Result := CreateCorrectionReceipt(4);
+    FPTR_RT_CORRECTION2_SALE:
+      Result := CreateCorrectionReceipt2(1);
+
+    FPTR_RT_CORRECTION2_BUY:
+      Result := CreateCorrectionReceipt2(1);
 
   else
     Result := nil;
@@ -2215,6 +2223,17 @@ begin
   Context.Printer := FReceiptPrinter;
   Context.FiscalReceiptStation := FFiscalReceiptStation;
   Result := TCorrectionReceipt.Create(Context);
+end;
+
+function TFiscalPrinterImpl.CreateCorrectionReceipt2(RecType: Integer): TCustomReceipt;
+var
+  Context: TReceiptContext;
+begin
+  Context.RecType := RecType;
+  Context.State := FPrinterState;
+  Context.Printer := FReceiptPrinter;
+  Context.FiscalReceiptStation := FFiscalReceiptStation;
+  Result := TCorrectionReceipt2.Create(Context);
 end;
 
 procedure TFiscalPrinterImpl.CheckInitPrinter;
@@ -2381,7 +2400,7 @@ begin
     CheckEnabled;
     CheckState(FPTR_PS_MONITOR);
     if not FCapTrainingMode then
-      RaiseOposException(OPOS_E_ILLEGAL, MsgTrainingModeNotSupported);
+      RaiseOposException(OPOS_E_ILLEGAL, _('Режим тренировки не поддерживается'));
 
     FTrainingModeActive := True;
     FReceiptPrinter := TTrainingReceiptPrinter.Create(Printer);
@@ -2405,7 +2424,7 @@ begin
         CheckHealthExternal;
 
       OPOS_CH_INTERACTIVE:
-        RaiseOposException(OPOS_E_ILLEGAL, MsgNotImplemented);
+        RaiseOposException(OPOS_E_ILLEGAL, _('Не поддерживается'));
     else
       InvalidParameterValue('Level', IntToStr(Level));
     end;
@@ -2580,7 +2599,7 @@ begin
   try
     CheckEnabled;
     if not FTrainingModeActive then
-      RaiseOposException(OPOS_E_ILLEGAL, MsgNotInTrainingMode);
+      RaiseOposException(OPOS_E_ILLEGAL, _('Training mode is not active'));
 
     FTrainingModeActive := False;
     FReceiptPrinter := TFiscalReceiptPrinter.Create(Printer);
@@ -2938,7 +2957,7 @@ begin
   except
     on E: Exception do
     begin
-      Logger.Error(E.Message);
+      Logger.Error(GetExceptionMessage(E));
     end;
   end;
 end;
@@ -2970,7 +2989,7 @@ function TFiscalPrinterImpl.GetTotalizer(VatID, OptArgs: Integer;
 
   procedure TotalizerNotSupported;
   begin
-    RaiseOposException(OPOS_E_ILLEGAL, MsgTotalizerNotSupported);
+    RaiseOposException(OPOS_E_ILLEGAL, _('Счетчик не поддерживается'));
   end;
 
 begin
@@ -3096,25 +3115,25 @@ begin
   if (Station and FPTR_S_RECEIPT) <> 0 then
   begin
     if not FCapRecPresent then
-      RaiseOposException(OPOS_E_ILLEGAL, MsgReceiptStationNotPresent);
+      RaiseOposException(OPOS_E_ILLEGAL, _('Нет чекового принтера'));
     PrinterStation := PrinterStation + PRINTER_STATION_REC;
   end;
 
   if (Station and FPTR_S_JOURNAL) <> 0 then
   begin
     if not FCapJrnPresent then
-      RaiseOposException(OPOS_E_ILLEGAL, MsgJournalStationNotPresent);
+      RaiseOposException(OPOS_E_ILLEGAL, _('Нет принтера контрольной ленты'));
     PrinterStation := PrinterStation + PRINTER_STATION_JRN;
   end;
 
   if (Station and FPTR_S_SLIP) <> 0 then
   begin
     if not FCapSlpPresent then
-      RaiseOposException(OPOS_E_ILLEGAL, MsgSlpStationNotPresent);
+      RaiseOposException(OPOS_E_ILLEGAL, _('Slip station is not present'));
     PrinterStation := PrinterStation + PRINTER_STATION_SLP;
   end;
   if PrinterStation = 0 then
-    RaiseOposException(OPOS_E_ILLEGAL, MsgNoStationDefined);
+    RaiseOposException(OPOS_E_ILLEGAL, _('No station defined'));
   Result := PrinterStation;
 end;
 
@@ -3368,7 +3387,7 @@ function TFiscalPrinterImpl.PrintRecNotPaid(
 begin
   try
     if not FCapReceiptNotPaid then
-      RaiseOposException(OPOS_E_ILLEGAL, MsgNotPaidNotSupported);
+      RaiseOposException(OPOS_E_ILLEGAL, _('Not paid receipt is nor supported'));
 
     if (PrinterState <> FPTR_PS_FISCAL_RECEIPT_ENDING) and
       (PrinterState <> FPTR_PS_FISCAL_RECEIPT_TOTAL) then
@@ -3565,7 +3584,7 @@ begin
   try
     CheckState(FPTR_PS_MONITOR);
     case ReportType of
-      FPTR_RT_ORDINAL: RaiseOposException(OPOS_E_ILLEGAL, MsgNotImplemented);
+      FPTR_RT_ORDINAL: RaiseOposException(OPOS_E_ILLEGAL, _('Не поддерживается'));
       FPTR_RT_DATE:
       begin
         DateReport.ReportType := PRINTER_REPORT_TYPE_FULL;
@@ -3692,7 +3711,7 @@ begin
     except
       on E: Exception do
       begin
-        Logger.Error(E.Message);
+        Logger.Error(GetExceptionMessage(E));
       end;
     end;
     ZReport.Free;
@@ -3746,7 +3765,7 @@ begin
     if Parameters.TimeUpdateMode = TimeUpdateModeNormal then
     begin
       if FDayOpened then
-        RaiseOposException(OPOS_E_ILLEGAL, MsgDayOpened);
+        RaiseOposException(OPOS_E_ILLEGAL, _('Day is opened. Unable to change date'));
 
       OposDate := DecodeOposDate(Date);
       PrinterDate.Day := OposDate.Day;
@@ -3812,7 +3831,7 @@ begin
     CheckEnabled;
 
     if CashierID = '' then
-     raise Exception.Create(MsgCashierNameEmpty);
+     raiseException(_('Casier name connot be empty'));
 
     Device.WriteTable(PRINTER_TABLE_CASHIER,
       Device.ReadUsrOperatorNumber, 2, CashierID);
@@ -3898,7 +3917,7 @@ end;
 procedure TFiscalPrinterImpl.CheckCapSetVatTable;
 begin
   if not FCapSetVatTable then
-    RaiseIllegalError(MsgNotSupported);
+    RaiseIllegalError(_('Not supported'));
 end;
 
 function TFiscalPrinterImpl.SetVatValue(
@@ -4276,7 +4295,7 @@ begin
   if E is EOPOSException then
   begin
     OPOSException := E as EOPOSException;
-    OPOSError.ErrorString := E.Message;
+    OPOSError.ErrorString := GetExceptionMessage(E);
     OPOSError.ResultCode := OPOSException.ResultCode;
     OPOSError.ResultCodeExtended := OPOSException.ResultCodeExtended;
     FOposDevice.HandleException(OPOSError);
@@ -4284,7 +4303,7 @@ begin
     Exit;
   end;
 
-  OPOSError.ErrorString := E.Message;
+  OPOSError.ErrorString := GetExceptionMessage(E);
   OPOSError.ResultCode := OPOS_E_FAILURE;
   OPOSError.ResultCodeExtended := OPOS_SUCCESS;
   FOposDevice.HandleException(OPOSError);
@@ -4294,10 +4313,10 @@ end;
 function TFiscalPrinterImpl.HandleDriverError(E: EDriverError): TOPOSError;
 begin
   FLastErrorCode := E.ErrorCode;
-  FLastErrorText := E.Message;
+  FLastErrorText := GetExceptionMessage(E);
 
   Result.ResultCode := OPOS_E_EXTENDED;
-  Result.ErrorString := E.Message;
+  Result.ErrorString := GetExceptionMessage(E);
   case E.ErrorCode of
     $6B: Result.ResultCodeExtended := OPOS_EFPTR_REC_EMPTY;
     $6C: Result.ResultCodeExtended := OPOS_EFPTR_JRN_EMPTY;
@@ -4612,8 +4631,6 @@ var
   ExpireDate: TPrinterDate;
   FSCommStatus: TFSCommStatus;
   FSFiscalResult: TFSFiscalResult;
-resourcestring
-  MsgInvalidParameterValue = 'Invalid pData parameter value';
 begin
   case ParamID of
     DIO_FS_PARAMETER_SERIAL:
@@ -4685,10 +4702,11 @@ begin
       Result := TicketToStr(Ticket);
     end;
   else
-    raise Exception.Create(MsgInvalidParameterValue);
+    raiseException(_('Invalid pData parameter value'));
   end;
 end;
 
 
 end.
+
 

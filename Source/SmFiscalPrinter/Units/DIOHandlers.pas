@@ -514,7 +514,7 @@ begin
 
   Command := FCommands.ItemByCode(pData);
   if Command = nil then
-    raise Exception.Create('Invalid command code');
+    raiseException('Invalid command code');
 
   Stream := TBinStream.Create;
   try
@@ -728,7 +728,7 @@ var
 begin
   Command := FCommands.ItemByCode(pData);
   if Command = nil then
-    raise Exception.Create('Invalid command code');
+    raiseException('Invalid command code');
 
   Stream := TBinStream.Create;
   try
@@ -1159,7 +1159,7 @@ begin
   except
     on E: Exception do
     begin
-      Logger.Error(E.Message);
+      Logger.Error(GetExceptionMessage(E));
     end;
   end;
   ZReport.Free;
@@ -1188,7 +1188,7 @@ begin
   except
     on E: Exception do
     begin
-      Logger.Error(E.Message);
+      Logger.Error(GetExceptionMessage(E));
     end;
   end;
   ZReport.Free;

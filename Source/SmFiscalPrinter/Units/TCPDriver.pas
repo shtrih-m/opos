@@ -131,7 +131,7 @@ function TRemoteDriver.DecodeData(const AStr: string): string;
     'A'..'F': Result := ord(AChar) - ord('A') + 10;
     'a'..'f': Result := ord(AChar) - ord('a') + 10;
     else
-      raise Exception.Create('Неверный формат данных');
+      raiseException('Неверный формат данных');
     end;
   end;
 

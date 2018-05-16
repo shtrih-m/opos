@@ -132,7 +132,7 @@ begin
   except
     on E:Exception do
     begin
-      //Logger.Error(E.Message);
+      //Logger.Error(GetExceptionMessage(E));
     end;
   end;
 end;

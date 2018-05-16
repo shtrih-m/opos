@@ -9,7 +9,7 @@ uses
   TntSysUtils,
   // This
   StringUtils, RegExpr, LogFile, MalinaParams, PrinterParameters,
-  DriverContext, SmresourceStrings;
+  DriverContext, WException, gnugettext;
 
 type
   { TRetalix }
@@ -143,7 +143,7 @@ begin
   except
     on E: Exception do
     begin
-      Logger.Error('TRetalix.Open: ' + E.Message);
+      Logger.Error('TRetalix.Open: ' + GetExceptionMessage(E));
     end;
   end;
 end;
@@ -163,7 +163,7 @@ begin
   except
     on E: Exception do
     begin
-      Logger.Error('TRetalix.Close: ' + E.Message);
+      Logger.Error('TRetalix.Close: ' + GetExceptionMessage(E));
     end;
   end;
 end;
@@ -224,7 +224,7 @@ function TRetalix.ReadTaxGroup(ItemName: WideString): Integer;
   procedure CheckItemName(const ItemName: WideString);
   begin
     if ItemName = '' then
-      raise Exception.Create(MsgItemNameEmpty);
+      raiseException(_('ItemName не может быть пустым'));
   end;
 
 var
@@ -258,7 +258,7 @@ begin
   except
     on E: Exception do
     begin
-      Logger.Error('TRetalix.ReadTaxGroup: ' + E.Message);
+      Logger.Error('TRetalix.ReadTaxGroup: ' + GetExceptionMessage(E));
     end;
   end;
 end;
@@ -276,7 +276,7 @@ begin
   except
     on E: Exception do
     begin
-      Logger.Error('TRetalix.ParseOperator: ' + E.Message);
+      Logger.Error('TRetalix.ParseOperator: ' + GetExceptionMessage(E));
     end;
   end;
 end;

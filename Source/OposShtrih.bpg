@@ -9,10 +9,10 @@ MAKE = $(ROOT)\bin\make.exe -$(MAKEFLAGS) -f$**
 DCC = $(ROOT)\bin\dcc32.exe $**
 BRCC = $(ROOT)\bin\brcc32.exe $**
 #------------------------------------------------------------------------------
-PROJECTS = OposConfig.exe OposTest.exe SmFiscalPrinter.dll SmFiscalPrinter.RUS \
-  SmScale.dll SmFptrSrv.exe OposConfigTest.exe OposConfigTestLib.dll \
-  SmFiscalPrinterTest.exe SmFiscalPrinterTestLib.dll OposTestTest.exe \
-  OposTestTestLib.dll SmScaleTest.exe SmScaleTestLib.dll
+PROJECTS = OposConfig.exe OposTest.exe SmFiscalPrinter.dll SmScale.dll \
+  SmFptrSrv.exe OposConfigTest.exe OposConfigTestLib.dll SmFiscalPrinterTest.exe \
+  SmFiscalPrinterTestLib.dll OposTestTest.exe OposTestTestLib.dll SmScaleTest.exe \
+  SmScaleTestLib.dll
 #------------------------------------------------------------------------------
 default: $(PROJECTS)
 #------------------------------------------------------------------------------
@@ -54,9 +54,6 @@ SmScaleTest.exe: ..\Test\SmScaleTest\SmScaleTest.dpr
   $(DCC)
 
 SmScaleTestLib.dll: ..\Test\SmScaleTest\SmScaleTestLib.dpr
-  $(DCC)
-
-SmFiscalPrinter.RUS: SmFiscalPrinter\RUS\SmFiscalPrinter.dpr
   $(DCC)
 
 

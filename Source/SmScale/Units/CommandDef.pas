@@ -6,7 +6,7 @@ Uses
   // VCL
   Windows, Classes, SysUtils,
   // This
-  XmlParser, CommandParam, LogFile, OposMessages;
+  XmlParser, CommandParam, LogFile, WException, gnugettext;
 
 type
   TCommandDef = class;
@@ -142,12 +142,13 @@ function TCommandDefs.ItemByCode(Code: Integer): TCommandDef;
 var
   i: Integer;
 begin
+  Result := nil;
   for i := 0 to Count-1 do
   begin
     Result := Items[i];
     if Result.Code = Code then Exit;
   end;
-  raise Exception.Create(MsgCommandNotFound);
+  raiseException(_('Неверный код команды'));
 end;
 
 procedure TCommandDefs.DoLoadFromFile(const FileName: string);

@@ -9,7 +9,7 @@ uses
   Opos, Oposhi, OposFptr, OposEvents, OposException, OposFptrUtils,
   OposUtils,
   // This
-  OposSemaphore, NotifyThread, LogFile, PrinterTypes;
+  OposSemaphore, NotifyThread, LogFile, PrinterTypes, gnugettext;
 
 type
   { TOposServiceDevice19 }
@@ -296,13 +296,10 @@ error
 
 *)
 
-resourcestring
-  MsgDeviceDisabled = 'Device is disabled';
-
 procedure TOposServiceDevice19.CheckEnabled;
 begin
   if not DeviceEnabled then
-    RaiseOposException(OPOS_E_DISABLED, MsgDeviceDisabled);
+    RaiseOposException(OPOS_E_DISABLED, _('Device is disabled'));
 end;
 
 procedure TOposServiceDevice19.SetFreezeEvents(const Value: Boolean);
@@ -425,15 +422,13 @@ function TOposServiceDevice19.ConvertBinary(const Data: string): string;
     until False;
   end;
 
-resourcestring
-  MsgInvalidBinaryConversion = 'Invalid BinaryConversion property value';
 begin
   case FBinaryConversion of
     OPOS_BC_NONE    : Result := Data;
     OPOS_BC_NIBBLE  : Result := NibbleConversion(Data);
     OPOS_BC_DECIMAL : Result := DecimalConversion(Data);
   else
-    RaiseOposException(OPOS_E_ILLEGAL, MsgInvalidBinaryConversion);
+    RaiseOposException(OPOS_E_ILLEGAL, _('Invalid BinaryConversion property value'));
   end;
 end;
 

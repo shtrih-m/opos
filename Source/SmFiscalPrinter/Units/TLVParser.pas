@@ -6,7 +6,7 @@ uses
   // VCL
   SysUtils,
   // This
-  TLVTags;
+  TLVTags, WException, gnugettext;
 
 type
   { TTLVParser }
@@ -40,10 +40,6 @@ begin
   inherited;
 end;
 
-resourcestring
-  SWrongTagLength = 'Ошибка! Некорректная длина';
-  SUnknownTag = 'НЕИЗВЕСТНЫЙ ТЕГ';
-
 function TTLVParser.DoParseTLV(AData: string): string;
 var
   S: string;
@@ -55,7 +51,7 @@ var
 begin
   Result := '';
   if Length(AData) < 4 then
-    raise Exception.Create('TLV length error');
+    raiseException('TLV length error');
 
   S := '';
   i := 1;
@@ -69,20 +65,21 @@ begin
     Item := FList.Find(t);
     if Item = nil then
     begin
+      S := S + GetIdent;
       if ShowTagNumbers then
-        S := S + GetIdent + IntToStr(t) + ','+ SUnknownTag
-      else
-        S := S + GetIdent + SUnknownTag;
-      S := S + #13#10;
+        S := S + IntToStr(t) + ',';
+      S := S + _('НЕИЗВЕСТНЫЙ ТЕГ')+ #13#10;
+
       Inc(i, l);
       continue;
     end;
     if (Length(AData) - 4) < l then
     begin
+      S := S + GetIdent;
       if ShowTagNumbers then
-        S := S + GetIdent + IntToStr(t) + ','+Item.ShortDescription + ':' + SWrongTagLength
+        S := S + GetIdent + IntToStr(t) + ','+Item.ShortDescription + ':' + _('Ошибка! Некорректная длина')
       else
-        S := S + GetIdent + Item.ShortDescription + ':' + SWrongTagLength ;
+        S := S + GetIdent + Item.ShortDescription + ':' + _('Ошибка! Некорректная длина') ;
       S := S + #13#10;
       Exit;
     end;

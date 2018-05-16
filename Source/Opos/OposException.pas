@@ -6,7 +6,7 @@ uses
   // VCL
   SysUtils,
   // This
-  OPOS, OPOShi;
+  OPOS, OPOShi, WException, gnugettext;
 
 type
   { TOPOSError }
@@ -14,20 +14,20 @@ type
   TOPOSError = record
     ResultCode: Integer;
     ResultCodeExtended: Integer;
-    ErrorString: string;
+    ErrorString: WideString;
   end;
 
   { EOPOSException }
 
-  EOPOSException = class(Exception)
+  EOPOSException = class(WideException)
   private
     FResultCode: Integer;
     FResultCodeExtended: Integer;
   public
-    constructor Create(const AMessage: string;
+    constructor Create(const AMessage: WideString;
       AResultCode, AResultCodeExtended: Integer);
 
-    class function GetResultCodeText(Value: Integer): string;
+    class function GetResultCodeText(Value: Integer): WideString;
 
     property ResultCode: Integer read FResultCode;
     property ResultCodeExtended: Integer read FResultCodeExtended;
@@ -35,16 +35,16 @@ type
 
   { EOPOSDeviceException }
 
-  EOPOSDeviceException = class(Exception)
+  EOPOSDeviceException = class(WideException)
   private
     FResultCode: Integer;
     FResultCodeExtended: Integer;
     FDeviceErrorCode: Integer;
   public
-    constructor Create(const AMessage: string;
+    constructor Create(const AMessage: WideString;
       AResultCode, AResultCodeExtended, ADeviceErrorCode: Integer);
 
-    class function GetResultCodeText(Value: Integer): string;
+    class function GetResultCodeText(Value: Integer): WideString;
 
     property ResultCode: Integer read FResultCode;
     property DeviceErrorCode: Integer read FDeviceErrorCode;
@@ -52,58 +52,54 @@ type
   end;
 
 procedure RaiseIllegalError; overload;
-procedure RaiseIllegalError(const AMessage: string); overload;
+procedure RaiseIllegalError(const AMessage: WideString); overload;
 procedure RaiseOPOSException(AResultCode: Integer); overload;
 procedure RaiseExtendedError(AResultCodeExtended: Integer); overload;
 
 procedure RaiseOPOSException(
   AResultCode: Integer;
-  const AMessage: string); overload;
+  const AMessage: WideString); overload;
 
 procedure RaiseOPOSException(
   AResultCode, AResultCodeExtended: Integer;
-  const AMessage: string); overload;
+  const AMessage: WideString); overload;
 
 
 procedure RaiseExtendedError(
   AResultCodeExtended: Integer;
-  const AMessage: string); overload;
+  const AMessage: WideString); overload;
 
-procedure InvalidPropertyValue(const PropName, PropValue: string);
-procedure InvalidParameterValue(const ParamName, ParamValue: string);
-
-resourcestring
-  MsgInvalidParameterValue = 'Invalid parameter value';
-  MsgInvalidPropertyValue = 'Invalid property value';
+procedure InvalidPropertyValue(const PropName, PropValue: WideString);
+procedure InvalidParameterValue(const ParamName, ParamValue: WideString);
 
 implementation
 
-procedure InvalidParameterValue(const ParamName, ParamValue: string);
+procedure InvalidParameterValue(const ParamName, ParamValue: WideString);
 begin
   RaiseOposException(OPOS_E_ILLEGAL, Format('%s, %s=''%s''',
-    [MsgInvalidParameterValue, ParamName]));
+    [_('Invalid parameter value'), ParamName]));
 end;
 
-procedure InvalidPropertyValue(const PropName, PropValue: string);
+procedure InvalidPropertyValue(const PropName, PropValue: WideString);
 begin
   RaiseOposException(OPOS_E_ILLEGAL, Format('%s, %s=''%s''',
-    [MsgInvalidPropertyValue, PropName, PropValue]));
+    [_('Invalid property value'), PropName, PropValue]));
 end;
 
 procedure RaiseOPOSException(AResultCode, AResultCodeExtended: Integer;
-  const AMessage: string); overload;
+  const AMessage: WideString); overload;
 begin
   raise EOPOSException.Create(AMessage, AResultCode, AResultCodeExtended);
 end;
 
 procedure RaiseOPOSException(AResultCode: Integer;
-  const AMessage: string); overload;
+  const AMessage: WideString); overload;
 begin
   RaiseOPOSException(AResultCode, OPOS_SUCCESS, AMessage);
 end;
 
 procedure RaiseExtendedError(AResultCodeExtended: Integer;
-  const AMessage: string); overload;
+  const AMessage: WideString); overload;
 begin
   RaiseOPOSException(OPOS_E_EXTENDED, AResultCodeExtended, AMessage);
 end;
@@ -120,7 +116,7 @@ begin
     '');
 end;
 
-procedure RaiseIllegalError(const AMessage: string); overload;
+procedure RaiseIllegalError(const AMessage: WideString); overload;
 begin
   RaiseOposException(OPOS_E_ILLEGAL, AMessage);
 end;
@@ -132,7 +128,7 @@ end;
 
 { EOPOSExtendedError }
 
-constructor EOPOSException.Create(const AMessage: string;
+constructor EOPOSException.Create(const AMessage: WideString;
   AResultCode, AResultCodeExtended: Integer);
 begin
   inherited Create(AMessage);
@@ -140,7 +136,7 @@ begin
   FResultCodeExtended := AResultCodeExtended;
 end;
 
-class function EOPOSException.GetResultCodeText(Value: Integer): string;
+class function EOPOSException.GetResultCodeText(Value: Integer): WideString;
 begin
   case Value of
     OPOS_SUCCESS          : Result := 'OPOS_SUCCESS';
@@ -176,7 +172,7 @@ end;
 
 { EOPOSDeviceException }
 
-constructor EOPOSDeviceException.Create(const AMessage: string;
+constructor EOPOSDeviceException.Create(const AMessage: WideString;
   AResultCode, AResultCodeExtended, ADeviceErrorCode: Integer);
 begin
   inherited Create(AMessage);
@@ -186,7 +182,7 @@ begin
 end;
 
 class function EOPOSDeviceException.GetResultCodeText(
-  Value: Integer): string;
+  Value: Integer): WideString;
 begin
   Result := EOPOSException.GetResultCodeText(Value);
 end;

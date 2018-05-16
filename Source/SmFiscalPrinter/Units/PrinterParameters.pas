@@ -520,13 +520,28 @@ type
     Barcode: string;
     MarkType: Integer;
     PrintRecMessageMode: Integer;
-
     EkmServerHost: string;
     EkmServerPort: Integer;
     EkmServerTimeout: Integer;
     EkmServerEnabled: Boolean;
     FSMarkCheckEnabled: Boolean;
-  public
+
+    CorrectionType: Byte; // Тип коррекции :1 байт
+    CalculationSign: Int64; // Признак расчета:1байт
+    Amount1: Int64; // Сумма расчёта :5 байт
+    Amount2: Int64; // Сумма по чеку наличными:5 байт
+    Amount3: Int64; // Сумма по чеку электронными:5 байт
+    Amount4: Int64; // Сумма по чеку предоплатой:5 байт
+    Amount5: Int64; // Сумма по чеку постоплатой:5 байт
+    Amount6: Int64; // Сумма по чеку встречным представлением:5 байт
+    Amount7: Int64; // Сумма НДС 18%:5 байт
+    Amount8: Int64; // Сумма НДС 10%:5 байт
+    Amount9: Int64; // Сумма расчёта по ставке 0%:5 байт
+    Amount10: Int64; // Сумма расчёта по чеку без НДС:5 байт
+    Amount11: Int64; // Сумма расчёта по расч. ставке 18/118:5 байт
+    Amount12: Int64; // Сумма расчёта по расч. ставке 10/110:5 байт
+    TaxType: Byte; // Применяемая система налогообложения:1байт
+ public
     constructor Create(ALogger: ILogFile);
     destructor Destroy; override;
 

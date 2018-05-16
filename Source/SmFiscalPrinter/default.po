@@ -1,67 +1,100 @@
-﻿# SOME DESCRIPTIVE TITLE.
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
-"POT-Creation-Date: 2017-09-04 11:35\n"
-"PO-Revision-Date: 2017-09-04 11:39+0300\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2018-05-15 19:59\n"
+"PO-Revision-Date: 2018-05-15 19:59\n"
 "Last-Translator: Somebody <your.email@address.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.3\n"
-"Language-Team: \n"
-"Language: ru_RU\n"
+"X-Generator: dxgettext 1.2.2\n"
 
 #. fmEMail..Font.Name
+#: Fmu/fmuEMail.dfm:13
 #. fmEMail..Label1..Font.Name
+#: Fmu/fmuEMail.dfm:29
 #. fmEMail..btnOK..Font.Name
+#: Fmu/fmuEMail.dfm:42
 #. fmEMail..btnCancel..Font.Name
+#: Fmu/fmuEMail.dfm:57
 #. fmEMail..edtAddress..Font.Name
+#: Fmu/fmuEMail.dfm:107
 #. fmGraph..Font.Name
+#: Fmu/fmuGraph.dfm:12
 #. fmLogo..Font.Name
+#: Fmu/fmuLogo.dfm:15
 #. fmPhone..Font.Name
+#: Fmu/fmuPhone.dfm:14
 #. fmPhone..Label1..Font.Name
+#: Fmu/fmuPhone.dfm:29
 #. fmPhone..btnOK..Font.Name
+#: Fmu/fmuPhone.dfm:42
 #. fmPhone..btnCancel..Font.Name
+#: Fmu/fmuPhone.dfm:57
 #. fmPhone..pnlKeyboard..btn1..Font.Name
+#: Fmu/fmuPhone.dfm:79
 #. fmPhone..pnlKeyboard..btn2..Font.Name
+#: Fmu/fmuPhone.dfm:93
 #. fmPhone..pnlKeyboard..btn3..Font.Name
+#: Fmu/fmuPhone.dfm:108
 #. fmPhone..pnlKeyboard..btn4..Font.Name
+#: Fmu/fmuPhone.dfm:123
 #. fmPhone..pnlKeyboard..btn5..Font.Name
+#: Fmu/fmuPhone.dfm:138
 #. fmPhone..pnlKeyboard..btn6..Font.Name
+#: Fmu/fmuPhone.dfm:153
 #. fmPhone..pnlKeyboard..btn7..Font.Name
+#: Fmu/fmuPhone.dfm:168
 #. fmPhone..pnlKeyboard..btn8..Font.Name
+#: Fmu/fmuPhone.dfm:183
 #. fmPhone..pnlKeyboard..btn9..Font.Name
+#: Fmu/fmuPhone.dfm:198
 #. fmPhone..pnlKeyboard..btn0..Font.Name
+#: Fmu/fmuPhone.dfm:213
 #. fmPhone..pnlKeyboard..btnPlus..Font.Name
+#: Fmu/fmuPhone.dfm:228
 #. fmPhone..pnlKeyboard..btnBack..Font.Name
+#: Fmu/fmuPhone.dfm:242
 #. fmPhone..edtAddress..Font.Name
+#: Fmu/fmuPhone.dfm:281
 #. fmSelect..Font.Name
+#: Fmu/fmuSelect.dfm:13
 #. fmSelect..btnPhone..Font.Name
+#: Fmu/fmuSelect.dfm:28
 #. fmSelect..btnEMail..Font.Name
+#: Fmu/fmuSelect.dfm:138
 #. fmSelect..btnCancel..Font.Name
+#: Fmu/fmuSelect.dfm:274
 #. fmTimeSync..Font.Name
+#: Fmu/fmuTimeSync.dfm:12
 #. fmTimeSync..btnCancel..Font.Name
-#: Fmu/fmuEMail.dfm:13 Fmu/fmuEMail.dfm:29
-#: Fmu/fmuEMail.dfm:42 Fmu/fmuEMail.dfm:57
-#: Fmu/fmuEMail.dfm:107 Fmu/fmuGraph.dfm:12
-#: Fmu/fmuLogo.dfm:15 Fmu/fmuPhone.dfm:14
-#: Fmu/fmuPhone.dfm:29 Fmu/fmuPhone.dfm:42
-#: Fmu/fmuPhone.dfm:57 Fmu/fmuPhone.dfm:79
-#: Fmu/fmuPhone.dfm:93 Fmu/fmuPhone.dfm:108
-#: Fmu/fmuPhone.dfm:123 Fmu/fmuPhone.dfm:138
-#: Fmu/fmuPhone.dfm:153 Fmu/fmuPhone.dfm:168
-#: Fmu/fmuPhone.dfm:183 Fmu/fmuPhone.dfm:198
-#: Fmu/fmuPhone.dfm:213 Fmu/fmuPhone.dfm:228
-#: Fmu/fmuPhone.dfm:242 Fmu/fmuPhone.dfm:281
-#: Fmu/fmuSelect.dfm:13 Fmu/fmuSelect.dfm:28
-#: Fmu/fmuSelect.dfm:138 Fmu/fmuSelect.dfm:274
-#: Fmu/fmuTimeSync.dfm:12 Fmu/fmuTimeSync.dfm:79
+#: Fmu/fmuTimeSync.dfm:79
 msgid "MS Sans Serif"
+msgstr ""
+
+#. fmEMail..Label1..Caption
+#: Fmu/fmuEMail.dfm:25
+msgid "Адрес электронной почты:"
+msgstr ""
+
+#. fmEMail..btnOK..Caption
+#: Fmu/fmuEMail.dfm:38
+#. fmPhone..btnOK..Caption
+#: Fmu/fmuPhone.dfm:38
+msgid "Да"
+msgstr ""
+
+#. fmEMail..btnCancel..Caption
+#: Fmu/fmuEMail.dfm:53
+#. fmPhone..btnCancel..Caption
+#: Fmu/fmuPhone.dfm:53
+msgid "Нет"
 msgstr ""
 
 #. fmEMail..pnlRu1..Caption
@@ -84,9 +117,19 @@ msgstr ""
 msgid "pnlEn2"
 msgstr ""
 
+#. fmGraph..Caption
+#: Fmu/fmuGraph.dfm:5
+msgid "Графика"
+msgstr ""
+
 #. fmGraph..GroupBox1..btnLoadImage..Hint
 #: Fmu/fmuGraph.dfm:30
 msgid "LoadLineData"
+msgstr ""
+
+#. fmGraph..GroupBox1..btnLoadImage..Caption
+#: Fmu/fmuGraph.dfm:32
+msgid "Загрузка картинки"
 msgstr ""
 
 #. fmGraph..GroupBox1..btnLoadLineDataEx..Hint
@@ -94,9 +137,50 @@ msgstr ""
 msgid "LoadLineDataEx"
 msgstr ""
 
+#. fmGraph..GroupBox1..btnLoadLineDataEx..Caption
+#: Fmu/fmuGraph.dfm:45
+msgid "Расширенная загрузка"
+msgstr ""
+
 #. fmGraph..GroupBox1..btnWideLoadLineData..Hint
 #: Fmu/fmuGraph.dfm:56
 msgid "WideLoadLineData"
+msgstr ""
+
+#. fmGraph..GroupBox1..btnWideLoadLineData..Caption
+#: Fmu/fmuGraph.dfm:58
+msgid "Загрузка одной командой"
+msgstr ""
+
+#. fmGraph..GroupBox1..btnMonochrome1..Hint
+#: Fmu/fmuGraph.dfm:70
+#. fmGraph..GroupBox1..btnMonochrome1..Caption
+#: Fmu/fmuGraph.dfm:72
+msgid "Монохромизировать1"
+msgstr ""
+
+#. fmGraph..GroupBox1..btnMonochrome2..Hint
+#: Fmu/fmuGraph.dfm:83
+#. fmGraph..GroupBox1..btnMonochrome2..Caption
+#: Fmu/fmuGraph.dfm:85
+msgid "Монохромизировать2"
+msgstr ""
+
+#. fmGraph..GroupBox1..btnOpenPicture..Hint
+#: Fmu/fmuGraph.dfm:123
+#. fmGraph..GroupBox1..btnOpenPicture..Caption
+#: Fmu/fmuGraph.dfm:125
+msgid "Открыть файл"
+msgstr ""
+
+#. fmGraph..GroupBox2..lblFirstLineNumber..Caption
+#: Fmu/fmuGraph.dfm:197
+msgid "Номер первой строки:"
+msgstr ""
+
+#. fmGraph..GroupBox2..lblLastLineNumber..Caption
+#: Fmu/fmuGraph.dfm:204
+msgid "Номер последней строки:"
 msgstr ""
 
 #. fmGraph..GroupBox2..edtFirstLineNumber..Hint
@@ -114,9 +198,19 @@ msgstr ""
 msgid "Draw"
 msgstr ""
 
+#. fmGraph..GroupBox2..btnDraw..Caption
+#: Fmu/fmuGraph.dfm:260
+msgid "Печать картинки"
+msgstr ""
+
 #. fmGraph..GroupBox2..btnDrawEx..Hint
 #: Fmu/fmuGraph.dfm:271
 msgid "DrawEx"
+msgstr ""
+
+#. fmGraph..GroupBox2..btnDrawEx..Caption
+#: Fmu/fmuGraph.dfm:273
+msgid "Расширенная печать"
 msgstr ""
 
 #. fmGraph..OpenPictureDialog..Filter
@@ -156,7 +250,8 @@ msgstr ""
 
 #. fmLogo..Panel1..lblInfo1..Caption
 #: Fmu/fmuLogo.dfm:88
-msgid "Select monochrome image and press \"Load\" button"
+msgid "Select monochrome image and press \"Load\" "
+"button"
 msgstr ""
 
 #. fmLogo..Panel1..lblImageSize..Caption
@@ -174,6 +269,18 @@ msgstr ""
 msgid "Center logo on page"
 msgstr ""
 
+#. fmPhone..Caption
+#: Fmu/fmuPhone.dfm:7
+#. fmSelect..btnPhone..Caption
+#: Fmu/fmuSelect.dfm:24
+msgid "Номер телефона"
+msgstr ""
+
+#. fmPhone..Label1..Caption
+#: Fmu/fmuPhone.dfm:25
+msgid "Номер телефона:"
+msgstr ""
+
 #. fmPhone..pnlKeyboard..Caption
 #: Fmu/fmuPhone.dfm:68
 msgid "pnlKeyboard"
@@ -184,13 +291,39 @@ msgstr ""
 msgid "+"
 msgstr ""
 
+#. fmSelect..btnEMail..Caption
+#: Fmu/fmuSelect.dfm:134
+msgid "Электронная почта"
+msgstr ""
+
+#. fmSelect..btnCancel..Caption
+#: Fmu/fmuSelect.dfm:270
+#. fmTimeSync..btnCancel..Caption
+#: Fmu/fmuTimeSync.dfm:75
+msgid "Отмена"
+msgstr ""
+
+#. fmTimeSync..Caption
+#: Fmu/fmuTimeSync.dfm:7
+#. fmTimeSync..lblTimeSync..Caption
+#: Fmu/fmuTimeSync.dfm:22
+msgid "Синхронизация времени"
+msgstr ""
+
 #. fmTimeSync..lblTimeSync..Font.Name
+#: Fmu/fmuTimeSync.dfm:26
 #. fmTimeSync..Label1..Font.Name
+#: Fmu/fmuTimeSync.dfm:39
 #. fmTimeSync..lblTimeLeft..Font.Name
+#: Fmu/fmuTimeSync.dfm:52
 #. fmTimeSync..Label2..Font.Name
-#: Fmu/fmuTimeSync.dfm:26 Fmu/fmuTimeSync.dfm:39
-#: Fmu/fmuTimeSync.dfm:52 Fmu/fmuTimeSync.dfm:65
+#: Fmu/fmuTimeSync.dfm:65
 msgid "Arial Narrow"
+msgstr ""
+
+#. fmTimeSync..Label1..Caption
+#: Fmu/fmuTimeSync.dfm:35
+msgid "Время ожидания:"
 msgstr ""
 
 #. fmTimeSync..lblTimeLeft..Caption
@@ -198,51 +331,82 @@ msgstr ""
 msgid "00:01"
 msgstr ""
 
+#. fmTimeSync..Label2..Caption
+#: Fmu/fmuTimeSync.dfm:61
+msgid "ФР и ПК"
+msgstr ""
+
 #: Units/CachedSalesReceipt.pas:244
+#: Units/PrinterCommand.pas:178
 msgid "Invalid parameter value"
 msgstr ""
 
 #. Check payment code
-#. Check payment code
 #: Units/CachedSalesReceipt.pas:556
+#. Check payment code
 #: Units/GlobusTextReceipt.pas:568
-msgid "Invalid payment code"
+msgid "Неверный код типа оплаты"
 msgstr ""
 
-#: Units/CommandParam.pas:212 Units/XmlValue.pas:121
-msgid "Parameter not found"
+#: Units/CashDrawerParameters.pas:102
+#: Units/CashDrawerParameters.pas:130
+#: Units/PrinterParametersReg.pas:757
+#: Units/PrinterParametersRegIBT.pas:774
+msgid "Registry key open error"
 msgstr ""
 
-#: Units/CommandParam.pas:269 Units/XmlValue.pas:166
+#: Units/CommandParam.pas:212
+#: Units/XmlValue.pas:121
+msgid "Параметр не найден"
+msgstr ""
+
+#: Units/CommandParam.pas:269
+#: Units/XmlValue.pas:166
 msgid "Name"
 msgstr ""
 
-#: Units/CommandParam.pas:270 Units/XmlValue.pas:167
+#: Units/CommandParam.pas:270
+#: Units/XmlValue.pas:167
 msgid "Value"
 msgstr ""
 
 #. Power supply voltage
-#: Units/CommandParam.pas:386 Units/CommandParam.pas:471
+#: Units/CommandParam.pas:386
+#: Units/CommandParam.pas:471
 msgid "Invalid parameter type"
 msgstr ""
 
-#: Units/CustomReceipt.pas:155
+#: Units/CsvPrinterTableFormat.pas:33
+msgid "Файлы таблиц (*.csv)|*.csv|"
+msgstr ""
+
+#. Даные таблиц
+#: Units/CsvPrinterTableFormat.pas:199
+msgid "Таблица"
+msgstr ""
+
+#: Units/CsvPrinterTableFormat.pas:200
+msgid "Номер таблицы,Ряд,Поле,Размер поля,Тип поля,Мин. значение, "
+"Макс.значение, Название,Значение"
+msgstr ""
+
+#: Units/CustomReceipt.pas:160
 msgid "Receipt method is not supported"
 msgstr ""
 
-#: Units/CustomReceipt.pas:355
+#: Units/CustomReceipt.pas:362
 msgid "Negative price"
 msgstr ""
 
-#: Units/CustomReceipt.pas:361
+#: Units/CustomReceipt.pas:368
 msgid "Invalid percents value"
 msgstr ""
 
-#: Units/CustomReceipt.pas:367
+#: Units/CustomReceipt.pas:374
 msgid "Negative quantity"
 msgstr ""
 
-#: Units/CustomReceipt.pas:373
+#: Units/CustomReceipt.pas:380
 msgid "Negative amount"
 msgstr ""
 
@@ -253,28 +417,36 @@ msgstr ""
 
 #. Programmer's name for it: S_NOHARDWARE
 #: Units/DriverError.pas:47
+#: Units/PrinterProtocol1.pas:223
+#: Units/PrinterProtocol1.pas:226
+#: Units/PrinterProtocol1.pas:241
+#: Units/PrinterProtocol1.pas:251
+#: Units/PrinterProtocol1.pas:255
+#: Units/PrinterProtocol1.pas:281
+#: Units/PrinterProtocol2.pas:292
+#: Units/SharedPrinter.pas:692
 msgid "No connection"
-msgstr "Нет связи"
+msgstr ""
 
 #. Programmer's name for it: S_NOPORT
 #: Units/DriverError.pas:48
 msgid "COM port is not available"
-msgstr "COM порт недоступен"
+msgstr ""
 
 #. Programmer's name for it: S_PORTBUSY
 #: Units/DriverError.pas:49
 msgid "COM is busy by another application"
-msgstr "COM порт занят другим приложением"
+msgstr ""
 
 #. Programmer's name for it: S_NOTLOADED
 #: Units/DriverError.pas:50
 msgid "Connection error"
-msgstr "Ошибка подключения"
+msgstr ""
 
 #. Programmer's name for it: S_USERBREAK
 #: Units/DriverError.pas:51
 msgid "Break by user"
-msgstr "Прервано пользователем"
+msgstr ""
 
 #. Programmer's name for it: S_ANSWERLENGTH
 #: Units/DriverError.pas:52
@@ -311,257 +483,291 @@ msgstr ""
 msgid "ECR reset failure"
 msgstr ""
 
-#: Units/ElectronicJournal.pas:106
+#. Time
+#: Units/ElectronicJournal.pas:66
+msgid "Failed parsing electronic journal report."
+msgstr ""
+
+#: Units/ElectronicJournal.pas:105
 msgid "Date line not found"
 msgstr ""
 
-#: Units/ElectronicJournal.pas:110
-msgid ""
-"Failed parsing electronic journal report. Date not found"
+#: Units/ElectronicJournal.pas:109
+msgid "Failed parsing electronic journal report. Date not "
+"found"
 msgstr ""
 
-#: Units/EscPrinter.pas:322
-#: Units/FiscalPrinterDevice.pas:5485
-msgid "Invalid barcode type, %d"
+#: Units/EscPrinter.pas:134
+msgid "Команда не поддерживается"
 msgstr ""
 
-#: Units/EscPrinter.pas:359
-msgid "TStringStream.CheckEOF"
+#: Units/EscPrinter.pas:145
+msgid "Неверная длина команды"
 msgstr ""
 
-#: Units/FiscalPrinterDevice.pas:513
+#: Units/EscPrinter.pas:251
+msgid "Неверное значение положения текста (%d). Должно быть "
+"0..3"
+msgstr ""
+
+#: Units/EscPrinter.pas:260
+msgid "Неверное значение типа шрифта (%d). Должно быть "
+"0..1"
+msgstr ""
+
+#: Units/EscPrinter.pas:269
+msgid "Неверное значение ширины шрих-кода (%d). Должно быть "
+"1..6"
+msgstr ""
+
+#: Units/EscPrinter.pas:278
+msgid "Неверное значение высоты шрих-кода (%d). Должно быть "
+"1..255"
+msgstr ""
+
+#: Units/EscPrinter.pas:319
+#: Units/FiscalPrinterDevice.pas:5810
+msgid "Invalid barcode type"
+msgstr ""
+
+#: Units/FiscalPrinterDevice.pas:710
 msgid "Answer data length is too short"
 msgstr ""
 
-#: Units/FiscalPrinterDevice.pas:1118
+#: Units/FiscalPrinterDevice.pas:1332
 msgid "Invalid answer length"
 msgstr ""
 
-#: Units/FiscalPrinterDevice.pas:1134
+#: Units/FiscalPrinterDevice.pas:1348
 msgid "Invalid answer code"
 msgstr ""
 
-#: Units/FiscalPrinterDevice.pas:4187
+#: Units/FiscalPrinterDevice.pas:4497
 msgid "Field type is not integer"
 msgstr ""
 
-#: Units/FiscalPrinterDevice.pas:4189
-#: Units/FiscalPrinterDevice.pas:4200
-#: Units/FiscalPrinterDevice.pas:4212
-#: Units/FiscalPrinterDevice.pas:4222
+#: Units/FiscalPrinterDevice.pas:4499
+#: Units/FiscalPrinterDevice.pas:4510
+#: Units/FiscalPrinterDevice.pas:4522
+#: Units/FiscalPrinterDevice.pas:4532
 msgid "Invalid field type"
 msgstr ""
 
-#: Units/FiscalPrinterDevice.pas:4665
-msgid "Device model ID=%d not found"
+#: Units/FiscalPrinterDevice.pas:4553
+msgid "Invalid field value"
 msgstr ""
 
-#: Units/FiscalPrinterDevice.pas:5179
-#: Units/FiscalPrinterDevice.pas:5218
+#: Units/FiscalPrinterDevice.pas:4975
+msgid "Device model not found"
+msgstr ""
+
+#: Units/FiscalPrinterDevice.pas:5489
+#: Units/FiscalPrinterDevice.pas:5528
 msgid "Graphics is not supported"
 msgstr ""
 
-#: Units/FiscalPrinterDevice.pas:5696
-#: Units/FiscalPrinterDevice.pas:5812
-msgid "Bitmap width more than maximum, %d > %d"
+#: Units/FiscalPrinterDevice.pas:6023
+#: Units/FiscalPrinterDevice.pas:6139
+msgid "Bitmap width more than maximum"
 msgstr ""
 
-#: Units/FiscalPrinterDevice.pas:5700
-#: Units/FiscalPrinterDevice.pas:5816
-msgid "Bitmap height more than maximum, %d > %d"
+#: Units/FiscalPrinterDevice.pas:6027
+#: Units/FiscalPrinterDevice.pas:6143
+msgid "Bitmap height more than maximum"
 msgstr ""
 
-#: Units/FiscalPrinterDevice.pas:5924
-msgid "Bitmap.Width = 0"
-msgstr ""
-
-#: Units/FiscalPrinterDevice.pas:5994
+#: Units/FiscalPrinterDevice.pas:6321
 msgid "Image height is zero, must be > 0"
 msgstr ""
 
-#: Units/FiscalPrinterDevice.pas:5997
+#: Units/FiscalPrinterDevice.pas:6324
 msgid "Image width is zero, must be > 0"
 msgstr ""
 
-#: Units/FiscalPrinterDevice.pas:6288
-#: Units/SharedPrinter.pas:1029
+#: Units/FiscalPrinterDevice.pas:6621
 msgid "Failed to continue print"
 msgstr ""
 
-#: Units/FiscalPrinterDevice.pas:6462
+#: Units/FiscalPrinterDevice.pas:6795
 msgid "Image data length > 64 bytes"
 msgstr ""
 
-#: Units/FiscalPrinterDevice.pas:7051
-msgid "BlockSize = 0"
+#: Units/FiscalPrinterDevice.pas:7679
+#: Units/FiscalPrinterDevice.pas:7715
+msgid "Invalid parameter ID value"
 msgstr ""
 
-#: Units/FiscalPrinterDevice.pas:7308
-#: Units/FiscalPrinterDevice.pas:7435
-msgid "Invalid parameter ID value, %d"
-msgstr ""
-
-#: Units/FiscalPrinterDevice.pas:7408
-msgid "Invalid pData parameter value"
-msgstr ""
-
-#: Units/FiscalPrinterImpl.pas:918
-msgid "Printer = nil"
+#: Units/FiscalPrinterDevice.pas:8546
+#. Programmer's name for it: SSaleNotEnabled
+#: Units/MarkChecker.pas:69
+msgid "Продажа товара запрещена"
 msgstr ""
 
 #. PhysicalDeviceDescription
-#: Units/FiscalPrinterImpl.pas:949
-msgid "Printer firmware"
+#: Units/FiscalPrinterImpl.pas:985
+msgid "ПО ФР"
 msgstr ""
 
-#: Units/FiscalPrinterImpl.pas:954
-msgid "FM firmware"
+#: Units/FiscalPrinterImpl.pas:990
+msgid "ПО ФП"
 msgstr ""
 
-#: Units/FiscalPrinterImpl.pas:1395
-msgid "Can not change state"
+#: Units/FiscalPrinterImpl.pas:1426
+msgid "Невозможно изменить состояние"
 msgstr ""
 
-#: Units/FiscalPrinterImpl.pas:1689
-msgid "Day end required. Print ZReport and try again"
+#: Units/FiscalPrinterImpl.pas:1718
+msgid "Истекли 24 часа. Распечатайте Z отчет и попробуйте "
+"снова"
 msgstr ""
 
-#: Units/FiscalPrinterImpl.pas:1727
+#: Units/FiscalPrinterImpl.pas:1756
 msgid "External HCheck: "
 msgstr ""
 
 #. Cover opened
-#: Units/FiscalPrinterImpl.pas:1762
-msgid "Cover opened"
-msgstr "Открыта крышка"
+#: Units/FiscalPrinterImpl.pas:1791
+msgid "Крышка открыта"
+msgstr ""
 
 #. Receipt paper
-#: Units/FiscalPrinterImpl.pas:1768
-msgid "The receipt station has run out of paper"
+#: Units/FiscalPrinterImpl.pas:1797
+#: Units/PrinterTypes.pas:1469
+msgid "Нет чековой ленты"
 msgstr ""
 
-#: Units/FiscalPrinterImpl.pas:1771
-msgid "The receipt station paper is near end"
+#: Units/FiscalPrinterImpl.pas:1800
+msgid "Чековая лента близка к завершению"
 msgstr ""
 
-#: Units/FiscalPrinterImpl.pas:1774
-msgid "The receipt station lever is up"
+#: Units/FiscalPrinterImpl.pas:1803
+msgid "Поднят рычаг чековой ленты"
 msgstr ""
 
 #. Journal paper
-#: Units/FiscalPrinterImpl.pas:1780
-msgid "The journal station has run out of paper"
+#: Units/FiscalPrinterImpl.pas:1809
+#: Units/PrinterTypes.pas:1470
+msgid "Нет контрольной ленты"
 msgstr ""
 
-#: Units/FiscalPrinterImpl.pas:1783
-msgid "The journal station paper is near end"
+#: Units/FiscalPrinterImpl.pas:1812
+msgid "Контрольная лента близка к завершению"
 msgstr ""
 
-#: Units/FiscalPrinterImpl.pas:1786
-msgid "The journal station lever is up"
+#: Units/FiscalPrinterImpl.pas:1815
+msgid "Поднят рычаг контрольной ленты"
 msgstr ""
 
 #. EJ
-#: Units/FiscalPrinterImpl.pas:1790
-msgid "EKLZ is almost full"
+#: Units/FiscalPrinterImpl.pas:1819
+msgid "ЭКЛЗ близка к заполнению"
 msgstr ""
 
 #. FM
-#: Units/FiscalPrinterImpl.pas:1793
-msgid "Fiscal memory overflow"
+#: Units/FiscalPrinterImpl.pas:1823
+#: Units/PrinterTypes.pas:1474
+msgid "Переполнение ФП"
 msgstr ""
 
-#: Units/FiscalPrinterImpl.pas:1796
-msgid "Fiscal memory battery is low"
+#: Units/FiscalPrinterImpl.pas:1826
+msgid "Низкое напряжение батареи ФП"
 msgstr ""
 
-#: Units/FiscalPrinterImpl.pas:1799
-msgid "Last fiscal memory record is corrupted"
+#: Units/FiscalPrinterImpl.pas:1829
+msgid "Последняя запись ФП повреждена"
 msgstr ""
 
-#: Units/FiscalPrinterImpl.pas:1802
-msgid "24 hours in fiscal memory are over"
+#: Units/FiscalPrinterImpl.pas:1832
+msgid "Истекли 24 часа в ФП"
 msgstr ""
 
-#: Units/FiscalPrinterImpl.pas:1806
-#: Units/FiscalPrinterImpl.pas:1810
+#: Units/FiscalPrinterImpl.pas:1836
+#: Units/FiscalPrinterImpl.pas:1840
 msgid "Internal HCheck: "
 msgstr ""
 
-#: Units/FiscalPrinterImpl.pas:2355
-msgid "Training mode not supported"
+#: Units/FiscalPrinterImpl.pas:2385
+msgid "Режим тренировки не поддерживается"
 msgstr ""
 
-#: Units/FiscalPrinterImpl.pas:2379
-#: Units/FiscalPrinterImpl.pas:3544
+#: Units/FiscalPrinterImpl.pas:2409
+#: Units/FiscalPrinterImpl.pas:3569
 #: Units/oleCashDrawer.pas:389
-msgid "Not implemented"
+msgid "Не поддерживается"
 msgstr ""
 
-#: Units/FiscalPrinterImpl.pas:2949
-msgid "Totalizer not supported"
+#: Units/FiscalPrinterImpl.pas:2584
+msgid "Training mode is not active"
 msgstr ""
 
-#: Units/FiscalPrinterImpl.pas:3075
-msgid "Receipt station is not present"
+#: Units/FiscalPrinterImpl.pas:2974
+msgid "Счетчик не поддерживается"
 msgstr ""
 
-#: Units/FiscalPrinterImpl.pas:3082
-msgid "Journal station is not present"
+#: Units/FiscalPrinterImpl.pas:3100
+msgid "Нет чекового принтера"
 msgstr ""
 
-#: Units/FiscalPrinterImpl.pas:3137
-msgid "Date1 > Date2"
+#: Units/FiscalPrinterImpl.pas:3107
+msgid "Нет принтера контрольной ленты"
 msgstr ""
 
-#: Units/FiscalPrinterImpl.pas:3551
-#: Units/FiscalPrinterImpl.pas:3562
-msgid "StartNum > EndNum"
+#: Units/FiscalPrinterImpl.pas:3114
+msgid "Slip station is not present"
 msgstr ""
 
-#: Units/formatTLV.pas:94
-msgid "too large data"
+#: Units/FiscalPrinterImpl.pas:3118
+msgid "No station defined"
 msgstr ""
 
-#: Units/FSSalesReceipt.pas:268
-msgid "Last receipt item not defined"
+#: Units/FiscalPrinterImpl.pas:3372
+msgid "Not paid receipt is nor supported"
 msgstr ""
 
-#: Units/FSSalesReceipt.pas:309
-msgid "Discount amount more than item amount"
+#: Units/FiscalPrinterImpl.pas:3750
+msgid "Day is opened. Unable to change date"
+msgstr ""
+
+#: Units/FiscalPrinterImpl.pas:3816
+msgid "Casier name connot be empty"
+msgstr ""
+
+#: Units/FiscalPrinterImpl.pas:3902
+msgid "Not supported"
+msgstr ""
+
+#: Units/FiscalPrinterImpl.pas:4687
+msgid "Invalid pData parameter value"
+msgstr ""
+
+#: Units/FiscalPrinterState.pas:51
+msgid "Invalid printer state"
+msgstr ""
+
+#: Units/FiscalPrinterState.pas:75
+msgid "Wrong printer state"
+msgstr ""
+
+#: Units/FSSalesReceipt.pas:263
+msgid "Не задан последний элемент чека"
+msgstr ""
+
+#: Units/FSSalesReceipt.pas:304
+msgid "Сумма скидки больше суммы позиции"
 msgstr ""
 
 #: Units/GlobusTextReceipt.pas:292
+#: Units/PrinterTypes.pas:1457
 #: Units/TextReceipt.pas:408
-msgid "Negative receipt total"
+msgid "Отрицательный итог чека"
 msgstr ""
 
 #: Units/GlobusTextReceipt.pas:365
-msgid "Invalid AdjustmentType parameter"
+msgid "Неверное значение параметра AdjustmentType"
 msgstr ""
 
 #: Units/MalinaParams.pas:185
-msgid "Invalid FuelAmountPrecision value, %.2f"
-msgstr ""
-
-#: Units/MonitoringServer.pas:92
-msgid "WSAStartup error, %d"
-msgstr ""
-
-#: Units/MonitoringServer.pas:96
-msgid "Socket failed with error: %d"
-msgstr ""
-
-#: Units/MonitoringServer.pas:99
-msgid "Failed bind with error: %d"
-msgstr ""
-
-#: Units/MonitoringServer.pas:102
-msgid "Failed listen with error: %d"
-msgstr ""
-
-#: Units/oleCashDrawer.pas:185
-msgid "Shared printer = nil"
+msgid "Invalid FuelAmountPrecision value"
 msgstr ""
 
 #: Units/ParameterValue.pas:127
@@ -569,47 +775,3235 @@ msgstr ""
 msgid "Not unique item ID"
 msgstr ""
 
-#: Units/PrinterCommand.pas:183
-#: Units/PrinterCommand.pas:186
-msgid "Invalid parameter value, "
-msgstr ""
-
-#. Programmer's name for it: MsgKeyOpenError
 #. Programmer's name for it: MsgKeyOpenError
 #: Units/PrinterParameters2.pas:313
+#. Programmer's name for it: MsgKeyOpenError
 #: Units/XmlPrinterParameters.pas:237
 msgid "Error opening registry key: %s"
 msgstr ""
 
 #. Programmer's name for it: SInvalidLogoPosition
-#. Programmer's name for it: SInvalidLogoPosition
 #: Units/PrinterParameters2.pas:1087
+#. Programmer's name for it: SInvalidLogoPosition
 #: Units/XmlPrinterParameters.pas:583
 msgid "Invalid LogoPosition value (%d)."
 msgstr ""
 
-#: Units/PrinterParametersReg.pas:716
-#: Units/PrinterParametersRegIBT.pas:733
-msgid "Registry key open error"
+#: Units/PrinterProtocol1.pas:164
+#: Units/PrinterProtocol1.pas:206
+msgid "Error reading answer"
+msgstr ""
+
+#: Units/PrinterProtocol2.pas:149
+msgid "Некорректный формат пакета"
+msgstr ""
+
+#: Units/PrinterTable.pas:143
+#: Units/PrinterTable.pas:157
+msgid "Неверное значение поля"
+msgstr ""
+
+#: Units/PrinterTable.pas:143
+msgid "Допустимые значения"
+msgstr ""
+
+#: Units/PrinterTable.pas:157
+msgid "не является целым числом"
+msgstr ""
+
+#: Units/PrinterTable.pas:426
+msgid "Максимальная длина"
+msgstr ""
+
+#: Units/PrinterTable.pas:429
+msgid "Размер, байт"
+msgstr ""
+
+#: Units/PrinterTable.pas:436
+msgid "число"
+msgstr ""
+
+#: Units/PrinterTable.pas:437
+msgid "строка"
+msgstr ""
+
+#: Units/PrinterTable.pas:445
+msgid "Тип"
+msgstr ""
+
+#: Units/PrinterTable.pas:451
+msgid "Диапазон"
+msgstr ""
+
+#: Units/PrinterTableFormat.pas:84
+msgid "Неверный индекс формата файла"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1312
+msgid "FS: Unknown command or invalid format"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1313
+msgid "FS: Incorrect status"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1314
+msgid "FS: Error, read extended error code"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1315
+msgid "FS: CRC error, read extended error code"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1316
+msgid "FS: Device expired"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1317
+msgid "FS: Archive overflow error"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1318
+msgid "FS: Invalid date/time value"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1319
+msgid "FS: No data available"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1320
+msgid "FS: Invalid parameter value"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1321
+msgid "FS: TLV size too large"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1322
+msgid "FS: No transport connection "
+msgstr ""
+
+#: Units/PrinterTypes.pas:1323
+msgid "FS: Cryptographic coprocessor resource "
+"exhausted"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1324
+msgid "FS: Documents resource exhausted"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1325
+msgid "FS: Maximum send time limit reached"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1326
+msgid "FS: Fiscal day last for 24 hours"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1327
+msgid "FS: Invalid time range betseen two operations"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1328
+msgid "FS: Server message can not be received"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1330
+msgid "FS: No connection to fiscal storage"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1331
+msgid "FS: format error"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1332
+msgid "FS: CRC error"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1341
+msgid "ФН: Неизвестная команда, неверный формат посылки или неизвестные "
+"параметры"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1342
+msgid "ФН: Неверное состояние ФН"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1343
+msgid "ФН: Ошибка ФН"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1344
+msgid "ФН: Ошибка КС"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1345
+msgid "ФН: Закончен срок эксплуатации ФН"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1346
+msgid "ФН: Архив ФН переполнен"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1347
+msgid "ФН: Неверные дата и/или время"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1348
+msgid "ФН: Нет запрошенных данных"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1349
+msgid "ФН: Некорректное значение параметров "
+"команды"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1350
+msgid "ФН: Превышение размеров TLV данных"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1351
+msgid "ФН: Нет транспортного соединения"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1352
+msgid "ФН: Исчерпан ресурс КС"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1353
+msgid "ФН: Исчерпан ресурс хранения"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1354
+msgid "ФН: Исчерпан ресурс ожидания передачи "
+"сообщения"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1355
+msgid "ФН: Продолжительность смены более 24 "
+"часов"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1356
+msgid "ФН: Неверная разница во времени между двумя "
+"операцими"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1357
+msgid "ФН: Сообщение от ОФД не может быть принято"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1358
+msgid "ФН: Нет связи с ФН. Фатальная ошибка "
+"!!!"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1359
+msgid "ФН: ФН не отвечает"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1360
+msgid "ФН: Ошибка формата"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1361
+msgid "ФН: Ошибка CRC"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1362
+msgid "Ошибка лицензии"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1363
+msgid "Ошибка часов"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1372
+msgid "Ошибок нет"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1373
+msgid "Неисправен накопитель ФП 1, ФП 2 или "
+"часы"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1374
+msgid "Отсутствует ФП 1"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1375
+msgid "Отсутствует ФП 2"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1376
+msgid "Некорректные параметры в команде обращения к "
+"ФП"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1377
+msgid "Нет запрошенных данных"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1378
+msgid "ФП в режиме вывода данных"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1379
+msgid "Некорректные параметры в команде для данной реализации "
+"ФП"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1380
+msgid "Команда не поддерживается в данной реализации "
+"ФП"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1381
+msgid "Некорректная длина команды"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1382
+msgid "Формат данных не BCD"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1383
+msgid "Неисправна ячейка памяти ФП при записи "
+"итога"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1384
+msgid "Не введена лицензия"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1385
+msgid "Заводской номер уже введен"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1386
+msgid "Текущая дата меньше даты последней записи в "
+"ФП"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1387
+msgid "Область сменных итогов ФП переполнена"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1388
+msgid "Смена уже открыта"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1389
+msgid "Смена не открыта"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1390
+msgid "Номер первой смены больше номера последней "
+"смены"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1391
+msgid "Дата первой смены больше даты последней "
+"смены"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1392
+msgid "Нет данных в ФП"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1393
+msgid "Область перерегистраций в ФП переполнена"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1394
+msgid "Заводской номер не введен"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1395
+msgid "В заданном диапазоне есть поврежденная "
+"запись"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1396
+msgid "Повреждена последняя запись сменных "
+"итогов"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1397
+msgid "Область перерегистраций ФП переполнена"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1398
+msgid "Отсутствует память регистров"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1399
+msgid "Переполнение денежного регистра при "
+"добавлении"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1400
+msgid "Вычитаемая сумма больше содержимого денежного "
+"регистра"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1401
+msgid "Неверная дата"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1402
+msgid "Нет записи активизации"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1403
+msgid "Область активизаций переполнена"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1404
+msgid "Нет активизации с запрашиваемым номером"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1405
+msgid "В ФП больше 3 поврежденных записей"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1406
+msgid "Повреждение контрольных сумм ФП"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1407
+msgid "Переполнение ФП по количество перезапусков "
+"ФР"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1408
+msgid "Несанкционированная замена ФП"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1409
+msgid "ЭКЛЗ не отвечает"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1410
+msgid "ЭКЛЗ ответила NAK"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1411
+msgid "ЭКЛЗ: ошибка формата"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1412
+msgid "ЭКЛЗ: ошибка контрольной суммы"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1413
+msgid "Некорректные параметры в команде"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1414
+msgid "Нет данных"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1415
+msgid "Некорректный параметр при данных настройках"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1416
+msgid "Некорректные параметры в команде для данной "
+"реализации"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1417
+msgid "Команда не поддерживается в данной реализации"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1418
+msgid "Ошибка в ПЗУ"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1419
+msgid "Внутренняя ошибка ПО"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1420
+msgid "Переполнение накопления по надбавкам в "
+"смене"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1421
+msgid "Переполнение накопления в смене"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1422
+msgid "ЭКЛЗ: Неверный регистрационный номер"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1423
+msgid "Смена не открыта - операция невозможна"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1424
+msgid "Переполнение накопления по секциям в "
+"смене"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1425
+msgid "Переполнение накопления по скидкам в "
+"смене"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1426
+msgid "Переполнение диапазона скидок"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1427
+msgid "Переполнение диапазона оплаты наличными"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1428
+msgid "Переполнение диапазона оплаты типом "
+"2"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1429
+msgid "Переполнение диапазона оплаты типом "
+"3"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1430
+msgid "Переполнение диапазона оплаты типом "
+"4"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1431
+msgid "Cумма всех типов оплаты меньше итога "
+"чека"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1432
+msgid "Не хватает наличности в кассе"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1433
+msgid "Переполнение накопления по налогам в "
+"смене"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1434
+msgid "Переполнение итога чека"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1435
+msgid "Операция невозможна в открытом чеке данного "
+"типа"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1436
+msgid "Открыт чек - операция невозможна"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1437
+msgid "Буфер чека переполнен"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1438
+msgid "Переполнение накопления по обороту налогов в "
+"смене"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1439
+msgid "Вносимая безналичной оплатой сумма больше суммы "
+"чека"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1440
+msgid "Смена превысила 24 часа"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1441
+msgid "Неверный пароль"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1442
+msgid "Идет печать предыдущей команды"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1443
+msgid "переполнение накоплений наличными в "
+"смене"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1444
+msgid "переполнение накоплений по типу оплаты 2 в "
+"смене"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1445
+msgid "переполнение накоплений по типу оплаты 3 в "
+"смене"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1446
+msgid "переполнение накоплений по типу оплаты 4 в "
+"смене"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1447
+msgid "Чек закрыт - операция невозможна"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1448
+msgid "Нет документа для повтора"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1449
+msgid "ЭКЛЗ: Количество закрытых смен не совпадает с "
+"ФП"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1450
+msgid "Ожидание команды продолжения печати"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1451
+msgid "Документ открыт другим оператором"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1452
+msgid "Скидка превышает накопления в чеке"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1453
+msgid "Переполнение диапазона надбавок"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1454
+msgid "Понижено напряжение 24В"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1455
+msgid "Таблица не определена"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1456
+msgid "Некорректная операция"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1458
+msgid "Переполнение при умножении"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1459
+msgid "Переполнение диапазона цены"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1460
+msgid "Переполнение диапазона количества"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1461
+msgid "Переполнение диапазона отдела"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1462
+msgid "ФП отсутствует"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1463
+msgid "Не хватает денег в секции"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1464
+msgid "Переполнение денег в секции"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1465
+#: Units/PrinterTypes.pas:1490
+#: Units/PrinterTypes.pas:1491
+#: Units/PrinterTypes.pas:1492
+#: Units/PrinterTypes.pas:1493
+msgid "Ошибка связи с ФП"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1466
+msgid "Не хватает денег по обороту налогов"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1467
+msgid "Переполнение денег по обороту налогов"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1468
+msgid "Ошибка питания в момент ответа по I2C"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1471
+msgid "Не хватает денег по налогу"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1472
+msgid "Переполнение денег по налогу"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1473
+msgid "Переполнение по выплате в смене"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1475
+msgid "Ошибка отрезчика"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1476
+msgid "Команда не поддерживается в данном подрежиме"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1477
+msgid "Команда не поддерживается в данном режиме"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1478
+msgid "Ошибка ОЗУ"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1479
+msgid "Ошибка питания"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1480
+msgid "Ошибка принтера: нет импульсов с тахогенератора"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1481
+msgid "Ошибка принтера: нет сигнала с датчиков"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1482
+msgid "Замена ПО"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1483
+msgid "Замена ФП"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1484
+msgid "Поле не редактируется"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1485
+msgid "Ошибка оборудования"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1486
+msgid "Не совпадает дата"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1487
+msgid "Неверный формат даты"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1488
+msgid "Неверное значение в поле длины"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1489
+msgid "Переполнение диапазона итога"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1494
+msgid "Переполнение наличности"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1495
+msgid "Переполнение по продажам в смене"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1496
+msgid "Переполнение по покупкам в смене"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1497
+msgid "Переполнение по возвратам продаж в смене"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1498
+msgid "Переполнение по возвратам покупок в "
+"смене"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1499
+msgid "Переполнение по внесению в смене"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1500
+msgid "Переполнение по надбавкам в чеке"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1501
+msgid "Переполнение по скидкам в чеке"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1502
+msgid "Отрицательный итог надбавки в чеке"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1503
+msgid "Отрицательный итог скидки в чеке"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1504
+msgid "Нулевой итог чека"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1505
+msgid "Касса не фискализирована"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1506
+msgid "Поле превышает размер установленный в "
+"настройках"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1507
+msgid "Выход за границу поля печати при данных настройках "
+"шрифта"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1508
+msgid "Наложение полей"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1509
+msgid "Восстановление ОЗУ прошло успешно"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1510
+msgid "Исчерпан лимит операций в чеке"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1511
+msgid "Неизвестная ошибка ЭКЛЗ"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1512
+msgid "Ошибка связи с ЭКЛЗ"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1513
+msgid "ЭКЛЗ отсутствует"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1514
+msgid "ЭКЛЗ: Некорректный формат или параметр "
+"команды"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1515
+msgid "Некорректное состояние ЭКЛЗ"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1516
+msgid "Авария ЭКЛЗ"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1517
+msgid "Авария КС в составе ЭКЛЗ"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1518
+msgid "Исчерпан временной ресурс ЭКЛЗ"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1519
+msgid "ЭКЛЗ переполнена"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1520
+msgid "ЭКЛЗ: Неверные дата или время"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1521
+msgid "ЭКЛЗ: Нет запрошенных данных"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1522
+msgid "Переполнение ЭКЛЗ (отрицательный итог "
+"документа)"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1523
+msgid "Превышено количество попыток выполнения подготовки "
+"активизации"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1524
+msgid "Неверный код разрешения активизации"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1525
+msgid "Некорректно указан заводской номер ККМ"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1526
+msgid "Некорректно указан ИНН"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1527
+msgid "Некорректно указан номер последней смены"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1528
+msgid "ЭКЛЗ: Переполнение в параметре количество"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1529
+msgid "ЭКЛЗ: Переполнение в параметре сумма"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1530
+msgid "ЭКЛЗ: Уже активизирована"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1531
+msgid "Некорректно указаны дата и время"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1532
+msgid "Контроль даты и времени (подтвердите дату и "
+"время)"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1533
+msgid "ЭКЛЗ: суточный отчет с гашением прервать "
+"нельзя"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1534
+msgid "Превышение напряжения блока питания"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1535
+msgid "Несовпадение итогов чека с ЭКЛЗ"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1536
+msgid "Несовпадение номеров смен"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1537
+msgid "Буфер подкладного документа пуст"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1538
+msgid "Подкладной документ отсутствует"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1539
+msgid "Поле не редактируется в данном режиме"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1540
+msgid "Ошибка связи с принтером"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1541
+msgid "Перегрев печатающей головки"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1542
+msgid "Температура вне условий эксплуатации"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1543
+msgid "Переполнение длинного сквозного номера"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1544
+msgid "Не распечатана контрольная лента по смене из "
+"ЭКЛЗ"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1545
+msgid "Нет данных в буфере"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1546
+msgid "Неверная денежная сумма при данных настройках "
+"округления"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1547
+msgid "Ошибка связи с купюроприемником"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1548
+msgid "Купюроприемник занят"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1549
+msgid "Итог чека не соответствует итогу купюроприемника"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1550
+msgid "Ошибка купюроприемника"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1551
+msgid "Итог купюроприемника не нулевой"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1553
+msgid "Ошибка передачи в ФП"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1554
+msgid "Ошибка приема от ФП"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1555
+msgid "Истек таймаут приема"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1556
+msgid "Переполнение буфера"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1557
+msgid "Нет запрошенных строк"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1558
+msgid "Переполнение кадра ответа"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1560
+msgid "Неизвестная ошибка"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1588
+msgid "Paper presented"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1589
+msgid "Passive parer absence"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1590
+msgid "Active paper absence"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1591
+msgid "After active paper absence"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1592
+msgid "Long report printing stage"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1593
+msgid "Operation printing stage"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1595
+msgid "Unknown device submode (%d)"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1602
+msgid "FM1 accumulator"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1603
+msgid "FM2 accumulator"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1604
+msgid "Clock"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1605
+msgid "VNRAM"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1606
+msgid "FM processor"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1607
+msgid "ECR software memory"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1608
+msgid "ECR RAM"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1610
+msgid "Unknown device code (%d)"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1617
+msgid "Data dumping"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1618
+msgid "Opened day. 24 hours is not over"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1619
+msgid "Opeded day. 24 hours is over"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1620
+msgid "Closed day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1621
+msgid "Blocking by wrong tax password"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1622
+msgid "Waiting for date confirm"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1623
+msgid "Permission to change decimal point position"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1624
+msgid "Opened document: Sale"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1625
+msgid "Technological reset  permission mode"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1626
+msgid "Test passing"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1627
+msgid "Full report printing"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1628
+msgid "EJ report printing"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1629
+msgid "Sales slip opened"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1630
+msgid "Waiting for slip charge"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1631
+msgid "Slip is formed"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1632
+msgid "Opened document: Buy"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1633
+msgid "Opened buy slip"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1634
+msgid "Slip loanding and positioning"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1635
+msgid "Opened document: sale return"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1636
+msgid "Opened sale return slip"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1637
+msgid "Slip positioning"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1638
+msgid "Opened document: buy return"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1639
+msgid "Opened buy return slip"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1640
+msgid "Slip printing"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1641
+msgid "Slip printing is finished"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1642
+msgid "Slip eject"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1643
+msgid "Waiting for slip eject"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1645
+msgid "Unknown mode: %d"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1654
+msgid "Get dump"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1655
+msgid "Get data block from dump"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1656
+msgid "Interrupt data stream"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1657
+msgid "Fiscalization/refiscalization with long "
+"ECRRN"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1658
+msgid "Set long serial number"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1659
+msgid "Get long serial number and long ECRRN"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1660
+msgid "Get short ECR status"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1661
+msgid "Get ECR status"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1662
+msgid "Print bold string"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1663
+msgid "Beep"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1664
+msgid "Set communication parameters"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1665
+msgid "Read communication parameters"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1666
+msgid "Technological reset"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1667
+msgid "Print string"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1668
+msgid "Print document header"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1669
+msgid "Test run"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1670
+msgid "Get cash totalizer value"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1671
+msgid "Get operation totalizer value"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1672
+msgid "Write license"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1673
+msgid "Read license"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1674
+msgid "Write table"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1675
+msgid "Read table"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1676
+msgid "Set decimal point position"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1677
+msgid "Set clock time"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1678
+msgid "Set calendar date"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1679
+msgid "Confirm date"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1680
+msgid "Initialize tables with default values"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1681
+msgid "Cut receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1682
+msgid "Get font parameters"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1683
+msgid "Common clear"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1684
+msgid "Open cash drawer"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1685
+msgid "Feed"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1686
+msgid "Eject slip"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1687
+msgid "Interrupt test"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1688
+msgid "Print operation totalizers report"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1689
+msgid "Get table structure"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1690
+msgid "Get field structure"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1691
+msgid "Print string with font"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1692
+msgid "Daily report without cleaning"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1693
+msgid "Daily report with cleaning"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1694
+msgid "Print Department report"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1695
+msgid "Print tax report"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1696
+msgid "Print graphics 512"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1697
+msgid "Load graphics 512"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1698
+msgid "Print scaled graphics"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1699
+msgid "Cash in"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1700
+msgid "Cash out"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1701
+msgid "Print fixed document header"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1702
+msgid "Print document footer"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1703
+msgid "Print trailer"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1704
+msgid "Set serial number"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1705
+msgid "Initialize FM"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1706
+msgid "Get FM totals"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1707
+msgid "Get last FM record date"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1708
+msgid "Get dates and sessions range"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1709
+msgid "Fiscalization/refiscalization"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1710
+msgid "Fiscal report in dates range"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1711
+msgid "Fiscal report in days range"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1712
+msgid "Interrupt full report"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1713
+msgid "Get fiscalization parameters"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1714
+msgid "Open fiscal slip"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1715
+msgid "Open standard fiscal slip"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1716
+msgid "Transaction on slip"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1717
+msgid "Standard transaction on slip"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1718
+msgid "Discount/charge on slip"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1719
+msgid "Standard discount/charge on slip"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1720
+msgid "Close fiscal slip"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1721
+msgid "Close standard fiscal slip"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1722
+msgid "Slip configuration"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1723
+msgid "Standard slip configuration"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1724
+msgid "Fill slip buffer with nonfiscal information"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1725
+msgid "Clear slip buffer string"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1726
+msgid "Clear slip buffer"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1727
+msgid "Print slip"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1728
+msgid "Common slip configuration"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1729
+msgid "Sale"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1730
+msgid "Buy"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1731
+msgid "Sale refund"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1732
+msgid "Buy refund"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1733
+msgid "Void transaction"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1734
+msgid "Close receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1735
+msgid "Discount"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1736
+msgid "Charge"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1737
+msgid "Cancel receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1738
+msgid "Receipt subtotal"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1739
+msgid "Void discount"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1740
+msgid "Void charge"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1741
+msgid "Print last receipt duplicate"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1742
+msgid "Open receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1743
+msgid "Oil products sale receipt in defined dose pre-payment "
+"mode"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1744
+msgid "Oil products sale receipt in defined sum pre-payment "
+"mode"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1745
+msgid "Correction receipt on incomplete oil-products "
+"sale"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1746
+msgid "Set fuel-dispensing unit dose in milliliters"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1747
+msgid "Set fuel-dispensing unit dose in cash "
+"units"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1748
+msgid "Oil products sale"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1749
+msgid "Stop fuel-dispensing unit"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1750
+msgid "Start fuel-dispensing unit"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1751
+msgid "Reset fuel-dispensing unit"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1752
+msgid "Reset all fuel-dispensing units"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1753
+msgid "Set fuel-dispensing unit parameters"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1754
+msgid "Read liter totals counter"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1755
+msgid "Get current fuel-dispensing unit dose"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1756
+msgid "Get fuel-dispensing unit status"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1757
+msgid "EJ department report in dates range"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1758
+msgid "EJ department report in days range"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1759
+msgid "EJ day report in dates range"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1760
+msgid "EJ day report in days range"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1761
+msgid "Print day totals by EJ day number"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1762
+msgid "Print pay document from EJ by KPK number"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1763
+msgid "Print EJ journal by day number"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1764
+msgid "Interrupt full EJ report"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1765
+msgid "Print EJ activization result"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1766
+msgid "EJ activization"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1767
+msgid "Close EJ archive"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1768
+msgid "Get EJ serial number"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1769
+msgid "Interrupt EJ"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1770
+msgid "Get EJ status by code 1"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1771
+msgid "Get EJ status by code 2"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1772
+msgid "Test EJ integrity"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1773
+msgid "Continue printing"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1774
+msgid "Get EJ version"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1775
+msgid "Initialize EJ"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1776
+msgid "Get EJ report data"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1777
+msgid "Get EJ journal"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1778
+msgid "Get EJ document"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1779
+msgid "Get department EJ report in dates range"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1780
+msgid "Get EJ department report in days range"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1781
+msgid "Get EJ day report in dates range"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1782
+msgid "Get EJ day report in days range"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1783
+msgid "Get EJ day totals by day number"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1784
+msgid "Get EJ activization result"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1785
+msgid "Get EJ error"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1786
+msgid "Load graphics"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1787
+msgid "Print graphics"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1788
+msgid "Print barcode"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1789
+msgid "Print exteneded graphics"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1790
+msgid "Load extended graphics"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1791
+msgid "Print line"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1792
+msgid "Get line count in printing buffer"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1793
+msgid "Get line from printing buffer"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1794
+msgid "Clear printing buffer"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1795
+msgid "Get ECR IBM status"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1796
+msgid "Get short ECR IBM status"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1797
+msgid "Print barcode 2D"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1798
+msgid "Change shutter position"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1799
+msgid "Discharge receipt from presenter"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1800
+msgid "Set service center password"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1801
+msgid "Get device type"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1802
+msgid "Send commands to external device port"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1803
+msgid "Finish slip"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1804
+msgid "Close nonfiscal document"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1805
+msgid "Print attribute"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1806
+msgid "FS: Read status"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1807
+msgid "FS: Read number"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1808
+msgid "FS: Read expiration time"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1809
+msgid "FS: Read version"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1810
+msgid "FS: Start activation"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1811
+msgid "FS: Do activation"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1812
+msgid "FS: Clear status"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1813
+msgid "FS: Void document"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1814
+msgid "FS: Read activation result"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1815
+msgid "FS: Find document by number"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1816
+msgid "FS: Open day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1817
+msgid "FS: Send TLV data"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1818
+msgid "FS: Registration with discount/charge"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1819
+msgid "FS: Storno with discount/charge"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1820
+msgid "FS: Read data in buffer"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1821
+msgid "FS: Read data block from buffer"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1822
+msgid "FS: Start write buffer"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1823
+msgid "FS: Write data block in buffer"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1824
+msgid "FS: Create fiscalization report"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1825
+msgid "FS: Start correction receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1826
+msgid "FS: Create correction receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1827
+msgid "FS: Start report on calculations"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1828
+msgid "FS: Create report on calculations"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1829
+msgid "FS: Read data transfer status"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1830
+msgid "FS: Read fiscal document in TLV format"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1831
+msgid "FS: Read fiscal document TLV"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1832
+msgid "FS: Read server ticket on document number"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1833
+msgid "FS: Start close fiscal mode"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1834
+msgid "FS: Close fiscal mode"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1835
+msgid "FS: Read fiscal documents count without server "
+"ticket"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1836
+msgid "FS: Read fiscal day parameters"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1837
+msgid "FS: Start opening fiscal day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1838
+msgid "FS: Start closing fiscal day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1839
+msgid "FS: Close day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1840
+msgid "FS: Registration with discount/charge "
+"2"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1841
+msgid "FS: Close receipt extended"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1842
+msgid "FS: Print receipt discount"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1851
+msgid "Sales accumulation in 1 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1852
+msgid "Buys accumulation in 1 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1853
+msgid "Sales refund accumulation in 1 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1854
+msgid "Buys refund accumulation in 1 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1855
+msgid "Sales accumulation in 2 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1856
+msgid "Buys accumulation in 2 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1857
+msgid "Sales refund accumulation in 2 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1858
+msgid "Buys refund accumulation in 2 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1859
+msgid "Sales accumulation in 3 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1860
+msgid "Buys accumulation in 3 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1861
+msgid "Sales refund accumulation in 3 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1862
+msgid "Buys refund accumulation in 3 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1863
+msgid "Sales accumulation in 4 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1864
+msgid "Buys accumulation in 4 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1865
+msgid "Sales refund accumulation in 4 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1866
+msgid "Buys refund accumulation in 4 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1867
+msgid "Sales accumulation in 5 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1868
+msgid "Buys accumulation in 5 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1869
+msgid "Sales refund accumulation in 5 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1870
+msgid "Buys refund accumulation in 5 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1871
+msgid "Sales accumulation in 6 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1872
+msgid "Buys accumulation in 6 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1873
+msgid "Sales refund accumulation in 6 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1874
+msgid "Buys refund accumulation in 6 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1875
+msgid "Sales accumulation in 7 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1876
+msgid "Buys accumulation in 7 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1877
+msgid "Sales refund accumulation in 7 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1878
+msgid "Buys refund accumulation in 7 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1879
+msgid "Sales accumulation in 8 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1880
+msgid "Buys accumulation in 8 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1881
+msgid "Sales refund accumulation in 8 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1882
+msgid "Buys refund accumulation in 8 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1883
+msgid "Sales accumulation in 9 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1884
+msgid "Buys accumulation in 9 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1885
+msgid "Sales refund accumulation in 9 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1886
+msgid "Buys refund accumulation in 9 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1887
+msgid "Sales accumulation in 10 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1888
+msgid "Buys accumulation in 10 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1889
+msgid "Sales refund accumulation in 10 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1890
+msgid "Buys refund accumulation in 10 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1891
+msgid "Sales accumulation in 11 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1892
+msgid "Buys accumulation in 11 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1893
+msgid "Sales refund accumulation in 11 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1894
+msgid "Buys refund accumulation in 11 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1895
+msgid "Sales accumulation in 12 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1896
+msgid "Buys accumulation in 12 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1897
+msgid "Sales refund accumulation in 12 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1898
+msgid "Buys refund accumulation in 12 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1899
+#: Units/PrinterTypes.pas:2020
+msgid "Sales accumulation in 13 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1900
+#: Units/PrinterTypes.pas:2021
+msgid "Buys accumulation in 13 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1901
+#: Units/PrinterTypes.pas:2022
+msgid "Sales refund accumulation in 13 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1902
+#: Units/PrinterTypes.pas:2023
+msgid "Buys refund accumulation in 13 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1903
+msgid "Sales accumulation in 14 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1904
+msgid "Buys accumulation in 14 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1905
+msgid "Sales refund accumulation in 14 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1906
+msgid "Buys refund accumulation in 14 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1907
+msgid "Sales accumulation in 15 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1908
+msgid "Buys accumulation in 15 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1909
+msgid "Sales refund accumulation in 15 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1910
+msgid "Buys refund accumulation in 15 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1911
+msgid "Sales accumulation in 16 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1912
+msgid "Buys accumulation in 16 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1913
+msgid "Sales refund accumulation in 16 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1914
+msgid "Buys refund accumulation in 16 department in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1915
+msgid "Discounts accumulation from sales in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1916
+msgid "Discounts accumulation from buys in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1917
+msgid "Discounts accumulation from sale refunds in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1918
+msgid "Discounts accumulation from buy refunds in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1919
+msgid "Charges accumulation on sales in receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1920
+msgid "Charges accumulation on buys in receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1921
+msgid "Charges accumulation on sale refunds in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1922
+msgid "Charges accumulation on buy refunds in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1923
+msgid "Cash payment accumulation of sales in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1924
+msgid "Cash payment accumulation of buys in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1925
+msgid "Cash payment accumulation of sale refunds in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1926
+msgid "Cash payment accumulation of buy refunds in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1927
+msgid "Payment type 2 accumulation of sales in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1928
+msgid "Payment type 2 accumulation of buys in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1929
+msgid "Payment type 2 accumulation of sale refunds in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1930
+msgid "Payment type 2 accumulation of buy refunds in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1931
+msgid "Payment type 3 accumulation of sales in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1932
+msgid "Payment type 3 accumulation of buys in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1933
+msgid "Payment type 3 accumulation of sale refunds in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1934
+msgid "Payment type 3 accumulation of buy refunds in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1935
+msgid "Payment type 4 accumulation of sales in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1936
+msgid "Payment type 4 accumulation of buys in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1937
+msgid "Payment type 4 accumulation of sale refunds in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1938
+msgid "Payment type 4 accumulation of buy refunds in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1939
+msgid "Tax A turnover of sales in receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1940
+msgid "Tax A turnover of buys in receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1941
+msgid "Tax A turnover of sale refunds in receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1942
+msgid "Tax A turnover of buy refunds in receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1943
+msgid "Tax B turnover of sales in receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1944
+msgid "Tax B turnover of buys in receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1945
+msgid "Tax B turnover of sale refunds in receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1946
+msgid "Tax B turnover of buy refunds in receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1947
+msgid "Tax C turnover of sales in receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1948
+msgid "Tax C turnover of buys in receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1949
+msgid "Tax C turnover of sale refunds in receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1950
+msgid "Tax C turnover of buy refunds in receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1951
+msgid "Tax D turnover of sales in receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1952
+msgid "Tax D turnover of buys in receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1953
+msgid "Tax D turnover of sale refunds in receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1954
+msgid "Tax D turnover of buy refunds in receipt in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1955
+msgid "Tax A accumulations of sales in receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1956
+msgid "Tax A accumulations of buys in receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1957
+msgid "Tax A accumulations of sale refunds in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1958
+msgid "Tax A accumulations of buy refunds in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1959
+msgid "Tax B accumulations of sales in receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1960
+msgid "Tax B accumulations of buys in receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1961
+msgid "Tax B accumulations of sale refunds in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1962
+msgid "Tax B accumulations of buy refunds in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1963
+msgid "Tax C accumulations of sales in receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1964
+msgid "Tax C accumulations of buys in receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1965
+msgid "Tax C accumulations of sale refunds in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1966
+msgid "Tax C accumulations of buy refunds in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1967
+msgid "Tax D accumulations of sales in receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1968
+msgid "Tax D accumulations of buys in receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1969
+msgid "Tax D accumulations of sale refunds in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1970
+msgid "Tax D accumulations of buy refunds in "
+"receipt"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1971
+msgid "Cash total in ECR at receipt closing "
+"moment"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1972
+msgid "Sales accumulation in 1 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1973
+msgid "Buys accumulation in 1 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1974
+msgid "Sales refund accumulation in 1 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1975
+msgid "Buys refund accumulation in 1 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1976
+msgid "Sales accumulation in 2 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1977
+msgid "Buys accumulation in 2 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1978
+msgid "Sales refund accumulation in 2 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1979
+msgid "Buys refund accumulation in 2 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1980
+msgid "Sales accumulation in 3 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1981
+msgid "Buys accumulation in 3 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1982
+msgid "Sales refund accumulation in 3 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1983
+msgid "Buys refund accumulation in 3 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1984
+msgid "Sales accumulation in 4 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1985
+msgid "Buys accumulation in 4 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1986
+msgid "Sales refund accumulation in 4 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1987
+msgid "Buys refund accumulation in 4 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1988
+msgid "Sales accumulation in 5 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1989
+msgid "Buys accumulation in 5 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1990
+msgid "Sales refund accumulation in 5 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1991
+msgid "Buys refund accumulation in 5 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1992
+msgid "Sales accumulation in 6 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1993
+msgid "Buys accumulation in 6 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1994
+msgid "Sales refund accumulation in 6 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1995
+msgid "Buys refund accumulation in 6 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1996
+msgid "Sales accumulation in 7 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1997
+msgid "Buys accumulation in 7 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1998
+msgid "Sales refund accumulation in 7 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:1999
+msgid "Buys refund accumulation in 7 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2000
+msgid "Sales accumulation in 8 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2001
+msgid "Buys accumulation in 8 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2002
+msgid "Sales refund accumulation in 8 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2003
+msgid "Buys refund accumulation in 8 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2004
+msgid "Sales accumulation in 9 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2005
+msgid "Buys accumulation in 9 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2006
+msgid "Sales refund accumulation in 9 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2007
+msgid "Buys refund accumulation in 9 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2008
+msgid "Sales accumulation in 10 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2009
+msgid "Buys accumulation in 10 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2010
+msgid "Sales refund accumulation in 10 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2011
+msgid "Buys refund accumulation in 10 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2012
+msgid "Sales accumulation in 11 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2013
+msgid "Buys accumulation in 11 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2014
+msgid "Sales refund accumulation in 11 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2015
+msgid "Buys refund accumulation in 11 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2016
+msgid "Sales accumulation in 12 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2017
+msgid "Buys accumulation in 12 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2018
+msgid "Sales refund accumulation in 12 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2019
+msgid "Buys refund accumulation in 12 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2024
+msgid "Sales accumulation in 14 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2025
+msgid "Buys accumulation in 14 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2026
+msgid "Sales refund accumulation in 14 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2027
+msgid "Buys refund accumulation in 14 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2028
+msgid "Sales accumulation in 15 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2029
+msgid "Buys accumulation in 15 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2030
+msgid "Sales refund accumulation in 15 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2031
+msgid "Buys refund accumulation in 15 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2032
+msgid "Sales accumulation in 16 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2033
+msgid "Buys accumulation in 16 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2034
+msgid "Sales refund accumulation in 16 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2035
+msgid "Buys refund accumulation in 16 department in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2036
+msgid "Discounts accumulation on sales in day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2037
+msgid "Discounts accumulation on buys in day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2038
+msgid "Discounts accumulation on sale refunds in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2039
+msgid "Discounts accumulation on buy refunds in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2040
+msgid "Charges accumulation on sales in day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2041
+msgid "Charges accumulation on buys in day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2042
+msgid "Charges accumulation on sale refunds in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2043
+msgid "Charges accumulation on buy refunds in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2044
+msgid "Cash payment accumulation of sales in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2045
+msgid "Cash payment accumulation of buys in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2046
+msgid "Cash payment accumulation of sale refunds "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2047
+msgid "Cash payment accumulation of buy refunds in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2048
+msgid "Payment type 2 accumulation of sales in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2049
+msgid "Payment type 2 accumulation of buys in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2050
+msgid "Payment type 2 accumulation of sale refunds in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2051
+msgid "Payment type 2 accumulation of buy refunds in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2052
+msgid "Payment type 3 accumulation of sales in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2053
+msgid "Payment type 3 accumulation of buys in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2054
+msgid "Payment type 3 accumulation of sale refunds in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2055
+msgid "Payment type 3 accumulation of buy refunds in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2056
+msgid "Payment type 4 accumulation of sales in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2057
+msgid "Payment type 4 accumulation of buys in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2058
+msgid "Payment type 4 accumulation of sale refunds in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2059
+msgid "Payment type 4 accumulation of buy refunds in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2060
+msgid "Tax A turnover of sales in day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2061
+msgid "Tax A turnover of buys in day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2062
+msgid "Tax A turnover of sale refunds in day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2063
+msgid "Tax A turnover of buy refunds in day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2064
+msgid "Tax B turnover of sales in day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2065
+msgid "Tax B turnover of buys in day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2066
+msgid "Tax B turnover of sale refunds in day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2067
+msgid "Tax B turnover of buy refunds in day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2068
+msgid "Tax C turnover of sales in day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2069
+msgid "Tax C turnover of buys in day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2070
+msgid "Tax C turnover of sale refunds in day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2071
+msgid "Tax C turnover of buy refunds in day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2072
+msgid "Tax D turnover of sales in day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2073
+msgid "Tax D turnover of buys in day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2074
+msgid "Tax D turnover of sale refunds in day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2075
+msgid "Tax D turnover of buy refunds in day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2076
+msgid "Tax A accumulations of sales in day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2077
+msgid "Tax A accumulations of buys in day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2078
+msgid "Tax A accumulations of sale refunds in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2079
+msgid "Tax A accumulations of buy refunds in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2080
+msgid "Tax B accumulations of sales in day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2081
+msgid "Tax B accumulations of buys in day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2082
+msgid "Tax B accumulations of sale refunds in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2083
+msgid "Tax B accumulations of buy refunds in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2084
+msgid "Tax C accumulations of sales in day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2085
+msgid "Tax C accumulations of buys in day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2086
+msgid "Tax C accumulations of sale refunds in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2087
+msgid "Tax C accumulations of buy refunds in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2088
+msgid "Tax D accumulations of sales in day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2089
+msgid "Tax D accumulations of buys in day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2090
+msgid "Tax D accumulations of sale refunds in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2091
+msgid "Tax D accumulations of buy refunds in "
+"day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2092
+msgid "Cash total in ECR accumulation"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2093
+msgid "Cash in accumulation in day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2094
+msgid "Cash out accumulation in day"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2095
+msgid "Non-zeroise sum before fiscalization"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2096
+msgid "Sales total in day from EJ"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2097
+msgid "Buys total in day from EJ"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2098
+msgid "Sale refunds total in day from EJ"
+msgstr ""
+
+#: Units/PrinterTypes.pas:2099
+msgid "buy refunds total in day from EJ"
 msgstr ""
 
 #: Units/Retalix.pas:227
-msgid "ItemName cannot be empty"
+msgid "ItemName не может быть пустым"
+msgstr ""
+
+#: Units/SharedPrinter.pas:405
+msgid "Invalid printer protocol"
+msgstr ""
+
+#: Units/SharedPrinter.pas:442
+msgid "Invalid connection type"
 msgstr ""
 
 #: Units/TableParameter.pas:161
 msgid "Parameter value not found"
 msgstr ""
 
+#: Units/TLVParser.pas:71
+msgid "НЕИЗВЕСТНЫЙ ТЕГ"
+msgstr ""
+
+#: Units/TLVParser.pas:80
+#: Units/TLVParser.pas:82
+msgid "Ошибка! Некорректная длина"
+msgstr ""
+
+#: Units/TLVTags.pas:104
+msgid "ОТЧЕТ О РЕГИСТРАЦИИ"
+msgstr ""
+
+#: Units/TLVTags.pas:105
+msgid "ОТЧЕТ ОБ ИЗМЕНЕНИИ ПАРАМЕТРОВ РЕГИСТРАЦИИ"
+msgstr ""
+
+#: Units/TLVTags.pas:106
+msgid "ОТЧЕТ ОБ ОТКРЫТИИ СМЕНЫ"
+msgstr ""
+
+#: Units/TLVTags.pas:107
+msgid "ОТЧЕТ О ТЕКУЩЕМ СОСТОЯНИИ РАСЧЕТОВ"
+msgstr ""
+
+#: Units/TLVTags.pas:108
+msgid "КАССОВЫЙ ЧЕК"
+msgstr ""
+
+#: Units/TLVTags.pas:109
+msgid "КАССОВЫЙ ЧЕК КОРРЕКЦИИ"
+msgstr ""
+
+#: Units/TLVTags.pas:110
+msgid "БЛАНК СТРОГОЙ ОТЧЕТНОСТИ"
+msgstr ""
+
+#: Units/TLVTags.pas:111
+msgid "БЛАНК СТРОГОЙ ОТЧЕТНОСТИ КОРРЕКЦИИ"
+msgstr ""
+
+#: Units/TLVTags.pas:112
+msgid "ОТЧЕТ О ЗАКРЫТИИ СМЕНЫ"
+msgstr ""
+
+#: Units/TLVTags.pas:113
+msgid "ОТЧЕТ О ЗАКРЫТИИ ФН"
+msgstr ""
+
+#: Units/TLVTags.pas:114
+msgid "ПОДТВЕРЖДЕНИЕ ОПЕРАТОРА"
+msgstr ""
+
+#: Units/TLVTags.pas:116
+msgid "Неизвестный тип документа"
+msgstr ""
+
+#: Units/TLVTags.pas:123
+msgid "Приход"
+msgstr ""
+
+#: Units/TLVTags.pas:124
+msgid "Возврат прихода"
+msgstr ""
+
+#: Units/TLVTags.pas:125
+msgid "Расход"
+msgstr ""
+
+#: Units/TLVTags.pas:126
+msgid "Возврат расхода"
+msgstr ""
+
+#: Units/TLVTags.pas:128
+msgid "Неизв. тип: "
+msgstr ""
+
+#: Units/TLVTags.pas:149
+msgid "ОБЩ."
+msgstr ""
+
+#: Units/TLVTags.pas:152
+msgid "+УД"
+msgstr ""
+
+#: Units/TLVTags.pas:155
+msgid "+УДМР"
+msgstr ""
+
+#: Units/TLVTags.pas:158
+#: Units/TLVTags.pas:161
+msgid "+ЕНВД"
+msgstr ""
+
+#: Units/TLVTags.pas:164
+msgid "+ПСН"
+msgstr ""
+
 #: Units/TrainingReceiptPrinter.pas:237
 msgid "Receipt is not opened"
 msgstr ""
 
-#: Units/uZintBarcode.pas:331
+#: Units/uZintBarcode.pas:330
 msgid "Can not create internal symbol structure"
 msgstr ""
 
-#: Units/VatCode.pas:96
+#: Units/VatCode.pas:95
 msgid "Item with app VAT code %d already exists."
 msgstr ""
 
@@ -681,112 +4075,5 @@ msgstr ""
 #. Programmer's name: MAINICON  ICON  DISCARDABLE
 #: SmFiscalPrinter.rc:32
 msgid "MAINICON.ico"
-msgstr ""
-
-#: CommandDef.pas:1421
-#: CommandDef.pas:1469
-msgid "Text"
-msgstr ""
-
-#: CommandDef.pas:1422
-#: CommandDef.pas:1470
-msgid "Name"
-msgstr ""
-
-#: DIOHandler.pas:112
-msgid "Invalid DirectIO command code"
-msgstr ""
-
-#: DIOHandlers.pas:835
-#: DIOHandlers.pas:1059
-#: DIOHandlers.pas:1163
-msgid "Invalid command code"
-msgstr ""
-
-#. Programmer's name for it: SDeviceNotConnected
-#: SerialPort.pas:111
-msgid "Device not connected"
-msgstr ""
-
-#: SerialPort.pas:387
-msgid "Port is opened by another application"
-msgstr ""
-
-#: SerialPort.pas:402
-msgid "Cannot open port"
-msgstr ""
-
-#: SerialPort.pas:409
-msgid "Port not opened"
-msgstr ""
-
-#: XMLParser.pas:244
-msgid "File reading error %s."
-msgstr ""
-
-#: XMLParser.pas:261
-msgid "Xml document reading error"
-msgstr ""
-
-#: XMLParser.pas:299
-#: XMLParser.pas:480
-msgid "AxmlNode = nil"
-msgstr ""
-
-#: XMLParser.pas:445
-msgid "Element %s is not found"
-msgstr ""
-
-#. Programmer's name for it: MsgKeyOpenError
-#: OposDevice.pas:75
-msgid "Error opening registry key: %s"
-msgstr ""
-
-#: OposException.pas:80
-msgid "Invalid parameter value"
-msgstr ""
-
-#: OposException.pas:86
-msgid "Invalid property value"
-msgstr ""
-
-#: OposFptrUtils.pas:37
-msgid "Receipt station is empty"
-msgstr ""
-
-#: OposFptrUtils.pas:42
-msgid "Journal station is empty"
-msgstr ""
-
-#: OposFptrUtils.pas:47
-msgid "Cover is opened"
-msgstr ""
-
-#: OposFptrUtils.pas:192
-msgid "Invalid day"
-msgstr ""
-
-#: OposFptrUtils.pas:195
-msgid "Invalid month"
-msgstr ""
-
-#: OposFptrUtils.pas:198
-msgid "Invalid year"
-msgstr ""
-
-#: OposFptrUtils.pas:201
-msgid "Invalid hour"
-msgstr ""
-
-#: OposFptrUtils.pas:204
-msgid "Invalid minutes"
-msgstr ""
-
-#: OposServiceDevice19.pas:302
-msgid "Device is disabled"
-msgstr ""
-
-#: OposServiceDevice19.pas:432
-msgid "Invalid BinaryConversion property value"
 msgstr ""
 

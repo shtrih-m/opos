@@ -5,8 +5,10 @@ interface
 uses
   // VCL
   Windows, Classes, SysUtils,
+  // Tnt
+  TntSysUtils,
   // This
-  PrinterTypes, BinStream, OposException, Opos, StringUtils;
+  PrinterTypes, BinStream, OposException, Opos, StringUtils, gnugettext;
 
 type
   { TPrinterCommand }
@@ -169,17 +171,11 @@ type
 
 implementation
 
-resourcestring
-  MsgInvalidParameterValue = 'Invalid parameter value';
-
-
-procedure CheckParam(Value, Min, Max: Int64; const ParamName: string);
+procedure CheckParam(Value, Min, Max: Int64; const ParamName: WideString);
 begin
-  if Value < Min then
-    RaiseOPOSException(OPOS_E_ILLEGAL, MsgInvalidParameterValue + ', ' + ParamName);
-
-  if Value > Max then
-    RaiseOPOSException(OPOS_E_ILLEGAL, MsgInvalidParameterValue + ', ' + ParamName);
+  if (Value < Min)or(Value > Max) then
+    RaiseOPOSException(OPOS_E_ILLEGAL,
+      Tnt_WideFormat('%s, %s', [_('Invalid parameter value'), ParamName]));
 end;
 
 (*******************************************************************************

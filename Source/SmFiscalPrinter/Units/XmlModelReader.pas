@@ -7,7 +7,7 @@ uses
   Windows, Classes, SysUtils, PrinterModel, XMLDoc, XMLIntf, Variants,
   // This
   DriverTypes, LogFile, XmlUtils, DefaultModel, FileUtils, TableParameter,
-  ParameterValue;
+  ParameterValue, WException;
 
 type
   { TXmlModelReader }
@@ -117,7 +117,7 @@ begin
   except
     on E:Exception do
     begin
-      Logger.Error(E.Message);
+      Logger.Error(GetExceptionMessage(E));
     end;
   end;
 end;
@@ -147,7 +147,7 @@ begin
   except
     on E:Exception do
     begin
-      Logger.Error(E.Message);
+      Logger.Error(GetExceptionMessage(E));
       SetDefaults;
     end;
   end;
@@ -212,7 +212,7 @@ begin
   except
     on E: Exception do
     begin
-      Logger.Error(E.Message);
+      Logger.Error(GetExceptionMessage(E));
     end;
   end;
 end;
@@ -320,7 +320,7 @@ begin
   except
     on E: Exception do
     begin
-      Logger.Error(E.Message);
+      Logger.Error(GetExceptionMessage(E));
     end;
   end;
 end;

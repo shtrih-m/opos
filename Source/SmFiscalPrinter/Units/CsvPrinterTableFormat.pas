@@ -8,7 +8,7 @@ uses
   // Tnt
   TntClasses, TntSysUtils, TntSystem,
   // This
-  PrinterTable, PrinterTypes, PrinterTableFormat, VersionInfo;
+  PrinterTable, PrinterTypes, PrinterTableFormat, VersionInfo, gnugettext;
 
 type
   { TCsvPrinterTableFormat }
@@ -26,16 +26,11 @@ type
 
 implementation
 
-resourcestring
-  STable = 'Таблица';
-  CsvFilterString = 'Файлы таблиц (*.csv)|*.csv|';
-  STableFormat = 'Номер таблицы,Ряд,Поле,Размер поля,Тип поля,Мин. значение, Макс.значение, Название,Значение';
-
 { TCsvPrinterTableFormat }
 
 function TCsvPrinterTableFormat.FilterString: WideString;
 begin
-  Result := CsvFilterString;
+  Result := _('Файлы таблиц (*.csv)|*.csv|');
 end;
 
 function IsComma(C: WideChar): Boolean;
@@ -201,8 +196,8 @@ begin
     for i := 0 to Tables.Count-1 do
     begin
       Table := Tables[i];
-      Strings.Add(Tnt_WideFormat('// %s %d, %s', [STable, Table.Number, Table.Name]));
-      Strings.Add('// ' + STableFormat);
+      Strings.Add(Tnt_WideFormat('// %s %d, %s', [_('Таблица'), Table.Number, Table.Name]));
+      Strings.Add('// ' + _('Номер таблицы,Ряд,Поле,Размер поля,Тип поля,Мин. значение, Макс.значение, Название,Значение'));
 
       for j := 0 to Table.Fields.Count-1 do
       begin

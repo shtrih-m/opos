@@ -17,8 +17,6 @@
 #define pnglang_EPNGCannotChangeSizeText 65078
 #define pnglang_EPNGOutMemoryText 65079
 #define pnglang_EPNGHeaderNotPresentText 65080
-#define TntSystem_SBufferOverflow 65081
-#define TntSystem_SInvalidUTF7 65082
 #define IdResourceStringsCore_RSInterceptIsDifferent 65088
 #define IdResourceStringsCore_RSTransparentProxyCannotBind 65089
 #define IdResourceStringsCore_RSTransparentProxyCanNotSupportUDP 65090
@@ -131,38 +129,38 @@
 #define IdResourceStrings_RSStackEBADF 65197
 #define IdResourceStrings_RSStackEACCES 65198
 #define IdResourceStrings_RSStackEFAULT 65199
-#define SynEditStrConst_SYNS_ScrollInfoFmtTop 65200
-#define SynEditStrConst_SYNS_EDuplicateShortcut 65201
-#define SynEditStrConst_SYNS_FilterXML 65202
-#define SynEditStrConst_SYNS_FriendlyLangXML 65203
-#define SynEditStrConst_SYNS_FriendlyLangUnknown 65204
-#define SynEditTextBuffer_SListIndexOutOfBounds 65205
-#define SynEditTextBuffer_SInvalidCapacity 65206
-#define XMLConst_SDuplicateRegistration 65207
-#define XMLConst_SDOMNotSupported 65208
-#define XMLConst_SNodeExpected 65209
-#define XMLConst_SMSDOMNotInstalled 65210
-#define xmlParser_MsgFileReadingError 65211
-#define xmlParser_MsgElementNotFound 65212
+#define SynEditStrConst_SYNS_FriendlyAttrWhitespace 65200
+#define SynEditStrConst_SYNS_ScrollInfoFmt 65201
+#define SynEditStrConst_SYNS_ScrollInfoFmtTop 65202
+#define SynEditStrConst_SYNS_EDuplicateShortcut 65203
+#define SynEditStrConst_SYNS_FilterXML 65204
+#define SynEditStrConst_SYNS_FriendlyLangXML 65205
+#define SynEditStrConst_SYNS_FriendlyLangUnknown 65206
+#define SynEditTextBuffer_SListIndexOutOfBounds 65207
+#define SynEditTextBuffer_SInvalidCapacity 65208
+#define XMLConst_SDuplicateRegistration 65209
+#define XMLConst_SDOMNotSupported 65210
+#define XMLConst_SNodeExpected 65211
+#define XMLConst_SMSDOMNotInstalled 65212
 #define IdResourceStrings_RSInvalidSourceArray 65213
 #define IdResourceStrings_RSInvalidDestinationArray 65214
 #define IdResourceStrings_RSCharIndexOutOfBounds 65215
-#define OleConst_SInvalidLicense 65216
-#define OleConst_SNotLicensed 65217
-#define SynEditStrConst_SYNS_FriendlyAttrAttributeName 65218
-#define SynEditStrConst_SYNS_FriendlyAttrAttributeValue 65219
-#define SynEditStrConst_SYNS_FriendlyAttrCDATASection 65220
-#define SynEditStrConst_SYNS_FriendlyAttrComment 65221
-#define SynEditStrConst_SYNS_FriendlyAttrDOCTYPESection 65222
-#define SynEditStrConst_SYNS_FriendlyAttrElementName 65223
-#define SynEditStrConst_SYNS_FriendlyAttrEntityReference 65224
-#define SynEditStrConst_SYNS_FriendlyAttrNamespaceAttrName 65225
-#define SynEditStrConst_SYNS_FriendlyAttrNamespaceAttrValue 65226
-#define SynEditStrConst_SYNS_FriendlyAttrProcessingInstr 65227
-#define SynEditStrConst_SYNS_FriendlyAttrSymbol 65228
-#define SynEditStrConst_SYNS_FriendlyAttrText 65229
-#define SynEditStrConst_SYNS_FriendlyAttrWhitespace 65230
-#define SynEditStrConst_SYNS_ScrollInfoFmt 65231
+#define OleConst_SCannotActivate 65216
+#define OleConst_SNoWindowHandle 65217
+#define OleConst_SInvalidLicense 65218
+#define OleConst_SNotLicensed 65219
+#define SynEditStrConst_SYNS_FriendlyAttrAttributeName 65220
+#define SynEditStrConst_SYNS_FriendlyAttrAttributeValue 65221
+#define SynEditStrConst_SYNS_FriendlyAttrCDATASection 65222
+#define SynEditStrConst_SYNS_FriendlyAttrComment 65223
+#define SynEditStrConst_SYNS_FriendlyAttrDOCTYPESection 65224
+#define SynEditStrConst_SYNS_FriendlyAttrElementName 65225
+#define SynEditStrConst_SYNS_FriendlyAttrEntityReference 65226
+#define SynEditStrConst_SYNS_FriendlyAttrNamespaceAttrName 65227
+#define SynEditStrConst_SYNS_FriendlyAttrNamespaceAttrValue 65228
+#define SynEditStrConst_SYNS_FriendlyAttrProcessingInstr 65229
+#define SynEditStrConst_SYNS_FriendlyAttrSymbol 65230
+#define SynEditStrConst_SYNS_FriendlyAttrText 65231
 #define ComStrs_sInvalidComCtl32 65232
 #define ComStrs_sDateTimeMax 65233
 #define ComStrs_sDateTimeMin 65234
@@ -176,9 +174,9 @@
 #define ComConst_SNoMethod 65242
 #define ComConst_SVarNotObject 65243
 #define ComConst_STooManyParams 65244
-#define VatCode_MsgVATCodeExists 65245
-#define OleConst_SCannotActivate 65246
-#define OleConst_SNoWindowHandle 65247
+#define TntSystem_SBufferOverflow 65245
+#define TntSystem_SInvalidUTF7 65246
+#define TntFormatStrUtils_SInvalidFormatSpecifier 65247
 #define ExtCtrls_clNameMenuText 65248
 #define ExtCtrls_clNameNone 65249
 #define ExtCtrls_clNameScrollBar 65250
@@ -478,8 +476,6 @@ BEGIN
 	pnglang_EPNGCannotChangeSizeText,	"The \"Portable Network Graphics\" image can not be resize by changing width and height properties. Try assigning the image from a bitmap."
 	pnglang_EPNGOutMemoryText,	"Some operation could not be performed because the system is out of resources. Close some windows and try again."
 	pnglang_EPNGHeaderNotPresentText,	"This operation is not valid because the current image contains no valid header."
-	TntSystem_SBufferOverflow,	"Buffer overflow"
-	TntSystem_SInvalidUTF7,	"Invalid UTF7"
 	IdResourceStringsCore_RSInterceptIsDifferent,	"The IOHandler already has a different Intercept assigned"
 	IdResourceStringsCore_RSTransparentProxyCannotBind,	"Transparent proxy cannot bind."
 	IdResourceStringsCore_RSTransparentProxyCanNotSupportUDP,	"UDP Not supported by this proxy."
@@ -592,6 +588,8 @@ BEGIN
 	IdResourceStrings_RSStackEBADF,	"Bad file number."
 	IdResourceStrings_RSStackEACCES,	"Access denied."
 	IdResourceStrings_RSStackEFAULT,	"Buffer fault."
+	SynEditStrConst_SYNS_FriendlyAttrWhitespace,	"Whitespace"
+	SynEditStrConst_SYNS_ScrollInfoFmt,	"%d - %d"
 	SynEditStrConst_SYNS_ScrollInfoFmtTop,	"Top Line: %d"
 	SynEditStrConst_SYNS_EDuplicateShortcut,	"Shortcut already exists"
 	SynEditStrConst_SYNS_FilterXML,	"XML Files (*.xml;*.xsd;*.xsl;*.xslt;*.dtd)|*.xml;*.xsd;*.xsl;*.xslt;*.dtd"
@@ -603,11 +601,11 @@ BEGIN
 	XMLConst_SDOMNotSupported,	"Property or Method \"%s\" is not supported by DOM Vendor \"%s\""
 	XMLConst_SNodeExpected,	"Node cannot be null"
 	XMLConst_SMSDOMNotInstalled,	"Microsoft MSXML is not installed"
-	xmlParser_MsgFileReadingError,	"File reading error"
-	xmlParser_MsgElementNotFound,	"Element not found"
 	IdResourceStrings_RSInvalidSourceArray,	"Invalid source array"
 	IdResourceStrings_RSInvalidDestinationArray,	"Invalid destination array"
 	IdResourceStrings_RSCharIndexOutOfBounds,	"Character index out of bounds (%d)"
+	OleConst_SCannotActivate,	"OLE control activation failed"
+	OleConst_SNoWindowHandle,	"Could not obtain OLE control window handle"
 	OleConst_SInvalidLicense,	"License information for %s is invalid"
 	OleConst_SNotLicensed,	"License information for %s not found. You cannot use this control in design mode"
 	SynEditStrConst_SYNS_FriendlyAttrAttributeName,	"Attribute Name"
@@ -622,8 +620,6 @@ BEGIN
 	SynEditStrConst_SYNS_FriendlyAttrProcessingInstr,	"Processing Instruction"
 	SynEditStrConst_SYNS_FriendlyAttrSymbol,	"Symbol"
 	SynEditStrConst_SYNS_FriendlyAttrText,	"Text"
-	SynEditStrConst_SYNS_FriendlyAttrWhitespace,	"Whitespace"
-	SynEditStrConst_SYNS_ScrollInfoFmt,	"%d - %d"
 	ComStrs_sInvalidComCtl32,	"This control requires version 4.70 or greater of COMCTL32.DLL"
 	ComStrs_sDateTimeMax,	"Date exceeds maximum of %s"
 	ComStrs_sDateTimeMin,	"Date is less than minimum of %s"
@@ -637,9 +633,9 @@ BEGIN
 	ComConst_SNoMethod,	"Method '%s' not supported by automation object"
 	ComConst_SVarNotObject,	"Variant does not reference an automation object"
 	ComConst_STooManyParams,	"Dispatch methods do not support more than 64 parameters"
-	VatCode_MsgVATCodeExists,	"Item with app VAT code %d already exists."
-	OleConst_SCannotActivate,	"OLE control activation failed"
-	OleConst_SNoWindowHandle,	"Could not obtain OLE control window handle"
+	TntSystem_SBufferOverflow,	"Buffer overflow"
+	TntSystem_SInvalidUTF7,	"Invalid UTF7"
+	TntFormatStrUtils_SInvalidFormatSpecifier,	"Invalid Format Specifier: %s"
 	ExtCtrls_clNameMenuText,	"Menu Text"
 	ExtCtrls_clNameNone,	"None"
 	ExtCtrls_clNameScrollBar,	"Scroll Bar"

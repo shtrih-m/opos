@@ -6,7 +6,7 @@ uses
   // VCL
   Windows, SysUtils, Registry,
   // This
-  LogFile;
+  LogFile, WException;
 
 type
   { TMalinaCard }
@@ -72,7 +72,7 @@ begin
     end;
   except
     on E: Exception do
-      Logger.Error(E.Message);
+      Logger.Error(GetExceptionMessage(E));
   end;
   Reg.Free;
 end;
@@ -100,7 +100,7 @@ begin
     end;
   except
     on E: Exception do
-      Logger.Error(E.Message);
+      Logger.Error(GetExceptionMessage(E));
   end;
   Reg.Free;
 end;

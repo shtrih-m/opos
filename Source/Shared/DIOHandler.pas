@@ -6,7 +6,7 @@ Uses
   // VCL
   Classes, SysUtils,
   // THis
-  DriverContext, LogFile;
+  DriverContext, WException, LogFile, gnugettext;
 
 type
   TDIOHandler = class;
@@ -57,9 +57,6 @@ type
 
 implementation
 
-resourcestring
-  MsgInvalidDirectIOCommandCode = 'Invalid DirectIO command code';
-
 { TDIOHandlers }
 
 constructor TDIOHandlers.Create(AContext: TDriverContext);
@@ -107,12 +104,13 @@ function TDIOHandlers.ItemByCommand(Command: Integer): TDIOHandler;
 var
   i: Integer;
 begin
+  Result := nil;
   for i := 0 to Count-1 do
   begin
     Result := Items[i];
     if Result.Command = Command then Exit;
   end;
-  raise Exception.Create(MsgInvalidDirectIOCommandCode);
+  raiseException(_('Invalid DirectIO command code'));
 end;
 
 { TDIOHandler }

@@ -7,7 +7,8 @@ uses
   Windows, Classes, SysUtils,
   // This
   //AsBarcode,
-  FiscalPrinterTypes, PrinterTypes, PrinterParameters, DirectIOAPI;
+  FiscalPrinterTypes, PrinterTypes, PrinterParameters, DirectIOAPI, WException,
+  gnugettext;
 
 const
   /////////////////////////////////////////////////////////////////////////////
@@ -119,13 +120,9 @@ type
 
   { EscPrinterError }
 
-  EscPrinterError = class(Exception);
+  EscPrinterError = class(WideException);
 
 implementation
-
-resourcestring
-  SCommandNotSupported = 'Команда не поддерживается';
-  SInvalidCommandLength = 'Неверная длина команды';
 
 procedure RaiseError(const Msg: string);
 begin
@@ -134,7 +131,7 @@ end;
 
 procedure InvalidCommand;
 begin
-  raiseError(SCommandNotSupported);
+  raiseError(_('Команда не поддерживается'));
 end;
 
 function ValidLength(const Data: string; MinLength: Integer): Boolean;
@@ -145,7 +142,7 @@ end;
 procedure CheckLength(const Data: string; MinLength: Integer);
 begin
 	if not ValidLength(Data, MinLength) then
-    raiseError(SInvalidCommandLength);
+    raiseError(_('Неверная длина команды'));
 end;
 
 { TEscPrinter }
@@ -251,8 +248,8 @@ end;
 procedure TEscBarcode.SetHRIPosition(const Value: Integer);
 begin
   if not (Value in [0..3]) then
-    raise Exception.CreateFmt(
-    'Неверное значение положения текста (%d). Должно быть 0..3', [Value]);
+    raiseExceptionFmt(_('Неверное значение положения текста (%d). Должно быть 0..3'),
+    [Value]);
 
   FHRIPosition := Value;
 end;
@@ -260,8 +257,8 @@ end;
 procedure TEscBarcode.SetFontType(const Value: Integer);
 begin
   if not (Value in [0..1]) then
-    raise Exception.CreateFmt(
-    'Неверное значение типа шрифта (%d). Должно быть 0..1', [Value]);
+    raiseExceptionFmt(_('Неверное значение типа шрифта (%d). Должно быть 0..1'),
+    [Value]);
 
   FFontType := Value;
 end;
@@ -269,8 +266,8 @@ end;
 procedure TEscBarcode.SetLineWidth(const Value: Integer);
 begin
   if not(Value in [1..6]) then
-    raise Exception.CreateFmt(
-    'Неверное значение ширины шрих-кода (%d). Должно быть 1..6', [Value]);
+    raiseExceptionFmt(_('Неверное значение ширины шрих-кода (%d). Должно быть 1..6'),
+    [Value]);
 
   FLineWidth := Value;
 end;
@@ -278,8 +275,8 @@ end;
 procedure TEscBarcode.SetHeight(const Value: Integer);
 begin
   if not(Value in [0..255]) then
-    raise Exception.CreateFmt(
-    'Неверное значение высоты шрих-кода (%d). Должно быть 1..255', [Value]);
+    raiseExceptionFmt(_('Неверное значение высоты шрих-кода (%d). Должно быть 1..255'),
+    [Value]);
 
   FHeight := Value;
 end;
@@ -296,11 +293,9 @@ begin
     FPrinter.PrintText(Data, FPrinter.Station, 1, taCenter);
 end;
 
-resourcestring
-  MsgInvalidBarcodeType = 'Invalid barcode type';
-
 function DecodeBarcodeType(Value: Integer): Integer;
 begin
+  Result := DIO_BARCODE_UPCA_CC;
   case Value of
     BARCODE_TYPE1_UPCA: Result := DIO_BARCODE_UPCA_CC;
     BARCODE_TYPE1_UPCE: Result := DIO_BARCODE_UPCE_CC;
@@ -322,7 +317,7 @@ begin
     BARCODE_TYPE2_CODE128: Result := DIO_BARCODE_HIBC_128;
     BARCODE_TYPE2_PDF417: Result := DIO_BARCODE_PDF417;
   else
-    raise Exception.CreateFmt('%s, %d', [MsgInvalidBarcodeType, Value]);
+    raiseExceptionFmt('%s, %d', [_('Invalid barcode type'), Value]);
   end;
 end;
 
@@ -359,7 +354,7 @@ end;
 procedure TStringStream.CheckEOF;
 begin
   if EOF then
-    raise Exception.Create('TStringStream.CheckEOF');
+    raiseException('TStringStream.CheckEOF');
 end;
 
 function TStringStream.ReadData(EndFlag: Char): string;

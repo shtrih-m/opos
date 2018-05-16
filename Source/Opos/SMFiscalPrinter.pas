@@ -43,7 +43,7 @@ type
     function Get_FontNumber: Integer;
     procedure Set_FontNumber(const Value: Integer);
     function GetIntParameter(ParamID: Integer): Integer;
-    procedure SetIntParameter(ParamID, Value: Integer);
+    function SetIntParameter(ParamID, Value: Integer): Integer;
     procedure Check(AResultCode: Integer);
     // IOPOSFiscalPrinter_1_6
     procedure SODataDummy(Status: Integer); safecall;
@@ -269,8 +269,9 @@ type
     function SetCurrency(NewCurrency: Integer): Integer; safecall;
     function GetBoolParameter(ParamID: Integer): Boolean;
     function GetParameter(ParamID: Integer): WideString;
-    procedure SetBoolParameter(ParamID: Integer; Value: Boolean);
-    procedure SetParameter(ParamID: Integer; const Value: WideString);
+    function SetBoolParameter(ParamID: Integer; Value: Boolean): Integer;
+    function SetParameter(ParamID: Integer; const Value: WideString): Integer; overload;
+    function SetParameter(ParamID: Integer; const Value: Integer): Integer; overload;
     procedure PrintImage(const FileName: string);
     procedure PrintImageScale(const FileName: string; Scale: Integer);
     procedure PrintBarcode(const Data: string; BarcodeType: Integer);
@@ -1769,24 +1770,29 @@ begin
   Result := StrToBool(GetParameter(ParamID));
 end;
 
-procedure TSMFiscalPrinter.SetParameter(ParamID: Integer; const Value: WideString);
+function TSMFiscalPrinter.SetParameter(ParamID: Integer; const Value: WideString): Integer;
 var
   pData: Integer;
   pString: WideString;
 begin
   pData := ParamID;
   pString := Value;
-  Check(Driver.DirectIO(DIO_SET_DRIVER_PARAMETER, pData, pString));
+  Result := Driver.DirectIO(DIO_SET_DRIVER_PARAMETER, pData, pString);
 end;
 
-procedure TSMFiscalPrinter.SetIntParameter(ParamID, Value: Integer);
+function TSMFiscalPrinter.SetParameter(ParamID: Integer; const Value: Integer): Integer;
 begin
-  SetParameter(ParamID, IntToStr(Value));
+  Result := SetParameter(ParamID, IntToStr(Value));
 end;
 
-procedure TSMFiscalPrinter.SetBoolParameter(ParamID: Integer; Value: Boolean);
+function TSMFiscalPrinter.SetIntParameter(ParamID, Value: Integer): Integer;
 begin
-  SetParameter(ParamID, BoolToStr(Value));
+  Result := SetParameter(ParamID, IntToStr(Value));
+end;
+
+function TSMFiscalPrinter.SetBoolParameter(ParamID: Integer; Value: Boolean): Integer;
+begin
+  Result := SetParameter(ParamID, BoolToStr(Value));
 end;
 
 function TSMFiscalPrinter.Get_FontNumber: Integer;

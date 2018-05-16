@@ -8,7 +8,8 @@ uses
   // Indy
   IdTCPClient, IdGlobal,
   // This
-  LogFile, NotifyThread, FiscalPrinterTypes, PrinterParameters, DriverError;
+  LogFile, NotifyThread, FiscalPrinterTypes, PrinterParameters,
+  DriverError, WException;
 
 type
   { TOFDHeader }
@@ -123,7 +124,7 @@ begin
   except
     on E: Exception do
     begin
-      Logger.Error(E.Message);
+      Logger.Error(GetExceptionMessage(E));
     end;
   end;
 end;
@@ -144,7 +145,7 @@ begin
   except
     on E: Exception do
     begin
-      Logger.Error('FSService: ' + E.Message);
+      Logger.Error('FSService: ' + GetExceptionMessage(E));
       if E is EDriverError then raise;
     end;
   end;

@@ -221,7 +221,7 @@ end;
 function TOposSalesReceipt.GetLastItem: TFSSaleItem;
 begin
   if FLastItem = nil then
-    raise Exception.Create(MsgLastReceiptItemNotDefined);
+    raiseException(MsgLastReceiptItemNotDefined);
   Result := FLastItem;
 end;
 
@@ -262,7 +262,7 @@ begin
     ItemAmount := Round2(GetLastItem.Quantity/1000 * GetLastItem.Price);
     DiscountAmount := GetLastItem.Discount + Abs(Discount.Amount);
     if DiscountAmount > (ItemAmount + GetLastItem.Charge) then
-      raise Exception.Create(MsgDiscountAmountMoreItemAmount);
+      raiseException(MsgDiscountAmountMoreItemAmount);
     GetLastItem.Discount := GetLastItem.Discount + Abs(Discount.Amount);
   end else
   begin

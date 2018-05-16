@@ -6,10 +6,8 @@ uses
   // VCL
   Windows, SysUtils,
   // This
-  OposMessages,
-  // This
   LogFile, StringUtils, DriverError, PrinterConnection,
-  CommunicationError, PrinterPort;
+  CommunicationError, PrinterPort, WException, gnugettext;
 
 type
   { TPrinterProtocol1 }
@@ -163,7 +161,7 @@ begin
   if not Read(DataLen + 1, RxData) then
   begin
     AddData(RxData);
-    raise ECommunicationError.Create(MsgErrorReadingAnswer);
+    raise ECommunicationError.Create(_('Error reading answer'));
   end;
   AddData(RxData);
   { Receive CRC of frame }
@@ -205,7 +203,7 @@ begin
           end else
           begin
             if not CRCError then
-              raise ECommunicationError.Create(MsgErrorReadingAnswer);
+              raise ECommunicationError.Create(_('Error reading answer'));
           end;
           Inc(AnsCount);
         end;
@@ -222,10 +220,10 @@ begin
     end;
 
     if ENQCount > MaxENQCount then
-      raise ECommunicationError.Create(MsgDeviceNotConnected + ', MaxENQCount');
+      raise ECommunicationError.Create(_('No connection') + ', MaxENQCount');
 
     if AnsCount > MaxAnsCount then
-      raise ECommunicationError.Create(MsgDeviceNotConnected + ', MaxAnsCount');
+      raise ECommunicationError.Create(_('No connection') + ', MaxAnsCount');
   until False;
 end;
 
@@ -240,7 +238,7 @@ begin
   repeat
     Write(Data);
     if not ReadControlChar(RxChar) then
-      raise ECommunicationError.Create(MsgDeviceNotConnected);
+      raise ECommunicationError.Create(_('No connection'));
 
     case RxChar of
       ACK : Break;
@@ -250,11 +248,11 @@ begin
         Inc(NakCount);
       end;
     else
-      raise ECommunicationError.Create(MsgDeviceNotConnected);
+      raise ECommunicationError.Create(_('No connection'));
     end;
 
     if CmdCount > MaxCmdCount then
-      raise ECommunicationError.Create(MsgDeviceNotConnected);
+      raise ECommunicationError.Create(_('No connection'));
 
   until False;
 end;
@@ -280,7 +278,7 @@ begin
         if CRCError then ReadAnswer(False)
         else
         begin
-          raise ECommunicationError.Create(MsgDeviceNotConnected);
+          raise ECommunicationError.Create(_('No connection'));
         end;
       end;
       Result := Copy(FOutput, 3, Length(FOutput)-3);
@@ -290,7 +288,7 @@ begin
     end;
   except
     on E: Exception do
-      raise ECommunicationError.Create(E.Message);
+      raise ECommunicationError.Create(GetExceptionMessage(E));
   end;
 end;
 

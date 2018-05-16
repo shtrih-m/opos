@@ -1158,7 +1158,7 @@ begin
       Reg.WriteInteger('Department', Department);
     end else
     begin
-      raise Exception.Create('Registry key open error');
+      raiseException('Registry key open error');
     end;
   finally
     Reg.Free;

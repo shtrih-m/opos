@@ -7,7 +7,7 @@ uses
   Windows, SysUtils, WinSock, DateUtils,
   // This
   LogFile, NotifyThread, DebugUtils, SimpleSocket, FiscalPrinterTypes,
-  PrinterTypes, BStrUtil, OposFptrUtils;
+  PrinterTypes, BStrUtil, OposFptrUtils, WException;
 
 type
   { TMonitoringServer }
@@ -67,7 +67,7 @@ begin
   except
     on E: Exception do
     begin
-      Logger.Error('Failed to start server thread, ' + E.Message);
+      Logger.Error('Failed to start server thread, ' + GetExceptionMessage(E));
     end;
   end;
 end;
@@ -89,17 +89,17 @@ begin
   try
     ErrorCode := WSAStartup($0101, WSAData);
     if ErrorCode <> 0 then
-      raise Exception.CreateFmt('WSAStartup error, %d', [WSAGetLastError()]);
+      raiseExceptionFmt('WSAStartup error, %d', [WSAGetLastError()]);
 
     ServerSocket.Socket := socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if ServerSocket.Socket = INVALID_SOCKET then
-      raise Exception.CreateFmt('Socket failed with error: %d', [WSAGetLastError()]);
+      raiseExceptionFmt('Socket failed with error: %d', [WSAGetLastError()]);
 
     if not ServerSocket.Bind(AF_INET, '127.0.0.1', FPort) then
-      raise Exception.CreateFmt('Failed bind with error: %d', [WSAGetLastError()]);
+      raiseExceptionFmt('Failed bind with error: %d', [WSAGetLastError()]);
 
     if not ServerSocket.Listen(SOMAXCONN) then
-      raise Exception.CreateFmt('Failed listen with error: %d', [WSAGetLastError()]);
+      raiseExceptionFmt('Failed listen with error: %d', [WSAGetLastError()]);
 
     while not FThread.Terminated do
     begin
@@ -127,7 +127,7 @@ begin
   except
     on E: Exception do
     begin
-      Logger.Error('Monitoring server = ' + E.Message)
+      Logger.Error('Monitoring server = ' + GetExceptionMessage(E))
     end;
   end;
   ServerSocket.Free;
@@ -143,7 +143,7 @@ begin
   except
     on E: Exception do
     begin
-      Logger.Error(Format('Failed to close server, %s', [E.Message]));
+      Logger.Error(Format('Failed to close server, %s', [GetExceptionMessage(E)]));
     end;
   end;
 end;
@@ -384,7 +384,7 @@ begin
   except
     on E: Exception do
     begin
-      Result := 'ERROR ' + E.Message;
+      Result := 'ERROR ' + GetExceptionMessage(E);
     end;
   end;
 end;

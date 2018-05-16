@@ -9,7 +9,7 @@ uses
   IdTCPClient,
   // This
   PrinterConnection, DriverError, StringUtils, FptrServerLib_TLB, VSysUtils,
-  LogFile;
+  LogFile, WException;
 
 type
   { TTCPConnection }
@@ -83,7 +83,7 @@ begin
       GetCurrentProcessId, 'OposFiscalPrinter', GetCompName]));
   except
     on E: Exception do
-      Logger.Error(E.Message);
+      Logger.Error(GetExceptionMessage(E));
   end;
 end;
 
@@ -94,7 +94,7 @@ begin
     SendCommand('DISCONNECT');
   except
     on E: Exception do
-      Logger.Error(E.Message);
+      Logger.Error(GetExceptionMessage(E));
   end;
 end;
 

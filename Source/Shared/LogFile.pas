@@ -4,7 +4,8 @@ interface
 
 uses
   // VCL
-  Windows, Classes, SysUtils, SyncObjs, SysConst, Variants, DateUtils;
+  Windows, Classes, SysUtils, SyncObjs, SysConst, Variants,
+  DateUtils, WException;
 
 type
   TVariantArray = array of Variant;
@@ -478,7 +479,7 @@ end;
 
 procedure TLogFile.Error(const Data: string; E: Exception);
 begin
-  AddLine(TagError + Data + ' ' + E.Message);
+  AddLine(TagError + Data + ' ' + GetExceptionMessage(E));
 end;
 
 procedure TLogFile.Debug(const Data: string);

@@ -8,7 +8,8 @@ uses
   // Opos
   OposUtils, OposFptrUtils,
   // This
-  PrinterTypes, RegExpr, FiscalPrinterDevice, FiscalPrinterTypes;
+  PrinterTypes, RegExpr, FiscalPrinterDevice, FiscalPrinterTypes, WException,
+  gnugettext;
 
 type
   { TElectronicJournal }
@@ -62,18 +63,13 @@ begin
     except
       on E: Exception do
       begin
-        E.Message := 'Failed parsing electronic journal report. ' + E.Message;
-        raise;
+        raiseException(_('Failed parsing electronic journal report.') + GetExceptionMessage(E));
       end;
     end;
   finally
     R.Free;
   end;
 end;
-
-resourcestring
-  MsgDateLineNotFound = 'Date line not found';
-  MsgDateNotFound = 'Failed parsing electronic journal report. Date not found';
 
 function TElectronicJournal.ReadEJSesssionDate(
   Printer: IFiscalPrinterDevice;
@@ -106,11 +102,11 @@ begin
   Printer.Check(Printer.EJReportStop);
 
   if LineCount > MaxLineCount then
-    raise Exception.Create(MsgDateLineNotFound);
+    raiseException(_('Date line not found'));
 
   Result := DecodeDateLine(Result);
   if Result = '' then
-    raise Exception.Create(MsgDateNotFound);
+    raiseException(_('Failed parsing electronic journal report. Date not found'));
 end;
 
 function TElectronicJournal.ReadEJSesssionResult(

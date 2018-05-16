@@ -78,9 +78,9 @@ uses
   fmuFptrPayType in 'Fmu\fmuFptrPayType.pas' {fmFptrPayType},
   VatCode in '..\SmFiscalPrinter\Units\VatCode.pas',
   DriverContext in '..\SmFiscalPrinter\Units\DriverContext.pas',
-  OposMessages in '..\SmFiscalPrinter\Units\OposMessages.pas',
   fmuFptrConnection in 'Fmu\fmuFptrConnection.pas' {fmFptrConnection},
-  fmuMarkChecker in 'Fmu\fmuMarkChecker.pas' {fmMarkChecker};
+  fmuMarkChecker in 'Fmu\fmuMarkChecker.pas' {fmMarkChecker},
+  WException in '..\Shared\WException.pas';
 
 {$R *.RES}
 {$R WindowsXP.RES}

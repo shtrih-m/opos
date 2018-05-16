@@ -10,7 +10,7 @@ uses
   FiscalPrinterDevice, CommandDef, CommandParam, XmlParser, BinStream,
   OposException, PrinterTypes, Opos, StringUtils, FiscalPrinterImpl,
   fmuLogo, FiscalPrinterTypes, ZReport, LogFile, PrinterParameters,
-  OposUtils, OposFptrUtils, SmResourceStrings;
+  OposUtils, OposFptrUtils, WException, gnugettext;
 
 const
   ValueDelimiters = [';'];
@@ -926,9 +926,6 @@ begin
   Printer.CheckEnabled;
 
   Command := FCommands.ItemByCode(pData);
-  if Command = nil then
-    raise Exception.Create(MsgInvalidCommandCode);
-
   Stream := TBinStream.Create;
   try
     Command.InParams.AsXml := pString;
@@ -1020,8 +1017,8 @@ begin
   except
     on E: Exception do
     begin
-      Logger.Error(E.Message);
-      raise Exception.Create('Не удалось загрузить логотип');
+      Logger.Error(GetExceptionMessage(E));
+      raiseException(_('Не удалось загрузить логотип'));
     end;
   end;
 end;
@@ -1198,9 +1195,6 @@ var
   FieldInfo: TPrinterFieldRec;
 begin
   Command := FCommands.ItemByCode(pData);
-  if Command = nil then
-    raise Exception.Create(MsgInvalidCommandCode);
-
   Stream := TBinStream.Create;
   try
     Command.InParams.AsText := pString;
@@ -1302,9 +1296,6 @@ var
   Command: TCommandDef;
 begin
   Command := FCommands.ItemByCode(pData);
-  if Command = nil then
-    raise Exception.Create(MsgInvalidCommandCode);
-
   Stream := TBinStream.Create;
   try
     Command.InParams.AsText := pString;
@@ -1692,7 +1683,7 @@ begin
   except
     on E: Exception do
     begin
-      Logger.Error(E.Message);
+      Logger.Error(GetExceptionMessage(E));
     end;
   end;
   ZReport.Free;
@@ -1721,7 +1712,7 @@ begin
   except
     on E: Exception do
     begin
-      Logger.Error(E.Message);
+      Logger.Error(GetExceptionMessage(E));
     end;
   end;
   ZReport.Free;
@@ -1868,6 +1859,21 @@ begin
     DriverParameterParam10: pString := Printer.Parameters.Parameter10;
     DriverParameterBarcode: pString := Printer.Parameters.Barcode;
     DriverParameterMarkType: pString := IntToStr(Printer.Parameters.MarkType);
+    DriverParameterCorrectionType: pString := IntToStr(Printer.Parameters.CorrectionType);
+    DriverParameterCalculationSign: pString := IntToStr(Printer.Parameters.CalculationSign);
+    DriverParameterAmount2: pString := IntToStr(Printer.Parameters.Amount2);
+    DriverParameterAmount3: pString := IntToStr(Printer.Parameters.Amount3);
+    DriverParameterAmount4: pString := IntToStr(Printer.Parameters.Amount4);
+    DriverParameterAmount5: pString := IntToStr(Printer.Parameters.Amount5);
+    DriverParameterAmount6: pString := IntToStr(Printer.Parameters.Amount6);
+    DriverParameterAmount7: pString := IntToStr(Printer.Parameters.Amount7);
+    DriverParameterAmount8: pString := IntToStr(Printer.Parameters.Amount8);
+    DriverParameterAmount9: pString := IntToStr(Printer.Parameters.Amount9);
+    DriverParameterAmount10: pString := IntToStr(Printer.Parameters.Amount10);
+    DriverParameterAmount11: pString := IntToStr(Printer.Parameters.Amount11);
+    DriverParameterAmount12: pString := IntToStr(Printer.Parameters.Amount12);
+    DriverParameterTaxType: pString := IntToStr(Printer.Parameters.TaxType);
+
   end;
 end;
 
@@ -1966,6 +1972,20 @@ begin
     DriverParameterParam10: Parameters.Parameter10 := pString;
     DriverParameterBarcode: Parameters.Barcode := pString;
     DriverParameterMarkType: Parameters.MarkType := StrToInt(pString);
+    DriverParameterCorrectionType: Parameters.CorrectionType := StrToInt(pString);
+    DriverParameterCalculationSign: Parameters.CalculationSign := StrToInt(pString);
+    DriverParameterAmount2: Parameters.Amount2 := StrToInt(pString);
+    DriverParameterAmount3: Parameters.Amount3 := StrToInt(pString);
+    DriverParameterAmount4: Parameters.Amount4 := StrToInt(pString);
+    DriverParameterAmount5: Parameters.Amount5 := StrToInt(pString);
+    DriverParameterAmount6: Parameters.Amount6 := StrToInt(pString);
+    DriverParameterAmount7: Parameters.Amount7 := StrToInt(pString);
+    DriverParameterAmount8: Parameters.Amount8 := StrToInt(pString);
+    DriverParameterAmount9: Parameters.Amount9 := StrToInt(pString);
+    DriverParameterAmount10: Parameters.Amount10 := StrToInt(pString);
+    DriverParameterAmount11: Parameters.Amount11 := StrToInt(pString);
+    DriverParameterAmount12: Parameters.Amount12 := StrToInt(pString);
+    DriverParameterTaxType: Parameters.TaxType := StrToInt(pString);
   end;
 end;
 

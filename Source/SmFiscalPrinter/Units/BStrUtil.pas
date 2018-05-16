@@ -419,7 +419,7 @@ begin
     WaitApostropheEnd:
       begin
         if (I > Length(Value)) then
-          raise Exception.Create(strNoStringEnd);
+          raiseException(strNoStringEnd);
         if Value[I] <> '''' then
         begin
           // Current state is '...

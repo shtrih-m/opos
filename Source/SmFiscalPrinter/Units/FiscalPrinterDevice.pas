@@ -9,7 +9,7 @@ uses
   // to enable loading this image formats
   JvGIF, JvPCX, PngImage, uZintBarcode, uZintInterface,
   // Opos
-  OposMessages, OposException, OposFptr, OposFptrHi, OposUtils, OposFptrUtils,
+  OposException, OposFptr, OposFptrHi, OposUtils, OposFptrUtils,
   // This
   PrinterCommand, PrinterTypes, BinStream, StringUtils,
   SerialPort, PrinterTable, LogFile, ByteUtils, FiscalPrinterTypes,
@@ -19,7 +19,8 @@ uses
   FiscalPrinterStatistics, ParameterValue, EJReportParser,
   PrinterParameters, DirectIOAPI, FileUtils,
   PrinterDeviceFilter, TLV, CsvPrinterTableFormat, MalinaParams, DriverContext,
-  PrinterFonts, TLVParser, TLVTags, GS1Barcode, EKMClient;
+  PrinterFonts, TLVParser, TLVTags, GS1Barcode, EKMClient, WException,
+  gnugettext;
 
 type
   { TFiscalPrinterDevice }
@@ -192,6 +193,8 @@ type
     function SendItemBarcode(const Barcode: string;
       MarkType: Integer): Integer;
     function GetFSCloseReceiptResult2: TFSCloseReceiptResult2;
+    function IsFSDocumentOpened: Boolean;
+    function FSCancelDocument: Integer;
   protected
     function GetMaxGraphicsWidthInBytes: Integer;
   public
@@ -468,8 +471,8 @@ type
 
   { EDisabledException }
 
-  EDisabledException = class(Exception);
-  EFiscalPrinterException = class(Exception);
+  EDisabledException = class(WideException);
+  EFiscalPrinterException = class(WideException);
 
 const
   PrinterBaudRates: array [0..6] of Integer = (
@@ -483,18 +486,6 @@ const
 
 
 implementation
-
-resourcestring
-  MsgInvalidFieldType = 'Invalid field type';
-  MsgInvalidFieldValue = 'Invalid field value';
-  MsgFieldTypeNotInteger = 'Field type is not integer';
-  MsgInvalidAnswerCode = 'Invalid answer code';
-  MsgInvalidAnswerLength = 'Invalid answer length';
-  MsgDeviceModelNotFound = 'Device model not found';
-  MsgAnswerDataLengthTooShort = 'Answer data length is too short';
-  MsgGraphicsNotSupported = 'Graphics is not supported';
-  MsgInvalidBarcodeType = 'Invalid barcode type';
-  MsgInvalidParameterIDValue = 'Invalid parameter ID value';
 
 { Получение таймаута выполнения команды }
 function GetCommandTimeout(Command: Word): Integer;
@@ -697,7 +688,7 @@ end;
 function CenterGraphicsLine(const Data: string; MaxLen, Scale: Integer): string;
 begin
   if Scale = 0 then
-    raise Exception.Create('Scale = 0');
+    raiseException('Scale = 0');
 
   Result := Data;
   Result := Copy(Result, 1, MaxLen);
@@ -718,7 +709,7 @@ end;
 procedure CheckMinLength(const Data: string; MinLength: Integer);
 begin
   if Length(Data) < MinLength then
-    raise ECommunicationError.Create(MsgAnswerDataLengthTooShort);
+    raise ECommunicationError.Create(_('Answer data length is too short'));
 end;
 
 { TFiscalPrinterDevice }
@@ -1340,7 +1331,7 @@ begin
   end;
 
   if Length(Command.RxData) < 1 then
-    raise ECommunicationError.Create(MsgInvalidAnswerLength);
+    raise ECommunicationError.Create(_('Invalid answer length'));
 
   CommandCode := Ord(Command.RxData[1]);
 
@@ -1356,7 +1347,7 @@ begin
   end else
   begin
     if CommandCode <> Command.Code then
-      raise ECommunicationError.Create(MsgInvalidAnswerCode);
+      raise ECommunicationError.Create(_('Invalid answer code'));
     Result := Ord(Command.RxData[2]);
   end;
 
@@ -2698,7 +2689,7 @@ begin
   except
     on E: Exception do
     begin
-      Logger.Debug('PrintXReport: ' + E.Message);
+      Logger.Debug('PrintXReport: ' + GetExceptionMessage(E));
     end;
   end;
 end;
@@ -2752,7 +2743,7 @@ begin
   except
     on E: Exception do
     begin
-      Logger.Debug('PrintZReport: ' + E.Message);
+      Logger.Debug('PrintZReport: ' + GetExceptionMessage(E));
     end;
   end;
 end;
@@ -4072,6 +4063,10 @@ begin
       end;
     end;
   end;
+  if IsFSDocumentOpened then
+  begin
+    Check(FSCancelDocument);
+  end;
 end;
 
 
@@ -4503,11 +4498,12 @@ end;
 function TFiscalPrinterDevice.FieldToInt(FieldInfo: TPrinterFieldRec;
   const Value: string): Integer;
 begin
+  Result := 0;
   case FieldInfo.FieldType of
     PRINTER_FIELD_TYPE_INT: Result := BinToInt(Value, 1, FieldInfo.Size);
-    PRINTER_FIELD_TYPE_STR: raise Exception.Create(MsgFieldTypeNotInteger);
+    PRINTER_FIELD_TYPE_STR: raiseException(_('Field type is not integer'));
   else
-    raise Exception.Create(MsgInvalidFieldType);
+    raiseException(_('Invalid field type'));
   end;
 end;
 
@@ -4518,7 +4514,7 @@ begin
     PRINTER_FIELD_TYPE_INT: Result := IntToStr(BinToInt(Value, 1, FieldInfo.Size));
     PRINTER_FIELD_TYPE_STR: Result := PChar(Value);
   else
-    raise Exception.Create(MsgInvalidFieldType);
+    raiseException(_('Invalid field type'));
   end;
 end;
 
@@ -4530,7 +4526,7 @@ begin
     PRINTER_FIELD_TYPE_INT: Result := IntToStr(BinToInt(Value, 1, FieldInfo.Size));
     PRINTER_FIELD_TYPE_STR: Result := Value;
   else
-    raise Exception.Create(MsgInvalidFieldType);
+    raiseException(_('Invalid field type'));
   end;
 end;
 
@@ -4540,7 +4536,7 @@ begin
     PRINTER_FIELD_TYPE_INT: Result := IntToBin(StrToInt(Value), FieldInfo.Size);
     PRINTER_FIELD_TYPE_STR: Result := GetLine(Value, FieldInfo.Size, FieldInfo.Size);
   else
-    raise Exception.Create(MsgInvalidFieldType);
+    raiseException(_('Invalid field type'));
   end;
 end;
 
@@ -4561,7 +4557,7 @@ begin
     Result := DoWriteTable(Table, Row, Field, Data);
   end else
   begin
-    Logger.Error(Format('%s, "%s"', [MsgInvalidFieldValue, FieldValue]));
+    Logger.Error(Format('%s, "%s"', [_('Invalid field value'), FieldValue]));
   end;
 end;
 
@@ -4983,7 +4979,7 @@ begin
   end;
 
   if Result = nil then
-    raise Exception.CreateFmt('%s, ID=%d', [MsgDeviceModelNotFound, ModelID]);
+    raiseExceptionFmt('%s, ID=%d', [_('Device model not found'), ModelID]);
 
   FModelData := Result.Data;
   FModelData.CapGraphics := True;
@@ -5487,6 +5483,7 @@ end;
 function TFiscalPrinterDevice.LoadGraphics(Line: Word;
   Data: string): Integer;
 begin
+  Result := 0;
   if FCapGraphics2 then
   begin
     Result := LoadGraphics2(Line, Data);
@@ -5497,11 +5494,12 @@ begin
     Result := LoadGraphics1(Line, Data);
     Exit;
   end;
-  raise Exception.Create(MsgGraphicsNotSupported);
+  raiseException(_('Graphics is not supported'));
 end;
 
 function TFiscalPrinterDevice.PrintGraphics(Line1, Line2: Word): Integer;
 begin
+  Result := 0;
   CheckGraphicsSize(Line1);
   CheckGraphicsSize(Line2);
 
@@ -5536,7 +5534,7 @@ begin
     Result := PrintGraphics1(Line1, Line2);
     Exit;
   end;
-  raise Exception.Create(MsgGraphicsNotSupported);
+  raiseException(_('Graphics is not supported'));
 end;
 
 function TFiscalPrinterDevice.IsDayOpened(Mode: Integer): Boolean;
@@ -5720,6 +5718,7 @@ end;
 
 function GetZIntBarcodeType(DIOBarcodeType: Integer): TZBType;
 begin
+  Result := tBARCODE_CODE11;
   case DIOBarcodeType of
     DIO_BARCODE_EAN13_INT           : Result := tBARCODE_EANX;
     DIO_BARCODE_CODE128A            : Result := tBARCODE_CODE128;
@@ -5818,7 +5817,7 @@ begin
     DIO_BARCODE_CODEONE             : Result := tBARCODE_CODEONE;
     DIO_BARCODE_GRIDMATRIX          : Result := tBARCODE_GRIDMATRIX;
   else
-    raise Exception.CreateFmt('%s, %d', [MsgInvalidBarcodeType, DIOBarcodeType]);
+    raiseExceptionFmt('%s, %d', [_('Invalid barcode type'), DIOBarcodeType]);
   end;
 end;
 
@@ -5883,7 +5882,7 @@ var
 begin
   if Barcode.Alignment = BARCODE_ALIGNMENT_LEFT then Exit;
   if HScale = 0 then
-    raise Exception.Create('HScale = 0');
+    raiseException('HScale = 0');
   PrintWidthInDots := PrintWidthInDots div HScale;
 
   XOffset := 0;
@@ -5930,10 +5929,6 @@ function TFiscalPrinterDevice.GetMaxGraphicsWidthInBytes: Integer;
 begin
   Result := GetMaxGraphicsWidth div 8;
 end;
-
-resourcestring
-  MsgBitmapWidthMoreThanMaximum = 'Bitmap width more than maximum';
-  MsgBitmapHeightMoreThanMaximum = 'Bitmap height more than maximum';
 
 procedure TFiscalPrinterDevice.PrintQRCode3(Barcode: TBarcodeRec);
 
@@ -6035,11 +6030,11 @@ begin
 
 
     if Bitmap.Width > MaxGraphicsWidth then
-      raise Exception.CreateFmt('%s, %d > %d', [MsgBitmapWidthMoreThanMaximum,
+      raiseExceptionFmt('%s, %d > %d', [_('Bitmap width more than maximum'),
         Bitmap.Width, MaxGraphicsWidth]);
 
     if Bitmap.Height > MaxGraphicsHeight then
-      raise Exception.CreateFmt('%s, %d > %d', [MsgBitmapHeightMoreThanMaximum,
+      raiseExceptionFmt('%s, %d > %d', [_('Bitmap height more than maximum'),
         Bitmap.Height, MaxGraphicsHeight]);
 
     BitmapWidth := Bitmap.Width;
@@ -6151,11 +6146,11 @@ begin
     end;
 
     if Bitmap.Width > MaxGraphicsWidth then
-      raise Exception.CreateFmt('%s, %d > %d', [MsgBitmapWidthMoreThanMaximum,
+      raiseExceptionFmt('%s, %d > %d', [_('Bitmap width more than maximum'),
         Bitmap.Width, MaxGraphicsWidth]);
 
     if Bitmap.Height > MaxGraphicsHeight then
-      raise Exception.CreateFmt('%s, %d > %d', [MsgBitmapHeightMoreThanMaximum,
+      raiseExceptionFmt('%s, %d > %d', [_('Bitmap height more than maximum'),
         Bitmap.Height, MaxGraphicsHeight]);
 
     AlignBitmap(Bitmap, Barcode, HScale, MaxGraphicsWidth);
@@ -6263,7 +6258,7 @@ var
   NewHeight: Integer;
 begin
   if Bitmap.Width = 0 then
-    raise Exception.Create('Bitmap.Width = 0');
+    raiseException('Bitmap.Width = 0');
 
   NewHeight := Trunc(Bitmap.Height*(NewWidth/Bitmap.Width));
   Bitmap.Canvas.StretchDraw(
@@ -6327,20 +6322,16 @@ begin
     FOnProgress(Progress);
 end;
 
-resourcestring
-  MsgImageWidthZero = 'Image width is zero, must be > 0';
-  MsgImageHeightZero = 'Image height is zero, must be > 0';
-
 procedure TFiscalPrinterDevice.LoadBitmap(StartLine: Integer; Bitmap: TBitmap);
 begin
   Bitmap.Monochrome := True;
   Bitmap.PixelFormat := pf1Bit;
 
   if Bitmap.Height = 0 then
-    raise Exception.Create(MsgImageHeightZero);
+    raiseException(_('Image height is zero, must be > 0'));
 
   if Bitmap.Width = 0 then
-    raise Exception.Create(MsgImageWidthZero);
+    raiseException(_('Image width is zero, must be > 0'));
 
   if Bitmap.Width > GetMaxGraphicsWidth then
     AlignBitmapWidth(Bitmap, GetMaxGraphicsWidth);
@@ -6409,7 +6400,7 @@ begin
   if LineLength <> 0 then
     RowsPerCommand := BytesPerCommand div LineLength;
   if RowsPerCommand = 0 then
-    raise Exception.Create('RowsPerCommand = 0');
+    raiseException('RowsPerCommand = 0');
   CommandCount := (Bitmap.Height + RowsPerCommand -1) div RowsPerCommand;
   ProgressStep := CommandCount/100;
   Row := 0;
@@ -6588,9 +6579,6 @@ begin
   end;
 end;
 
-resourcestring
-  MsgFailedContinuePrint = 'Failed to continue print';
-
 function TFiscalPrinterDevice.WaitForPrinting: TPrinterStatus;
 var
   Mode: Byte;
@@ -6604,7 +6592,7 @@ begin
   TickCount := GetTickCount;
   repeat
     if Integer(GetTickCount) > (TickCount + Parameters.StatusTimeout*1000) then
-      raise Exception.Create(SStatusWaitTimeout);
+      raiseException(SStatusWaitTimeout);
 
     Result := GetPrinterStatus;
     Mode := Result.Mode and $0F;
@@ -6640,7 +6628,7 @@ begin
       AMODE_AFTER:
       begin
         if TryCount > MaxTryCount then
-          raise Exception.Create(MsgFailedContinuePrint);
+          raiseException(_('Failed to continue print'));
         ContinuePrint;
         Inc(TryCount);
       end;
@@ -6812,11 +6800,9 @@ function TFiscalPrinterDevice.LoadGraphics3(Line: Word; Data: string): Integer;
 var
   Answer: string;
   Command: string;
-resourcestring
-  MsgImageDataLengthMore64Bytes = 'Image data length > 64 bytes';
 begin
   if Length(Data) > 64 then
-    raise Exception.Create(MsgImageDataLengthMore64Bytes);
+    raiseException(_('Image data length > 64 bytes'));
 
   Command := #$4E + IntToBin(GetUsrPassword, 4) + Chr(Length(Data)) +
     IntToBin(Line, 2) + IntToBin(1, 2) + #1 + Data;
@@ -7071,6 +7057,23 @@ begin
     R.FSNumber := Copy(Answer, 11, 16);
     R.DocNumber := BinToInt(Answer, 27, 4);
   end;
+end;
+
+(*
+Отменить документ в ФН FF08H
+Код команды FF08h. Длина сообщения: 6 байт.
+Пароль системного администратора: 4 байта
+Ответ: FF08h Длина сообщения: 1 байт.
+Код ошибки: 1 байт
+*)
+
+function TFiscalPrinterDevice.FSCancelDocument: Integer;
+var
+  Answer: string;
+  Command: string;
+begin
+  Command := #$FF#$08 + IntToBin(GetSysPassword, 4);
+  Result := ExecuteData(Command, Answer);
 end;
 
 (*
@@ -7420,7 +7423,7 @@ begin
   try
     Check(FSStartWrite(Length(BlockData), BlockSize));
     if BlockSize = 0 then
-      raise Exception.Create('BlockSize = 0');
+      raiseException('BlockSize = 0');
 
     BlockSize := GetBlockSize(BlockSize);
     Count := (Length(BlockData)+ BlockSize-1) div BlockSize;
@@ -7699,9 +7702,8 @@ begin
         Result := ReadTableStr(17, 1, 7);
       end;
     end;
-
   else
-    raise Exception.CreateFmt('%s, %d', [MsgInvalidParameterIDValue, ParamId]);
+    raiseExceptionFmt('%s, %d', [_('Invalid parameter ID value'), ParamId]);
   end;
 end;
 
@@ -7737,7 +7739,7 @@ begin
     end;
 
   else
-    raise Exception.CreateFmt('%s, %d', [MsgInvalidParameterIDValue, ParamId]);
+    raiseExceptionFmt('%s, %d', [_('Invalid parameter ID value'), ParamId]);
   end;
 end;
 
@@ -8030,7 +8032,7 @@ begin
   except
     on E: Exception do
     begin
-      Logger.Error('LoadTables: ' + E.Message);
+      Logger.Error('LoadTables: ' + GetExceptionMessage(E));
     end;
   end;
   Tables.Free;
@@ -8060,6 +8062,18 @@ end;
 function TFiscalPrinterDevice.GetContext: TDriverContext;
 begin
   Result := FContext;
+end;
+
+function TFiscalPrinterDevice.IsFSDocumentOpened: Boolean;
+var
+  FSState: TFSState;
+begin
+  Result := False;
+  if GetCapFiscalStorage then
+  begin
+    Check(FSReadState(FSState));
+    Result := FSState.Document <> 0;
+  end;
 end;
 
 function TFiscalPrinterDevice.IsRecOpened: Boolean;
@@ -8557,8 +8571,6 @@ begin
 end;
 
 procedure TFiscalPrinterDevice.EkmCheckBarcode(const Barcode: TGS1Barcode);
-resourcestring
-  SSaleNotEnabled = 'Продажа товара запрещена';
 var
   Client: TEkmClient;
   SaleEnabled: Boolean;
@@ -8570,7 +8582,7 @@ begin
     Client.Timeout := Parameters.EkmServerTimeout;
     SaleEnabled := Client.ReadSaleEnabled(Barcode.GTIN, Barcode.Serial);
     if not SaleEnabled then
-      raiseError(E_SALE_NOT_ENABLED, SSaleNotEnabled);
+      raiseError(E_SALE_NOT_ENABLED, _('Продажа товара запрещена'));
   finally
     Client.Free;
   end;
@@ -8654,7 +8666,7 @@ begin
       Data := TTLVTag.Int2ValueTLV(1162, 2) + TTLVTag.Int2ValueTLV(Length(Data), 2) + Data;
     end;
   else
-    raise Exception.Create('Invalid MarkType value');
+    raiseException('Invalid MarkType value');
   end;
   Result := FSSendTLVOperation(Data);
 end;
@@ -8665,7 +8677,7 @@ var
   Answer: string;
 begin
   if Length(Data) > 249 then
-    raise Exception.Create('TLV data length too big');
+    raiseException('TLV data length too big');
 
   Command := #$FF#$4D + IntToBin(FSysPassword, 4) + Copy(Data, 1, 249);
   Result := ExecuteData(Command, Answer);

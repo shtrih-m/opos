@@ -110,6 +110,7 @@ begin
   AddTest(TReceiptTest19);
   AddTest(TReceiptTest20);
   AddTest(TReceiptTest21);
+  AddTest(TCorrectionReceipt2Test);
 
   cbTest.ItemIndex := 0;
 end;

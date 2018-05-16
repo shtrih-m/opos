@@ -6,10 +6,8 @@ uses
   // VCL
   Windows, SysUtils,
   // This
-  OposMessages,
-  // This
-  LogFile, StringUtils, DriverError, PrinterConnection,
-  CommunicationError, PrinterPort, PrinterParameters;
+  LogFile, StringUtils, DriverError, PrinterConnection, CommunicationError,
+  PrinterPort, PrinterParameters, WException, gnugettext;
 
 const
   MaxAnsCount = 3;
@@ -121,8 +119,6 @@ begin
 end;
 
 function TPrinterProtocol2.DeStuffing(const AStr: string; var IsFinalEsc: Boolean): string;
-resourcestring
-  IncorrectPacketFormat = 'Некорректный формат пакета';
 var
   i: Integer;
 begin
@@ -150,7 +146,7 @@ begin
           Inc(i);
         end
         else
-          raise Exception.Create(IncorrectPacketFormat);
+          raiseException(_('Некорректный формат пакета'));
     end
     else
       Result := Result + AStr[i];
@@ -293,7 +289,7 @@ end;
 
 procedure TPrinterProtocol2.NoHardwareError;
 begin
-  raise ECommunicationError.Create(MsgDeviceNotConnected);
+  raise ECommunicationError.Create(_('No connection'));
 end;
 
 // Синхронизация номеров пакетов

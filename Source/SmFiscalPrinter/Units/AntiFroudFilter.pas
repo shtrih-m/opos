@@ -9,7 +9,7 @@ uses
   Opos, OposHi, OposFptr, OposFptrHi, OposException,
   // This
   FptrFilter, FiscalPrinterTypes, NonfiscalDoc, CustomReceipt,
-  PrinterTypes, LogFile, UniposReader, MalinaParams;
+  PrinterTypes, LogFile, UniposReader, MalinaParams, WException;
 
 type
 
@@ -190,7 +190,7 @@ begin
   FService.SetPrinterState(FPTR_PS_MONITOR);
   PrintInfoReceipt;
 
-  raise Exception.Create(Params.UniposSalesErrorText);
+  raiseException(Params.UniposSalesErrorText);
 end;
 
 procedure TAntiFroudFilter.Check(ResultCode: Integer);
@@ -270,7 +270,7 @@ begin
     Check(FService.PrintNormal(FPTR_S_RECEIPT, Text));
     Check(FService.EndNonFiscal);
 
-    raise Exception.Create(Params.UniposRefundErrorText);
+    raiseException(Params.UniposRefundErrorText);
   end;
 end;
 

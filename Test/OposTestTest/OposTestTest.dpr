@@ -137,8 +137,8 @@ uses
   fmuFptrThreadTest in '..\..\Source\OposTest\Fmu\fmuFptrThreadTest.pas' {fmFptrThreadTest},
   fmuFptrTest2 in '..\..\Source\OposTest\Fmu\fmuFptrTest2.pas' {fmFptrTest2},
   VatCode in '..\..\Source\SmFiscalPrinter\Units\VatCode.pas',
-  OposMessages in '..\..\Source\SmFiscalPrinter\Units\OposMessages.pas',
-  fmuFptrDirectIOBarcode in '..\..\Source\OposTest\Fmu\fmuFptrDirectIOBarcode.pas' {fmFptrDirectIOBarcode};
+  fmuFptrDirectIOBarcode in '..\..\Source\OposTest\Fmu\fmuFptrDirectIOBarcode.pas' {fmFptrDirectIOBarcode},
+  WException in '..\..\Source\Shared\WException.pas';
 
 {$R *.RES}
 

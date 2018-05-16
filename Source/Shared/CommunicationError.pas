@@ -4,12 +4,12 @@ interface
 
 uses
   // VCL
-  SysUtils;
-  
+  SysUtils, WException;
+
 type
   { ECommunicationError }
 
-  ECommunicationError = class(Exception);
+  ECommunicationError = class(WideException);
 
 implementation
 

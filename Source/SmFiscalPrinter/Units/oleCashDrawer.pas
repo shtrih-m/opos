@@ -7,13 +7,13 @@ uses
   Windows, ComObj, ActiveX, StdVcl, ComServ, SysUtils, Variants, SyncObjs,
   // Opos
   Opos, Oposhi, OposUtils, OposException, OposEvents, OposCash, OposCashhi,
-  OposCashUtils, OposServiceDevice19, OposMessages,
+  OposCashUtils, OposServiceDevice19,
   // This
   SmFiscalPrinterLib_TLB, SerialPort, VersionInfo,
   FiscalPrinterDevice, CashDrawerParameters, LogFile, SharedPrinter,
   PrinterTypes, FiscalPrinterTypes, ServiceVersion, StringUtils,
   OposEventsRCS, OposEventsNull, NotifyLink, PrinterParameters,
-  DriverError, SmResourceStrings;
+  DriverError, WException, gnugettext;
 
 type
   { ToleCashDrawer }
@@ -182,7 +182,7 @@ end;
 function ToleCashDrawer.GetPrinter: ISharedPrinter;
 begin
   if FPrinter = nil then
-    raise Exception.Create('Shared printer = nil');
+    raiseException('Shared printer = nil');
   Result := FPrinter;
 end;
 
@@ -209,7 +209,7 @@ begin
   if E is EOPOSException then
   begin
     OPOSException := E as EOPOSException;
-    OPOSError.ErrorString := E.Message;
+    OPOSError.ErrorString := GetExceptionMessage(E);
     OPOSError.ResultCode := OPOSException.ResultCode;
     OPOSError.ResultCodeExtended := OPOSException.ResultCodeExtended;
     FOposDevice.HandleException(OPOSError);
@@ -217,7 +217,7 @@ begin
     Exit;
   end;
 
-  OPOSError.ErrorString := E.Message;
+  OPOSError.ErrorString := GetExceptionMessage(E);
   OPOSError.ResultCode := OPOS_E_FAILURE;
   OPOSError.ResultCodeExtended := OPOS_SUCCESS;
   FOposDevice.HandleException(OPOSError);
@@ -227,7 +227,7 @@ end;
 function ToleCashDrawer.HandleDriverError(E: EDriverError): TOPOSError;
 begin
   Result.ResultCode := OPOS_E_EXTENDED;
-  Result.ErrorString := E.Message;
+  Result.ErrorString := GetExceptionMessage(E);
   Result.ResultCodeExtended := OPOSERREXT + FPTR_ERROR_BASE + E.ErrorCode;
 end;
 
@@ -240,7 +240,7 @@ begin
     on E: Exception do
     begin
       Logger.Error('ToleCashDrawer.LoadParameters: ', E);
-      RaiseOposException(OPOS_ORS_CONFIG, E.Message);
+      RaiseOposException(OPOS_ORS_CONFIG, GetExceptionMessage(E));
     end;
   end;
 end;
@@ -386,7 +386,7 @@ begin
     Logger.Debug(Format('ToleCashDrawer.CheckHealth(%d)', [Level]));
 
     FOposDevice.CheckEnabled;
-    RaiseOposException(OPOS_E_ILLEGAL, MsgNotImplemented);
+    RaiseOposException(OPOS_E_ILLEGAL, _('Не поддерживается'));
     Result := ClearResult;
   except
     on E: Exception do
@@ -774,3 +774,4 @@ initialization
   TAutoObjectFactory.Create(ComServer, ToleCashDrawer, Class_CashDrawer,
     ciMultiInstance, tmApartment);
 end.
+

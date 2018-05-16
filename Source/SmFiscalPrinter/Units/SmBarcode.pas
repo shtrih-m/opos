@@ -4,7 +4,7 @@ interface
 
 uses
   // VCL
-  SysUtils;
+  SysUtils, WException;
 
 (******************************************************************************
 
@@ -459,7 +459,7 @@ begin
     baRight  : AlignRight;
     baCenter : AlignCenter;
   else
-    raise Exception.Create('Unknown alignment type');
+    raiseException('Unknown alignment type');
   end;
 end;
 
@@ -484,14 +484,14 @@ begin
     smCode128B: CreateCode128B;
     smCode128C: CreateCode128C;
   else
-    raise Exception.Create('Invalid barcode type');
+    raiseException('Invalid barcode type');
   end;
   // Bar widths applying
   MakeBarWidth;
   // Check print width
   FBarcodeWidth := Length(FLineData);
   if FBarcodeWidth > PrintWidth then
-    raise Exception.Create('Barcode width is larger than printing width');
+    raiseException('Barcode width is larger than printing width');
   // Alignment
   MakeAlignment;
   // Convert to binary format

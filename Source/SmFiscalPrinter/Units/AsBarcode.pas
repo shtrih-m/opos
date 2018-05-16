@@ -6,7 +6,7 @@ uses
   // VCL
   Classes, Types, SysUtils,
   // This
-  LogFile;
+  LogFile, WException;
 
 
 const
@@ -467,7 +467,7 @@ begin
     'C': begin width := FModules[2]; lt := black_half; end;
     'D': begin width := FModules[3]; lt := black_half; end;
   else
-    raise Exception.Create(SInternalError);
+    raiseException(SInternalError);
   end;
 end;
 
@@ -484,7 +484,7 @@ begin
         for i := 1 to Length(Ftext) do
     if (FText[i] > '9') or (FText[i] < '0') then
     begin
-      raise Exception.Create(SBarcodeNotNumeric);
+      raiseException(SBarcodeNotNumeric);
     end;
   end;
   { get the pattern of the barcode }
@@ -513,7 +513,7 @@ begin
     btCodeUPC_Supp2:        Result := Code_Supp2;
     btCodeUPC_Supp5:        Result := Code_Supp5;
   else
-    raise Exception.Create(SBarcodeType);
+    raiseException(SBarcodeType);
   end;
 end;
 
@@ -1109,7 +1109,7 @@ begin
       startcode:= StartC;
     end;
   else
-    raise Exception.Create(SBarcodeType);
+    raiseException(SBarcodeType);
   end;
 
   Result := startcode;    {Startcode}
@@ -1254,7 +1254,7 @@ begin
     idx := Find_Code93(FText[i]);
     if idx < 0 then
     begin
-      raise Exception.Create('Invalid result');
+      raiseException('Invalid result');
     end;
     Result := Result + Table_93[idx].data;
   end;
@@ -1815,7 +1815,7 @@ begin
     baRight  : AlignRight;
     baCenter : AlignCenter;
   else
-    raise Exception.Create('Unknown alignment type');
+    raiseException('Unknown alignment type');
   end;
 end;
 
@@ -1824,7 +1824,7 @@ begin
   FLineData := CreateBarcodeDots;
   FBarcodeWidthInDots := Length(FLineData);
   if FBarcodeWidthInDots > PrintWidthInDots then
-    raise Exception.Create('Barcode width is larger than printing width');
+    raiseException('Barcode width is larger than printing width');
   MakeAlignment;
   FLineData := DotsToBin(LineData);
 end;

@@ -17,6 +17,7 @@ type
     FPayment: Int64;
     FIsVoided: Boolean;
   public
+    function GetTotal: Int64; override;
     procedure BeginFiscalReceipt(PrintHeader: Boolean); override;
     procedure PrintRecCash(Amount: Currency); override;
     procedure PrintRecVoid(const Description: string); override;
@@ -83,7 +84,15 @@ end;
 procedure TCorrectionReceipt.BeginFiscalReceipt(PrintHeader: Boolean);
 begin
   inherited;
+  FTotal := 0;
+  FPayment := 0;
+  FIsVoided := False;
   Device.Check(Device.FSStartCorrectionReceipt);
+end;
+
+function TCorrectionReceipt.GetTotal: Int64;
+begin
+  Result := FTotal;
 end;
 
 end.

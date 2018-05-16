@@ -7,7 +7,7 @@ uses
   Windows, SysUtils, Classes, Registry, ActiveX, ComObj,
   // This
   UniposReader, NotifyThread, LogFile, PrinterTypes, DebugUtils,
-  FiscalPrinterTypes, OposSemaphore, MalinaParams, FileUtils;
+  FiscalPrinterTypes, OposSemaphore, MalinaParams, FileUtils, WException;
 
 type
   { TUniposPrinter }
@@ -65,7 +65,7 @@ begin
     end;
   except
     On E: Exception do
-      Logger.Error('TUniposPrinter.ThreadProc: ' + E.Message);
+      Logger.Error('TUniposPrinter.ThreadProc: ' + GetExceptionMessage(E));
   end;
 end;              
 
@@ -84,7 +84,7 @@ begin
   except
     on E: Exception do
     begin
-      Logger.Error('TUniposPrinter.CheckTextFile: ' + E.Message);
+      Logger.Error('TUniposPrinter.CheckTextFile: ' + GetExceptionMessage(E));
     end;
   end;
 end;

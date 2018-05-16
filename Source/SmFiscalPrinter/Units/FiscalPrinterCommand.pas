@@ -3198,9 +3198,9 @@ function TFiscalPrinterCommand.FieldToInt(FieldInfo: TPrinterFieldRec;
 begin
   case FieldInfo.FieldType of
     PRINTER_FIELD_TYPE_INT: Result := BinToInt(Value, 1, FieldInfo.Size);
-    PRINTER_FIELD_TYPE_STR: raise Exception.Create('Field type is not integer');
+    PRINTER_FIELD_TYPE_STR: raiseException('Field type is not integer');
   else
-    raise Exception.Create('Invalid field type');
+    raiseException('Invalid field type');
   end;
 end;
 
@@ -3208,10 +3208,10 @@ function TFiscalPrinterCommand.FieldToStr(FieldInfo: TPrinterFieldRec;
   const Value: string): string;
 begin
   case FieldInfo.FieldType of
-    PRINTER_FIELD_TYPE_INT: raise Exception.Create('Field type is not string');
+    PRINTER_FIELD_TYPE_INT: raiseException('Field type is not string');
     PRINTER_FIELD_TYPE_STR: Result := Value;
   else
-    raise Exception.Create('Invalid field type');
+    raiseException('Invalid field type');
   end;
 end;
 
@@ -3221,7 +3221,7 @@ begin
     PRINTER_FIELD_TYPE_INT: Result := IntToBin(StrToInt(Value), FieldInfo.Size);
     PRINTER_FIELD_TYPE_STR: Result := GetLineLength(Value, FieldInfo.Size);
   else
-    raise Exception.Create('Invalid field type');
+    raiseException('Invalid field type');
   end;
 end;
 

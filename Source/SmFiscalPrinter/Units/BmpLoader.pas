@@ -128,7 +128,7 @@ begin
   Bitmap.PixelFormat := pf1Bit;
 
   if Bitmap.Height = 0 then
-    raise Exception.Create(MsgImageHeightIsZero);
+    raiseException(MsgImageHeightIsZero);
 
   if Bitmap.Width > Model.MaxGraphicsWidth then
   begin
@@ -200,10 +200,10 @@ var
   i: Integer;
 begin
   if Bitmap.Height > Device.GetModel.MaxGraphicsHeight then
-    raise Exception.Create(MsgImageHeightMoreThanMaximum);
+    raiseException(MsgImageHeightMoreThanMaximum);
 
   if Bitmap.Width > Device.GetModel.MaxGraphicsWidth then
-    raise Exception.Create(MsgImageWidthMoreThanMaximum);
+    raiseException(MsgImageWidthMoreThanMaximum);
 
   Bitmap.Monochrome := True;
   Bitmap.PixelFormat := pf1Bit;

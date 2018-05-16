@@ -8,144 +8,142 @@
   resources were bound to the produced executable.
 */
 
-#define pnglang_EPNGUnknownPalEntryText 65072
-#define pnglang_EPNGUnknownCriticalChunkText 65073
-#define pnglang_EPNGUnknownCompressionText 65074
-#define pnglang_EPNGUnknownInterlaceText 65075
-#define pnglang_EPNGCannotAssignChunkText 65076
-#define pnglang_EPNGUnexpectedEndText 65077
-#define pnglang_EPNGNoImageDataText 65078
-#define pnglang_EPNGCannotChangeSizeText 65079
-#define pnglang_EPNGOutMemoryText 65080
-#define pnglang_EPNGHeaderNotPresentText 65081
-#define IdResourceStringsCore_RSMaximumNumberOfCaptureLineExceeded 65088
-#define IdResourceStringsCore_RSInterceptIsDifferent 65089
-#define IdResourceStringsCore_RSTransparentProxyCannotBind 65090
-#define IdResourceStringsCore_RSTransparentProxyCanNotSupportUDP 65091
-#define IdResourceStringsCore_RSBufferMissingTerminator 65092
-#define IdResourceStringsCore_RSBufferInvalidStartPos 65093
-#define IdResourceStringsCore_RSReplyInvalidCode 65094
-#define IdResourceStringsCore_RSReplyCodeAlreadyExists 65095
-#define pnglang_EPngInvalidCRCText 65096
-#define pnglang_EPNGInvalidIHDRText 65097
-#define pnglang_EPNGMissingMultipleIDATText 65098
-#define pnglang_EPNGZLIBErrorText 65099
-#define pnglang_EPNGInvalidPaletteText 65100
-#define pnglang_EPNGInvalidFileHeaderText 65101
-#define pnglang_EPNGIHDRNotFirstText 65102
-#define pnglang_EPNGSizeExceedsText 65103
-#define IdResourceStringsCore_RSSocksServerCommandError 65104
-#define IdResourceStringsCore_RSSocksServerAddressError 65105
-#define IdResourceStringsCore_RSInterceptCircularLink 65106
-#define IdResourceStringsCore_RSNotEnoughDataInBuffer 65107
-#define IdResourceStringsCore_RSTooMuchDataInBuffer 65108
-#define IdResourceStringsCore_RSFileNotFound 65109
-#define IdResourceStringsCore_RSNotConnected 65110
-#define IdResourceStringsCore_RSObjectTypeNotSupported 65111
-#define IdResourceStringsCore_RSIdNoDataToRead 65112
-#define IdResourceStringsCore_RSReadTimeout 65113
-#define IdResourceStringsCore_RSReadLnWaitMaxAttemptsExceeded 65114
-#define IdResourceStringsCore_RSReadLnMaxLineLengthExceeded 65115
-#define IdResourceStringsCore_RSRequiresLargeStream 65116
-#define IdResourceStringsCore_RSDataTooLarge 65117
-#define IdResourceStringsCore_RSConnectTimeout 65118
-#define IdResourceStringsCore_RSAlreadyConnected 65119
-#define IdResourceStrings_RSPackageSizeTooBig 65120
-#define IdResourceStrings_RSSetSizeExceeded 65121
-#define IdResourceStringsCore_RSSocksUDPNotSupported 65122
-#define IdResourceStringsCore_RSSocksRequestFailed 65123
-#define IdResourceStringsCore_RSSocksRequestServerFailed 65124
-#define IdResourceStringsCore_RSSocksRequestIdentFailed 65125
-#define IdResourceStringsCore_RSSocksUnknownError 65126
-#define IdResourceStringsCore_RSSocksServerRespondError 65127
-#define IdResourceStringsCore_RSSocksAuthMethodError 65128
-#define IdResourceStringsCore_RSSocksAuthError 65129
-#define IdResourceStringsCore_RSSocksServerGeneralError 65130
-#define IdResourceStringsCore_RSSocksServerPermissionError 65131
-#define IdResourceStringsCore_RSSocksServerNetUnreachableError 65132
-#define IdResourceStringsCore_RSSocksServerHostUnreachableError 65133
-#define IdResourceStringsCore_RSSocksServerConnectionRefusedError 65134
-#define IdResourceStringsCore_RSSocksServerTTLExpiredError 65135
-#define IdResourceStrings_RSStackEHOSTDOWN 65136
-#define IdResourceStrings_RSStackEHOSTUNREACH 65137
-#define IdResourceStrings_RSStackENOTEMPTY 65138
-#define IdResourceStrings_RSStackHOST_NOT_FOUND 65139
-#define IdResourceStrings_RSStackClassUndefined 65140
-#define IdResourceStrings_RSStackAlreadyCreated 65141
-#define IdResourceStrings_RSAntiFreezeOnlyOne 65142
-#define IdResourceStrings_RSCannotSetIPVersionWhenConnected 65143
-#define IdResourceStrings_RSCannotBindRange 65144
-#define IdResourceStrings_RSConnectionClosedGracefully 65145
-#define IdResourceStrings_RSCouldNotBindSocket 65146
-#define IdResourceStrings_RSInvalidPortRange 65147
-#define IdResourceStrings_RSInvalidServiceName 65148
-#define IdResourceStrings_RSInvalidIPv6Address 65149
-#define IdResourceStrings_RSIPVersionUnsupported 65150
-#define IdResourceStrings_RSNotAllBytesSent 65151
-#define IdResourceStrings_RSStackEADDRINUSE 65152
-#define IdResourceStrings_RSStackEADDRNOTAVAIL 65153
-#define IdResourceStrings_RSStackENETDOWN 65154
-#define IdResourceStrings_RSStackENETUNREACH 65155
-#define IdResourceStrings_RSStackENETRESET 65156
-#define IdResourceStrings_RSStackECONNABORTED 65157
-#define IdResourceStrings_RSStackECONNRESET 65158
-#define IdResourceStrings_RSStackENOBUFS 65159
-#define IdResourceStrings_RSStackEISCONN 65160
-#define IdResourceStrings_RSStackENOTCONN 65161
-#define IdResourceStrings_RSStackESHUTDOWN 65162
-#define IdResourceStrings_RSStackETOOMANYREFS 65163
-#define IdResourceStrings_RSStackETIMEDOUT 65164
-#define IdResourceStrings_RSStackECONNREFUSED 65165
-#define IdResourceStrings_RSStackELOOP 65166
-#define IdResourceStrings_RSStackENAMETOOLONG 65167
-#define IdResourceStrings_RSStackEFAULT 65168
-#define IdResourceStrings_RSStackEINVAL 65169
-#define IdResourceStrings_RSStackEMFILE 65170
-#define IdResourceStrings_RSStackEWOULDBLOCK 65171
-#define IdResourceStrings_RSStackEINPROGRESS 65172
-#define IdResourceStrings_RSStackEALREADY 65173
-#define IdResourceStrings_RSStackENOTSOCK 65174
-#define IdResourceStrings_RSStackEDESTADDRREQ 65175
-#define IdResourceStrings_RSStackEMSGSIZE 65176
-#define IdResourceStrings_RSStackEPROTOTYPE 65177
-#define IdResourceStrings_RSStackENOPROTOOPT 65178
-#define IdResourceStrings_RSStackEPROTONOSUPPORT 65179
-#define IdResourceStrings_RSStackESOCKTNOSUPPORT 65180
-#define IdResourceStrings_RSStackEOPNOTSUPP 65181
-#define IdResourceStrings_RSStackEPFNOSUPPORT 65182
-#define IdResourceStrings_RSStackEAFNOSUPPORT 65183
-#define IdResourceStrings_RSCharIndexOutOfBounds 65184
-#define IdResourceStrings_RSInvalidCharCount 65185
-#define IdResourceStrings_RSInvalidDestinationIndex 65186
-#define IdResourceStrings_RSInvalidCodePage 65187
-#define IdResourceStrings_RSWinsockCallError 65188
-#define IdResourceStrings_RSWinsockLoadError 65189
-#define IdResourceStrings_RSStatusResolving 65190
-#define IdResourceStrings_RSStatusConnecting 65191
-#define IdResourceStrings_RSStatusConnected 65192
-#define IdResourceStrings_RSStatusDisconnecting 65193
-#define IdResourceStrings_RSStatusDisconnected 65194
-#define IdResourceStrings_RSStatusText 65195
-#define IdResourceStrings_RSStackError 65196
-#define IdResourceStrings_RSStackEINTR 65197
-#define IdResourceStrings_RSStackEBADF 65198
-#define IdResourceStrings_RSStackEACCES 65199
-#define SynEditStrConst_SYNS_FriendlyAttrNamespaceAttrName 65200
-#define SynEditStrConst_SYNS_FriendlyAttrNamespaceAttrValue 65201
-#define SynEditStrConst_SYNS_FriendlyAttrProcessingInstr 65202
-#define SynEditStrConst_SYNS_FriendlyAttrSymbol 65203
-#define SynEditStrConst_SYNS_FriendlyAttrText 65204
-#define SynEditStrConst_SYNS_FriendlyAttrWhitespace 65205
-#define SynEditStrConst_SYNS_ScrollInfoFmt 65206
-#define SynEditStrConst_SYNS_ScrollInfoFmtTop 65207
-#define SynEditStrConst_SYNS_EDuplicateShortcut 65208
-#define SynEditStrConst_SYNS_FilterXML 65209
-#define SynEditStrConst_SYNS_FriendlyLangXML 65210
-#define SynEditStrConst_SYNS_FriendlyLangUnknown 65211
-#define SynEditTextBuffer_SListIndexOutOfBounds 65212
-#define SynEditTextBuffer_SInvalidCapacity 65213
-#define IdResourceStrings_RSInvalidSourceArray 65214
-#define IdResourceStrings_RSInvalidDestinationArray 65215
+#define pnglang_EPNGUnknownCompressionText 65072
+#define pnglang_EPNGUnknownInterlaceText 65073
+#define pnglang_EPNGCannotAssignChunkText 65074
+#define pnglang_EPNGUnexpectedEndText 65075
+#define pnglang_EPNGNoImageDataText 65076
+#define pnglang_EPNGCannotChangeSizeText 65077
+#define pnglang_EPNGOutMemoryText 65078
+#define pnglang_EPNGHeaderNotPresentText 65079
+#define IdResourceStringsCore_RSTransparentProxyCannotBind 65088
+#define IdResourceStringsCore_RSTransparentProxyCanNotSupportUDP 65089
+#define IdResourceStringsCore_RSBufferMissingTerminator 65090
+#define IdResourceStringsCore_RSBufferInvalidStartPos 65091
+#define IdResourceStringsCore_RSReplyInvalidCode 65092
+#define IdResourceStringsCore_RSReplyCodeAlreadyExists 65093
+#define pnglang_EPngInvalidCRCText 65094
+#define pnglang_EPNGInvalidIHDRText 65095
+#define pnglang_EPNGMissingMultipleIDATText 65096
+#define pnglang_EPNGZLIBErrorText 65097
+#define pnglang_EPNGInvalidPaletteText 65098
+#define pnglang_EPNGInvalidFileHeaderText 65099
+#define pnglang_EPNGIHDRNotFirstText 65100
+#define pnglang_EPNGSizeExceedsText 65101
+#define pnglang_EPNGUnknownPalEntryText 65102
+#define pnglang_EPNGUnknownCriticalChunkText 65103
+#define IdResourceStringsCore_RSInterceptCircularLink 65104
+#define IdResourceStringsCore_RSNotEnoughDataInBuffer 65105
+#define IdResourceStringsCore_RSTooMuchDataInBuffer 65106
+#define IdResourceStringsCore_RSFileNotFound 65107
+#define IdResourceStringsCore_RSNotConnected 65108
+#define IdResourceStringsCore_RSObjectTypeNotSupported 65109
+#define IdResourceStringsCore_RSIdNoDataToRead 65110
+#define IdResourceStringsCore_RSReadTimeout 65111
+#define IdResourceStringsCore_RSReadLnWaitMaxAttemptsExceeded 65112
+#define IdResourceStringsCore_RSReadLnMaxLineLengthExceeded 65113
+#define IdResourceStringsCore_RSRequiresLargeStream 65114
+#define IdResourceStringsCore_RSDataTooLarge 65115
+#define IdResourceStringsCore_RSConnectTimeout 65116
+#define IdResourceStringsCore_RSAlreadyConnected 65117
+#define IdResourceStringsCore_RSMaximumNumberOfCaptureLineExceeded 65118
+#define IdResourceStringsCore_RSInterceptIsDifferent 65119
+#define IdResourceStringsCore_RSSocksUDPNotSupported 65120
+#define IdResourceStringsCore_RSSocksRequestFailed 65121
+#define IdResourceStringsCore_RSSocksRequestServerFailed 65122
+#define IdResourceStringsCore_RSSocksRequestIdentFailed 65123
+#define IdResourceStringsCore_RSSocksUnknownError 65124
+#define IdResourceStringsCore_RSSocksServerRespondError 65125
+#define IdResourceStringsCore_RSSocksAuthMethodError 65126
+#define IdResourceStringsCore_RSSocksAuthError 65127
+#define IdResourceStringsCore_RSSocksServerGeneralError 65128
+#define IdResourceStringsCore_RSSocksServerPermissionError 65129
+#define IdResourceStringsCore_RSSocksServerNetUnreachableError 65130
+#define IdResourceStringsCore_RSSocksServerHostUnreachableError 65131
+#define IdResourceStringsCore_RSSocksServerConnectionRefusedError 65132
+#define IdResourceStringsCore_RSSocksServerTTLExpiredError 65133
+#define IdResourceStringsCore_RSSocksServerCommandError 65134
+#define IdResourceStringsCore_RSSocksServerAddressError 65135
+#define IdResourceStrings_RSStackENOTEMPTY 65136
+#define IdResourceStrings_RSStackHOST_NOT_FOUND 65137
+#define IdResourceStrings_RSStackClassUndefined 65138
+#define IdResourceStrings_RSStackAlreadyCreated 65139
+#define IdResourceStrings_RSAntiFreezeOnlyOne 65140
+#define IdResourceStrings_RSCannotSetIPVersionWhenConnected 65141
+#define IdResourceStrings_RSCannotBindRange 65142
+#define IdResourceStrings_RSConnectionClosedGracefully 65143
+#define IdResourceStrings_RSCouldNotBindSocket 65144
+#define IdResourceStrings_RSInvalidPortRange 65145
+#define IdResourceStrings_RSInvalidServiceName 65146
+#define IdResourceStrings_RSInvalidIPv6Address 65147
+#define IdResourceStrings_RSIPVersionUnsupported 65148
+#define IdResourceStrings_RSNotAllBytesSent 65149
+#define IdResourceStrings_RSPackageSizeTooBig 65150
+#define IdResourceStrings_RSSetSizeExceeded 65151
+#define IdResourceStrings_RSStackENETDOWN 65152
+#define IdResourceStrings_RSStackENETUNREACH 65153
+#define IdResourceStrings_RSStackENETRESET 65154
+#define IdResourceStrings_RSStackECONNABORTED 65155
+#define IdResourceStrings_RSStackECONNRESET 65156
+#define IdResourceStrings_RSStackENOBUFS 65157
+#define IdResourceStrings_RSStackEISCONN 65158
+#define IdResourceStrings_RSStackENOTCONN 65159
+#define IdResourceStrings_RSStackESHUTDOWN 65160
+#define IdResourceStrings_RSStackETOOMANYREFS 65161
+#define IdResourceStrings_RSStackETIMEDOUT 65162
+#define IdResourceStrings_RSStackECONNREFUSED 65163
+#define IdResourceStrings_RSStackELOOP 65164
+#define IdResourceStrings_RSStackENAMETOOLONG 65165
+#define IdResourceStrings_RSStackEHOSTDOWN 65166
+#define IdResourceStrings_RSStackEHOSTUNREACH 65167
+#define IdResourceStrings_RSStackEMFILE 65168
+#define IdResourceStrings_RSStackEWOULDBLOCK 65169
+#define IdResourceStrings_RSStackEINPROGRESS 65170
+#define IdResourceStrings_RSStackEALREADY 65171
+#define IdResourceStrings_RSStackENOTSOCK 65172
+#define IdResourceStrings_RSStackEDESTADDRREQ 65173
+#define IdResourceStrings_RSStackEMSGSIZE 65174
+#define IdResourceStrings_RSStackEPROTOTYPE 65175
+#define IdResourceStrings_RSStackENOPROTOOPT 65176
+#define IdResourceStrings_RSStackEPROTONOSUPPORT 65177
+#define IdResourceStrings_RSStackESOCKTNOSUPPORT 65178
+#define IdResourceStrings_RSStackEOPNOTSUPP 65179
+#define IdResourceStrings_RSStackEPFNOSUPPORT 65180
+#define IdResourceStrings_RSStackEAFNOSUPPORT 65181
+#define IdResourceStrings_RSStackEADDRINUSE 65182
+#define IdResourceStrings_RSStackEADDRNOTAVAIL 65183
+#define IdResourceStrings_RSInvalidDestinationIndex 65184
+#define IdResourceStrings_RSInvalidCodePage 65185
+#define IdResourceStrings_RSWinsockCallError 65186
+#define IdResourceStrings_RSWinsockLoadError 65187
+#define IdResourceStrings_RSStatusResolving 65188
+#define IdResourceStrings_RSStatusConnecting 65189
+#define IdResourceStrings_RSStatusConnected 65190
+#define IdResourceStrings_RSStatusDisconnecting 65191
+#define IdResourceStrings_RSStatusDisconnected 65192
+#define IdResourceStrings_RSStatusText 65193
+#define IdResourceStrings_RSStackError 65194
+#define IdResourceStrings_RSStackEINTR 65195
+#define IdResourceStrings_RSStackEBADF 65196
+#define IdResourceStrings_RSStackEACCES 65197
+#define IdResourceStrings_RSStackEFAULT 65198
+#define IdResourceStrings_RSStackEINVAL 65199
+#define SynEditStrConst_SYNS_FriendlyAttrProcessingInstr 65200
+#define SynEditStrConst_SYNS_FriendlyAttrSymbol 65201
+#define SynEditStrConst_SYNS_FriendlyAttrText 65202
+#define SynEditStrConst_SYNS_FriendlyAttrWhitespace 65203
+#define SynEditStrConst_SYNS_ScrollInfoFmt 65204
+#define SynEditStrConst_SYNS_ScrollInfoFmtTop 65205
+#define SynEditStrConst_SYNS_EDuplicateShortcut 65206
+#define SynEditStrConst_SYNS_FilterXML 65207
+#define SynEditStrConst_SYNS_FriendlyLangXML 65208
+#define SynEditStrConst_SYNS_FriendlyLangUnknown 65209
+#define SynEditTextBuffer_SListIndexOutOfBounds 65210
+#define SynEditTextBuffer_SInvalidCapacity 65211
+#define IdResourceStrings_RSInvalidSourceArray 65212
+#define IdResourceStrings_RSInvalidDestinationArray 65213
+#define IdResourceStrings_RSCharIndexOutOfBounds 65214
+#define IdResourceStrings_RSInvalidCharCount 65215
 #define OleConst_SNoWindowHandle 65216
 #define OleConst_SInvalidLicense 65217
 #define OleConst_SNotLicensed 65218
@@ -153,15 +151,15 @@
 #define XMLConst_SDOMNotSupported 65220
 #define XMLConst_SNodeExpected 65221
 #define XMLConst_SMSDOMNotInstalled 65222
-#define xmlParser_MsgFileReadingError 65223
-#define xmlParser_MsgElementNotFound 65224
-#define SynEditStrConst_SYNS_FriendlyAttrAttributeName 65225
-#define SynEditStrConst_SYNS_FriendlyAttrAttributeValue 65226
-#define SynEditStrConst_SYNS_FriendlyAttrCDATASection 65227
-#define SynEditStrConst_SYNS_FriendlyAttrComment 65228
-#define SynEditStrConst_SYNS_FriendlyAttrDOCTYPESection 65229
-#define SynEditStrConst_SYNS_FriendlyAttrElementName 65230
-#define SynEditStrConst_SYNS_FriendlyAttrEntityReference 65231
+#define SynEditStrConst_SYNS_FriendlyAttrAttributeName 65223
+#define SynEditStrConst_SYNS_FriendlyAttrAttributeValue 65224
+#define SynEditStrConst_SYNS_FriendlyAttrCDATASection 65225
+#define SynEditStrConst_SYNS_FriendlyAttrComment 65226
+#define SynEditStrConst_SYNS_FriendlyAttrDOCTYPESection 65227
+#define SynEditStrConst_SYNS_FriendlyAttrElementName 65228
+#define SynEditStrConst_SYNS_FriendlyAttrEntityReference 65229
+#define SynEditStrConst_SYNS_FriendlyAttrNamespaceAttrName 65230
+#define SynEditStrConst_SYNS_FriendlyAttrNamespaceAttrValue 65231
 #define ComStrs_sPageIndexError 65232
 #define ComStrs_sInvalidComCtl32 65233
 #define ComStrs_sDateTimeMax 65234
@@ -172,11 +170,11 @@
 #define ComStrs_sFailSetCalMinMaxRange 65239
 #define ComStrs_sFailsetCalSelRange 65240
 #define WinHelpViewer_hNoKeyword 65241
-#define VatCode_MsgVATCodeExists 65242
-#define ComConst_SOleError 65243
-#define ComConst_SNoMethod 65244
-#define ComConst_SVarNotObject 65245
-#define ComConst_STooManyParams 65246
+#define ComConst_SOleError 65242
+#define ComConst_SNoMethod 65243
+#define ComConst_SVarNotObject 65244
+#define ComConst_STooManyParams 65245
+#define TntFormatStrUtils_SInvalidFormatSpecifier 65246
 #define OleConst_SCannotActivate 65247
 #define ExtCtrls_clNameMenu 65248
 #define ExtCtrls_clNameMenuText 65249
@@ -468,8 +466,6 @@
 #define SysConst_SDiskFull 65535
 STRINGTABLE
 BEGIN
-	pnglang_EPNGUnknownPalEntryText,	"There is no such palette entry."
-	pnglang_EPNGUnknownCriticalChunkText,	"This \"Portable Network Graphics\" image contains an unknown critical part which could not be decoded."
 	pnglang_EPNGUnknownCompressionText,	"This \"Portable Network Graphics\" image is encoded with an unknown compression scheme which could not be decoded."
 	pnglang_EPNGUnknownInterlaceText,	"This \"Portable Network Graphics\" image uses an unknown interlace scheme which could not be decoded."
 	pnglang_EPNGCannotAssignChunkText,	"The chunks must be compatible to be assigned."
@@ -478,8 +474,6 @@ BEGIN
 	pnglang_EPNGCannotChangeSizeText,	"The \"Portable Network Graphics\" image can not be resize by changing width and height properties. Try assigning the image from a bitmap."
 	pnglang_EPNGOutMemoryText,	"Some operation could not be performed because the system is out of resources. Close some windows and try again."
 	pnglang_EPNGHeaderNotPresentText,	"This operation is not valid because the current image contains no valid header."
-	IdResourceStringsCore_RSMaximumNumberOfCaptureLineExceeded,	"Maximum number of line allowed exceeded"
-	IdResourceStringsCore_RSInterceptIsDifferent,	"The IOHandler already has a different Intercept assigned"
 	IdResourceStringsCore_RSTransparentProxyCannotBind,	"Transparent proxy cannot bind."
 	IdResourceStringsCore_RSTransparentProxyCanNotSupportUDP,	"UDP Not supported by this proxy."
 	IdResourceStringsCore_RSBufferMissingTerminator,	"Buffer terminator must be specified."
@@ -494,8 +488,8 @@ BEGIN
 	pnglang_EPNGInvalidFileHeaderText,	"The file being readed is not a valid \"Portable Network Graphics\" image because it contains an invalid header. This file may be corruped, try obtaining it again."
 	pnglang_EPNGIHDRNotFirstText,	"This \"Portable Network Graphics\" image is not supported or it might be invalid.\r\n(IHDR chunk is not the first)"
 	pnglang_EPNGSizeExceedsText,	"This \"Portable Network Graphics\" image is not supported because either it's width or height exceeds the maximum size, which is 65535 pixels length."
-	IdResourceStringsCore_RSSocksServerCommandError,	"Command not supported."
-	IdResourceStringsCore_RSSocksServerAddressError,	"Address type not supported."
+	pnglang_EPNGUnknownPalEntryText,	"There is no such palette entry."
+	pnglang_EPNGUnknownCriticalChunkText,	"This \"Portable Network Graphics\" image contains an unknown critical part which could not be decoded."
 	IdResourceStringsCore_RSInterceptCircularLink,	"%d: Circular links are not allowed"
 	IdResourceStringsCore_RSNotEnoughDataInBuffer,	"Not enough data in buffer. (%d/%d)"
 	IdResourceStringsCore_RSTooMuchDataInBuffer,	"Too much data in buffer."
@@ -510,8 +504,8 @@ BEGIN
 	IdResourceStringsCore_RSDataTooLarge,	"Data is too large for stream"
 	IdResourceStringsCore_RSConnectTimeout,	"Connect timed out."
 	IdResourceStringsCore_RSAlreadyConnected,	"Already connected."
-	IdResourceStrings_RSPackageSizeTooBig,	"Package Size Too Big."
-	IdResourceStrings_RSSetSizeExceeded,	"Set Size Exceeded."
+	IdResourceStringsCore_RSMaximumNumberOfCaptureLineExceeded,	"Maximum number of line allowed exceeded"
+	IdResourceStringsCore_RSInterceptIsDifferent,	"The IOHandler already has a different Intercept assigned"
 	IdResourceStringsCore_RSSocksUDPNotSupported,	"UDP is not support in this SOCKS version."
 	IdResourceStringsCore_RSSocksRequestFailed,	"Request rejected or failed."
 	IdResourceStringsCore_RSSocksRequestServerFailed,	"Request rejected because SOCKS server cannot connect."
@@ -526,8 +520,8 @@ BEGIN
 	IdResourceStringsCore_RSSocksServerHostUnreachableError,	"Host unreachable."
 	IdResourceStringsCore_RSSocksServerConnectionRefusedError,	"Connection refused."
 	IdResourceStringsCore_RSSocksServerTTLExpiredError,	"TTL expired."
-	IdResourceStrings_RSStackEHOSTDOWN,	"Host is down."
-	IdResourceStrings_RSStackEHOSTUNREACH,	"No route to host."
+	IdResourceStringsCore_RSSocksServerCommandError,	"Command not supported."
+	IdResourceStringsCore_RSSocksServerAddressError,	"Address type not supported."
 	IdResourceStrings_RSStackENOTEMPTY,	"Directory not empty"
 	IdResourceStrings_RSStackHOST_NOT_FOUND,	"Host not found."
 	IdResourceStrings_RSStackClassUndefined,	"Stack Class is undefined."
@@ -542,8 +536,8 @@ BEGIN
 	IdResourceStrings_RSInvalidIPv6Address,	"%s is not a valid IPv6 address"
 	IdResourceStrings_RSIPVersionUnsupported,	"The requested IPVersion / Address family is not supported."
 	IdResourceStrings_RSNotAllBytesSent,	"Not all bytes sent."
-	IdResourceStrings_RSStackEADDRINUSE,	"Address already in use."
-	IdResourceStrings_RSStackEADDRNOTAVAIL,	"Cannot assign requested address."
+	IdResourceStrings_RSPackageSizeTooBig,	"Package Size Too Big."
+	IdResourceStrings_RSSetSizeExceeded,	"Set Size Exceeded."
 	IdResourceStrings_RSStackENETDOWN,	"Network is down."
 	IdResourceStrings_RSStackENETUNREACH,	"Network is unreachable."
 	IdResourceStrings_RSStackENETRESET,	"Net dropped connection or reset."
@@ -558,8 +552,8 @@ BEGIN
 	IdResourceStrings_RSStackECONNREFUSED,	"Connection refused."
 	IdResourceStrings_RSStackELOOP,	"Too many levels of symbolic links."
 	IdResourceStrings_RSStackENAMETOOLONG,	"File name too long."
-	IdResourceStrings_RSStackEFAULT,	"Buffer fault."
-	IdResourceStrings_RSStackEINVAL,	"Invalid argument."
+	IdResourceStrings_RSStackEHOSTDOWN,	"Host is down."
+	IdResourceStrings_RSStackEHOSTUNREACH,	"No route to host."
 	IdResourceStrings_RSStackEMFILE,	"Too many open files."
 	IdResourceStrings_RSStackEWOULDBLOCK,	"Operation would block."
 	IdResourceStrings_RSStackEINPROGRESS,	"Operation now in progress."
@@ -574,8 +568,8 @@ BEGIN
 	IdResourceStrings_RSStackEOPNOTSUPP,	"Operation not supported on socket."
 	IdResourceStrings_RSStackEPFNOSUPPORT,	"Protocol family not supported."
 	IdResourceStrings_RSStackEAFNOSUPPORT,	"Address family not supported by protocol family."
-	IdResourceStrings_RSCharIndexOutOfBounds,	"Character index out of bounds (%d)"
-	IdResourceStrings_RSInvalidCharCount,	"Invalid count (%d)"
+	IdResourceStrings_RSStackEADDRINUSE,	"Address already in use."
+	IdResourceStrings_RSStackEADDRNOTAVAIL,	"Cannot assign requested address."
 	IdResourceStrings_RSInvalidDestinationIndex,	"Invalid destination index (%d)"
 	IdResourceStrings_RSInvalidCodePage,	"Invalid codepage (%d)"
 	IdResourceStrings_RSWinsockCallError,	"Error on call to Winsock2 library function %s"
@@ -590,8 +584,8 @@ BEGIN
 	IdResourceStrings_RSStackEINTR,	"Interrupted system call."
 	IdResourceStrings_RSStackEBADF,	"Bad file number."
 	IdResourceStrings_RSStackEACCES,	"Access denied."
-	SynEditStrConst_SYNS_FriendlyAttrNamespaceAttrName,	"Namespace Attribute Name"
-	SynEditStrConst_SYNS_FriendlyAttrNamespaceAttrValue,	"Namespace Attribute Value"
+	IdResourceStrings_RSStackEFAULT,	"Buffer fault."
+	IdResourceStrings_RSStackEINVAL,	"Invalid argument."
 	SynEditStrConst_SYNS_FriendlyAttrProcessingInstr,	"Processing Instruction"
 	SynEditStrConst_SYNS_FriendlyAttrSymbol,	"Symbol"
 	SynEditStrConst_SYNS_FriendlyAttrText,	"Text"
@@ -606,6 +600,8 @@ BEGIN
 	SynEditTextBuffer_SInvalidCapacity,	"Stringlist capacity cannot be smaller than count"
 	IdResourceStrings_RSInvalidSourceArray,	"Invalid source array"
 	IdResourceStrings_RSInvalidDestinationArray,	"Invalid destination array"
+	IdResourceStrings_RSCharIndexOutOfBounds,	"Character index out of bounds (%d)"
+	IdResourceStrings_RSInvalidCharCount,	"Invalid count (%d)"
 	OleConst_SNoWindowHandle,	"Could not obtain OLE control window handle"
 	OleConst_SInvalidLicense,	"License information for %s is invalid"
 	OleConst_SNotLicensed,	"License information for %s not found. You cannot use this control in design mode"
@@ -613,8 +609,6 @@ BEGIN
 	XMLConst_SDOMNotSupported,	"Property or Method \"%s\" is not supported by DOM Vendor \"%s\""
 	XMLConst_SNodeExpected,	"Node cannot be null"
 	XMLConst_SMSDOMNotInstalled,	"Microsoft MSXML is not installed"
-	xmlParser_MsgFileReadingError,	"File reading error"
-	xmlParser_MsgElementNotFound,	"Element not found"
 	SynEditStrConst_SYNS_FriendlyAttrAttributeName,	"Attribute Name"
 	SynEditStrConst_SYNS_FriendlyAttrAttributeValue,	"Attribute Value"
 	SynEditStrConst_SYNS_FriendlyAttrCDATASection,	"CDATA Section"
@@ -622,6 +616,8 @@ BEGIN
 	SynEditStrConst_SYNS_FriendlyAttrDOCTYPESection,	"DOCTYPE Section"
 	SynEditStrConst_SYNS_FriendlyAttrElementName,	"Element Name"
 	SynEditStrConst_SYNS_FriendlyAttrEntityReference,	"Entity Reference"
+	SynEditStrConst_SYNS_FriendlyAttrNamespaceAttrName,	"Namespace Attribute Name"
+	SynEditStrConst_SYNS_FriendlyAttrNamespaceAttrValue,	"Namespace Attribute Value"
 	ComStrs_sPageIndexError,	"%d is an invalid PageIndex value.  PageIndex must be between 0 and %d"
 	ComStrs_sInvalidComCtl32,	"This control requires version 4.70 or greater of COMCTL32.DLL"
 	ComStrs_sDateTimeMax,	"Date exceeds maximum of %s"
@@ -632,11 +628,11 @@ BEGIN
 	ComStrs_sFailSetCalMinMaxRange,	"Failed to set calendar min/max range"
 	ComStrs_sFailsetCalSelRange,	"Failed to set calendar selected range"
 	WinHelpViewer_hNoKeyword,	"No help keyword specified."
-	VatCode_MsgVATCodeExists,	"Item with app VAT code %d already exists."
 	ComConst_SOleError,	"OLE error %.8x"
 	ComConst_SNoMethod,	"Method '%s' not supported by automation object"
 	ComConst_SVarNotObject,	"Variant does not reference an automation object"
 	ComConst_STooManyParams,	"Dispatch methods do not support more than 64 parameters"
+	TntFormatStrUtils_SInvalidFormatSpecifier,	"Invalid Format Specifier: %s"
 	OleConst_SCannotActivate,	"OLE control activation failed"
 	ExtCtrls_clNameMenu,	"Menu Background"
 	ExtCtrls_clNameMenuText,	"Menu Text"

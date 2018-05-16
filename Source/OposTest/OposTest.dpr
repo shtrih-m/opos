@@ -135,8 +135,8 @@ uses
   fmuFptrThreadTest in 'Fmu\fmuFptrThreadTest.pas' {fmFptrThreadTest},
   VatCode in '..\SmFiscalPrinter\Units\VatCode.pas',
   DriverTest in 'Units\DriverTest.pas',
-  OposMessages in '..\SmFiscalPrinter\Units\OposMessages.pas',
-  fmuFptrDirectIOBarcode in 'Fmu\fmuFptrDirectIOBarcode.pas' {fmFptrDirectIOBarcode};
+  fmuFptrDirectIOBarcode in 'Fmu\fmuFptrDirectIOBarcode.pas' {fmFptrDirectIOBarcode},
+  WException in '..\Shared\WException.pas';
 
 {$R *.RES}
 {$R WindowsXP.RES}

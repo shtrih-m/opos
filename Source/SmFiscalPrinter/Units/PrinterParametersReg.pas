@@ -6,7 +6,8 @@ uses
   // VCL
   Windows, SysUtils, Classes, Registry,
   // This
-  PrinterParameters, FileUtils, LogFile, SmIniFile, Oposhi;
+  PrinterParameters, FileUtils, LogFile, SmIniFile, Oposhi, WException,
+  gnugettext;
 
 type
   { TPrinterParametersReg }
@@ -538,7 +539,7 @@ begin
     Reg.RootKey := HKEY_LOCAL_MACHINE;
     KeyName := GetSysKeyName(DeviceName);
     if not Reg.OpenKey(KeyName, True) then
-      raise Exception.CreateFmt(MsgKeyOpenError, [KeyName]);
+      raiseExceptionFmt(MsgKeyOpenError, [KeyName]);
 
     Reg.WriteString('', FiscalPrinterProgID);
     Reg.WriteInteger('ComNumber', Parameters.PortNumber);
@@ -725,9 +726,6 @@ begin
   end;
 end;
 
-resourcestring
-  MsgRegistryKeyOpenError = 'Registry key open error';
-
 procedure TPrinterParametersReg.SaveUsrParameters(const DeviceName: string);
 var
   Reg: TRegistry;
@@ -756,7 +754,7 @@ begin
       Reg.WriteInteger('ZeroReceiptNumber', Parameters.ZeroReceiptNumber);
     end else
     begin
-      raise Exception.Create(MsgRegistryKeyOpenError);
+      raiseException(_('Registry key open error'));
     end;
   finally
     Reg.Free;

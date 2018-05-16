@@ -64,7 +64,7 @@ begin
     end;
   except
     On E: Exception do
-      Logger.Error('TUniposPrinter.ThreadProc: ' + E.Message);
+      Logger.Error('TUniposPrinter.ThreadProc: ' + GetExceptionMessage(E));
   end;
 end;
 
@@ -83,7 +83,7 @@ begin
   except
     on E: Exception do
     begin
-      Logger.Error('TUniposPrinter.CheckTextFile: ' + E.Message);
+      Logger.Error('TUniposPrinter.CheckTextFile: ' + GetExceptionMessage(E));
     end;
   end;
 end;

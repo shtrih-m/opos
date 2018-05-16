@@ -9,7 +9,7 @@ uses
   IdTCPClient, IdGlobal, IdStack, IdWinsock2,
   // This
   PrinterPort, DriverError, StringUtils, FptrServerLib_TLB, VSysUtils,
-  LogFile, CommunicationError, OposMessages, PrinterParameters;
+  LogFile, CommunicationError, PrinterParameters, WException;
 
 type
   { TSocketPort }
@@ -118,7 +118,7 @@ begin
       except
         on E: Exception do
         begin
-          Logger.Error(E.Message);
+          Logger.Error(GetExceptionMessage(E));
           if FParameters.MaxRetryCount <> MaxRetryCountInfinite then raise;
         end;
       end;
@@ -137,7 +137,7 @@ begin
     end;
   except
     on E: Exception do
-      Logger.Error(E.Message);
+      Logger.Error(GetExceptionMessage(E));
   end;
   Unlock;
 end;
@@ -159,7 +159,7 @@ begin
   except
     on E: Exception do
     begin
-      Logger.Error(E.Message);
+      Logger.Error(GetExceptionMessage(E));
       Close;
       raise;
     end;
@@ -182,7 +182,7 @@ begin
   except
     on E: Exception do
     begin
-      Logger.Error(E.Message);
+      Logger.Error(GetExceptionMessage(E));
       Close;
       raise;
     end;
@@ -198,7 +198,7 @@ begin
   except
     on E: Exception do
     begin
-      Logger.Error(E.Message);
+      Logger.Error(GetExceptionMessage(E));
       Close;
       Result := False;
     end;

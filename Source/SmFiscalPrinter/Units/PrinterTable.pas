@@ -6,22 +6,10 @@ uses
   // VCL
   Windows, Classes, SysUtils,
   // Tnt
-  TntClasses,
+  TntClasses, TntSysUtils,
   // This
-  PrinterTypes, VersionInfo;
+  PrinterTypes, VersionInfo, WException, gnugettext;
 
-
-resourcestring
-  SPassword = 'Пароль';
-  SSelectComputer = 'Укажите имя компьютера';
-  SInvalidPropValue = 'Неверное значение свойства';
-  SInvalidFieldValue = 'Неверное значение поля';
-  SValueNotInteger = 'не является целым числом';
-  SValidValues = 'Допустимые значения';
-
-  SDriverVersion = 'Версия драйвера: %s';
-  SServerVersion = 'Версия сервера: %s';
-  SParamsNotFound = 'Параметры не найдены';
 
 const
   FIELD_TYPE_INT = 0;
@@ -151,8 +139,8 @@ procedure CheckIntRange(Field: TPrinterField; Value: Integer);
 begin
   if (Value < Field.MinValue)or(Value > Field.MaxValue) then
   begin
-    raise Exception.CreateFmt('%s "%s" (%d).'#13#10'%s %d..%d.', [
-      SInvalidFieldValue, Field.Name, Value, SValidValues,
+    raiseExceptionFmt('%s "%s" (%d).'#13#10'%s %d..%d.', [
+      _('Неверное значение поля'), Field.Name, Value, _('Допустимые значения'),
       Field.MinValue, Field.MaxValue]);
   end;
 end;
@@ -165,8 +153,8 @@ begin
   Val(Value, IntValue, Code);
   if Code <> 0 then
   begin
-    raise Exception.CreateFmt('%s "%s"'#13#10'"%s" %s', [
-      SInvalidFieldValue, FieldName, Value, SValueNotInteger]);
+    raiseExceptionFmt('%s "%s"'#13#10'"%s" %s', [
+      _('Неверное значение поля'), FieldName, Value, _('не является целым числом')]);
   end;
 end;
 
@@ -432,45 +420,35 @@ begin
 end;
 
 function TPrinterField.MaxLen: WideString;
-resourcestring
-  SFieldSize = 'Размер, байт: %d';
-  SMaxFieldLength = 'Максимальная длина: %d';
 begin
   if FieldType = FIELD_TYPE_STR then
   begin
-    Result := Format(SMaxFieldLength, [Size]);
+    Result := Tnt_WideFormat('%s: %d', [_('Максимальная длина'), Size]);
   end else
   begin
-    Result := Format(SFieldSize, [Size]);
+    Result := Tnt_WideFormat('%s: %d', [_('Размер, байт'), Size]);
   end;
 end;
 
 function GetFieldType(Value: Integer): WideString;
-resourcestring
-  SFieldTypeNumber = 'число';
-  SFieldTypeString = 'строка';
 begin
   case Value of
-    FIELD_TYPE_INT: Result := SFieldTypeNumber;
-    FIELD_TYPE_STR: Result := SFieldTypeString;
+    FIELD_TYPE_INT: Result := _('число');
+    FIELD_TYPE_STR: Result := _('строка');
   else
     Result := '';
   end;
 end;
 
 function TPrinterField.FieldTypeText: WideString;
-resourcestring
-  SFieldType = 'Тип: %s';
 begin
-  Result := Format(SFieldType, [GetFieldType(FieldType)]);
+  Result := Tnt_WideFormat('%s: %s', [_('Тип'), GetFieldType(FieldType)]);
 end;
 
 function TPrinterField.Range: WideString;
-resourcestring
-  SFieldRange = 'Диапазон: %d..%d';
 begin
   if FieldType = FIELD_TYPE_INT then
-    Result := Format(SFieldRange, [MinValue, MaxValue])
+    Result := Tnt_WideFormat('%s: %d..%d', [_('Диапазон'), MinValue, MaxValue])
   else
     Result := '';
 end;

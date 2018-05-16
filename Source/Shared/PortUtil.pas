@@ -4,7 +4,7 @@ uses
   // VCL
   Windows, SysUtils, Dialogs,
   // JVCL
-  JvSetupAPI;
+  JvSetupAPI, WException;
 
 procedure EnableComPort(PortNumber: Integer; AEnabled: Boolean);
 
@@ -16,7 +16,7 @@ const
 
 procedure RaiseLastError;
 begin
-  raise Exception.Create(SysErrorMessage(GetLastError));
+  raiseException(SysErrorMessage(GetLastError));
 end;
 
 procedure Check(Res: Boolean);

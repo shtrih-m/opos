@@ -8,7 +8,7 @@ uses
   // This
   CustomReceipt, PrinterTypes, ByteUtils, OposFptr, OposException,
   Opos, PayType, ReceiptPrinter, FiscalPrinterState, ReceiptItem,
-  PrinterParameters, MathUtils, SmResourceStrings;
+  PrinterParameters, MathUtils, gnugettext;
 
 type
   { TCachedSalesReceipt }
@@ -241,7 +241,7 @@ begin
       CheckPercents(Amount);
 
   else
-    RaiseOposException(OPOS_E_ILLEGAL, MsgInvalidParameterValue + ', AdjustmentType');
+    RaiseOposException(OPOS_E_ILLEGAL, _('Invalid parameter value') + ', AdjustmentType');
   end;
 end;
 
@@ -553,7 +553,7 @@ begin
   // Check payment code
   PayCode := Printer.GetPayCode(Description);
   if not (PayCode in [0..16]) then
-    raiseOposException(OPOS_E_ILLEGAL, MsgInvalidPaymentCode);
+    raiseOposException(OPOS_E_ILLEGAL, _('Неверный код типа оплаты'));
 
   //
   Subtotal := Printer.GetSubtotal;

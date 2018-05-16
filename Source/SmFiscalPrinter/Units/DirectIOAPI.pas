@@ -314,7 +314,20 @@ const
   DriverParameterParam10                  = 79;
   DriverParameterBarcode                  = 80;
   DriverParameterMarkType                 = 81;
-
+  DriverParameterCorrectionType           = 82;
+  DriverParameterCalculationSign          = 83;
+  DriverParameterAmount2                  = 84;
+  DriverParameterAmount3                  = 85;
+  DriverParameterAmount4                  = 86;
+  DriverParameterAmount5                  = 87;
+  DriverParameterAmount6                  = 88;
+  DriverParameterAmount7                  = 89;
+  DriverParameterAmount8                  = 90;
+  DriverParameterAmount9                  = 91;
+  DriverParameterAmount10                 = 92;
+  DriverParameterAmount11                 = 93;
+  DriverParameterAmount12                 = 94;
+  DriverParameterTaxType                  = 95;
 
   /////////////////////////////////////////////////////////////////////////////
   // Separator type
@@ -367,6 +380,12 @@ const
   FPTR_RT_CORRECTION_RETSALE           =  101;
   FPTR_RT_CORRECTION_BUY               =  102;
   FPTR_RT_CORRECTION_RETBUY            =  103;
+
+  /////////////////////////////////////////////////////////////////////////////
+  // FPTR_RT_CORRECTION2 receipt type
+
+  FPTR_RT_CORRECTION2_SALE              =  104;
+  FPTR_RT_CORRECTION2_BUY               =  105;
 
 implementation
 

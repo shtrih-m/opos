@@ -63,7 +63,6 @@ uses
   DeviceNotification in '..\SmFiscalPrinter\Units\DeviceNotification.pas',
   uZintBarcode in '..\SmFiscalPrinter\Units\uZintBarcode.pas',
   uZintInterface in '..\SmFiscalPrinter\Units\uZintInterface.pas',
-  OposMessages in '..\SmFiscalPrinter\Units\OposMessages.pas',
   OposFptrhi in '..\Opos\OposFptrhi.pas',
   DirectIOAPI in '..\SmFiscalPrinter\Units\DirectIOAPI.pas',
   FixedStrings in '..\SmFiscalPrinter\Units\FixedStrings.pas',
@@ -87,7 +86,8 @@ uses
   TLVTags in '..\SmFiscalPrinter\Units\TLVTags.pas',
   TLVParser in '..\SmFiscalPrinter\Units\TLVParser.pas',
   GS1Barcode in '..\SmFiscalPrinter\Units\GS1Barcode.pas',
-  EkmClient in '..\SmFiscalPrinter\Units\EkmClient.pas';
+  EkmClient in '..\SmFiscalPrinter\Units\EkmClient.pas',
+  WException in '..\Shared\WException.pas';
 
 {$R *.TLB}
 
