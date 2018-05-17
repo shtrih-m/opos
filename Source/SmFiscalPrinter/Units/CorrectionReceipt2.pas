@@ -47,19 +47,7 @@ end;
 
 function TCorrectionReceipt2.GetTotal: Int64;
 begin
-  Result := FTotal +
-    Parameters.Amount1 +
-    Parameters.Amount2 +
-    Parameters.Amount3 +
-    Parameters.Amount4 +
-    Parameters.Amount5 +
-    Parameters.Amount6 +
-    Parameters.Amount7 +
-    Parameters.Amount8 +
-    Parameters.Amount9 +
-    Parameters.Amount10 +
-    Parameters.Amount11 +
-    Parameters.Amount12;
+  Result := FTotal;
 end;
 
 procedure TCorrectionReceipt2.PrintRecTotal(Total: Currency; Payment: Currency;

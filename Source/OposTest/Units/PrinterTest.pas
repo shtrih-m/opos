@@ -4680,7 +4680,7 @@ begin
   Check(FiscalPrinter.DirectIO2(40, 1177, '77'));
   Check(FiscalPrinter.DirectIO2(40, 1178, '11.05.2018'));
   Check(FiscalPrinter.DirectIO2(40, 1179, '99'));
-  Check(FiscalPrinter.PrintRecCash(1));
+  Check(FiscalPrinter.PrintRecCash(1.23));
   Check(FiscalPrinter.SetParameter(DriverParameterCorrectionType, 0));
   Check(FiscalPrinter.SetParameter(DriverParameterCalculationSign, 1));
   Check(FiscalPrinter.SetParameter(DriverParameterAmount2, 2));

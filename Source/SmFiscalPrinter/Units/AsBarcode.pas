@@ -1087,6 +1087,7 @@ var
   checksum: Integer;
   codeword_pos: Integer;
 begin
+  checksum := 0;
   case FBarcodeType of
     btCode128A,
     btCodeEAN128A:
