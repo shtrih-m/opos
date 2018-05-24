@@ -17,7 +17,7 @@ object fmFptrFroudReceipt: TfmFptrFroudReceipt
     232)
   PixelsPerInch = 96
   TextHeight = 13
-  object btnInvalidSalesReceipt: TButton
+  object btnInvalidSalesReceipt: TTntButton
     Left = 168
     Top = 168
     Width = 121
@@ -27,7 +27,7 @@ object fmFptrFroudReceipt: TfmFptrFroudReceipt
     TabOrder = 3
     OnClick = btnInvalidSalesReceiptClick
   end
-  object Memo: TMemo
+  object Memo: TTntMemo
     Left = 8
     Top = 8
     Width = 409
@@ -36,7 +36,7 @@ object fmFptrFroudReceipt: TfmFptrFroudReceipt
     ScrollBars = ssVertical
     TabOrder = 0
   end
-  object btnInvalidRefundReceipt: TButton
+  object btnInvalidRefundReceipt: TTntButton
     Left = 296
     Top = 168
     Width = 121
@@ -46,7 +46,7 @@ object fmFptrFroudReceipt: TfmFptrFroudReceipt
     TabOrder = 5
     OnClick = btnInvalidRefundReceiptClick
   end
-  object btnValidSalesReceipt: TButton
+  object btnValidSalesReceipt: TTntButton
     Left = 55
     Top = 168
     Width = 106
@@ -56,7 +56,7 @@ object fmFptrFroudReceipt: TfmFptrFroudReceipt
     TabOrder = 1
     OnClick = btnValidSalesReceiptClick
   end
-  object btnInvalidRefundReceipt2: TButton
+  object btnInvalidRefundReceipt2: TTntButton
     Left = 296
     Top = 200
     Width = 121
@@ -66,7 +66,7 @@ object fmFptrFroudReceipt: TfmFptrFroudReceipt
     TabOrder = 6
     OnClick = btnInvalidRefundReceipt2Click
   end
-  object btnValidRefundReceipt: TButton
+  object btnValidRefundReceipt: TTntButton
     Left = 55
     Top = 200
     Width = 106
@@ -76,7 +76,7 @@ object fmFptrFroudReceipt: TfmFptrFroudReceipt
     TabOrder = 2
     OnClick = btnValidRefundReceiptClick
   end
-  object btnInvalidSalesReceipt2: TButton
+  object btnInvalidSalesReceipt2: TTntButton
     Left = 168
     Top = 200
     Width = 121

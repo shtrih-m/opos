@@ -18,35 +18,35 @@ object fmFptrGeneral: TfmFptrGeneral
     270)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblDeviceName: TLabel
+  object lblDeviceName: TTntLabel
     Left = 8
     Top = 8
     Width = 65
     Height = 13
     Caption = 'DeviceName:'
   end
-  object lblTimeout: TLabel
+  object lblTimeout: TTntLabel
     Left = 8
     Top = 72
     Width = 41
     Height = 13
     Caption = 'Timeout:'
   end
-  object lblOpenResult: TLabel
+  object lblOpenResult: TTntLabel
     Left = 8
     Top = 40
     Width = 59
     Height = 13
     Caption = 'OpenResult:'
   end
-  object lblLevel: TLabel
+  object lblLevel: TTntLabel
     Left = 8
     Top = 184
     Width = 29
     Height = 13
     Caption = 'Level:'
   end
-  object lblCheckHealthText: TLabel
+  object lblCheckHealthText: TTntLabel
     Left = 8
     Top = 224
     Width = 86
@@ -61,14 +61,14 @@ object fmFptrGeneral: TfmFptrGeneral
     Anchors = [akLeft, akTop, akRight]
     Shape = bsTopLine
   end
-  object lblDeviceEnabled: TLabel
+  object lblDeviceEnabled: TTntLabel
     Left = 8
     Top = 104
     Width = 78
     Height = 13
     Caption = 'Device enabled:'
   end
-  object btnOpen: TButton
+  object btnOpen: TTntButton
     Left = 232
     Top = 40
     Width = 73
@@ -78,7 +78,7 @@ object fmFptrGeneral: TfmFptrGeneral
     TabOrder = 2
     OnClick = btnOpenClick
   end
-  object btnClose: TButton
+  object btnClose: TTntButton
     Left = 312
     Top = 40
     Width = 73
@@ -88,7 +88,7 @@ object fmFptrGeneral: TfmFptrGeneral
     TabOrder = 3
     OnClick = btnCloseClick
   end
-  object btnRelease: TButton
+  object btnRelease: TTntButton
     Left = 312
     Top = 72
     Width = 73
@@ -98,7 +98,7 @@ object fmFptrGeneral: TfmFptrGeneral
     TabOrder = 6
     OnClick = btnReleaseClick
   end
-  object btnClaim: TButton
+  object btnClaim: TTntButton
     Left = 232
     Top = 72
     Width = 73
@@ -108,7 +108,7 @@ object fmFptrGeneral: TfmFptrGeneral
     TabOrder = 5
     OnClick = btnClaimClick
   end
-  object edtTimeout: TEdit
+  object edtTimeout: TTntEdit
     Left = 80
     Top = 72
     Width = 146
@@ -117,7 +117,7 @@ object fmFptrGeneral: TfmFptrGeneral
     TabOrder = 4
     Text = '0'
   end
-  object btnClearError: TButton
+  object btnClearError: TTntButton
     Left = 232
     Top = 136
     Width = 73
@@ -127,7 +127,7 @@ object fmFptrGeneral: TfmFptrGeneral
     TabOrder = 7
     OnClick = btnClearErrorClick
   end
-  object btnResetPrinter: TButton
+  object btnResetPrinter: TTntButton
     Left = 312
     Top = 136
     Width = 73
@@ -137,7 +137,7 @@ object fmFptrGeneral: TfmFptrGeneral
     TabOrder = 8
     OnClick = btnResetPrinterClick
   end
-  object edtOpenResult: TEdit
+  object edtOpenResult: TTntEdit
     Left = 80
     Top = 40
     Width = 146
@@ -147,7 +147,7 @@ object fmFptrGeneral: TfmFptrGeneral
     ReadOnly = True
     TabOrder = 9
   end
-  object btnUpdatePrinterDevice: TButton
+  object btnUpdatePrinterDevice: TTntButton
     Left = 312
     Top = 8
     Width = 73
@@ -157,7 +157,7 @@ object fmFptrGeneral: TfmFptrGeneral
     TabOrder = 1
     OnClick = btnUpdatePrinterDeviceClick
   end
-  object cbPrinterDeviceName: TComboBox
+  object cbPrinterDeviceName: TTntComboBox
     Left = 80
     Top = 8
     Width = 226
@@ -166,7 +166,7 @@ object fmFptrGeneral: TfmFptrGeneral
     ItemHeight = 13
     TabOrder = 0
   end
-  object cbLevel: TComboBox
+  object cbLevel: TTntComboBox
     Left = 80
     Top = 184
     Width = 146
@@ -180,7 +180,7 @@ object fmFptrGeneral: TfmFptrGeneral
       'CH_EXTERNAL'
       'CH_INTERACTIVE')
   end
-  object btnCheckHealth: TButton
+  object btnCheckHealth: TTntButton
     Left = 232
     Top = 184
     Width = 153
@@ -190,7 +190,7 @@ object fmFptrGeneral: TfmFptrGeneral
     TabOrder = 11
     OnClick = btnCheckHealthClick
   end
-  object CheckHealthText: TMemo
+  object CheckHealthText: TTntMemo
     Left = 8
     Top = 240
     Width = 378
@@ -198,7 +198,7 @@ object fmFptrGeneral: TfmFptrGeneral
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 12
   end
-  object edtDeviceEnabled: TEdit
+  object edtDeviceEnabled: TTntEdit
     Left = 96
     Top = 104
     Width = 130
@@ -208,7 +208,7 @@ object fmFptrGeneral: TfmFptrGeneral
     ReadOnly = True
     TabOrder = 13
   end
-  object btnEnable: TButton
+  object btnEnable: TTntButton
     Left = 232
     Top = 104
     Width = 73
@@ -218,7 +218,7 @@ object fmFptrGeneral: TfmFptrGeneral
     TabOrder = 14
     OnClick = btnEnableClick
   end
-  object btnDisable: TButton
+  object btnDisable: TTntButton
     Left = 312
     Top = 104
     Width = 73

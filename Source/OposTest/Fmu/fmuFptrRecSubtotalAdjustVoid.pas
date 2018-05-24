@@ -6,18 +6,20 @@ uses
   // VCL
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls,
+  // Tnt
+  TntStdCtrls, TntRegistry,
   // This
   untPages, OposFiscalPrinter;
 
 type
   TfmFptrRecSubtotalAdjustVoid = class(TPage)
-    btnExecute: TButton;
-    lblAmount: TLabel;
-    edtAmount: TEdit;
-    cbAdjustmentType: TComboBox;
-    lblPreLine: TLabel;
-    edtPreLine: TEdit;
-    Label1: TLabel;
+    btnExecute: TTntButton;
+    lblAmount: TTntLabel;
+    edtAmount: TTntEdit;
+    cbAdjustmentType: TTntComboBox;
+    lblPreLine: TTntLabel;
+    edtPreLine: TTntEdit;
+    Label1: TTntLabel;
     procedure btnExecuteClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   end;

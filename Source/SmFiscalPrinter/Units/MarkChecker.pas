@@ -78,10 +78,10 @@ end;
 
 procedure TMarkChecker.LoadParams;
 var
-  Reg: TRegistry;
+  Reg: TTntRegistry;
 begin
   SetDefaults;
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     Reg.Access := KEY_READ;
     Reg.RootKey := GetRegRootKey(GetStorageType);
@@ -102,9 +102,9 @@ end;
 
 procedure TMarkChecker.SaveParams;
 var
-  Reg: TRegistry;
+  Reg: TTntRegistry;
 begin
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     Reg.Access := KEY_ALL_ACCESS;
     Reg.RootKey := GetRegRootKey(GetStorageType);

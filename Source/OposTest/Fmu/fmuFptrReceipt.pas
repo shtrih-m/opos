@@ -6,22 +6,24 @@ uses
   // VCL
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ExtCtrls,
+  // Tnt
+  TntStdCtrls, TntRegistry,
   // This
   untPages, OposFiscalPrinter;
 
 type
   TfmFptrReceipt = class(TPage)
-    btnBeginFisclReceipt: TButton;
-    btnEndFiscalReceipt: TButton;
-    chbPrintHeader: TCheckBox;
-    btnPrintDuplicateReceipt: TButton;
-    lblFiscalReceiptStation: TLabel;
-    cbFiscalReceiptStation: TComboBox;
-    lblFiscalReceiptType: TLabel;
-    cbFiscalReceiptType: TComboBox;
-    lblDescription: TLabel;
-    btnPrintRecVoid: TButton;
-    edtDescription: TEdit;
+    btnBeginFisclReceipt: TTntButton;
+    btnEndFiscalReceipt: TTntButton;
+    chbPrintHeader: TTntCheckBox;
+    btnPrintDuplicateReceipt: TTntButton;
+    lblFiscalReceiptStation: TTntLabel;
+    cbFiscalReceiptStation: TTntComboBox;
+    lblFiscalReceiptType: TTntLabel;
+    cbFiscalReceiptType: TTntComboBox;
+    lblDescription: TTntLabel;
+    btnPrintRecVoid: TTntButton;
+    edtDescription: TTntEdit;
     procedure btnBeginFisclReceiptClick(Sender: TObject);
     procedure btnEndFiscalReceiptClick(Sender: TObject);
     procedure btnPrintDuplicateReceiptClick(Sender: TObject);

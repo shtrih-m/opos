@@ -5,6 +5,8 @@ interface
 uses
   // VCL
   StdCtrls, Controls, ComCtrls, Classes, SysUtils,
+  // Tnt
+  TntClasses, TntStdCtrls, TntRegistry,
   // This
   FiscalPrinterDevice, PrinterParameters, FptrTypes, DirectIOAPI;
 
@@ -12,13 +14,13 @@ type
   { TfmFptrPayType }
 
   TfmFptrPayType = class(TFptrPage)
-    lblDescription: TLabel;
-    edtDescription: TEdit;
-    cbPaymentType: TComboBox;
-    lblValue: TLabel;
+    lblDescription: TTntLabel;
+    edtDescription: TTntEdit;
+    cbPaymentType: TTntComboBox;
+    lblValue: TTntLabel;
     lvPayTypes: TListView;
-    btnDelete: TButton;
-    btnAdd: TButton;
+    btnDelete: TTntButton;
+    btnAdd: TTntButton;
     procedure btnAddClick(Sender: TObject);
     procedure btnDeleteClick(Sender: TObject);
     procedure PageChange(Sender: TObject);

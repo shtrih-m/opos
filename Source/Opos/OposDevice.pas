@@ -5,6 +5,8 @@ interface
 Uses
   // VCL
   Windows, Classes, Registry, SysUtils, ComObj,
+  // Tnt
+  TntSysUtils, TntClasses, TntRegistry,
   // Opos
   Oposhi, VersionInfo;
 
@@ -54,8 +56,8 @@ type
 
     procedure Add(const DeviceName: WideString);
     procedure Delete(const DeviceName: WideString);
-    procedure GetDeviceNames(DeviceNames: TStrings);
-    procedure GetDeviceNames2(DeviceNames: TStrings);
+    procedure GetDeviceNames(DeviceNames: TTntStrings);
+    procedure GetDeviceNames2(DeviceNames: TTntStrings);
     function ReadServiceName(const DeviceName: WideString): WideString;
     function ReadServiceVersion(const ProgID: WideString): WideString;
     class function ProgIDToFileVersion(const ProgID: WideString): WideString;
@@ -83,11 +85,11 @@ end;
 
 function CLSIDToFileName(const CLSID: TGUID): String;
 var
-  Reg: TRegistry;
+  Reg: TTntRegistry;
   strCLSID: String;
 begin
   Result := '';
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     Reg.RootKey:= HKEY_CLASSES_ROOT;
     strCLSID := GUIDToString(CLSID);
@@ -193,10 +195,10 @@ end;
 
 procedure TOposDevice.Add(const DeviceName: WideString);
 var
-  Reg: TRegistry;
+  Reg: TTntRegistry;
   KeyName: WideString;
 begin
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     Reg.Access := KEY_ALL_ACCESS;
     Reg.RootKey := HKEY_LOCAL_MACHINE;
@@ -218,10 +220,10 @@ end;
 
 procedure TOposDevice.Delete(const DeviceName: WideString);
 var
-  Reg: TRegistry;
+  Reg: TTntRegistry;
   KeyName: WideString;
 begin
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     Reg.Access := KEY_ALL_ACCESS;
     Reg.RootKey := HKEY_LOCAL_MACHINE;
@@ -235,12 +237,12 @@ begin
   end;
 end;
 
-procedure TOposDevice.GetDeviceNames(DeviceNames: TStrings);
+procedure TOposDevice.GetDeviceNames(DeviceNames: TTntStrings);
 var
-  Reg: TRegistry;
+  Reg: TTntRegistry;
   KeyName: WideString;
 begin
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     Reg.Access := KEY_READ;
     Reg.RootKey := HKEY_LOCAL_MACHINE;
@@ -254,11 +256,11 @@ end;
 
 function TOposDevice.ReadServiceName(const DeviceName: WideString): WideString;
 var
-  Reg: TRegistry;
+  Reg: TTntRegistry;
   KeyName: WideString;
 begin
   Result := '';
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     Reg.Access := KEY_READ;
     Reg.RootKey := HKEY_LOCAL_MACHINE;
@@ -298,14 +300,14 @@ begin
   end;
 end;
 
-procedure TOposDevice.GetDeviceNames2(DeviceNames: TStrings);
+procedure TOposDevice.GetDeviceNames2(DeviceNames: TTntStrings);
 var
   i: Integer;
-  Reg: TRegistry;
+  Reg: TTntRegistry;
   KeyName: WideString;
   DeviceName: WideString;
 begin
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     Reg.Access := KEY_READ;
     Reg.RootKey := HKEY_LOCAL_MACHINE;
@@ -319,7 +321,7 @@ begin
     for i := 0 to DeviceNames.Count-1 do
     begin
       DeviceName := DeviceNames[i];
-      DeviceNames[i] := Format('%s, %s', [DeviceName,
+      DeviceNames[i] := Tnt_WideFormat('%s, %s', [DeviceName,
         ReadServiceVersion(DeviceName)]);
     end;
   finally

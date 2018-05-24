@@ -4,7 +4,9 @@ interface
 
 uses
   // VCL
-  Windows, ActiveX, ComObj, Registry, SysConst, SysUtils;
+  Windows, ActiveX, ComObj, Registry, SysConst, SysUtils,
+  // Tnt
+  TntSysUtils, TntRegistry;
 
 const
   // begin_ntddk begin_ntifs
@@ -291,10 +293,10 @@ end;
 
 function IsEnabledDCOM: Boolean;
 var
-  Reg: TRegistry;
+  Reg: TTntRegistry;
 begin
   Result := False;
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     Reg.RootKey := HKEY_LOCAL_MACHINE;
     if not Reg.OpenKey(REGSTR_KEY_OLE, False) then Exit;
@@ -323,9 +325,9 @@ end;
 
 procedure SetEnableDCOM(const Value: Boolean);
 var
-  Reg: TRegistry;
+  Reg: TTntRegistry;
 begin
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     Reg.RootKey := HKEY_LOCAL_MACHINE;
 
@@ -352,9 +354,9 @@ end;
 
 function IsInteractiveUser(const ClassID: TGUID): Boolean;
 var
-  Reg: TRegistry;
+  Reg: TTntRegistry;
 begin
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     Reg.RootKey := HKEY_CLASSES_ROOT;
     Result := Reg.OpenKey(REGSTR_KEY_APPID + '\' + GUIDToString(ClassID), False)
@@ -375,13 +377,13 @@ end;
 
 procedure SetInteractiveUser(const ClassID: TGUID; const Value: Boolean);
 var
-  Reg: TRegistry;
+  Reg: TTntRegistry;
   strClassID: String;
   keyAppID: String;
   keyClassID: String;
   keyModuleName: String;
 begin
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     Reg.RootKey := HKEY_CLASSES_ROOT;
     strClassID := GUIDToString(ClassID);
@@ -421,9 +423,9 @@ end;
 
 procedure RemoveLaunchAccess(const ClassID: TGUID);
 var
-  Reg: TRegistry;
+  Reg: TTntRegistry;
 begin
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     if Reg.OpenKey(REGSTR_KEY_APPID + '\' + GUIDToString(ClassID), False) then
       Reg.DeleteValue(REGSTR_VAL_LAUNCHPERMISSION);
@@ -434,9 +436,9 @@ end;
 
 function IsDCOMProtocolsEnabled: Boolean;
 var
-  Reg: TRegistry;
+  Reg: TTntRegistry;
 begin
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     Reg.RootKey := HKEY_LOCAL_MACHINE;
     Result := Reg.OpenKey(REGSTR_KEY_RPC, False)
@@ -449,9 +451,9 @@ end;
 
 procedure RemoveLegacySecureReferences;
 var
-  Reg: TRegistry;
+  Reg: TTntRegistry;
 begin
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     Reg.RootKey := HKEY_LOCAL_MACHINE;
     if Reg.OpenKey(REGSTR_KEY_OLE, False) then
@@ -467,9 +469,9 @@ end;
 
 procedure SetDefaultDCOMCommunicationProperties;
 var
-  Reg: TRegistry;
+  Reg: TTntRegistry;
 begin
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     Reg.RootKey := HKEY_LOCAL_MACHINE;
 
@@ -832,7 +834,7 @@ end;
 
 function GetErrorMessage(ErrorCode: DWORD): String;
 begin
-  Result := Format(SWin32Error, [ErrorCode, SysErrorMessage(ErrorCode)])
+  Result := Tnt_WideFormat(SWin32Error, [ErrorCode, SysErrorMessage(ErrorCode)])
 end;
 
 function GetLastWin32ErrorMessage: String;
@@ -841,7 +843,7 @@ var
 begin
   LastError := GetLastError;
   if LastError <> ERROR_SUCCESS then
-    Result := Format(SWin32Error, [LastError, SysErrorMessage(LastError)])
+    Result := Tnt_WideFormat(SWin32Error, [LastError, SysErrorMessage(LastError)])
   else
     Result := SUnkWin32Error;
 end;

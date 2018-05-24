@@ -5,6 +5,8 @@ interface
 uses
   // VCL
   Windows, StdCtrls, ExtCtrls, Controls, Classes, SysUtils,
+  // Tnt
+  TntSysUtils, TntClasses, TntStdCtrls,
   // This
   ScalePage, M5ScaleTypes, JvExControls, JvSegmentedLEDDisplay;
 
@@ -13,23 +15,23 @@ type
 
   TfmWeight = class(TScalePage)
     pnlWeight: TPanel;
-    btnSetTare: TButton;
-    btnZeroScale: TButton;
-    btnSetTareValue: TButton;
-    Edit1: TEdit;
-    lblTareWeight: TLabel;
-    chbAutoUpdate: TCheckBox;
-    lblWeight: TLabel;
-    lblWeightValue: TLabel;
+    btnSetTare: TTntButton;
+    btnZeroScale: TTntButton;
+    btnSetTareValue: TTntButton;
+    Edit1: TTntEdit;
+    lblTareWeight: TTntLabel;
+    chbAutoUpdate: TTntCheckBox;
+    lblWeight: TTntLabel;
+    lblWeightValue: TTntLabel;
     pnlPrice: TPanel;
-    lblPriceValue: TLabel;
+    lblPriceValue: TTntLabel;
     pblAmount: TPanel;
-    lblAmountValue: TLabel;
-    lblPrice: TLabel;
-    lblAmount: TLabel;
+    lblAmountValue: TTntLabel;
+    lblPrice: TTntLabel;
+    lblAmount: TTntLabel;
     Bevel1: TBevel;
     Timer: TTimer;
-    btnUpdateWeight: TButton;
+    btnUpdateWeight: TTntButton;
     procedure TimerTimer(Sender: TObject);
   public
     procedure UpdatePage; override;
@@ -62,9 +64,9 @@ var
   Status: TM5Status2;
 begin
   Device.Check(Device.ReadStatus2(Status));
-  lblWeightValue.Caption := Format('%.3f', [Status.Weight/1000]);
-  lblPriceValue.Caption := Format('%.2f', [Status.Price/100]);
-  lblAmountValue.Caption := Format('%.2f', [Status.Amount/100]);
+  lblWeightValue.Caption := Tnt_WideFormat('%.3f', [Status.Weight/1000]);
+  lblPriceValue.Caption := Tnt_WideFormat('%.2f', [Status.Price/100]);
+  lblAmountValue.Caption := Tnt_WideFormat('%.2f', [Status.Amount/100]);
 end;
 
 end.

@@ -4,14 +4,17 @@ interface
 
 uses
   // VCL
-  Classes, SysUtils, Variants;
+  Classes, SysUtils, Variants,
+  // Tnt
+  TntClasses;
+
 
 type
   { TTextReport }
 
   TTextReport = class
   private
-    FLines: TStrings;
+    FLines: TTntStrings;
     FCaptionLen: Integer;
     function GetText: string;
   public
@@ -22,7 +25,7 @@ type
     procedure Add(const Caption: string; Value: Variant);
 
     property Text: string read GetText;
-    property Lines: TStrings read FLines;
+    property Lines: TTntStrings read FLines;
   end;
 
 implementation
@@ -33,7 +36,7 @@ constructor TTextReport.Create(CaptionLen: Integer);
 begin
   inherited Create;
   FCaptionLen := CaptionLen;
-  FLines := TStringList.Create;
+  FLines := TTntStringList.Create;
 end;
 
 destructor TTextReport.Destroy;

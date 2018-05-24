@@ -13,11 +13,11 @@ object fmFptrEvents: TfmFptrEvents
   OldCreateOrder = False
   OnCreate = FormCreate
   DesignSize = (
-    367
-    206)
+    359
+    195)
   PixelsPerInch = 96
   TextHeight = 13
-  object memEvents: TMemo
+  object memEvents: TTntMemo
     Left = 8
     Top = 8
     Width = 353
@@ -33,7 +33,7 @@ object fmFptrEvents: TfmFptrEvents
     TabOrder = 0
     WordWrap = False
   end
-  object btnClear: TButton
+  object btnClear: TTntButton
     Left = 288
     Top = 176
     Width = 75

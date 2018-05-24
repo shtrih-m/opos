@@ -51,7 +51,7 @@ var
 begin
   Result := '';
   if Length(AData) < 4 then
-    raiseException('TLV length error');
+    raiseException(_('TLV length error'));
 
   S := '';
   i := 1;

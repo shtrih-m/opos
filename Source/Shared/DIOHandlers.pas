@@ -5,6 +5,8 @@ interface
 uses
   // VCL
   Classes, SysUtils, Graphics, Extctrls,
+  // Tnt
+  TntSysUtils, TntClasses,  
   // This
   DIOHandler, DirectIOAPI, PrinterCommand, ShtrihFiscalPrinter,
   FiscalPrinterDevice, CommandDef, CommandParam, XmlParser, BinStream,
@@ -1267,7 +1269,7 @@ begin
       pString := Command.OutParams.AsText;
     end else
     begin
-      pString := Format('%d;%s', [ResultCode, Device.GetErrorText(ResultCode)]);
+      pString := Tnt_WideFormat('%d;%s', [ResultCode, Device.GetErrorText(ResultCode)]);
     end;
   finally
     Stream.Free;
@@ -2072,7 +2074,7 @@ begin
   Result := Tocken;
 end;
 
-function ParamsToDate(Params: TStrings): string;
+function ParamsToDate(Params: TTntStrings): string;
 var
   Date, Time: string;
   OposDate: TOposDate;
@@ -2091,7 +2093,7 @@ begin
   end;
 end;
 
-function ParamsToString(Params: TStrings): string;
+function ParamsToString(Params: TTntStrings): string;
 var
   i: Integer;
 begin
@@ -2105,14 +2107,14 @@ end;
 procedure TDIOReadEJActivation.DirectIO(var pData: Integer;
   var pString: WideString);
 var
-  Lines: TStrings;
-  Params: TStrings;
+  Lines: TTntStrings;
+  Params: TTntStrings;
 const
   Delimiters: TSetOfChar = [' '];
 begin
   pString := '';
-  Lines := TStringList.Create;
-  Params := TStringList.Create;
+  Lines := TTntStringList.Create;
+  Params := TTntStringList.Create;
   try
     Lines.Text := Printer.ReadEJActivation;
     if Lines.Count >= 7 then
@@ -2157,7 +2159,7 @@ var
 begin
   pString := '';
   Printer.Device.Check(Printer.Device.ReadFMTotals(pData, Totals));
-  pString := Format('%d;%d;%d;%d', [Totals.SaleTotal, Totals.BuyTotal,
+  pString := Tnt_WideFormat('%d;%d;%d;%d', [Totals.SaleTotal, Totals.BuyTotal,
     Totals.RetSale, Totals.RetBuy]);
 end;
 
@@ -2176,7 +2178,7 @@ var
   Totals: TFMTotals;
 begin
   Totals := Printer.Device.ReadFPTotals(pData);
-  pString := Format('%d;%d;%d;%d', [
+  pString := Tnt_WideFormat('%d;%d;%d;%d', [
     Totals.SaleTotal, Totals.BuyTotal, Totals.RetSale, Totals.RetBuy]);
 end;
 
@@ -2418,7 +2420,7 @@ var
 begin
   DocNumber := pData;
   FPrinter.Device.Check(FPrinter.Device.FSFindDocument(DocNumber, Document));
-  pString := Format('%d;%d;%d;', [
+  pString := Tnt_WideFormat('%d;%d;%d;', [
     Document.DocType, BoolToInt[Document.TicketReceived], GetDocMac(Document)]);
 
   if Document.TicketReceived then
@@ -2502,7 +2504,7 @@ begin
   P.TaxCode := GetInteger(pString, 3, ValueDelimiters);
   P.WorkMode := GetInteger(pString, 4, ValueDelimiters);
   FPrinter.Device.Check(FPrinter.Device.FSFiscalization(P, R));
-  pString := Format('%s;%s', [IntToStr(R.DocNumber), IntToStr(R.DocMac)]);
+  pString := Tnt_WideFormat('%s;%s', [IntToStr(R.DocNumber), IntToStr(R.DocMac)]);
 end;
 
 { TDIOFSReFiscalize }
@@ -2526,7 +2528,7 @@ begin
   P.WorkMode := GetInteger(pString, 4, ValueDelimiters);
   P.ReasonCode := GetInteger(pString, 5, ValueDelimiters);
   FPrinter.Device.Check(FPrinter.Device.FSReFiscalization(P, R));
-  pString := Format('%s;%s', [IntToStr(R.DocNumber), IntToStr(R.DocMac)]);
+  pString := Tnt_WideFormat('%s;%s', [IntToStr(R.DocNumber), IntToStr(R.DocMac)]);
 end;
 
 { TDIOGetPrintWidth }
@@ -2591,7 +2593,7 @@ begin
   Data.RecType := GetInteger(pString, 1, ValueDelimiters);
   Data.Total := GetInteger(pString, 2, ValueDelimiters);
   FPrinter.Device.Check(FPrinter.FSPrintCorrectionReceipt(Data));
-  pString := Format('%d;%d;%d;%d', [
+  pString := Tnt_WideFormat('%d;%d;%d;%d', [
     Data.ResultCode, Data.ReceiptNumber,
     Data.DocumentNumber, Data.DocumentMac]);
 end;
@@ -2626,7 +2628,7 @@ begin
   Data.Amount12 := GetInteger(pString, 14, ValueDelimiters);
   Data.TaxType := GetInteger(pString, 15, ValueDelimiters);
   FPrinter.Device.Check(FPrinter.FSPrintCorrectionReceipt2(Data));
-  pString := Format('%d;%d;%d;%d', [
+  pString := Tnt_WideFormat('%d;%d;%d;%d', [
     Data.ResultCode, Data.ReceiptNumber,
     Data.DocumentNumber, Data.DocumentMac]);
 end;

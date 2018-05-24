@@ -17,21 +17,21 @@ object fmFptrNonFiscal: TfmFptrNonFiscal
     270)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblStation: TLabel
+  object lblStation: TTntLabel
     Left = 8
     Top = 8
     Width = 36
     Height = 13
     Caption = 'Station:'
   end
-  object lblData: TLabel
+  object lblData: TTntLabel
     Left = 8
     Top = 64
     Width = 26
     Height = 13
     Caption = 'Data:'
   end
-  object btnEndNonFiscal: TButton
+  object btnEndNonFiscal: TTntButton
     Left = 272
     Top = 240
     Width = 113
@@ -41,7 +41,7 @@ object fmFptrNonFiscal: TfmFptrNonFiscal
     TabOrder = 7
     OnClick = btnEndNonFiscalClick
   end
-  object edtStation: TEdit
+  object edtStation: TTntEdit
     Left = 80
     Top = 8
     Width = 81
@@ -49,7 +49,7 @@ object fmFptrNonFiscal: TfmFptrNonFiscal
     TabOrder = 0
     Text = '2'
   end
-  object btnBeginNonFiscal: TButton
+  object btnBeginNonFiscal: TTntButton
     Left = 272
     Top = 176
     Width = 113
@@ -59,7 +59,7 @@ object fmFptrNonFiscal: TfmFptrNonFiscal
     TabOrder = 5
     OnClick = btnBeginNonFiscalClick
   end
-  object btnPrintNormal: TButton
+  object btnPrintNormal: TTntButton
     Left = 272
     Top = 208
     Width = 113
@@ -69,7 +69,7 @@ object fmFptrNonFiscal: TfmFptrNonFiscal
     TabOrder = 6
     OnClick = btnPrintNormalClick
   end
-  object chbReceipt: TCheckBox
+  object chbReceipt: TTntCheckBox
     Left = 168
     Top = 8
     Width = 129
@@ -78,7 +78,7 @@ object fmFptrNonFiscal: TfmFptrNonFiscal
     TabOrder = 1
     OnClick = chbReceiptClick
   end
-  object chbJournal: TCheckBox
+  object chbJournal: TTntCheckBox
     Left = 168
     Top = 32
     Width = 129
@@ -87,7 +87,7 @@ object fmFptrNonFiscal: TfmFptrNonFiscal
     TabOrder = 2
     OnClick = chbReceiptClick
   end
-  object chbSlip: TCheckBox
+  object chbSlip: TTntCheckBox
     Left = 168
     Top = 56
     Width = 137
@@ -96,7 +96,7 @@ object fmFptrNonFiscal: TfmFptrNonFiscal
     TabOrder = 3
     OnClick = chbReceiptClick
   end
-  object Memo: TMemo
+  object Memo: TTntMemo
     Left = 8
     Top = 80
     Width = 379

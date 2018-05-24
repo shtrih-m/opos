@@ -216,7 +216,8 @@ uses
   RegressTests in 'Units\RegressTests.pas',
   duBitUtils in 'Units\duBitUtils.pas',
   WException in '..\..\Source\Shared\WException.pas',
-  CorrectionReceipt in '..\..\Source\SmFiscalPrinter\Units\CorrectionReceipt.pas';
+  CorrectionReceipt in '..\..\Source\SmFiscalPrinter\Units\CorrectionReceipt.pas',
+  TntIniFiles in '..\..\Source\Shared\TntIniFiles.pas';
 
 {$R *.RES}
 {$R ..\..\Source\SmFiscalPrinter\SmFiscalPrinter.TLB}

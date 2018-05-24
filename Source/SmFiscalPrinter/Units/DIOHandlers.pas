@@ -796,7 +796,7 @@ begin
       pString := Command.OutParams.AsText;
     end else
     begin
-      pString := Format('%d;%s', [ResultCode, GetErrorText(ResultCode)]);
+      pString := Tnt_WideFormat('%d;%s', [ResultCode, GetErrorText(ResultCode)]);
     end;
   finally
     Stream.Free;

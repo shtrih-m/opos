@@ -11,7 +11,7 @@ uses
   ReceiptItem, RecDiscount, PrinterParameters, TextItem, MathUtils,
   fmuSelect, fmuPhone, fmuEMail, TLV, LogFile, RegExpr, MalinaParams,
   StringUtils, Retalix, FiscalPrinterTypes, ReceiptTemplate,
-  DirectioAPI, WException, gnugettext;
+  DirectioAPI, WException, TntSysUtils, gnugettext;
 
 type
   { TFSSalesReceipt }
@@ -33,9 +33,9 @@ type
 
     procedure PrintReceiptItems;
     procedure CheckTotal(Total: Currency);
-    procedure SubtotalDiscount(Amount: Int64; const Description: string);
+    procedure SubtotalDiscount(Amount: Int64; const Description: WideString);
     procedure CheckAdjAmount(AdjustmentType: Integer; Amount: Currency);
-    procedure RecSubtotalAdjustment(const Description: string;
+    procedure RecSubtotalAdjustment(const Description: WideString;
       AdjustmentType: Integer; Amount: Currency);
 
 
@@ -52,13 +52,13 @@ type
     procedure ClearReceipt;
     procedure SetRefundReceipt;
     procedure UpdateDiscounts;
-    function IsLoyaltyCard(const Text: string): Boolean;
+    function IsLoyaltyCard(const Text: WideString): Boolean;
     procedure PrintDiscounts;
-    function GetTax(const ItemName: string; Tax: Integer): Integer;
+    function GetTax(const ItemName: WideString; Tax: Integer): Integer;
     function GetCapReceiptDiscount2: Boolean;
-    procedure PrintText2(const Text: string);
+    procedure PrintText2(const Text: WideString);
     procedure PrintFSSale(Item: TFSSaleItem);
-    procedure AddTextItem(const Text: string; Station: Integer);
+    procedure AddTextItem(const Text: WideString; Station: Integer);
     procedure ParseReceiptItemsLines(Items: TReceiptItems);
     procedure ParseReceiptItemsLines2(Items: TReceiptItems);
     procedure printReceiptItemAsText(Item: TFSSaleItem);
@@ -84,43 +84,43 @@ type
     procedure OpenReceipt(ARecType: Integer); override;
     procedure SetAdjustmentAmount(Amount: Integer); override;
 
-    procedure PrintRecVoid(const Description: string); override;
+    procedure PrintRecVoid(const Description: WideString); override;
 
-    procedure PrintRecItem(const Description: string; Price: Currency;
+    procedure PrintRecItem(const Description: WideString; Price: Currency;
       Quantity: Integer; VatInfo: Integer; UnitPrice: Currency;
-      const UnitName: string); override;
+      const UnitName: WideString); override;
 
     procedure PrintRecItemAdjustment(AdjustmentType: Integer;
-      const Description: string; Amount: Currency;
+      const Description: WideString; Amount: Currency;
       VatInfo: Integer); override;
 
     procedure PrintRecPackageAdjustment(AdjustmentType: Integer;
-      const Description, VatAdjustment: string); override;
+      const Description, VatAdjustment: WideString); override;
 
     procedure PrintRecPackageAdjustVoid(AdjustmentType: Integer;
-      const VatAdjustment: string); override;
+      const VatAdjustment: WideString); override;
 
-    procedure PrintRecRefund(const Description: string; Amount: Currency;
+    procedure PrintRecRefund(const Description: WideString; Amount: Currency;
       VatInfo: Integer); override;
 
-    procedure PrintRecRefundVoid(const Description: string;
+    procedure PrintRecRefundVoid(const Description: WideString;
       Amount: Currency; VatInfo: Integer); override;
 
     procedure PrintRecSubtotal(Amount: Currency); override;
 
     procedure PrintRecSubtotalAdjustment(AdjustmentType: Integer;
-      const Description: string; Amount: Currency); override;
+      const Description: WideString; Amount: Currency); override;
 
     procedure PrintRecTotal(Total, Payment: Currency;
-      const Description: string); override;
+      const Description: WideString); override;
 
-    procedure PrintRecVoidItem(const Description: string; Amount: Currency;
+    procedure PrintRecVoidItem(const Description: WideString; Amount: Currency;
       Quantity: Integer; AdjustmentType: Integer; Adjustment: Currency;
       VatInfo: Integer);  override;
 
-    procedure PrintRecItemVoid(const Description: string;
+    procedure PrintRecItemVoid(const Description: WideString;
       Price: Currency; Quantity, VatInfo: Integer; UnitPrice: Currency;
-      const UnitName: string); override;
+      const UnitName: WideString); override;
 
     procedure BeginFiscalReceipt(PrintHeader: Boolean); override;
     procedure EndFiscalReceipt;  override;
@@ -130,29 +130,29 @@ type
       Amount: Currency); override;
 
     procedure PrintRecItemRefund(
-      const ADescription: string;
+      const ADescription: WideString;
       Amount: Currency; Quantity: Integer;
       VatInfo: Integer; UnitAmount: Currency;
-      const AUnitName: string); override;
+      const AUnitName: WideString); override;
 
     procedure PrintRecItemRefundVoid(
-      const ADescription: string;
+      const ADescription: WideString;
       Amount: Currency; Quantity: Integer;
       VatInfo: Integer; UnitAmount: Currency;
-      const AUnitName: string); override;
+      const AUnitName: WideString); override;
 
     function GetPaymentTotal: Int64; override;
     function GetCashlessTotal: Int64;
     procedure PaymentAdjustment(Amount: Int64); override;
 
-    procedure PrintNormal(const Text: string; Station: Integer); override;
+    procedure PrintNormal(const Text: WideString; Station: Integer); override;
 
-    procedure PrintRecMessage(const Message: string); override;
+    procedure PrintRecMessage(const Message: WideString); override;
     procedure PrintText(const Data: TTextRec); override;
     procedure PrintBarcode(const Barcode: TBarcodeRec); override;
-    procedure FSWriteTLV(const TLVData: string); override;
-    procedure WriteFPParameter(ParamId: Integer; const Value: string); override;
-    procedure PrintAdditionalHeader(const AdditionalHeader: string); override;
+    procedure FSWriteTLV(const TLVData: WideString); override;
+    procedure WriteFPParameter(ParamId: Integer; const Value: WideString); override;
+    procedure PrintAdditionalHeader(const AdditionalHeader: WideString); override;
 
     property IsVoided: Boolean read FIsVoided;
     property IsCashPayment: Boolean read GetIsCashPayment;
@@ -163,10 +163,10 @@ implementation
 
 // Parse price and quantity
 
-function ParsePrice(const Line: string;
+function ParsePrice(const Line: WideString;
   var Price, Quantity: Double): Boolean;
 var
-  S: string;
+  S: WideString;
   R: TRegExpr;
 begin
   R := TRegExpr.Create;
@@ -214,7 +214,7 @@ begin
   inherited Destroy;
 end;
 
-function TFSSalesReceipt.GetTax(const ItemName: string; Tax: Integer): Integer;
+function TFSSalesReceipt.GetTax(const ItemName: WideString; Tax: Integer): Integer;
 begin
   Result := Tax;
   {$IFDEF MALINA}
@@ -234,7 +234,7 @@ begin
   if not (Result in [0..6]) then Result := 0;
 end;
 
-procedure TFSSalesReceipt.PrintText2(const Text: string);
+procedure TFSSalesReceipt.PrintText2(const Text: WideString);
 begin
   Printer.Printer.PrintText(Text);
 end;
@@ -345,7 +345,7 @@ begin
   Result := GetCashlessTotal = 0;
 end;
 
-procedure TFSSalesReceipt.PrintRecVoid(const Description: string);
+procedure TFSSalesReceipt.PrintRecVoid(const Description: WideString);
 begin
   OpenReceipt(RecTypeSale);
   Printer.PrintTextLine(Description);
@@ -392,9 +392,9 @@ begin
     Result := Quantity/1000;
 end;
 
-procedure TFSSalesReceipt.PrintRecItem(const Description: string; Price: Currency;
+procedure TFSSalesReceipt.PrintRecItem(const Description: WideString; Price: Currency;
   Quantity: Integer; VatInfo: Integer; UnitPrice: Currency;
-  const UnitName: string);
+  const UnitName: WideString);
 var
   Operation: TFSSale;
 begin
@@ -431,7 +431,7 @@ end;
 
 procedure TFSSalesReceipt.PrintRecItemAdjustment(
   AdjustmentType: Integer;
-  const Description: string;
+  const Description: WideString;
   Amount: Currency;
   VatInfo: Integer);
 var
@@ -494,7 +494,7 @@ end;
 
 procedure TFSSalesReceipt.PrintRecPackageAdjustment(
   AdjustmentType: Integer;
-  const Description, VatAdjustment: string);
+  const Description, VatAdjustment: WideString);
 begin
   CheckDescription(Description);
 
@@ -510,7 +510,7 @@ begin
 end;
 
 procedure TFSSalesReceipt.PrintRecPackageAdjustVoid(AdjustmentType: Integer;
-  const VatAdjustment: string);
+  const VatAdjustment: WideString);
 begin
   CheckDescription(VatAdjustment);
   case AdjustmentType of
@@ -524,7 +524,7 @@ begin
   end;
 end;
 
-procedure TFSSalesReceipt.PrintRecRefund(const Description: string;
+procedure TFSSalesReceipt.PrintRecRefund(const Description: WideString;
   Amount: Currency; VatInfo: Integer);
 var
   Operation: TFSSale;
@@ -550,7 +550,7 @@ begin
 end;
 
 procedure TFSSalesReceipt.PrintRecRefundVoid(
-  const Description: string;
+  const Description: WideString;
   Amount: Currency; VatInfo: Integer);
 var
   Operation: TFSSale;
@@ -578,7 +578,7 @@ end;
 
 procedure TFSSalesReceipt.PrintRecSubtotal(Amount: Currency);
 var
-  Text: string;
+  Text: WideString;
 begin
   Text := Printer.CurrencyToStr(GetTotal/100);
   Text := Printer.Printer.Device.FormatLines(Parameters.SubtotalText, '=' + Text);
@@ -586,7 +586,7 @@ begin
 end;
 
 procedure TFSSalesReceipt.PrintRecSubtotalAdjustment(AdjustmentType: Integer;
-  const Description: string; Amount: Currency);
+  const Description: WideString; Amount: Currency);
 begin
   CheckDescription(Description);
   CheckAdjAmount(AdjustmentType, Amount);
@@ -595,7 +595,7 @@ end;
 
 // Discount void consider to taxes turnover
 
-procedure TFSSalesReceipt.SubtotalDiscount(Amount: Int64; const Description: string);
+procedure TFSSalesReceipt.SubtotalDiscount(Amount: Int64; const Description: WideString);
 var
   Item: TDiscountReceiptItem;
 begin
@@ -633,7 +633,7 @@ begin
   end;
 end;
 
-procedure TFSSalesReceipt.RecSubtotalAdjustment(const Description: string;
+procedure TFSSalesReceipt.RecSubtotalAdjustment(const Description: WideString;
   AdjustmentType: Integer; Amount: Currency);
 var
   Summ: Int64;
@@ -749,7 +749,7 @@ begin
 end;
 
 procedure TFSSalesReceipt.PrintRecTotal(Total: Currency; Payment: Currency;
-  const Description: string);
+  const Description: WideString);
 var
   Subtotal: Int64;
   PayCode: Integer;
@@ -891,7 +891,7 @@ end;
 
 *)
 
-function GetTaxLetter(Tax: Integer): string;
+function GetTaxLetter(Tax: Integer): WideString;
 const
   TaxLetter = '¿¡¬√';
 begin
@@ -1046,7 +1046,7 @@ procedure TFSSalesReceipt.printReceiptItemAsText(Item: TFSSaleItem);
 var
   Amount: Int64;
   TaxNumber: Integer;
-  Line1, Line2: string;
+  Line1, Line2: WideString;
 begin
   if Item.Quantity < 0 then
   begin
@@ -1062,13 +1062,13 @@ begin
   Amount := Round2(Item.Quantity * Item.Price);
   if ((Item.Quantity = 1) and (not Parameters.PrintSingleQuantity)) then
   begin
-    Line2 := Format('= %s', [AmountToStr(Amount/100)]) +  GetTaxLetter(TaxNumber);
+    Line2 := Tnt_WideFormat('= %s', [AmountToStr(Amount/100)]) +  GetTaxLetter(TaxNumber);
   end else
   begin
     Line2 := QuantityToStr(Item.Quantity);
     if Parameters.PrintUnitName then
       Line2 := Line2 + ' ' + Item.Data.UnitName;
-    Line2 := Format('%s X %s = %s', [Line2, AmountToStr(Item.Price/100),
+    Line2 := Tnt_WideFormat('%s X %s = %s', [Line2, AmountToStr(Item.Price/100),
       AmountToStr(Amount/100)]) +  GetTaxLetter(TaxNumber);
   end;
   if Length(Line1 + Line2) > Device.GetPrintWidth then
@@ -1085,7 +1085,7 @@ end;
 procedure TFSSalesReceipt.PrintTotalAndTax(const Item: TFSSaleItem);
 var
   Tax: Integer;
-  Line: string;
+  Line: WideString;
   TaxRate: Double;
   TaxAmount: Int64;
 begin
@@ -1100,8 +1100,8 @@ end;
 procedure TFSSalesReceipt.BeforeCloseReceipt;
 var
   Selection: Integer;
-  CustomerPhone: string;
-  CustomerEMail: string;
+  CustomerPhone: WideString;
+  CustomerEMail: WideString;
 begin
   if not FPrintEnabled then
   begin
@@ -1241,7 +1241,7 @@ begin
   end;
 end;
 
-function TFSSalesReceipt.IsLoyaltyCard(const Text: string): Boolean;
+function TFSSalesReceipt.IsLoyaltyCard(const Text: WideString): Boolean;
 begin
   Result := ExecRegExpr(GetMalinaParams.RosneftCardMask, Text);
 end;
@@ -1338,7 +1338,7 @@ begin
   end;
 end;
 
-procedure TFSSalesReceipt.PrintRecVoidItem(const Description: string;
+procedure TFSSalesReceipt.PrintRecVoidItem(const Description: WideString;
   Amount: Currency; Quantity, AdjustmentType: Integer;
   Adjustment: Currency; VatInfo: Integer);
 var
@@ -1371,9 +1371,9 @@ begin
   AddSale(Operation);
 end;
 
-procedure TFSSalesReceipt.PrintRecItemVoid(const Description: string;
+procedure TFSSalesReceipt.PrintRecItemVoid(const Description: WideString;
   Price: Currency; Quantity, VatInfo: Integer; UnitPrice: Currency;
-  const UnitName: string);
+  const UnitName: WideString);
 var
   Operation: TFSSale;
 begin
@@ -1416,9 +1416,9 @@ begin
     FRecType := RecTypeRetSale;
 end;
 
-procedure TFSSalesReceipt.PrintRecItemRefund(const ADescription: string;
+procedure TFSSalesReceipt.PrintRecItemRefund(const ADescription: WideString;
   Amount: Currency; Quantity, VatInfo: Integer; UnitAmount: Currency;
-  const AUnitName: string);
+  const AUnitName: WideString);
 var
   Operation: TFSSale;
 begin
@@ -1453,9 +1453,9 @@ begin
   AddSale(Operation);
 end;
 
-procedure TFSSalesReceipt.PrintRecItemRefundVoid(const ADescription: string;
+procedure TFSSalesReceipt.PrintRecItemRefundVoid(const ADescription: WideString;
   Amount: Currency; Quantity, VatInfo: Integer; UnitAmount: Currency;
-  const AUnitName: string);
+  const AUnitName: WideString);
 var
   Operation: TFSSale;
 begin
@@ -1507,12 +1507,12 @@ begin
   end;
 end;
 
-procedure TFSSalesReceipt.PrintRecMessage(const Message: string);
+procedure TFSSalesReceipt.PrintRecMessage(const Message: WideString);
 begin
   PrintNormal(Message, PRINTER_STATION_REC);
 end;
 
-procedure TFSSalesReceipt.PrintNormal(const Text: string; Station: Integer);
+procedure TFSSalesReceipt.PrintNormal(const Text: WideString; Station: Integer);
 begin
   if not FHasReceiptItems then
   begin
@@ -1548,7 +1548,7 @@ begin
   Printer.Printer.PostLine := '';
 end;
 
-procedure TFSSalesReceipt.AddTextItem(const Text: string; Station: Integer);
+procedure TFSSalesReceipt.AddTextItem(const Text: WideString; Station: Integer);
 var
   Data: TTextRec;
   Item: TTextReceiptItem;
@@ -1601,7 +1601,7 @@ begin
   Item.Data := Barcode;
 end;
 
-procedure TFSSalesReceipt.FSWriteTLV(const TLVData: string);
+procedure TFSSalesReceipt.FSWriteTLV(const TLVData: WideString);
 var
   Item: TTLVReceiptItem;
 begin
@@ -1616,14 +1616,14 @@ end;
 
 procedure TFSSalesReceipt.printReceiptItemTemplate(Item: TFSSaleItem);
 var
-  Text: string;
+  Text: WideString;
 begin
   Text := Template.getItemText(Item);
   Printer.Printer.PrintText(Text);
 end;
 
 procedure TFSSalesReceipt.WriteFPParameter(ParamId: Integer;
-  const Value: string);
+  const Value: WideString);
 begin
   if (ParamId = DIO_FPTR_PARAMETER_ENABLE_PRINT)and(Value = '1') then
   begin
@@ -1635,7 +1635,7 @@ begin
 end;
 
 procedure TFSSalesReceipt.PrintAdditionalHeader(
-  const AdditionalHeader: string);
+  const AdditionalHeader: WideString);
 begin
   Device.PrintText(PRINTER_STATION_REC, AdditionalHeader);
 end;

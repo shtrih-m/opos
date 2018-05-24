@@ -6,6 +6,8 @@ uses
   // VCL
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ExtCtrls, ComCtrls,
+  // Tnt
+  TntStdCtrls, TntSysUtils,
   // This
   untPages, OposFiscalPrinter, DirectIOAPI, Opos, OposFptr, SMFiscalPrinter;
 
@@ -13,20 +15,20 @@ type
   { TfmDirectIOBarcode }
 
   TfmFptrDirectIOBarcode = class(TPage)
-    btnPrintAll: TButton;
-    btnPrint1D: TButton;
-    btnPrint2D: TButton;
-    gb2DBarcode: TGroupBox;
-    lblBarcodeData: TLabel;
-    lblModuleSize: TLabel;
-    memBarcode: TMemo;
-    btnPrintBarcode: TButton;
-    cbModuleSize: TComboBox;
-    lblAlignment: TLabel;
-    cbAlignment: TComboBox;
-    lblBarcodeType: TLabel;
-    cbBarcodeType: TComboBox;
-    btnPrintBarcodeHex: TButton;
+    btnPrintAll: TTntButton;
+    btnPrint1D: TTntButton;
+    btnPrint2D: TTntButton;
+    gb2DBarcode: TTntGroupBox;
+    lblBarcodeData: TTntLabel;
+    lblModuleSize: TTntLabel;
+    memBarcode: TTntMemo;
+    btnPrintBarcode: TTntButton;
+    cbModuleSize: TTntComboBox;
+    lblAlignment: TTntLabel;
+    cbAlignment: TTntComboBox;
+    lblBarcodeType: TTntLabel;
+    cbBarcodeType: TTntComboBox;
+    btnPrintBarcodeHex: TTntButton;
     procedure btnPrintAllClick(Sender: TObject);
     procedure btnPrint1DClick(Sender: TObject);
     procedure btnPrint2DClick(Sender: TObject);
@@ -70,7 +72,7 @@ begin
   if ResultCode = 0 then
   begin
     TickCount := Integer(GetTickCount) - TickCount;
-    FiscalPrinter.PrintNormal(FPTR_S_RECEIPT, Format('Время печати: %d мс.', [TickCount]));
+    FiscalPrinter.PrintNormal(FPTR_S_RECEIPT, Tnt_WideFormat('Время печати: %d мс.', [TickCount]));
   end else
   begin
     FiscalPrinter.PrintNormal(FPTR_S_RECEIPT, FiscalPrinter.ErrorString);
@@ -98,7 +100,7 @@ begin
   if ResultCode = 0 then
   begin
     TickCount := Integer(GetTickCount) - TickCount;
-    FiscalPrinter.PrintNormal(FPTR_S_RECEIPT, Format('Время печати: %d мс.', [TickCount]));
+    FiscalPrinter.PrintNormal(FPTR_S_RECEIPT, Tnt_WideFormat('Время печати: %d мс.', [TickCount]));
   end else
   begin
     FiscalPrinter.PrintNormal(FPTR_S_RECEIPT, FiscalPrinter.ErrorString);

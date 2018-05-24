@@ -6,9 +6,11 @@ uses
   // VCL
   Windows, Messages, StdCtrls, Controls, Classes, SysUtils, Registry, Dialogs,
   Forms, ComCtrls, Buttons, ExtDlgs, ExtCtrls, Graphics,
+  // Tnt
+  TntStdCtrls, TntSysUtils, TntButtons, 
   // This
-  FiscalPrinterImpl, Opos, Oposhi, OposUtils, untUtil, 
-  FiscalPrinterDevice, FiscalPrinterTypes, PrinterParameters;
+  FiscalPrinterImpl, Opos, Oposhi, OposUtils, untUtil, FiscalPrinterDevice,
+  FiscalPrinterTypes, PrinterParameters;
 
 const
   WM_NOTIFY = WM_USER + 1;
@@ -17,29 +19,29 @@ type
   { TfmLogo }
 
   TfmLogo = class(TForm)
-    btnClose: TButton;
+    btnClose: TTntButton;
     OpenPictureDialog: TOpenPictureDialog;
-    btnOpen: TBitBtn;
-    btnLoad: TBitBtn;
-    btnPrint: TBitBtn;
+    btnOpen: TTntBitBtn;
+    btnLoad: TTntBitBtn;
+    btnPrint: TTntBitBtn;
     Panel1: TPanel;
-    lblMaxImageSize: TLabel;
-    lblInfo1: TLabel;
-    lblImageSize: TLabel;
-    edtImageSize: TEdit;
-    edtMaxImageSize: TEdit;
-    lblWarn: TLabel;
+    lblMaxImageSize: TTntLabel;
+    lblInfo1: TTntLabel;
+    lblImageSize: TTntLabel;
+    edtImageSize: TTntEdit;
+    edtMaxImageSize: TTntEdit;
+    lblWarn: TTntLabel;
     imgWarn: TImage;
     Panel2: TPanel;
     Image: TImage;
-    lblProgress: TLabel;
-    chbLogoCenter: TCheckBox;
+    lblProgress: TTntLabel;
+    chbLogoCenter: TTntCheckBox;
     procedure btnLoadClick(Sender: TObject);
     procedure btnOpenClick(Sender: TObject);
     procedure btnCloseClick(Sender: TObject);
     procedure btnPrintClick(Sender: TObject);
   private
-    FButton: TButton;
+    FButton: TTntButton;
     FPrinter: TFiscalPrinterImpl;
     FApplicationTitle: string;
     FApplicationHandle: THandle;
@@ -102,7 +104,7 @@ end;
 procedure TfmLogo.UpdatePage;
 begin
   chbLogoCenter.Checked := Device.Parameters.LogoCenter;
-  edtMaxImageSize.Text := Format('%d x %d', [Device.GetModel.MaxGraphicsWidth,
+  edtMaxImageSize.Text := Tnt_WideFormat('%d x %d', [Device.GetModel.MaxGraphicsWidth,
     Device.GetModel.MaxGraphicsHeight]);
 
   lblProgress.Caption := '';
@@ -130,7 +132,7 @@ begin
   if OpenPictureDialog.Execute then
   begin
     Image.Picture.LoadFromFile(OpenPictureDialog.FileName);
-    edtImageSize.Text := Format('%d x %d', [Image.Picture.Width,
+    edtImageSize.Text := Tnt_WideFormat('%d x %d', [Image.Picture.Width,
       Image.Picture.Height]);
     lblWarn.Caption := 'Image size more than maximum';
   end;

@@ -16,35 +16,35 @@ object fmCashWait: TfmCashWait
   Position = poScreenCenter
   PixelsPerInch = 96
   TextHeight = 13
-  object lblBeepTimeout: TLabel
+  object lblBeepTimeout: TTntLabel
     Left = 8
     Top = 16
     Width = 65
     Height = 13
     Caption = 'Beep timeout:'
   end
-  object lblbeepDelay: TLabel
+  object lblbeepDelay: TTntLabel
     Left = 8
     Top = 88
     Width = 56
     Height = 13
     Caption = 'Beep delay:'
   end
-  object lblbeepDuration: TLabel
+  object lblbeepDuration: TTntLabel
     Left = 8
     Top = 64
     Width = 69
     Height = 13
     Caption = 'Beep duration:'
   end
-  object lblbeepFrequency: TLabel
+  object lblbeepFrequency: TTntLabel
     Left = 8
     Top = 40
     Width = 78
     Height = 13
     Caption = 'Beep frequency:'
   end
-  object edtbeepTimeout: TEdit
+  object edtbeepTimeout: TTntEdit
     Left = 96
     Top = 16
     Width = 89
@@ -52,7 +52,7 @@ object fmCashWait: TfmCashWait
     TabOrder = 0
     Text = '1000'
   end
-  object edtbeepFrequency: TEdit
+  object edtbeepFrequency: TTntEdit
     Left = 96
     Top = 40
     Width = 89
@@ -60,7 +60,7 @@ object fmCashWait: TfmCashWait
     TabOrder = 1
     Text = '1000'
   end
-  object edtbeepDuration: TEdit
+  object edtbeepDuration: TTntEdit
     Left = 96
     Top = 64
     Width = 89
@@ -68,7 +68,7 @@ object fmCashWait: TfmCashWait
     TabOrder = 2
     Text = '1000'
   end
-  object edtbeepDelay: TEdit
+  object edtbeepDelay: TTntEdit
     Left = 96
     Top = 88
     Width = 89
@@ -76,7 +76,7 @@ object fmCashWait: TfmCashWait
     TabOrder = 3
     Text = '1000'
   end
-  object btnWaitForDrawerClose: TButton
+  object btnWaitForDrawerClose: TTntButton
     Left = 192
     Top = 16
     Width = 137

@@ -6,14 +6,16 @@ uses
   // VCL
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ExtCtrls, ComCtrls,
+  // Tnt
+  TntStdCtrls, TntSysUtils,
   // This
   untPages, OposFiscalPrinter, DirectIOAPI, Opos;
 
 type
   TfmFptrDirectIOEndDay = class(TPage)
-    lblResult: TLabel;
-    btnExecute: TButton;
-    edtResult: TEdit;
+    lblResult: TTntLabel;
+    btnExecute: TTntButton;
+    edtResult: TTntEdit;
     procedure btnExecuteClick(Sender: TObject);
   end;
 

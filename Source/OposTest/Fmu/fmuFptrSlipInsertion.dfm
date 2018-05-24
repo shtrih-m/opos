@@ -17,14 +17,14 @@ object fmFptrSlipInsertion: TfmFptrSlipInsertion
     270)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblTimeout: TLabel
+  object lblTimeout: TTntLabel
     Left = 8
     Top = 8
     Width = 63
     Height = 13
     Caption = 'Timeout, ms.:'
   end
-  object edtTimeout: TEdit
+  object edtTimeout: TTntEdit
     Left = 80
     Top = 8
     Width = 195
@@ -33,7 +33,7 @@ object fmFptrSlipInsertion: TfmFptrSlipInsertion
     TabOrder = 0
     Text = '10000'
   end
-  object btnBeginInsertion: TButton
+  object btnBeginInsertion: TTntButton
     Left = 280
     Top = 8
     Width = 105
@@ -43,7 +43,7 @@ object fmFptrSlipInsertion: TfmFptrSlipInsertion
     TabOrder = 1
     OnClick = btnBeginInsertionClick
   end
-  object btnEndInsertion: TButton
+  object btnEndInsertion: TTntButton
     Left = 280
     Top = 40
     Width = 105
@@ -53,7 +53,7 @@ object fmFptrSlipInsertion: TfmFptrSlipInsertion
     TabOrder = 2
     OnClick = btnEndInsertionClick
   end
-  object btnBeginRemoval: TButton
+  object btnBeginRemoval: TTntButton
     Left = 280
     Top = 72
     Width = 105
@@ -63,7 +63,7 @@ object fmFptrSlipInsertion: TfmFptrSlipInsertion
     TabOrder = 3
     OnClick = btnBeginRemovalClick
   end
-  object btnEndRemoval: TButton
+  object btnEndRemoval: TTntButton
     Left = 280
     Top = 104
     Width = 105

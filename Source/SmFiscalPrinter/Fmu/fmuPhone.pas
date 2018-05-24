@@ -6,6 +6,8 @@ uses
   // VCL
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Buttons, PngBitBtn, ExtCtrls, Mask,
+  // Tnt
+  TntStdCtrls, TntSysUtils,
   // This
   LogFile, PngSpeedButton, FormUtils;
 
@@ -15,7 +17,7 @@ type
   TfmPhone = class(TForm)
     btnOK: TPngSpeedButton;
     btnCancel: TPngSpeedButton;
-    Label1: TLabel;
+    Label1: TTntLabel;
     pnlKeyboard: TPanel;
     btn2: TPngSpeedButton;
     btn3: TPngSpeedButton;
@@ -27,7 +29,7 @@ type
     btn9: TPngSpeedButton;
     btn0: TPngSpeedButton;
     btnBack: TPngSpeedButton;
-    edtAddress: TEdit;
+    edtAddress: TTntEdit;
     btnPlus: TPngSpeedButton;
     btn1: TPngSpeedButton;
     procedure btnOKClick(Sender: TObject);
@@ -47,16 +49,16 @@ type
     procedure btnCancelClick(Sender: TObject);
   private
     procedure SendVirtualKey(VK: Integer);
-    procedure SendString(const S: string);
+    procedure SendString(const S: WideString);
   public
-    procedure UpdatePage(const Data: string);
-    procedure UpdateObject(var Data: string);
+    procedure UpdatePage(const Data: WideString);
+    procedure UpdateObject(var Data: WideString);
   end;
 
 var
   fmPhone: TfmPhone;
 
-function ShowPhoneDlg(var AData: string): Boolean;
+function ShowPhoneDlg(var AData: WideString): Boolean;
 
 implementation
 
@@ -65,7 +67,7 @@ implementation
 const
   	VK_OEM_PLUS = $BB;
 
-function ShowPhoneDlg(var AData: string): Boolean;
+function ShowPhoneDlg(var AData: WideString): Boolean;
 begin
   fmPhone := TfmPhone.Create(Application);
   try
@@ -94,7 +96,7 @@ begin
   PostMessage(edtAddress.Handle, WM_KEYDOWN, VK, 0);
 end;
 
-procedure TfmPhone.SendString(const S: string);
+procedure TfmPhone.SendString(const S: WideString);
 var
   i: Integer;
 begin
@@ -107,13 +109,13 @@ begin
   ModalResult := mrOK;
 end;
 
-procedure TfmPhone.UpdatePage(const Data: string);
+procedure TfmPhone.UpdatePage(const Data: WideString);
 begin
   edtAddress.Text := Data;
   SendVirtualKey(VK_END);
 end;
 
-procedure TfmPhone.UpdateObject(var Data: string);
+procedure TfmPhone.UpdateObject(var Data: WideString);
 begin
   Data := edtAddress.Text;
 end;

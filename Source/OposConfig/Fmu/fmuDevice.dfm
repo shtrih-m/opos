@@ -15,14 +15,14 @@ object fmDevice: TfmDevice
   Position = poScreenCenter
   PixelsPerInch = 96
   TextHeight = 13
-  object lblDeviceName: TLabel
+  object lblDeviceName: TTntLabel
     Left = 8
     Top = 20
     Width = 66
     Height = 13
     Caption = 'Device name:'
   end
-  object btnOK: TButton
+  object btnOK: TTntButton
     Left = 136
     Top = 56
     Width = 75
@@ -32,7 +32,7 @@ object fmDevice: TfmDevice
     ModalResult = 1
     TabOrder = 1
   end
-  object btnCancel: TButton
+  object btnCancel: TTntButton
     Left = 216
     Top = 56
     Width = 75
@@ -42,7 +42,7 @@ object fmDevice: TfmDevice
     ModalResult = 2
     TabOrder = 2
   end
-  object edtDeviceName: TEdit
+  object edtDeviceName: TTntEdit
     Left = 88
     Top = 16
     Width = 201

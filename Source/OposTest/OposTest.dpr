@@ -136,7 +136,8 @@ uses
   VatCode in '..\SmFiscalPrinter\Units\VatCode.pas',
   DriverTest in 'Units\DriverTest.pas',
   fmuFptrDirectIOBarcode in 'Fmu\fmuFptrDirectIOBarcode.pas' {fmFptrDirectIOBarcode},
-  WException in '..\Shared\WException.pas';
+  WException in '..\Shared\WException.pas',
+  TntIniFiles in '..\Shared\TntIniFiles.pas';
 
 {$R *.RES}
 {$R WindowsXP.RES}

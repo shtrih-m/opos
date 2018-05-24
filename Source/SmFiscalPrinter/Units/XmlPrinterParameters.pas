@@ -274,7 +274,7 @@ end;
 procedure TPrinterParameters.SetDefaults;
 var
   i: Integer;
-  Lines: TStrings;
+  Lines: TTntStrings;
 begin
   Logger.Debug('TPrinterParameters.SetDefaults');
 
@@ -329,7 +329,7 @@ begin
   HeaderType := HeaderTypePrinter;
   CompatLevel := CompatLevelNone;
 
-  Lines := TStringList.Create;
+  Lines := TTntStringList.Create;
   try
     Lines.Clear;
     for i := 1 to NumHeaderLines do
@@ -357,7 +357,7 @@ end;
 
 class function TPrinterParameters.GetSysKeyName(const DeviceName: string): string;
 begin
-  Result := Format('%s\%s\%s', [OPOS_ROOTKEY, OPOS_CLASSKEY_FPTR, DeviceName]);
+  Result := Tnt_WideFormat('%s\%s\%s', [OPOS_ROOTKEY, OPOS_CLASSKEY_FPTR, DeviceName]);
 end;
 
 class function TPrinterParameters.DeviceExists(
@@ -376,9 +376,9 @@ end;
 procedure TPrinterParameters.LogText(const Caption, Text: string);
 var
   i: Integer;
-  Lines: TStrings;
+  Lines: TTntStrings;
 begin
-  Lines := TStringList.Create;
+  Lines := TTntStringList.Create;
   try
     Lines.Text := Text;
     if Lines.Count = 1 then
@@ -593,15 +593,15 @@ end;
 
 class function TPrinterParameters.GetUsrKeyName(const DeviceName: string): string;
 begin
-  Result := Format('%s\%s\%s', [OPOS_ROOTKEY, OPOS_CLASSKEY_FPTR, DeviceName]);
+  Result := Tnt_WideFormat('%s\%s\%s', [OPOS_ROOTKEY, OPOS_CLASSKEY_FPTR, DeviceName]);
 end;
 
 procedure TPrinterParameters.LoadUsrParameters(const DeviceName: string);
 var
-  Reg: TRegistry;
+  Reg: TTntRegistry;
 begin
   Logger.Debug('TPrinterParameters.LoadUsrParameters', [DeviceName]);
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     IniFile.Access := KEY_READ;
     IniFile.RootKey := HKEY_CURRENT_USER;
@@ -638,10 +638,10 @@ end;
 
 procedure TPrinterParameters.SaveUsrParameters(const DeviceName: string);
 var
-  Reg: TRegistry;
+  Reg: TTntRegistry;
 begin
   Logger.Debug('TPrinterParameters.SaveUsrParameters', [DeviceName]);
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     IniFile.Access := KEY_ALL_ACCESS;
     IniFile.RootKey := HKEY_CURRENT_USER;

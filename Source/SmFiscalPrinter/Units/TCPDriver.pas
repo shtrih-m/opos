@@ -119,7 +119,7 @@ var
 begin
   Result := '';
   for i := 1 to Length(AStr) do
-    Result := Result + Format('%.2x', [Ord(AStr[i])]);
+    Result := Result + Tnt_WideFormat('%.2x', [Ord(AStr[i])]);
 end;
 
 function TRemoteDriver.DecodeData(const AStr: string): string;
@@ -277,7 +277,7 @@ begin
     // 1. Не смогли проверить лицензии
     if LicInfo.ResultCode <> 0 then
     begin
-      S := Format('%s. %s', [S_REMOTECONNECTION, LicInfo.ResultDesc]);
+      S := Tnt_WideFormat('%s. %s', [S_REMOTECONNECTION, LicInfo.ResultDesc]);
       RaiseError(E_REMOTECONNECTION, S);
     end;
     // 2. Ключ защиты не найден
@@ -353,7 +353,7 @@ end;
 
 function TTCPDriver.GetPortName: string;
 begin
-  Result := Format('TCP:%s:%d ', [IPAddress, TCPPort]) + inherited GetPortName;
+  Result := Tnt_WideFormat('TCP:%s:%d ', [IPAddress, TCPPort]) + inherited GetPortName;
 end;
 
 { TDCOMDriver }
@@ -415,7 +415,7 @@ end;
 
 function TDCOMDriver.GetPortName: string;
 begin
-  Result := Format('DCOM:%s ', [ComputerName]) + inherited GetPortName;
+  Result := Tnt_WideFormat('DCOM:%s ', [ComputerName]) + inherited GetPortName;
 end;
 
 function TRemoteDriver.GetLogger: TLogger;

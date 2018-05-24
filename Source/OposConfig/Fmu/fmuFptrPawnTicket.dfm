@@ -19,14 +19,14 @@ object fmFptrPawnTicket: TfmFptrPawnTicket
     224)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblUniposSalesErrorText: TLabel
+  object lblUniposSalesErrorText: TTntLabel
     Left = 8
     Top = 112
     Width = 79
     Height = 13
     Caption = 'Pawn ticket text:'
   end
-  object memPawnTicketText: TMemo
+  object memPawnTicketText: TTntMemo
     Left = 8
     Top = 128
     Width = 321

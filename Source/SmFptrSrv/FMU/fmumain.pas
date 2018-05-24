@@ -7,6 +7,8 @@ uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ComCtrls, Menus, ImgList, ExtCtrls, ShellAPI, ComServ, Buttons,
   ScktCnst,
+  // Tnt
+  TntStdCtrls, TntSysUtils,
   // This
   PortConnection, fmuAbout, VersionInfo, oleMain, TrayIcon, TCPServer,
   SrvParams;
@@ -15,8 +17,8 @@ type
   { TfmMain }
 
   TfmMain = class(TForm)
-    btnOK: TButton;
-    btnCancel: TButton;
+    btnOK: TTntButton;
+    btnCancel: TTntButton;
     ImageList: TImageList;
     PopupMenu: TPopupMenu;
     miClose: TMenuItem;
@@ -27,23 +29,23 @@ type
     tsCommon: TTabSheet;
     tsPorts: TTabSheet;
     lvPorts: TListView;
-    lblTimeout: TLabel;
-    edtTimeout: TEdit;
+    lblTimeout: TTntLabel;
+    edtTimeout: TTntEdit;
     udTimeout: TUpDown;
-    chbAutoCancel: TCheckBox;
-    chbAutoUnlock: TCheckBox;
-    btnApply: TButton;
+    chbAutoCancel: TTntCheckBox;
+    chbAutoUnlock: TTntCheckBox;
+    btnApply: TTntButton;
     tsClients: TTabSheet;
     lvClients: TListView;
-    lblClientCount: TLabel;
-    edtClientCount: TEdit;
-    Label1: TLabel;
-    chbTCPEnabled: TCheckBox;
-    edtTCPPort: TEdit;
-    lblTCPPort: TLabel;
-    lblComPort: TLabel;
+    lblClientCount: TTntLabel;
+    edtClientCount: TTntEdit;
+    Label1: TTntLabel;
+    chbTCPEnabled: TTntCheckBox;
+    edtTCPPort: TTntEdit;
+    lblTCPPort: TTntLabel;
+    lblComPort: TTntLabel;
     Bevel2: TBevel;
-    btnReleasePort: TButton;
+    btnReleasePort: TTntButton;
     Timer: TTimer;
     procedure miAboutClick(Sender: TObject);
     procedure miCloseClick(Sender: TObject);
@@ -230,7 +232,7 @@ var
   ListItem: TListItem;
 begin
   ListItem := lvPorts.Items.Add;
-  ListItem.Caption := Format('COM %d', [Port.PortNumber]);
+  ListItem.Caption := Tnt_WideFormat('COM %d', [Port.PortNumber]);
   ListItem.Data := Pointer(Port.ID);
   UpdatePortState(Port, ListItem);
 end;

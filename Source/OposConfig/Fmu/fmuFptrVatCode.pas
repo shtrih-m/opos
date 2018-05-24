@@ -5,6 +5,8 @@ interface
 uses
   // VCL
   StdCtrls, Controls, ComCtrls, Classes, SysUtils,
+  // Tnt
+  TntClasses, TntStdCtrls, TntRegistry,
   // This
   FiscalPrinterDevice, PrinterParameters, FptrTypes, DirectIOAPI, Spin;
 
@@ -12,14 +14,14 @@ type
   { TfmFptrVatCode }
 
   TfmFptrVatCode = class(TFptrPage)
-    lblAppVatCode: TLabel;
-    lblFptrVATCode: TLabel;
+    lblAppVatCode: TTntLabel;
+    lblFptrVATCode: TTntLabel;
     lvVatCodes: TListView;
-    btnDelete: TButton;
-    btnAdd: TButton;
+    btnDelete: TTntButton;
+    btnAdd: TTntButton;
     seAppVatCode: TSpinEdit;
     seFptrVatCode: TSpinEdit;
-    chbVatCodeEnabled: TCheckBox;
+    chbVatCodeEnabled: TTntCheckBox;
     procedure btnAddClick(Sender: TObject);
     procedure btnDeleteClick(Sender: TObject);
     procedure PageChange(Sender: TObject);

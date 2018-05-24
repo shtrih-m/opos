@@ -18,21 +18,21 @@ object fmFptrFiscalReports: TfmFptrFiscalReports
     287)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblReportType: TLabel
+  object lblReportType: TTntLabel
     Left = 8
     Top = 80
     Width = 59
     Height = 13
     Caption = 'ReportType:'
   end
-  object lblStartNum: TLabel
+  object lblStartNum: TTntLabel
     Left = 8
     Top = 104
     Width = 47
     Height = 13
     Caption = 'StartNum:'
   end
-  object lblEndNum: TLabel
+  object lblEndNum: TTntLabel
     Left = 8
     Top = 128
     Width = 44
@@ -55,21 +55,21 @@ object fmFptrFiscalReports: TfmFptrFiscalReports
     Anchors = [akLeft, akTop, akRight]
     Shape = bsTopLine
   end
-  object lblDate1: TLabel
+  object lblDate1: TTntLabel
     Left = 8
     Top = 200
     Width = 32
     Height = 13
     Caption = 'Date1:'
   end
-  object lblDate2: TLabel
+  object lblDate2: TTntLabel
     Left = 8
     Top = 224
     Width = 32
     Height = 13
     Caption = 'Date2:'
   end
-  object btnPrintReport: TButton
+  object btnPrintReport: TTntButton
     Left = 249
     Top = 160
     Width = 137
@@ -79,7 +79,7 @@ object fmFptrFiscalReports: TfmFptrFiscalReports
     TabOrder = 10
     OnClick = btnPrintReportClick
   end
-  object edtReportType: TEdit
+  object edtReportType: TTntEdit
     Left = 72
     Top = 80
     Width = 73
@@ -87,7 +87,7 @@ object fmFptrFiscalReports: TfmFptrFiscalReports
     TabOrder = 2
     Text = '1'
   end
-  object cbReportType: TComboBox
+  object cbReportType: TTntComboBox
     Left = 152
     Top = 80
     Width = 234
@@ -102,7 +102,7 @@ object fmFptrFiscalReports: TfmFptrFiscalReports
       'FPTR_RT_DATE'
       'FPTR_RT_EOD_ORDINAL')
   end
-  object edtStartNum: TEdit
+  object edtStartNum: TTntEdit
     Left = 72
     Top = 104
     Width = 121
@@ -110,7 +110,7 @@ object fmFptrFiscalReports: TfmFptrFiscalReports
     TabOrder = 4
     Text = '0'
   end
-  object edtEndNum: TEdit
+  object edtEndNum: TTntEdit
     Left = 72
     Top = 128
     Width = 121
@@ -118,7 +118,7 @@ object fmFptrFiscalReports: TfmFptrFiscalReports
     TabOrder = 7
     Text = '0'
   end
-  object btnPrintXReport: TButton
+  object btnPrintXReport: TTntButton
     Left = 249
     Top = 8
     Width = 137
@@ -128,7 +128,7 @@ object fmFptrFiscalReports: TfmFptrFiscalReports
     TabOrder = 0
     OnClick = btnPrintXReportClick
   end
-  object btnPrintZReport: TButton
+  object btnPrintZReport: TTntButton
     Left = 249
     Top = 40
     Width = 137
@@ -160,7 +160,7 @@ object fmFptrFiscalReports: TfmFptrFiscalReports
     TabOrder = 8
     OnChange = dtpEndChange
   end
-  object btnStartDate: TButton
+  object btnStartDate: TTntButton
     Left = 353
     Top = 104
     Width = 33
@@ -170,7 +170,7 @@ object fmFptrFiscalReports: TfmFptrFiscalReports
     TabOrder = 6
     OnClick = btnStartDateClick
   end
-  object btnEndDate: TButton
+  object btnEndDate: TTntButton
     Left = 353
     Top = 128
     Width = 33
@@ -180,7 +180,7 @@ object fmFptrFiscalReports: TfmFptrFiscalReports
     TabOrder = 9
     OnClick = btnEndDateClick
   end
-  object btnPrintPeriodicTotalsReport: TButton
+  object btnPrintPeriodicTotalsReport: TTntButton
     Left = 249
     Top = 256
     Width = 137
@@ -190,7 +190,7 @@ object fmFptrFiscalReports: TfmFptrFiscalReports
     TabOrder = 17
     OnClick = btnPrintPeriodicTotalsReportClick
   end
-  object edtDate1: TEdit
+  object edtDate1: TTntEdit
     Left = 72
     Top = 200
     Width = 121
@@ -198,7 +198,7 @@ object fmFptrFiscalReports: TfmFptrFiscalReports
     TabOrder = 11
     Text = '0'
   end
-  object edtDate2: TEdit
+  object edtDate2: TTntEdit
     Left = 72
     Top = 224
     Width = 121
@@ -228,7 +228,7 @@ object fmFptrFiscalReports: TfmFptrFiscalReports
     TabOrder = 15
     OnChange = dtpDate2Change
   end
-  object btnDate1: TButton
+  object btnDate1: TTntButton
     Left = 353
     Top = 200
     Width = 33
@@ -238,7 +238,7 @@ object fmFptrFiscalReports: TfmFptrFiscalReports
     TabOrder = 13
     OnClick = btnDate1Click
   end
-  object btnDate2: TButton
+  object btnDate2: TTntButton
     Left = 353
     Top = 224
     Width = 33

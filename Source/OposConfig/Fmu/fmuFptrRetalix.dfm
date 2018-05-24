@@ -19,14 +19,14 @@ object fmFptrRetalix: TfmFptrRetalix
     321)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblRetalixDBPath: TLabel
+  object lblRetalixDBPath: TTntLabel
     Left = 24
     Top = 48
     Width = 73
     Height = 13
     Caption = 'Database path:'
   end
-  object Label1: TLabel
+  object Label1: TTntLabel
     Left = 24
     Top = 104
     Width = 309
@@ -35,7 +35,7 @@ object fmFptrRetalix: TfmFptrRetalix
       'Driver will user lcase SQL function that will slow down search t' +
       'ime'#13#10'for 1 second or more. '
   end
-  object edtRetalixDBPath: TEdit
+  object edtRetalixDBPath: TTntEdit
     Left = 112
     Top = 48
     Width = 249
@@ -44,7 +44,7 @@ object fmFptrRetalix: TfmFptrRetalix
     TabOrder = 1
     Text = '30'
   end
-  object chbRetalixDBEnabled: TCheckBox
+  object chbRetalixDBEnabled: TTntCheckBox
     Left = 8
     Top = 16
     Width = 257
@@ -52,7 +52,7 @@ object fmFptrRetalix: TfmFptrRetalix
     Caption = 'Retalix database query enabled'
     TabOrder = 0
   end
-  object chbRetalixSearchCI: TCheckBox
+  object chbRetalixSearchCI: TTntCheckBox
     Left = 8
     Top = 80
     Width = 313
@@ -60,7 +60,7 @@ object fmFptrRetalix: TfmFptrRetalix
     Caption = 'Search items case insensitively'
     TabOrder = 2
   end
-  object chbRosneftDryReceiptEnabled: TCheckBox
+  object chbRosneftDryReceiptEnabled: TTntCheckBox
     Left = 8
     Top = 144
     Width = 313

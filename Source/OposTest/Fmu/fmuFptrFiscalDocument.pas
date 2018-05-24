@@ -6,18 +6,20 @@ uses
   // VCL
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ExtCtrls,
+  // Tnt
+  TntStdCtrls, TntRegistry,
   // This
   untPages, OposFiscalPrinter;
 
 type
   TfmFptrFiscalDocument = class(TPage)
-    btnBeginFiscalDocument: TButton;
-    lblAmount: TLabel;
-    edtAmount: TEdit;
-    btnEndFiscalDocument: TButton;
-    btnPrintFiscalDocumentLine: TButton;
-    lblLine: TLabel;
-    edtLine: TEdit;
+    btnBeginFiscalDocument: TTntButton;
+    lblAmount: TTntLabel;
+    edtAmount: TTntEdit;
+    btnEndFiscalDocument: TTntButton;
+    btnPrintFiscalDocumentLine: TTntButton;
+    lblLine: TTntLabel;
+    edtLine: TTntEdit;
     procedure btnBeginFiscalDocumentClick(Sender: TObject);
     procedure btnEndFiscalDocumentClick(Sender: TObject);
     procedure btnPrintFiscalDocumentLineClick(Sender: TObject);

@@ -5,6 +5,8 @@ interface
 uses
   // VCL
   Windows, SysUtils, Classes,
+  // Tnt
+  TntClasses, 
   // DUnit
   TestFramework,
   // Opos
@@ -288,9 +290,9 @@ procedure TRegressTests.Check_NQR_6836_1;
 var
   Logger: ILogFile;
   FilesPath: string;
-  FileNames: TStringList;
+  FileNames: TTntStringList;
 begin
-  FileNames := TStringList.Create;
+  FileNames := TTntStringList.Create;
   try
     Logger := TLogFile.Create;
     Logger.MaxCount := 3;

@@ -17,42 +17,42 @@ object fmFptrRecTotal: TfmFptrRecTotal
     270)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblTotal: TLabel
+  object lblTotal: TTntLabel
     Left = 8
     Top = 56
     Width = 27
     Height = 13
     Caption = 'Total:'
   end
-  object lblPayment: TLabel
+  object lblPayment: TTntLabel
     Left = 8
     Top = 80
     Width = 44
     Height = 13
     Caption = 'Payment:'
   end
-  object lblDescription: TLabel
+  object lblDescription: TTntLabel
     Left = 8
     Top = 104
     Width = 56
     Height = 13
     Caption = 'Description:'
   end
-  object lblPreLine: TLabel
+  object lblPreLine: TTntLabel
     Left = 8
     Top = 8
     Width = 39
     Height = 13
     Caption = 'PreLine:'
   end
-  object lblPostLine: TLabel
+  object lblPostLine: TTntLabel
     Left = 8
     Top = 32
     Width = 44
     Height = 13
     Caption = 'PostLine:'
   end
-  object btnExecute: TButton
+  object btnExecute: TTntButton
     Left = 240
     Top = 136
     Width = 145
@@ -62,7 +62,7 @@ object fmFptrRecTotal: TfmFptrRecTotal
     TabOrder = 6
     OnClick = btnExecuteClick
   end
-  object edtTotal: TEdit
+  object edtTotal: TTntEdit
     Left = 80
     Top = 56
     Width = 305
@@ -71,7 +71,7 @@ object fmFptrRecTotal: TfmFptrRecTotal
     TabOrder = 2
     Text = '100'
   end
-  object edtPayment: TEdit
+  object edtPayment: TTntEdit
     Left = 80
     Top = 80
     Width = 305
@@ -80,7 +80,7 @@ object fmFptrRecTotal: TfmFptrRecTotal
     TabOrder = 3
     Text = '100'
   end
-  object edtDescription: TEdit
+  object edtDescription: TTntEdit
     Left = 80
     Top = 104
     Width = 305
@@ -89,7 +89,7 @@ object fmFptrRecTotal: TfmFptrRecTotal
     TabOrder = 4
     Text = '0'
   end
-  object edtPreLine: TEdit
+  object edtPreLine: TTntEdit
     Left = 80
     Top = 8
     Width = 305
@@ -98,7 +98,7 @@ object fmFptrRecTotal: TfmFptrRecTotal
     TabOrder = 0
     Text = 'PreLine'
   end
-  object edtPostLine: TEdit
+  object edtPostLine: TTntEdit
     Left = 80
     Top = 32
     Width = 305
@@ -107,7 +107,7 @@ object fmFptrRecTotal: TfmFptrRecTotal
     TabOrder = 1
     Text = 'PostLine'
   end
-  object chbCheckTotal: TCheckBox
+  object chbCheckTotal: TTntCheckBox
     Left = 80
     Top = 136
     Width = 97

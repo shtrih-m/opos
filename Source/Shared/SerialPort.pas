@@ -5,11 +5,13 @@ interface
 uses
   // VCL
   Windows, Classes, SysUtils, SyncObjs, SysConst, Variants,
+  // Tnt
+  TntClasses,
   // JVCL
   DBT,
   // This
   LogFile, DeviceNotification, PortUtil, TextReport, PrinterPort,
-  WException, gnugettext;
+  WException, TntSysUtils, gnugettext;
 
 type
   { TSerialPort }
@@ -133,7 +135,7 @@ begin
   Result := (Value and Mask) <> 0;
 end;
 
-function StringsToText(Strings: TStrings): string;
+function StringsToText(Strings: TTntStrings): string;
 var
   i: Integer;
 begin
@@ -147,10 +149,10 @@ end;
 
 function GetProviderCapabilitiesText(Value: Integer): string;
 var
-  Strings: TStrings;
+  Strings: TTntStrings;
 begin
   Result := '';
-  Strings := TStringList.Create;
+  Strings := TTntStringList.Create;
   try
     if TestMask(Value, PCF_DTRDSR) then Strings.Add('PCF_DTRDSR');
     if TestMask(Value, PCF_RTSCTS) then Strings.Add('PCF_RTSCTS');
@@ -171,10 +173,10 @@ end;
 
 function GetSettableParamsText(const Value: Integer): string;
 var
-  Strings: TStrings;
+  Strings: TTntStrings;
 begin
   Result := '';
-  Strings := TStringList.Create;
+  Strings := TTntStringList.Create;
   try
     if TestMask(Value, SP_PARITY) then Strings.Add('SP_PARITY');
     if TestMask(Value, SP_BAUD) then Strings.Add('SP_BAUD');
@@ -192,10 +194,10 @@ end;
 
 function GetBaudRatesText(const Value: Integer): string;
 var
-  Strings: TStrings;
+  Strings: TTntStrings;
 begin
   Result := '';
-  Strings := TStringList.Create;
+  Strings := TTntStringList.Create;
   try
     if TestMask(Value, BAUD_075) then Strings.Add('BAUD_075');
     if TestMask(Value, BAUD_110) then Strings.Add('BAUD_110');
@@ -226,10 +228,10 @@ end;
 
 function GetDataBitsText(const Value: Integer): string;
 var
-  Strings: TStrings;
+  Strings: TTntStrings;
 begin
   Result := '';
-  Strings := TStringList.Create;
+  Strings := TTntStringList.Create;
   try
     if TestMask(Value, DATABITS_5) then Strings.Add('DATABITS_5');
     if TestMask(Value, DATABITS_6) then Strings.Add('DATABITS_6');
@@ -246,10 +248,10 @@ end;
 
 function GetStopParityText(const Value: Integer): string;
 var
-  Strings: TStrings;
+  Strings: TTntStrings;
 begin
   Result := '';
-  Strings := TStringList.Create;
+  Strings := TTntStringList.Create;
   try
     if TestMask(Value, STOPBITS_10) then Strings.Add('STOPBITS_10');
     if TestMask(Value, STOPBITS_15) then Strings.Add('STOPBITS_15');
@@ -268,7 +270,7 @@ end;
 
 function GetLastErrorText: string;
 begin
-  Result := Format(SOSError, [GetLastError, SysErrorMessage(GetLastError)]);
+  Result := Tnt_WideFormat(SOSError, [GetLastError, SysErrorMessage(GetLastError)]);
 end;
 
 procedure RaiseSerialPortError;
@@ -445,31 +447,31 @@ begin
   FReport.Add('ServiceMask', FCommProp.dwServiceMask);
   FReport.Add('MaxTxQueue', FCommProp.dwMaxTxQueue);
   FReport.Add('MaxRxQueue', FCommProp.dwMaxRxQueue);
-  FReport.Add('MaxBaud', Format('0x%.8x, %s', [
+  FReport.Add('MaxBaud', Tnt_WideFormat('0x%.8x, %s', [
     FCommProp.dwMaxBaud,
     GetBaudRatesText(FCommProp.dwMaxBaud)]));
 
-  FReport.Add('ProvSubType', Format('0x%.8x, %s', [
+  FReport.Add('ProvSubType', Tnt_WideFormat('0x%.8x, %s', [
     FCommProp.dwProvSubType,
     GetProviderSubTypeText(FCommProp.dwProvSubType)]));
 
-  FReport.Add('ProvCapabilities', Format('0x%.8x, %s', [
+  FReport.Add('ProvCapabilities', Tnt_WideFormat('0x%.8x, %s', [
     FCommProp.dwProvCapabilities,
     GetProviderCapabilitiesText(FCommProp.dwProvCapabilities)]));
 
-  FReport.Add('SettableParams', Format('0x%.8x, %s', [
+  FReport.Add('SettableParams', Tnt_WideFormat('0x%.8x, %s', [
     FCommProp.dwSettableParams,
     GetSettableParamsText(FCommProp.dwSettableParams)]));
 
-  FReport.Add('SettableBaud', Format('0x%.8x, %s', [
+  FReport.Add('SettableBaud', Tnt_WideFormat('0x%.8x, %s', [
     FCommProp.dwSettableBaud,
     GetBaudRatesText(FCommProp.dwSettableBaud)]));
 
-  FReport.Add('SettableData', Format('0x%.8x, %s', [
+  FReport.Add('SettableData', Tnt_WideFormat('0x%.8x, %s', [
     FCommProp.wSettableData,
     GetDataBitsText(FCommProp.wSettableData)]));
 
-  FReport.Add('SettableStopParity', Format('0x%.8x, %s', [
+  FReport.Add('SettableStopParity', Tnt_WideFormat('0x%.8x, %s', [
     FCommProp.wSettableStopParity,
     GetStopParityText(FCommProp.wSettableStopParity)]));
 

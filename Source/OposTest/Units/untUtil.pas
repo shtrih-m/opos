@@ -4,18 +4,20 @@ interface
 
 uses
   // This
-  Classes, ComCtrls, ExtCtrls, StdCtrls, Controls, Forms, Registry;
+  Classes, ComCtrls, ExtCtrls, StdCtrls, Controls, Forms, Registry,
+  // Tnt
+  TntStdCtrls, TntRegistry;
 
 procedure SaveFormParams(Form: TForm; const RegKey: string);
 procedure LoadFormParams(Form: TForm; const RegKey: string);
-procedure EnableControlButtons(WinControl: TWinControl; Value: Boolean; var AButton: TButton);
+procedure EnableControlButtons(WinControl: TWinControl; Value: Boolean; var AButton: TTntButton);
 
 implementation
 
-procedure EnableControlButtons(WinControl: TWinControl; Value: Boolean; var AButton: TButton);
+procedure EnableControlButtons(WinControl: TWinControl; Value: Boolean; var AButton: TTntButton);
 var
   i: Integer;
-  Button: TButton;
+  Button: TTntButton;
   Control: TControl;
 begin
   for i := 0 to WinControl.ControlCount-1 do
@@ -25,9 +27,9 @@ begin
       EnableControlButtons(Control as TWinControl, Value, AButton);
   end;
 
-  if (WinControl is TButton) then
+  if (WinControl is TTntButton) then
   begin
-    Button := WinControl as TButton;
+    Button := WinControl as TTntButton;
     if Value then
     begin
       Button.Enabled := True;
@@ -40,7 +42,7 @@ begin
   end;
 end;
 
-procedure LoadControlParams(const Path: string; Control: TWinControl; Reg: TRegistry);
+procedure LoadControlParams(const Path: string; Control: TWinControl; Reg: TTntRegistry);
 var
   i: Integer;
   Item: TControl;
@@ -55,12 +57,12 @@ begin
       LoadControlParams(ValueName, Item as TWinControl, Reg);
       if Reg.ValueExists(ValueName) then
       begin
-        if Item is TEdit and (not TEdit(Item).ReadOnly) then
-          TEdit(Item).Text := Reg.ReadString(ValueName);
-        if Item is TComboBox then
-          TComboBox(Item).ItemIndex := Reg.ReadInteger(ValueName);
-        if Item is TCheckBox then
-          TCheckBox(Item).Checked := Reg.ReadBool(ValueName);
+        if Item is TTntEdit and (not TTntEdit(Item).ReadOnly) then
+          TTntEdit(Item).Text := Reg.ReadString(ValueName);
+        if Item is TTntComboBox then
+          TTntComboBox(Item).ItemIndex := Reg.ReadInteger(ValueName);
+        if Item is TTntCheckBox then
+          TTntCheckBox(Item).Checked := Reg.ReadBool(ValueName);
         if Item is TRadioGroup then
           TRadioGroup(Item).ItemIndex := Reg.ReadInteger(ValueName);
         if Item is TDateTimePicker then
@@ -81,16 +83,16 @@ begin
     if Item is TWinControl then
     begin
       SetDefaults(Item as TWinControl);
-      if Item.ClassNameIs('TComboBox') then
-        TComboBox(Item).ItemIndex := 0;
+      if Item.ClassNameIs('TTntComboBox') then
+        TTntComboBox(Item).ItemIndex := 0;
     end;
   end;
 end;
 
-procedure SaveControlParams(const Path: string; Control: TWinControl; Reg: TRegistry);
+procedure SaveControlParams(const Path: string; Control: TWinControl; Reg: TTntRegistry);
 var
   i: Integer;
-  EditItem: TEdit;
+  EditItem: TTntEdit;
   Item: TComponent;
   ValueName: string;
 begin
@@ -101,18 +103,18 @@ begin
     begin
       ValueName := Path + '.' + Item.Name;
       SaveControlParams(ValueName, Item as TWinControl, Reg);
-      if Item is TEdit then
+      if Item is TTntEdit then
       begin
-        EditItem := Item as TEdit;
+        EditItem := Item as TTntEdit;
         if not EditItem.ReadOnly then
         Reg.WriteString(ValueName, EditItem.Text);
       end;
 
-      if Item is TComboBox then
-        Reg.WriteInteger(ValueName, TComboBox(Item).ItemIndex);
+      if Item is TTntComboBox then
+        Reg.WriteInteger(ValueName, TTntComboBox(Item).ItemIndex);
 
-      if Item is TCheckBox then
-        Reg.WriteBool(ValueName, TCheckBox(Item).Checked);
+      if Item is TTntCheckBox then
+        Reg.WriteBool(ValueName, TTntCheckBox(Item).Checked);
 
       if Item is TRadioGroup then
         Reg.WriteInteger(ValueName, TRadioGroup(Item).ItemIndex);
@@ -126,9 +128,9 @@ end;
 
 procedure LoadFormParams(Form: TForm; const RegKey: string);
 var
-  Reg: TRegistry;
+  Reg: TTntRegistry;
 begin
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     if Reg.OpenKey(RegKey, False) then
     begin
@@ -144,9 +146,9 @@ end;
 
 procedure SaveFormParams(Form: TForm; const RegKey: string);
 var
-  Reg: TRegistry;
+  Reg: TTntRegistry;
 begin
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     if Reg.OpenKey(RegKey, True) then
     begin

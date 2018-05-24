@@ -11,7 +11,7 @@ uses
   PrinterTypes, BinStream, PrinterCommand, SerialPort, DeviceTables,
   PrinterConnection, DriverTypes, FiscalPrinterStatistics,
   FixedStrings, NotifyLink, PrinterParameters, MalinaParams,
-  DriverContext, StringUtils;
+  DriverContext, TntSysUtils, StringUtils;
 
 type
   { TFSDocument1 }
@@ -954,7 +954,7 @@ end;
 
 function TicketToStr(const Ticket: TFSTicket): string;
 begin
-  Result := Format('%s;%s;%s;%s', [
+  Result := Tnt_WideFormat('%s;%s;%s;%s', [
     PrinterDateTimeToStr3(Ticket.Date),
     StrToHexText(Ticket.DocumentMac),
     IntToStr(Ticket.DocumentNum),

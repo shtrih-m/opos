@@ -10,9 +10,9 @@ DCC = $(ROOT)\bin\dcc32.exe $**
 BRCC = $(ROOT)\bin\brcc32.exe $**
 #------------------------------------------------------------------------------
 PROJECTS = OposConfig.exe OposTest.exe SmFiscalPrinter.dll SmScale.dll \
-  SmFptrSrv.exe OposConfigTest.exe OposConfigTestLib.dll SmFiscalPrinterTest.exe \
+  OposConfigTest.exe OposConfigTestLib.dll SmFiscalPrinterTest.exe \
   SmFiscalPrinterTestLib.dll OposTestTest.exe OposTestTestLib.dll SmScaleTest.exe \
-  SmScaleTestLib.dll
+  SmScaleTestLib.dll SmFptrSrv.exe
 #------------------------------------------------------------------------------
 default: $(PROJECTS)
 #------------------------------------------------------------------------------

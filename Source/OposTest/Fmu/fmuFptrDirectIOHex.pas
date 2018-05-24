@@ -6,16 +6,18 @@ uses
   // VCL
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ExtCtrls, ComCtrls,
+  // Tnt
+  TntStdCtrls, TntSysUtils,
   // This
   untPages, OposFiscalPrinter, DirectIOAPI, Opos;
 
 type
   TfmFptrDirectIOHex = class(TPage)
-    lblTxData: TLabel;
-    btnExecute: TButton;      
-    lblRxData: TLabel;
-    edtRxData: TEdit;
-    edtTxData: TEdit;
+    lblTxData: TTntLabel;
+    btnExecute: TTntButton;      
+    lblRxData: TTntLabel;
+    edtRxData: TTntEdit;
+    edtTxData: TTntEdit;
     procedure btnExecuteClick(Sender: TObject);
   end;
 

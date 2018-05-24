@@ -26,35 +26,35 @@ object fmFptrFuel: TfmFptrFuel
     DesignSize = (
       433
       313)
-    object Label3: TLabel
+    object Label3: TTntLabel
       Left = 16
       Top = 88
       Width = 231
       Height = 13
       Caption = 'Fuel receipt item text used to determine fuel sales'
     end
-    object lblFuelItemText: TLabel
+    object lblFuelItemText: TTntLabel
       Left = 16
       Top = 112
       Width = 100
       Height = 13
       Caption = 'Fuel receipt item text:'
     end
-    object lblFuelAmountStep: TLabel
+    object lblFuelAmountStep: TTntLabel
       Left = 16
       Top = 240
       Width = 113
       Height = 13
       Caption = 'Fuel amount step, RUB:'
     end
-    object lblFuelAmountPrecision: TLabel
+    object lblFuelAmountPrecision: TTntLabel
       Left = 16
       Top = 272
       Width = 171
       Height = 13
       Caption = 'Fuel amount precision 0.01..1, RUB:'
     end
-    object chbFuelRoundEnabled: TCheckBox
+    object chbFuelRoundEnabled: TTntCheckBox
       Left = 16
       Top = 32
       Width = 297
@@ -76,7 +76,7 @@ object fmFptrFuel: TfmFptrFuel
       ScrollBars = ssVertical
       TabOrder = 2
     end
-    object edtFuelAmountStep: TEdit
+    object edtFuelAmountStep: TTntEdit
       Left = 216
       Top = 240
       Width = 209
@@ -85,7 +85,7 @@ object fmFptrFuel: TfmFptrFuel
       TabOrder = 3
       Text = 'edtFuelAmountStep'
     end
-    object edtFuelAmountPrecision: TEdit
+    object edtFuelAmountPrecision: TTntEdit
       Left = 216
       Top = 272
       Width = 209
@@ -94,7 +94,7 @@ object fmFptrFuel: TfmFptrFuel
       TabOrder = 4
       Text = 'edtFuelAmountPrecision'
     end
-    object chbCashRoundEnabled: TCheckBox
+    object chbCashRoundEnabled: TTntCheckBox
       Left = 16
       Top = 56
       Width = 297

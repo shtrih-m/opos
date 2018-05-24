@@ -21,7 +21,7 @@ object fmMain: TfmMain
     302)
   PixelsPerInch = 96
   TextHeight = 13
-  object btnOK: TButton
+  object btnOK: TTntButton
     Left = 208
     Top = 272
     Width = 75
@@ -31,7 +31,7 @@ object fmMain: TfmMain
     TabOrder = 1
     OnClick = btnOKClick
   end
-  object btnCancel: TButton
+  object btnCancel: TTntButton
     Left = 288
     Top = 272
     Width = 75
@@ -51,28 +51,28 @@ object fmMain: TfmMain
     TabOrder = 0
     object tsCommon: TTabSheet
       Caption = 'Parameters'
-      object lblTimeout: TLabel
+      object lblTimeout: TTntLabel
         Left = 96
         Top = 124
         Width = 160
         Height = 13
         Caption = 'Serial port claim timeout, seconds:'
       end
-      object Label1: TLabel
+      object Label1: TTntLabel
         Left = 16
         Top = 18
         Width = 54
         Height = 13
         Caption = 'Connection'
       end
-      object lblTCPPort: TLabel
+      object lblTCPPort: TTntLabel
         Left = 256
         Top = 44
         Width = 60
         Height = 13
         Caption = 'Port number:'
       end
-      object lblComPort: TLabel
+      object lblComPort: TTntLabel
         Left = 16
         Top = 88
         Width = 47
@@ -86,7 +86,7 @@ object fmMain: TfmMain
         Height = 17
         Shape = bsTopLine
       end
-      object edtTimeout: TEdit
+      object edtTimeout: TTntEdit
         Left = 320
         Top = 120
         Width = 65
@@ -108,7 +108,7 @@ object fmMain: TfmMain
         TabOrder = 3
         OnClick = udTimeoutClick
       end
-      object chbAutoCancel: TCheckBox
+      object chbAutoCancel: TTntCheckBox
         Left = 96
         Top = 176
         Width = 305
@@ -120,7 +120,7 @@ object fmMain: TfmMain
         TabOrder = 5
         OnClick = ModifiedClick
       end
-      object chbAutoUnlock: TCheckBox
+      object chbAutoUnlock: TTntCheckBox
         Left = 96
         Top = 152
         Width = 305
@@ -132,7 +132,7 @@ object fmMain: TfmMain
         TabOrder = 4
         OnClick = ModifiedClick
       end
-      object chbTCPEnabled: TCheckBox
+      object chbTCPEnabled: TTntCheckBox
         Left = 96
         Top = 42
         Width = 153
@@ -141,7 +141,7 @@ object fmMain: TfmMain
         TabOrder = 0
         OnClick = chbTCPEnabledClick
       end
-      object edtTCPPort: TEdit
+      object edtTCPPort: TTntEdit
         Left = 328
         Top = 40
         Width = 73
@@ -192,7 +192,7 @@ object fmMain: TfmMain
         ViewStyle = vsReport
         OnChange = lvPortsChange
       end
-      object btnReleasePort: TButton
+      object btnReleasePort: TTntButton
         Left = 312
         Top = 200
         Width = 107
@@ -209,7 +209,7 @@ object fmMain: TfmMain
       DesignSize = (
         425
         229)
-      object lblClientCount: TLabel
+      object lblClientCount: TTntLabel
         Left = 8
         Top = 208
         Width = 95
@@ -249,7 +249,7 @@ object fmMain: TfmMain
         ViewStyle = vsReport
         OnChange = lvPortsChange
       end
-      object edtClientCount: TEdit
+      object edtClientCount: TTntEdit
         Left = 128
         Top = 204
         Width = 81
@@ -263,7 +263,7 @@ object fmMain: TfmMain
       end
     end
   end
-  object btnApply: TButton
+  object btnApply: TTntButton
     Left = 368
     Top = 272
     Width = 75

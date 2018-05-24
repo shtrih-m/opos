@@ -17,21 +17,21 @@ object fmFptrSetVatTable: TfmFptrSetVatTable
     270)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblVatID: TLabel
+  object lblVatID: TTntLabel
     Left = 8
     Top = 8
     Width = 30
     Height = 13
     Caption = 'VatID:'
   end
-  object lblVatValue: TLabel
+  object lblVatValue: TTntLabel
     Left = 8
     Top = 32
     Width = 46
     Height = 13
     Caption = 'VatValue:'
   end
-  object btnSetVatTable: TButton
+  object btnSetVatTable: TTntButton
     Left = 280
     Top = 40
     Width = 105
@@ -41,7 +41,7 @@ object fmFptrSetVatTable: TfmFptrSetVatTable
     TabOrder = 0
     OnClick = btnSetVatTableClick
   end
-  object btnSetVatValue: TButton
+  object btnSetVatValue: TTntButton
     Left = 280
     Top = 8
     Width = 105
@@ -51,7 +51,7 @@ object fmFptrSetVatTable: TfmFptrSetVatTable
     TabOrder = 1
     OnClick = btnSetVatValueClick
   end
-  object edtVatID: TEdit
+  object edtVatID: TTntEdit
     Left = 64
     Top = 8
     Width = 210
@@ -60,7 +60,7 @@ object fmFptrSetVatTable: TfmFptrSetVatTable
     TabOrder = 2
     Text = '0'
   end
-  object edtVatValue: TEdit
+  object edtVatValue: TTntEdit
     Left = 64
     Top = 32
     Width = 210

@@ -16,28 +16,28 @@ object fmFptrText: TfmFptrText
   Position = poScreenCenter
   PixelsPerInch = 96
   TextHeight = 13
-  object lblQuantityLength: TLabel
+  object lblQuantityLength: TTntLabel
     Left = 16
     Top = 168
     Width = 186
     Height = 13
     Caption = '"QUANTITY X PRICE" field size, 0..56:'
   end
-  object lblRFAmountLength: TLabel
+  object lblRFAmountLength: TTntLabel
     Left = 16
     Top = 200
     Width = 133
     Height = 13
     Caption = '"AMOUNT" field size, 0..56:'
   end
-  object lblRFSeparatorLine: TLabel
+  object lblRFSeparatorLine: TTntLabel
     Left = 16
     Top = 232
     Width = 68
     Height = 13
     Caption = 'Separator line:'
   end
-  object gbTextParameters: TGroupBox
+  object gbTextParameters: TTntGroupBox
     Left = 8
     Top = 8
     Width = 473
@@ -47,35 +47,35 @@ object fmFptrText: TfmFptrText
     DesignSize = (
       473
       137)
-    object lblFontNumber: TLabel
+    object lblFontNumber: TTntLabel
       Left = 8
       Top = 28
       Width = 62
       Height = 13
       Caption = 'Font number:'
     end
-    object lblCloseRecText: TLabel
+    object lblCloseRecText: TTntLabel
       Left = 8
       Top = 76
       Width = 84
       Height = 13
       Caption = 'Close receipt text:'
     end
-    object lblSubtotalName: TLabel
+    object lblSubtotalName: TTntLabel
       Left = 8
       Top = 52
       Width = 62
       Height = 13
       Caption = 'Subtotal text:'
     end
-    object lblVoidRecText: TLabel
+    object lblVoidRecText: TTntLabel
       Left = 8
       Top = 100
       Width = 79
       Height = 13
       Caption = 'Void receipt text:'
     end
-    object edtSubtotalName: TEdit
+    object edtSubtotalName: TTntEdit
       Left = 104
       Top = 48
       Width = 361
@@ -85,7 +85,7 @@ object fmFptrText: TfmFptrText
       TabOrder = 1
       OnChange = PageChange
     end
-    object edtCloseRecText: TEdit
+    object edtCloseRecText: TTntEdit
       Left = 104
       Top = 72
       Width = 361
@@ -95,7 +95,7 @@ object fmFptrText: TfmFptrText
       TabOrder = 2
       OnChange = PageChange
     end
-    object edtVoidRecText: TEdit
+    object edtVoidRecText: TTntEdit
       Left = 104
       Top = 96
       Width = 361
@@ -135,7 +135,7 @@ object fmFptrText: TfmFptrText
     TabOrder = 2
     Value = 0
   end
-  object chbRFShowTaxLetters: TCheckBox
+  object chbRFShowTaxLetters: TTntCheckBox
     Left = 16
     Top = 256
     Width = 185
@@ -143,7 +143,7 @@ object fmFptrText: TfmFptrText
     Caption = 'Show tax letters'
     TabOrder = 4
   end
-  object cbRFSeparatorLine: TComboBox
+  object cbRFSeparatorLine: TTntComboBox
     Left = 216
     Top = 232
     Width = 121

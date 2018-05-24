@@ -14,25 +14,25 @@ type
 
   TfmGraph = class(TPage)
     OpenPictureDialog: TOpenPictureDialog;
-    GroupBox1: TGroupBox;
-    btnLoadImage: TButton;
-    btnLoadLineDataEx: TButton;
-    btnWideLoadLineData: TButton;
-    btnMonochrome1: TButton;
-    btnMonochrome2: TButton;
+    GroupBox1: TTntGroupBox;
+    btnLoadImage: TTntButton;
+    btnLoadLineDataEx: TTntButton;
+    btnWideLoadLineData: TTntButton;
+    btnMonochrome1: TTntButton;
+    btnMonochrome2: TTntButton;
     pnlImage: TPanel;
     Image: TImage;
     ProgressBar: TProgressBar;
-    btnOpenPicture: TBitBtn;
-    GroupBox2: TGroupBox;
-    lblFirstLineNumber: TLabel;
-    lblLastLineNumber: TLabel;
-    edtFirstLineNumber: TEdit;
+    btnOpenPicture: TTntBitBtn;
+    GroupBox2: TTntGroupBox;
+    lblFirstLineNumber: TTntLabel;
+    lblLastLineNumber: TTntLabel;
+    edtFirstLineNumber: TTntEdit;
     udFirstLineNumber: TUpDown;
-    edtLastLineNumber: TEdit;
+    edtLastLineNumber: TTntEdit;
     udLastLineNumber: TUpDown;
-    btnDraw: TButton;
-    btnDrawEx: TButton;
+    btnDraw: TTntButton;
+    btnDrawEx: TTntButton;
     procedure btnDrawClick(Sender: TObject);
     procedure btnLoadImageClick(Sender: TObject);
     procedure btnOpenPictureClick(Sender: TObject);
@@ -229,7 +229,7 @@ var
 begin
   ResultCode := Driver.ResultCode;
   ResultCodeDescription := Driver.ResultCodeDescription;
-  S := Format('Ошибка %d: %s'#10#13'Продолжить?',
+  S := Tnt_WideFormat('Ошибка %d: %s'#10#13'Продолжить?',
     [ResultCode, ResultCodeDescription]);
   Result := MessageBox(Handle, PChar(S), PChar(Application.Title),
     MB_YESNO) = IDYES;

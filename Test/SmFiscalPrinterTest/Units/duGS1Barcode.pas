@@ -38,7 +38,7 @@ begin
   CheckEquals('Ai1iJul', Barcode.Serial, 'Barcode.Serial');
 
   Data := GS1DecodeBraces(Barcode3);
-  CheckEquals('(01)04606203084623(21)+A13gPh(291)-4Hi7uGl', Data, 'Data');
+  CheckEquals('(01)04606203084623(21)+A13gPh(9099)-4Hi7uGl', Data, 'Data');
   Barcode := DecodeGS1(GS1FilterTockens(GS1DecodeBraces(Barcode3)));
   CheckEquals('04606203084623', Barcode.GTIN, 'Barcode.GTIN');
   CheckEquals('+A13gPh', Barcode.Serial, 'Barcode.Serial');

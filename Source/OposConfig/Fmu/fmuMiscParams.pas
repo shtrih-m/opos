@@ -6,6 +6,8 @@ uses
   // VCL
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Spin, ExtCtrls,
+  // Tnt
+  TntClasses, TntStdCtrls, TntRegistry,
   // This
   FiscalPrinterDevice, untUtil, FptrTypes, PrinterParameters;
 
@@ -13,29 +15,29 @@ type
   { TfmZReport }
 
   TfmMiscParams = class(TFptrPage)
-    chbVoidReceiptOnMaxItems: TCheckBox;
-    lblMaxReceiptItems: TLabel;
+    chbVoidReceiptOnMaxItems: TTntCheckBox;
+    lblMaxReceiptItems: TTntLabel;
     seMaxReceiptItems: TSpinEdit;
-    chbPrintRecSubtotal: TCheckBox;
-    lblMonitoringPort: TLabel;
+    chbPrintRecSubtotal: TTntCheckBox;
+    lblMonitoringPort: TTntLabel;
     seMonitoringPort: TSpinEdit;
-    chbDepartmentInText: TCheckBox;
-    chbMonitoringEnabled: TCheckBox;
+    chbDepartmentInText: TTntCheckBox;
+    chbMonitoringEnabled: TTntCheckBox;
     Bevel1: TBevel;
-    lblAmountDecimalPlaces: TLabel;
-    cbAmountDecimalPlaces: TComboBox;
+    lblAmountDecimalPlaces: TTntLabel;
+    cbAmountDecimalPlaces: TTntComboBox;
     Bevel2: TBevel;
-    lblCapRecNearEndSensorMode: TLabel;
-    cbCapRecNearEndSensorMode: TComboBox;
-    chbWrapText: TCheckBox;
+    lblCapRecNearEndSensorMode: TTntLabel;
+    cbCapRecNearEndSensorMode: TTntComboBox;
+    chbWrapText: TTntCheckBox;
     Bevel3: TBevel;
-    lblTimeUpdateMode: TLabel;
-    cbTimeUpdateMode: TComboBox;
-    chbFSServiceEnabled: TCheckBox;
-    chbPingEnabled: TCheckBox;
-    lblDocumentBlockSize: TLabel;
+    lblTimeUpdateMode: TTntLabel;
+    cbTimeUpdateMode: TTntComboBox;
+    chbFSServiceEnabled: TTntCheckBox;
+    chbPingEnabled: TTntCheckBox;
+    lblDocumentBlockSize: TTntLabel;
     seDocumentBlockSize: TSpinEdit;
-    btnSetMaxDocumentBlockSize: TButton;
+    btnSetMaxDocumentBlockSize: TTntButton;
     procedure FormCreate(Sender: TObject);
     procedure btnSetMaxDocumentBlockSizeClick(Sender: TObject);
   public

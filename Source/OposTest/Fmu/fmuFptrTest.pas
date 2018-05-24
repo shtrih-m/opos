@@ -6,32 +6,34 @@ uses
   // VCL
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, ExtCtrls, Spin, SyncObjs, ComObj, ActiveX,
+  // Tnt
+  TntSysUtils, TntClasses, 
   // This
-  untPages, OposFptr, OposFiscalPrinter, NotifyThread;
+  untPages, OposFptr, OposFiscalPrinter, NotifyThread, TntStdCtrls;
 
 
 type
   { TfmFptrTest }
 
   TfmFptrTest = class(TPage)
-    btnStart: TButton;
-    lblReceiptPeriod: TLabel;
+    btnStart: TTntButton;
+    lblReceiptPeriod: TTntLabel;
     spereceiptPeriod: TSpinEdit;
-    chbStopOnError: TCheckBox;
-    btnStop: TButton;
+    chbStopOnError: TTntCheckBox;
+    btnStop: TTntButton;
     Timer: TTimer;
-    lblReceiptsPrinted_: TLabel;
-    lblReceiptsPrinted: TLabel;
-    lblErrorCount_: TLabel;
-    lblErrorCount: TLabel;
-    memMessages: TMemo;
-    lblReceiptItemsCount: TLabel;
+    lblReceiptsPrinted_: TTntLabel;
+    lblReceiptsPrinted: TTntLabel;
+    lblErrorCount_: TTntLabel;
+    lblErrorCount: TTntLabel;
+    memMessages: TTntMemo;
+    lblReceiptItemsCount: TTntLabel;
     speReceiptItemsCount: TSpinEdit;
     procedure btnStartClick(Sender: TObject);
     procedure btnStopClick(Sender: TObject);
     procedure TimerTimer(Sender: TObject);
   private
-    FMessages: TStrings;
+    FMessages: TTntStrings;
     FStopFlag: Boolean;
     FErrorCount: Integer;
     FReceiptCount: Integer;
@@ -61,7 +63,7 @@ implementation
 constructor TfmFptrTest.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
-  FMessages := TStringList.Create;
+  FMessages := TTntStringList.Create;
   FLock := TCriticalsection.Create;
 end;
 
@@ -124,7 +126,7 @@ begin
     Check(FiscalPrinter.BeginFiscalReceipt(True));
     for i := 1 to FReceiptItemsCount do
     begin
-      ItemName := Format('%d. Receipt item %d', [i, i]);
+      ItemName := Tnt_WideFormat('%d. Receipt item %d', [i, i]);
       Check(FiscalPrinter.PrintRecItem(ItemName, 0.01, 1000, 0, 0.01, ''));
     end;
     Check(FiscalPrinter.PrintRecTotal(1000, 1000, '0'));

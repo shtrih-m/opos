@@ -8,21 +8,22 @@ uses
   // 3'd
   SynMemo, SynEdit,
   // This
-  PrinterParameters, FiscalPrinterDevice, FptrTypes, DirectIOAPI;
+  PrinterParameters, FiscalPrinterDevice, FptrTypes, DirectIOAPI,
+  TntStdCtrls;
 
 type
   { TfmFiscalPrinter }
 
   TfmFptrHeader = class(TFptrPage)
+    gbHeader: TTntGroupBox;
+    lblNumHeaderLines: TTntLabel;
+    lblHeaderFont: TTntLabel;
+    cbNumHeaderLines: TTntComboBox;
+    cbHeaderFont: TTntComboBox;
+    btnPrintHeader: TTntButton;
+    chbSetHeaderLineEnabled: TTntCheckBox;
+    chbCenterHeader: TTntCheckBox;
     symHeader: TSynMemo;
-    gbHeader: TGroupBox;
-    lblNumHeaderLines: TLabel;
-    lblHeaderFont: TLabel;
-    cbNumHeaderLines: TComboBox;
-    cbHeaderFont: TComboBox;
-    btnPrintHeader: TButton;
-    chbSetHeaderLineEnabled: TCheckBox;
-    chbCenterHeader: TCheckBox;
     procedure PageChange(Sender: TObject);
     procedure btnPrintHeaderClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);

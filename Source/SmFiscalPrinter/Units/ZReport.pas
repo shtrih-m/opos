@@ -8,7 +8,7 @@ uses
   // Tnt
   TntClasses,
   // This
-  PrinterTypes, FiscalPrinterTypes, FileUtils;
+  PrinterTypes, FiscalPrinterTypes, TntSysUtils, FileUtils;
 
 type
   TOperRegisters = array [0..255] of Word;
@@ -108,23 +108,23 @@ procedure TZReport.SaveToCsv(const FileName: string);
 var
   i: Integer;
   Line: string;
-  Lines: TStrings;
+  Lines: TTntStrings;
 begin
   if FileExists(FileName) then
     DeleteFile(FileName);
 
-  Lines := TStringList.Create;
+  Lines := TTntStringList.Create;
   try
     for i := 0 to CashRegCount-1 do
     begin
-      Line := Format('0;%d;%d;%s', [
+      Line := Tnt_WideFormat('0;%d;%d;%s', [
         i, FCashRegisters[i], GetCashRegisterName(i)]);
       Lines.Add(Line);
     end;
 
     for i := 0 to OperRegCount-1 do
     begin
-      Line := Format('1;%d;%d;%s', [
+      Line := Tnt_WideFormat('1;%d;%d;%s', [
         i, FOperRegisters[i], GetOperRegisterName(i)]);
       Lines.Add(Line);
     end;

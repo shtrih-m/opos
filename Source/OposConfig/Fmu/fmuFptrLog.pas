@@ -5,6 +5,8 @@ interface
 uses
   // VCL
   ComCtrls, StdCtrls, Controls, Classes,
+  // Tnt
+  TntClasses, TntStdCtrls, TntRegistry,
   // This
   FiscalPrinterDevice, FptrTypes, Spin;
 
@@ -12,12 +14,12 @@ type
   { TfmFptrLog }
 
   TfmFptrLog = class(TFptrPage)
-    gbLogParameters: TGroupBox;
-    chbLogEnabled: TCheckBox;
-    lblMaxLogFileCount: TLabel;
+    gbLogParameters: TTntGroupBox;
+    chbLogEnabled: TTntCheckBox;
+    lblMaxLogFileCount: TTntLabel;
     seMaxLogFileCount: TSpinEdit;
-    edtLogFilePath: TEdit;
-    lblLogFilePath: TLabel;
+    edtLogFilePath: TTntEdit;
+    lblLogFilePath: TTntLabel;
     procedure PageChange(Sender: TObject);
   public
     procedure UpdatePage; override;

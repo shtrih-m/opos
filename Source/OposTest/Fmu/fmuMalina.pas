@@ -6,6 +6,8 @@ uses
   // VCL
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, ExtCtrls,
+  // Tnt
+  TntStdCtrls, TntSysUtils,
   // 3's
   PngImage,
   // This
@@ -15,11 +17,11 @@ uses
 type
   TfmMalina = class(TPage)
     Image1: TImage;
-    btnMalinaSalesReceipt: TButton;
-    Memo: TMemo;
-    btnSalesReceipt: TButton;
-    btnMalinaRefundReceipt: TButton;
-    btnRefundReceipt: TButton;
+    btnMalinaSalesReceipt: TTntButton;
+    Memo: TTntMemo;
+    btnSalesReceipt: TTntButton;
+    btnMalinaRefundReceipt: TTntButton;
+    btnRefundReceipt: TTntButton;
     procedure btnMalinaSalesReceiptClick(Sender: TObject);
     procedure btnSalesReceiptClick(Sender: TObject);
     procedure btnMalinaRefundReceiptClick(Sender: TObject);

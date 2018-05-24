@@ -17,28 +17,28 @@ object fmTextBlock: TfmTextBlock
     368)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblHeader: TLabel
+  object lblHeader: TTntLabel
     Left = 8
     Top = 8
     Width = 38
     Height = 13
     Caption = 'Header:'
   end
-  object lblTrailer: TLabel
+  object lblTrailer: TTntLabel
     Left = 8
     Top = 112
     Width = 32
     Height = 13
     Caption = 'Trailer:'
   end
-  object lblResult: TLabel
+  object lblResult: TTntLabel
     Left = 8
     Top = 216
     Width = 33
     Height = 13
     Caption = 'Result:'
   end
-  object btnSaveBlock: TButton
+  object btnSaveBlock: TTntButton
     Left = 120
     Top = 336
     Width = 105
@@ -48,7 +48,7 @@ object fmTextBlock: TfmTextBlock
     TabOrder = 4
     OnClick = btnSaveBlockClick
   end
-  object memHeader: TMemo
+  object memHeader: TTntMemo
     Left = 8
     Top = 24
     Width = 329
@@ -67,7 +67,7 @@ object fmTextBlock: TfmTextBlock
     ScrollBars = ssVertical
     TabOrder = 0
   end
-  object btnSalesReceipt: TButton
+  object btnSalesReceipt: TTntButton
     Left = 232
     Top = 304
     Width = 105
@@ -77,7 +77,7 @@ object fmTextBlock: TfmTextBlock
     TabOrder = 5
     OnClick = btnSalesReceiptClick
   end
-  object btnLoadBlock: TButton
+  object btnLoadBlock: TTntButton
     Left = 120
     Top = 304
     Width = 105
@@ -87,7 +87,7 @@ object fmTextBlock: TfmTextBlock
     TabOrder = 3
     OnClick = btnLoadBlockClick
   end
-  object btnRefundReceipt: TButton
+  object btnRefundReceipt: TTntButton
     Left = 232
     Top = 336
     Width = 105
@@ -97,7 +97,7 @@ object fmTextBlock: TfmTextBlock
     TabOrder = 6
     OnClick = btnRefundReceiptClick
   end
-  object memTrailer: TMemo
+  object memTrailer: TTntMemo
     Left = 8
     Top = 128
     Width = 329
@@ -116,7 +116,7 @@ object fmTextBlock: TfmTextBlock
     ScrollBars = ssVertical
     TabOrder = 1
   end
-  object chbInvalidTime: TCheckBox
+  object chbInvalidTime: TTntCheckBox
     Left = 8
     Top = 304
     Width = 97
@@ -125,7 +125,7 @@ object fmTextBlock: TfmTextBlock
     Caption = 'Invalid time'
     TabOrder = 2
   end
-  object Memo: TMemo
+  object Memo: TTntMemo
     Left = 6
     Top = 232
     Width = 329
@@ -140,7 +140,7 @@ object fmTextBlock: TfmTextBlock
     ScrollBars = ssVertical
     TabOrder = 7
   end
-  object btnDefaultBlocks: TButton
+  object btnDefaultBlocks: TTntButton
     Left = 8
     Top = 336
     Width = 105

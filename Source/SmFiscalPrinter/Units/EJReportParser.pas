@@ -5,6 +5,8 @@ interface
 uses
   // VCL
   Classes,
+  // Tnt
+  TntClasses,
   // This
   PrinterTypes;
 
@@ -49,7 +51,7 @@ begin
   Result := Tocken;
 end;
 
-function GetMaxLineLength(Lines: TStrings): Integer;
+function GetMaxLineLength(Lines: TTntStrings): Integer;
 var
   i: Integer;
   L: Integer;
@@ -94,13 +96,13 @@ end;
 class function TEJReportParser.ParseActivation(
   const Text: string): TEJActivation;
 var
-  Lines: TStrings;
+  Lines: TTntStrings;
 begin
   Result.EJSerial := '';
   Result.ActivationDate := '';
   Result.ActivationTime := '';
 
-  Lines := TStringList.Create;
+  Lines := TTntStringList.Create;
   try
     Lines.Text := Text;
     if GetMaxLineLength(Lines) > 16 then

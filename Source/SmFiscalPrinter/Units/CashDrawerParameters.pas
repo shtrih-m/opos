@@ -5,8 +5,11 @@ interface
 uses
   // VCL
   Windows, Registry, SysUtils,
+  // Tnt
+  TntSysUtils, TntClasses, TntStdCtrls, TntRegistry,
   // This
-  Oposhi, WException, PrinterTypes, LogFile, PrinterParameters, gnugettext;
+  Oposhi, WException, PrinterTypes, LogFile,
+  PrinterParameters, gnugettext;
 
 const
   /////////////////////////////////////////////////////////////////////////////
@@ -69,17 +72,17 @@ end;
 
 function TCashDrawerParameters.GetKeyName(const DeviceName: string): string;
 begin
-  Result := Format('%s\%s\%s', [OPOS_ROOTKEY, OPOS_CLASSKEY_CASH, DeviceName]);
+  Result := Tnt_WideFormat('%s\%s\%s', [OPOS_ROOTKEY, OPOS_CLASSKEY_CASH, DeviceName]);
 end;
 
 procedure TCashDrawerParameters.Load(const DeviceName: string);
 var
-  Reg: TRegistry;
+  Reg: TTntRegistry;
 begin
   Logger.Debug('TCashDrawerParameters.Load', DeviceName);
 
   SetDefaults;
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     Reg.Access := KEY_READ;
     Reg.RootKey := HKEY_LOCAL_MACHINE;
@@ -109,11 +112,11 @@ end;
 
 procedure TCashDrawerParameters.Save(const DeviceName: string);
 var
-  Reg: TRegistry;
+  Reg: TTntRegistry;
 begin
   Logger.Debug('TCashDrawerParameters.Save', DeviceName);
 
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     Reg.Access := KEY_ALL_ACCESS;
     Reg.RootKey := HKEY_LOCAL_MACHINE;

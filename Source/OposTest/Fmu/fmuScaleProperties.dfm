@@ -12,11 +12,11 @@ object fmScaleProperties: TfmScaleProperties
   Font.Style = []
   OldCreateOrder = False
   DesignSize = (
-    375
-    285)
+    367
+    274)
   PixelsPerInch = 96
   TextHeight = 13
-  object btnRefresh: TButton
+  object btnRefresh: TTntButton
     Left = 296
     Top = 256
     Width = 75
@@ -26,7 +26,7 @@ object fmScaleProperties: TfmScaleProperties
     TabOrder = 0
     OnClick = btnRefreshClick
   end
-  object Memo: TMemo
+  object Memo: TTntMemo
     Left = 8
     Top = 8
     Width = 361

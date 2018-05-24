@@ -20,7 +20,7 @@ object fmStatus: TfmStatus
     373)
   PixelsPerInch = 96
   TextHeight = 13
-  object Memo: TMemo
+  object Memo: TTntMemo
     Left = 0
     Top = 0
     Width = 376
@@ -36,7 +36,7 @@ object fmStatus: TfmStatus
     TabOrder = 0
     WordWrap = False
   end
-  object btnReadStatus: TButton
+  object btnReadStatus: TTntButton
     Left = 64
     Top = 344
     Width = 97
@@ -46,7 +46,7 @@ object fmStatus: TfmStatus
     TabOrder = 1
     OnClick = btnReadStatusClick
   end
-  object btnReadStatus2: TButton
+  object btnReadStatus2: TTntButton
     Left = 168
     Top = 344
     Width = 97
@@ -56,7 +56,7 @@ object fmStatus: TfmStatus
     TabOrder = 2
     OnClick = btnReadStatus2Click
   end
-  object btnDeviceMetrics: TButton
+  object btnDeviceMetrics: TTntButton
     Left = 272
     Top = 344
     Width = 97

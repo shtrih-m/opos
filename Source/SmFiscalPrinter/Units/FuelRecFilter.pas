@@ -5,6 +5,8 @@ interface
 uses
   // VCL
   Windows, Classes, SysUtils,
+  // Tnt
+  TntClasses, 
   // This
   FiscalPrinterTypes, NonfiscalDoc, RecItem, PrinterTypes,
   LogFile, SalesReceipt, FptrFilter, CustomReceipt, MalinaParams,
@@ -50,14 +52,14 @@ function TFuelRecFilter.IsFuelReceipt(Receipt: TSalesReceipt): Boolean;
 var
   i: Integer;
   ItemText: string;
-  Strings: TStrings;
+  Strings: TTntStrings;
 begin
   Result := False;
   if Receipt.ItemCount = 1 then
   begin
     ItemText := Receipt.Items[0].Data.Text;
 
-    Strings := TStringList.Create;
+    Strings := TTntStringList.Create;
     try
       Strings.Text := Params.FuelItemText;
       for i := 0 to Strings.Count-1 do

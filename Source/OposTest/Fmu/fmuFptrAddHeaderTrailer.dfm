@@ -18,21 +18,21 @@ object fmFptrAddHeaderTrailer: TfmFptrAddHeaderTrailer
     270)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblAdditionalHeader: TLabel
+  object lblAdditionalHeader: TTntLabel
     Left = 8
     Top = 8
     Width = 84
     Height = 13
     Caption = 'AdditionalHeader:'
   end
-  object lblAdditionalTrailer: TLabel
+  object lblAdditionalTrailer: TTntLabel
     Left = 8
     Top = 144
     Width = 78
     Height = 13
     Caption = 'AdditionalTrailer:'
   end
-  object AdditionalHeader: TMemo
+  object AdditionalHeader: TTntMemo
     Left = 8
     Top = 24
     Width = 377
@@ -46,7 +46,7 @@ object fmFptrAddHeaderTrailer: TfmFptrAddHeaderTrailer
     ParentFont = False
     TabOrder = 0
   end
-  object AdditionalTrailer: TMemo
+  object AdditionalTrailer: TTntMemo
     Left = 8
     Top = 160
     Width = 377
@@ -60,7 +60,7 @@ object fmFptrAddHeaderTrailer: TfmFptrAddHeaderTrailer
     ParentFont = False
     TabOrder = 1
   end
-  object btnRead: TButton
+  object btnRead: TTntButton
     Left = 232
     Top = 240
     Width = 75
@@ -70,7 +70,7 @@ object fmFptrAddHeaderTrailer: TfmFptrAddHeaderTrailer
     TabOrder = 4
     OnClick = btnReadClick
   end
-  object btnWrite: TButton
+  object btnWrite: TTntButton
     Left = 312
     Top = 240
     Width = 75
@@ -80,7 +80,7 @@ object fmFptrAddHeaderTrailer: TfmFptrAddHeaderTrailer
     TabOrder = 5
     OnClick = btnWriteClick
   end
-  object btnDefaults: TButton
+  object btnDefaults: TTntButton
     Left = 8
     Top = 240
     Width = 75
@@ -90,7 +90,7 @@ object fmFptrAddHeaderTrailer: TfmFptrAddHeaderTrailer
     TabOrder = 2
     OnClick = btnDefaultsClick
   end
-  object btnClear: TButton
+  object btnClear: TTntButton
     Left = 88
     Top = 240
     Width = 75

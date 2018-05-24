@@ -17,7 +17,7 @@ object fmFptrInfo: TfmFptrInfo
     270)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblServiceFileVersion_: TLabel
+  object lblServiceFileVersion_: TTntLabel
     Left = 8
     Top = 8
     Width = 210
@@ -30,7 +30,7 @@ object fmFptrInfo: TfmFptrInfo
     Font.Style = [fsBold]
     ParentFont = False
   end
-  object lblServiceFileVersion: TLabel
+  object lblServiceFileVersion: TTntLabel
     Left = 224
     Top = 8
     Width = 36
@@ -43,7 +43,7 @@ object fmFptrInfo: TfmFptrInfo
     Font.Style = [fsBold]
     ParentFont = False
   end
-  object btnRefresh: TButton
+  object btnRefresh: TTntButton
     Left = 304
     Top = 240
     Width = 81
@@ -53,7 +53,7 @@ object fmFptrInfo: TfmFptrInfo
     TabOrder = 1
     OnClick = btnRefreshClick
   end
-  object memDevices: TMemo
+  object memDevices: TTntMemo
     Left = 8
     Top = 32
     Width = 378

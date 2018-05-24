@@ -18,10 +18,10 @@ type
   public
     procedure CheckTotal(Total: Currency);
     procedure PrintRecCash(Amount: Currency); override;
-    procedure PrintRecVoid(const Description: string); override;
+    procedure PrintRecVoid(const Description: WideString); override;
     procedure EndFiscalReceipt; override;
     procedure PrintRecTotal(Total, Payment: Currency;
-      const Description: string); override;
+      const Description: WideString); override;
   end;
 
 implementation
@@ -35,7 +35,7 @@ begin
   PrintPostLine;
 end;
 
-procedure TCashInReceipt.PrintRecVoid(const Description: string);
+procedure TCashInReceipt.PrintRecVoid(const Description: WideString);
 begin
   PrintPreLine;
   Printer.PrintTextLine(Description);
@@ -56,7 +56,7 @@ begin
 end;
 
 procedure TCashInReceipt.PrintRecTotal(Total: Currency; Payment: Currency;
-  const Description: string);
+  const Description: WideString);
 begin
   CheckAmount(Total);
   CheckAmount(Payment);

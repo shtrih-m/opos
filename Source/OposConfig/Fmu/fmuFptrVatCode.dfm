@@ -19,14 +19,14 @@ object fmFptrVatCode: TfmFptrVatCode
     334)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblAppVatCode: TLabel
+  object lblAppVatCode: TTntLabel
     Left = 8
     Top = 44
     Width = 106
     Height = 13
     Caption = 'Application VAT code:'
   end
-  object lblFptrVATCode: TLabel
+  object lblFptrVATCode: TTntLabel
     Left = 8
     Top = 76
     Width = 113
@@ -56,7 +56,7 @@ object fmFptrVatCode: TfmFptrVatCode
     TabOrder = 0
     ViewStyle = vsReport
   end
-  object btnDelete: TButton
+  object btnDelete: TTntButton
     Left = 320
     Top = 72
     Width = 75
@@ -67,7 +67,7 @@ object fmFptrVatCode: TfmFptrVatCode
     TabOrder = 1
     OnClick = btnDeleteClick
   end
-  object btnAdd: TButton
+  object btnAdd: TTntButton
     Left = 320
     Top = 40
     Width = 75
@@ -97,7 +97,7 @@ object fmFptrVatCode: TfmFptrVatCode
     TabOrder = 4
     Value = 1
   end
-  object chbVatCodeEnabled: TCheckBox
+  object chbVatCodeEnabled: TTntCheckBox
     Left = 8
     Top = 8
     Width = 281

@@ -5,16 +5,18 @@ interface
 uses
   // VCL
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, Buttons, PngBitBtn, ExtCtrls, DateUtils;
+  Dialogs, StdCtrls, Buttons, PngBitBtn, ExtCtrls, DateUtils,
+  // Tnt
+  TntStdCtrls, TntSysUtils;
 
 type
   TfmTimeSync = class(TForm)
-    lblTimeSync: TLabel;
-    Label1: TLabel;
+    lblTimeSync: TTntLabel;
+    Label1: TTntLabel;
     btnCancel: TPngBitBtn;
-    lblTimeLeft: TLabel;
+    lblTimeLeft: TTntLabel;
     Timer: TTimer;
-    Label2: TLabel;
+    Label2: TTntLabel;
     procedure TimerTimer(Sender: TObject);
   private
     FSTime: TDateTime;
@@ -62,7 +64,7 @@ begin
     Exit;
   end;
   DecodeTime(FSTime - PCTime, Hour, Min, Sec, MSec);
-  lblTimeLeft.Caption := Format('%.2d:%.2d', [Min, Sec]);
+  lblTimeLeft.Caption := Tnt_WideFormat('%.2d:%.2d', [Min, Sec]);
 end;
 
 procedure TfmTimeSync.TimerTimer(Sender: TObject);

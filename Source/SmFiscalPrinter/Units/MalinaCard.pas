@@ -5,6 +5,8 @@ interface
 uses
   // VCL
   Windows, SysUtils, Registry,
+  // Tnt
+  TntRegistry,
   // This
   LogFile, WException;
 
@@ -58,9 +60,9 @@ end;
 
 procedure TMalinaCard.Save(const Key: string);
 var
-  Reg: TRegistry;
+  Reg: TTntRegistry;
 begin
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     Reg.RootKey := HKEY_LOCAL_MACHINE;
     if Reg.OpenKey(Key, True) then
@@ -79,9 +81,9 @@ end;
 
 procedure TMalinaCard.Load(const Key: string);
 var
-  Reg: TRegistry;
+  Reg: TTntRegistry;
 begin
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     Reg.RootKey := HKEY_LOCAL_MACHINE;
     if Reg.OpenKey(Key, False) then

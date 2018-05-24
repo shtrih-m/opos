@@ -4,7 +4,9 @@ interface
 
 uses
   // VCL
-  Windows, Forms, Classes, Controls, StdCtrls;
+  Windows, Forms, Classes, Controls, StdCtrls,
+  // Tnt
+  TntStdCtrls;
 
 type
   { TBaseForm }
@@ -24,7 +26,7 @@ implementation
 
 procedure EnableWinControl(WinControl: TWinControl; Value: Boolean);
 begin
-  if WinControl is TButton then
+  if WinControl is TTntButton then
   begin
     if (not Value)and WinControl.Enabled then
     begin
@@ -65,7 +67,7 @@ begin
     if Control is TWinControl then
       EnableControlsFocused(Control as TWinControl, Value, FocusedControl);
   end;
-  if WinControl is TButton then
+  if WinControl is TTntButton then
   begin
     if WinControl.Focused and (not Value) then
       FocusedControl := WinControl;

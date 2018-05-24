@@ -17,7 +17,7 @@ object fmFptrLogo: TfmFptrLogo
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
-  object GroupBox1: TGroupBox
+  object GroupBox1: TTntGroupBox
     Left = 0
     Top = 0
     Width = 475
@@ -41,21 +41,21 @@ object fmFptrLogo: TfmFptrLogo
       Height = 257
       Anchors = [akLeft, akTop, akRight]
     end
-    object lblLogoPosition: TLabel
+    object lblLogoPosition: TTntLabel
       Left = 144
       Top = 296
       Width = 66
       Height = 13
       Caption = 'Logo position:'
     end
-    object lblLogoSize: TLabel
+    object lblLogoSize: TTntLabel
       Left = 144
       Top = 328
       Width = 48
       Height = 13
       Caption = 'Logo size:'
     end
-    object lblProgress: TLabel
+    object lblProgress: TTntLabel
       Left = 328
       Top = 48
       Width = 51
@@ -63,7 +63,7 @@ object fmFptrLogo: TfmFptrLogo
       Anchors = [akTop, akRight]
       Caption = 'lblProgress'
     end
-    object cbLogoPosition: TComboBox
+    object cbLogoPosition: TTntComboBox
       Left = 216
       Top = 296
       Width = 105
@@ -78,14 +78,14 @@ object fmFptrLogo: TfmFptrLogo
         'After trailer'
         'After TOTAL line')
     end
-    object edtLogoSize: TEdit
+    object edtLogoSize: TTntEdit
       Left = 216
       Top = 328
       Width = 105
       Height = 21
       TabOrder = 2
     end
-    object btnPrintLogo: TButton
+    object btnPrintLogo: TTntButton
       Left = 368
       Top = 168
       Width = 91
@@ -95,7 +95,7 @@ object fmFptrLogo: TfmFptrLogo
       TabOrder = 3
       OnClick = btnPrintLogoClick
     end
-    object btnLoad: TBitBtn
+    object btnLoad: TTntBitBtn
       Left = 368
       Top = 136
       Width = 91
@@ -105,7 +105,7 @@ object fmFptrLogo: TfmFptrLogo
       TabOrder = 4
       OnClick = btnLoadClick
     end
-    object btnOpen: TBitBtn
+    object btnOpen: TTntBitBtn
       Left = 368
       Top = 104
       Width = 91
@@ -115,7 +115,7 @@ object fmFptrLogo: TfmFptrLogo
       TabOrder = 5
       OnClick = btnOpenClick
     end
-    object chbLogoCenter: TCheckBox
+    object chbLogoCenter: TTntCheckBox
       Left = 328
       Top = 72
       Width = 129
@@ -133,7 +133,7 @@ object fmFptrLogo: TfmFptrLogo
       Step = 1
       TabOrder = 7
     end
-    object chbLogoReloadEnabled: TCheckBox
+    object chbLogoReloadEnabled: TTntCheckBox
       Left = 8
       Top = 296
       Width = 129

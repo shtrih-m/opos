@@ -6,6 +6,8 @@ uses
   // VCL
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ExtCtrls,
+  // Tnt
+  TntStdCtrls, TntSysUtils,
   // This
   untPages, OposFiscalPrinter;
 
@@ -13,14 +15,14 @@ type
   { TfmFptrAddHeaderTrailer }
 
   TfmFptrAddHeaderTrailer = class(TPage)
-    lblAdditionalHeader: TLabel;
-    AdditionalHeader: TMemo;
-    lblAdditionalTrailer: TLabel;
-    AdditionalTrailer: TMemo;
-    btnRead: TButton;
-    btnWrite: TButton;
-    btnDefaults: TButton;
-    btnClear: TButton;
+    lblAdditionalHeader: TTntLabel;
+    AdditionalHeader: TTntMemo;
+    lblAdditionalTrailer: TTntLabel;
+    AdditionalTrailer: TTntMemo;
+    btnRead: TTntButton;
+    btnWrite: TTntButton;
+    btnDefaults: TTntButton;
+    btnClear: TTntButton;
     procedure btnReadClick(Sender: TObject);
     procedure btnWriteClick(Sender: TObject);
     procedure btnDefaultsClick(Sender: TObject);

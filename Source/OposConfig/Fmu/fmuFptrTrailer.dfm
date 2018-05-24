@@ -45,7 +45,7 @@ object fmFptrTrailer: TfmFptrTrailer
     OnChange = PageChange
     FontSmoothing = fsmNone
   end
-  object gbTrailer: TGroupBox
+  object gbTrailer: TTntGroupBox
     Left = 0
     Top = 216
     Width = 473
@@ -55,7 +55,7 @@ object fmFptrTrailer: TfmFptrTrailer
     DesignSize = (
       473
       97)
-    object lblNumTrailerLines: TLabel
+    object lblNumTrailerLines: TTntLabel
       Left = 184
       Top = 20
       Width = 92
@@ -63,7 +63,7 @@ object fmFptrTrailer: TfmFptrTrailer
       Anchors = [akTop, akRight]
       Caption = 'Number trailer lines:'
     end
-    object lblTrailerFont: TLabel
+    object lblTrailerFont: TTntLabel
       Left = 184
       Top = 52
       Width = 91
@@ -71,7 +71,7 @@ object fmFptrTrailer: TfmFptrTrailer
       Anchors = [akTop, akRight]
       Caption = 'Trailer font number:'
     end
-    object cbNumTrailerLines: TComboBox
+    object cbNumTrailerLines: TTntComboBox
       Left = 288
       Top = 16
       Width = 81
@@ -82,7 +82,7 @@ object fmFptrTrailer: TfmFptrTrailer
       TabOrder = 0
       OnChange = PageChange
     end
-    object cbTrailerFont: TComboBox
+    object cbTrailerFont: TTntComboBox
       Left = 288
       Top = 48
       Width = 81
@@ -101,7 +101,7 @@ object fmFptrTrailer: TfmFptrTrailer
         '6'
         '7')
     end
-    object btnPrintTrailer: TButton
+    object btnPrintTrailer: TTntButton
       Left = 376
       Top = 16
       Width = 91
@@ -111,7 +111,7 @@ object fmFptrTrailer: TfmFptrTrailer
       TabOrder = 2
       OnClick = btnPrintTrailerClick
     end
-    object chbSetTrailerLineEnabled: TCheckBox
+    object chbSetTrailerLineEnabled: TTntCheckBox
       Left = 8
       Top = 72
       Width = 193

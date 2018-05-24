@@ -18,28 +18,28 @@ object fmFptrReceipt: TfmFptrReceipt
     270)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblFiscalReceiptStation: TLabel
+  object lblFiscalReceiptStation: TTntLabel
     Left = 8
     Top = 8
     Width = 100
     Height = 13
     Caption = 'FiscalReceiptStation:'
   end
-  object lblFiscalReceiptType: TLabel
+  object lblFiscalReceiptType: TTntLabel
     Left = 8
     Top = 32
     Width = 91
     Height = 13
     Caption = 'FiscalReceiptType:'
   end
-  object lblDescription: TLabel
+  object lblDescription: TTntLabel
     Left = 8
     Top = 160
     Width = 56
     Height = 13
     Caption = 'Description:'
   end
-  object btnBeginFisclReceipt: TButton
+  object btnBeginFisclReceipt: TTntButton
     Left = 264
     Top = 64
     Width = 121
@@ -49,7 +49,7 @@ object fmFptrReceipt: TfmFptrReceipt
     TabOrder = 3
     OnClick = btnBeginFisclReceiptClick
   end
-  object btnEndFiscalReceipt: TButton
+  object btnEndFiscalReceipt: TTntButton
     Left = 264
     Top = 96
     Width = 121
@@ -59,7 +59,7 @@ object fmFptrReceipt: TfmFptrReceipt
     TabOrder = 4
     OnClick = btnEndFiscalReceiptClick
   end
-  object chbPrintHeader: TCheckBox
+  object chbPrintHeader: TTntCheckBox
     Left = 120
     Top = 64
     Width = 81
@@ -67,7 +67,7 @@ object fmFptrReceipt: TfmFptrReceipt
     Caption = 'PrintHeader'
     TabOrder = 2
   end
-  object btnPrintDuplicateReceipt: TButton
+  object btnPrintDuplicateReceipt: TTntButton
     Left = 264
     Top = 128
     Width = 121
@@ -77,7 +77,7 @@ object fmFptrReceipt: TfmFptrReceipt
     TabOrder = 5
     OnClick = btnPrintDuplicateReceiptClick
   end
-  object cbFiscalReceiptStation: TComboBox
+  object cbFiscalReceiptStation: TTntComboBox
     Left = 120
     Top = 8
     Width = 267
@@ -90,7 +90,7 @@ object fmFptrReceipt: TfmFptrReceipt
       'FPTR_RS_RECEIPT'
       'FPTR_RS_SLIP')
   end
-  object cbFiscalReceiptType: TComboBox
+  object cbFiscalReceiptType: TTntComboBox
     Left = 120
     Top = 32
     Width = 267
@@ -108,7 +108,7 @@ object fmFptrReceipt: TfmFptrReceipt
       'FPTR_RT_SIMPLE_INVOICE'
       'FPTR_RT_REFUND')
   end
-  object btnPrintRecVoid: TButton
+  object btnPrintRecVoid: TTntButton
     Left = 264
     Top = 160
     Width = 121
@@ -118,7 +118,7 @@ object fmFptrReceipt: TfmFptrReceipt
     TabOrder = 7
     OnClick = btnPrintRecVoidClick
   end
-  object edtDescription: TEdit
+  object edtDescription: TTntEdit
     Left = 72
     Top = 160
     Width = 187

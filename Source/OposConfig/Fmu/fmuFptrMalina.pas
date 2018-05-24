@@ -5,6 +5,8 @@ interface
 uses
   // VCL
   StdCtrls, pngimage, Controls, ExtCtrls, Classes, SysUtils,
+  // Tnt
+  TntClasses, TntStdCtrls, TntRegistry,
   // This
   FiscalPrinterDevice, MalinaReceipt, FptrTypes, MalinaParams, Spin;
 
@@ -12,22 +14,22 @@ type
   { TfmFptrMalina }
 
   TfmFptrMalina = class(TFptrPage)
-    memReceipt: TMemo;
+    memReceipt: TTntMemo;
     Image1: TImage;
-    chbMalinaFilterEnabled: TCheckBox;
-    edtMalinaCardPrefix: TEdit;
-    edtMalinaPromoText: TEdit;
-    edtMalinaRegistryKey: TEdit;
-    chbMalinaClearRegistry: TCheckBox;
-    lblMalinaRegistryKey: TLabel;
-    lblMalinaPromoText: TLabel;
-    lblMalinaCardPrefix: TLabel;
-    lblMalinaCoefficient: TLabel;
-    lblMalinaPoints: TLabel;
+    chbMalinaFilterEnabled: TTntCheckBox;
+    edtMalinaCardPrefix: TTntEdit;
+    edtMalinaPromoText: TTntEdit;
+    edtMalinaRegistryKey: TTntEdit;
+    chbMalinaClearRegistry: TTntCheckBox;
+    lblMalinaRegistryKey: TTntLabel;
+    lblMalinaPromoText: TTntLabel;
+    lblMalinaCardPrefix: TTntLabel;
+    lblMalinaCoefficient: TTntLabel;
+    lblMalinaPoints: TTntLabel;
     seMalinaCoefficient: TSpinEdit;
     seMalinaPoints: TSpinEdit;
-    lblMalinaPointText: TLabel;
-    edtMalinaPointsText: TEdit;
+    lblMalinaPointText: TTntLabel;
+    edtMalinaPointsText: TTntEdit;
     procedure MalinaParametersChanged(Sender: TObject);
   private
     procedure UpdateMalinaReceipt;

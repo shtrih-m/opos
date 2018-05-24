@@ -6,18 +6,20 @@ uses
   // VCL
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ExtCtrls, ComCtrls,
+  // Tnt
+  TntStdCtrls, TntSysUtils,
   // This
   untPages, OposFiscalPrinter;
 
 type
   TfmFptrDate = class(TPage)
-    lblDateType: TLabel;
-    cbDateType: TComboBox;
-    btnSetDate: TButton;
-    lblDate: TLabel;
-    edtDate: TEdit;
-    btnGetDate: TButton;
-    btnCurrentDateTime: TButton;
+    lblDateType: TTntLabel;
+    cbDateType: TTntComboBox;
+    btnSetDate: TTntButton;
+    lblDate: TTntLabel;
+    edtDate: TTntEdit;
+    btnGetDate: TTntButton;
+    btnCurrentDateTime: TTntButton;
     procedure btnSetDateClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnGetDateClick(Sender: TObject);

@@ -5,6 +5,8 @@ interface
 uses
   // VCL
   Windows, SysUtils, Registry,
+  // Tnt
+  TntRegistry,
   // This
   LogFile;
 
@@ -77,9 +79,9 @@ end;
 
 procedure TSrvParams.SaveParams;
 var
-  Reg: TRegistry;
+  Reg: TTntRegistry;
 begin
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     Reg.RootKey := RegRootKey;
     if Reg.OpenKey(REGSTR_KEY_PARAMS, True) then
@@ -101,10 +103,10 @@ end;
 
 procedure TSrvParams.LoadParams;
 var
-  Reg: TRegistry;
+  Reg: TTntRegistry;
 begin
   SetDefaults;
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     Reg.Access := KEY_READ;
     Reg.RootKey := RegRootKey;

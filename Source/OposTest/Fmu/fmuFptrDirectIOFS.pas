@@ -6,6 +6,8 @@ uses
   // VCL
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ExtCtrls, ComCtrls, Spin,
+  // Tnt
+  TntStdCtrls,
   // This
   untPages, OposFiscalPrinter, DirectIOAPI, Opos, OposFptr, SMFiscalPrinter;
 
@@ -13,11 +15,11 @@ type
   { TfmFptrDirectIOFS }
 
   TfmFptrDirectIOFS = class(TPage)
-    Memo: TMemo;
-    lblDocNumber: TLabel;
+    Memo: TTntMemo;
+    lblDocNumber: TTntLabel;
     seDocumentNumber: TSpinEdit;
-    btnReadFSDocument: TButton;
-    btnPrintFSDocument: TButton;
+    btnReadFSDocument: TTntButton;
+    btnPrintFSDocument: TTntButton;
     procedure btnReadFSDocumentClick(Sender: TObject);
     procedure btnPrintFSDocumentClick(Sender: TObject);
   private

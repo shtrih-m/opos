@@ -499,7 +499,7 @@ end;
 
 class function TPrinterParameters.GetSysKeyName(const DeviceName: WideString): WideString;
 begin
-  Result := Format('%s\%s\%s\', [OPOS_ROOTKEY, OPOS_CLASSKEY_FPTR, DeviceName]);
+  Result := Tnt_WideFormat('%s\%s\%s\', [OPOS_ROOTKEY, OPOS_CLASSKEY_FPTR, DeviceName]);
 end;
 
 class function TPrinterParameters.DeviceExists(
@@ -520,9 +520,9 @@ end;
 procedure TPrinterParameters.LogText(const Caption, Text: WideString);
 var
   i: Integer;
-  Lines: TStrings;
+  Lines: TTntStrings;
 begin
-  Lines := TStringList.Create;
+  Lines := TTntStringList.Create;
   try
     Lines.Text := Text;
     if Lines.Count = 1 then
@@ -1097,7 +1097,7 @@ end;
 
 class function TPrinterParameters.GetUsrKeyName(const DeviceName: WideString): WideString;
 begin
-  Result := Format('%s\%s\%s', [OPOS_ROOTKEY, OPOS_CLASSKEY_FPTR, DeviceName]);
+  Result := Tnt_WideFormat('%s\%s\%s', [OPOS_ROOTKEY, OPOS_CLASSKEY_FPTR, DeviceName]);
 end;
 
 procedure TPrinterParameters.LoadUsrParameters(const DeviceName: WideString);

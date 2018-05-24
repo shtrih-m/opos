@@ -29,28 +29,28 @@ object fmReceiptFormat: TfmReceiptFormat
       DesignSize = (
         505
         376)
-      object lblMaxReceiptItems: TLabel
+      object lblMaxReceiptItems: TTntLabel
         Left = 24
         Top = 72
         Width = 103
         Height = 13
         Caption = 'Receipt items header:'
       end
-      object Label1: TLabel
+      object Label1: TTntLabel
         Left = 24
         Top = 168
         Width = 94
         Height = 13
         Caption = 'Receipt item format:'
       end
-      object lblRecPrintType: TLabel
+      object lblRecPrintType: TTntLabel
         Left = 8
         Top = 8
         Width = 92
         Height = 13
         Caption = 'Receipt print mode:'
       end
-      object Label2: TLabel
+      object Label2: TTntLabel
         Left = 24
         Top = 272
         Width = 95
@@ -58,7 +58,7 @@ object fmReceiptFormat: TfmReceiptFormat
         Anchors = [akLeft, akRight, akBottom]
         Caption = 'Receipt items trailer:'
       end
-      object memReceiptItemsHeader: TMemo
+      object memReceiptItemsHeader: TTntMemo
         Left = 24
         Top = 88
         Width = 478
@@ -73,7 +73,7 @@ object fmReceiptFormat: TfmReceiptFormat
         ScrollBars = ssVertical
         TabOrder = 0
       end
-      object memReceiptItemFormat: TMemo
+      object memReceiptItemFormat: TTntMemo
         Left = 24
         Top = 184
         Width = 478
@@ -88,7 +88,7 @@ object fmReceiptFormat: TfmReceiptFormat
         ScrollBars = ssVertical
         TabOrder = 1
       end
-      object cbRecPrintType: TComboBox
+      object cbRecPrintType: TTntComboBox
         Left = 128
         Top = 8
         Width = 241
@@ -101,7 +101,7 @@ object fmReceiptFormat: TfmReceiptFormat
           'Driver'
           'Template')
       end
-      object chbPrintSingleQuantity: TCheckBox
+      object chbPrintSingleQuantity: TTntCheckBox
         Left = 24
         Top = 40
         Width = 321
@@ -109,7 +109,7 @@ object fmReceiptFormat: TfmReceiptFormat
         Caption = 'Print single quantity'
         TabOrder = 3
       end
-      object memReceiptItemsTrailer: TMemo
+      object memReceiptItemsTrailer: TTntMemo
         Left = 24
         Top = 288
         Width = 478
@@ -124,7 +124,7 @@ object fmReceiptFormat: TfmReceiptFormat
         ScrollBars = ssVertical
         TabOrder = 4
       end
-      object chbPrintUnitName: TCheckBox
+      object chbPrintUnitName: TTntCheckBox
         Left = 160
         Top = 39
         Width = 273
@@ -137,7 +137,7 @@ object fmReceiptFormat: TfmReceiptFormat
       BorderWidth = 3
       Caption = 'Format help'
       ImageIndex = 1
-      object Memo: TMemo
+      object Memo: TTntMemo
         Left = 0
         Top = 0
         Width = 499

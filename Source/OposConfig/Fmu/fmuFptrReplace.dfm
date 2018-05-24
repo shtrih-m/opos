@@ -12,11 +12,11 @@ object fmFptrReplace: TfmFptrReplace
   Font.Style = []
   OldCreateOrder = False
   DesignSize = (
-    472
-    383)
+    464
+    372)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblText: TLabel
+  object lblText: TTntLabel
     Left = 8
     Top = 168
     Width = 24
@@ -24,7 +24,7 @@ object fmFptrReplace: TfmFptrReplace
     Anchors = [akLeft, akBottom]
     Caption = 'Text:'
   end
-  object lblReplacement: TLabel
+  object lblReplacement: TTntLabel
     Left = 8
     Top = 272
     Width = 66
@@ -57,7 +57,7 @@ object fmFptrReplace: TfmFptrReplace
     ViewStyle = vsReport
     OnChange = ListViewChange
   end
-  object btnAdd: TButton
+  object btnAdd: TTntButton
     Left = 392
     Top = 32
     Width = 75
@@ -67,7 +67,7 @@ object fmFptrReplace: TfmFptrReplace
     TabOrder = 4
     OnClick = btnAddClick
   end
-  object btnDelete: TButton
+  object btnDelete: TTntButton
     Left = 392
     Top = 64
     Width = 75
@@ -77,7 +77,7 @@ object fmFptrReplace: TfmFptrReplace
     TabOrder = 5
     OnClick = btnDeleteClick
   end
-  object btnClear: TButton
+  object btnClear: TTntButton
     Left = 392
     Top = 96
     Width = 75
@@ -87,7 +87,7 @@ object fmFptrReplace: TfmFptrReplace
     TabOrder = 6
     OnClick = btnClearClick
   end
-  object memText: TMemo
+  object memText: TTntMemo
     Left = 8
     Top = 184
     Width = 377
@@ -98,7 +98,7 @@ object fmFptrReplace: TfmFptrReplace
     WordWrap = False
     OnChange = memTextChange
   end
-  object memReplacement: TMemo
+  object memReplacement: TTntMemo
     Left = 8
     Top = 288
     Width = 377
@@ -109,7 +109,7 @@ object fmFptrReplace: TfmFptrReplace
     WordWrap = False
     OnChange = memReplacementChange
   end
-  object chbTextReplacementEnabled: TCheckBox
+  object chbTextReplacementEnabled: TTntCheckBox
     Left = 8
     Top = 8
     Width = 385

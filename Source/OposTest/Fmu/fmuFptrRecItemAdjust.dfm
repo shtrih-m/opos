@@ -17,49 +17,49 @@ object fmFptrRecItemAdjust: TfmFptrRecItemAdjust
     270)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblDescription: TLabel
+  object lblDescription: TTntLabel
     Left = 8
     Top = 32
     Width = 56
     Height = 13
     Caption = 'Description:'
   end
-  object lblAdjustmentType: TLabel
+  object lblAdjustmentType: TTntLabel
     Left = 8
     Top = 56
     Width = 79
     Height = 13
     Caption = 'AdjustmentType:'
   end
-  object lblAmount: TLabel
+  object lblAmount: TTntLabel
     Left = 8
     Top = 104
     Width = 39
     Height = 13
     Caption = 'Amount:'
   end
-  object lblVatInfo: TLabel
+  object lblVatInfo: TTntLabel
     Left = 8
     Top = 128
     Width = 37
     Height = 13
     Caption = 'VatInfo:'
   end
-  object lblPreLine: TLabel
+  object lblPreLine: TTntLabel
     Left = 8
     Top = 8
     Width = 39
     Height = 13
     Caption = 'PreLine:'
   end
-  object Label1: TLabel
+  object Label1: TTntLabel
     Left = 8
     Top = 80
     Width = 79
     Height = 13
     Caption = 'AdjustmentType:'
   end
-  object btnExecute: TButton
+  object btnExecute: TTntButton
     Left = 240
     Top = 160
     Width = 145
@@ -69,7 +69,7 @@ object fmFptrRecItemAdjust: TfmFptrRecItemAdjust
     TabOrder = 6
     OnClick = btnExecuteClick
   end
-  object edtDescription: TEdit
+  object edtDescription: TTntEdit
     Left = 96
     Top = 32
     Width = 289
@@ -78,7 +78,7 @@ object fmFptrRecItemAdjust: TfmFptrRecItemAdjust
     TabOrder = 1
     Text = 'printRecItemAdjustment'
   end
-  object edtAdjustmentType: TEdit
+  object edtAdjustmentType: TTntEdit
     Left = 96
     Top = 56
     Width = 289
@@ -87,7 +87,7 @@ object fmFptrRecItemAdjust: TfmFptrRecItemAdjust
     TabOrder = 2
     Text = '1'
   end
-  object edtAmount: TEdit
+  object edtAmount: TTntEdit
     Left = 96
     Top = 104
     Width = 289
@@ -96,7 +96,7 @@ object fmFptrRecItemAdjust: TfmFptrRecItemAdjust
     TabOrder = 4
     Text = '100'
   end
-  object edtVatInfo: TEdit
+  object edtVatInfo: TTntEdit
     Left = 96
     Top = 128
     Width = 289
@@ -105,7 +105,7 @@ object fmFptrRecItemAdjust: TfmFptrRecItemAdjust
     TabOrder = 5
     Text = '0'
   end
-  object edtPreLine: TEdit
+  object edtPreLine: TTntEdit
     Left = 96
     Top = 8
     Width = 289
@@ -114,7 +114,7 @@ object fmFptrRecItemAdjust: TfmFptrRecItemAdjust
     TabOrder = 0
     Text = 'PreLine'
   end
-  object cbAdjustmentType: TComboBox
+  object cbAdjustmentType: TTntComboBox
     Left = 96
     Top = 80
     Width = 289

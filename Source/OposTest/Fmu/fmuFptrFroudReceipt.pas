@@ -6,6 +6,8 @@ uses
   // VCL
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, ExtCtrls,
+  // Tnt
+  TntStdCtrls, TntSysUtils,
   // 3's
   PngImage,
   // This
@@ -14,13 +16,13 @@ uses
 
 type
   TfmFptrFroudReceipt = class(TPage)
-    btnInvalidSalesReceipt: TButton;
-    Memo: TMemo;
-    btnInvalidRefundReceipt: TButton;
-    btnValidSalesReceipt: TButton;
-    btnInvalidRefundReceipt2: TButton;
-    btnValidRefundReceipt: TButton;
-    btnInvalidSalesReceipt2: TButton;
+    btnInvalidSalesReceipt: TTntButton;
+    Memo: TTntMemo;
+    btnInvalidRefundReceipt: TTntButton;
+    btnValidSalesReceipt: TTntButton;
+    btnInvalidRefundReceipt2: TTntButton;
+    btnValidRefundReceipt: TTntButton;
+    btnInvalidSalesReceipt2: TTntButton;
     procedure btnInvalidSalesReceiptClick(Sender: TObject);
     procedure btnInvalidRefundReceiptClick(Sender: TObject);
     procedure btnValidSalesReceiptClick(Sender: TObject);

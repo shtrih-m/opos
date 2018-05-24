@@ -6,36 +6,38 @@ uses
   // VCL
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ExtCtrls, ComCtrls,
+  // Tnt
+  TntStdCtrls, TntRegistry,
   // This
   untPages, OposFiscalPrinter;
 
 type
   TfmFptrFiscalReports = class(TPage)
-    lblReportType: TLabel;
-    btnPrintReport: TButton;
-    edtReportType: TEdit;
-    cbReportType: TComboBox;
-    lblStartNum: TLabel;
-    edtStartNum: TEdit;
-    lblEndNum: TLabel;
-    edtEndNum: TEdit;
+    lblReportType: TTntLabel;
+    btnPrintReport: TTntButton;
+    edtReportType: TTntEdit;
+    cbReportType: TTntComboBox;
+    lblStartNum: TTntLabel;
+    edtStartNum: TTntEdit;
+    lblEndNum: TTntLabel;
+    edtEndNum: TTntEdit;
     Bevel1: TBevel;
-    btnPrintXReport: TButton;
-    btnPrintZReport: TButton;
+    btnPrintXReport: TTntButton;
+    btnPrintZReport: TTntButton;
     dtpStart: TDateTimePicker;
     dtpEnd: TDateTimePicker;
-    btnStartDate: TButton;
-    btnEndDate: TButton;
+    btnStartDate: TTntButton;
+    btnEndDate: TTntButton;
     Bevel2: TBevel;
-    btnPrintPeriodicTotalsReport: TButton;
-    lblDate1: TLabel;
-    edtDate1: TEdit;
-    lblDate2: TLabel;
-    edtDate2: TEdit;
+    btnPrintPeriodicTotalsReport: TTntButton;
+    lblDate1: TTntLabel;
+    edtDate1: TTntEdit;
+    lblDate2: TTntLabel;
+    edtDate2: TTntEdit;
     dtpDate1: TDateTimePicker;
     dtpDate2: TDateTimePicker;
-    btnDate1: TButton;
-    btnDate2: TButton;
+    btnDate1: TTntButton;
+    btnDate2: TTntButton;
     procedure btnPrintReportClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure cbReportTypeChange(Sender: TObject);

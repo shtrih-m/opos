@@ -17,28 +17,28 @@ object fmWeight: TfmWeight
   Position = poDesktopCenter
   PixelsPerInch = 96
   TextHeight = 13
-  object lblTareWeight: TLabel
+  object lblTareWeight: TTntLabel
     Left = 8
     Top = 176
     Width = 59
     Height = 13
     Caption = 'Tare weight:'
   end
-  object lblWeight: TLabel
+  object lblWeight: TTntLabel
     Left = 8
     Top = 8
     Width = 37
     Height = 13
     Caption = 'Weight:'
   end
-  object lblPrice: TLabel
+  object lblPrice: TTntLabel
     Left = 136
     Top = 8
     Width = 27
     Height = 13
     Caption = 'Price:'
   end
-  object lblAmount: TLabel
+  object lblAmount: TTntLabel
     Left = 264
     Top = 8
     Width = 39
@@ -66,7 +66,7 @@ object fmWeight: TfmWeight
     Font.Style = []
     ParentFont = False
     TabOrder = 0
-    object lblWeightValue: TLabel
+    object lblWeightValue: TTntLabel
       Left = 6
       Top = 6
       Width = 109
@@ -83,7 +83,7 @@ object fmWeight: TfmWeight
       Layout = tlCenter
     end
   end
-  object btnSetTare: TButton
+  object btnSetTare: TTntButton
     Left = 248
     Top = 144
     Width = 137
@@ -91,7 +91,7 @@ object fmWeight: TfmWeight
     Caption = 'Set tare'
     TabOrder = 1
   end
-  object btnZeroScale: TButton
+  object btnZeroScale: TTntButton
     Left = 248
     Top = 112
     Width = 137
@@ -99,7 +99,7 @@ object fmWeight: TfmWeight
     Caption = 'Zero scale'
     TabOrder = 2
   end
-  object btnSetTareValue: TButton
+  object btnSetTareValue: TTntButton
     Left = 248
     Top = 176
     Width = 137
@@ -107,7 +107,7 @@ object fmWeight: TfmWeight
     Caption = 'Set tare value'
     TabOrder = 3
   end
-  object Edit1: TEdit
+  object Edit1: TTntEdit
     Left = 72
     Top = 176
     Width = 169
@@ -116,7 +116,7 @@ object fmWeight: TfmWeight
     TabOrder = 4
     Text = '0'
   end
-  object chbAutoUpdate: TCheckBox
+  object chbAutoUpdate: TTntCheckBox
     Left = 8
     Top = 80
     Width = 137
@@ -138,7 +138,7 @@ object fmWeight: TfmWeight
     Font.Style = []
     ParentFont = False
     TabOrder = 6
-    object lblPriceValue: TLabel
+    object lblPriceValue: TTntLabel
       Left = 6
       Top = 6
       Width = 109
@@ -169,7 +169,7 @@ object fmWeight: TfmWeight
     Font.Style = []
     ParentFont = False
     TabOrder = 7
-    object lblAmountValue: TLabel
+    object lblAmountValue: TTntLabel
       Left = 6
       Top = 6
       Width = 109
@@ -186,7 +186,7 @@ object fmWeight: TfmWeight
       Layout = tlCenter
     end
   end
-  object btnUpdateWeight: TButton
+  object btnUpdateWeight: TTntButton
     Left = 248
     Top = 80
     Width = 137

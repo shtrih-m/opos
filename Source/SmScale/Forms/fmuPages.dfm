@@ -20,7 +20,7 @@ object fmPages: TfmPages
     408)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblResult: TLabel
+  object lblResult: TTntLabel
     Left = 8
     Top = 328
     Width = 33
@@ -28,7 +28,7 @@ object fmPages: TfmPages
     Anchors = [akLeft, akBottom]
     Caption = 'Result:'
   end
-  object lblTxData: TLabel
+  object lblTxData: TTntLabel
     Left = 8
     Top = 352
     Width = 41
@@ -38,7 +38,7 @@ object fmPages: TfmPages
     Color = clBtnFace
     ParentColor = False
   end
-  object lblRxData: TLabel
+  object lblRxData: TTntLabel
     Left = 8
     Top = 376
     Width = 42
@@ -46,7 +46,7 @@ object fmPages: TfmPages
     Anchors = [akLeft, akBottom]
     Caption = 'RX data:'
   end
-  object btnOK: TButton
+  object btnOK: TTntButton
     Left = 376
     Top = 376
     Width = 147
@@ -57,7 +57,7 @@ object fmPages: TfmPages
     TabOrder = 0
     OnClick = btnOKClick
   end
-  object lbPages: TListBox
+  object lbPages: TTntListBox
     Left = 8
     Top = 8
     Width = 121
@@ -78,7 +78,7 @@ object fmPages: TfmPages
     Caption = 'pnlPage'
     TabOrder = 2
   end
-  object edtRecieve: TEdit
+  object edtRecieve: TTntEdit
     Left = 64
     Top = 376
     Width = 305
@@ -89,7 +89,7 @@ object fmPages: TfmPages
     ReadOnly = True
     TabOrder = 3
   end
-  object edtTxData: TEdit
+  object edtTxData: TTntEdit
     Left = 64
     Top = 352
     Width = 305
@@ -100,7 +100,7 @@ object fmPages: TfmPages
     ReadOnly = True
     TabOrder = 4
   end
-  object edtResult: TEdit
+  object edtResult: TTntEdit
     Left = 64
     Top = 328
     Width = 305
@@ -120,7 +120,7 @@ object fmPages: TfmPages
     Caption = 'Password:'
     TabOrder = 6
   end
-  object edtPassword: TEdit
+  object edtPassword: TTntEdit
     Left = 440
     Top = 328
     Width = 81
@@ -139,7 +139,7 @@ object fmPages: TfmPages
     Caption = 'Time, ms:'
     TabOrder = 8
   end
-  object edtTime: TEdit
+  object edtTime: TTntEdit
     Left = 440
     Top = 352
     Width = 81

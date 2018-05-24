@@ -219,49 +219,49 @@ object fmFptrMalina: TfmFptrMalina
       6B7BF7BF5E37AD5DFEB8D8DC33EF389D63A1F1D88C9147FF0FFC4D59C08EB423
       700000000049454E44AE426082}
   end
-  object lblMalinaRegistryKey: TLabel
+  object lblMalinaRegistryKey: TTntLabel
     Left = 272
     Top = 256
     Width = 61
     Height = 13
     Caption = 'Registry key:'
   end
-  object lblMalinaPromoText: TLabel
+  object lblMalinaPromoText: TTntLabel
     Left = 272
     Top = 152
     Width = 53
     Height = 13
     Caption = 'Promo text:'
   end
-  object lblMalinaCardPrefix: TLabel
+  object lblMalinaCardPrefix: TTntLabel
     Left = 272
     Top = 128
     Width = 53
     Height = 13
     Caption = 'Card prefix:'
   end
-  object lblMalinaCoefficient: TLabel
+  object lblMalinaCoefficient: TTntLabel
     Left = 272
     Top = 200
     Width = 53
     Height = 13
     Caption = 'Coefficient:'
   end
-  object lblMalinaPoints: TLabel
+  object lblMalinaPoints: TTntLabel
     Left = 272
     Top = 224
     Width = 32
     Height = 13
     Caption = 'Points:'
   end
-  object lblMalinaPointText: TLabel
+  object lblMalinaPointText: TTntLabel
     Left = 272
     Top = 176
     Width = 52
     Height = 13
     Caption = 'Points text:'
   end
-  object memReceipt: TMemo
+  object memReceipt: TTntMemo
     Left = 0
     Top = 0
     Width = 265
@@ -304,7 +304,7 @@ object fmFptrMalina: TfmFptrMalina
     ReadOnly = True
     TabOrder = 8
   end
-  object chbMalinaFilterEnabled: TCheckBox
+  object chbMalinaFilterEnabled: TTntCheckBox
     Left = 272
     Top = 104
     Width = 177
@@ -312,7 +312,7 @@ object fmFptrMalina: TfmFptrMalina
     Caption = 'Malina processing enabled'
     TabOrder = 0
   end
-  object edtMalinaCardPrefix: TEdit
+  object edtMalinaCardPrefix: TTntEdit
     Left = 368
     Top = 128
     Width = 105
@@ -322,7 +322,7 @@ object fmFptrMalina: TfmFptrMalina
     Text = '30'
     OnChange = MalinaParametersChanged
   end
-  object edtMalinaPromoText: TEdit
+  object edtMalinaPromoText: TTntEdit
     Left = 368
     Top = 152
     Width = 105
@@ -332,7 +332,7 @@ object fmFptrMalina: TfmFptrMalina
     Text = '30'
     OnChange = MalinaParametersChanged
   end
-  object edtMalinaRegistryKey: TEdit
+  object edtMalinaRegistryKey: TTntEdit
     Left = 368
     Top = 256
     Width = 105
@@ -342,7 +342,7 @@ object fmFptrMalina: TfmFptrMalina
     Text = '30'
     OnChange = MalinaParametersChanged
   end
-  object chbMalinaClearRegistry: TCheckBox
+  object chbMalinaClearRegistry: TTntCheckBox
     Left = 272
     Top = 280
     Width = 201
@@ -374,7 +374,7 @@ object fmFptrMalina: TfmFptrMalina
     Value = 0
     OnChange = MalinaParametersChanged
   end
-  object edtMalinaPointsText: TEdit
+  object edtMalinaPointsText: TTntEdit
     Left = 368
     Top = 176
     Width = 105

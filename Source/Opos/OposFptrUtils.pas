@@ -6,7 +6,8 @@ uses
   // VCL
   SysUtils,
   // This
-  Opos, OposUtils, Oposhi, OposFptr, OposFptrhi, OposException, gnugettext;
+  Opos, OposUtils, Oposhi, OposFptr, OposFptrhi, OposException, TntSysUtils,
+  gnugettext;
 
 function PrinterStateToStr(Value: Integer): string;
 function EncodeOposDate(const Date: TOposDate): string;
@@ -50,10 +51,10 @@ end;
 function OposFptrGetErrorText(Driver: OleVariant): string;
 begin
   if Driver.ResultCode = OPOS_E_EXTENDED then
-    Result := Format('%s %s', [
+    Result := Tnt_WideFormat('%s %s', [
     GetResultCodeExtendedText(Driver.ResultCodeExtended), Driver.ErrorString])
   else
-    Result := Format('%s %s', [
+    Result := Tnt_WideFormat('%s %s', [
     GetResultCodeText(Driver.ResultCode), Driver.ErrorString])
 end;
 
@@ -206,7 +207,7 @@ end;
 
 function EncodeOposDate(const Date: TOposDate): string;
 begin
-  Result := Format('%.2d%.2d%.4d%.2d%.2d',[
+  Result := Tnt_WideFormat('%.2d%.2d%.4d%.2d%.2d',[
     Date.Day, Date.Month, Date.Year, Date.Hour, Date.Min]);
 end;
 

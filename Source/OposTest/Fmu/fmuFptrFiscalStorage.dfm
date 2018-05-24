@@ -17,14 +17,14 @@ object fmFptrFiscalStorage: TfmFptrFiscalStorage
     270)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblAdditionalHeader: TLabel
+  object lblAdditionalHeader: TTntLabel
     Left = 8
     Top = 8
     Width = 56
     Height = 13
     Caption = 'Parameters:'
   end
-  object memParameters: TMemo
+  object memParameters: TTntMemo
     Left = 8
     Top = 24
     Width = 377
@@ -40,7 +40,7 @@ object fmFptrFiscalStorage: TfmFptrFiscalStorage
     TabOrder = 0
     WordWrap = False
   end
-  object btnReadParams: TButton
+  object btnReadParams: TTntButton
     Left = 256
     Top = 240
     Width = 131

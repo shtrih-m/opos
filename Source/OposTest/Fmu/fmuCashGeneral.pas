@@ -8,6 +8,8 @@ uses
   Registry, ComCtrls, Graphics,
   // Opos
   Opos, OposCashDrawer, OposUtils, OposCash,
+  // Tnt
+  TntStdCtrls, TntSysUtils, TntRegistry, 
   // This
   untPages, untUtil;
 
@@ -15,26 +17,26 @@ type
   { TfmCashGeneral }
 
   TfmCashGeneral = class(TPage)
-    lblCashDeviceName: TLabel;
-    cbCashDeviceName: TComboBox;
-    btnUpdateCashDevice: TButton;
-    btnOpen: TButton;
-    btnClose: TButton;
-    btnRelease: TButton;
-    btnClaim: TButton;
-    btnOpenDrawer: TButton;
-    btnGetStatus: TButton;
-    btnClearEvents: TButton;
-    memEvents: TMemo;
-    lblEvents: TLabel;
-    lblStatus: TLabel;
-    edtStatus: TEdit;
-    edtCashOpenResult: TEdit;
-    lblCashOpenResult: TLabel;
-    lblTimeout: TLabel;
-    edtTimeout: TEdit;
-    chbDeviceEnabled: TCheckBox;
-    cbDeviceType: TComboBox;
+    lblCashDeviceName: TTntLabel;
+    cbCashDeviceName: TTntComboBox;
+    btnUpdateCashDevice: TTntButton;
+    btnOpen: TTntButton;
+    btnClose: TTntButton;
+    btnRelease: TTntButton;
+    btnClaim: TTntButton;
+    btnOpenDrawer: TTntButton;
+    btnGetStatus: TTntButton;
+    btnClearEvents: TTntButton;
+    memEvents: TTntMemo;
+    lblEvents: TTntLabel;
+    lblStatus: TTntLabel;
+    edtStatus: TTntEdit;
+    edtCashOpenResult: TTntEdit;
+    lblCashOpenResult: TTntLabel;
+    lblTimeout: TTntLabel;
+    edtTimeout: TTntEdit;
+    chbDeviceEnabled: TTntCheckBox;
+    cbDeviceType: TTntComboBox;
     procedure btnOpenClick(Sender: TObject);
     procedure btnCloseClick(Sender: TObject);
     procedure btnClaimClick(Sender: TObject);
@@ -83,9 +85,9 @@ end;
 
 procedure TfmCashGeneral.LoadCashDevices;
 var
-  Reg: TRegistry;
+  Reg: TTntRegistry;
 begin
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     Reg.RootKey := HKEY_LOCAL_MACHINE;
     Reg.Access := KEY_QUERY_VALUE + KEY_ENUMERATE_SUB_KEYS;
@@ -208,7 +210,7 @@ procedure TfmCashGeneral.DirectIOEvent(ASender: TObject; EventNumber: Integer;
 var
   Text: string;
 begin
-  Text := Format('DirectIOEvent(%d, %d, "%s")', [
+  Text := Tnt_WideFormat('DirectIOEvent(%d, %d, "%s")', [
     ASender, EventNumber, pData, pString]);
   memEvents.Lines.Add(Text);
 end;

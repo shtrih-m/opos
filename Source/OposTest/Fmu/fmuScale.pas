@@ -8,6 +8,8 @@ uses
   Registry, ComCtrls,
   // Opos
   OposUtils, OposScalUtils, OposScale,
+  // Tnt
+  TntStdCtrls, TntSysUtils,
   // This
   untPages, VersionInfo, fmuScaleGeneral, fmuScaleMain,
   fmuScaleProperties, fmuScaleHealth;
@@ -18,14 +20,14 @@ type
   TfmScale = class(TForm)
     pnlData: TPanel;
     Panel1: TPanel;
-    lblTime: TLabel;
-    edtTime: TEdit;
+    lblTime: TTntLabel;
+    edtTime: TTntEdit;
     Panel2: TPanel;
-    lbPages: TListBox;
-    lblResult: TLabel;
-    edtResult: TEdit;
-    edtExtendedResult: TEdit;
-    lblExtendedResult: TLabel;
+    lbPages: TTntListBox;
+    lblResult: TTntLabel;
+    edtResult: TTntEdit;
+    edtExtendedResult: TTntEdit;
+    lblExtendedResult: TTntLabel;
     procedure lbPagesClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnCloseClick(Sender: TObject);
@@ -39,7 +41,7 @@ type
     procedure UpdatePage(Sender: TObject);
     procedure StartCommand(Sender: TObject);
     procedure AddPage(PageClass: TPageClass);
-    procedure UpdatePages(ListBox: TListBox; Pages: TPages);
+    procedure UpdatePages(ListBox: TTntListBox; Pages: TPages);
   protected
     procedure ReadState(Reader: TReader); override;
   public
@@ -102,7 +104,7 @@ begin
   AddPage(TfmScaleHealth);
 end;
 
-procedure TfmScale.UpdatePages(ListBox: TListBox; Pages: TPages);
+procedure TfmScale.UpdatePages(ListBox: TTntListBox; Pages: TPages);
 var
   i: Integer;
   PageName: string;
@@ -114,7 +116,7 @@ begin
       Items.Clear;
       for i := 0 to Pages.Count-1 do
       begin
-        PageName := Format('%.2d. %s', [i+1, Pages[i].Caption]);
+        PageName := Tnt_WideFormat('%.2d. %s', [i+1, Pages[i].Caption]);
         Items.Add(PageName);
       end;
     finally

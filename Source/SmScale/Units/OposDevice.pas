@@ -7,6 +7,8 @@ uses
   Windows, SysUtils, SyncObjs,
   // Opos
   Opos, Oposhi, OposScal, OposEvents, OposException, OposScalUtils, OposSemaphore,
+  // Tnt
+  TntSysUtils,
   // Shared
   NotifyThread, LogFile,
   // This
@@ -139,7 +141,7 @@ var
   Key: HKEY;
   RegKeyName: string;
 begin
-  RegKeyName := Format('%s\%s\%s', [OPOS_ROOTKEY, DeviceClass, DeviceName]);
+  RegKeyName := Tnt_WideFormat('%s\%s\%s', [OPOS_ROOTKEY, DeviceClass, DeviceName]);
   Result := RegOpenKeyEx(HKEY_LOCAL_MACHINE, PChar(RegKeyName), 0,
     KEY_READ, Key) = ERROR_SUCCESS;
   if Result then
@@ -291,7 +293,7 @@ begin
     if FClaimed then
       RaiseOPOSException(OPOS_E_CLAIMED, OPOS_S_CLAIMED);
 
-    LongDeviceName := Format('%s/%s', [FDeviceClass, FDeviceName]);
+    LongDeviceName := Tnt_WideFormat('%s/%s', [FDeviceClass, FDeviceName]);
     FSemaphore.Claim(LongDeviceName, Timeout);
 
     FClaimed := True;

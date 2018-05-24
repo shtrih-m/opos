@@ -4,7 +4,10 @@ interface
 
 uses
   // VCL
-  Classes, SysUtils, Math;
+  Classes, SysUtils, Math,
+  // Tnt
+  TntClasses;
+
 
 type
   { TFixedStrings }
@@ -12,7 +15,7 @@ type
 
   TFixedStrings = class
   private
-    FLines: TStrings;
+    FLines: TTntStrings;
     function GetText: string;
     function GetCount: Integer;
     procedure SetCount(Value: Integer);
@@ -22,7 +25,7 @@ type
   public
     constructor Create;
     destructor Destroy; override;
-    procedure Assign(Strings: TStrings);
+    procedure Assign(Strings: TTntStrings);
     function ValidIndex(Index: Integer): Boolean;
 
     property Text: string read GetText write SetText;
@@ -37,7 +40,7 @@ implementation
 constructor TFixedStrings.Create;
 begin
   inherited Create;
-  FLines := TStringList.Create;
+  FLines := TTntStringList.Create;
 end;
 
 destructor TFixedStrings.Destroy;
@@ -85,9 +88,9 @@ end;
 
 procedure TFixedStrings.SetText(const Text: string);
 var
-  Strings: TStrings;
+  Strings: TTntStrings;
 begin
-  Strings := TStringList.Create;
+  Strings := TTntStringList.Create;
   try
     Strings.Text := Text;
     Assign(Strings);
@@ -96,7 +99,7 @@ begin
   end;
 end;
 
-procedure TFixedStrings.Assign(Strings: TStrings);
+procedure TFixedStrings.Assign(Strings: TTntStrings);
 var
   i: Integer;
 begin

@@ -4,7 +4,9 @@ interface
 
 uses
   // VCL
-  Windows, SysUtils, Classes, IniFiles,
+  Windows, SysUtils, Classes,
+  // Tnt
+  TntClasses, TntStdCtrls, TntRegistry, TntIniFiles,
   // This
   PrinterParameters, FileUtils, LogFile, SmIniFile, SmFiscalPrinterLib_TLB,
   DirectIOAPI, VatCode;
@@ -195,7 +197,7 @@ procedure TPrinterParametersIni.LoadIni(const DeviceName: string);
 var
   i: Integer;
   Section: string;
-  Names: TStrings;
+  Names: TTntStrings;
   AppVatCode: Integer;
   FptrVatCode: Integer;
   IniFile: TSmIniFile;
@@ -338,7 +340,7 @@ begin
     if IniFile.SectionExists(Section) then
     begin
       FParameters.VatCodes.Clear;
-      Names := TStringList.Create;
+      Names := TTntStringList.Create;
       try
         IniFile.ReadSection(Section, Names);
         for i := 0 to Names.Count-1 do
@@ -356,7 +358,7 @@ begin
     if IniFile.SectionExists(Section) then
     begin
       FParameters.PayTypes.Clear;
-      Names := TStringList.Create;
+      Names := TTntStringList.Create;
       try
         IniFile.ReadSection(Section, Names);
         for i := 0 to Names.Count-1 do

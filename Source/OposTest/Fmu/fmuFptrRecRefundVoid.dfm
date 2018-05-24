@@ -17,28 +17,28 @@ object fmFptrRecRefundVoid: TfmFptrRecRefundVoid
     270)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblDescription: TLabel
+  object lblDescription: TTntLabel
     Left = 8
     Top = 8
     Width = 56
     Height = 13
     Caption = 'Description:'
   end
-  object lblAmount: TLabel
+  object lblAmount: TTntLabel
     Left = 8
     Top = 32
     Width = 39
     Height = 13
     Caption = 'Amount:'
   end
-  object lblVatInfo: TLabel
+  object lblVatInfo: TTntLabel
     Left = 8
     Top = 56
     Width = 37
     Height = 13
     Caption = 'VatInfo:'
   end
-  object btnExecute: TButton
+  object btnExecute: TTntButton
     Left = 240
     Top = 88
     Width = 145
@@ -48,7 +48,7 @@ object fmFptrRecRefundVoid: TfmFptrRecRefundVoid
     TabOrder = 3
     OnClick = btnExecuteClick
   end
-  object edtDescription: TEdit
+  object edtDescription: TTntEdit
     Left = 96
     Top = 8
     Width = 289
@@ -57,7 +57,7 @@ object fmFptrRecRefundVoid: TfmFptrRecRefundVoid
     TabOrder = 0
     Text = 'printRecRefundVoid'
   end
-  object edtAmount: TEdit
+  object edtAmount: TTntEdit
     Left = 96
     Top = 32
     Width = 289
@@ -66,7 +66,7 @@ object fmFptrRecRefundVoid: TfmFptrRecRefundVoid
     TabOrder = 1
     Text = '100'
   end
-  object edtVatInfo: TEdit
+  object edtVatInfo: TTntEdit
     Left = 96
     Top = 56
     Width = 289

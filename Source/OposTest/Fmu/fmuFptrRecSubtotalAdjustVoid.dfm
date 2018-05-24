@@ -18,28 +18,28 @@ object fmFptrRecSubtotalAdjustVoid: TfmFptrRecSubtotalAdjustVoid
     270)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblAmount: TLabel
+  object lblAmount: TTntLabel
     Left = 8
     Top = 56
     Width = 39
     Height = 13
     Caption = 'Amount:'
   end
-  object lblPreLine: TLabel
+  object lblPreLine: TTntLabel
     Left = 8
     Top = 8
     Width = 39
     Height = 13
     Caption = 'PreLine:'
   end
-  object Label1: TLabel
+  object Label1: TTntLabel
     Left = 8
     Top = 32
     Width = 79
     Height = 13
     Caption = 'AdjustmentType:'
   end
-  object btnExecute: TButton
+  object btnExecute: TTntButton
     Left = 224
     Top = 88
     Width = 161
@@ -49,7 +49,7 @@ object fmFptrRecSubtotalAdjustVoid: TfmFptrRecSubtotalAdjustVoid
     TabOrder = 2
     OnClick = btnExecuteClick
   end
-  object edtAmount: TEdit
+  object edtAmount: TTntEdit
     Left = 96
     Top = 56
     Width = 289
@@ -58,7 +58,7 @@ object fmFptrRecSubtotalAdjustVoid: TfmFptrRecSubtotalAdjustVoid
     TabOrder = 1
     Text = '0'
   end
-  object cbAdjustmentType: TComboBox
+  object cbAdjustmentType: TTntComboBox
     Left = 96
     Top = 32
     Width = 289
@@ -73,7 +73,7 @@ object fmFptrRecSubtotalAdjustVoid: TfmFptrRecSubtotalAdjustVoid
       'FPTR_AT_PERCENTAGE_DISCOUNT'
       'FPTR_AT_PERCENTAGE_SURCHARGE')
   end
-  object edtPreLine: TEdit
+  object edtPreLine: TTntEdit
     Left = 96
     Top = 8
     Width = 289

@@ -17,21 +17,21 @@ object fmFptrDirectIOHex: TfmFptrDirectIOHex
     270)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblTxData: TLabel
+  object lblTxData: TTntLabel
     Left = 8
     Top = 16
     Width = 38
     Height = 13
     Caption = 'TxData:'
   end
-  object lblRxData: TLabel
+  object lblRxData: TTntLabel
     Left = 8
     Top = 48
     Width = 39
     Height = 13
     Caption = 'RxData:'
   end
-  object btnExecute: TButton
+  object btnExecute: TTntButton
     Left = 290
     Top = 80
     Width = 97
@@ -41,7 +41,7 @@ object fmFptrDirectIOHex: TfmFptrDirectIOHex
     TabOrder = 2
     OnClick = btnExecuteClick
   end
-  object edtRxData: TEdit
+  object edtRxData: TTntEdit
     Left = 64
     Top = 48
     Width = 323
@@ -49,7 +49,7 @@ object fmFptrDirectIOHex: TfmFptrDirectIOHex
     Anchors = [akLeft, akTop, akRight]
     TabOrder = 1
   end
-  object edtTxData: TEdit
+  object edtTxData: TTntEdit
     Left = 64
     Top = 16
     Width = 323

@@ -17,7 +17,7 @@ object fmPhone: TfmPhone
   OldCreateOrder = False
   PixelsPerInch = 96
   TextHeight = 13
-  object Label1: TLabel
+  object Label1: TTntLabel
     Left = 8
     Top = 16
     Width = 157
@@ -270,7 +270,7 @@ object fmPhone: TfmPhone
       PngOptions = [pngBlendOnDisabled, pngGrayscaleOnDisabled]
     end
   end
-  object edtAddress: TEdit
+  object edtAddress: TTntEdit
     Left = 8
     Top = 48
     Width = 217

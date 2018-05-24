@@ -6,15 +6,17 @@ uses
   // VCL
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls,
+  // Tnt
+  TntClasses, TntStdCtrls, TntRegistry,
   // This
   FiscalPrinterDevice;
 
 type
   TfmFptrTables = class(TFptrPage)
-    chbTableEditEnabled: TCheckBox;
-    chbWritePaymentNameEnabled: TCheckBox;
-    lblTableFilePath: TLabel;
-    edtTableFilePath: TEdit;
+    chbTableEditEnabled: TTntCheckBox;
+    chbWritePaymentNameEnabled: TTntCheckBox;
+    lblTableFilePath: TTntLabel;
+    edtTableFilePath: TTntEdit;
   public
     procedure UpdatePage; override;
     procedure UpdateObject; override;

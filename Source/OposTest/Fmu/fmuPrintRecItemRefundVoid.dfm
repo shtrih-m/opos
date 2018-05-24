@@ -17,49 +17,49 @@ object fmPrintRecItemRefundVoid: TfmPrintRecItemRefundVoid
     270)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblDescription: TLabel
+  object lblDescription: TTntLabel
     Left = 8
     Top = 8
     Width = 56
     Height = 13
     Caption = 'Description:'
   end
-  object lblAmount: TLabel
+  object lblAmount: TTntLabel
     Left = 8
     Top = 32
     Width = 39
     Height = 13
     Caption = 'Amount:'
   end
-  object lblQuantity: TLabel
+  object lblQuantity: TTntLabel
     Left = 8
     Top = 56
     Width = 42
     Height = 13
     Caption = 'Quantity:'
   end
-  object lblVatInfo: TLabel
+  object lblVatInfo: TTntLabel
     Left = 8
     Top = 80
     Width = 37
     Height = 13
     Caption = 'VatInfo:'
   end
-  object lblUnitAmount: TLabel
+  object lblUnitAmount: TTntLabel
     Left = 8
     Top = 104
     Width = 58
     Height = 13
     Caption = 'UnitAmount:'
   end
-  object lblUnitName: TLabel
+  object lblUnitName: TTntLabel
     Left = 8
     Top = 128
     Width = 50
     Height = 13
     Caption = 'UnitName:'
   end
-  object btnExecute: TButton
+  object btnExecute: TTntButton
     Left = 248
     Top = 160
     Width = 137
@@ -69,7 +69,7 @@ object fmPrintRecItemRefundVoid: TfmPrintRecItemRefundVoid
     TabOrder = 6
     OnClick = btnExecuteClick
   end
-  object edtDescription: TEdit
+  object edtDescription: TTntEdit
     Left = 96
     Top = 8
     Width = 289
@@ -78,7 +78,7 @@ object fmPrintRecItemRefundVoid: TfmPrintRecItemRefundVoid
     TabOrder = 0
     Text = 'Method printRecItemRefundVoid'
   end
-  object edtAmount: TEdit
+  object edtAmount: TTntEdit
     Left = 96
     Top = 32
     Width = 289
@@ -87,7 +87,7 @@ object fmPrintRecItemRefundVoid: TfmPrintRecItemRefundVoid
     TabOrder = 1
     Text = '100'
   end
-  object edtQuantity: TEdit
+  object edtQuantity: TTntEdit
     Left = 96
     Top = 56
     Width = 289
@@ -96,7 +96,7 @@ object fmPrintRecItemRefundVoid: TfmPrintRecItemRefundVoid
     TabOrder = 2
     Text = '1000'
   end
-  object edtVatInfo: TEdit
+  object edtVatInfo: TTntEdit
     Left = 96
     Top = 80
     Width = 289
@@ -105,7 +105,7 @@ object fmPrintRecItemRefundVoid: TfmPrintRecItemRefundVoid
     TabOrder = 3
     Text = '0'
   end
-  object edtUnitAmount: TEdit
+  object edtUnitAmount: TTntEdit
     Left = 96
     Top = 104
     Width = 289
@@ -114,7 +114,7 @@ object fmPrintRecItemRefundVoid: TfmPrintRecItemRefundVoid
     TabOrder = 4
     Text = '0'
   end
-  object edtUnitName: TEdit
+  object edtUnitName: TTntEdit
     Left = 96
     Top = 128
     Width = 289

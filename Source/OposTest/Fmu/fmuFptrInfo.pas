@@ -6,16 +6,18 @@ uses
   // VCL
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, Registry, ExtCtrls, ComObj,
+  // Tnt
+  TntStdCtrls, TntSysUtils, TntClasses, 
   // This
   untPages, Opos, Oposhi, OposUtils, OposFiscalPrinter, OposDevice,
   VersionInfo;
 
 type
   TfmFptrInfo = class(TPage)
-    btnRefresh: TButton;
-    memDevices: TMemo;
-    lblServiceFileVersion_: TLabel;
-    lblServiceFileVersion: TLabel;
+    btnRefresh: TTntButton;
+    memDevices: TTntMemo;
+    lblServiceFileVersion_: TTntLabel;
+    lblServiceFileVersion: TTntLabel;
     procedure btnRefreshClick(Sender: TObject);
   public
     procedure UpdateDevices;
@@ -48,7 +50,7 @@ var
   DeviceName: string;
   Device: TOposDevice;
   ServiceProgID: string;
-  DeviceNames: TStrings;
+  DeviceNames: TTntStrings;
   ServiceFileVersion: string;
   ServiceObjectVersion: string;
   ControlObjectVersion: string;
@@ -74,7 +76,7 @@ begin
     // Service object info
 
     // Devices info
-    DeviceNames := TStringList.Create;
+    DeviceNames := TTntStringList.Create;
     Device := TOposDevice.Create(nil, OPOS_CLASSKEY_FPTR, OPOS_CLASSKEY_FPTR,
       FiscalPrinterProgID);
     try

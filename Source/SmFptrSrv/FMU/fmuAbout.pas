@@ -5,6 +5,8 @@ interface
 uses
   // VCL
   Windows, Forms, ExtCtrls, StdCtrls, Controls, Classes, ShellAPI, Graphics,
+  // Tnt
+  TntStdCtrls,
   // This
   BaseForm;
 
@@ -12,16 +14,16 @@ type
   { TfmAbout }
 
   TfmAbout = class(TBaseForm)
-    lblAddress: TLabel;
-    btnOK: TButton;
-    lblURL: TLabel;
-    lblWebSite: TLabel;
-    lblSupport: TLabel;
-    lblSupportMail: TLabel;
-    NameLabel: TLabel;
-    lbVersion: TListBox;
+    lblAddress: TTntLabel;
+    btnOK: TTntButton;
+    lblURL: TTntLabel;
+    lblWebSite: TTntLabel;
+    lblSupport: TTntLabel;
+    lblSupportMail: TTntLabel;
+    NameLabel: TTntLabel;
+    lbVersion: TTntListBox;
     bvlInfo: TBevel;
-    lblFirmName: TLabel;
+    lblFirmName: TTntLabel;
     Image: TImage;
     Shape1: TShape;
     Bevel2: TBevel;

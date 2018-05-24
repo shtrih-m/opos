@@ -17,14 +17,14 @@ object fmFptrRecTaxID: TfmFptrRecTaxID
     270)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblTaxID: TLabel
+  object lblTaxID: TTntLabel
     Left = 8
     Top = 8
     Width = 32
     Height = 13
     Caption = 'TaxID:'
   end
-  object btnExecute: TButton
+  object btnExecute: TTntButton
     Left = 240
     Top = 40
     Width = 145
@@ -34,7 +34,7 @@ object fmFptrRecTaxID: TfmFptrRecTaxID
     TabOrder = 1
     OnClick = btnExecuteClick
   end
-  object edtTaxID: TEdit
+  object edtTaxID: TTntEdit
     Left = 56
     Top = 8
     Width = 329

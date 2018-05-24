@@ -6,20 +6,22 @@ uses
   // VCL
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ExtCtrls, ComCtrls,
+  // Tnt
+  TntStdCtrls,
   // This
   untPages, OposFiscalPrinter;
 
 type
   TfmFptrSetLine = class(TPage)
-    lblLineNumber: TLabel;
-    lblHeaderLine: TLabel;
-    btnSetHeaderLine: TButton;
-    edtLineNumber: TEdit;
-    edtHeaderLine: TEdit;
-    chbDoubleWidth: TCheckBox;
-    btnSetTrailerLine: TButton;
-    lblTrailerLine: TLabel;
-    edtTrailerLine: TEdit;
+    lblLineNumber: TTntLabel;
+    lblHeaderLine: TTntLabel;
+    btnSetHeaderLine: TTntButton;
+    edtLineNumber: TTntEdit;
+    edtHeaderLine: TTntEdit;
+    chbDoubleWidth: TTntCheckBox;
+    btnSetTrailerLine: TTntButton;
+    lblTrailerLine: TTntLabel;
+    edtTrailerLine: TTntEdit;
     procedure btnSetHeaderLineClick(Sender: TObject);
     procedure btnSetTrailerLineClick(Sender: TObject);
   end;

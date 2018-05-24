@@ -17,21 +17,21 @@ object fmFptrRecNotPaid: TfmFptrRecNotPaid
     270)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblDescription: TLabel
+  object lblDescription: TTntLabel
     Left = 8
     Top = 8
     Width = 56
     Height = 13
     Caption = 'Description:'
   end
-  object lblAmount: TLabel
+  object lblAmount: TTntLabel
     Left = 8
     Top = 32
     Width = 39
     Height = 13
     Caption = 'Amount:'
   end
-  object btnExecute: TButton
+  object btnExecute: TTntButton
     Left = 264
     Top = 64
     Width = 121
@@ -41,7 +41,7 @@ object fmFptrRecNotPaid: TfmFptrRecNotPaid
     TabOrder = 2
     OnClick = btnExecuteClick
   end
-  object edtDescription: TEdit
+  object edtDescription: TTntEdit
     Left = 80
     Top = 8
     Width = 305
@@ -50,7 +50,7 @@ object fmFptrRecNotPaid: TfmFptrRecNotPaid
     TabOrder = 0
     Text = 'printRecNotPaid'
   end
-  object edtAmount: TEdit
+  object edtAmount: TTntEdit
     Left = 80
     Top = 32
     Width = 305

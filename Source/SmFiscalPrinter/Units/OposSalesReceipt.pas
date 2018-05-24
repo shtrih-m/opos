@@ -918,13 +918,13 @@ begin
   Amount := Round2(Item.Quantity/1000 * Item.Price);
   if ((Item.Quantity = 1000) and (not Parameters.PrintSingleQuantity)) then
   begin
-    Line2 := Format('= %s', [AmountToStr(Amount/100)]) +  GetTaxLetter(TaxNumber);
+    Line2 := Tnt_WideFormat('= %s', [AmountToStr(Amount/100)]) +  GetTaxLetter(TaxNumber);
   end else
   begin
     Line2 := QuantityToStr(Item.Quantity/1000);
     if Parameters.PrintUnitName then
       Line2 := Line2 + ' ' + Item.Data.UnitName;
-    Line2 := Format('%s X %s = %s', [Line2, AmountToStr(Item.Price/100),
+    Line2 := Tnt_WideFormat('%s X %s = %s', [Line2, AmountToStr(Item.Price/100),
       AmountToStr(Amount/100)]) +  GetTaxLetter(TaxNumber);
   end;
   if Length(Line1 + Line2) > Device.GetPrintWidth then

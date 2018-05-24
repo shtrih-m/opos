@@ -50,7 +50,7 @@ object fmGeneral: TfmGeneral
     Caption = #1055#1072#1088#1086#1083#1100
     TabOrder = 1
   end
-  object Edit53: TEdit
+  object Edit53: TTntEdit
     Left = 68
     Top = 704
     Width = 65
@@ -59,35 +59,35 @@ object fmGeneral: TfmGeneral
     TabOrder = 0
     Text = '30'
   end
-  object gbConnectionParams: TGroupBox
+  object gbConnectionParams: TTntGroupBox
     Left = 8
     Top = 8
     Width = 361
     Height = 137
     Caption = 'Connection parameters'
     TabOrder = 2
-    object lblComPort: TLabel
+    object lblComPort: TTntLabel
       Left = 16
       Top = 24
       Width = 48
       Height = 13
       Caption = 'COM port:'
     end
-    object lblBaudRate: TLabel
+    object lblBaudRate: TTntLabel
       Left = 16
       Top = 56
       Width = 51
       Height = 13
       Caption = 'BaudRate:'
     end
-    object lblTimeout: TLabel
+    object lblTimeout: TTntLabel
       Left = 16
       Top = 88
       Width = 41
       Height = 13
       Caption = 'Timeout:'
     end
-    object edtTimeout: TEdit
+    object edtTimeout: TTntEdit
       Left = 96
       Top = 88
       Width = 129
@@ -96,7 +96,7 @@ object fmGeneral: TfmGeneral
       TabOrder = 2
       Text = '150'
     end
-    object cbBaudRate: TComboBox
+    object cbBaudRate: TTntComboBox
       Left = 96
       Top = 56
       Width = 129
@@ -113,7 +113,7 @@ object fmGeneral: TfmGeneral
         '57600'
         '115200')
     end
-    object cbComPort: TComboBox
+    object cbComPort: TTntComboBox
       Left = 96
       Top = 24
       Width = 129
@@ -154,7 +154,7 @@ object fmGeneral: TfmGeneral
         'Com31'
         'Com32')
     end
-    object btnReadParameters: TButton
+    object btnReadParameters: TTntButton
       Left = 232
       Top = 24
       Width = 121
@@ -162,7 +162,7 @@ object fmGeneral: TfmGeneral
       Caption = 'Read parameters'
       TabOrder = 3
     end
-    object btnWriteParameters: TButton
+    object btnWriteParameters: TTntButton
       Left = 232
       Top = 56
       Width = 121
@@ -171,14 +171,14 @@ object fmGeneral: TfmGeneral
       TabOrder = 4
     end
   end
-  object gbScaleMode: TGroupBox
+  object gbScaleMode: TTntGroupBox
     Left = 8
     Top = 152
     Width = 361
     Height = 137
     Caption = 'Scale mode'
     TabOrder = 3
-    object rbWeightMode: TRadioButton
+    object rbWeightMode: TTntRadioButton
       Left = 16
       Top = 32
       Width = 113
@@ -186,7 +186,7 @@ object fmGeneral: TfmGeneral
       Caption = 'Weight mode'
       TabOrder = 0
     end
-    object rbGraduationMode: TRadioButton
+    object rbGraduationMode: TTntRadioButton
       Left = 16
       Top = 64
       Width = 113
@@ -194,7 +194,7 @@ object fmGeneral: TfmGeneral
       Caption = 'Graduation mode'
       TabOrder = 1
     end
-    object rbDataMode: TRadioButton
+    object rbDataMode: TTntRadioButton
       Left = 16
       Top = 96
       Width = 113
@@ -202,7 +202,7 @@ object fmGeneral: TfmGeneral
       Caption = 'Data mode'
       TabOrder = 2
     end
-    object btnReadMode: TButton
+    object btnReadMode: TTntButton
       Left = 232
       Top = 32
       Width = 121
@@ -210,7 +210,7 @@ object fmGeneral: TfmGeneral
       Caption = 'Read mode'
       TabOrder = 3
     end
-    object btnWriteMode: TButton
+    object btnWriteMode: TTntButton
       Left = 232
       Top = 64
       Width = 121
@@ -219,21 +219,21 @@ object fmGeneral: TfmGeneral
       TabOrder = 4
     end
   end
-  object gbKeyboard: TGroupBox
+  object gbKeyboard: TTntGroupBox
     Left = 8
     Top = 504
     Width = 361
     Height = 105
     Caption = 'Keyboard'
     TabOrder = 4
-    object lblKeyCode: TLabel
+    object lblKeyCode: TTntLabel
       Left = 16
       Top = 24
       Width = 48
       Height = 13
       Caption = 'Key code:'
     end
-    object btnKeyCode: TButton
+    object btnKeyCode: TTntButton
       Left = 152
       Top = 24
       Width = 97
@@ -241,7 +241,7 @@ object fmGeneral: TfmGeneral
       Caption = 'Send key code'
       TabOrder = 0
     end
-    object Edit123: TEdit
+    object Edit123: TTntEdit
       Left = 80
       Top = 24
       Width = 65
@@ -250,7 +250,7 @@ object fmGeneral: TfmGeneral
       TabOrder = 1
       Text = '0'
     end
-    object btnLockKeyboard: TButton
+    object btnLockKeyboard: TTntButton
       Left = 152
       Top = 56
       Width = 97
@@ -258,7 +258,7 @@ object fmGeneral: TfmGeneral
       Caption = 'Lock keyboard'
       TabOrder = 2
     end
-    object btnUnlockKeyboard: TButton
+    object btnUnlockKeyboard: TTntButton
       Left = 256
       Top = 56
       Width = 97
@@ -266,7 +266,7 @@ object fmGeneral: TfmGeneral
       Caption = 'Unlock keyboard'
       TabOrder = 3
     end
-    object btnKeyboardReadStatus: TButton
+    object btnKeyboardReadStatus: TTntButton
       Left = 256
       Top = 24
       Width = 97
@@ -275,14 +275,14 @@ object fmGeneral: TfmGeneral
       TabOrder = 4
     end
   end
-  object GroupBox1: TGroupBox
+  object GroupBox1: TTntGroupBox
     Left = 8
     Top = 616
     Width = 361
     Height = 73
     Caption = 'Password'
     TabOrder = 5
-    object lblNewPassword: TLabel
+    object lblNewPassword: TTntLabel
       Left = 12
       Top = 35
       Width = 73
@@ -290,7 +290,7 @@ object fmGeneral: TfmGeneral
       Caption = 'New password:'
       WordWrap = True
     end
-    object edtNewPassword: TEdit
+    object edtNewPassword: TTntEdit
       Left = 96
       Top = 32
       Width = 145
@@ -299,7 +299,7 @@ object fmGeneral: TfmGeneral
       TabOrder = 0
       Text = '0'
     end
-    object btnWritePassword: TButton
+    object btnWritePassword: TTntButton
       Left = 248
       Top = 32
       Width = 105
@@ -308,14 +308,14 @@ object fmGeneral: TfmGeneral
       TabOrder = 1
     end
   end
-  object gbStatus: TGroupBox
+  object gbStatus: TTntGroupBox
     Left = 8
     Top = 296
     Width = 361
     Height = 201
     Caption = 'Status'
     TabOrder = 6
-    object Memo1: TMemo
+    object Memo1: TTntMemo
       Left = 8
       Top = 24
       Width = 345
@@ -324,7 +324,7 @@ object fmGeneral: TfmGeneral
         'Memo1')
       TabOrder = 0
     end
-    object btnReadStatus: TButton
+    object btnReadStatus: TTntButton
       Left = 256
       Top = 168
       Width = 97

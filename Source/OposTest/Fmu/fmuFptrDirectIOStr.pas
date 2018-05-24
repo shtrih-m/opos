@@ -6,23 +6,25 @@ uses
   // VCL
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ExtCtrls, ComCtrls,
+  // Tnt
+  TntStdCtrls, TntSysUtils, TntClasses, 
   // This
   untPages, OposFiscalPrinter, DirectIOAPI, Opos, CommandDef,
   CommandParam, BStrUtil, LogFile;
 
 type
   TfmFptrDirectIOStr = class(TPage)
-    lblTxData: TLabel;
-    btnExecute: TButton;
-    lblRxData: TLabel;
-    edtRxData: TEdit;
-    edtTxData: TEdit;
-    lblCommand: TLabel;
-    cbCommand: TComboBox;
-    memCommand: TMemo;
-    lblDescription: TLabel;
-    Label1: TLabel;
-    memAnswer: TMemo;
+    lblTxData: TTntLabel;
+    btnExecute: TTntButton;
+    lblRxData: TTntLabel;
+    edtRxData: TTntEdit;
+    edtTxData: TTntEdit;
+    lblCommand: TTntLabel;
+    cbCommand: TTntComboBox;
+    memCommand: TTntMemo;
+    lblDescription: TTntLabel;
+    Label1: TTntLabel;
+    memAnswer: TTntMemo;
     procedure btnExecuteClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure cbCommandChange(Sender: TObject);
@@ -60,13 +62,13 @@ end;
 procedure TfmFptrDirectIOStr.UpdateCommandHint;
 var
   i: Integer;
-  Strings: TStrings;
+  Strings: TTntStrings;
   Param: TCommandParam;
   Command: TCommandDef;
 begin
   if cbCommand.ItemIndex = -1 then Exit;
 
-  Strings := TStringList.Create;
+  Strings := TTntStringList.Create;
   try
     Command := Commands[cbCommand.ItemIndex];
     Strings.Add(Command.Name);
@@ -93,11 +95,11 @@ end;
 procedure TfmFptrDirectIOStr.UpdateCommandText(const S: string);
 var
   i: Integer;
-  Strings: TStrings;
+  Strings: TTntStrings;
   Param: TCommandParam;
   Command: TCommandDef;
 begin
-  Strings := TStringList.Create;
+  Strings := TTntStringList.Create;
   try
     Command := Commands[cbCommand.ItemIndex];
     Strings.Add(Command.Name);
@@ -146,7 +148,7 @@ begin
     for i := 0 to Commands.Count-1 do
     begin
       Command := Commands[i];
-      S := Format('0x%.2xh, %s', [Command.Code, Command.Name]);
+      S := Tnt_WideFormat('0x%.2xh, %s', [Command.Code, Command.Name]);
       cbCommand.Items.AddObject(S, Pointer(Command.Code));
     end;
   finally

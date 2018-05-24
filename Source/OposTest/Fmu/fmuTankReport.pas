@@ -6,6 +6,8 @@ uses
   // VCL
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, ExtCtrls,
+  // Tnt
+  TntStdCtrls, TntSysUtils,
   // 3's
   PngImage,
   // This
@@ -14,10 +16,10 @@ uses
 
 type
   TfmTankReport = class(TPage)
-    memTankReport: TMemo;
-    lblTankReport: TLabel;
-    btnSetDefaults: TButton;
-    btnPrint: TButton;
+    memTankReport: TTntMemo;
+    lblTankReport: TTntLabel;
+    btnSetDefaults: TTntButton;
+    btnPrint: TTntButton;
     procedure btnSetDefaultsClick(Sender: TObject);
     procedure btnPrintClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);

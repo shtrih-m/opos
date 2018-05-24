@@ -17,7 +17,7 @@ object fmFptrProperties: TfmFptrProperties
     270)
   PixelsPerInch = 96
   TextHeight = 13
-  object btnRefresh: TButton
+  object btnRefresh: TTntButton
     Left = 304
     Top = 240
     Width = 81
@@ -27,7 +27,7 @@ object fmFptrProperties: TfmFptrProperties
     TabOrder = 0
     OnClick = btnRefreshClick
   end
-  object Memo: TMemo
+  object Memo: TTntMemo
     Left = 8
     Top = 8
     Width = 377

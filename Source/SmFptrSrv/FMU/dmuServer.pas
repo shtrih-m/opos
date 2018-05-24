@@ -5,6 +5,8 @@ interface
 uses
   // VCL
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  // Tnt
+  TntClasses,
   // Indy
   IdBaseComponent, IdComponent, IdTCPServer, IdCmdTCPServer,
   IdCustomTCPServer, IdCommandHandlers, IdContext,

@@ -17,7 +17,7 @@ object fmScaleEvents: TfmScaleEvents
     206)
   PixelsPerInch = 96
   TextHeight = 13
-  object memEvents: TMemo
+  object memEvents: TTntMemo
     Left = 8
     Top = 8
     Width = 353
@@ -25,7 +25,7 @@ object fmScaleEvents: TfmScaleEvents
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 0
   end
-  object btnClear: TButton
+  object btnClear: TTntButton
     Left = 288
     Top = 176
     Width = 75

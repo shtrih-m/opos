@@ -6,33 +6,33 @@ uses
   // VCL
   Controls, StdCtrls, Classes, SysUtils, Spin,
   // This
-  FiscalPrinterDevice, FptrTypes, ExtCtrls;
+  FiscalPrinterDevice, FptrTypes, ExtCtrls, TntStdCtrls;
 
 type
   { TfmFptrBarcode }
 
   TfmFptrBarcode = class(TFptrPage)
-    lblBarLinePrintDelay: TLabel;
-    cbBarLineByteMode: TComboBox;
-    lblBarLineByteMode: TLabel;
+    lblBarLinePrintDelay: TTntLabel;
+    cbBarLineByteMode: TTntComboBox;
+    lblBarLineByteMode: TTntLabel;
     seBarLinePrintDelay: TSpinEdit;
-    Label1: TLabel;
+    Label1: TTntLabel;
     Bevel1: TBevel;
-    edtBarcodePrefix: TEdit;
-    lblBarcodePrefix: TLabel;
+    edtBarcodePrefix: TTntEdit;
+    lblBarcodePrefix: TTntLabel;
     seBarcodeHeight: TSpinEdit;
-    lblBarcodeHeight: TLabel;
-    lblBarcodeType: TLabel;
-    cbBarcodeType: TComboBox;
+    lblBarcodeHeight: TTntLabel;
+    lblBarcodeType: TTntLabel;
+    cbBarcodeType: TTntComboBox;
     seBarcodeModuleWidth: TSpinEdit;
-    lblBarcodeModuleWidth: TLabel;
-    cbBarcodeAlignment: TComboBox;
-    lblBarcodeAlignment: TLabel;
-    lblBarcodeParameter1: TLabel;
+    lblBarcodeModuleWidth: TTntLabel;
+    cbBarcodeAlignment: TTntComboBox;
+    lblBarcodeAlignment: TTntLabel;
+    lblBarcodeParameter1: TTntLabel;
     seBarcodeParameter1: TSpinEdit;
-    lblBarcodeParameter2: TLabel;
+    lblBarcodeParameter2: TTntLabel;
     seBarcodeParameter2: TSpinEdit;
-    lblBarcodeParameter3: TLabel;
+    lblBarcodeParameter3: TTntLabel;
     seBarcodeParameter3: TSpinEdit;
     Bevel2: TBevel;
     procedure FormCreate(Sender: TObject);

@@ -6,35 +6,37 @@ uses
   // VCL
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ExtCtrls,
+  // Tnt
+  TntStdCtrls, TntRegistry,
   // This
   untPages, OposFiscalPrinter;
 
 type
   TfmFptrWritableProperties = class(TPage)
-    chbDeviceEnabled: TCheckBox;
-    chbFreezeEvents: TCheckBox;
-    chbPowerNotify: TCheckBox;
-    chbAsyncMode: TCheckBox;
-    chbCheckTotal: TCheckBox;
-    chbDuplicateReceipt: TCheckBox;
-    chbFlagWhenIdle: TCheckBox;
-    lblSlipSelection: TLabel;
-    cbSlipSelection: TComboBox;
-    lblChangeDue: TLabel;
-    edtChangeDue: TEdit;
-    lblDateType: TLabel;
-    cbDateType: TComboBox;
-    lblFiscalReceiptStation: TLabel;
-    cbFiscalReceiptStation: TComboBox;
-    lblFiscalReceiptType: TLabel;
-    cbFiscalReceiptType: TComboBox;
-    lblMessageType: TLabel;
-    cbMessageType: TComboBox;
-    lblPreLine: TLabel;
-    lblPostLine: TLabel;
-    edtPreLine: TEdit;
-    edtPostLine: TEdit;
-    btnUpdate: TButton;
+    chbDeviceEnabled: TTntCheckBox;
+    chbFreezeEvents: TTntCheckBox;
+    chbPowerNotify: TTntCheckBox;
+    chbAsyncMode: TTntCheckBox;
+    chbCheckTotal: TTntCheckBox;
+    chbDuplicateReceipt: TTntCheckBox;
+    chbFlagWhenIdle: TTntCheckBox;
+    lblSlipSelection: TTntLabel;
+    cbSlipSelection: TTntComboBox;
+    lblChangeDue: TTntLabel;
+    edtChangeDue: TTntEdit;
+    lblDateType: TTntLabel;
+    cbDateType: TTntComboBox;
+    lblFiscalReceiptStation: TTntLabel;
+    cbFiscalReceiptStation: TTntComboBox;
+    lblFiscalReceiptType: TTntLabel;
+    cbFiscalReceiptType: TTntComboBox;
+    lblMessageType: TTntLabel;
+    cbMessageType: TTntComboBox;
+    lblPreLine: TTntLabel;
+    lblPostLine: TTntLabel;
+    edtPreLine: TTntEdit;
+    edtPostLine: TTntEdit;
+    btnUpdate: TTntButton;
     procedure chbDeviceEnabledClick(Sender: TObject);
     procedure chbFreezeEventsClick(Sender: TObject);
     procedure chbPowerNotifyClick(Sender: TObject);

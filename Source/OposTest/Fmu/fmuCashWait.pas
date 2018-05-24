@@ -6,6 +6,8 @@ uses
   // VCL
   Windows, StdCtrls, Controls, ExtCtrls, Classes, Forms, SysUtils,
   Registry, ComCtrls, Graphics,
+  // Tnt
+  TntStdCtrls, TntSysUtils,
   // This
   untPages, OposCashDrawer;
 
@@ -13,15 +15,15 @@ type
   { TfmCashWait }
 
   TfmCashWait = class(TPage)
-    lblBeepTimeout: TLabel;
-    edtbeepTimeout: TEdit;
-    edtbeepFrequency: TEdit;
-    edtbeepDuration: TEdit;
-    edtbeepDelay: TEdit;
-    lblbeepDelay: TLabel;
-    lblbeepDuration: TLabel;
-    lblbeepFrequency: TLabel;
-    btnWaitForDrawerClose: TButton;
+    lblBeepTimeout: TTntLabel;
+    edtbeepTimeout: TTntEdit;
+    edtbeepFrequency: TTntEdit;
+    edtbeepDuration: TTntEdit;
+    edtbeepDelay: TTntEdit;
+    lblbeepDelay: TTntLabel;
+    lblbeepDuration: TTntLabel;
+    lblbeepFrequency: TTntLabel;
+    btnWaitForDrawerClose: TTntButton;
     procedure btnWaitForDrawerCloseClick(Sender: TObject);
   end;
 

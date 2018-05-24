@@ -18,42 +18,42 @@ object fmFptrGetData: TfmFptrGetData
     270)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblDataItem: TLabel
+  object lblDataItem: TTntLabel
     Left = 8
     Top = 8
     Width = 46
     Height = 13
     Caption = 'DataItem:'
   end
-  object lblOptArgs: TLabel
+  object lblOptArgs: TTntLabel
     Left = 8
     Top = 32
     Width = 41
     Height = 13
     Caption = 'OptArgs:'
   end
-  object lblData: TLabel
+  object lblData: TTntLabel
     Left = 128
     Top = 32
     Width = 26
     Height = 13
     Caption = 'Data:'
   end
-  object lblVatID: TLabel
+  object lblVatID: TTntLabel
     Left = 8
     Top = 144
     Width = 30
     Height = 13
     Caption = 'VatID:'
   end
-  object Label1: TLabel
+  object Label1: TTntLabel
     Left = 8
     Top = 168
     Width = 41
     Height = 13
     Caption = 'OptArgs:'
   end
-  object lblTotalizerType: TLabel
+  object lblTotalizerType: TTntLabel
     Left = 8
     Top = 120
     Width = 67
@@ -68,7 +68,7 @@ object fmFptrGetData: TfmFptrGetData
     Anchors = [akLeft, akTop, akRight]
     Shape = bsTopLine
   end
-  object btnGetData: TButton
+  object btnGetData: TTntButton
     Left = 288
     Top = 64
     Width = 97
@@ -78,7 +78,7 @@ object fmFptrGetData: TfmFptrGetData
     TabOrder = 4
     OnClick = btnGetDataClick
   end
-  object edtDataItem: TEdit
+  object edtDataItem: TTntEdit
     Left = 64
     Top = 8
     Width = 57
@@ -86,7 +86,7 @@ object fmFptrGetData: TfmFptrGetData
     TabOrder = 0
     Text = '0'
   end
-  object cbDataItem: TComboBox
+  object cbDataItem: TTntComboBox
     Left = 128
     Top = 8
     Width = 257
@@ -126,7 +126,7 @@ object fmFptrGetData: TfmFptrGetData
       'FPTR_GD_LINECOUNT'
       'FPTR_GD_DESCRIPTION_LENGTH')
   end
-  object edtOptArgs: TEdit
+  object edtOptArgs: TTntEdit
     Left = 64
     Top = 32
     Width = 57
@@ -134,7 +134,7 @@ object fmFptrGetData: TfmFptrGetData
     TabOrder = 2
     Text = '0'
   end
-  object edtData: TEdit
+  object edtData: TTntEdit
     Left = 168
     Top = 32
     Width = 217
@@ -142,7 +142,7 @@ object fmFptrGetData: TfmFptrGetData
     Anchors = [akLeft, akTop, akRight]
     TabOrder = 3
   end
-  object btnGetTotalizer: TButton
+  object btnGetTotalizer: TTntButton
     Left = 288
     Top = 224
     Width = 97
@@ -152,7 +152,7 @@ object fmFptrGetData: TfmFptrGetData
     TabOrder = 5
     OnClick = btnGetTotalizerClick
   end
-  object edtVatID: TEdit
+  object edtVatID: TTntEdit
     Left = 80
     Top = 144
     Width = 305
@@ -161,7 +161,7 @@ object fmFptrGetData: TfmFptrGetData
     TabOrder = 6
     Text = '0'
   end
-  object Edit1: TEdit
+  object Edit1: TTntEdit
     Left = 80
     Top = 168
     Width = 305
@@ -170,7 +170,7 @@ object fmFptrGetData: TfmFptrGetData
     TabOrder = 7
     Text = '0'
   end
-  object Edit2: TEdit
+  object Edit2: TTntEdit
     Left = 80
     Top = 192
     Width = 305
@@ -178,7 +178,7 @@ object fmFptrGetData: TfmFptrGetData
     Anchors = [akLeft, akTop, akRight]
     TabOrder = 8
   end
-  object cbTotalizerType: TComboBox
+  object cbTotalizerType: TTntComboBox
     Left = 80
     Top = 120
     Width = 305

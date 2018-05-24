@@ -5,6 +5,8 @@ interface
 uses
   // VCL
   StdCtrls, Controls, Classes, SysUtils, Spin, 
+  // Tnt
+  TntClasses, TntStdCtrls, TntRegistry,
   // This
   FiscalPrinterDevice, FptrTypes;
 
@@ -12,22 +14,22 @@ type
   { TfmFiscalPrinter }
 
   TfmFptrText = class(TFptrPage)
-    gbTextParameters: TGroupBox;
-    lblFontNumber: TLabel;
-    lblCloseRecText: TLabel;
-    lblSubtotalName: TLabel;
-    lblVoidRecText: TLabel;
-    edtSubtotalName: TEdit;
-    edtCloseRecText: TEdit;
-    edtVoidRecText: TEdit;
+    gbTextParameters: TTntGroupBox;
+    lblFontNumber: TTntLabel;
+    lblCloseRecText: TTntLabel;
+    lblSubtotalName: TTntLabel;
+    lblVoidRecText: TTntLabel;
+    edtSubtotalName: TTntEdit;
+    edtCloseRecText: TTntEdit;
+    edtVoidRecText: TTntEdit;
     seFontNumber: TSpinEdit;
     seRFQuantityLength: TSpinEdit;
-    lblQuantityLength: TLabel;
+    lblQuantityLength: TTntLabel;
     seRFAmountLength: TSpinEdit;
-    lblRFAmountLength: TLabel;
-    chbRFShowTaxLetters: TCheckBox;
-    cbRFSeparatorLine: TComboBox;
-    lblRFSeparatorLine: TLabel;
+    lblRFAmountLength: TTntLabel;
+    chbRFShowTaxLetters: TTntCheckBox;
+    cbRFSeparatorLine: TTntComboBox;
+    lblRFSeparatorLine: TTntLabel;
     procedure PageChange(Sender: TObject);
   public
     procedure UpdatePage; override;

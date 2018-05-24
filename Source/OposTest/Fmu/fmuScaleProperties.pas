@@ -6,6 +6,8 @@ uses
   // VCL
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ExtCtrls, Grids, ActiveX, ComObj,
+  // Tnt
+  TntStdCtrls, TntSysUtils,
   // This
   untPages, OposScale;
 
@@ -13,8 +15,8 @@ type
   { TfmScaleProperties }
 
   TfmScaleProperties = class(TPage)
-    btnRefresh: TButton;
-    Memo: TMemo;
+    btnRefresh: TTntButton;
+    Memo: TTntMemo;
     procedure btnRefreshClick(Sender: TObject);
   private
     procedure UpdateForm;
@@ -81,7 +83,7 @@ begin
         if FuncDesc.invkind = INVOKE_PROPERTYGET then
         begin
           S := GetPropVal(PropName);
-          S := Format('%.3d %-26s: %s', [i+1, PropName, S]);
+          S := Tnt_WideFormat('%.3d %-26s: %s', [i+1, PropName, S]);
           Memo.Lines.Add(S);
         end;
       finally

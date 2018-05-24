@@ -21,7 +21,7 @@ object fmLogo: TfmLogo
     439)
   PixelsPerInch = 96
   TextHeight = 13
-  object btnClose: TButton
+  object btnClose: TTntButton
     Left = 328
     Top = 408
     Width = 89
@@ -32,7 +32,7 @@ object fmLogo: TfmLogo
     TabOrder = 3
     OnClick = btnCloseClick
   end
-  object btnOpen: TBitBtn
+  object btnOpen: TTntBitBtn
     Left = 328
     Top = 272
     Width = 91
@@ -42,7 +42,7 @@ object fmLogo: TfmLogo
     TabOrder = 0
     OnClick = btnOpenClick
   end
-  object btnLoad: TBitBtn
+  object btnLoad: TTntBitBtn
     Left = 328
     Top = 304
     Width = 91
@@ -52,7 +52,7 @@ object fmLogo: TfmLogo
     TabOrder = 1
     OnClick = btnLoadClick
   end
-  object btnPrint: TBitBtn
+  object btnPrint: TTntBitBtn
     Left = 328
     Top = 336
     Width = 91
@@ -73,28 +73,28 @@ object fmLogo: TfmLogo
     DesignSize = (
       313
       161)
-    object lblMaxImageSize: TLabel
+    object lblMaxImageSize: TTntLabel
       Left = 8
       Top = 56
       Width = 99
       Height = 13
       Caption = 'Maximum image size:'
     end
-    object lblInfo1: TLabel
+    object lblInfo1: TTntLabel
       Left = 8
       Top = 8
       Width = 244
       Height = 13
       Caption = 'Select monochrome image and press "Load" button'
     end
-    object lblImageSize: TLabel
+    object lblImageSize: TTntLabel
       Left = 8
       Top = 32
       Width = 53
       Height = 13
       Caption = 'Image size:'
     end
-    object lblWarn: TLabel
+    object lblWarn: TTntLabel
       Left = 48
       Top = 128
       Width = 36
@@ -243,14 +243,14 @@ object fmLogo: TfmLogo
       Transparent = True
       Visible = False
     end
-    object lblProgress: TLabel
+    object lblProgress: TTntLabel
       Left = 248
       Top = 80
       Width = 3
       Height = 13
       Anchors = [akTop, akRight]
     end
-    object edtImageSize: TEdit
+    object edtImageSize: TTntEdit
       Left = 120
       Top = 32
       Width = 113
@@ -261,7 +261,7 @@ object fmLogo: TfmLogo
       ReadOnly = True
       TabOrder = 0
     end
-    object edtMaxImageSize: TEdit
+    object edtMaxImageSize: TTntEdit
       Left = 120
       Top = 56
       Width = 113
@@ -272,7 +272,7 @@ object fmLogo: TfmLogo
       ReadOnly = True
       TabOrder = 1
     end
-    object chbLogoCenter: TCheckBox
+    object chbLogoCenter: TTntCheckBox
       Left = 120
       Top = 104
       Width = 137

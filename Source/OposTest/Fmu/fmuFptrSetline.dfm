@@ -17,28 +17,28 @@ object fmFptrSetLine: TfmFptrSetLine
     270)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblLineNumber: TLabel
+  object lblLineNumber: TTntLabel
     Left = 8
     Top = 8
     Width = 60
     Height = 13
     Caption = 'LineNumber:'
   end
-  object lblHeaderLine: TLabel
+  object lblHeaderLine: TTntLabel
     Left = 8
     Top = 32
     Width = 57
     Height = 13
     Caption = 'Header line:'
   end
-  object lblTrailerLine: TLabel
+  object lblTrailerLine: TTntLabel
     Left = 8
     Top = 56
     Width = 51
     Height = 13
     Caption = 'Trailer line:'
   end
-  object btnSetHeaderLine: TButton
+  object btnSetHeaderLine: TTntButton
     Left = 288
     Top = 88
     Width = 97
@@ -48,7 +48,7 @@ object fmFptrSetLine: TfmFptrSetLine
     TabOrder = 4
     OnClick = btnSetHeaderLineClick
   end
-  object edtLineNumber: TEdit
+  object edtLineNumber: TTntEdit
     Left = 80
     Top = 8
     Width = 57
@@ -56,7 +56,7 @@ object fmFptrSetLine: TfmFptrSetLine
     TabOrder = 0
     Text = '0'
   end
-  object edtHeaderLine: TEdit
+  object edtHeaderLine: TTntEdit
     Left = 80
     Top = 32
     Width = 305
@@ -65,7 +65,7 @@ object fmFptrSetLine: TfmFptrSetLine
     TabOrder = 2
     Text = 'HeaderLine'
   end
-  object chbDoubleWidth: TCheckBox
+  object chbDoubleWidth: TTntCheckBox
     Left = 144
     Top = 8
     Width = 89
@@ -73,7 +73,7 @@ object fmFptrSetLine: TfmFptrSetLine
     Caption = 'DoubleWidth'
     TabOrder = 1
   end
-  object btnSetTrailerLine: TButton
+  object btnSetTrailerLine: TTntButton
     Left = 288
     Top = 120
     Width = 97
@@ -83,7 +83,7 @@ object fmFptrSetLine: TfmFptrSetLine
     TabOrder = 5
     OnClick = btnSetTrailerLineClick
   end
-  object edtTrailerLine: TEdit
+  object edtTrailerLine: TTntEdit
     Left = 80
     Top = 56
     Width = 305

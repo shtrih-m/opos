@@ -476,7 +476,7 @@ type
       procedure SetLanguageCode (const langcode:LanguageString);
       procedure SetFilename (const filename:FilenameString); // Bind this domain to a specific file
       // Get information
-      procedure GetListOfLanguages(list:TStrings);
+      procedure GetListOfLanguages(list:TTntStrings);
       function GetTranslationProperty(Propertyname: ComponentNameString): TranslatedUnicodeString;
       function gettext(const msgid: RawUtf8String): RawUtf8String; // uses mo file and utf-8
     private
@@ -518,7 +518,7 @@ type
       constructor Create;
       destructor Destroy; override;
       procedure UseLanguage(LanguageCode: LanguageString);
-      procedure GetListOfLanguages (const domain:DomainString; list:TStrings); // Puts list of language codes, for which there are translations in the specified domain, into list
+      procedure GetListOfLanguages (const domain:DomainString; list:TTntStrings); // Puts list of language codes, for which there are translations in the specified domain, into list
       {$ifndef UNICODE}
       function gettext(const szMsgId: ansistring): TranslatedUnicodeString; overload; virtual;
       function ngettext(const singular,plural:ansistring;Number:longint):TranslatedUnicodeString; overload; virtual;
@@ -583,7 +583,7 @@ type
       procedure UnregisterWhenNewLanguageListener(Listener: IGnuGettextInstanceWhenNewLanguageListener);
       property DesignTimeCodePage: Integer read FDesignTimeCodePage write FDesignTimeCodePage;
     protected
-      procedure TranslateStrings (sl:TStrings;const TextDomain:DomainString);
+      procedure TranslateStrings (sl:TTntStrings;const TextDomain:DomainString);
       {$IFDEF dx_has_WideStrings}
       procedure TranslateWideStrings (sl: TWideStrings;const TextDomain:DomainString);
       {$ENDIF dx_has_WideStrings}
@@ -600,10 +600,10 @@ type
       curmsgdomain: DomainString;
       savefileCS: TMultiReadExclusiveWriteSynchronizer;
       savefile: TextFile;
-      savememory: TStringList;
+      savememory: TTntStringList;
       DefaultDomainDirectory:FilenameString;
-      domainlist: TStringList;     /// List of domain names. Objects are TDomain.
-      TP_IgnoreList:TStringList;   /// Temporary list, reset each time TranslateProperties is called
+      domainlist: TTntStringList;     /// List of domain names. Objects are TDomain.
+      TP_IgnoreList:TTntStringList;   /// Temporary list, reset each time TranslateProperties is called
       TP_ClassHandling:TList;      /// Items are TClassMode. If a is derived from b, a comes first
       TP_GlobalClassHandling:TList;      /// Items are TClassMode. If a is derived from b, a comes first
       TP_Retranslator:TExecutable; /// Cast this to TTP_Retranslator
@@ -620,7 +620,7 @@ type
       procedure DebugWriteln(Line: string);
       {$endif}
       procedure TranslateProperty(AnObject: TObject; PropInfo: PPropInfo;
-        TodoList: TStrings; const TextDomain:DomainString);
+        TodoList: TTntStrings; const TextDomain:DomainString);
       function Getdomain(const domain:DomainString; const DefaultDomainDirectory:FilenameString; const CurLang: LanguageString): TDomain;  // Translates a single property of an object
 
       function GetResString(ResStringRec: PResStringRec): UnicodeString;
@@ -707,12 +707,12 @@ type
       procedure ReleaseMoFile (mofile:TMoFile);
     private
       basedirectory:FilenameString;
-      filelist:TStringList; //Objects are TEmbeddedFileInfo. Filenames are relative to .exe file
+      filelist:TTntStringList; //Objects are TEmbeddedFileInfo. Filenames are relative to .exe file
 {$IFDEF dx_SupportsResources}
-      FResourceList: TStringList; // Objects are TResourceFileInfo, Filenames are relative to .exe file
+      FResourceList: TTntStringList; // Objects are TResourceFileInfo, Filenames are relative to .exe file
 {$ENDIF dx_SupportsResources}
       MoFilesCS:TMultiReadExclusiveWriteSynchronizer;
-      MoFiles:TStringList; // Objects are filenames+offset, objects are TMoFile
+      MoFiles:TTntStringList; // Objects are filenames+offset, objects are TMoFile
       function ReadInt64 (str:TStream):int64;
     end;
   TGnuGettextComponentMarker=
@@ -726,7 +726,7 @@ type
     class
       HClass:TClass;
       SpecialHandler:TTranslator;
-      PropertiesToIgnore:TStringList; // This is ignored if Handler is set
+      PropertiesToIgnore:TTntStringList; // This is ignored if Handler is set
       constructor Create;
       destructor Destroy; override;
     end;
@@ -793,9 +793,9 @@ var
 
   // Hooks into runtime library functions
   ResourceStringDomainListCS:TMultiReadExclusiveWriteSynchronizer;
-  ResourceStringDomainList:TStringList;
+  ResourceStringDomainList:TTntStringList;
   ComponentDomainListCS:TMultiReadExclusiveWriteSynchronizer;
-  ComponentDomainList:TStringList;
+  ComponentDomainList:TTntStringList;
   HookLoadResString:THook;
   HookLoadStr:THook;
   HookFmtLoadStr:THook;
@@ -1457,12 +1457,12 @@ end;
 function TDomain.GetTranslationProperty(
   Propertyname: ComponentNameString): TranslatedUnicodeString;
 var
-  sl:TStringList;
+  sl:TTntStringList;
   i:integer;
   s:string;
 begin
   Propertyname:=uppercase(Propertyname)+': ';
-  sl:=TStringList.Create;    
+  sl:=TTntStringList.Create;    
   try
     sl.Text:=utf8decode(gettext(''));
     for i:=0 to sl.Count-1 do begin
@@ -1659,7 +1659,7 @@ begin
     Result:=3;
 end;
 
-procedure TDomain.GetListOfLanguages(list: TStrings);
+procedure TDomain.GetListOfLanguages(list: TTntStrings);
 var
   sr:TSearchRec;
   more:boolean;
@@ -1772,7 +1772,7 @@ begin
   {$endif}
   {$ifdef DXGETTEXTDEBUG}
   DebugLogCS:=TMultiReadExclusiveWriteSynchronizer.Create;
-  DebugLog:=TMemoryStream.Create;
+  DebugLog:=TTntMemoryStream.Create;
   DebugWriteln('Debug log started '+DateTimeToStr(Now));
   DebugWriteln('GNU gettext module version: '+VCSVersion);
   DebugWriteln('');
@@ -1782,8 +1782,8 @@ begin
   SearchAllDomains:=False;
   curmsgdomain:=DefaultTextDomain;
   savefileCS := TMultiReadExclusiveWriteSynchronizer.Create;
-  domainlist := TStringList.Create;
-  TP_IgnoreList:=TStringList.Create;
+  domainlist := TTntStringList.Create;
+  TP_IgnoreList:=TTntStringList.Create;
   TP_IgnoreList.Sorted:=True;
   TP_GlobalClassHandling:=TList.Create;
   TP_ClassHandling:=TList.Create;
@@ -2165,7 +2165,7 @@ begin
   {$endif}
 end;
 
-procedure TGnuGettextInstance.TranslateProperty (AnObject:TObject; PropInfo:PPropInfo; TodoList:TStrings; const TextDomain:DomainString);
+procedure TGnuGettextInstance.TranslateProperty (AnObject:TObject; PropInfo:PPropInfo; TodoList:TTntStrings; const TextDomain:DomainString);
 var
   ppi:PPropInfo;
   ws: TranslatedUnicodeString;
@@ -2300,8 +2300,8 @@ end;
 
 procedure TGnuGettextInstance.TranslateProperties(AnObject: TObject; textdomain:DomainString='');
 var
-  TodoList:TStringList; // List of Name/TObject's that is to be processed
-  DoneList:TStringList; // List of hex codes representing pointers to objects that have been done
+  TodoList:TTntStringList; // List of Name/TObject's that is to be processed
+  DoneList:TTntStringList; // List of hex codes representing pointers to objects that have been done
   i, j, Count: integer;
   PropList: PPropList;
   UPropName: ComponentNameString;
@@ -2310,7 +2310,7 @@ var
   comp:TComponent;
   cm,
   currentcm:TClassMode; // currentcm is nil or contains special information about how to handle the current object
-  ObjectPropertyIgnoreList:TStringList;
+  ObjectPropertyIgnoreList:TTntStringList;
   objid:string;
   Name:ComponentNameString;
   ActionProperty:TObject;
@@ -2330,9 +2330,9 @@ begin
   TodoList:=TCSStringList.Create;
   ObjectPropertyIgnoreList:=TCSStringList.Create;
   {$else}
-  DoneList:=TStringList.Create;
-  TodoList:=TStringList.Create;
-  ObjectPropertyIgnoreList:=TStringList.Create;
+  DoneList:=TTntStringList.Create;
+  TodoList:=TTntStringList.Create;
+  ObjectPropertyIgnoreList:=TTntStringList.Create;
   {$endif}
   try
     TodoList.AddObject('', AnObject);
@@ -2436,10 +2436,10 @@ begin
           TranslateWideStrings (AnObject as TWideStrings,TextDomain);
         end;
         {$ENDIF dx_has_WideStrings}
-        if AnObject is TStrings then begin
-          if ((AnObject as TStrings).Text<>'') and (TP_Retranslator<>nil) then
-            (TP_Retranslator as TTP_Retranslator).Remember(AnObject, 'Text', (AnObject as TStrings).Text);
-          TranslateStrings (AnObject as TStrings,TextDomain);
+        if AnObject is TTntStrings then begin
+          if ((AnObject as TTntStrings).Text<>'') and (TP_Retranslator<>nil) then
+            (TP_Retranslator as TTP_Retranslator).Remember(AnObject, 'Text', (AnObject as TTntStrings).Text);
+          TranslateStrings (AnObject as TTntStrings,TextDomain);
         end;
         // Check for TCollection
         if AnObject is TCollection then begin
@@ -2544,33 +2544,33 @@ begin
   {$endif}
 end;
 
-procedure TGnuGettextInstance.TranslateStrings(sl: TStrings;const TextDomain:DomainString);
+procedure TGnuGettextInstance.TranslateStrings(sl: TTntStrings;const TextDomain:DomainString);
 var
   line: string;
   i: integer;
-  tempSL: TStringList;
+  tempSL: TTntStringList;
   {$ifdef dx_StringList_has_OwnsObjects}
-  slAsTStringList: TStringList;
+  slAsTTntStringList: TTntStringList;
   originalOwnsObjects: Boolean;
   {$endif dx_StringList_has_OwnsObjects}
 begin
   if sl.Count > 0 then begin
     {$ifdef dx_StringList_has_OwnsObjects}
-    // From D2009 onward, the TStringList class has an OwnsObjects property, just like
+    // From D2009 onward, the TTntStringList class has an OwnsObjects property, just like
     // TObjectList has. This means that if we call Clear on the given
     // list in the sl parameter, we could destroy the objects it contains.
     // To avoid this we must disable OwnsObjects while we replace the strings, but
-    // only if sl is a TStringList instance and if using Delphi 2009 or later.
+    // only if sl is a TTntStringList instance and if using Delphi 2009 or later.
     originalOwnsObjects := False; // avoid warning
-    if sl is TStringList then
-      slAsTStringList := TStringList(sl)
+    if sl is TTntStringList then
+      slAsTTntStringList := TTntStringList(sl)
     else
-      slAsTStringList := nil;
+      slAsTTntStringList := nil;
     {$endif dx_StringList_has_OwnsObjects}
 
     sl.BeginUpdate;
     try
-      tempSL:=TStringList.Create;
+      tempSL:=TTntStringList.Create;
       try
         // don't use Assign here as it will propagate the Sorted property (among others)
         // in versions of Delphi from Delphi XE onward
@@ -2589,23 +2589,23 @@ begin
         if sl.Text<>tempSL.Text then
         begin
           {$ifdef dx_StringList_has_OwnsObjects}
-          if Assigned(slAsTStringList) then begin
-            originalOwnsObjects := slAsTStringList.OwnsObjects;
-            slAsTStringList.OwnsObjects := False;
+          if Assigned(slAsTTntStringList) then begin
+            originalOwnsObjects := slAsTTntStringList.OwnsObjects;
+            slAsTTntStringList.OwnsObjects := False;
           end;
           {$endif dx_StringList_has_OwnsObjects}
           try
             {$ifdef dx_StringList_has_OwnsObjects}
-            if Assigned(slAsTStringList) and slAsTStringList.Sorted then
+            if Assigned(slAsTTntStringList) and slAsTTntStringList.Sorted then
             begin
-              // TStringList doesn't release the objects in PutObject, so we use this to get
-              // sl.Clear to not destroy the objects in classes that inherit from TStringList
+              // TTntStringList doesn't release the objects in PutObject, so we use this to get
+              // sl.Clear to not destroy the objects in classes that inherit from TTntStringList
               // but do a ClearObject in Clear.
               //
               // todo: Check whether this should be
-              //   if sl is TStringList then
+              //   if sl is TTntStringList then
               // instead.
-              if sl.ClassType <> TStringList then
+              if sl.ClassType <> TTntStringList then
                 for I := 0 to sl.Count - 1 do
                   sl.Objects[I] := nil;
 
@@ -2621,8 +2621,8 @@ begin
             end;
           finally
             {$ifdef dx_StringList_has_OwnsObjects}
-            if Assigned(slAsTStringList) then
-              slAsTStringList.OwnsObjects := originalOwnsObjects;
+            if Assigned(slAsTTntStringList) then
+              slAsTTntStringList.OwnsObjects := originalOwnsObjects;
             {$endif dx_StringList_has_OwnsObjects}
           end;
         end;
@@ -2858,7 +2858,7 @@ begin
 end;
 
 procedure TGnuGettextInstance.GetListOfLanguages(const domain: DomainString;
-  list: TStrings);
+  list: TTntStrings);
 begin
   getdomain(Domain,DefaultDomainDirectory,CurLang).GetListOfLanguages(list);
 end;
@@ -2938,7 +2938,7 @@ begin
     ALine:=ALine+sLineBreak;
 
     // Ensure that memory usage doesn't get too big.
-    if (DebugLog is TMemoryStream) and (DebugLog.Position>1000000) then begin
+    if (DebugLog is TTntMemoryStream) and (DebugLog.Position>1000000) then begin
       ALine:=sLineBreak+sLineBreak+sLineBreak+sLineBreak+sLineBreak+
             'Debug log halted because memory usage grew too much.'+sLineBreak+
             'Specify a filename to store the debug log in or disable debug loggin in gnugettext.pas.'+
@@ -3225,7 +3225,7 @@ end;
 
 constructor TClassMode.Create;
 begin
-  PropertiesToIgnore:=TStringList.Create;
+  PropertiesToIgnore:=TTntStringList.Create;
   PropertiesToIgnore.Sorted:=True;
   PropertiesToIgnore.Duplicates:=dupError;
   PropertiesToIgnore.CaseSensitive:=False;
@@ -3391,8 +3391,8 @@ end;
 constructor TFileLocator.Create;
 begin
   MoFilesCS:=TMultiReadExclusiveWriteSynchronizer.Create;
-  MoFiles:=TStringList.Create;
-  filelist:=TStringList.Create;
+  MoFiles:=TTntStringList.Create;
+  filelist:=TTntStringList.Create;
   {$ifdef LINUX}
   filelist.Duplicates:=dupError;
   filelist.CaseSensitive:=True;
@@ -3406,7 +3406,7 @@ begin
   {$endif}
   filelist.Sorted:=True;
 {$IFDEF dx_SupportsResources}
-  FResourceList := TStringList.Create;
+  FResourceList := TTntStringList.Create;
   FResourceList.Duplicates := dupError;
   FResourceList.CaseSensitive := False;
   FResourceList.Sorted := True;
@@ -3622,7 +3622,7 @@ end;
 procedure TTP_Retranslator.Execute;
 var
   i:integer;
-  sl:TStrings;
+  sl:TTntStrings;
   item:TTP_RetranslatorItem;
   newvalue:TranslatedUnicodeString;
   comp:TGnuGettextComponentMarker;
@@ -3637,21 +3637,21 @@ begin
         Continue;
       end;
     end;
-    if item.obj is TStrings then begin
+    if item.obj is TTntStrings then begin
       // Since we don't know the order of items in sl, and don't have
       // the original .Objects[] anywhere, we cannot anticipate anything
       // about the current sl.Strings[] and sl.Objects[] values. We therefore
       // have to discard both values. We can, however, set the original .Strings[]
       // value into the list and retranslate that.
-      sl:=TStringList.Create;
+      sl:=TTntStringList.Create;
       try
         sl.Text:=item.OldValue;
         Instance.TranslateStrings(sl,textdomain);
-        (item.obj as TStrings).BeginUpdate;
+        (item.obj as TTntStrings).BeginUpdate;
         try
-          (item.obj as TStrings).Text:=sl.Text;
+          (item.obj as TTntStrings).Text:=sl.Text;
         finally
-          (item.obj as TStrings).EndUpdate;
+          (item.obj as TTntStrings).EndUpdate;
         end;
       finally
         FreeAndNil (sl);
@@ -4270,10 +4270,10 @@ initialization
   {$endif}
   FileLocator:=TFileLocator.Create;
   FileLocator.Analyze;
-  ResourceStringDomainList:=TStringList.Create;
+  ResourceStringDomainList:=TTntStringList.Create;
   ResourceStringDomainList.Add(DefaultTextDomain);
   ResourceStringDomainListCS:=TMultiReadExclusiveWriteSynchronizer.Create;
-  ComponentDomainList:=TStringList.Create;
+  ComponentDomainList:=TTntStringList.Create;
   ComponentDomainList.Add(DefaultTextDomain);
   ComponentDomainListCS:=TMultiReadExclusiveWriteSynchronizer.Create;
   DefaultInstance:=TGnuGettextInstance.Create;

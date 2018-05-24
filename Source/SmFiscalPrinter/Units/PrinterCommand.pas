@@ -289,7 +289,7 @@ begin
   if Status.SerialNumber = #$FF#$FF#$FF#$FF then
     Status.SerialNumber := '????????'
   else
-    Status.SerialNumber := Format('%.8d', [BinToInt(Status.SerialNumber, 1, 4)]);
+    Status.SerialNumber := Tnt_WideFormat('%.8d', [BinToInt(Status.SerialNumber, 1, 4)]);
 
   Status.DayNumber := Data.ReadWord;
   Status.RemainingFiscalMemory := Data.ReadWord;
@@ -300,7 +300,7 @@ begin
   if FiscalID = #$FF#$FF#$FF#$FF#$FF#$FF then
     Status.FiscalID := '????????????'
   else
-    Status.FiscalID := Format('%.12d', [BinToInt(FiscalID, 1, 6)]);
+    Status.FiscalID := Tnt_WideFormat('%.12d', [BinToInt(FiscalID, 1, 6)]);
 end;
 
 

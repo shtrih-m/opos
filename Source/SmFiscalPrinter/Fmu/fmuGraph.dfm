@@ -15,14 +15,14 @@ object fmGraph: TfmGraph
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
-  object GroupBox1: TGroupBox
+  object GroupBox1: TTntGroupBox
     Left = 8
     Top = 8
     Width = 465
     Height = 233
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 0
-    object btnLoadImage: TButton
+    object btnLoadImage: TTntButton
       Left = 312
       Top = 112
       Width = 145
@@ -35,7 +35,7 @@ object fmGraph: TfmGraph
       TabOrder = 0
       OnClick = btnLoadImageClick
     end
-    object btnLoadLineDataEx: TButton
+    object btnLoadLineDataEx: TTntButton
       Left = 312
       Top = 144
       Width = 145
@@ -48,7 +48,7 @@ object fmGraph: TfmGraph
       TabOrder = 1
       OnClick = btnLoadLineDataExClick
     end
-    object btnWideLoadLineData: TButton
+    object btnWideLoadLineData: TTntButton
       Left = 312
       Top = 176
       Width = 145
@@ -62,7 +62,7 @@ object fmGraph: TfmGraph
       TabOrder = 2
       OnClick = btnWideLoadLineDataClick
     end
-    object btnMonochrome1: TButton
+    object btnMonochrome1: TTntButton
       Left = 312
       Top = 48
       Width = 145
@@ -75,7 +75,7 @@ object fmGraph: TfmGraph
       TabOrder = 3
       OnClick = btnMonochrome1Click
     end
-    object btnMonochrome2: TButton
+    object btnMonochrome2: TTntButton
       Left = 312
       Top = 80
       Width = 145
@@ -115,7 +115,7 @@ object fmGraph: TfmGraph
       TabOrder = 6
       Visible = False
     end
-    object btnOpenPicture: TBitBtn
+    object btnOpenPicture: TTntBitBtn
       Left = 312
       Top = 16
       Width = 145
@@ -182,28 +182,28 @@ object fmGraph: TfmGraph
       NumGlyphs = 2
     end
   end
-  object GroupBox2: TGroupBox
+  object GroupBox2: TTntGroupBox
     Left = 8
     Top = 248
     Width = 465
     Height = 89
     Anchors = [akLeft, akRight, akBottom]
     TabOrder = 1
-    object lblFirstLineNumber: TLabel
+    object lblFirstLineNumber: TTntLabel
       Left = 8
       Top = 18
       Width = 114
       Height = 13
       Caption = 'Номер первой строки:'
     end
-    object lblLastLineNumber: TLabel
+    object lblLastLineNumber: TTntLabel
       Left = 8
       Top = 44
       Width = 132
       Height = 13
       Caption = 'Номер последней строки:'
     end
-    object edtFirstLineNumber: TEdit
+    object edtFirstLineNumber: TTntEdit
       Left = 152
       Top = 16
       Width = 65
@@ -226,7 +226,7 @@ object fmGraph: TfmGraph
       TabOrder = 1
       Wrap = False
     end
-    object edtLastLineNumber: TEdit
+    object edtLastLineNumber: TTntEdit
       Left = 152
       Top = 40
       Width = 65
@@ -249,7 +249,7 @@ object fmGraph: TfmGraph
       TabOrder = 3
       Wrap = False
     end
-    object btnDraw: TButton
+    object btnDraw: TTntButton
       Tag = 12
       Left = 311
       Top = 16
@@ -263,7 +263,7 @@ object fmGraph: TfmGraph
       TabOrder = 4
       OnClick = btnDrawClick
     end
-    object btnDrawEx: TButton
+    object btnDrawEx: TTntButton
       Left = 311
       Top = 48
       Width = 146

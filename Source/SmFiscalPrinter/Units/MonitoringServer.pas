@@ -7,7 +7,7 @@ uses
   Windows, SysUtils, WinSock, DateUtils,
   // This
   LogFile, NotifyThread, DebugUtils, SimpleSocket, FiscalPrinterTypes,
-  PrinterTypes, BStrUtil, OposFptrUtils, WException;
+  PrinterTypes, BStrUtil, OposFptrUtils, TntSysUtils, WException;
 
 type
   { TMonitoringServer }
@@ -157,13 +157,13 @@ function TMonitoringServer.CommandStatus: string;
 begin
   Result := 'OK';
   if FPrinter.Device.ResultCode <> 0 then
-    Result := Format('Error (%d, %s)', [
+    Result := Tnt_WideFormat('Error (%d, %s)', [
       FPrinter.Device.ResultCode, FPrinter.Device.ResultText]);
 end;
 
 function TMonitoringServer.CommandInfo: string;
 begin
-  Result := Format('%s,%s,%.10d', [
+  Result := Tnt_WideFormat('%s,%s,%.10d', [
     FPrinter.DeviceMetrics.DeviceName,
     FPrinter.LongPrinterStatus.SerialNumber,
     FPrinter.EJStatus1.EJNumber]);
@@ -171,7 +171,7 @@ end;
 
 function TMonitoringServer.CommandECTP: string;
 begin
-  Result := Format('%s,%s,%s', [
+  Result := Tnt_WideFormat('%s,%s,%s', [
     FPrinter.EJActivation.EJSerial,
     FPrinter.EJActivation.ActivationDate,
     FPrinter.EJActivation.ActivationTime]);
@@ -196,7 +196,7 @@ DATE_LAST	  Дата последнего отправленного документа в ОФД
 
 function PrinterDateTimeToStr(Date: TPrinterDateTime): string;
 begin
-  Result := Format('%.2d.%.2d.%.4d,%.2d:%.2d', [
+  Result := Tnt_WideFormat('%.2d.%.2d.%.4d,%.2d:%.2d', [
     Date.Day, Date.Month, Date.Year + 2000, Date.Hour, Date.Min]);
 end;
 
@@ -207,7 +207,7 @@ var
 begin
   Device.Check(Device.FSReadState(FSState));
   Device.Check(Device.FSReadFiscalResult(FSFiscalResult));
-  Result := Format('%s,%s', [
+  Result := Tnt_WideFormat('%s,%s', [
     FSState.FSNumber, PrinterDateTimeToStr(FSFiscalResult.Date)])
 end;
 
@@ -220,16 +220,16 @@ var
 begin
   Status := Device.ReadLongStatus; { !!! }
 
-  MainVersion1 := Format('%s.%s %d %s', [
+  MainVersion1 := Tnt_WideFormat('%s.%s %d %s', [
     Status.FirmwareVersionHi, Status.FirmwareVersionLo, Status.FirmwareBuild,
     EncodeOposDate(PrinterDateToOposDate(Status.FirmwareDate))]);
 
-  MainVersion2 := Format('%s.%s %d %s', [
+  MainVersion2 := Tnt_WideFormat('%s.%s %d %s', [
     Status.FMVersionHi, Status.FMVersionLo, Status.FMBuild,
     EncodeOposDate(PrinterDateToOposDate(Status.FMFirmwareDate))]);
 
   Device.Check(Device.ReadLoaderVersion(LoaderVersion));
-  Result := Format('%s;%s;%s', [LoaderVersion, MainVersion1, MainVersion2]);
+  Result := Tnt_WideFormat('%s;%s;%s', [LoaderVersion, MainVersion1, MainVersion2]);
 end;
 
 // FN_UNIXTIME Дата активизации ФН в UNIXTIME
@@ -300,7 +300,7 @@ begin
   begin
     Server := Device.ReadTableStr(19, 1, 1);
     Port := Device.ReadTableStr(19, 1, 2);
-    Result := Format('%s:%s', [Server, Port]);
+    Result := Tnt_WideFormat('%s:%s', [Server, Port]);
   end;
 end;
 

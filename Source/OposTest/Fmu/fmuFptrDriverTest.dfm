@@ -17,7 +17,7 @@ object fmFptrDriverTest: TfmFptrDriverTest
     270)
   PixelsPerInch = 96
   TextHeight = 13
-  object btnDayOpenedTest: TButton
+  object btnDayOpenedTest: TTntButton
     Left = 304
     Top = 240
     Width = 81
@@ -27,7 +27,7 @@ object fmFptrDriverTest: TfmFptrDriverTest
     TabOrder = 1
     OnClick = btnDayOpenedTestClick
   end
-  object Memo: TMemo
+  object Memo: TTntMemo
     Left = 168
     Top = 8
     Width = 221
@@ -43,7 +43,7 @@ object fmFptrDriverTest: TfmFptrDriverTest
     TabOrder = 0
     WordWrap = False
   end
-  object ListBox: TListBox
+  object ListBox: TTntListBox
     Left = 8
     Top = 8
     Width = 153

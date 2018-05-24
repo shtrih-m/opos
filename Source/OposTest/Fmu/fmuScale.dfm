@@ -41,7 +41,7 @@ object fmScale: TfmScale
     DesignSize = (
       544
       59)
-    object lblTime: TLabel
+    object lblTime: TTntLabel
       Left = 424
       Top = 10
       Width = 26
@@ -49,21 +49,21 @@ object fmScale: TfmScale
       Anchors = [akTop, akRight]
       Caption = 'Time:'
     end
-    object lblResult: TLabel
+    object lblResult: TTntLabel
       Left = 8
       Top = 12
       Width = 33
       Height = 13
       Caption = 'Result:'
     end
-    object lblExtendedResult: TLabel
+    object lblExtendedResult: TTntLabel
       Left = 8
       Top = 36
       Width = 103
       Height = 13
       Caption = 'ResultCodeExtended:'
     end
-    object edtTime: TEdit
+    object edtTime: TTntEdit
       Left = 456
       Top = 8
       Width = 81
@@ -74,7 +74,7 @@ object fmScale: TfmScale
       ReadOnly = True
       TabOrder = 0
     end
-    object edtResult: TEdit
+    object edtResult: TTntEdit
       Left = 120
       Top = 8
       Width = 297
@@ -84,7 +84,7 @@ object fmScale: TfmScale
       ReadOnly = True
       TabOrder = 1
     end
-    object edtExtendedResult: TEdit
+    object edtExtendedResult: TTntEdit
       Left = 120
       Top = 32
       Width = 297
@@ -104,7 +104,7 @@ object fmScale: TfmScale
     BevelOuter = bvNone
     BorderWidth = 5
     TabOrder = 2
-    object lbPages: TListBox
+    object lbPages: TTntListBox
       Left = 5
       Top = 5
       Width = 168

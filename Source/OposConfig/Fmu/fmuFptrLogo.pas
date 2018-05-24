@@ -6,29 +6,31 @@ uses
   // VCL
   Windows, StdCtrls, Controls, Classes, SysUtils, Registry, Dialogs, Forms,
   ComCtrls, Buttons, ExtDlgs, ExtCtrls, ComObj,
+  // Tnt
+  TntSysUtils, TntClasses, TntStdCtrls, TntRegistry, TntExtCtrls, 
   // This
   FiscalPrinterDevice, PrinterParameters, PrinterParametersX, FptrTypes,
-  DirectIOAPI, DriverContext;
+  DirectIOAPI, DriverContext, TntButtons;
 
 type
   { TfmFptrLogo }
 
   TfmFptrLogo = class(TFptrPage)
     OpenPictureDialog: TOpenPictureDialog;
-    GroupBox1: TGroupBox;
+    GroupBox1: TTntGroupBox;
     Image: TImage;
     Bevel1: TBevel;
-    lblLogoPosition: TLabel;
-    lblLogoSize: TLabel;
-    lblProgress: TLabel;
-    cbLogoPosition: TComboBox;
-    edtLogoSize: TEdit;
-    btnPrintLogo: TButton;
-    btnLoad: TBitBtn;
-    btnOpen: TBitBtn;
-    chbLogoCenter: TCheckBox;
+    lblLogoPosition: TTntLabel;
+    lblLogoSize: TTntLabel;
+    lblProgress: TTntLabel;
+    cbLogoPosition: TTntComboBox;
+    edtLogoSize: TTntEdit;
+    btnPrintLogo: TTntButton;
+    btnLoad: TTntBitBtn;
+    btnOpen: TTntBitBtn;
+    chbLogoCenter: TTntCheckBox;
     ProgressBar: TProgressBar;
-    chbLogoReloadEnabled: TCheckBox;
+    chbLogoReloadEnabled: TTntCheckBox;
     procedure PageChange(Sender: TObject);
     procedure btnOpenClick(Sender: TObject);
     procedure btnLoadClick(Sender: TObject);
@@ -79,7 +81,7 @@ begin
     DIRECTIO_EVENT_PROGRESS:
     begin
       ProgressBar.Position := pData;
-      lblProgress.Caption := Format('Load status: %d%%', [pData]);
+      lblProgress.Caption := Tnt_WideFormat('Load status: %d%%', [pData]);
       Application.ProcessMessages;
     end;
   end;

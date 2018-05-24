@@ -17,14 +17,14 @@ object fmFptrRecMessage: TfmFptrRecMessage
     270)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblMessage: TLabel
+  object lblMessage: TTntLabel
     Left = 8
     Top = 8
     Width = 46
     Height = 13
     Caption = 'Message:'
   end
-  object btnExecute: TButton
+  object btnExecute: TTntButton
     Left = 240
     Top = 40
     Width = 145
@@ -34,7 +34,7 @@ object fmFptrRecMessage: TfmFptrRecMessage
     TabOrder = 1
     OnClick = btnExecuteClick
   end
-  object edtMessage: TEdit
+  object edtMessage: TTntEdit
     Left = 72
     Top = 8
     Width = 313

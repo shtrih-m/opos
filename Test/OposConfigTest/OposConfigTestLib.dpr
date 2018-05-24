@@ -88,7 +88,8 @@ uses
   ByteUtils in '..\..\Source\Shared\ByteUtils.pas',
   fmuFptrConnection in '..\..\Source\OposConfig\Fmu\fmuFptrConnection.pas' {fmFptrConnection},
   fmuMarkChecker in '..\..\Source\OposConfig\Fmu\fmuMarkChecker.pas' {fmMarkChecker},
-  WException in '..\..\Source\Shared\WException.pas';
+  WException in '..\..\Source\Shared\WException.pas',
+  TntIniFiles in '..\..\Source\Shared\TntIniFiles.pas';
 
 {$R *.RES}
 

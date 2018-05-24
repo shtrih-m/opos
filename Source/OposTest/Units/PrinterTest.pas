@@ -5,6 +5,8 @@ interface
 uses
   // VCL
   Windows, Forms, Classes, SysUtils, Math,
+  // Tnt
+  TntSysUtils, TntStdCtrls, TntRegistry, TntClasses, 
   // This
   DriverTest, Opos, OposUtils, OposFiscalPrinter, OPOSDate, OposFptr,
   StringUtils, DirectIOAPI, FileUtils, PrinterParameters, SMFiscalPrinter;
@@ -960,7 +962,7 @@ begin
   for i := 1 to 3 do
   begin
     TenderIndex := i;
-    TenderName := Format('Tender %d', [i]);
+    TenderName := Tnt_WideFormat('Tender %d', [i]);
     AddLine(Format('DirectIO(0x4A, %d, %s)', [i, TenderName]));
     Check(FiscalPrinter.DirectIO($4a, TenderIndex, TenderName));
   end;
@@ -974,7 +976,7 @@ begin
   for i := 1 to 3 do
   begin
     TenderIndex := i;
-    TenderName := Format('Tender name %d', [i]);
+    TenderName := Tnt_WideFormat('Tender name %d', [i]);
     AddLine(Format('DirectIO(0x4A, %d, %s)', [i, TenderName]));
     Check(FiscalPrinter.DirectIO($4a, TenderIndex, TenderName));
   end;
@@ -1363,9 +1365,9 @@ var
   i: Integer;
   Line: string;
   Count: Integer;
-  Lines: TStrings;
+  Lines: TTntStrings;
 begin
-  Lines := TStringList.Create;
+  Lines := TTntStringList.Create;
   try
     Lines.Text := Text;
     Count := FiscalPrinter.NumHeaderLines;
@@ -1385,9 +1387,9 @@ var
   i: Integer;
   Line: string;
   Count: Integer;
-  Lines: TStrings;
+  Lines: TTntStrings;
 begin
-  Lines := TStringList.Create;
+  Lines := TTntStringList.Create;
   try
     Lines.Text := Text;
     Count := FiscalPrinter.NumTrailerLines;
@@ -1450,7 +1452,7 @@ begin
   for i := 1 to 10 do
   begin
     AddLine('PrintRecItem');
-    Line := Format('%d: 76319 PEPSI-Light', [i]);
+    Line := Tnt_WideFormat('%d: 76319 PEPSI-Light', [i]);
     Check(FiscalPrinter.PrintRecItem(Line, 24.59, 1000, 0, 24.59, ''));
   end;
   // PrintRecTotal
@@ -1497,7 +1499,7 @@ begin
   for i := 1 to 10 do
   begin
     AddLine('PrintRecItem');
-    Line := Format('%d: 76319 PEPSI-LIGHT', [i]);
+    Line := Tnt_WideFormat('%d: 76319 PEPSI-LIGHT', [i]);
     Check(FiscalPrinter.PrintRecItem(Line, 24.59, 1000, 0, 24.59, ''));
   end;
   // PrintRecTotal
@@ -3097,7 +3099,7 @@ begin
   Check(FiscalPrinter.BeginFiscalReceipt(False));
   for i := 1 to 3 do
   begin
-    Check(FiscalPrinter.PrintNormal(2, Format('PrintNormal %d', [i])));
+    Check(FiscalPrinter.PrintNormal(2, Tnt_WideFormat('PrintNormal %d', [i])));
     Check(FiscalPrinter.PrintRecItem(Format('Продажа %d', [i]), 0, 1000, 0, 0, ''));
   end;
   Check(FiscalPrinter.PrintNormal(2, 'PrintNormal before PrintRecTotal'));

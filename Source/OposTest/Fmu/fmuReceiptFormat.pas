@@ -6,6 +6,8 @@ uses
   // VCL
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls,
+  // Tnt
+  TntClasses, TntStdCtrls, TntRegistry,
   // This
   FiscalPrinterDevice, untUtil, FptrTypes, PrinterParameters, ComCtrls;
 
@@ -16,17 +18,17 @@ type
     PageControl1: TPageControl;
     tsReceiptFormat: TTabSheet;
     TabSheet2: TTabSheet;
-    lblMaxReceiptItems: TLabel;
-    Label1: TLabel;
-    lblRecPrintType: TLabel;
-    Label2: TLabel;
-    memReceiptItemsHeader: TMemo;
-    memReceiptItemFormat: TMemo;
-    cbRecPrintType: TComboBox;
-    chbPrintSingleQuantity: TCheckBox;
-    memReceiptItemsTrailer: TMemo;
-    Memo: TMemo;
-    chbPrintUnitName: TCheckBox;
+    lblMaxReceiptItems: TTntLabel;
+    Label1: TTntLabel;
+    lblRecPrintType: TTntLabel;
+    Label2: TTntLabel;
+    memReceiptItemsHeader: TTntMemo;
+    memReceiptItemFormat: TTntMemo;
+    cbRecPrintType: TTntComboBox;
+    chbPrintSingleQuantity: TTntCheckBox;
+    memReceiptItemsTrailer: TTntMemo;
+    Memo: TTntMemo;
+    chbPrintUnitName: TTntCheckBox;
   public
     procedure UpdatePage; override;
     procedure UpdateObject; override;

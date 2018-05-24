@@ -6,17 +6,19 @@ uses
   // VCL
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ExtCtrls,
+  // Tnt
+  TntStdCtrls, TntRegistry,
   // This
   untPages, OposFiscalPrinter;
 
 type
   TfmFptrSetVatTable = class(TPage)
-    btnSetVatTable: TButton;
-    btnSetVatValue: TButton;
-    lblVatID: TLabel;
-    edtVatID: TEdit;
-    lblVatValue: TLabel;
-    edtVatValue: TEdit;
+    btnSetVatTable: TTntButton;
+    btnSetVatValue: TTntButton;
+    lblVatID: TTntLabel;
+    edtVatID: TTntEdit;
+    lblVatValue: TTntLabel;
+    edtVatValue: TTntEdit;
     procedure btnSetVatValueClick(Sender: TObject);
     procedure btnSetVatTableClick(Sender: TObject);
   end;

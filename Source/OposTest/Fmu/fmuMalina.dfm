@@ -217,7 +217,7 @@ object fmMalina: TfmMalina
       6B7BF7BF5E37AD5DFEB8D8DC33EF389D63A1F1D88C9147FF0FFC4D59C08EB423
       700000000049454E44AE426082}
   end
-  object btnMalinaSalesReceipt: TButton
+  object btnMalinaSalesReceipt: TTntButton
     Left = 216
     Top = 80
     Width = 121
@@ -227,7 +227,7 @@ object fmMalina: TfmMalina
     TabOrder = 1
     OnClick = btnMalinaSalesReceiptClick
   end
-  object Memo: TMemo
+  object Memo: TTntMemo
     Left = 8
     Top = 80
     Width = 201
@@ -241,7 +241,7 @@ object fmMalina: TfmMalina
     ParentFont = False
     TabOrder = 0
   end
-  object btnSalesReceipt: TButton
+  object btnSalesReceipt: TTntButton
     Left = 216
     Top = 168
     Width = 121
@@ -251,7 +251,7 @@ object fmMalina: TfmMalina
     TabOrder = 3
     OnClick = btnSalesReceiptClick
   end
-  object btnMalinaRefundReceipt: TButton
+  object btnMalinaRefundReceipt: TTntButton
     Left = 216
     Top = 120
     Width = 121
@@ -261,7 +261,7 @@ object fmMalina: TfmMalina
     TabOrder = 2
     OnClick = btnMalinaRefundReceiptClick
   end
-  object btnRefundReceipt: TButton
+  object btnRefundReceipt: TTntButton
     Left = 216
     Top = 208
     Width = 121

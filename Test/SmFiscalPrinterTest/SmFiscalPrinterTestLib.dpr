@@ -208,7 +208,8 @@ uses
   GS1Barcode in '..\..\Source\SmFiscalPrinter\Units\GS1Barcode.pas',
   EkmClient in '..\..\Source\SmFiscalPrinter\Units\EkmClient.pas',
   WException in '..\..\Source\Shared\WException.pas',
-  CorrectionReceipt in '..\..\Source\SmFiscalPrinter\Units\CorrectionReceipt.pas';
+  CorrectionReceipt in '..\..\Source\SmFiscalPrinter\Units\CorrectionReceipt.pas',
+  TntIniFiles in '..\..\Source\Shared\TntIniFiles.pas';
 
 {$R *.RES}
 {$R ..\..\Source\SmFiscalPrinter\SmFiscalPrinter.TLB}

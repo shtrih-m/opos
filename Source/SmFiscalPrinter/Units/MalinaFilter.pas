@@ -5,6 +5,8 @@ interface
 uses
   // VCL
   SysUtils,
+  // Tnt
+  TntSysUtils,
   // This
   FiscalPrinterImpl, LogFile, MalinaCard, PrinterTypes, FiscalPrinterTypes,
   NonfiscalDoc, FptrFilter, CustomReceipt, MalinaParams, PrinterParameters,
@@ -90,7 +92,7 @@ begin
   Subtotal := Printer.Device.GetSubtotal;
   if (Subtotal <> Card.Amount) then
   begin
-    Text := Format('Malina: Receipt subtotal <> transaction amount, %d <> %d',
+    Text := Tnt_WideFormat('Malina: Receipt subtotal <> transaction amount, %d <> %d',
       [Subtotal, Card.Amount]);
     Logger.Debug(Text);
     Exit;
@@ -103,7 +105,7 @@ begin
   Text := StringOfChar('-', Printer.Device.GetPrintWidth);
   Printer.PrintText(PRINTER_STATION_REC, Text);
   // Line "Subtotal:           1234.45"
-  Text := Format('=%.2f', [subtotal/100]);
+  Text := Tnt_WideFormat('=%.2f', [subtotal/100]);
   Text := Printer.Device.FormatLines(Parameters.subtotalText, Text);
   Printer.PrintText(PRINTER_STATION_REC, Text);
   // Promo text
@@ -116,7 +118,7 @@ begin
   Points := 0;
   if Params.MalinaCoefficient <> 0 then
     Points := Trunc(subtotal/100/Params.MalinaCoefficient)*Params.MalinaPoints;
-  Text := Format(Params.MalinaPointsText, [Points]);
+  Text := Tnt_WideFormat(Params.MalinaPointsText, [Points]);
   Printer.PrintText(PRINTER_STATION_REC, Text);
   Printer.PrintText(PRINTER_STATION_REC, ' ');
 
@@ -146,7 +148,7 @@ var
   Line1: string;
   Line2: string;
 begin
-  Line1 := Format('%.4d %s', [Count, Text]);
+  Line1 := Tnt_WideFormat('%.4d %s', [Count, Text]);
   Line2 := '=' + AmountToStr(Totals/100);
   Printer.PrintLines(Line1, Line2);
 end;

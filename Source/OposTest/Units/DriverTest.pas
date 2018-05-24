@@ -5,6 +5,8 @@ interface
 Uses
   // VCL
   Classes, SysUtils, StdCtrls,
+  // Tnt
+  TntSysUtils, TntStdCtrls, TntRegistry,
   // This
   Opos, OposFptr, OposUtils, AlignStrings,
   OposFiscalPrinter, OposFptrUtils;
@@ -33,7 +35,7 @@ type
 
   TDriverTest = class
   private
-    FMemo: TMemo;
+    FMemo: TTntMemo;
     FOwner: TDriverTests;
     procedure SetOwner(AOwner: TDriverTests);
   protected
@@ -44,14 +46,14 @@ type
     procedure AddLine(const S: string);
     procedure Check(AResultCode: Integer);
   public
-    constructor Create(AOwner: TDriverTests; AMemo: TMemo);
+    constructor Create(AOwner: TDriverTests; AMemo: TTntMemo);
     destructor Destroy; override;
 
     procedure Execute; virtual; abstract;
     function ReadRecNumber: Integer;
     function GetDisplayText: string; virtual; abstract;
 
-    property Memo: TMemo read FMemo;
+    property Memo: TTntMemo read FMemo;
   end;
 
   { TDriverTestClass }
@@ -104,7 +106,7 @@ end;
 
 { TDriverTest }
 
-constructor TDriverTest.Create(AOwner: TDriverTests; AMemo: TMemo);
+constructor TDriverTest.Create(AOwner: TDriverTests; AMemo: TTntMemo);
 begin
   inherited Create;
   SetOwner(AOwner);
@@ -211,7 +213,7 @@ var
 begin
   for i := 1 to FiscalPrinter.NumHeaderLines do
   begin
-    S := Format('Header line %d', [i]);
+    S := Tnt_WideFormat('Header line %d', [i]);
     S := AlignString(S, FiscalPrinter.DescriptionLength, atCenter);
     Check(FiscalPrinter.SetHeaderLine(i, S, False));
   end;
@@ -226,7 +228,7 @@ var
 begin
   for i := 1 to FiscalPrinter.NumTrailerLines do
   begin
-    S := Format('Trailer line %d', [i]);
+    S := Tnt_WideFormat('Trailer line %d', [i]);
     S := AlignString(S, FiscalPrinter.DescriptionLength, atCenter);
     Check(FiscalPrinter.SetTrailerLine(i, S, False));
   end;

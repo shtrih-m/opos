@@ -15,7 +15,7 @@ type
   public
     procedure BeginFiscalReceipt(PrintHeader: Boolean); override;
     procedure EndFiscalReceipt; override;
-    procedure PrintNormal(const Text: string; Station: Integer); override;
+    procedure PrintNormal(const Text: WideString; Station: Integer); override;
   end;
 
 implementation
@@ -24,7 +24,7 @@ implementation
 
 procedure TGlobusReceipt.PrintSeparator;
 var
-  Separator: string;
+  Separator: WideString;
 begin
   Separator := StringOfChar('-', Printer.PrintWidth);
   Printer.PrintTextLine(Separator);
@@ -47,7 +47,7 @@ begin
   inherited EndFiscalReceipt;
 end;
 
-procedure TGlobusReceipt.PrintNormal(const Text: string; Station: Integer);
+procedure TGlobusReceipt.PrintNormal(const Text: WideString; Station: Integer);
 begin
   Printer.PrintText2(Text, Station, PRINTER_STATION_REC, taLeft);
 end;

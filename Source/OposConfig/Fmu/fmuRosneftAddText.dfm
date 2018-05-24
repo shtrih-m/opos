@@ -19,28 +19,28 @@ object fmRosneftAddText: TfmRosneftAddText
     272)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblRosneftItemName: TLabel
+  object lblRosneftItemName: TTntLabel
     Left = 32
     Top = 40
     Width = 91
     Height = 13
     Caption = 'Receipt item name:'
   end
-  object lblRosneftAddText: TLabel
+  object lblRosneftAddText: TTntLabel
     Left = 32
     Top = 104
     Width = 98
     Height = 13
     Caption = 'Additional text block:'
   end
-  object lblDepartment: TLabel
+  object lblDepartment: TTntLabel
     Left = 32
     Top = 72
     Width = 118
     Height = 13
     Caption = 'Receipt item department:'
   end
-  object chbRosneftAddTextEnabled: TCheckBox
+  object chbRosneftAddTextEnabled: TTntCheckBox
     Left = 8
     Top = 8
     Width = 313
@@ -48,7 +48,7 @@ object fmRosneftAddText: TfmRosneftAddText
     Caption = 'Additional text block enabled'
     TabOrder = 0
   end
-  object edtRosneftItemName: TEdit
+  object edtRosneftItemName: TTntEdit
     Left = 160
     Top = 40
     Width = 265
@@ -57,7 +57,7 @@ object fmRosneftAddText: TfmRosneftAddText
     TabOrder = 1
     Text = 'edtRosneftItemName'
   end
-  object memRosneftAddText: TMemo
+  object memRosneftAddText: TTntMemo
     Left = 32
     Top = 128
     Width = 393

@@ -170,7 +170,8 @@ uses
   EkmClient in 'Units\EkmClient.pas',
   GS1Barcode in 'Units\GS1Barcode.pas',
   WException in '..\Shared\WException.pas',
-  CorrectionReceipt in 'Units\CorrectionReceipt.pas';
+  CorrectionReceipt in 'Units\CorrectionReceipt.pas',
+  TntIniFiles in '..\Shared\TntIniFiles.pas';
 
 exports
   DllGetClassObject,

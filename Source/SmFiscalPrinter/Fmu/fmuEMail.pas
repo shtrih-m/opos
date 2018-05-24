@@ -6,6 +6,8 @@ uses
   // VCL
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Buttons, PngBitBtn, ExtCtrls, Mask,
+  // Tnt
+  TntStdCtrls, TntSysUtils,
   // This
   LogFile, PngImageList, ImgList, JvExButtons, JvBitBtn, JvImageList,
   ActnList, PngSpeedButton, FormUtils;
@@ -20,7 +22,7 @@ const
 type
   TVButton = class;
   TTextButton = class;
-  TButtonType = (btText, btBackspace, btShift, btRu, btEn);
+  TTntButtonType = (btText, btBackspace, btShift, btRu, btEn);
   TSpeedButtons = array [0..27] of TSpeedButton;
 
   { TfmEMail }
@@ -28,8 +30,8 @@ type
   TfmEMail = class(TForm)
     btnOK: TPngSpeedButton;
     btnCancel: TPngSpeedButton;
-    Label1: TLabel;
-    edtAddress: TEdit;
+    Label1: TTntLabel;
+    edtAddress: TTntEdit;
     ImageList: TImageList;
     pnlEn1: TPanel;
     pnlEn2: TPanel;
@@ -47,42 +49,42 @@ type
     FSpeedButtons: array [0..3] of TSpeedButtons;
     FPages: array [0..3] of TPanel;
 
-    procedure AddButton(const S1, S2: string);
+    procedure AddButton(const S1, S2: WideString);
     function CreateButton(AOwner: TPanel): TSpeedButton;
     procedure ButtonClick(Sender: TObject);
-    procedure AddButton3(const S: string);
+    procedure AddButton3(const S: WideString);
     procedure UpdatePage2;
-    procedure AddButton2(ImageIndex: Integer; ButtonType: TButtonType);
-    function CreateTextButton(const Text: string): TTextButton;
-    function CreateVButton(ButtonType: TButtonType): TVButton;
-    procedure SendString(const S: string);
+    procedure AddButton2(ImageIndex: Integer; ButtonType: TTntButtonType);
+    function CreateTextButton(const Text: WideString): TTextButton;
+    function CreateVButton(ButtonType: TTntButtonType): TVButton;
+    procedure SendString(const S: WideString);
     procedure SendVirtualKey(VK: Integer);
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
 
-    procedure UpdatePage(const Data: string);
-    procedure UpdateObject(var Data: string);
+    procedure UpdatePage(const Data: WideString);
+    procedure UpdateObject(var Data: WideString);
   end;
 
   { TVButton }
 
   TVButton = class(TComponent)
   public
-    ButtonType: TButtonType;
+    ButtonType: TTntButtonType;
   end;
 
   { TTextButton }
 
   TTextButton = class(TVButton)
   public
-    Text: string;
+    Text: WideString;
   end;
 
 var
   fmEMail: TfmEMail;
 
-function ShowEMailDlg(var AData: string): Boolean;
+function ShowEMailDlg(var AData: WideString): Boolean;
 
 implementation
 
@@ -91,7 +93,7 @@ implementation
 const
   	VK_OEM_PLUS = $BB;
 
-function ShowEMailDlg(var AData: string): Boolean;
+function ShowEMailDlg(var AData: WideString): Boolean;
 begin
   fmEMail := TfmEMail.Create(Application);
   try
@@ -136,7 +138,7 @@ begin
   PostMessage(edtAddress.Handle, WM_KEYDOWN, VK, 0);
 end;
 
-procedure TfmEMail.SendString(const S: string);
+procedure TfmEMail.SendString(const S: WideString);
 var
   i: Integer;
 begin
@@ -149,12 +151,12 @@ begin
   ModalResult := mrOK;
 end;
 
-procedure TfmEMail.UpdatePage(const Data: string);
+procedure TfmEMail.UpdatePage(const Data: WideString);
 begin
   edtAddress.Text := Data;
 end;
 
-procedure TfmEMail.UpdateObject(var Data: string);
+procedure TfmEMail.UpdateObject(var Data: WideString);
 begin
   Data := edtAddress.Text;
 end;
@@ -177,22 +179,22 @@ begin
   Result := Button;
 end;
 
-function TfmEMail.CreateTextButton(const Text: string): TTextButton;
+function TfmEMail.CreateTextButton(const Text: WideString): TTextButton;
 begin
   Result := TTextButton.Create(FButtons);
   Result.Text := Text;
   Result.ButtonType := btText;
 end;
 
-function TfmEMail.CreateVButton(ButtonType: TButtonType): TVButton;
+function TfmEMail.CreateVButton(ButtonType: TTntButtonType): TVButton;
 begin
   Result := TVButton.Create(FButtons);
   Result.ButtonType := ButtonType;
 end;
 
-procedure TfmEMail.AddButton(const S1, S2: string);
+procedure TfmEMail.AddButton(const S1, S2: WideString);
 
-  procedure CreateButtonImage(Bitmap: TBitmap; const S1, S2: string;
+  procedure CreateButtonImage(Bitmap: TBitmap; const S1, S2: WideString;
     Color1, Color2: TColor);
   begin
     Bitmap.Width := ButtonWidth-4;
@@ -224,7 +226,7 @@ begin
   Inc(FButtonIndex);
 end;
 
-procedure TfmEMail.AddButton2(ImageIndex: Integer; ButtonType: TButtonType);
+procedure TfmEMail.AddButton2(ImageIndex: Integer; ButtonType: TTntButtonType);
 var
   Button: TSpeedButton;
   GroupIndex: Integer;
@@ -255,9 +257,9 @@ begin
 end;
 
 
-procedure TfmEMail.AddButton3(const S: string);
+procedure TfmEMail.AddButton3(const S: WideString);
 
-  procedure CreateButtonImage(Bitmap: TBitmap; const S: string);
+  procedure CreateButtonImage(Bitmap: TBitmap; const S: WideString);
   begin
     Bitmap.Width := ButtonWidth-4;
     Bitmap.Height := ButtonWidth-4;

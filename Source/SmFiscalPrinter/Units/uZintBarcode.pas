@@ -17,7 +17,7 @@ uses
   uZintInterface,
   SysUtils,
   Graphics,
-  Dialogs, gnugettext;
+  Dialogs, TntSysUtils, gnugettext;
 
 type
   TZBRotation = (r0, r90, r180, r270);
@@ -584,7 +584,7 @@ var
   S : AnsiString;
 begin
 
-  S := Format('%.6x', [ColorToRGB(Value)]);
+  S := Tnt_WideFormat('%.6x', [ColorToRGB(Value)]);
 
   case Index of
     0: StrPCopy(@FSymbol.fgcolour, S);

@@ -41,43 +41,43 @@ type
     procedure CheckRececiptState;
     procedure OpenReceipt(ARecType: Integer); override;
 
-    procedure PrintRecVoid(const Description: string); override;
+    procedure PrintRecVoid(const Description: WideString); override;
 
-    procedure PrintRecItem(const Description: string; Price: Currency;
+    procedure PrintRecItem(const Description: WideString; Price: Currency;
       Quantity: Integer; VatInfo: Integer; UnitPrice: Currency;
-      const UnitName: string); override;
+      const UnitName: WideString); override;
 
     procedure PrintRecItemAdjustment(AdjustmentType: Integer;
-      const Description: string; Amount: Currency;
+      const Description: WideString; Amount: Currency;
       VatInfo: Integer); override;
 
     procedure PrintRecPackageAdjustment(AdjustmentType: Integer;
-      const Description, VatAdjustment: string); override;
+      const Description, VatAdjustment: WideString); override;
 
     procedure PrintRecPackageAdjustVoid(AdjustmentType: Integer;
-      const VatAdjustment: string); override;
+      const VatAdjustment: WideString); override;
 
-    procedure PrintRecRefund(const Description: string; Amount: Currency;
+    procedure PrintRecRefund(const Description: WideString; Amount: Currency;
       VatInfo: Integer); override;
 
-    procedure PrintRecRefundVoid(const Description: string;
+    procedure PrintRecRefundVoid(const Description: WideString;
       Amount: Currency; VatInfo: Integer); override;
 
     procedure PrintRecSubtotal(Amount: Currency); override;
 
     procedure PrintRecSubtotalAdjustment(AdjustmentType: Integer;
-      const Description: string; Amount: Currency); override;
+      const Description: WideString; Amount: Currency); override;
 
     procedure PrintRecTotal(Total, Payment: Currency;
-      const Description: string); override;
+      const Description: WideString); override;
 
-    procedure PrintRecVoidItem(const Description: string; Amount: Currency;
+    procedure PrintRecVoidItem(const Description: WideString; Amount: Currency;
       Quantity: Integer; AdjustmentType: Integer; Adjustment: Currency;
       VatInfo: Integer);  override;
 
-    procedure PrintRecItemVoid(const Description: string;
+    procedure PrintRecItemVoid(const Description: WideString;
       Price: Currency; Quantity, VatInfo: Integer; UnitPrice: Currency;
-      const UnitName: string); override;
+      const UnitName: WideString); override;
 
     procedure BeginFiscalReceipt(PrintHeader: Boolean); override;
     procedure EndFiscalReceipt;  override;
@@ -86,16 +86,16 @@ type
       Amount: Currency); override;
 
     procedure PrintRecItemRefund(
-      const ADescription: string;
+      const ADescription: WideString;
       Amount: Currency; Quantity: Integer;
       VatInfo: Integer; UnitAmount: Currency;
-      const AUnitName: string); override;
+      const AUnitName: WideString); override;
 
     procedure PrintRecItemRefundVoid(
-      const ADescription: string;
+      const ADescription: WideString;
       Amount: Currency; Quantity: Integer;
       VatInfo: Integer; UnitAmount: Currency;
-      const AUnitName: string); override;
+      const AUnitName: WideString); override;
 
     function GetPaymentTotal: Int64; override;
 
@@ -144,7 +144,7 @@ begin
   Result := GetCashlessTotal = 0;
 end;
 
-procedure TSalesReceipt.PrintRecVoid(const Description: string);
+procedure TSalesReceipt.PrintRecVoid(const Description: WideString);
 begin
   OpenReceipt(RecTypeSale);
   Printer.PrintTextLine(Description);
@@ -183,9 +183,9 @@ begin
   end;
 end;
 
-procedure TSalesReceipt.PrintRecItem(const Description: string; Price: Currency;
+procedure TSalesReceipt.PrintRecItem(const Description: WideString; Price: Currency;
   Quantity: Integer; VatInfo: Integer; UnitPrice: Currency;
-  const UnitName: string);
+  const UnitName: WideString);
 var
   Operation: TPriceReg;
 begin
@@ -227,7 +227,7 @@ end;
 
 procedure TSalesReceipt.PrintRecItemAdjustment(
   AdjustmentType: Integer;
-  const Description: string;
+  const Description: WideString;
   Amount: Currency;
   VatInfo: Integer);
 var
@@ -292,7 +292,7 @@ end;
 
 procedure TSalesReceipt.PrintRecPackageAdjustment(
   AdjustmentType: Integer;
-  const Description, VatAdjustment: string);
+  const Description, VatAdjustment: WideString);
 begin
   CheckDescription(Description);
 
@@ -310,7 +310,7 @@ begin
 end;
 
 procedure TSalesReceipt.PrintRecPackageAdjustVoid(AdjustmentType: Integer;
-  const VatAdjustment: string);
+  const VatAdjustment: WideString);
 begin
   PrintPreLine;
   CheckDescription(VatAdjustment);
@@ -326,7 +326,7 @@ begin
   PrintPostLine;
 end;
 
-procedure TSalesReceipt.PrintRecRefund(const Description: string;
+procedure TSalesReceipt.PrintRecRefund(const Description: WideString;
   Amount: Currency; VatInfo: Integer);
 var
   Operation: TPriceReg;
@@ -349,7 +349,7 @@ begin
 end;
 
 procedure TSalesReceipt.PrintRecRefundVoid(
-  const Description: string;
+  const Description: WideString;
   Amount: Currency; VatInfo: Integer);
 var
   Operation: TPriceReg;
@@ -380,7 +380,7 @@ begin
 end;
 
 procedure TSalesReceipt.PrintRecSubtotalAdjustment(AdjustmentType: Integer;
-  const Description: string; Amount: Currency);
+  const Description: WideString; Amount: Currency);
 begin
   CheckDescription(Description);
   CheckAdjAmount(AdjustmentType, Amount);
@@ -486,7 +486,7 @@ begin
 end;
 
 procedure TSalesReceipt.PrintRecTotal(Total: Currency; Payment: Currency;
-  const Description: string);
+  const Description: WideString);
 var
   Subtotal: Int64;
   PayCode: Integer;
@@ -605,7 +605,7 @@ begin
   end;
 end;
 
-procedure TSalesReceipt.PrintRecVoidItem(const Description: string;
+procedure TSalesReceipt.PrintRecVoidItem(const Description: WideString;
   Amount: Currency; Quantity, AdjustmentType: Integer;
   Adjustment: Currency; VatInfo: Integer);
 var
@@ -629,9 +629,9 @@ begin
   PrintPostLine;
 end;
 
-procedure TSalesReceipt.PrintRecItemVoid(const Description: string;
+procedure TSalesReceipt.PrintRecItemVoid(const Description: WideString;
   Price: Currency; Quantity, VatInfo: Integer; UnitPrice: Currency;
-  const UnitName: string);
+  const UnitName: WideString);
 var
   Operation: TPriceReg;
 begin
@@ -662,9 +662,9 @@ begin
   PrintPostLine;
 end;
 
-procedure TSalesReceipt.PrintRecItemRefund(const ADescription: string;
+procedure TSalesReceipt.PrintRecItemRefund(const ADescription: WideString;
   Amount: Currency; Quantity, VatInfo: Integer; UnitAmount: Currency;
-  const AUnitName: string);
+  const AUnitName: WideString);
 var
   Operation: TPriceReg;
 begin
@@ -697,9 +697,9 @@ begin
   PrintPostLine;
 end;
 
-procedure TSalesReceipt.PrintRecItemRefundVoid(const ADescription: string;
+procedure TSalesReceipt.PrintRecItemRefundVoid(const ADescription: WideString;
   Amount: Currency; Quantity, VatInfo: Integer; UnitAmount: Currency;
-  const AUnitName: string);
+  const AUnitName: WideString);
 var
   Operation: TPriceReg;
 begin

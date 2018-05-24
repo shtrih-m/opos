@@ -17,14 +17,14 @@ object fmTextReceipt: TfmTextReceipt
     344)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblBlock1: TLabel
+  object lblBlock1: TTntLabel
     Left = 8
     Top = 8
     Width = 36
     Height = 13
     Caption = 'Block1:'
   end
-  object lblBlock2: TLabel
+  object lblBlock2: TTntLabel
     Left = 8
     Top = 176
     Width = 36
@@ -32,7 +32,7 @@ object fmTextReceipt: TfmTextReceipt
     Anchors = [akLeft, akBottom]
     Caption = 'Block2:'
   end
-  object memBlock1: TMemo
+  object memBlock1: TTntMemo
     Left = 8
     Top = 24
     Width = 394
@@ -58,7 +58,7 @@ object fmTextReceipt: TfmTextReceipt
     ScrollBars = ssVertical
     TabOrder = 0
   end
-  object btnSave: TButton
+  object btnSave: TTntButton
     Left = 328
     Top = 312
     Width = 74
@@ -68,7 +68,7 @@ object fmTextReceipt: TfmTextReceipt
     TabOrder = 5
     OnClick = btnSaveClick
   end
-  object memBlock2: TMemo
+  object memBlock2: TTntMemo
     Left = 8
     Top = 192
     Width = 394
@@ -87,7 +87,7 @@ object fmTextReceipt: TfmTextReceipt
     ScrollBars = ssVertical
     TabOrder = 1
   end
-  object btnLoad: TButton
+  object btnLoad: TTntButton
     Left = 328
     Top = 280
     Width = 74
@@ -97,7 +97,7 @@ object fmTextReceipt: TfmTextReceipt
     TabOrder = 4
     OnClick = btnLoadClick
   end
-  object chbNewCheck: TCheckBox
+  object chbNewCheck: TTntCheckBox
     Left = 8
     Top = 280
     Width = 89
@@ -106,7 +106,7 @@ object fmTextReceipt: TfmTextReceipt
     Caption = #1053#1086#1074#1099#1081' '#1095#1077#1082
     TabOrder = 2
   end
-  object btnSetDefaults: TButton
+  object btnSetDefaults: TTntButton
     Left = 248
     Top = 280
     Width = 74
@@ -116,7 +116,7 @@ object fmTextReceipt: TfmTextReceipt
     TabOrder = 3
     OnClick = btnSetDefaultsClick
   end
-  object btnPrint: TButton
+  object btnPrint: TTntButton
     Left = 248
     Top = 312
     Width = 74

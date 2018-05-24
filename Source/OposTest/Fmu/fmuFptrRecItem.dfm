@@ -17,63 +17,63 @@ object fmFptrRecItem: TfmFptrRecItem
     270)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblDescription: TLabel
+  object lblDescription: TTntLabel
     Left = 8
     Top = 56
     Width = 56
     Height = 13
     Caption = 'Description:'
   end
-  object lblPrice: TLabel
+  object lblPrice: TTntLabel
     Left = 8
     Top = 80
     Width = 27
     Height = 13
     Caption = 'Price:'
   end
-  object lblQuantity: TLabel
+  object lblQuantity: TTntLabel
     Left = 8
     Top = 104
     Width = 42
     Height = 13
     Caption = 'Quantity:'
   end
-  object lblVatInfo: TLabel
+  object lblVatInfo: TTntLabel
     Left = 8
     Top = 128
     Width = 37
     Height = 13
     Caption = 'VatInfo:'
   end
-  object lblUnitPrice: TLabel
+  object lblUnitPrice: TTntLabel
     Left = 8
     Top = 152
     Width = 46
     Height = 13
     Caption = 'UnitPrice:'
   end
-  object lblUnitName: TLabel
+  object lblUnitName: TTntLabel
     Left = 8
     Top = 176
     Width = 50
     Height = 13
     Caption = 'UnitName:'
   end
-  object lblPreLine: TLabel
+  object lblPreLine: TTntLabel
     Left = 8
     Top = 8
     Width = 39
     Height = 13
     Caption = 'PreLine:'
   end
-  object lblPostLine: TLabel
+  object lblPostLine: TTntLabel
     Left = 8
     Top = 32
     Width = 44
     Height = 13
     Caption = 'PostLine:'
   end
-  object btnExecute: TButton
+  object btnExecute: TTntButton
     Left = 264
     Top = 208
     Width = 121
@@ -83,7 +83,7 @@ object fmFptrRecItem: TfmFptrRecItem
     TabOrder = 8
     OnClick = btnExecuteClick
   end
-  object edtDescription: TEdit
+  object edtDescription: TTntEdit
     Left = 96
     Top = 56
     Width = 289
@@ -92,7 +92,7 @@ object fmFptrRecItem: TfmFptrRecItem
     TabOrder = 2
     Text = 'printRecItem'
   end
-  object edtPrice: TEdit
+  object edtPrice: TTntEdit
     Left = 96
     Top = 80
     Width = 289
@@ -101,7 +101,7 @@ object fmFptrRecItem: TfmFptrRecItem
     TabOrder = 3
     Text = '100'
   end
-  object edtQuantity: TEdit
+  object edtQuantity: TTntEdit
     Left = 96
     Top = 104
     Width = 289
@@ -110,7 +110,7 @@ object fmFptrRecItem: TfmFptrRecItem
     TabOrder = 4
     Text = '1000'
   end
-  object edtVatInfo: TEdit
+  object edtVatInfo: TTntEdit
     Left = 96
     Top = 128
     Width = 289
@@ -119,7 +119,7 @@ object fmFptrRecItem: TfmFptrRecItem
     TabOrder = 5
     Text = '0'
   end
-  object edtUnitPrice: TEdit
+  object edtUnitPrice: TTntEdit
     Left = 96
     Top = 152
     Width = 289
@@ -128,7 +128,7 @@ object fmFptrRecItem: TfmFptrRecItem
     TabOrder = 6
     Text = '100'
   end
-  object edtUnitName: TEdit
+  object edtUnitName: TTntEdit
     Left = 96
     Top = 176
     Width = 289
@@ -137,7 +137,7 @@ object fmFptrRecItem: TfmFptrRecItem
     TabOrder = 7
     Text = 'kg.'
   end
-  object edtPreLine: TEdit
+  object edtPreLine: TTntEdit
     Left = 96
     Top = 8
     Width = 289
@@ -146,7 +146,7 @@ object fmFptrRecItem: TfmFptrRecItem
     TabOrder = 0
     Text = 'PreLine'
   end
-  object edtPostLine: TEdit
+  object edtPostLine: TTntEdit
     Left = 96
     Top = 32
     Width = 289

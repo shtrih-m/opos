@@ -18,42 +18,42 @@ object fmFptrTest2: TfmFptrTest2
     302)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblErrorCount_: TLabel
+  object lblErrorCount_: TTntLabel
     Left = 8
     Top = 88
     Width = 55
     Height = 13
     Caption = 'Error count:'
   end
-  object lblErrorCount: TLabel
+  object lblErrorCount: TTntLabel
     Left = 104
     Top = 88
     Width = 6
     Height = 13
     Caption = '0'
   end
-  object lblDeviceName: TLabel
+  object lblDeviceName: TTntLabel
     Left = 8
     Top = 8
     Width = 97
     Height = 13
     Caption = 'Fiscal printer device:'
   end
-  object lblPrinterTestCount_: TLabel
+  object lblPrinterTestCount_: TTntLabel
     Left = 8
     Top = 64
     Width = 83
     Height = 13
     Caption = 'Printer test count:'
   end
-  object lblPrinterTestCount: TLabel
+  object lblPrinterTestCount: TTntLabel
     Left = 104
     Top = 64
     Width = 6
     Height = 13
     Caption = '0'
   end
-  object btnStart: TButton
+  object btnStart: TTntButton
     Left = 289
     Top = 8
     Width = 75
@@ -63,7 +63,7 @@ object fmFptrTest2: TfmFptrTest2
     TabOrder = 2
     OnClick = btnStartClick
   end
-  object chbStopOnError: TCheckBox
+  object chbStopOnError: TTntCheckBox
     Left = 8
     Top = 40
     Width = 233
@@ -71,7 +71,7 @@ object fmFptrTest2: TfmFptrTest2
     Caption = 'Stop on error'
     TabOrder = 0
   end
-  object btnStop: TButton
+  object btnStop: TTntButton
     Left = 289
     Top = 40
     Width = 75
@@ -82,7 +82,7 @@ object fmFptrTest2: TfmFptrTest2
     TabOrder = 3
     OnClick = btnStopClick
   end
-  object memMessages: TMemo
+  object memMessages: TTntMemo
     Left = 8
     Top = 112
     Width = 274
@@ -93,7 +93,7 @@ object fmFptrTest2: TfmFptrTest2
     ScrollBars = ssVertical
     TabOrder = 1
   end
-  object cbPrinterDeviceName: TComboBox
+  object cbPrinterDeviceName: TTntComboBox
     Left = 112
     Top = 8
     Width = 170

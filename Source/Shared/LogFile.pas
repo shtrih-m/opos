@@ -4,8 +4,11 @@ interface
 
 uses
   // VCL
-  Windows, Classes, SysUtils, SyncObjs, SysConst, Variants,
-  DateUtils, WException;
+  Windows, Classes, SysUtils, SyncObjs, SysConst, Variants, DateUtils,
+  // Tnt
+  TntClasses, TntStdCtrls, TntRegistry,
+  // This
+  WException, TntSysUtils;
 
 type
   TVariantArray = array of Variant;
@@ -30,7 +33,7 @@ type
     procedure WriteRxData(Data: string);
     procedure WriteTxData(Data: string);
     procedure LogParam(const ParamName: string; const ParamValue: Variant);
-    procedure GetFileNames(const Mask: string; FileNames: TStrings);
+    procedure GetFileNames(const Mask: string; FileNames: TTntStrings);
 
     function GetSeparator: string;
     function GetMaxCount: Integer;
@@ -86,7 +89,7 @@ type
     class function ParamsToStr(const Params: array of const): string;
     class function VariantToStr(V: Variant): string;
     class function VarArrayToStr(const AVarArray: TVariantArray): string;
-    procedure GetFileNames(const Mask: string; FileNames: TStrings);
+    procedure GetFileNames(const Mask: string; FileNames: TTntStrings);
     function GetSeparator: string;
     procedure SetSeparator(const Value: string);
     function GetMaxCount: Integer;
@@ -196,7 +199,7 @@ var
 begin
   DecodeDate(Date, Year, Month, Day);
   DecodeTime(Time, Hour, Min, Sec, MSec);
-  Result := Format('%.2d.%.2d.%.4d %.2d:%.2d:%.2d.%.3d ',[
+  Result := Tnt_WideFormat('%.2d.%.2d.%.4d %.2d:%.2d:%.2d.%.3d ',[
     Day, Month, Year, Hour, Min, Sec, MSec]);
 end;
 
@@ -238,7 +241,7 @@ end;
 
 function GetLastErrorText: string;
 begin
-  Result := Format(SOSError, [GetLastError,  SysErrorMessage(GetLastError)]);
+  Result := Tnt_WideFormat(SOSError, [GetLastError,  SysErrorMessage(GetLastError)]);
 end;
 
 procedure ODS(const S: string);
@@ -371,11 +374,11 @@ end;
 procedure TLogFile.CheckFilesMaxCount;
 var
   FileMask: string;
-  FileNames: TStringList;
+  FileNames: TTntStringList;
 begin
-  FileNames := TStringList.Create;
+  FileNames := TTntStringList.Create;
   try
-    FileMask := IncludeTrailingBackSlash(FilePath) + Format('*%s*.log', [DeviceName]);
+    FileMask := IncludeTrailingBackSlash(FilePath) + Tnt_WideFormat('*%s*.log', [DeviceName]);
     GetFileNames(FileMask, FileNames);
     FileNames.Sort;
     while FileNames.Count > MaxCount do
@@ -388,7 +391,7 @@ begin
   end;
 end;
 
-procedure TLogFile.GetFileNames(const Mask: string; FileNames: TStrings);
+procedure TLogFile.GetFileNames(const Mask: string; FileNames: TTntStrings);
 var
   F: TSearchRec;
   Result: Integer;
@@ -457,7 +460,7 @@ var
 begin
   Line := Data;
   if FTimeStampEnabled then
-    Line := Format('[%s] [%.8d] %s', [GetTimeStamp, GetCurrentThreadID, Line]);
+    Line := Tnt_WideFormat('[%s] [%.8d] %s', [GetTimeStamp, GetCurrentThreadID, Line]);
   Line := Line + CRLF;
   Write(Line);
 end;
@@ -545,7 +548,7 @@ begin
           IsPrevCharNormal := False;
           Result := Result + '''';
         end;
-        Result := Result + Format('#$%.2x', [Code])
+        Result := Result + Tnt_WideFormat('#$%.2x', [Code])
       end else
       begin
         if not IsPrevCharNormal then

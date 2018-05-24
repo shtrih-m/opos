@@ -6,29 +6,31 @@ uses
   // VCL
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, Registry, ExtCtrls,
+  // Tnt
+  TntStdCtrls, TntRegistry,
   // This
   untPages, Opos, OposUtils, OposPosPrinter;
 
 type
   TfmPtrGeneral = class(TPage)
-    lblDeviceName: TLabel;
-    btnOpen: TButton;
-    btnClose: TButton;
-    btnRelease: TButton;
-    btnClaim: TButton;
-    edtTimeout: TEdit;
-    lblTimeout: TLabel;
-    lblOpenResult: TLabel;
-    edtOpenResult: TEdit;
-    btnUpdatePrinterDevice: TButton;
-    cbPrinterDeviceName: TComboBox;
-    lblLevel: TLabel;
-    lblCheckHealthText: TLabel;
-    cbLevel: TComboBox;
-    btnCheckHealth: TButton;
-    CheckHealthText: TMemo;
+    lblDeviceName: TTntLabel;
+    btnOpen: TTntButton;
+    btnClose: TTntButton;
+    btnRelease: TTntButton;
+    btnClaim: TTntButton;
+    edtTimeout: TTntEdit;
+    lblTimeout: TTntLabel;
+    lblOpenResult: TTntLabel;
+    edtOpenResult: TTntEdit;
+    btnUpdatePrinterDevice: TTntButton;
+    cbPrinterDeviceName: TTntComboBox;
+    lblLevel: TTntLabel;
+    lblCheckHealthText: TTntLabel;
+    cbLevel: TTntComboBox;
+    btnCheckHealth: TTntButton;
+    CheckHealthText: TTntMemo;
     Bevel1: TBevel;
-    chbDeviceEnabled: TCheckBox;
+    chbDeviceEnabled: TTntCheckBox;
     procedure btnOpenClick(Sender: TObject);
     procedure btnCloseClick(Sender: TObject);
     procedure btnClaimClick(Sender: TObject);
@@ -47,9 +49,9 @@ implementation
 
 procedure TfmPtrGeneral.LoadPrinterDevices;
 var
-  Reg: TRegistry;
+  Reg: TTntRegistry;
 begin
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     Reg.RootKey := HKEY_LOCAL_MACHINE;
     Reg.Access := KEY_QUERY_VALUE + KEY_ENUMERATE_SUB_KEYS;

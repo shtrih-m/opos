@@ -7,14 +7,14 @@ uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls,
   // This
-  BaseForm;
+  BaseForm, TntStdCtrls;
 
 type
   TfmDevice = class(TBaseForm)
-    btnOK: TButton;
-    btnCancel: TButton;
-    lblDeviceName: TLabel;
-    edtDeviceName: TEdit;
+    btnOK: TTntButton;
+    btnCancel: TTntButton;
+    lblDeviceName: TTntLabel;
+    edtDeviceName: TTntEdit;
   end;
 
 function EditDeviceName(var DeviceName: string): Boolean;
@@ -42,3 +42,4 @@ begin
 end;
 
 end.
+

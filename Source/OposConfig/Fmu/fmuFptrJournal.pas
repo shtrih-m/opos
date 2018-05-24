@@ -6,14 +6,14 @@ uses
   // VCL
   ComCtrls, StdCtrls, Controls, Classes,
   // This
-  FiscalPrinterDevice, FptrTypes;
+  FiscalPrinterDevice, FptrTypes, TntStdCtrls;
 
 type
   { TfmFptrJournal }
 
   TfmFptrJournal = class(TFptrPage)
-    chbJournalPrintHeader: TCheckBox;
-    chbJournalPrintTrailer: TCheckBox;
+    chbJournalPrintHeader: TTntCheckBox;
+    chbJournalPrintTrailer: TTntCheckBox;
     procedure PageChange(Sender: TObject);
   public
     procedure UpdatePage; override;

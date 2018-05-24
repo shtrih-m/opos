@@ -13,11 +13,11 @@ object fmScaleHealth: TfmScaleHealth
   OldCreateOrder = False
   OnCreate = FormCreate
   DesignSize = (
-    336
-    174)
+    328
+    163)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblLevel: TLabel
+  object lblLevel: TTntLabel
     Left = 8
     Top = 149
     Width = 29
@@ -25,14 +25,14 @@ object fmScaleHealth: TfmScaleHealth
     Anchors = [akLeft, akBottom]
     Caption = 'Level:'
   end
-  object lblCheckHealthText: TLabel
+  object lblCheckHealthText: TTntLabel
     Left = 8
     Top = 8
     Width = 86
     Height = 13
     Caption = 'CheckHealthText:'
   end
-  object cbLevel: TComboBox
+  object cbLevel: TTntComboBox
     Left = 64
     Top = 144
     Width = 153
@@ -46,7 +46,7 @@ object fmScaleHealth: TfmScaleHealth
       'CH_EXTERNAL'
       'CH_INTERACTIVE')
   end
-  object btnCheckHealth: TButton
+  object btnCheckHealth: TTntButton
     Left = 224
     Top = 144
     Width = 105
@@ -56,7 +56,7 @@ object fmScaleHealth: TfmScaleHealth
     TabOrder = 2
     OnClick = btnCheckHealthClick
   end
-  object memCheckHealthText: TMemo
+  object memCheckHealthText: TTntMemo
     Left = 8
     Top = 24
     Width = 321

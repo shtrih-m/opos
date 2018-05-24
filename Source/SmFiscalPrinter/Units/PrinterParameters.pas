@@ -5,6 +5,8 @@ interface
 uses
   // VCL
   Windows, SysUtils, Classes,
+  // Tnt
+  TntClasses, TntStdCtrls, TntRegistry,
   // This
   Oposhi, PrinterTypes, PayType, LogFile, FileUtils, DirectIOAPI, VatCode;
 
@@ -871,9 +873,9 @@ end;
 procedure TPrinterParameters.LogText(const Caption, Text: string);
 var
   i: Integer;
-  Lines: TStrings;
+  Lines: TTntStrings;
 begin
-  Lines := TStringList.Create;
+  Lines := TTntStringList.Create;
   try
     Lines.Text := Text;
     if Lines.Count = 1 then

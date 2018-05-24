@@ -6,6 +6,8 @@ uses
   // VCL
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls,
+  // Tnt
+  TntStdCtrls, TntRegistry,
   // This
   untPages, OposFiscalPrinter;
 
@@ -13,16 +15,16 @@ type
   { TfmNonFisc }
 
   TfmFptrNonFiscal = class(TPage)
-    btnEndNonFiscal: TButton;
-    lblStation: TLabel;
-    edtStation: TEdit;
-    lblData: TLabel;
-    btnBeginNonFiscal: TButton;
-    btnPrintNormal: TButton;
-    chbReceipt: TCheckBox;
-    chbJournal: TCheckBox;
-    chbSlip: TCheckBox;
-    Memo: TMemo;
+    btnEndNonFiscal: TTntButton;
+    lblStation: TTntLabel;
+    edtStation: TTntEdit;
+    lblData: TTntLabel;
+    btnBeginNonFiscal: TTntButton;
+    btnPrintNormal: TTntButton;
+    chbReceipt: TTntCheckBox;
+    chbJournal: TTntCheckBox;
+    chbSlip: TTntCheckBox;
+    Memo: TTntMemo;
     procedure btnEndNonFiscalClick(Sender: TObject);
     procedure btnBeginNonFiscalClick(Sender: TObject);
     procedure btnPrintNormalClick(Sender: TObject);

@@ -9,20 +9,21 @@ uses
   // 3'd
   SynMemo, SynEdit,
   // This
-  FiscalPrinterDevice, PrinterParameters, FptrTypes, DirectIOAPI;
+  FiscalPrinterDevice, PrinterParameters, FptrTypes, DirectIOAPI,
+  TntStdCtrls;
 
 type
   { TfmFptrTrailer }
 
   TfmFptrTrailer = class(TFptrPage)
     symTrailer: TSynMemo;
-    gbTrailer: TGroupBox;
-    lblNumTrailerLines: TLabel;
-    lblTrailerFont: TLabel;
-    cbNumTrailerLines: TComboBox;
-    cbTrailerFont: TComboBox;
-    btnPrintTrailer: TButton;
-    chbSetTrailerLineEnabled: TCheckBox;
+    gbTrailer: TTntGroupBox;
+    lblNumTrailerLines: TTntLabel;
+    lblTrailerFont: TTntLabel;
+    cbNumTrailerLines: TTntComboBox;
+    cbTrailerFont: TTntComboBox;
+    btnPrintTrailer: TTntButton;
+    chbSetTrailerLineEnabled: TTntCheckBox;
     procedure PageChange(Sender: TObject);
     procedure btnPrintTrailerClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);

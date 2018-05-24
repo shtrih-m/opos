@@ -4,7 +4,9 @@ interface
 
 uses
   // VCL
-  Classes, SysUtils;
+  Classes, SysUtils,
+  // Tnt
+  TntSysUtils, TntClasses;
 
 type
   { TMalinaParamsRec }
@@ -31,9 +33,9 @@ class function TMalinaReceipt.CreateReceipt(const Params: TMalinaParamsRec): str
 var
   Line: string;
   Points: Integer;
-  Lines: TStrings;
+  Lines: TTntStrings;
 begin
-  Lines := TStringList.Create;
+  Lines := TTntStringList.Create;
   try
     Lines.Add('     ВР ГРАЖДАНСКИЙ (АЗК 009)       ');
     Lines.Add('  ООО "ТНК-ВР Северная столица"     ');
@@ -61,7 +63,7 @@ begin
     if Params.MalinaCoeff <> 0 then
       Points := Trunc(1219.84/Params.MalinaCoeff)*Params.MalinaPoints;
 
-    Line := Format('Начислено %d баллов', [Points]);
+    Line := Tnt_WideFormat('Начислено %d баллов', [Points]);
     Lines.Add(Line);
     Lines.Add('                                    ');
     Lines.Add('Оператор: Иванова Т.И. ID: 254889   ');
@@ -112,3 +114,4 @@ end;
 *)
 
 end.
+

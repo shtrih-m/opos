@@ -6,14 +6,16 @@ uses
   // VCL
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ExtCtrls,
+  // Tnt
+  TntStdCtrls, TntRegistry,
   // This
   untPages, OposFiscalPrinter;
 
 type
   TfmFptrRecCash = class(TPage)
-    btnPrintRecCash: TButton;
-    lblAmount: TLabel;
-    edtAmount: TEdit;
+    btnPrintRecCash: TTntButton;
+    lblAmount: TTntLabel;
+    edtAmount: TTntEdit;
     procedure btnPrintRecCashClick(Sender: TObject);
   end;
 

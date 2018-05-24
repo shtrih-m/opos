@@ -17,28 +17,28 @@ object fmFptrRecSubtotal: TfmFptrRecSubtotal
     270)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblAmount: TLabel
+  object lblAmount: TTntLabel
     Left = 8
     Top = 56
     Width = 39
     Height = 13
     Caption = 'Amount:'
   end
-  object lblPreLine: TLabel
+  object lblPreLine: TTntLabel
     Left = 8
     Top = 8
     Width = 39
     Height = 13
     Caption = 'PreLine:'
   end
-  object lblPostLine: TLabel
+  object lblPostLine: TTntLabel
     Left = 8
     Top = 32
     Width = 44
     Height = 13
     Caption = 'PostLine:'
   end
-  object edtAmount: TEdit
+  object edtAmount: TTntEdit
     Left = 72
     Top = 56
     Width = 313
@@ -47,7 +47,7 @@ object fmFptrRecSubtotal: TfmFptrRecSubtotal
     TabOrder = 2
     Text = '100'
   end
-  object btnPrintRecSubtotal: TButton
+  object btnPrintRecSubtotal: TTntButton
     Left = 264
     Top = 88
     Width = 121
@@ -57,7 +57,7 @@ object fmFptrRecSubtotal: TfmFptrRecSubtotal
     TabOrder = 3
     OnClick = btnPrintRecSubtotalClick
   end
-  object edtPreLine: TEdit
+  object edtPreLine: TTntEdit
     Left = 72
     Top = 8
     Width = 313
@@ -66,7 +66,7 @@ object fmFptrRecSubtotal: TfmFptrRecSubtotal
     TabOrder = 0
     Text = 'PreLine'
   end
-  object edtPostLine: TEdit
+  object edtPostLine: TTntEdit
     Left = 72
     Top = 32
     Width = 313

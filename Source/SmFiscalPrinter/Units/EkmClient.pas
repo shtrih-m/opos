@@ -132,7 +132,7 @@ begin
     Request.Magic := 'CHRQ';
     Request.Version := #0#0#0#1;
     Request.Context := 0;
-    Request.Message := Format('(01)%s(21)%s'#0, [GTIN, Serial]);
+    Request.Message := Tnt_WideFormat('(01)%s(21)%s'#0, [GTIN, Serial]);
     Request.MessageSize := Length(Request.Message);
 
     TxData :=

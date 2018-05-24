@@ -6,23 +6,23 @@ uses
   // VCL
   Windows, Classes, SysUtils, StdCtrls, ExtCtrls, Controls, Spin,
   // This
-  ScalePage, M5ScaleTypes;
+  ScalePage, M5ScaleTypes, TntStdCtrls;
 
 type
   TfmMode = class(TScalePage)
-    gbConnectionParams: TGroupBox;
-    lblComPort: TLabel;
-    lblBaudRate: TLabel;
-    lblTimeout: TLabel;
-    cbBaudRate: TComboBox;
-    btnReadParameters: TButton;
-    btnWriteParameters: TButton;
-    gbScaleMode: TGroupBox;
-    rbWeightMode: TRadioButton;
-    rbGraduationMode: TRadioButton;
-    rbDataMode: TRadioButton;
-    btnReadMode: TButton;
-    btnWriteMode: TButton;
+    gbConnectionParams: TTntGroupBox;
+    lblComPort: TTntLabel;
+    lblBaudRate: TTntLabel;
+    lblTimeout: TTntLabel;
+    cbBaudRate: TTntComboBox;
+    btnReadParameters: TTntButton;
+    btnWriteParameters: TTntButton;
+    gbScaleMode: TTntGroupBox;
+    rbWeightMode: TTntRadioButton;
+    rbGraduationMode: TTntRadioButton;
+    rbDataMode: TTntRadioButton;
+    btnReadMode: TTntButton;
+    btnWriteMode: TTntButton;
     sePortNumber: TSpinEdit;
     seTimeout: TSpinEdit;
     procedure btnReadParametersClick(Sender: TObject);
@@ -111,3 +111,4 @@ begin
 end;
 
 end.
+

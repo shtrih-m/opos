@@ -6,15 +6,15 @@ uses
   // VCL
   Controls, StdCtrls, Classes, SysUtils, ComCtrls,
   // This
-  FiscalPrinterDevice, MalinaParams;
+  FiscalPrinterDevice, MalinaParams, TntStdCtrls;
 
 type
   { TfmFptrUnipos }
 
   TfmCashInProcessing = class(TFptrPage)
-    chbCashInProcessingEnabled: TCheckBox;
-    lblCashInTextPattern: TLabel;
-    edtCashInTextPattern: TEdit;
+    chbCashInProcessingEnabled: TTntCheckBox;
+    lblCashInTextPattern: TTntLabel;
+    edtCashInTextPattern: TTntEdit;
     procedure PageChange(Sender: TObject);
   public
     procedure UpdatePage; override;
@@ -46,3 +46,4 @@ end;
 
 
 end.
+

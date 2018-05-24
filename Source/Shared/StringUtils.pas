@@ -4,7 +4,7 @@ interface
 
 uses
   // VCL
-  Windows, SysUtils;
+  Windows, SysUtils, TntSysUtils;
 
 type
   TSetOfChar = set of char;
@@ -113,7 +113,7 @@ begin
   SaveDecimalSeparator := DecimalSeparator;
   try
     DecimalSeparator := '.';
-    Result := Format('%.3f', [Value]);
+    Result := Tnt_WideFormat('%.3f', [Value]);
   finally
     DecimalSeparator := SaveDecimalSeparator;
   end;

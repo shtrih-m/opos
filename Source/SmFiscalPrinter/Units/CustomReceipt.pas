@@ -29,7 +29,7 @@ type
     FPrinter: IReceiptPrinter;
     FState: TFiscalPrinterState;
     FFiscalReceiptStation: Integer;
-    FAdditionalText: string;
+    FAdditionalText: WideString;
 
     function GetLogger: ILogFile;
     function GetDevice: IFiscalPrinterDevice;
@@ -51,7 +51,7 @@ type
 
     procedure OpenReceipt(ARecType: Integer); virtual;
     procedure BeginFiscalReceipt(PrintHeader: Boolean); virtual;
-    procedure AddRecMessage(const Message: string; Station: Integer; ID: Integer);
+    procedure AddRecMessage(const Message: WideString; Station: Integer; ID: Integer);
 
     procedure PrintPreLine;
     procedure PrintPostLine;
@@ -62,85 +62,85 @@ type
     procedure PrintRecMessages; overload;
     procedure PrintRecMessages(ID: Integer); overload;
     procedure PrintRecCash(Amount: Currency); virtual;
-    procedure PrintRecItem(const Description: string; Price: Currency;
+    procedure PrintRecItem(const Description: WideString; Price: Currency;
       Quantity: Integer; VatInfo: Integer; UnitPrice: Currency;
-      const UnitName: string); virtual;
+      const UnitName: WideString); virtual;
     procedure PrintRecItemAdjustment(AdjustmentType: Integer;
-      const Description: string; Amount: Currency;
+      const Description: WideString; Amount: Currency;
       VatInfo: Integer); virtual;
-    procedure PrintRecMessage(const Message: string); virtual;
-    procedure PrintRecNotPaid(const Description: string;
+    procedure PrintRecMessage(const Message: WideString); virtual;
+    procedure PrintRecNotPaid(const Description: WideString;
       Amount: Currency); virtual;
-    procedure PrintRecRefund(const Description: string; Amount: Currency;
+    procedure PrintRecRefund(const Description: WideString; Amount: Currency;
       VatInfo: Integer); virtual;
     procedure PrintRecSubtotal(Amount: Currency); virtual;
 
     procedure PrintRecSubtotalAdjustment(AdjustmentType: Integer;
-      const Description: string; Amount: Currency); virtual;
+      const Description: WideString; Amount: Currency); virtual;
 
     procedure PrintRecTotal(Total: Currency; Payment: Currency;
-      const Description: string); virtual;
+      const Description: WideString); virtual;
 
-    procedure PrintRecVoid(const Description: string); virtual;
+    procedure PrintRecVoid(const Description: WideString); virtual;
 
-    procedure PrintRecVoidItem(const Description: string; Amount: Currency;
+    procedure PrintRecVoidItem(const Description: WideString; Amount: Currency;
       Quantity: Integer; AdjustmentType: Integer; Adjustment: Currency;
       VatInfo: Integer); virtual;
 
-    procedure PrintRecItemFuel(const Description: string; Price: Currency;
-      Quantity, VatInfo: Integer; UnitPrice: Currency; const UnitName: string;
-      SpecialTax: Currency; const SpecialTaxName: string); virtual;
+    procedure PrintRecItemFuel(const Description: WideString; Price: Currency;
+      Quantity, VatInfo: Integer; UnitPrice: Currency; const UnitName: WideString;
+      SpecialTax: Currency; const SpecialTaxName: WideString); virtual;
 
-    procedure PrintRecItemFuelVoid(const Description: string;
+    procedure PrintRecItemFuelVoid(const Description: WideString;
       Price: Currency; VatInfo: Integer; SpecialTax: Currency); virtual;
 
     procedure PrintRecPackageAdjustment(AdjustmentType: Integer;
-      const Description, VatAdjustment: string); virtual;
+      const Description, VatAdjustment: WideString); virtual;
 
     procedure PrintRecPackageAdjustVoid(AdjustmentType: Integer;
-      const VatAdjustment: string); virtual;
+      const VatAdjustment: WideString); virtual;
 
-    procedure PrintRecRefundVoid(const Description: string;
+    procedure PrintRecRefundVoid(const Description: WideString;
       Amount: Currency; VatInfo: Integer); virtual;
 
     procedure PrintRecSubtotalAdjustVoid(AdjustmentType: Integer;
       Amount: Currency); virtual;
 
-    procedure PrintRecTaxID(const TaxID: string); virtual;
+    procedure PrintRecTaxID(const TaxID: WideString); virtual;
 
     procedure PrintRecItemAdjustmentVoid(AdjustmentType: Integer;
-      const Description: string; Amount: Currency;
+      const Description: WideString; Amount: Currency;
       VatInfo: Integer); virtual;
 
-    procedure PrintRecItemVoid(const Description: string;
+    procedure PrintRecItemVoid(const Description: WideString;
       Price: Currency; Quantity, VatInfo: Integer; UnitPrice: Currency;
-      const UnitName: string); virtual;
+      const UnitName: WideString); virtual;
 
     procedure PrintRecItemRefund(
-      const ADescription: string;
+      const ADescription: WideString;
       Amount: Currency; Quantity: Integer;
       VatInfo: Integer; UnitAmount: Currency;
-      const AUnitName: string); virtual;
+      const AUnitName: WideString); virtual;
 
     procedure PrintRecItemRefundVoid(
-      const ADescription: string;
+      const ADescription: WideString;
       Amount: Currency; Quantity: Integer;
       VatInfo: Integer; UnitAmount: Currency;
-      const AUnitName: string); virtual;
+      const AUnitName: WideString); virtual;
 
-    procedure PrintNormal(const Text: string; Station: Integer); virtual;
+    procedure PrintNormal(const Text: WideString; Station: Integer); virtual;
 
     function GetTotal: Int64; virtual;
     function GetPaymentTotal: Int64; virtual;
     procedure PaymentAdjustment(Amount: Int64); virtual;
-    class procedure CheckDescription(const Description: string);
+    class procedure CheckDescription(const Description: WideString);
     procedure SetAdjustmentAmount(Amount: Integer); virtual;
     procedure PrintText(const Data: TTextRec); virtual;
     procedure PrintBarcode(const Barcode: TBarcodeRec); virtual;
-    procedure FSWriteTLV(const TLVData: string); virtual;
+    procedure FSWriteTLV(const TLVData: WideString); virtual;
     function GetMalinaParams: TMalinaParams;
-    procedure WriteFPParameter(ParamId: Integer; const Value: string); virtual;
-    procedure PrintAdditionalHeader(const AdditionalHeader: string); virtual;
+    procedure WriteFPParameter(ParamId: Integer; const Value: WideString); virtual;
+    procedure PrintAdditionalHeader(const AdditionalHeader: WideString); virtual;
 
     property RecType: Integer read FRecType;
     property Logger: ILogFile read GetLogger;
@@ -148,7 +148,7 @@ type
     property RecMessages: TTextItems read FRecMessages;
     property MalinaParams: TMalinaParams read GetMalinaParams;
     property Parameters: TPrinterParameters read GetParameters;
-    property AdditionalText: string read FAdditionalText write FAdditionalText;
+    property AdditionalText: WideString read FAdditionalText write FAdditionalText;
   end;
 
   TCustomReceiptClass = class of TCustomReceipt;
@@ -198,15 +198,15 @@ begin
   RaiseIllegalError;
 end;
 
-procedure TCustomReceipt.PrintRecItem(const Description: string;
+procedure TCustomReceipt.PrintRecItem(const Description: WideString;
   Price: Currency; Quantity, VatInfo: Integer; UnitPrice: Currency;
-  const UnitName: string);
+  const UnitName: WideString);
 begin
   RaiseIllegalError;
 end;
 
 procedure TCustomReceipt.PrintRecItemAdjustment(AdjustmentType: Integer;
-  const Description: string; Amount: Currency; VatInfo: Integer);
+  const Description: WideString; Amount: Currency; VatInfo: Integer);
 begin
   RaiseIllegalError;
 end;
@@ -248,13 +248,13 @@ begin
   end;
 end;
 
-procedure TCustomReceipt.PrintRecNotPaid(const Description: string;
+procedure TCustomReceipt.PrintRecNotPaid(const Description: WideString;
   Amount: Currency);
 begin
   RaiseIllegalError;
 end;
 
-procedure TCustomReceipt.PrintRecRefund(const Description: string;
+procedure TCustomReceipt.PrintRecRefund(const Description: WideString;
   Amount: Currency; VatInfo: Integer);
 begin
   RaiseIllegalError;
@@ -266,18 +266,18 @@ begin
 end;
 
 procedure TCustomReceipt.PrintRecSubtotalAdjustment(
-  AdjustmentType: Integer; const Description: string; Amount: Currency);
+  AdjustmentType: Integer; const Description: WideString; Amount: Currency);
 begin
   RaiseIllegalError;
 end;
 
 procedure TCustomReceipt.PrintRecTotal(Total, Payment: Currency;
-  const Description: string);
+  const Description: WideString);
 begin
   RaiseIllegalError;
 end;
 
-procedure TCustomReceipt.PrintRecVoid(const Description: string);
+procedure TCustomReceipt.PrintRecVoid(const Description: WideString);
 begin
   RaiseIllegalError;
 end;
@@ -287,33 +287,33 @@ begin
   RaiseIllegalError;
 end;
 
-procedure TCustomReceipt.PrintRecItemFuel(const Description: string;
+procedure TCustomReceipt.PrintRecItemFuel(const Description: WideString;
   Price: Currency; Quantity, VatInfo: Integer; UnitPrice: Currency;
-  const UnitName: string; SpecialTax: Currency;
-  const SpecialTaxName: string);
+  const UnitName: WideString; SpecialTax: Currency;
+  const SpecialTaxName: WideString);
 begin
   RaiseIllegalError;
 end;
 
-procedure TCustomReceipt.PrintRecItemFuelVoid(const Description: string;
+procedure TCustomReceipt.PrintRecItemFuelVoid(const Description: WideString;
   Price: Currency; VatInfo: Integer; SpecialTax: Currency);
 begin
   RaiseIllegalError;
 end;
 
 procedure TCustomReceipt.PrintRecPackageAdjustment(AdjustmentType: Integer;
-  const Description, VatAdjustment: string);
+  const Description, VatAdjustment: WideString);
 begin
   RaiseIllegalError;
 end;
 
 procedure TCustomReceipt.PrintRecPackageAdjustVoid(AdjustmentType: Integer;
-  const VatAdjustment: string);
+  const VatAdjustment: WideString);
 begin
   RaiseIllegalError;
 end;
 
-procedure TCustomReceipt.PrintRecRefundVoid(const Description: string;
+procedure TCustomReceipt.PrintRecRefundVoid(const Description: WideString;
   Amount: Currency; VatInfo: Integer);
 begin
   RaiseIllegalError;
@@ -325,20 +325,20 @@ begin
   RaiseIllegalError;
 end;
 
-procedure TCustomReceipt.PrintRecTaxID(const TaxID: string);
+procedure TCustomReceipt.PrintRecTaxID(const TaxID: WideString);
 begin
   RaiseIllegalError;
 end;
 
 procedure TCustomReceipt.PrintRecItemAdjustmentVoid(
-  AdjustmentType: Integer; const Description: string; Amount: Currency;
+  AdjustmentType: Integer; const Description: WideString; Amount: Currency;
   VatInfo: Integer);
 begin
   RaiseIllegalError;
 end;
 
 procedure TCustomReceipt.PrintRecVoidItem(
-  const Description: string;
+  const Description: WideString;
   Amount: Currency;
   Quantity, AdjustmentType: Integer;
   Adjustment: Currency; VatInfo: Integer);
@@ -347,11 +347,11 @@ begin
 end;
 
 procedure TCustomReceipt.PrintRecItemVoid(
-  const Description: string;
+  const Description: WideString;
   Price: Currency;
   Quantity, VatInfo: Integer;
   UnitPrice: Currency;
-  const UnitName: string);
+  const UnitName: WideString);
 begin
   RaiseIllegalError;
 end;
@@ -380,21 +380,21 @@ begin
     raiseExtendedError(OPOS_EFPTR_BAD_ITEM_AMOUNT, _('Negative amount'));
 end;
 
-procedure TCustomReceipt.PrintRecItemRefund(const ADescription: string;
+procedure TCustomReceipt.PrintRecItemRefund(const ADescription: WideString;
   Amount: Currency; Quantity, VatInfo: Integer; UnitAmount: Currency;
-  const AUnitName: string);
+  const AUnitName: WideString);
 begin
   RaiseIllegalError;
 end;
 
-procedure TCustomReceipt.PrintRecItemRefundVoid(const ADescription: string;
+procedure TCustomReceipt.PrintRecItemRefundVoid(const ADescription: WideString;
   Amount: Currency; Quantity, VatInfo: Integer; UnitAmount: Currency;
-  const AUnitName: string);
+  const AUnitName: WideString);
 begin
   RaiseIllegalError;
 end;
 
-procedure TCustomReceipt.PrintNormal(const Text: string; Station: Integer);
+procedure TCustomReceipt.PrintNormal(const Text: WideString; Station: Integer);
 begin
   if State.State = FPTR_PS_FISCAL_RECEIPT_ENDING then
   begin
@@ -405,7 +405,7 @@ begin
   end;
 end;
 
-procedure TCustomReceipt.PrintRecMessage(const Message: string);
+procedure TCustomReceipt.PrintRecMessage(const Message: WideString);
 begin
   PrintNormal(Message, PRINTER_STATION_REC);
 end;
@@ -435,7 +435,7 @@ begin
 
 end;
 
-class procedure TCustomReceipt.CheckDescription(const Description: string);
+class procedure TCustomReceipt.CheckDescription(const Description: WideString);
 begin
 end;
 
@@ -444,7 +444,7 @@ begin
   Result := Printer.Printer.Device;
 end;
 
-procedure TCustomReceipt.AddRecMessage(const Message: string; Station: Integer;
+procedure TCustomReceipt.AddRecMessage(const Message: WideString; Station: Integer;
   ID: Integer);
 var
   TextItem: TTextRec;
@@ -480,7 +480,7 @@ begin
   Device.PrintBarcode2(Barcode);
 end;
 
-procedure TCustomReceipt.FSWriteTLV(const TLVData: string);
+procedure TCustomReceipt.FSWriteTLV(const TLVData: WideString);
 begin
   Device.Check(Device.FSWriteTLV(TLVData));
 end;
@@ -502,13 +502,13 @@ begin
 end;
 
 procedure TCustomReceipt.WriteFPParameter(ParamId: Integer;
-  const Value: string);
+  const Value: WideString);
 begin
   Device.WriteFPParameter(ParamId, Value);
 end;
 
 procedure TCustomReceipt.PrintAdditionalHeader(
-  const AdditionalHeader: string);
+  const AdditionalHeader: WideString);
 begin
   Device.PrintText(PRINTER_STATION_REC, AdditionalHeader);
 end;

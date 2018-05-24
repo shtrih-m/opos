@@ -5,6 +5,8 @@ interface
 uses
   // VCL
   Windows, StdCtrls, ExtCtrls, Controls, Classes, SysUtils,
+  // Tnt
+  TntSysUtils, TntClasses, TntStdCtrls,
   // This
   ScalePage, M5ScaleTypes;
 
@@ -12,10 +14,10 @@ type
   { TfmStatus }
 
   TfmStatus = class(TScalePage)
-    Memo: TMemo;
-    btnReadStatus: TButton;
-    btnReadStatus2: TButton;
-    btnDeviceMetrics: TButton;
+    Memo: TTntMemo;
+    btnReadStatus: TTntButton;
+    btnReadStatus2: TTntButton;
+    btnDeviceMetrics: TTntButton;
     procedure btnReadStatusClick(Sender: TObject);
     procedure btnReadStatus2Click(Sender: TObject);
     procedure btnDeviceMetricsClick(Sender: TObject);

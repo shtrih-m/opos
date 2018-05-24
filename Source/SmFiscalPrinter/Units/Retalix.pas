@@ -137,7 +137,7 @@ begin
     FConnection := CreateADOObject(CLASS_Connection) as _Connection;
     ConnectionString :=
       'Provider=Microsoft.Jet.OLEDB.4.0;Extended Properties=Paradox 5.x;Data Source=%s';
-    ConnectionString := Format(ConnectionString, [FDBPath]);
+    ConnectionString := Tnt_WideFormat(ConnectionString, [FDBPath]);
     FConnection.Open(ConnectionString, '', '', Integer(adConnectUnspecified));
     FIsOpened := True;
   except

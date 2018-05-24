@@ -4,14 +4,16 @@ interface
 
 uses
   // VCL
-  Classes, SysUtils, IniFiles,
+  Classes, SysUtils,
+  // Tnt
+  TntIniFiles,
   // This
   StringUtils;
 
 type
   { TSmIniFile }
 
-  TSmIniFile = class(TIniFile)
+  TSmIniFile = class(TTntIniFile)
   public
     procedure WriteText(const Section, Ident, Value: String);
     function ReadText(const Section, Ident, Default: string): string;

@@ -6,6 +6,8 @@ uses
   // VCL
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ExtCtrls, ComCtrls,
+  // Tnt
+  TntStdCtrls,
   // This
   untPages, OposFiscalPrinter;
 
@@ -13,10 +15,10 @@ type
   { TfmFptrTraining }
 
   TfmFptrTraining = class(TPage)
-    btnEndTraining: TButton;
-    lblTrainingModeActive: TLabel;
-    edtTrainingModeActive: TEdit;
-    btnBeginTraining: TButton;
+    btnEndTraining: TTntButton;
+    lblTrainingModeActive: TTntLabel;
+    edtTrainingModeActive: TTntEdit;
+    btnBeginTraining: TTntButton;
     procedure btnEndTrainingClick(Sender: TObject);
     procedure btnBeginTrainingClick(Sender: TObject);
   private

@@ -6,6 +6,8 @@ uses
   // VCL
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, ExtCtrls,
+  // Tnt
+  TntStdCtrls, TntSysUtils,
   // 3's
   PngImage,
   // This
@@ -14,18 +16,18 @@ uses
 
 type
   TfmTextBlock = class(TPage)
-    btnSaveBlock: TButton;
-    memHeader: TMemo;
-    btnSalesReceipt: TButton;
-    btnLoadBlock: TButton;
-    btnRefundReceipt: TButton;
-    lblHeader: TLabel;
-    memTrailer: TMemo;
-    lblTrailer: TLabel;
-    chbInvalidTime: TCheckBox;
-    Memo: TMemo;
-    lblResult: TLabel;
-    btnDefaultBlocks: TButton;
+    btnSaveBlock: TTntButton;
+    memHeader: TTntMemo;
+    btnSalesReceipt: TTntButton;
+    btnLoadBlock: TTntButton;
+    btnRefundReceipt: TTntButton;
+    lblHeader: TTntLabel;
+    memTrailer: TTntMemo;
+    lblTrailer: TTntLabel;
+    chbInvalidTime: TTntCheckBox;
+    Memo: TTntMemo;
+    lblResult: TTntLabel;
+    btnDefaultBlocks: TTntButton;
     procedure btnSaveBlockClick(Sender: TObject);
     procedure btnSalesReceiptClick(Sender: TObject);
     procedure btnRefundReceiptClick(Sender: TObject);

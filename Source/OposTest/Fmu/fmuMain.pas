@@ -6,6 +6,8 @@ uses
   // VCL
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   ComCtrls, StdCtrls,
+  // Tnt
+  TntStdCtrls, TntSysUtils,
   // This
   BaseForm, fmuAbout, VersionInfo, fmuFiscalPrinter, fmuCashDrawer,
   fmuPosPrinter, fmuScale;
@@ -14,8 +16,8 @@ type
   { TfmMain }
 
   TfmMain = class(TBaseForm)
-    btnAbout: TButton;
-    btnClose: TButton;
+    btnAbout: TTntButton;
+    btnClose: TTntButton;
     PageControl1: TPageControl;
     tsFiscalPrinter: TTabSheet;
     tsCashDrawer: TTabSheet;
@@ -37,7 +39,7 @@ implementation
 
 procedure TfmMain.FormCreate(Sender: TObject);
 begin
-  Format('%s %s (OPOS v.%s)',
+  Tnt_WideFormat('%s %s (OPOS v.%s)',
     [Caption, GetFileVersionInfoStr, GetOPOSVersion]);
   AddTabForm(tsFiscalPrinter, TfmFiscalPrinter);
   AddTabForm(tsCashDrawer, TfmCashDrawer);

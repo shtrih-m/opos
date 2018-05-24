@@ -19,7 +19,7 @@ object fmScaleLog: TfmScaleLog
     173)
   PixelsPerInch = 96
   TextHeight = 13
-  object gbLogParameters: TGroupBox
+  object gbLogParameters: TTntGroupBox
     Left = 8
     Top = 8
     Width = 369
@@ -27,14 +27,14 @@ object fmScaleLog: TfmScaleLog
     Anchors = [akLeft, akTop, akRight]
     Caption = 'Log parameters'
     TabOrder = 0
-    object lblMaxLogFileCount: TLabel
+    object lblMaxLogFileCount: TTntLabel
       Left = 32
       Top = 56
       Width = 110
       Height = 13
       Caption = 'Maximum log file count:'
     end
-    object chbLogEnabled: TCheckBox
+    object chbLogEnabled: TTntCheckBox
       Left = 8
       Top = 24
       Width = 97

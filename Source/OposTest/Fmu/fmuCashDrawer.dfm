@@ -41,7 +41,7 @@ object fmCashDrawer: TfmCashDrawer
     DesignSize = (
       544
       62)
-    object lblTime: TLabel
+    object lblTime: TTntLabel
       Left = 424
       Top = 16
       Width = 26
@@ -49,21 +49,21 @@ object fmCashDrawer: TfmCashDrawer
       Anchors = [akTop, akRight]
       Caption = 'Time:'
     end
-    object lblResult: TLabel
+    object lblResult: TTntLabel
       Left = 8
       Top = 14
       Width = 33
       Height = 13
       Caption = 'Result:'
     end
-    object lblExtendedResult: TLabel
+    object lblExtendedResult: TTntLabel
       Left = 8
       Top = 38
       Width = 103
       Height = 13
       Caption = 'ResultCodeExtended:'
     end
-    object edtTime: TEdit
+    object edtTime: TTntEdit
       Left = 472
       Top = 10
       Width = 65
@@ -74,7 +74,7 @@ object fmCashDrawer: TfmCashDrawer
       ReadOnly = True
       TabOrder = 0
     end
-    object edtResult: TEdit
+    object edtResult: TTntEdit
       Left = 120
       Top = 10
       Width = 297
@@ -85,7 +85,7 @@ object fmCashDrawer: TfmCashDrawer
       ReadOnly = True
       TabOrder = 1
     end
-    object edtExtendedResult: TEdit
+    object edtExtendedResult: TTntEdit
       Left = 120
       Top = 34
       Width = 297
@@ -106,7 +106,7 @@ object fmCashDrawer: TfmCashDrawer
     BevelOuter = bvNone
     BorderWidth = 5
     TabOrder = 2
-    object lbPages: TListBox
+    object lbPages: TTntListBox
       Left = 5
       Top = 5
       Width = 168

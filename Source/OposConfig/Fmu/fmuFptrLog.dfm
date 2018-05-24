@@ -19,7 +19,7 @@ object fmFptrLog: TfmFptrLog
     173)
   PixelsPerInch = 96
   TextHeight = 13
-  object gbLogParameters: TGroupBox
+  object gbLogParameters: TTntGroupBox
     Left = 8
     Top = 8
     Width = 369
@@ -30,21 +30,21 @@ object fmFptrLog: TfmFptrLog
     DesignSize = (
       369
       161)
-    object lblMaxLogFileCount: TLabel
+    object lblMaxLogFileCount: TTntLabel
       Left = 32
       Top = 96
       Width = 110
       Height = 13
       Caption = 'Maximum log file count:'
     end
-    object lblLogFilePath: TLabel
+    object lblLogFilePath: TTntLabel
       Left = 32
       Top = 56
       Width = 61
       Height = 13
       Caption = 'Log file path:'
     end
-    object chbLogEnabled: TCheckBox
+    object chbLogEnabled: TTntCheckBox
       Left = 8
       Top = 24
       Width = 97
@@ -63,7 +63,7 @@ object fmFptrLog: TfmFptrLog
       TabOrder = 2
       Value = 0
     end
-    object edtLogFilePath: TEdit
+    object edtLogFilePath: TTntEdit
       Left = 152
       Top = 56
       Width = 209

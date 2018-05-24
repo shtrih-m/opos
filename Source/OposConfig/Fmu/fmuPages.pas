@@ -5,6 +5,8 @@ interface
 uses
   // VCL
   Windows, Classes, SysUtils, Controls, ExtCtrls, StdCtrls, Forms,
+  // Tnt
+  TntStdCtrls, TntSysUtils,
   // Opos
   OposDevice,
   // This
@@ -14,11 +16,11 @@ type
   { TfmFiscalPrinter }
 
   TfmPages = class(TBaseForm)
-    btnDefaults: TButton;
-    btnOK: TButton;
-    btnCancel: TButton;
-    btnApply: TButton;
-    lbPages: TListBox;
+    btnDefaults: TTntButton;
+    btnOK: TTntButton;
+    btnCancel: TTntButton;
+    btnApply: TTntButton;
+    lbPages: TTntListBox;
     pnlPage: TPanel;
     procedure btnOKClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -32,7 +34,7 @@ type
 
     procedure ShowPage(Page: TPage);
     procedure Modified(Sender: TObject);
-    procedure UpdatePages(ListBox: TListBox; Pages: TPages);
+    procedure UpdatePages(ListBox: TTntListBox; Pages: TPages);
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -80,7 +82,7 @@ begin
   FPages.InsertItem(Page);
 end;
 
-procedure TfmPages.UpdatePages(ListBox: TListBox; Pages: TPages);
+procedure TfmPages.UpdatePages(ListBox: TTntListBox; Pages: TPages);
 var
   i: Integer;
   PageName: string;
@@ -90,7 +92,7 @@ begin
     lbPages.Items.Clear;
     for i := 0 to Pages.Count-1 do
     begin
-      PageName := Format('%.2d. %s', [i+1, Pages[i].Caption]);
+      PageName := Tnt_WideFormat('%.2d. %s', [i+1, Pages[i].Caption]);
       lbPages.Items.Add(PageName);
     end;
   finally

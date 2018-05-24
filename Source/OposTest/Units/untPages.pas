@@ -5,6 +5,8 @@ interface
 Uses
   // VCL
   Windows, Classes, SysUtils, Forms, Grids, Controls, StdCtrls,
+  // Tnt
+  TntSysUtils,
   // This
   BaseForm, untUtil, OposUtils;
 
@@ -55,7 +57,7 @@ var
   Year, Month, Day: Word;
 begin
   DecodeDate(Value, Year, Month, Day);
-  Result := Format('%.2d%.2d%.4d0000', [Day, Month, Year]);
+  Result := Tnt_WideFormat('%.2d%.2d%.4d0000', [Day, Month, Year]);
 end;
 
 function DateTime2Str(Value: TDateTime): string;
@@ -65,7 +67,7 @@ var
 begin
   DecodeDate(Value, Year, Month, Day);
   DecodeTime(Value, Hour, Min, Sec, MSec);
-  Result := Format('%.2d%.2d%.4d%.2d%.2d', [Day, Month, Year, Hour, Min]);
+  Result := Tnt_WideFormat('%.2d%.2d%.4d%.2d%.2d', [Day, Month, Year, Hour, Min]);
 end;
 
 { TPages }

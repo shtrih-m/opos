@@ -16,14 +16,14 @@ object fmRosneftDiscountCard: TfmRosneftDiscountCard
   Position = poScreenCenter
   PixelsPerInch = 96
   TextHeight = 13
-  object lblRosneftCardMask: TLabel
+  object lblRosneftCardMask: TTntLabel
     Left = 32
     Top = 48
     Width = 147
     Height = 13
     Caption = 'Card mask (regular expression):'
   end
-  object lblRosneftCardName: TLabel
+  object lblRosneftCardName: TTntLabel
     Left = 32
     Top = 80
     Width = 149
@@ -37,21 +37,21 @@ object fmRosneftDiscountCard: TfmRosneftDiscountCard
     Height = 25
     Shape = bsTopLine
   end
-  object Label1: TLabel
+  object Label1: TTntLabel
     Left = 96
     Top = 128
     Width = 54
     Height = 13
     Caption = 'Card name:'
   end
-  object Label2: TLabel
+  object Label2: TTntLabel
     Left = 96
     Top = 160
     Width = 86
     Height = 13
     Caption = 'Result card name:'
   end
-  object chbDiscountCards: TCheckBox
+  object chbDiscountCards: TTntCheckBox
     Left = 8
     Top = 8
     Width = 313
@@ -59,7 +59,7 @@ object fmRosneftDiscountCard: TfmRosneftDiscountCard
     Caption = 'Process discount cards'
     TabOrder = 0
   end
-  object edtRosneftCardMask: TEdit
+  object edtRosneftCardMask: TTntEdit
     Left = 192
     Top = 48
     Width = 233
@@ -67,7 +67,7 @@ object fmRosneftDiscountCard: TfmRosneftDiscountCard
     TabOrder = 1
     Text = 'edtRosneftCardMask'
   end
-  object edtRosneftCardName: TEdit
+  object edtRosneftCardName: TTntEdit
     Left = 192
     Top = 80
     Width = 233
@@ -75,7 +75,7 @@ object fmRosneftDiscountCard: TfmRosneftDiscountCard
     TabOrder = 2
     Text = 'edtRosneftCardName'
   end
-  object btnTest: TButton
+  object btnTest: TTntButton
     Left = 336
     Top = 192
     Width = 91
@@ -84,7 +84,7 @@ object fmRosneftDiscountCard: TfmRosneftDiscountCard
     TabOrder = 5
     OnClick = btnTestClick
   end
-  object edtCardName: TEdit
+  object edtCardName: TTntEdit
     Left = 192
     Top = 128
     Width = 233
@@ -92,7 +92,7 @@ object fmRosneftDiscountCard: TfmRosneftDiscountCard
     TabOrder = 3
     Text = '3% Loyalty 000302992000000040'
   end
-  object edtResultCardName: TEdit
+  object edtResultCardName: TTntEdit
     Left = 192
     Top = 160
     Width = 233

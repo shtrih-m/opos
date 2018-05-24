@@ -6,6 +6,8 @@ uses
   // VCL
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls,
+  // Tnt
+  TntClasses, TntStdCtrls, TntRegistry,
   // This
   FiscalPrinterDevice, untUtil, FptrTypes, PrinterParameters;
 
@@ -13,8 +15,8 @@ type
   { TfmZReport }
 
   TfmXReport = class(TFptrPage)
-    lblXReport: TLabel;
-    cbXReport: TComboBox;
+    lblXReport: TTntLabel;
+    cbXReport: TTntComboBox;
   public
     procedure UpdatePage; override;
     procedure UpdateObject; override;

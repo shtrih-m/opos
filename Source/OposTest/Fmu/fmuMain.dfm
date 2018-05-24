@@ -21,7 +21,7 @@ object fmMain: TfmMain
     600)
   PixelsPerInch = 96
   TextHeight = 13
-  object btnAbout: TButton
+  object btnAbout: TTntButton
     Left = 424
     Top = 576
     Width = 73
@@ -31,7 +31,7 @@ object fmMain: TfmMain
     TabOrder = 1
     OnClick = btnAboutClick
   end
-  object btnClose: TButton
+  object btnClose: TTntButton
     Left = 504
     Top = 576
     Width = 73

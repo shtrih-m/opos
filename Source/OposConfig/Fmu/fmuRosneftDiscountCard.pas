@@ -6,23 +6,23 @@ uses
   // VCL
   Controls, StdCtrls, Classes, SysUtils, ComCtrls, ExtCtrls,
   // This
-  FiscalPrinterDevice, FptrTypes, MalinaParams, RegExpr;
+  FiscalPrinterDevice, FptrTypes, MalinaParams, RegExpr, TntStdCtrls;
 
 type
   { TfmDiscountCard }
 
   TfmRosneftDiscountCard = class(TFptrPage)
-    chbDiscountCards: TCheckBox;
-    lblRosneftCardMask: TLabel;
-    edtRosneftCardMask: TEdit;
-    lblRosneftCardName: TLabel;
-    edtRosneftCardName: TEdit;
+    chbDiscountCards: TTntCheckBox;
+    lblRosneftCardMask: TTntLabel;
+    edtRosneftCardMask: TTntEdit;
+    lblRosneftCardName: TTntLabel;
+    edtRosneftCardName: TTntEdit;
     Bevel1: TBevel;
-    btnTest: TButton;
-    Label1: TLabel;
-    edtCardName: TEdit;
-    Label2: TLabel;
-    edtResultCardName: TEdit;
+    btnTest: TTntButton;
+    Label1: TTntLabel;
+    edtCardName: TTntEdit;
+    Label2: TTntLabel;
+    edtResultCardName: TTntEdit;
     procedure PageChange(Sender: TObject);
     procedure btnTestClick(Sender: TObject);
   public

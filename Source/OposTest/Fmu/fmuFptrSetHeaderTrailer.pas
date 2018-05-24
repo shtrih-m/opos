@@ -6,20 +6,22 @@ uses
   // VCL
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ExtCtrls, ComCtrls,
+  // Tnt
+  TntStdCtrls, TntSysUtils,
   // This
   untPages, OposFiscalPrinter;
 
 type
   TfmFptrSetHeaderTrailer = class(TPage)
-    btnSetHeader: TButton;
-    btnSetTrailer: TButton;
-    lblHeader: TLabel;
-    mmHeader: TMemo;
-    btnClear: TButton;
-    lblTrailer: TLabel;
-    mmTrailer: TMemo;
-    btnDefault: TButton;
-    chbDoubleWidth: TCheckBox;
+    btnSetHeader: TTntButton;
+    btnSetTrailer: TTntButton;
+    lblHeader: TTntLabel;
+    mmHeader: TTntMemo;
+    btnClear: TTntButton;
+    lblTrailer: TTntLabel;
+    mmTrailer: TTntMemo;
+    btnDefault: TTntButton;
+    chbDoubleWidth: TTntCheckBox;
     procedure btnSetHeaderClick(Sender: TObject);
     procedure btnSetTrailerClick(Sender: TObject);
     procedure btnClearClick(Sender: TObject);
@@ -96,14 +98,14 @@ begin
   Count := FiscalPrinter.NumHeaderLines;
   for i := 0 to Count-1 do
   begin
-    Data := Format('Header line ¹%d', [i+1]);
+    Data := Tnt_WideFormat('Header line ¹%d', [i+1]);
     mmHeader.Lines.Add(Data);
   end;
   mmTrailer.Clear;
   Count := FiscalPrinter.NumTrailerLines;
   for i := 0 to Count-1 do
   begin
-    Data := Format('Trailer line ¹%d', [i+1]);
+    Data := Tnt_WideFormat('Trailer line ¹%d', [i+1]);
     mmTrailer.Lines.Add(Data);
   end;
 end;

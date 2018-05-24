@@ -6,16 +6,18 @@ uses
   // VCL
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls,
+  // Tnt
+  TntStdCtrls, TntSysUtils,
   // This
   untPages, OposScale, OposUtils, OposScalUtils;
 
 type
   TfmScaleHealth = class(TPage)
-    lblLevel: TLabel;
-    lblCheckHealthText: TLabel;
-    cbLevel: TComboBox;
-    btnCheckHealth: TButton;
-    memCheckHealthText: TMemo;
+    lblLevel: TTntLabel;
+    lblCheckHealthText: TTntLabel;
+    cbLevel: TTntComboBox;
+    btnCheckHealth: TTntButton;
+    memCheckHealthText: TTntMemo;
     procedure btnCheckHealthClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   end;

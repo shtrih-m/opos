@@ -18,14 +18,14 @@ object fmTankReport: TfmTankReport
     344)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblTankReport: TLabel
+  object lblTankReport: TTntLabel
     Left = 4
     Top = 7
     Width = 58
     Height = 13
     Caption = 'Tank report:'
   end
-  object memTankReport: TMemo
+  object memTankReport: TTntMemo
     Left = 3
     Top = 24
     Width = 403
@@ -40,7 +40,7 @@ object fmTankReport: TfmTankReport
     ScrollBars = ssVertical
     TabOrder = 0
   end
-  object btnSetDefaults: TButton
+  object btnSetDefaults: TTntButton
     Left = 248
     Top = 312
     Width = 74
@@ -50,7 +50,7 @@ object fmTankReport: TfmTankReport
     TabOrder = 1
     OnClick = btnSetDefaultsClick
   end
-  object btnPrint: TButton
+  object btnPrint: TTntButton
     Left = 328
     Top = 312
     Width = 74

@@ -4,7 +4,9 @@ interface
 
 uses
   // VCL
-  Windows, Classes, SysUtils, ShlObj, ShFolder, Registry;
+  Windows, Classes, SysUtils, ShlObj, ShFolder, Registry,
+  // Tnt
+  TntClasses, TntStdCtrls, TntRegistry;
 
 function GetModulePath: string;
 function GetModuleFileName: string;
@@ -107,11 +109,11 @@ end;
 
 function CLSIDToFileName(const CLSID: TGUID): String;
 var
-  Reg: TRegistry;
+  Reg: TTntRegistry;
   strCLSID: String;
 begin
   Result := '';
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     Reg.RootKey:= HKEY_CLASSES_ROOT;
     Reg.Access := KEY_READ;
@@ -131,7 +133,7 @@ begin
   end;
 end;
 
-procedure GetFileNames(const Mask: string; FileNames: TStrings);
+procedure GetFileNames(const Mask: string; FileNames: TTntStrings);
 var
   F: TSearchRec;
   Result: Integer;
@@ -149,9 +151,9 @@ end;
 
 procedure DeleteFiles(const FileMask: string);
 var
-  FileNames: TStringList;
+  FileNames: TTntStringList;
 begin
-  FileNames := TStringList.Create;
+  FileNames := TTntStringList.Create;
   try
     GetFileNames(FileMask, FileNames);
     while FileNames.Count > 0 do

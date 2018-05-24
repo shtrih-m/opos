@@ -5,6 +5,8 @@ interface
 uses
   // VCL
   Controls, StdCtrls, Classes, SysUtils, ComCtrls, ExtCtrls,
+  // Tnt
+  TntClasses, TntStdCtrls, TntRegistry,
   // This
   FiscalPrinterDevice, FptrTypes, MalinaParams;
 
@@ -12,8 +14,8 @@ type
   { TfmFptrPawnTicket }
 
   TfmFptrPawnTicket = class(TFptrPage)
-    lblUniposSalesErrorText: TLabel;
-    memPawnTicketText: TMemo;
+    lblUniposSalesErrorText: TTntLabel;
+    memPawnTicketText: TTntMemo;
     rgPawnTicketMode: TRadioGroup;
     procedure PageChange(Sender: TObject);
   public

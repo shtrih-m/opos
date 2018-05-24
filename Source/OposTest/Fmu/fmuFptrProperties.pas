@@ -6,13 +6,15 @@ uses
   // VCL
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ExtCtrls, Grids, ActiveX, ComObj,
+  // Tnt
+  TntSysUtils, TntStdCtrls,
   // This
   untPages, OposFiscalPrinter, OposUtils, OposFptrUtils;
 
 type
   TfmFptrProperties = class(TPage)
-    btnRefresh: TButton;
-    Memo: TMemo;
+    btnRefresh: TTntButton;
+    Memo: TTntMemo;
     procedure btnRefreshClick(Sender: TObject);
   private
     function GetPropVal(const PropertyName: WideString): string;
@@ -328,7 +330,7 @@ begin
         if FuncDesc.invkind = INVOKE_PROPERTYGET then
         begin
           S := GetPropVal(PropName);
-          S := Format('%.3d %-26s: %s', [i+1, PropName, S]);
+          S := Tnt_WideFormat('%.3d %-26s: %s', [i+1, PropName, S]);
           Memo.Lines.Add(S);
         end;
       finally
@@ -345,7 +347,7 @@ var
   Line: string;
 begin
   Line := GetPropVal(PropName);
-  Line := Format('%-30s: %s', [PropName, Line]);
+  Line := Tnt_WideFormat('%-30s: %s', [PropName, Line]);
   if PropText <> '' then
     Line := Line + ', ' + PropText;
   Memo.Lines.Add(Line);

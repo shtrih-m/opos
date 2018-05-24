@@ -18,21 +18,21 @@ object fmFptrDate: TfmFptrDate
     270)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblDateType: TLabel
+  object lblDateType: TTntLabel
     Left = 8
     Top = 8
     Width = 50
     Height = 13
     Caption = 'DateType:'
   end
-  object lblDate: TLabel
+  object lblDate: TTntLabel
     Left = 8
     Top = 40
     Width = 26
     Height = 13
     Caption = 'Date:'
   end
-  object cbDateType: TComboBox
+  object cbDateType: TTntComboBox
     Left = 64
     Top = 8
     Width = 323
@@ -49,7 +49,7 @@ object fmFptrDate: TfmFptrDate
       'FPTR_DT_VAT'
       'FPTR_DT_START')
   end
-  object btnSetDate: TButton
+  object btnSetDate: TTntButton
     Left = 288
     Top = 80
     Width = 97
@@ -59,7 +59,7 @@ object fmFptrDate: TfmFptrDate
     TabOrder = 3
     OnClick = btnSetDateClick
   end
-  object edtDate: TEdit
+  object edtDate: TTntEdit
     Left = 64
     Top = 40
     Width = 291
@@ -67,7 +67,7 @@ object fmFptrDate: TfmFptrDate
     Anchors = [akLeft, akTop, akRight]
     TabOrder = 1
   end
-  object btnGetDate: TButton
+  object btnGetDate: TTntButton
     Left = 184
     Top = 80
     Width = 99
@@ -77,7 +77,7 @@ object fmFptrDate: TfmFptrDate
     TabOrder = 4
     OnClick = btnGetDateClick
   end
-  object btnCurrentDateTime: TButton
+  object btnCurrentDateTime: TTntButton
     Left = 360
     Top = 40
     Width = 25

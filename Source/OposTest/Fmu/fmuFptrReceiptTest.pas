@@ -6,6 +6,8 @@ uses
   // VCL
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, Registry, CheckLst,
+  // Tnt
+  TntStdCtrls, TntSysUtils,
   // This
   untPages, OposFiscalPrinter, OposFptr, DriverTest, PrinterTest;
 
@@ -13,9 +15,9 @@ type
   { TfmFptrReceiptTest }
 
   TfmFptrReceiptTest = class(TPage)
-    btnExecute: TButton;
-    Memo: TMemo;
-    cbTest: TComboBox;
+    btnExecute: TTntButton;
+    Memo: TTntMemo;
+    cbTest: TTntComboBox;
     procedure btnExecuteClick(Sender: TObject);
   private
     FTests: TDriverTests;

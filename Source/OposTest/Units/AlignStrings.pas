@@ -4,8 +4,10 @@ interface
 
 uses
   // VCL
-  SysUtils;
-  
+  SysUtils,
+  // Tnt
+  TntSysUtils;
+
 type
   TAlignType = (atLeft, atRight, atCenter);
 
@@ -21,8 +23,8 @@ var
 begin
   LS := Copy(S, 1, Width);
   case at of
-    atLeft      : Result := Format('%-*s', [Width, LS]);
-    atRight     : Result := Format('%*s', [Width, LS]);
+    atLeft      : Result := Tnt_WideFormat('%-*s', [Width, LS]);
+    atRight     : Result := Tnt_WideFormat('%*s', [Width, LS]);
     atCenter    :
     begin
       L := Width - Length(LS);

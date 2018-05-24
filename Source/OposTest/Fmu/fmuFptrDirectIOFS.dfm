@@ -17,7 +17,7 @@ object fmFptrDirectIOFS: TfmFptrDirectIOFS
     320)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblDocNumber: TLabel
+  object lblDocNumber: TTntLabel
     Left = 10
     Top = 294
     Width = 90
@@ -25,7 +25,7 @@ object fmFptrDirectIOFS: TfmFptrDirectIOFS
     Anchors = [akRight, akBottom]
     Caption = 'Document number:'
   end
-  object btnPrintFSDocument: TButton
+  object btnPrintFSDocument: TTntButton
     Left = 345
     Top = 288
     Width = 121
@@ -35,7 +35,7 @@ object fmFptrDirectIOFS: TfmFptrDirectIOFS
     TabOrder = 2
     OnClick = btnPrintFSDocumentClick
   end
-  object Memo: TMemo
+  object Memo: TTntMemo
     Left = 8
     Top = 8
     Width = 458
@@ -43,7 +43,7 @@ object fmFptrDirectIOFS: TfmFptrDirectIOFS
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 0
   end
-  object btnReadFSDocument: TButton
+  object btnReadFSDocument: TTntButton
     Left = 217
     Top = 288
     Width = 121

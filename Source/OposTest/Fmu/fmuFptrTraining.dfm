@@ -17,14 +17,14 @@ object fmFptrTraining: TfmFptrTraining
     270)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblTrainingModeActive: TLabel
+  object lblTrainingModeActive: TTntLabel
     Left = 8
     Top = 8
     Width = 98
     Height = 13
     Caption = 'TrainingModeActive:'
   end
-  object btnEndTraining: TButton
+  object btnEndTraining: TTntButton
     Left = 288
     Top = 72
     Width = 97
@@ -34,7 +34,7 @@ object fmFptrTraining: TfmFptrTraining
     TabOrder = 2
     OnClick = btnEndTrainingClick
   end
-  object edtTrainingModeActive: TEdit
+  object edtTrainingModeActive: TTntEdit
     Left = 120
     Top = 8
     Width = 265
@@ -45,7 +45,7 @@ object fmFptrTraining: TfmFptrTraining
     ReadOnly = True
     TabOrder = 0
   end
-  object btnBeginTraining: TButton
+  object btnBeginTraining: TTntButton
     Left = 288
     Top = 40
     Width = 97

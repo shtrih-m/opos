@@ -20,42 +20,42 @@ object fmCashGeneral: TfmCashGeneral
     302)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblCashDeviceName: TLabel
+  object lblCashDeviceName: TTntLabel
     Left = 8
     Top = 8
     Width = 65
     Height = 13
     Caption = 'DeviceName:'
   end
-  object lblEvents: TLabel
+  object lblEvents: TTntLabel
     Left = 8
     Top = 200
     Width = 36
     Height = 13
     Caption = 'Events:'
   end
-  object lblStatus: TLabel
+  object lblStatus: TTntLabel
     Left = 8
     Top = 168
     Width = 33
     Height = 13
     Caption = 'Status:'
   end
-  object lblCashOpenResult: TLabel
+  object lblCashOpenResult: TTntLabel
     Left = 8
     Top = 136
     Width = 59
     Height = 13
     Caption = 'OpenResult:'
   end
-  object lblTimeout: TLabel
+  object lblTimeout: TTntLabel
     Left = 8
     Top = 104
     Width = 41
     Height = 13
     Caption = 'Timeout:'
   end
-  object cbCashDeviceName: TComboBox
+  object cbCashDeviceName: TTntComboBox
     Left = 80
     Top = 8
     Width = 146
@@ -64,7 +64,7 @@ object fmCashGeneral: TfmCashGeneral
     ItemHeight = 13
     TabOrder = 0
   end
-  object btnUpdateCashDevice: TButton
+  object btnUpdateCashDevice: TTntButton
     Left = 232
     Top = 8
     Width = 153
@@ -74,7 +74,7 @@ object fmCashGeneral: TfmCashGeneral
     TabOrder = 2
     OnClick = btnUpdateCashDeviceClick
   end
-  object btnOpen: TButton
+  object btnOpen: TTntButton
     Left = 232
     Top = 72
     Width = 75
@@ -84,7 +84,7 @@ object fmCashGeneral: TfmCashGeneral
     TabOrder = 3
     OnClick = btnOpenClick
   end
-  object btnClose: TButton
+  object btnClose: TTntButton
     Left = 312
     Top = 72
     Width = 73
@@ -94,7 +94,7 @@ object fmCashGeneral: TfmCashGeneral
     TabOrder = 4
     OnClick = btnCloseClick
   end
-  object btnRelease: TButton
+  object btnRelease: TTntButton
     Left = 312
     Top = 104
     Width = 73
@@ -104,7 +104,7 @@ object fmCashGeneral: TfmCashGeneral
     TabOrder = 5
     OnClick = btnReleaseClick
   end
-  object btnClaim: TButton
+  object btnClaim: TTntButton
     Left = 232
     Top = 104
     Width = 75
@@ -114,7 +114,7 @@ object fmCashGeneral: TfmCashGeneral
     TabOrder = 6
     OnClick = btnClaimClick
   end
-  object btnOpenDrawer: TButton
+  object btnOpenDrawer: TTntButton
     Left = 232
     Top = 136
     Width = 153
@@ -124,7 +124,7 @@ object fmCashGeneral: TfmCashGeneral
     TabOrder = 7
     OnClick = btnOpenDrawerClick
   end
-  object btnGetStatus: TButton
+  object btnGetStatus: TTntButton
     Left = 232
     Top = 168
     Width = 153
@@ -134,7 +134,7 @@ object fmCashGeneral: TfmCashGeneral
     TabOrder = 8
     OnClick = btnGetStatusClick
   end
-  object btnClearEvents: TButton
+  object btnClearEvents: TTntButton
     Left = 296
     Top = 272
     Width = 89
@@ -144,7 +144,7 @@ object fmCashGeneral: TfmCashGeneral
     TabOrder = 9
     OnClick = btnClearEventsClick
   end
-  object memEvents: TMemo
+  object memEvents: TTntMemo
     Left = 80
     Top = 200
     Width = 306
@@ -152,7 +152,7 @@ object fmCashGeneral: TfmCashGeneral
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 10
   end
-  object edtStatus: TEdit
+  object edtStatus: TTntEdit
     Left = 80
     Top = 168
     Width = 146
@@ -162,7 +162,7 @@ object fmCashGeneral: TfmCashGeneral
     ReadOnly = True
     TabOrder = 11
   end
-  object edtCashOpenResult: TEdit
+  object edtCashOpenResult: TTntEdit
     Left = 80
     Top = 136
     Width = 146
@@ -172,7 +172,7 @@ object fmCashGeneral: TfmCashGeneral
     ReadOnly = True
     TabOrder = 12
   end
-  object edtTimeout: TEdit
+  object edtTimeout: TTntEdit
     Left = 80
     Top = 104
     Width = 146
@@ -181,7 +181,7 @@ object fmCashGeneral: TfmCashGeneral
     TabOrder = 13
     Text = '0'
   end
-  object chbDeviceEnabled: TCheckBox
+  object chbDeviceEnabled: TTntCheckBox
     Left = 80
     Top = 72
     Width = 137
@@ -190,7 +190,7 @@ object fmCashGeneral: TfmCashGeneral
     TabOrder = 14
     OnClick = chbDeviceEnabledClick
   end
-  object cbDeviceType: TComboBox
+  object cbDeviceType: TTntComboBox
     Left = 80
     Top = 40
     Width = 146

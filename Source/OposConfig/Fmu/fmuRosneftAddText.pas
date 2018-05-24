@@ -4,20 +4,22 @@ interface
 
 uses
   // VCL
-  Controls, StdCtrls, Classes, SysUtils, ComCtrls, ExtCtrls,
+  Controls, StdCtrls, Classes, SysUtils, ComCtrls, ExtCtrls, Spin,
+  // Tnt
+  TntClasses, TntStdCtrls, TntRegistry,
   // This
-  FiscalPrinterDevice, FptrTypes, MalinaParams, RegExpr, Spin;
+  FiscalPrinterDevice, FptrTypes, MalinaParams, RegExpr;
 
 type
   { TfmRosneftAddText }
 
   TfmRosneftAddText = class(TFptrPage)
-    chbRosneftAddTextEnabled: TCheckBox;
-    edtRosneftItemName: TEdit;
-    lblRosneftItemName: TLabel;
-    lblRosneftAddText: TLabel;
-    memRosneftAddText: TMemo;
-    lblDepartment: TLabel;
+    chbRosneftAddTextEnabled: TTntCheckBox;
+    edtRosneftItemName: TTntEdit;
+    lblRosneftItemName: TTntLabel;
+    lblRosneftAddText: TTntLabel;
+    memRosneftAddText: TTntMemo;
+    lblDepartment: TTntLabel;
     seRosneftItemDepartment: TSpinEdit;
     procedure PageChange(Sender: TObject);
   public

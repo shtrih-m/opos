@@ -4,18 +4,21 @@ interface
 
 uses
   // VCL
-  Windows, Classes, SysUtils, Registry, Controls, StdCtrls;
+  Windows, Classes, SysUtils, Registry, Controls, StdCtrls,
+  // Tnt
+  TntStdCtrls, TntSysUtils, TntClasses, TntRegistry;
 
-procedure CreatePorts(Strings: TStrings);
+
+procedure CreatePorts(Strings: TTntStrings);
 procedure DeleteRegKey(const KeyName: string);
-procedure EnableButtons(WinControl: TWinControl; Value: Boolean; var AButton: TButton);
+procedure EnableButtons(WinControl: TWinControl; Value: Boolean; var AButton: TTntButton);
 
 implementation
 
-procedure EnableButtons(WinControl: TWinControl; Value: Boolean; var AButton: TButton);
+procedure EnableButtons(WinControl: TWinControl; Value: Boolean; var AButton: TTntButton);
 var
   i: Integer;
-  Button: TButton;
+  Button: TTntButton;
   Control: TControl;
 begin
   for i := 0 to WinControl.ControlCount-1 do
@@ -25,9 +28,9 @@ begin
       EnableButtons(Control as TWinControl, Value, AButton);
   end;
 
-  if (WinControl is TButton) then
+  if (WinControl is TTntButton) then
   begin
-    Button := WinControl as TButton;
+    Button := WinControl as TTntButton;
     if Value then
     begin
       Button.Enabled := True;
@@ -40,7 +43,7 @@ begin
   end;
 end;
 
-procedure CreatePorts(Strings: TStrings);
+procedure CreatePorts(Strings: TTntStrings);
 var
   i: Integer;
 begin
@@ -51,11 +54,11 @@ end;
 procedure DeleteRegKey(const KeyName: string);
 var
   i: Integer;
-  Reg: TRegistry;
-  Strings: TStrings;
+  Reg: TTntRegistry;
+  Strings: TTntStrings;
 begin
-  Reg := TRegistry.Create;
-  Strings := TStringList.Create;
+  Reg := TTntRegistry.Create;
+  Strings := TTntStringList.Create;
   try
     Reg.Access := KEY_ALL_ACCESS;
     Reg.RootKey := HKEY_LOCAL_MACHINE;

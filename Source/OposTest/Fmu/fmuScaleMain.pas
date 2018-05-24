@@ -7,21 +7,21 @@ uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ExtCtrls, Grids, ActiveX, ComObj,
   // This
-  untPages, OposScale;
+  untPages, OposScale, TntStdCtrls;
 
 type
   { TfmScaleMain }
 
   TfmScaleMain = class(TPage)
-    btnDisplayText: TButton;
-    lblText: TLabel;
-    edtText: TEdit;
-    btnReadWeight: TButton;
-    lblWeightData: TLabel;
-    edtWeightData: TEdit;
-    lblTimeout: TLabel;
-    edtTimeout: TEdit;
-    btnZeroScale: TButton;
+    btnDisplayText: TTntButton;
+    lblText: TTntLabel;
+    edtText: TTntEdit;
+    btnReadWeight: TTntButton;
+    lblWeightData: TTntLabel;
+    edtWeightData: TTntEdit;
+    lblTimeout: TTntLabel;
+    edtTimeout: TTntEdit;
+    btnZeroScale: TTntButton;
     procedure btnDisplayTextClick(Sender: TObject);
     procedure btnReadWeightClick(Sender: TObject);
     procedure btnZeroScaleClick(Sender: TObject);

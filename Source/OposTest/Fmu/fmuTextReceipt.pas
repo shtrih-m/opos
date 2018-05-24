@@ -6,6 +6,8 @@ uses
   // VCL
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, ExtCtrls,
+  // Tnt
+  TntStdCtrls, TntSysUtils,
   // 3'd
   PngImage,
   // This
@@ -14,15 +16,15 @@ uses
 
 type
   TfmTextReceipt = class(TPage)
-    memBlock1: TMemo;
-    btnSave: TButton;
-    lblBlock1: TLabel;
-    memBlock2: TMemo;
-    lblBlock2: TLabel;
-    btnLoad: TButton;
-    chbNewCheck: TCheckBox;
-    btnSetDefaults: TButton;
-    btnPrint: TButton;
+    memBlock1: TTntMemo;
+    btnSave: TTntButton;
+    lblBlock1: TTntLabel;
+    memBlock2: TTntMemo;
+    lblBlock2: TTntLabel;
+    btnLoad: TTntButton;
+    chbNewCheck: TTntCheckBox;
+    btnSetDefaults: TTntButton;
+    btnPrint: TTntButton;
     procedure btnSaveClick(Sender: TObject);
     procedure btnLoadClick(Sender: TObject);
     procedure btnSetDefaultsClick(Sender: TObject);

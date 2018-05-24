@@ -6,6 +6,8 @@ uses
   // VCL
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ExtCtrls, ComCtrls,
+  // Tnt
+  TntSysUtils, TntStdCtrls,
   // This
   untPages, OposFiscalPrinter, DirectIOAPI, Opos, DIODescription;
 
@@ -13,19 +15,19 @@ type
   { TfmFptrDirectIO }
 
   TfmFptrDirectIO = class(TPage)
-    lblData: TLabel;
-    btnExecute: TButton;
-    lblString: TLabel;
-    edtInString: TEdit;
-    edtData: TEdit;
-    lblCommand: TLabel;
-    lblOutString: TLabel;
-    edtOutString: TEdit;
-    memInfo: TMemo;
-    cbCommand: TComboBox;
-    edtCustomCommand: TEdit;
-    lblCustom: TLabel;
-    lblDescription: TLabel;
+    lblData: TTntLabel;
+    btnExecute: TTntButton;
+    lblString: TTntLabel;
+    edtInString: TTntEdit;
+    edtData: TTntEdit;
+    lblCommand: TTntLabel;
+    lblOutString: TTntLabel;
+    edtOutString: TTntEdit;
+    memInfo: TTntMemo;
+    cbCommand: TTntComboBox;
+    edtCustomCommand: TTntEdit;
+    lblCustom: TTntLabel;
+    lblDescription: TTntLabel;
     procedure btnExecuteClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure cbCommandChange(Sender: TObject);
@@ -76,7 +78,7 @@ begin
     if DIODescriptions[i].Command = DIO_CUSTOM_COMMAND then
       S := DIODescriptions[i].Description
     else
-      S := Format('%d (%s)',
+      S := Tnt_WideFormat('%d (%s)',
       [DIODescriptions[i].Command, DIODescriptions[i].Description]);
     cbCommand.AddItem(S, TObject(DIODescriptions[i].Command));
   end;

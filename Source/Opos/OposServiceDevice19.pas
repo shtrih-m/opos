@@ -9,7 +9,7 @@ uses
   Opos, Oposhi, OposFptr, OposEvents, OposException, OposFptrUtils,
   OposUtils,
   // This
-  OposSemaphore, NotifyThread, LogFile, PrinterTypes, gnugettext;
+  OposSemaphore, NotifyThread, LogFile, PrinterTypes, TntSysUtils, gnugettext;
 
 type
   { TOposServiceDevice19 }
@@ -171,7 +171,7 @@ begin
 
   FDeviceClass := ADeviceClass;
   FDeviceName := ADeviceName;
-  FLongDeviceName := Format('%s/%s', [ADeviceClass, ADeviceName]);
+  FLongDeviceName := Tnt_WideFormat('%s/%s', [ADeviceClass, ADeviceName]);
   FOposEvents := AOposEvents;
 
   // State is changed to S_IDLE when the open method is successfully called.
@@ -458,7 +458,7 @@ begin
   FResultCodeExtended := OPOSError.ResultCodeExtended;
   Result := FResultCode;
 
-  Line := Format('%s, %s, "%s"', [GetResultCodeText(FResultCode),
+  Line := Tnt_WideFormat('%s, %s, "%s"', [GetResultCodeText(FResultCode),
     GetResultCodeExtendedText(FResultCodeExtended), FErrorString]);
   Logger.Error(Line);
 

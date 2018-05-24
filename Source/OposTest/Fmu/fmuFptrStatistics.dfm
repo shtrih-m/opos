@@ -17,7 +17,7 @@ object fmFptrStatistics: TfmFptrStatistics
     294)
   PixelsPerInch = 96
   TextHeight = 13
-  object btnResetStatistics: TButton
+  object btnResetStatistics: TTntButton
     Left = 232
     Top = 264
     Width = 97
@@ -27,7 +27,7 @@ object fmFptrStatistics: TfmFptrStatistics
     TabOrder = 2
     OnClick = btnResetStatisticsClick
   end
-  object btnRetrieveStatistics: TButton
+  object btnRetrieveStatistics: TTntButton
     Left = 336
     Top = 264
     Width = 97
@@ -37,7 +37,7 @@ object fmFptrStatistics: TfmFptrStatistics
     TabOrder = 3
     OnClick = btnRetrieveStatisticsClick
   end
-  object btnUpdateStatistics: TButton
+  object btnUpdateStatistics: TTntButton
     Left = 440
     Top = 264
     Width = 97
@@ -47,7 +47,7 @@ object fmFptrStatistics: TfmFptrStatistics
     TabOrder = 4
     OnClick = btnUpdateStatisticsClick
   end
-  object btnClear: TButton
+  object btnClear: TTntButton
     Left = 144
     Top = 264
     Width = 81
@@ -77,8 +77,12 @@ object fmFptrStatistics: TfmFptrStatistics
     Gutter.Font.Style = []
     Highlighter = SynXMLSyn1
     TabWidth = 4
+    FontSmoothing = fsmNone
   end
   object SynXMLSyn1: TSynXMLSyn
+    Options.AutoDetectEnabled = False
+    Options.AutoDetectLineLimit = 0
+    Options.Visible = False
     WantBracesParsed = False
     Left = 8
     Top = 120

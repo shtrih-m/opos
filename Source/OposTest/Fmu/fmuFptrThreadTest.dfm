@@ -18,63 +18,63 @@ object fmFptrThreadTest: TfmFptrThreadTest
     302)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblDrawerTestCount_: TLabel
+  object lblDrawerTestCount_: TTntLabel
     Left = 8
     Top = 104
     Width = 87
     Height = 13
     Caption = 'Drawer test count:'
   end
-  object lblDrawerTestCount: TLabel
+  object lblDrawerTestCount: TTntLabel
     Left = 104
     Top = 104
     Width = 6
     Height = 13
     Caption = '0'
   end
-  object lblErrorCount_: TLabel
+  object lblErrorCount_: TTntLabel
     Left = 8
     Top = 152
     Width = 55
     Height = 13
     Caption = 'Error count:'
   end
-  object lblErrorCount: TLabel
+  object lblErrorCount: TTntLabel
     Left = 104
     Top = 152
     Width = 6
     Height = 13
     Caption = '0'
   end
-  object lblDeviceName: TLabel
+  object lblDeviceName: TTntLabel
     Left = 8
     Top = 8
     Width = 97
     Height = 13
     Caption = 'Fiscal printer device:'
   end
-  object lblCashDeviceName: TLabel
+  object lblCashDeviceName: TTntLabel
     Left = 8
     Top = 40
     Width = 97
     Height = 13
     Caption = 'Cash drawer device:'
   end
-  object lblPrinterTestCount_: TLabel
+  object lblPrinterTestCount_: TTntLabel
     Left = 8
     Top = 128
     Width = 83
     Height = 13
     Caption = 'Printer test count:'
   end
-  object lblPrinterTestCount: TLabel
+  object lblPrinterTestCount: TTntLabel
     Left = 104
     Top = 128
     Width = 6
     Height = 13
     Caption = '0'
   end
-  object btnStart: TButton
+  object btnStart: TTntButton
     Left = 288
     Top = 8
     Width = 75
@@ -84,7 +84,7 @@ object fmFptrThreadTest: TfmFptrThreadTest
     TabOrder = 2
     OnClick = btnStartClick
   end
-  object chbStopOnError: TCheckBox
+  object chbStopOnError: TTntCheckBox
     Left = 8
     Top = 72
     Width = 233
@@ -92,7 +92,7 @@ object fmFptrThreadTest: TfmFptrThreadTest
     Caption = 'Stop on error'
     TabOrder = 0
   end
-  object btnStop: TButton
+  object btnStop: TTntButton
     Left = 288
     Top = 40
     Width = 75
@@ -103,7 +103,7 @@ object fmFptrThreadTest: TfmFptrThreadTest
     TabOrder = 3
     OnClick = btnStopClick
   end
-  object memMessages: TMemo
+  object memMessages: TTntMemo
     Left = 8
     Top = 176
     Width = 273
@@ -114,7 +114,7 @@ object fmFptrThreadTest: TfmFptrThreadTest
     ScrollBars = ssVertical
     TabOrder = 1
   end
-  object cbPrinterDeviceName: TComboBox
+  object cbPrinterDeviceName: TTntComboBox
     Left = 112
     Top = 8
     Width = 169
@@ -123,7 +123,7 @@ object fmFptrThreadTest: TfmFptrThreadTest
     ItemHeight = 13
     TabOrder = 4
   end
-  object cbCashDeviceName: TComboBox
+  object cbCashDeviceName: TTntComboBox
     Left = 112
     Top = 40
     Width = 170

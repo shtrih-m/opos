@@ -8,59 +8,61 @@ uses
   StdCtrls, Registry, ExtCtrls,
   // Opos
   Opos, OposUtils, OposScale, OposScalUtils,
+  // Tnt
+  TntStdCtrls, TntSysUtils, TntRegistry, 
   // This
   untPages, BStdUtil;
 
 type
   TfmScaleGeneral = class(TPage)
-    lblDeviceName: TLabel;
-    btnOpen: TButton;
-    btnClose: TButton;
-    btnRelease: TButton;
-    btnClaim: TButton;
-    edtTimeout: TEdit;
-    lblTimeout: TLabel;
-    lblOpenResult: TLabel;
-    edtOpenResult: TEdit;
-    btnUpdateDevices: TButton;
-    cbDeviceName: TComboBox;
-    chbDeviceEnabled: TCheckBox;
-    chbFreezeEvents: TCheckBox;
-    chbAsyncMode: TCheckBox;
-    chbAutoDisable: TCheckBox;
-    chbDataEventEnabled: TCheckBox;
+    lblDeviceName: TTntLabel;
+    btnOpen: TTntButton;
+    btnClose: TTntButton;
+    btnRelease: TTntButton;
+    btnClaim: TTntButton;
+    edtTimeout: TTntEdit;
+    lblTimeout: TTntLabel;
+    lblOpenResult: TTntLabel;
+    edtOpenResult: TTntEdit;
+    btnUpdateDevices: TTntButton;
+    cbDeviceName: TTntComboBox;
+    chbDeviceEnabled: TTntCheckBox;
+    chbFreezeEvents: TTntCheckBox;
+    chbAsyncMode: TTntCheckBox;
+    chbAutoDisable: TTntCheckBox;
+    chbDataEventEnabled: TTntCheckBox;
     Bevel2: TBevel;
-    lblPowerNotify: TLabel;
-    cbPowerNotify: TComboBox;
-    lblStatusNotify: TLabel;
-    cbStatusNotify: TComboBox;
-    lblTareWeight: TLabel;
-    edtTareWeight: TEdit;
-    btnSetTareWeight: TButton;
-    lblUnitPrice: TLabel;
-    edtUnitPrice: TEdit;
-    btnSetUnitPrice: TButton;
-    btnUpdatePage: TButton;
-    chbZeroValid: TCheckBox;
-    memEvents: TMemo;
-    btnClearEvents: TButton;
+    lblPowerNotify: TTntLabel;
+    cbPowerNotify: TTntComboBox;
+    lblStatusNotify: TTntLabel;
+    cbStatusNotify: TTntComboBox;
+    lblTareWeight: TTntLabel;
+    edtTareWeight: TTntEdit;
+    btnSetTareWeight: TTntButton;
+    lblUnitPrice: TTntLabel;
+    edtUnitPrice: TTntEdit;
+    btnSetUnitPrice: TTntButton;
+    btnUpdatePage: TTntButton;
+    chbZeroValid: TTntCheckBox;
+    memEvents: TTntMemo;
+    btnClearEvents: TTntButton;
     Bevel1: TBevel;
-    lblText: TLabel;
-    lblWeightData: TLabel;
-    Label1: TLabel;
-    btnDisplayText: TButton;
-    edtScaleText: TEdit;
-    btnReadWeight: TButton;
-    edtWeightData: TEdit;
-    edtReadWeightTimeout: TEdit;
-    btnZeroScale: TButton;
-    Label2: TLabel;
-    lblLiveWeight: TLabel;
-    edtLiveWeight: TEdit;
+    lblText: TTntLabel;
+    lblWeightData: TTntLabel;
+    Label1: TTntLabel;
+    btnDisplayText: TTntButton;
+    edtScaleText: TTntEdit;
+    btnReadWeight: TTntButton;
+    edtWeightData: TTntEdit;
+    edtReadWeightTimeout: TTntEdit;
+    btnZeroScale: TTntButton;
+    Label2: TTntLabel;
+    lblLiveWeight: TTntLabel;
+    edtLiveWeight: TTntEdit;
     Timer: TTimer;
-    lblSalesPrice: TLabel;
-    edtSalesPrice: TEdit;
-    chbLiveWeightUpdate: TCheckBox;
+    lblSalesPrice: TTntLabel;
+    edtSalesPrice: TTntEdit;
+    chbLiveWeightUpdate: TTntCheckBox;
     procedure btnOpenClick(Sender: TObject);
     procedure btnCloseClick(Sender: TObject);
     procedure btnClaimClick(Sender: TObject);
@@ -104,16 +106,16 @@ implementation
 
 function AmountToStr(Value: Double): string;
 begin
-  Result := Format('%.2f', [Value]);
+  Result := Tnt_WideFormat('%.2f', [Value]);
 end;
 
 { TfmScaleGeneral }
 
 procedure TfmScaleGeneral.UpdateDevices;
 var
-  Reg: TRegistry;
+  Reg: TTntRegistry;
 begin
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     Reg.RootKey := HKEY_LOCAL_MACHINE;
     Reg.Access := KEY_QUERY_VALUE + KEY_ENUMERATE_SUB_KEYS;
@@ -271,7 +273,7 @@ procedure TfmScaleGeneral.DataEvent(ASender: TObject; Status: Integer);
 var
   S: string;
 begin
-  S := Format('DataEvent(Weight: %d)', [Status]);
+  S := Tnt_WideFormat('DataEvent(Weight: %d)', [Status]);
   memEvents.Lines.Add(S);
   UpdatePage;
 end;
@@ -281,7 +283,7 @@ procedure TfmScaleGeneral.DirectIOEvent(Sender: TObject; EventNumber: Integer;
 var
   S: string;
 begin
-  S := Format('DirectIOEvent(%d, %d, %s)', [EventNumber, pData, pString]);
+  S := Tnt_WideFormat('DirectIOEvent(%d, %d, %s)', [EventNumber, pData, pString]);
   memEvents.Lines.Add(S);
   UpdatePage;
 end;
@@ -291,7 +293,7 @@ procedure TfmScaleGeneral.ErrorEvent(Sender: TObject; ResultCode,
 var
   S: string;
 begin
-  S := Format('ErrorEvent: %s, %s, %s, %s)', [
+  S := Tnt_WideFormat('ErrorEvent: %s, %s, %s, %s)', [
     GetResultCodeText(ResultCode),
     GetResultCodeExtendedText(ResultCodeExtended),
     GetErrorLocusText(ErrorLocus),
@@ -304,7 +306,7 @@ procedure TfmScaleGeneral.StatusUpdateEvent(Sender: TObject; Data: Integer);
 var
   S: string;
 begin
-  S := Format('StatusUpdateEvent(%s)', [GetScaleStatusUpdateEventText(Data)]);
+  S := Tnt_WideFormat('StatusUpdateEvent(%s)', [GetScaleStatusUpdateEventText(Data)]);
   memEvents.Lines.Add(S);
   UpdatePage;
 end;

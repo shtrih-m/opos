@@ -6,28 +6,30 @@ uses
   // VCL
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls,
+  // Tnt
+  TntStdCtrls,
   // This
   untPages, OposFiscalPrinter;
 
 type
   TfmFptrRecItemVoid = class(TPage)
-    btnExecute: TButton;
-    lblDescription: TLabel;
-    edtDescription: TEdit;
-    lblPrice: TLabel;
-    edtPrice: TEdit;
-    lblQuantity: TLabel;
-    edtQuantity: TEdit;
-    lblVatInfo: TLabel;
-    edtVatInfo: TEdit;
-    lblUnitPrice: TLabel;
-    edtUnitPrice: TEdit;
-    lblUnitName: TLabel;
-    edtUnitName: TEdit;
-    lblPreLine: TLabel;
-    edtPreLine: TEdit;
-    lblPostLine: TLabel;
-    edtPostLine: TEdit;
+    btnExecute: TTntButton;
+    lblDescription: TTntLabel;
+    edtDescription: TTntEdit;
+    lblPrice: TTntLabel;
+    edtPrice: TTntEdit;
+    lblQuantity: TTntLabel;
+    edtQuantity: TTntEdit;
+    lblVatInfo: TTntLabel;
+    edtVatInfo: TTntEdit;
+    lblUnitPrice: TTntLabel;
+    edtUnitPrice: TTntEdit;
+    lblUnitName: TTntLabel;
+    edtUnitName: TTntEdit;
+    lblPreLine: TTntLabel;
+    edtPreLine: TTntEdit;
+    lblPostLine: TTntLabel;
+    edtPostLine: TTntEdit;
     procedure btnExecuteClick(Sender: TObject);
   end;
 

@@ -6,6 +6,8 @@ uses
   // VCL
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, Registry, ExtCtrls, ComCtrls, Spin,
+  // Tnt
+  TntClasses, TntStdCtrls, TntDialogs,
   // This
   untPages, untUtil, ScaleDevice, ScaleParameters, ScaleTypes,
   OposDevice;
@@ -14,29 +16,29 @@ type
   { TfmScaleGeneral }
 
   TfmScaleGeneral = class(TScalePage)
-    OpenDialog: TOpenDialog;
-    gbParams: TGroupBox;
-    lblComPort: TLabel;
-    lblBaudRate: TLabel;
-    lblByteTimeout: TLabel;
-    lblMaxRetryCount: TLabel;
-    cbComPort: TComboBox;
-    cbBaudRate: TComboBox;
-    chbSearchByPort: TCheckBox;
-    chbSearchByBaudRate: TCheckBox;
+    OpenDialog: TTntOpenDialog;
+    gbParams: TTntGroupBox;
+    lblComPort: TTntLabel;
+    lblBaudRate: TTntLabel;
+    lblByteTimeout: TTntLabel;
+    lblMaxRetryCount: TTntLabel;
+    cbComPort: TTntComboBox;
+    cbBaudRate: TTntComboBox;
+    chbSearchByPort: TTntCheckBox;
+    chbSearchByBaudRate: TTntCheckBox;
     seByteTimeout: TSpinEdit;
     seMaxRetryCount: TSpinEdit;
-    lblCommandTimeout: TLabel;
+    lblCommandTimeout: TTntLabel;
     seCommandTimeout: TSpinEdit;
     sePassword: TSpinEdit;
-    lblPassword: TLabel;
-    lblEncoding: TLabel;
-    cbEncoding: TComboBox;
-    cbCCOType: TComboBox;
-    lblCCOType: TLabel;
-    chbCapPrice: TCheckBox;
+    lblPassword: TTntLabel;
+    lblEncoding: TTntLabel;
+    cbEncoding: TTntComboBox;
+    cbCCOType: TTntComboBox;
+    lblCCOType: TTntLabel;
+    chbCapPrice: TTntCheckBox;
     spPollPeriod: TSpinEdit;
-    lblPollPeriod: TLabel;
+    lblPollPeriod: TTntLabel;
     procedure btnDefaultsClick(Sender: TObject);
     procedure btnOKClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);

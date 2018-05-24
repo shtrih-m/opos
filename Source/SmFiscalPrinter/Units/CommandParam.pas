@@ -7,7 +7,7 @@ Uses
   Windows, Classes, SysUtils,
   // This
   PrinterCommand, PrinterTypes, BinStream, XmlParser, StringUtils, BStrUtil,
-  WException, gnugettext;
+  WException, TntSysUtils, gnugettext;
 
 
 const
@@ -293,12 +293,12 @@ procedure TCommandParams.ReadItem(Item: TCommandParam; Data: TBinStream);
 
   function PrinterDateToStr(Date: TPrinterDate): string;
   begin
-    Result := Format('%.2d.%.2d.%.2d', [Date.Day, Date.Month, Date.Year]);
+    Result := Tnt_WideFormat('%.2d.%.2d.%.2d', [Date.Day, Date.Month, Date.Year]);
   end;
 
   function PrinterTimeToStr(Value: TPrinterTime): string;
   begin
-    Result := Format('%.2d:%.2d:%.2d', [Value.Hour, Value.Min, Value.Sec]);
+    Result := Tnt_WideFormat('%.2d:%.2d:%.2d', [Value.Hour, Value.Min, Value.Sec]);
   end;
 
   function GetFieldSize: Integer;
@@ -371,12 +371,12 @@ begin
     // Battery voltage
     PARAM_TYPE_VBAT:
     begin
-      Item.Value := Format('%.2f', [Data.ReadInt(Item.Size)/51]);
+      Item.Value := Tnt_WideFormat('%.2f', [Data.ReadInt(Item.Size)/51]);
     end;
     // Power supply voltage
     PARAM_TYPE_VSRC:
     begin
-      Item.Value := Format('%.2f', [Data.ReadInt(Item.Size)/9]);
+      Item.Value := Tnt_WideFormat('%.2f', [Data.ReadInt(Item.Size)/9]);
     end;
     PARAM_TYPE_TIMEOUT:
     begin

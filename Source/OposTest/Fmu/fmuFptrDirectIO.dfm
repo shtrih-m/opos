@@ -18,35 +18,35 @@ object fmFptrDirectIO: TfmFptrDirectIO
     270)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblData: TLabel
+  object lblData: TTntLabel
     Left = 8
     Top = 48
     Width = 26
     Height = 13
     Caption = 'Data:'
   end
-  object lblString: TLabel
+  object lblString: TTntLabel
     Left = 8
     Top = 80
     Width = 30
     Height = 13
     Caption = 'String:'
   end
-  object lblCommand: TLabel
+  object lblCommand: TTntLabel
     Left = 8
     Top = 16
     Width = 50
     Height = 13
     Caption = 'Command:'
   end
-  object lblOutString: TLabel
+  object lblOutString: TTntLabel
     Left = 8
     Top = 112
     Width = 56
     Height = 13
     Caption = 'String (Out):'
   end
-  object lblCustom: TLabel
+  object lblCustom: TTntLabel
     Left = 256
     Top = 16
     Width = 87
@@ -54,14 +54,14 @@ object fmFptrDirectIO: TfmFptrDirectIO
     Anchors = [akTop, akRight]
     Caption = 'Custom command:'
   end
-  object lblDescription: TLabel
+  object lblDescription: TTntLabel
     Left = 8
     Top = 184
     Width = 56
     Height = 13
     Caption = 'Description:'
   end
-  object btnExecute: TButton
+  object btnExecute: TTntButton
     Left = 288
     Top = 144
     Width = 97
@@ -71,7 +71,7 @@ object fmFptrDirectIO: TfmFptrDirectIO
     TabOrder = 5
     OnClick = btnExecuteClick
   end
-  object edtInString: TEdit
+  object edtInString: TTntEdit
     Left = 72
     Top = 80
     Width = 313
@@ -79,7 +79,7 @@ object fmFptrDirectIO: TfmFptrDirectIO
     Anchors = [akLeft, akTop, akRight]
     TabOrder = 3
   end
-  object edtData: TEdit
+  object edtData: TTntEdit
     Left = 72
     Top = 48
     Width = 313
@@ -88,7 +88,7 @@ object fmFptrDirectIO: TfmFptrDirectIO
     TabOrder = 2
     Text = '0'
   end
-  object edtOutString: TEdit
+  object edtOutString: TTntEdit
     Left = 72
     Top = 112
     Width = 315
@@ -97,7 +97,7 @@ object fmFptrDirectIO: TfmFptrDirectIO
     ReadOnly = True
     TabOrder = 4
   end
-  object memInfo: TMemo
+  object memInfo: TTntMemo
     Left = 8
     Top = 208
     Width = 379
@@ -115,7 +115,7 @@ object fmFptrDirectIO: TfmFptrDirectIO
     ParentFont = False
     TabOrder = 6
   end
-  object cbCommand: TComboBox
+  object cbCommand: TTntComboBox
     Left = 72
     Top = 16
     Width = 179
@@ -126,7 +126,7 @@ object fmFptrDirectIO: TfmFptrDirectIO
     TabOrder = 0
     OnChange = cbCommandChange
   end
-  object edtCustomCommand: TEdit
+  object edtCustomCommand: TTntEdit
     Left = 352
     Top = 16
     Width = 33

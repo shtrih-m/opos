@@ -80,7 +80,8 @@ uses
   DriverContext in '..\SmFiscalPrinter\Units\DriverContext.pas',
   fmuFptrConnection in 'Fmu\fmuFptrConnection.pas' {fmFptrConnection},
   fmuMarkChecker in 'Fmu\fmuMarkChecker.pas' {fmMarkChecker},
-  WException in '..\Shared\WException.pas';
+  WException in '..\Shared\WException.pas',
+  TntIniFiles in '..\Shared\TntIniFiles.pas';
 
 {$R *.RES}
 {$R WindowsXP.RES}

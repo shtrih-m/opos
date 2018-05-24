@@ -6,17 +6,19 @@ uses
   // VCL
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ExtCtrls, ComCtrls,
+  // Tnt
+  TntStdCtrls, TntRegistry,
   // This
   untPages, OposFiscalPrinter, SynEditHighlighter, SynHighlighterXML,
   SynEdit;
 
 type
   TfmFptrStatistics = class(TPage)
-    btnResetStatistics: TButton;
-    btnRetrieveStatistics: TButton;
-    btnUpdateStatistics: TButton;
+    btnResetStatistics: TTntButton;
+    btnRetrieveStatistics: TTntButton;
+    btnUpdateStatistics: TTntButton;
     SynXMLSyn1: TSynXMLSyn;
-    btnClear: TButton;
+    btnClear: TTntButton;
     mmData: TSynEdit;
     procedure btnResetStatisticsClick(Sender: TObject);
     procedure btnRetrieveStatisticsClick(Sender: TObject);

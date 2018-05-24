@@ -6,24 +6,26 @@ uses
   // VCL
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls,
+  // Tnt
+  TntStdCtrls, TntSysUtils,
   // This
   untPages, OposFiscalPrinter;
 
 type
   TfmPrintRecVoidItem = class(TPage)
-    btnExecute: TButton;
-    lblDescription: TLabel;
-    edtDescription: TEdit;
-    lblAmount: TLabel;
-    edtAmount: TEdit;
-    lblQuantity: TLabel;
-    edtQuantity: TEdit;
-    lblVatInfo: TLabel;
-    edtVatInfo: TEdit;
-    lblAdjustmentType: TLabel;
-    edtAdjustmentType: TEdit;
-    lblAdjustment: TLabel;
-    edtAdjustment: TEdit;
+    btnExecute: TTntButton;
+    lblDescription: TTntLabel;
+    edtDescription: TTntEdit;
+    lblAmount: TTntLabel;
+    edtAmount: TTntEdit;
+    lblQuantity: TTntLabel;
+    edtQuantity: TTntEdit;
+    lblVatInfo: TTntLabel;
+    edtVatInfo: TTntEdit;
+    lblAdjustmentType: TTntLabel;
+    edtAdjustmentType: TTntEdit;
+    lblAdjustment: TTntLabel;
+    edtAdjustment: TTntEdit;
     procedure btnExecuteClick(Sender: TObject);
   end;
 

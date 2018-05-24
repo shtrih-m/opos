@@ -5,6 +5,8 @@ interface
 uses
   // VCL
   Windows, Classes, SysUtils, IniFiles,
+  // Tnt
+  TntClasses,
   // This
   StatisticItem, OposStat, MSXML, LogFile, FileUtils;
 
@@ -27,7 +29,7 @@ type
     function SaveToXml: string;
     function GetIniFileName: string;
     procedure SetItems(const Value: TStatisticItems);
-    procedure ParseNames(const Names: string; Strings: TStrings);
+    procedure ParseNames(const Names: string; Strings: TTntStrings);
     function ValidItem(Item: TStatisticItem; const StatName: string): Boolean;
 
     property Logger: ILogFile read FLogger;
@@ -91,7 +93,7 @@ begin
   Items.Add(StatisticName, stOpos);
 end;
 
-procedure TOposStatistics.ParseNames(const Names: string; Strings: TStrings);
+procedure TOposStatistics.ParseNames(const Names: string; Strings: TTntStrings);
 var
   S: string;
   P: Integer;
@@ -130,10 +132,10 @@ end;
 procedure TOposStatistics.Reset(const StatisticsBuffer: WideString);
 var
   i, j: Integer;
-  StatNames: TStrings;
+  StatNames: TTntStrings;
   Item: TStatisticItem;
 begin
-  StatNames := TStringList.Create;
+  StatNames := TTntStringList.Create;
   try
     ParseNames(StatisticsBuffer, StatNames);
     for i := 0 to StatNames.Count-1 do
@@ -221,11 +223,11 @@ procedure TOposStatistics.Retrieve(var StatisticsBuffer: WideString);
 var
   i, j: Integer;
   StatName: string;
-  StatNames: TStrings;
+  StatNames: TTntStrings;
   Item: TStatisticItem;
   Statistics: TOposStatistics;
 begin
-  StatNames := TStringList.Create;
+  StatNames := TTntStringList.Create;
   Statistics := TOposStatistics.Create(Logger);
   try
     Statistics.Assign(Self);
@@ -290,10 +292,10 @@ var
   StatPair: string;
   StatName: string;
   StatValue: string;
-  Strings: TStrings;
+  Strings: TTntStrings;
   Item: TStatisticItem;
 begin
-  Strings := TStringList.Create;
+  Strings := TTntStringList.Create;
   try
     ParseNames(StatisticsBuffer, Strings);
     for i := 0 to Strings.Count-1 do

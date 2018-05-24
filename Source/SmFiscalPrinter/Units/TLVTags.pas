@@ -469,7 +469,7 @@ var
   i, c: Integer;
 begin
   if (aSizeInBytes > 8) or (aSizeInBytes < 1) then
-    raiseException('to large data');
+    raiseException(_('Too large data'));
 
   SetLength(Result, aSizeInBytes);
 
@@ -601,10 +601,10 @@ var
   i: Byte;
 begin
   if Byte(s[1]) > 8 then
-    raiseException('Неверная длина FVLN');
+    raiseException(_('Неверная длина FVLN'));
 
   if System.Length(s) < 2 then
-    raiseException('Неверная длина FVLN');
+    raiseException(_('Неверная длина FVLN'));
 
   Result := ValueTLV2Int(Copy(s, 2, System.Length(s) - 1));
   for i := 1 to Byte(s[1]) do
@@ -662,10 +662,10 @@ begin
   Result := '';
   if System.Length(S) < 1 then Exit;
   if Byte(s[1]) > 8 then
-    raiseException('Неверная длина FVLN');
+    raiseException(_('Неверная длина FVLN'));
 
   if System.Length(s) < 2 then
-    raiseException('Неверная длина FVLN');
+    raiseException(_('Неверная длина FVLN'));
 
   R := ValueTLV2Int(Copy(s, 2, System.Length(s) - 1));
   for i := 1 to Byte(s[1]) do

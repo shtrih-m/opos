@@ -3,22 +3,24 @@ unit BStdUtil;
 interface
 
 uses
-  Classes, StdCtrls, ExtCtrls, ComCtrls;
+  Classes, StdCtrls, ExtCtrls, ComCtrls,
+  // Tnt
+  TntStdCtrls, TntClasses, TntSysUtils;
 
-// Процедура устанавливает переключатель у TCheckBox
+// Процедура устанавливает переключатель у TTntCheckBox
 // На время установки блокируется обработчик события OnClick
-procedure SafeSetChecked(CheckBox: TCheckBox; Value: Boolean);
-procedure SafeSetRadioButton(RadioButton: TRadioButton; Value: Boolean);
+procedure SafeSetChecked(CheckBox: TTntCheckBox; Value: Boolean);
+procedure SafeSetRadioButton(RadioButton: TTntRadioButton; Value: Boolean);
 // Процедура устанавливает переключатель у TRadioGroup
 procedure SafeSetRadioGroup(RadioGroup: TRadioGroup; Value: Integer);
-// Процедура устанавливает свойство Text у TEdit
+// Процедура устанавливает свойство Text у TTntEdit
 procedure SafeSetEdit(Edit: TCustomEdit; const Value: String);
-// Процедура устанавливает свойство ItemIndex у TComboBox
-procedure SafeSetComboBox(ComboBox: TComboBox; Value: Integer);
+// Процедура устанавливает свойство ItemIndex у TTntComboBox
+procedure SafeSetComboBox(ComboBox: TTntComboBox; Value: Integer);
 // Устанавливает свойство Lines у Memo
-procedure SafeSetMemo(Memo: TMemo; Strings: TStrings);
+procedure SafeSetMemo(Memo: TTntMemo; Strings: TTntStrings);
 procedure SafeSetUpDown(UpDown: TUpDown; const Value: Integer);
-procedure SafeSetListBox(ListBox: TListBox; Value: Integer);
+procedure SafeSetListBox(ListBox: TTntListBox; Value: Integer);
 procedure StatusBarClear(StatusBar: TStatusBar);
 procedure EditorsClear(Editors: Array of TCustomEdit);
 
@@ -26,7 +28,7 @@ implementation
 
 { SafeSetChecked }
 
-procedure SafeSetChecked(CheckBox: TCheckBox; Value: Boolean);
+procedure SafeSetChecked(CheckBox: TTntCheckBox; Value: Boolean);
 var
   SaveOnClick: TNotifyEvent;
 begin
@@ -41,7 +43,7 @@ end;
 
 { SafeSetRadioButton }
 
-procedure SafeSetRadioButton(RadioButton: TRadioButton; Value: Boolean);
+procedure SafeSetRadioButton(RadioButton: TTntRadioButton; Value: Boolean);
 var
   SaveOnClick: TNotifyEvent;
 begin
@@ -69,7 +71,7 @@ begin
   end;
 end;
 
-procedure SafeSetComboBox(ComboBox: TComboBox; Value: Integer);
+procedure SafeSetComboBox(ComboBox: TTntComboBox; Value: Integer);
 var
   SaveOnChange: TNotifyEvent;
 begin
@@ -82,7 +84,7 @@ begin
   end;
 end;
 
-procedure SafeSetListBox(ListBox: TListBox; Value: Integer);
+procedure SafeSetListBox(ListBox: TTntListBox; Value: Integer);
 var
   SaveOnChange: TNotifyEvent;
 begin
@@ -95,7 +97,7 @@ begin
   end;
 end;
 
-procedure SafeSetMemo(Memo: TMemo; Strings: TStrings);
+procedure SafeSetMemo(Memo: TTntMemo; Strings: TTntStrings);
 var
   SaveOnChange: TNotifyEvent;
 begin

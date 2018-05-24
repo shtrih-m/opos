@@ -6,6 +6,8 @@ uses
   // VCL
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, ComCtrls,
+  // Tnt
+  TntClasses, TntStdCtrls, TntRegistry,
   // This
   FiscalPrinterDevice, FptrTypes, PrinterParameters, TextMap, MalinaParams;
 
@@ -14,14 +16,14 @@ type
 
   TfmFptrReplace = class(TFptrPage)
     ListView: TListView;
-    btnAdd: TButton;
-    btnDelete: TButton;
-    btnClear: TButton;
-    memText: TMemo;
-    memReplacement: TMemo;
-    lblText: TLabel;
-    lblReplacement: TLabel;
-    chbTextReplacementEnabled: TCheckBox;
+    btnAdd: TTntButton;
+    btnDelete: TTntButton;
+    btnClear: TTntButton;
+    memText: TTntMemo;
+    memReplacement: TTntMemo;
+    lblText: TTntLabel;
+    lblReplacement: TTntLabel;
+    chbTextReplacementEnabled: TTntCheckBox;
     procedure ListViewChange(Sender: TObject; Item: TListItem;
       Change: TItemChange);
     procedure memTextChange(Sender: TObject);

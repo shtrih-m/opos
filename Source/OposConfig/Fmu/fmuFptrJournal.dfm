@@ -16,7 +16,7 @@ object fmFptrJournal: TfmFptrJournal
   Position = poScreenCenter
   PixelsPerInch = 96
   TextHeight = 13
-  object chbJournalPrintHeader: TCheckBox
+  object chbJournalPrintHeader: TTntCheckBox
     Left = 8
     Top = 8
     Width = 273
@@ -24,7 +24,7 @@ object fmFptrJournal: TfmFptrJournal
     Caption = 'Print header on journal paper'
     TabOrder = 0
   end
-  object chbJournalPrintTrailer: TCheckBox
+  object chbJournalPrintTrailer: TTntCheckBox
     Left = 8
     Top = 32
     Width = 273

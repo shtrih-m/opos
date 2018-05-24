@@ -20,7 +20,7 @@ object fmMode: TfmMode
     293)
   PixelsPerInch = 96
   TextHeight = 13
-  object gbConnectionParams: TGroupBox
+  object gbConnectionParams: TTntGroupBox
     Left = 8
     Top = 8
     Width = 361
@@ -31,28 +31,28 @@ object fmMode: TfmMode
     DesignSize = (
       361
       137)
-    object lblComPort: TLabel
+    object lblComPort: TTntLabel
       Left = 16
       Top = 24
       Width = 48
       Height = 13
       Caption = 'COM port:'
     end
-    object lblBaudRate: TLabel
+    object lblBaudRate: TTntLabel
       Left = 16
       Top = 56
       Width = 51
       Height = 13
       Caption = 'BaudRate:'
     end
-    object lblTimeout: TLabel
+    object lblTimeout: TTntLabel
       Left = 16
       Top = 88
       Width = 41
       Height = 13
       Caption = 'Timeout:'
     end
-    object cbBaudRate: TComboBox
+    object cbBaudRate: TTntComboBox
       Left = 96
       Top = 56
       Width = 129
@@ -70,7 +70,7 @@ object fmMode: TfmMode
         '57600'
         '115200')
     end
-    object btnReadParameters: TButton
+    object btnReadParameters: TTntButton
       Left = 232
       Top = 24
       Width = 121
@@ -80,7 +80,7 @@ object fmMode: TfmMode
       TabOrder = 3
       OnClick = btnReadParametersClick
     end
-    object btnWriteParameters: TButton
+    object btnWriteParameters: TTntButton
       Left = 232
       Top = 56
       Width = 121
@@ -113,7 +113,7 @@ object fmMode: TfmMode
       Value = 0
     end
   end
-  object gbScaleMode: TGroupBox
+  object gbScaleMode: TTntGroupBox
     Left = 8
     Top = 152
     Width = 361
@@ -148,7 +148,7 @@ object fmMode: TfmMode
       Caption = 'Data mode'
       TabOrder = 2
     end
-    object btnReadMode: TButton
+    object btnReadMode: TTntButton
       Left = 232
       Top = 24
       Width = 121
@@ -158,7 +158,7 @@ object fmMode: TfmMode
       TabOrder = 3
       OnClick = btnReadModeClick
     end
-    object btnWriteMode: TButton
+    object btnWriteMode: TTntButton
       Left = 232
       Top = 56
       Width = 121

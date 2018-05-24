@@ -6,18 +6,18 @@ uses
   // VCL
   StdCtrls, pngimage, Controls, ExtCtrls, Classes, SysUtils,
   // This
-  FiscalPrinterDevice, MalinaParams;
+  FiscalPrinterDevice, MalinaParams, TntStdCtrls;
 
 type
   { TfmFptrRetalix }
 
   TfmFptrRetalix = class(TFptrPage)
-    edtRetalixDBPath: TEdit;
-    lblRetalixDBPath: TLabel;
-    chbRetalixDBEnabled: TCheckBox;
-    chbRetalixSearchCI: TCheckBox;
-    Label1: TLabel;
-    chbRosneftDryReceiptEnabled: TCheckBox;
+    edtRetalixDBPath: TTntEdit;
+    lblRetalixDBPath: TTntLabel;
+    chbRetalixDBEnabled: TTntCheckBox;
+    chbRetalixSearchCI: TTntCheckBox;
+    Label1: TTntLabel;
+    chbRosneftDryReceiptEnabled: TTntCheckBox;
   public
     procedure UpdatePage; override;
     procedure UpdateObject; override;

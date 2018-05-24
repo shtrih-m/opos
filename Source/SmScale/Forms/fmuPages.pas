@@ -5,6 +5,8 @@ interface
 uses
   // VCL
   Windows, Classes, SysUtils, Controls, ExtCtrls, StdCtrls, Forms,
+  // Tnt
+  TntSysUtils, TntClasses, TntStdCtrls,
   // This
   BaseForm, untPages;
 
@@ -12,19 +14,19 @@ type
   { TfmFiscalPrinter }
 
   TfmPages = class(TBaseForm)
-    btnOK: TButton;
-    lbPages: TListBox;
+    btnOK: TTntButton;
+    lbPages: TTntListBox;
     pnlPage: TPanel;
-    edtRecieve: TEdit;
-    edtTxData: TEdit;
-    edtResult: TEdit;
-    lblResult: TLabel;
-    lblTxData: TLabel;
-    lblRxData: TLabel;
+    edtRecieve: TTntEdit;
+    edtTxData: TTntEdit;
+    edtResult: TTntEdit;
+    lblResult: TTntLabel;
+    lblTxData: TTntLabel;
+    lblRxData: TTntLabel;
     stxPassword: TStaticText;
-    edtPassword: TEdit;
+    edtPassword: TTntEdit;
     stxTime: TStaticText;
-    edtTime: TEdit;
+    edtTime: TTntEdit;
     procedure btnOKClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure lbPagesClick(Sender: TObject);
@@ -33,7 +35,7 @@ type
     FPages: TPages;
 
     procedure ShowPage(Page: TPage);
-    procedure UpdatePages(ListBox: TListBox; Pages: TPages);
+    procedure UpdatePages(ListBox: TTntListBox; Pages: TPages);
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -79,7 +81,7 @@ begin
   FPages.InsertItem(Page);
 end;
 
-procedure TfmPages.UpdatePages(ListBox: TListBox; Pages: TPages);
+procedure TfmPages.UpdatePages(ListBox: TTntListBox; Pages: TPages);
 var
   i: Integer;
   PageName: string;
@@ -89,7 +91,7 @@ begin
     lbPages.Items.Clear;
     for i := 0 to Pages.Count-1 do
     begin
-      PageName := Format('%.2d. %s', [i+1, Pages[i].Caption]);
+      PageName := Tnt_WideFormat('%.2d. %s', [i+1, Pages[i].Caption]);
       lbPages.Items.Add(PageName);
     end;
   finally

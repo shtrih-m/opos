@@ -6,6 +6,8 @@ uses
   // VCL
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls,
+  // Tnt
+  TntStdCtrls,
   // This
   untUtil, PrinterParameters, FptrTypes, ComCtrls, Spin,
   FiscalPrinterDevice;
@@ -14,43 +16,43 @@ type
   { TfmFptrConnection }
 
   TfmFptrConnection = class(TFptrPage)
-    gbConenctionParams: TGroupBox;
-    lblComPort: TLabel;
-    lblBaudRate: TLabel;
-    lblByteTimeout: TLabel;
-    lblMaxRetryCount: TLabel;
-    lblConnectionType: TLabel;
-    lblRemoteHost: TLabel;
-    lblRemotePort: TLabel;
-    cbComPort: TComboBox;
-    cbBaudRate: TComboBox;
-    chbSearchByPort: TCheckBox;
-    chbSearchByBaudRate: TCheckBox;
-    cbConnectionType: TComboBox;
-    edtRemoteHost: TEdit;
-    gbPassword: TGroupBox;
-    lblUsrPassword: TLabel;
-    lblSysPassword: TLabel;
-    lblStorage: TLabel;
-    cbStorage: TComboBox;
+    gbConenctionParams: TTntGroupBox;
+    lblComPort: TTntLabel;
+    lblBaudRate: TTntLabel;
+    lblByteTimeout: TTntLabel;
+    lblMaxRetryCount: TTntLabel;
+    lblConnectionType: TTntLabel;
+    lblRemoteHost: TTntLabel;
+    lblRemotePort: TTntLabel;
+    cbComPort: TTntComboBox;
+    cbBaudRate: TTntComboBox;
+    chbSearchByPort: TTntCheckBox;
+    chbSearchByBaudRate: TTntCheckBox;
+    cbConnectionType: TTntComboBox;
+    edtRemoteHost: TTntEdit;
+    gbPassword: TTntGroupBox;
+    lblUsrPassword: TTntLabel;
+    lblSysPassword: TTntLabel;
+    lblStorage: TTntLabel;
+    cbStorage: TTntComboBox;
     seRemotePort: TSpinEdit;
     seByteTimeout: TSpinEdit;
     seUsrPassword: TSpinEdit;
     seSysPassword: TSpinEdit;
-    lblPrinterProtocol: TLabel;
-    cbPrinterProtocol: TComboBox;
-    cbMaxRetryCount: TComboBox;
-    GroupBox1: TGroupBox;
-    lblPropertyUpdateMode: TLabel;
-    cbPropertyUpdateMode: TComboBox;
+    lblPrinterProtocol: TTntLabel;
+    cbPrinterProtocol: TTntComboBox;
+    cbMaxRetryCount: TTntComboBox;
+    GroupBox1: TTntGroupBox;
+    lblPropertyUpdateMode: TTntLabel;
+    cbPropertyUpdateMode: TTntComboBox;
     sePollInterval: TSpinEdit;
-    lblPollInterval: TLabel;
-    lblStatusInterval: TLabel;
+    lblPollInterval: TTntLabel;
+    lblStatusInterval: TTntLabel;
     seStatusInterval: TSpinEdit;
     seStatusTimeout: TSpinEdit;
-    lblStatusTimeout: TLabel;
-    lblEventsType: TLabel;
-    cbCCOType: TComboBox;
+    lblStatusTimeout: TTntLabel;
+    lblEventsType: TTntLabel;
+    cbCCOType: TTntComboBox;
     procedure FormCreate(Sender: TObject);
   public
     procedure UpdatePage; override;

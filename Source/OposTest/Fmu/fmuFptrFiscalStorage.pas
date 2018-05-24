@@ -6,14 +6,16 @@ uses
   // VCL
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ExtCtrls,
+  // Tnt
+  TntStdCtrls, TntRegistry,
   // This
   untPages, OposFiscalPrinter, DirectIOAPI;
 
 type
   TfmFptrFiscalStorage = class(TPage)
-    lblAdditionalHeader: TLabel;
-    memParameters: TMemo;
-    btnReadParams: TButton;
+    lblAdditionalHeader: TTntLabel;
+    memParameters: TTntMemo;
+    btnReadParams: TTntButton;
     procedure btnReadParamsClick(Sender: TObject);
   end;
 

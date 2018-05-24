@@ -18,7 +18,7 @@ object fmFptrDirectIOBarcode: TfmFptrDirectIOBarcode
     320)
   PixelsPerInch = 96
   TextHeight = 13
-  object btnPrintAll: TButton
+  object btnPrintAll: TTntButton
     Left = 336
     Top = 264
     Width = 121
@@ -28,7 +28,7 @@ object fmFptrDirectIOBarcode: TfmFptrDirectIOBarcode
     TabOrder = 3
     OnClick = btnPrintAllClick
   end
-  object btnPrint1D: TButton
+  object btnPrint1D: TTntButton
     Left = 80
     Top = 264
     Width = 121
@@ -38,7 +38,7 @@ object fmFptrDirectIOBarcode: TfmFptrDirectIOBarcode
     TabOrder = 1
     OnClick = btnPrint1DClick
   end
-  object btnPrint2D: TButton
+  object btnPrint2D: TTntButton
     Left = 208
     Top = 264
     Width = 121
@@ -48,7 +48,7 @@ object fmFptrDirectIOBarcode: TfmFptrDirectIOBarcode
     TabOrder = 2
     OnClick = btnPrint2DClick
   end
-  object gb2DBarcode: TGroupBox
+  object gb2DBarcode: TTntGroupBox
     Left = 8
     Top = 8
     Width = 449
@@ -59,35 +59,35 @@ object fmFptrDirectIOBarcode: TfmFptrDirectIOBarcode
     DesignSize = (
       449
       249)
-    object lblBarcodeData: TLabel
+    object lblBarcodeData: TTntLabel
       Left = 16
       Top = 24
       Width = 26
       Height = 13
       Caption = 'Data:'
     end
-    object lblModuleSize: TLabel
+    object lblModuleSize: TTntLabel
       Left = 16
       Top = 184
       Width = 59
       Height = 13
       Caption = 'Module size:'
     end
-    object lblAlignment: TLabel
+    object lblAlignment: TTntLabel
       Left = 16
       Top = 216
       Width = 49
       Height = 13
       Caption = 'Alignment:'
     end
-    object lblBarcodeType: TLabel
+    object lblBarcodeType: TTntLabel
       Left = 16
       Top = 152
       Width = 66
       Height = 13
       Caption = 'Barcode type:'
     end
-    object memBarcode: TMemo
+    object memBarcode: TTntMemo
       Left = 16
       Top = 40
       Width = 425
@@ -110,7 +110,7 @@ object fmFptrDirectIOBarcode: TfmFptrDirectIOBarcode
       TabOrder = 0
       WordWrap = False
     end
-    object btnPrintBarcode: TButton
+    object btnPrintBarcode: TTntButton
       Left = 320
       Top = 152
       Width = 121
@@ -120,7 +120,7 @@ object fmFptrDirectIOBarcode: TfmFptrDirectIOBarcode
       TabOrder = 4
       OnClick = btnPrintBarcodeClick
     end
-    object cbModuleSize: TComboBox
+    object cbModuleSize: TTntComboBox
       Left = 88
       Top = 184
       Width = 121
@@ -138,7 +138,7 @@ object fmFptrDirectIOBarcode: TfmFptrDirectIOBarcode
         '7'
         '8')
     end
-    object cbAlignment: TComboBox
+    object cbAlignment: TTntComboBox
       Left = 88
       Top = 216
       Width = 121
@@ -151,7 +151,7 @@ object fmFptrDirectIOBarcode: TfmFptrDirectIOBarcode
         'LEFT'
         'RIGHT')
     end
-    object cbBarcodeType: TComboBox
+    object cbBarcodeType: TTntComboBox
       Left = 88
       Top = 152
       Width = 121
@@ -169,7 +169,7 @@ object fmFptrDirectIOBarcode: TfmFptrDirectIOBarcode
         'PDF417TRUNC'
         'MICROPDF417')
     end
-    object btnPrintBarcodeHex: TButton
+    object btnPrintBarcodeHex: TTntButton
       Left = 320
       Top = 184
       Width = 121

@@ -5,6 +5,8 @@ interface
 uses
   // VCL
   Windows, Classes, SysUtils, SyncObjs, Graphics,
+  // Tnt
+  TntClasses,
   // Indy
   IdGlobal, IdIcmpClient,
   // JWA
@@ -19,7 +21,7 @@ uses
   PayType, DebugUtils, ByteUtils, DriverTypes, NotifyThread, NotifyLink,
   PrinterParameters, PrinterParametersX, DriverError, DirectIOAPI,
   ReceiptReportFilter, EscFilter, SerialPort, SocketPort, PrinterPort,
-  WException, gnugettext;
+  WException, TntSysUtils, gnugettext;
 
 type
   { TSharedPrinter }
@@ -211,9 +213,9 @@ implementation
 
 function GetStringsCount(const Text: string): Integer;
 var
-  Strings: TStrings;
+  Strings: TTntStrings;
 begin
-  Strings := TStringList.Create;
+  Strings := TTntStringList.Create;
   try
     Strings.Text := Text;
     Result := Strings.Count;
@@ -655,7 +657,7 @@ end;
 procedure TSharedPrinter.SearchDevice;
 var
   i: Integer;
-  Ports: TStringList;
+  Ports: TTntStringList;
   PortNumber: Integer;
 begin
   if ConnectDevice(Parameters.PortNumber, Parameters.BaudRate) then Exit;
@@ -664,7 +666,7 @@ begin
   begin
     if Parameters.SearchByPortEnabled then
     begin
-      Ports := TStringList.Create;
+      Ports := TTntStringList.Create;
       try
         TSerialPorts.GetSystemPorts(Ports);
         for i := 0 to Ports.Count-1 do
@@ -1277,7 +1279,7 @@ begin
     SaveDecimalSeparator := DecimalSeparator;
     try
       DecimalSeparator := '.';
-      Result := Format('%.2f', [Value]);
+      Result := Tnt_WideFormat('%.2f', [Value]);
     finally
       DecimalSeparator := SaveDecimalSeparator;
     end;

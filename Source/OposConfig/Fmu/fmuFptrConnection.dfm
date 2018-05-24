@@ -14,14 +14,14 @@ object fmFptrConnection: TfmFptrConnection
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
-  object lblStorage: TLabel
+  object lblStorage: TTntLabel
     Left = 8
     Top = 304
     Width = 94
     Height = 13
     Caption = 'Parameters storage:'
   end
-  object gbConenctionParams: TGroupBox
+  object gbConenctionParams: TTntGroupBox
     Left = 8
     Top = 8
     Width = 249
@@ -31,63 +31,63 @@ object fmFptrConnection: TfmFptrConnection
     DesignSize = (
       249
       289)
-    object lblComPort: TLabel
+    object lblComPort: TTntLabel
       Left = 8
       Top = 120
       Width = 48
       Height = 13
       Caption = 'COM port:'
     end
-    object lblBaudRate: TLabel
+    object lblBaudRate: TTntLabel
       Left = 8
       Top = 144
       Width = 46
       Height = 13
       Caption = 'Baudrate:'
     end
-    object lblByteTimeout: TLabel
+    object lblByteTimeout: TTntLabel
       Left = 8
       Top = 168
       Width = 80
       Height = 13
       Caption = 'Byte timeout, ms:'
     end
-    object lblMaxRetryCount: TLabel
+    object lblMaxRetryCount: TTntLabel
       Left = 8
       Top = 192
       Width = 74
       Height = 13
       Caption = 'Connect retries:'
     end
-    object lblConnectionType: TLabel
+    object lblConnectionType: TTntLabel
       Left = 8
       Top = 24
       Width = 80
       Height = 13
       Caption = 'Connection type:'
     end
-    object lblRemoteHost: TLabel
+    object lblRemoteHost: TTntLabel
       Left = 8
       Top = 72
       Width = 25
       Height = 13
       Caption = 'Host:'
     end
-    object lblRemotePort: TLabel
+    object lblRemotePort: TTntLabel
       Left = 8
       Top = 96
       Width = 22
       Height = 13
       Caption = 'Port:'
     end
-    object lblPrinterProtocol: TLabel
+    object lblPrinterProtocol: TTntLabel
       Left = 8
       Top = 48
       Width = 65
       Height = 13
       Caption = 'Protocol type:'
     end
-    object cbComPort: TComboBox
+    object cbComPort: TTntComboBox
       Left = 112
       Top = 120
       Width = 129
@@ -97,7 +97,7 @@ object fmFptrConnection: TfmFptrConnection
       ItemHeight = 13
       TabOrder = 4
     end
-    object cbBaudRate: TComboBox
+    object cbBaudRate: TTntComboBox
       Left = 112
       Top = 144
       Width = 129
@@ -115,7 +115,7 @@ object fmFptrConnection: TfmFptrConnection
         '57600'
         '115200')
     end
-    object chbSearchByPort: TCheckBox
+    object chbSearchByPort: TTntCheckBox
       Left = 8
       Top = 248
       Width = 233
@@ -124,7 +124,7 @@ object fmFptrConnection: TfmFptrConnection
       Caption = 'Find device on all available COM ports'
       TabOrder = 8
     end
-    object chbSearchByBaudRate: TCheckBox
+    object chbSearchByBaudRate: TTntCheckBox
       Left = 8
       Top = 224
       Width = 233
@@ -133,7 +133,7 @@ object fmFptrConnection: TfmFptrConnection
       Caption = 'Find device on all available baud rates'
       TabOrder = 7
     end
-    object cbConnectionType: TComboBox
+    object cbConnectionType: TTntComboBox
       Left = 112
       Top = 24
       Width = 129
@@ -148,7 +148,7 @@ object fmFptrConnection: TfmFptrConnection
         'TCP'
         'SOCKET')
     end
-    object edtRemoteHost: TEdit
+    object edtRemoteHost: TTntEdit
       Left = 112
       Top = 72
       Width = 129
@@ -176,7 +176,7 @@ object fmFptrConnection: TfmFptrConnection
       TabOrder = 6
       Value = 0
     end
-    object cbPrinterProtocol: TComboBox
+    object cbPrinterProtocol: TTntComboBox
       Left = 112
       Top = 48
       Width = 129
@@ -189,7 +189,7 @@ object fmFptrConnection: TfmFptrConnection
         'Standard'
         'Protocol 2.0')
     end
-    object cbMaxRetryCount: TComboBox
+    object cbMaxRetryCount: TTntComboBox
       Left = 112
       Top = 192
       Width = 129
@@ -211,21 +211,21 @@ object fmFptrConnection: TfmFptrConnection
         '10')
     end
   end
-  object gbPassword: TGroupBox
+  object gbPassword: TTntGroupBox
     Left = 264
     Top = 224
     Width = 225
     Height = 73
     Caption = 'Passwords'
     TabOrder = 1
-    object lblUsrPassword: TLabel
+    object lblUsrPassword: TTntLabel
       Left = 8
       Top = 20
       Width = 92
       Height = 13
       Caption = 'Operator password:'
     end
-    object lblSysPassword: TLabel
+    object lblSysPassword: TTntLabel
       Left = 8
       Top = 44
       Width = 111
@@ -253,7 +253,7 @@ object fmFptrConnection: TfmFptrConnection
       Value = 0
     end
   end
-  object cbStorage: TComboBox
+  object cbStorage: TTntComboBox
     Left = 120
     Top = 304
     Width = 129
@@ -266,7 +266,7 @@ object fmFptrConnection: TfmFptrConnection
       'Ini file'
       'Registry IBT')
   end
-  object GroupBox1: TGroupBox
+  object GroupBox1: TTntGroupBox
     Left = 264
     Top = 8
     Width = 225
@@ -276,42 +276,42 @@ object fmFptrConnection: TfmFptrConnection
     DesignSize = (
       225
       209)
-    object lblPropertyUpdateMode: TLabel
+    object lblPropertyUpdateMode: TTntLabel
       Left = 8
       Top = 32
       Width = 79
       Height = 13
       Caption = 'Properties mode:'
     end
-    object lblPollInterval: TLabel
+    object lblPollInterval: TTntLabel
       Left = 8
       Top = 56
       Width = 80
       Height = 13
       Caption = 'Poll interval, sec:'
     end
-    object lblStatusInterval: TLabel
+    object lblStatusInterval: TTntLabel
       Left = 8
       Top = 80
       Width = 89
       Height = 13
       Caption = 'Status interval, ms:'
     end
-    object lblStatusTimeout: TLabel
+    object lblStatusTimeout: TTntLabel
       Left = 8
       Top = 104
       Width = 90
       Height = 13
       Caption = 'Status timeout, sec'
     end
-    object lblEventsType: TLabel
+    object lblEventsType: TTntLabel
       Left = 8
       Top = 128
       Width = 59
       Height = 13
       Caption = 'Events type:'
     end
-    object cbPropertyUpdateMode: TComboBox
+    object cbPropertyUpdateMode: TTntComboBox
       Left = 104
       Top = 32
       Width = 113
@@ -354,7 +354,7 @@ object fmFptrConnection: TfmFptrConnection
       TabOrder = 3
       Value = 0
     end
-    object cbCCOType: TComboBox
+    object cbCCOType: TTntComboBox
       Left = 104
       Top = 128
       Width = 113

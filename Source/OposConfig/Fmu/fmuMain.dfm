@@ -20,14 +20,14 @@ object fmMain: TfmMain
     311)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblDevices: TLabel
+  object lblDevices: TTntLabel
     Left = 112
     Top = 8
     Width = 42
     Height = 13
     Caption = 'Devices:'
   end
-  object lblDeviceType: TLabel
+  object lblDeviceType: TTntLabel
     Left = 8
     Top = 8
     Width = 60
@@ -42,7 +42,7 @@ object fmMain: TfmMain
     Anchors = [akLeft, akRight, akBottom]
     Shape = bsTopLine
   end
-  object lbDevices: TListBox
+  object lbDevices: TTntListBox
     Left = 112
     Top = 24
     Width = 209
@@ -56,7 +56,7 @@ object fmMain: TfmMain
     OnDblClick = EditDeviceClick
     OnKeyDown = lbDevicesKeyDown
   end
-  object btnAddDevice: TBitBtn
+  object btnAddDevice: TTntBitBtn
     Left = 328
     Top = 88
     Width = 81
@@ -66,7 +66,7 @@ object fmMain: TfmMain
     TabOrder = 4
     OnClick = btnAddDeviceClick
   end
-  object btnDeleteDevice: TBitBtn
+  object btnDeleteDevice: TTntBitBtn
     Left = 328
     Top = 56
     Width = 81
@@ -78,7 +78,7 @@ object fmMain: TfmMain
     OnClick = btnDeleteDeviceClick
     NumGlyphs = 2
   end
-  object btnEditDevice: TBitBtn
+  object btnEditDevice: TTntBitBtn
     Left = 328
     Top = 24
     Width = 81
@@ -90,7 +90,7 @@ object fmMain: TfmMain
     OnClick = EditDeviceClick
     NumGlyphs = 2
   end
-  object lbDeviceType: TListBox
+  object lbDeviceType: TTntListBox
     Left = 8
     Top = 24
     Width = 97
@@ -103,7 +103,7 @@ object fmMain: TfmMain
     TabOrder = 0
     OnClick = lbDeviceTypeClick
   end
-  object btnClose: TButton
+  object btnClose: TTntButton
     Left = 328
     Top = 280
     Width = 81

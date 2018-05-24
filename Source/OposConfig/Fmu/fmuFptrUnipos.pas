@@ -5,6 +5,8 @@ interface
 uses
   // VCL
   Controls, StdCtrls, Classes, SysUtils, ComCtrls,
+  // Tnt
+  TntClasses, TntStdCtrls, TntRegistry,
   // This
   FiscalPrinterDevice, FptrTypes, MalinaParams;
 
@@ -12,29 +14,29 @@ type
   { TfmFptrUnipos }
 
   TfmFptrUnipos = class(TFptrPage)
-    gbUniposFilter: TGroupBox;
-    lblUniposTrailerFont: TLabel;
-    lblUniposHeaderFont: TLabel;
-    cbUniposTrailerFont: TComboBox;
-    cbUniposHeaderFont: TComboBox;
-    chbUniposFilterEnabled: TCheckBox;
-    gbUniposPrinter: TGroupBox;
-    lblUniposTextFont: TLabel;
-    lblUniposPollPeriod: TLabel;
-    cbUniposTextFont: TComboBox;
-    edtUniposPollPeriod: TEdit;
+    gbUniposFilter: TTntGroupBox;
+    lblUniposTrailerFont: TTntLabel;
+    lblUniposHeaderFont: TTntLabel;
+    cbUniposTrailerFont: TTntComboBox;
+    cbUniposHeaderFont: TTntComboBox;
+    chbUniposFilterEnabled: TTntCheckBox;
+    gbUniposPrinter: TTntGroupBox;
+    lblUniposTextFont: TTntLabel;
+    lblUniposPollPeriod: TTntLabel;
+    cbUniposTextFont: TTntComboBox;
+    edtUniposPollPeriod: TTntEdit;
     udUniposPollPeriod: TUpDown;
-    chbUniposPrinterEnabled: TCheckBox;
-    gbAntiFroudFilter: TGroupBox;
-    lblUniposUniqueItemPrefix: TLabel;
-    lblUniposSalesErrorText: TLabel;
-    lblUniposRefundErrorText: TLabel;
-    chbAntiFroudFilterEnabled: TCheckBox;
-    edtUniposUniqueItemPrefix: TEdit;
-    memUniposSalesErrorText: TMemo;
-    memUniposRefundErrorText: TMemo;
-    Label1: TLabel;
-    edtUniposFilesPath: TEdit;
+    chbUniposPrinterEnabled: TTntCheckBox;
+    gbAntiFroudFilter: TTntGroupBox;
+    lblUniposUniqueItemPrefix: TTntLabel;
+    lblUniposSalesErrorText: TTntLabel;
+    lblUniposRefundErrorText: TTntLabel;
+    chbAntiFroudFilterEnabled: TTntCheckBox;
+    edtUniposUniqueItemPrefix: TTntEdit;
+    memUniposSalesErrorText: TTntMemo;
+    memUniposRefundErrorText: TTntMemo;
+    Label1: TTntLabel;
+    edtUniposFilesPath: TTntEdit;
     procedure PageChange(Sender: TObject);
   public
     procedure UpdatePage; override;

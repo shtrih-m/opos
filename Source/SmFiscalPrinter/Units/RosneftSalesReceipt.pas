@@ -45,48 +45,48 @@ type
     constructor CreateReceipt(AContext: TReceiptContext; ARecType: Integer);
     destructor Destroy; override;
 
-    function IsLoyaltyCard(const Text: string): Boolean;
+    function IsLoyaltyCard(const Text: WideString): Boolean;
 
     procedure CheckRececiptState;
     procedure OpenReceipt(ARecType: Integer); override;
 
-    procedure PrintRecVoid(const Description: string); override;
+    procedure PrintRecVoid(const Description: WideString); override;
 
-    procedure PrintRecItem(const Description: string; Price: Currency;
+    procedure PrintRecItem(const Description: WideString; Price: Currency;
       Quantity: Integer; VatInfo: Integer; UnitPrice: Currency;
-      const UnitName: string); override;
+      const UnitName: WideString); override;
 
     procedure PrintRecItemAdjustment(AdjustmentType: Integer;
-      const Description: string; Amount: Currency;
+      const Description: WideString; Amount: Currency;
       VatInfo: Integer); override;
 
     procedure PrintRecPackageAdjustment(AdjustmentType: Integer;
-      const Description, VatAdjustment: string); override;
+      const Description, VatAdjustment: WideString); override;
 
     procedure PrintRecPackageAdjustVoid(AdjustmentType: Integer;
-      const VatAdjustment: string); override;
+      const VatAdjustment: WideString); override;
 
-    procedure PrintRecRefund(const Description: string; Amount: Currency;
+    procedure PrintRecRefund(const Description: WideString; Amount: Currency;
       VatInfo: Integer); override;
 
-    procedure PrintRecRefundVoid(const Description: string;
+    procedure PrintRecRefundVoid(const Description: WideString;
       Amount: Currency; VatInfo: Integer); override;
 
     procedure PrintRecSubtotal(Amount: Currency); override;
 
     procedure PrintRecSubtotalAdjustment(AdjustmentType: Integer;
-      const Description: string; Amount: Currency); override;
+      const Description: WideString; Amount: Currency); override;
 
     procedure PrintRecTotal(Total, Payment: Currency;
-      const Description: string); override;
+      const Description: WideString); override;
 
-    procedure PrintRecVoidItem(const Description: string; Amount: Currency;
+    procedure PrintRecVoidItem(const Description: WideString; Amount: Currency;
       Quantity: Integer; AdjustmentType: Integer; Adjustment: Currency;
       VatInfo: Integer);  override;
 
-    procedure PrintRecItemVoid(const Description: string;
+    procedure PrintRecItemVoid(const Description: WideString;
       Price: Currency; Quantity, VatInfo: Integer; UnitPrice: Currency;
-      const UnitName: string); override;
+      const UnitName: WideString); override;
 
     procedure BeginFiscalReceipt(PrintHeader: Boolean); override;
     procedure EndFiscalReceipt;  override;
@@ -95,16 +95,16 @@ type
       Amount: Currency); override;
 
     procedure PrintRecItemRefund(
-      const ADescription: string;
+      const ADescription: WideString;
       Amount: Currency; Quantity: Integer;
       VatInfo: Integer; UnitAmount: Currency;
-      const AUnitName: string); override;
+      const AUnitName: WideString); override;
 
     procedure PrintRecItemRefundVoid(
-      const ADescription: string;
+      const ADescription: WideString;
       Amount: Currency; Quantity: Integer;
       VatInfo: Integer; UnitAmount: Currency;
-      const AUnitName: string); override;
+      const AUnitName: WideString); override;
 
     function GetPaymentTotal: Int64; override;
     function GetCashlessTotal: Int64;
@@ -151,7 +151,7 @@ begin
   Result := GetCashlessTotal = 0;
 end;
 
-procedure TRosneftSalesReceipt.PrintRecVoid(const Description: string);
+procedure TRosneftSalesReceipt.PrintRecVoid(const Description: WideString);
 begin
   OpenReceipt(RecTypeSale);
   Printer.PrintTextLine(Description);
@@ -190,9 +190,9 @@ begin
   end;
 end;
 
-procedure TRosneftSalesReceipt.PrintRecItem(const Description: string; Price: Currency;
+procedure TRosneftSalesReceipt.PrintRecItem(const Description: WideString; Price: Currency;
   Quantity: Integer; VatInfo: Integer; UnitPrice: Currency;
-  const UnitName: string);
+  const UnitName: WideString);
 var
   Operation: TPriceReg;
 begin
@@ -232,7 +232,7 @@ end;
 
 procedure TRosneftSalesReceipt.PrintRecItemAdjustment(
   AdjustmentType: Integer;
-  const Description: string;
+  const Description: WideString;
   Amount: Currency;
   VatInfo: Integer);
 var
@@ -297,7 +297,7 @@ end;
 
 procedure TRosneftSalesReceipt.PrintRecPackageAdjustment(
   AdjustmentType: Integer;
-  const Description, VatAdjustment: string);
+  const Description, VatAdjustment: WideString);
 begin
   CheckDescription(Description);
 
@@ -313,7 +313,7 @@ begin
 end;
 
 procedure TRosneftSalesReceipt.PrintRecPackageAdjustVoid(AdjustmentType: Integer;
-  const VatAdjustment: string);
+  const VatAdjustment: WideString);
 begin
   CheckDescription(VatAdjustment);
   PrintPreLine;
@@ -329,7 +329,7 @@ begin
   PrintPostLine;
 end;
 
-procedure TRosneftSalesReceipt.PrintRecRefund(const Description: string;
+procedure TRosneftSalesReceipt.PrintRecRefund(const Description: WideString;
   Amount: Currency; VatInfo: Integer);
 var
   Operation: TPriceReg;
@@ -351,7 +351,7 @@ begin
 end;
 
 procedure TRosneftSalesReceipt.PrintRecRefundVoid(
-  const Description: string;
+  const Description: WideString;
   Amount: Currency; VatInfo: Integer);
 var
   Operation: TPriceReg;
@@ -380,7 +380,7 @@ begin
 end;
 
 procedure TRosneftSalesReceipt.PrintRecSubtotalAdjustment(AdjustmentType: Integer;
-  const Description: string; Amount: Currency);
+  const Description: WideString; Amount: Currency);
 begin
   CheckDescription(Description);
   CheckAdjAmount(AdjustmentType, Amount);
@@ -490,7 +490,7 @@ begin
 end;
 
 procedure TRosneftSalesReceipt.PrintRecTotal(Total: Currency; Payment: Currency;
-  const Description: string);
+  const Description: WideString);
 var
   Subtotal: Int64;
   PayCode: Integer;
@@ -664,7 +664,7 @@ begin
   end;
 end;
 
-procedure TRosneftSalesReceipt.PrintRecVoidItem(const Description: string;
+procedure TRosneftSalesReceipt.PrintRecVoidItem(const Description: WideString;
   Amount: Currency; Quantity, AdjustmentType: Integer;
   Adjustment: Currency; VatInfo: Integer);
 var
@@ -686,9 +686,9 @@ begin
   Printer.Storno(Operation);
 end;
 
-procedure TRosneftSalesReceipt.PrintRecItemVoid(const Description: string;
+procedure TRosneftSalesReceipt.PrintRecItemVoid(const Description: WideString;
   Price: Currency; Quantity, VatInfo: Integer; UnitPrice: Currency;
-  const UnitName: string);
+  const UnitName: WideString);
 var
   Operation: TPriceReg;
 begin
@@ -718,9 +718,9 @@ begin
   FLastItemSumm := -Round2(Operation.Price*Operation.Quantity/1000);
 end;
 
-procedure TRosneftSalesReceipt.PrintRecItemRefund(const ADescription: string;
+procedure TRosneftSalesReceipt.PrintRecItemRefund(const ADescription: WideString;
   Amount: Currency; Quantity, VatInfo: Integer; UnitAmount: Currency;
-  const AUnitName: string);
+  const AUnitName: WideString);
 var
   Operation: TPriceReg;
 begin
@@ -754,9 +754,9 @@ begin
   PrintPostLine;
 end;
 
-procedure TRosneftSalesReceipt.PrintRecItemRefundVoid(const ADescription: string;
+procedure TRosneftSalesReceipt.PrintRecItemRefundVoid(const ADescription: WideString;
   Amount: Currency; Quantity, VatInfo: Integer; UnitAmount: Currency;
-  const AUnitName: string);
+  const AUnitName: WideString);
 var
   Operation: TPriceReg;
 begin
@@ -791,7 +791,7 @@ begin
   Result := FItems.Count;
 end;
 
-function TRosneftSalesReceipt.IsLoyaltyCard(const Text: string): Boolean;
+function TRosneftSalesReceipt.IsLoyaltyCard(const Text: WideString): Boolean;
 begin
   Result := ExecRegExpr(GetMalinaParams.RosneftCardMask, Text);
 end;

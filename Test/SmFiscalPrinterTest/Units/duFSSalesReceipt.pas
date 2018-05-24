@@ -70,8 +70,8 @@ end;
 procedure TFSSalesReceiptTest.CheckShowEMailDlg;
 var
   Selection: Integer;
-  CustomerPhone: string;
-  CustomerEMail: string;
+  CustomerPhone: WideString;
+  CustomerEMail: WideString;
 begin
   Selection := ShowSelectDlg;
 

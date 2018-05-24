@@ -6,27 +6,29 @@ uses
   // VCL
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ExtCtrls,
+  // Tnt
+  TntStdCtrls,
   // This
   untPages, OposFiscalPrinter;
 
 type
   TfmFptrGetData = class(TPage)
-    btnGetData: TButton;
-    lblDataItem: TLabel;
-    edtDataItem: TEdit;
-    cbDataItem: TComboBox;
-    lblOptArgs: TLabel;
-    edtOptArgs: TEdit;
-    lblData: TLabel;
-    edtData: TEdit;
-    lblVatID: TLabel;
-    Label1: TLabel;
-    lblTotalizerType: TLabel;
-    btnGetTotalizer: TButton;
-    edtVatID: TEdit;
-    Edit1: TEdit;
-    Edit2: TEdit;
-    cbTotalizerType: TComboBox;
+    btnGetData: TTntButton;
+    lblDataItem: TTntLabel;
+    edtDataItem: TTntEdit;
+    cbDataItem: TTntComboBox;
+    lblOptArgs: TTntLabel;
+    edtOptArgs: TTntEdit;
+    lblData: TTntLabel;
+    edtData: TTntEdit;
+    lblVatID: TTntLabel;
+    Label1: TTntLabel;
+    lblTotalizerType: TTntLabel;
+    btnGetTotalizer: TTntButton;
+    edtVatID: TTntEdit;
+    Edit1: TTntEdit;
+    Edit2: TTntEdit;
+    cbTotalizerType: TTntComboBox;
     Bevel1: TBevel;
     procedure FormCreate(Sender: TObject);
     procedure btnGetDataClick(Sender: TObject);

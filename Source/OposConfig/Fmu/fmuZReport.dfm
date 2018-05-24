@@ -16,28 +16,28 @@ object fmZReport: TfmZReport
     335)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblXmlZReportFileName: TLabel
+  object lblXmlZReportFileName: TTntLabel
     Left = 40
     Top = 40
     Width = 107
     Height = 13
     Caption = 'XML Z report filename:'
   end
-  object llblCsvZReportFileName: TLabel
+  object llblCsvZReportFileName: TTntLabel
     Left = 40
     Top = 112
     Width = 106
     Height = 13
     Caption = 'CSV Z report filename:'
   end
-  object lblReceiptReportFileName: TLabel
+  object lblReceiptReportFileName: TTntLabel
     Left = 40
     Top = 184
     Width = 112
     Height = 13
     Caption = 'Receipt report filename:'
   end
-  object chbXmlZReportEnabled: TCheckBox
+  object chbXmlZReportEnabled: TTntCheckBox
     Left = 16
     Top = 16
     Width = 193
@@ -45,7 +45,7 @@ object fmZReport: TfmZReport
     Caption = 'XML Z report enabled'
     TabOrder = 0
   end
-  object edtXmlZReportFileName: TEdit
+  object edtXmlZReportFileName: TTntEdit
     Left = 40
     Top = 56
     Width = 329
@@ -54,7 +54,7 @@ object fmZReport: TfmZReport
     TabOrder = 1
     Text = 'edtXmlZReportFileName'
   end
-  object chbCsvZReportEnabled: TCheckBox
+  object chbCsvZReportEnabled: TTntCheckBox
     Left = 16
     Top = 88
     Width = 153
@@ -62,7 +62,7 @@ object fmZReport: TfmZReport
     Caption = 'CSV Z report enabled'
     TabOrder = 2
   end
-  object edtCsvZReportFileName: TEdit
+  object edtCsvZReportFileName: TTntEdit
     Left = 40
     Top = 128
     Width = 329
@@ -71,7 +71,7 @@ object fmZReport: TfmZReport
     TabOrder = 3
     Text = 'edtCsvZReportFileName'
   end
-  object chbReceiptReportEnabled: TCheckBox
+  object chbReceiptReportEnabled: TTntCheckBox
     Left = 16
     Top = 160
     Width = 153
@@ -79,7 +79,7 @@ object fmZReport: TfmZReport
     Caption = 'Receipt report enabled'
     TabOrder = 4
   end
-  object edtReceiptReportFileName: TEdit
+  object edtReceiptReportFileName: TTntEdit
     Left = 39
     Top = 200
     Width = 329
@@ -88,7 +88,7 @@ object fmZReport: TfmZReport
     TabOrder = 5
     Text = 'edtReceiptReportFileName'
   end
-  object chbReportDateStamp: TCheckBox
+  object chbReportDateStamp: TTntCheckBox
     Left = 16
     Top = 240
     Width = 345

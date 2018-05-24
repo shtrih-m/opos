@@ -6,7 +6,7 @@ uses
   // VCL
   Windows, SysUtils,
   // 3'd
-  gnugettext;
+  TntSysUtils, gnugettext;
 
 const
   SStatusWaitTimeout = 'Printer status wait timeout';
@@ -1302,7 +1302,7 @@ end;
 
 function GetFullErrorText(Code: Integer; IsFSEnabled: Boolean): string;
 begin
-  Result := Format('(%d), %s', [Code, GetErrorText(Code, IsFSEnabled)]);
+  Result := Tnt_WideFormat('(%d), %s', [Code, GetErrorText(Code, IsFSEnabled)]);
 end;
 
 
@@ -1592,7 +1592,7 @@ begin
     4: Result := _('Long report printing stage');
     5: Result := _('Operation printing stage');
   else
-    Result := Format(_('Unknown device submode (%d)'), [Value]);
+    Result := Tnt_WideFormat(_('Unknown device submode (%d)'), [Value]);
   end;
 end;
 
@@ -1607,7 +1607,7 @@ begin
     6: Result := _('ECR software memory');
     7: Result := _('ECR RAM');
   else
-    Result := Format(_('Unknown device code (%d)'), [Value]);
+    Result := Tnt_WideFormat(_('Unknown device code (%d)'), [Value]);
   end;
 end;
 
@@ -1642,7 +1642,7 @@ begin
     $5E: Result := _('Slip eject');
     $6E: Result := _('Waiting for slip eject');
   else
-    Result := Format(_('Unknown mode: %d'), [Value]);
+    Result := Tnt_WideFormat(_('Unknown mode: %d'), [Value]);
   end;
 end;
 
@@ -2425,29 +2425,29 @@ end;
 
 function PrinterDateTimeToStr2(Date: TPrinterDateTime): string;
 begin
-  Result := Format('%.2d.%.2d.%.4d %.2d:%.2d', [
+  Result := Tnt_WideFormat('%.2d.%.2d.%.4d %.2d:%.2d', [
     Date.Day, Date.Month, Date.Year + 2000, Date.Hour, Date.Min]);
 end;
 
 function PrinterDateTimeToStr3(Date: TPrinterDateTime): string;
 begin
-  Result := Format('%.2d%.2d%.4d%.2d%.2d', [
+  Result := Tnt_WideFormat('%.2d%.2d%.4d%.2d%.2d', [
     Date.Day, Date.Month, Date.Year + 2000, Date.Hour, Date.Min]);
 end;
 
 function PrinterTimeToStr(Time: TPrinterTime): string;
 begin
-  Result := Format('%.2d:%.2d:%.2d', [Time.Hour, Time.Min, Time.Sec]);
+  Result := Tnt_WideFormat('%.2d:%.2d:%.2d', [Time.Hour, Time.Min, Time.Sec]);
 end;
 
 function PrinterTimeToStr2(Time: TPrinterTime): string;
 begin
-  Result := Format('%.2d:%.2d', [Time.Hour, Time.Min]);
+  Result := Tnt_WideFormat('%.2d:%.2d', [Time.Hour, Time.Min]);
 end;
 
 function PrinterDateToStr(Date: TPrinterDate): string;
 begin
-  Result := Format('%.2d.%.2d.%.4d', [Date.Day, Date.Month, Date.Year + 2000]);
+  Result := Tnt_WideFormat('%.2d.%.2d.%.4d', [Date.Day, Date.Month, Date.Year + 2000]);
 end;
 
 function IsEqual(const I1, I2: TPrinterStatus): Boolean;

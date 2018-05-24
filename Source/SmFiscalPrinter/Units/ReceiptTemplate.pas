@@ -5,6 +5,8 @@ interface
 uses
   // This
   Windows, Classes, SysUtils,
+  // Tnt
+  TntClasses,
   // This
   ReceiptItem, PrinterParameters, TextParser, StringUtils;
 
@@ -296,11 +298,11 @@ end;
 function TReceiptTemplate.getItemText(const Item: TFSSaleItem): string;
 var
   i: Integer;
-  Lines: TStrings;
-  TemplateLines: TStrings;
+  Lines: TTntStrings;
+  TemplateLines: TTntStrings;
 begin
-  Lines := TStringList.Create;
-  TemplateLines := TStringList.Create;
+  Lines := TTntStringList.Create;
+  TemplateLines := TTntStringList.Create;
   try
     if Item.Quantity < 0 then
     begin

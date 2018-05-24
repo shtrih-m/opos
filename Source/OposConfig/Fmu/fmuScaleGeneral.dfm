@@ -20,77 +20,77 @@ object fmScaleGeneral: TfmScaleGeneral
     375)
   PixelsPerInch = 96
   TextHeight = 13
-  object gbParams: TGroupBox
+  object gbParams: TTntGroupBox
     Left = 8
     Top = 8
     Width = 417
     Height = 361
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 0
-    object lblComPort: TLabel
+    object lblComPort: TTntLabel
       Left = 8
       Top = 24
       Width = 48
       Height = 13
       Caption = 'COM port:'
     end
-    object lblBaudRate: TLabel
+    object lblBaudRate: TTntLabel
       Left = 8
       Top = 48
       Width = 46
       Height = 13
       Caption = 'Baudrate:'
     end
-    object lblByteTimeout: TLabel
+    object lblByteTimeout: TTntLabel
       Left = 8
       Top = 72
       Width = 80
       Height = 13
       Caption = 'Byte timeout, ms:'
     end
-    object lblMaxRetryCount: TLabel
+    object lblMaxRetryCount: TTntLabel
       Left = 8
       Top = 120
       Width = 120
       Height = 13
       Caption = 'Maximum connect retries:'
     end
-    object lblCommandTimeout: TLabel
+    object lblCommandTimeout: TTntLabel
       Left = 8
       Top = 96
       Width = 106
       Height = 13
       Caption = 'Command timeout, ms:'
     end
-    object lblPassword: TLabel
+    object lblPassword: TTntLabel
       Left = 8
       Top = 208
       Width = 49
       Height = 13
       Caption = 'Password:'
     end
-    object lblEncoding: TLabel
+    object lblEncoding: TTntLabel
       Left = 8
       Top = 232
       Width = 48
       Height = 13
       Caption = 'Encoding:'
     end
-    object lblCCOType: TLabel
+    object lblCCOType: TTntLabel
       Left = 8
       Top = 264
       Width = 48
       Height = 13
       Caption = 'CCO type:'
     end
-    object lblPollPeriod: TLabel
+    object lblPollPeriod: TTntLabel
       Left = 8
       Top = 312
       Width = 52
       Height = 13
       Caption = 'Poll period:'
     end
-    object cbComPort: TComboBox
+    object cbComPort: TTntComboBox
       Left = 216
       Top = 24
       Width = 193
@@ -99,7 +99,7 @@ object fmScaleGeneral: TfmScaleGeneral
       ItemHeight = 13
       TabOrder = 0
     end
-    object cbBaudRate: TComboBox
+    object cbBaudRate: TTntComboBox
       Left = 216
       Top = 48
       Width = 193
@@ -116,7 +116,7 @@ object fmScaleGeneral: TfmScaleGeneral
         '57600'
         '115200')
     end
-    object chbSearchByPort: TCheckBox
+    object chbSearchByPort: TTntCheckBox
       Left = 8
       Top = 176
       Width = 401
@@ -125,7 +125,7 @@ object fmScaleGeneral: TfmScaleGeneral
       Caption = 'Find device on all available COM ports'
       TabOrder = 6
     end
-    object chbSearchByBaudRate: TCheckBox
+    object chbSearchByBaudRate: TTntCheckBox
       Left = 8
       Top = 152
       Width = 401
@@ -174,7 +174,7 @@ object fmScaleGeneral: TfmScaleGeneral
       TabOrder = 7
       Value = 0
     end
-    object cbEncoding: TComboBox
+    object cbEncoding: TTntComboBox
       Left = 216
       Top = 232
       Width = 193
@@ -186,7 +186,7 @@ object fmScaleGeneral: TfmScaleGeneral
         'Windows'
         'CP866')
     end
-    object cbCCOType: TComboBox
+    object cbCCOType: TTntComboBox
       Left = 216
       Top = 256
       Width = 193
@@ -199,7 +199,7 @@ object fmScaleGeneral: TfmScaleGeneral
         'NCR CCO'
         'None')
     end
-    object chbCapPrice: TCheckBox
+    object chbCapPrice: TTntCheckBox
       Left = 8
       Top = 288
       Width = 401
@@ -219,7 +219,7 @@ object fmScaleGeneral: TfmScaleGeneral
       Value = 0
     end
   end
-  object OpenDialog: TOpenDialog
+  object OpenDialog: TTntOpenDialog
     Filter = 
       'Log files (*.log)|*.log|Text files (*.txt)|*.txt|All files (*.*)' +
       '|*.*'

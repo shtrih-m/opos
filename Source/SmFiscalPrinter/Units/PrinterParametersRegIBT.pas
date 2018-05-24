@@ -5,9 +5,11 @@ interface
 uses
   // VCL
   Windows, SysUtils, Classes, Registry,
+  // Tnt
+  TntClasses, TntStdCtrls, TntRegistry,
   // This
   PrinterParameters, FileUtils, LogFile, SmIniFile, Oposhi, WException,
-  gnugettext;
+  TntSysUtils, gnugettext;
 
 type
   { TPrinterParametersRegIBT }
@@ -120,7 +122,7 @@ end;
 
 class function TPrinterParametersRegIBT.GetSysKeyName(const DeviceName: string): string;
 begin
-  Result := Format('%s\%s\%s', [OPOS_ROOTKEY, OPOS_CLASSKEY_FPTR, DeviceName]);
+  Result := Tnt_WideFormat('%s\%s\%s', [OPOS_ROOTKEY, OPOS_CLASSKEY_FPTR, DeviceName]);
 end;
 
 procedure TPrinterParametersRegIBT.Load(const DeviceName: string);
@@ -151,11 +153,11 @@ end;
 
 procedure TPrinterParametersRegIBT.LoadIBTParameters;
 var
-  Reg: TRegistry;
+  Reg: TTntRegistry;
 begin
   Logger.Debug('TPrinterParametersRegIBT.LoadIBTParameters');
 
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     Reg.Access := KEY_READ;
     Reg.RootKey := HKEY_LOCAL_MACHINE;
@@ -174,11 +176,11 @@ end;
 
 procedure TPrinterParametersRegIBT.SaveIBTParameters;
 var
-  Reg: TRegistry;
+  Reg: TTntRegistry;
 begin
   Logger.Debug('TPrinterParametersRegIBT.SaveIBTParameters');
 
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     Reg.Access := KEY_ALL_ACCESS;
     Reg.RootKey := HKEY_LOCAL_MACHINE;
@@ -198,8 +200,8 @@ end;
 procedure TPrinterParametersRegIBT.LoadSysParameters(const DeviceName: string);
 var
   i: Integer;
-  Reg: TRegistry;
-  Names: TStrings;
+  Reg: TTntRegistry;
+  Names: TTntStrings;
   KeyName: string;
   PayTypeText: string;
   PayTypeCode: Integer;
@@ -208,7 +210,7 @@ var
 begin
   Logger.Debug('TPrinterParametersRegIBT.Load', [DeviceName]);
 
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     Reg.Access := KEY_READ;
     Reg.RootKey := HKEY_LOCAL_MACHINE;
@@ -521,7 +523,7 @@ begin
       if Reg.OpenKey(REG_KEY_VATCODES, False) then
       begin
         Parameters.VatCodes.Clear;
-        Names := TStringList.Create;
+        Names := TTntStringList.Create;
         try
           Reg.GetValueNames(Names);
           for i := 0 to Names.Count-1 do
@@ -538,7 +540,7 @@ begin
       if Reg.OpenKey(REG_KEY_PAYTYPES, False) then
       begin
         Parameters.PayTypes.Clear;
-        Names := TStringList.Create;
+        Names := TTntStringList.Create;
         try
           Reg.GetValueNames(Names);
           for i := 0 to Names.Count-1 do
@@ -561,10 +563,10 @@ end;
 procedure TPrinterParametersRegIBT.SaveSysParameters(const DeviceName: string);
 var
   i: Integer;
-  Reg: TRegistry;
+  Reg: TTntRegistry;
   KeyName: string;
 begin
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     Reg.Access := KEY_ALL_ACCESS;
     Reg.RootKey := HKEY_LOCAL_MACHINE;
@@ -707,15 +709,15 @@ end;
 
 class function TPrinterParametersRegIBT.GetUsrKeyName(const DeviceName: string): string;
 begin
-  Result := Format('%s\%s\%s', [OPOS_ROOTKEY, OPOS_CLASSKEY_FPTR, DeviceName]);
+  Result := Tnt_WideFormat('%s\%s\%s', [OPOS_ROOTKEY, OPOS_CLASSKEY_FPTR, DeviceName]);
 end;
 
 procedure TPrinterParametersRegIBT.LoadUsrParameters(const DeviceName: string);
 var
-  Reg: TRegistry;
+  Reg: TTntRegistry;
 begin
   Logger.Debug('TPrinterParametersRegIBT.LoadUsrParameters', [DeviceName]);
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     Reg.Access := KEY_READ;
     Reg.RootKey := HKEY_CURRENT_USER;
@@ -752,10 +754,10 @@ end;
 
 procedure TPrinterParametersRegIBT.SaveUsrParameters(const DeviceName: string);
 var
-  Reg: TRegistry;
+  Reg: TTntRegistry;
 begin
   Logger.Debug('TPrinterParametersRegIBT.SaveUsrParameters', [DeviceName]);
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     Reg.Access := KEY_ALL_ACCESS;
     Reg.RootKey := HKEY_CURRENT_USER;

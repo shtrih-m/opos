@@ -6,6 +6,8 @@ uses
   // VCL
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ExtCtrls, ComCtrls,
+  // Tnt
+  TntStdCtrls, TntSysUtils,
   // Indy
   IdTCPClient,
   // This
@@ -13,13 +15,13 @@ uses
 
 type
   TfmFptrMonitoring = class(TPage)
-    btnReadStatus: TButton;
-    btnClear: TButton;
-    Memo: TMemo;
-    lblHost: TLabel;
-    edtHost: TEdit;
-    lblPort: TLabel;
-    edtPort: TEdit;
+    btnReadStatus: TTntButton;
+    btnClear: TTntButton;
+    Memo: TTntMemo;
+    lblHost: TTntLabel;
+    edtHost: TTntEdit;
+    lblPort: TTntLabel;
+    edtPort: TTntEdit;
     procedure btnReadStatusClick(Sender: TObject);
     procedure btnClearClick(Sender: TObject);
   end;

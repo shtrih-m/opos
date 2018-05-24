@@ -5,6 +5,8 @@ interface
 uses
   // VCL
   Windows, SysUtils, Registry, ActiveX, ComObj,
+  // Tnt
+  TntRegistry,
   // This
   LogFile, PrinterTypes, WException;
 
@@ -144,14 +146,14 @@ end;
 function TUniposReader.ReadPrintReport: TPrintReportRec;
 var
   S: string;
-  Reg: TRegistry;
+  Reg: TTntRegistry;
 begin
   Logger.Debug('TUniposReader.ReadPrintReport');
 
   Result.Successful := False;
   Result.PrintTime := 0;
 
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     Reg.Access := KEY_READ;
     Reg.RootKey := HKEY_LOCAL_MACHINE;
@@ -173,11 +175,11 @@ end;
 procedure TUniposReader.WritePrintReport(const Data: TPrintReportRec);
 var
   S: string;
-  Reg: TRegistry;
+  Reg: TTntRegistry;
 begin
   Logger.Debug('TUniposReader.WritePrintReport');
 
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     Reg.RootKey := HKEY_LOCAL_MACHINE;
     if Reg.OpenKey(REGSTR_KEY_UNIPOS_PRINT, True) then
@@ -206,13 +208,13 @@ end;
 function TUniposReader.ReadTextReceipt: TTextReceiptRec;
 var
   S: string;
-  Reg: TRegistry;
+  Reg: TTntRegistry;
 begin
   Result.NewChequeFlag := False;
   Result.NewChequeText := '';
   Result.NewChequeText1 := '';
 
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     Reg.Access := KEY_READ;
     Reg.RootKey := HKEY_LOCAL_MACHINE;
@@ -232,12 +234,12 @@ end;
 
 function TUniposReader.WriteTextReceipt(const Data: TTextReceiptRec): Boolean;
 var
-  Reg: TRegistry;
+  Reg: TTntRegistry;
 begin
   Logger.Debug('TUniposReader.WriteTextReceipt');
 
   Result := False;
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     try
       Reg.RootKey := HKEY_LOCAL_MACHINE;
@@ -278,7 +280,7 @@ end;
 function TUniposReader.ReadHeaderBlock: TTextBlockRec;
 var
   Text: string;
-  Reg: TRegistry;
+  Reg: TTntRegistry;
   Seconds: string;
 begin
   Logger.Debug('TUniposReader.ReadHeaderBlock');
@@ -286,7 +288,7 @@ begin
   Result.Text := '';
   Result.SecondsOfDay := 0;
 
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     Reg.Access := KEY_READ;
     Reg.RootKey := HKEY_LOCAL_MACHINE;
@@ -312,14 +314,14 @@ function TUniposReader.ReadTrailerBlock: TTextBlockRec;
 var
   Text: string;
   Seconds: string;
-  Reg: TRegistry;
+  Reg: TTntRegistry;
 begin
   Logger.Debug('TUniposReader.ReadTrailerBlock');
 
   Result.Text := '';
   Result.SecondsOfDay := 0;
 
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     Reg.Access := KEY_READ;
     Reg.RootKey := HKEY_LOCAL_MACHINE;
@@ -342,11 +344,11 @@ end;
 
 procedure TUniposReader.WriteHeaderBlock(const Data: TTextBlockRec);
 var
-  Reg: TRegistry;
+  Reg: TTntRegistry;
 begin
   Logger.Debug('TUniposReader.WriteHeaderBlock');
 
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     Reg.RootKey := HKEY_LOCAL_MACHINE;
     if Reg.OpenKey(REGSTR_KEY_UNIPOS_PRINT, True) then
@@ -363,11 +365,11 @@ end;
 
 procedure TUniposReader.WriteTrailerBlock(const Data: TTextBlockRec);
 var
-  Reg: TRegistry;
+  Reg: TTntRegistry;
 begin
   Logger.Debug('TUniposReader.WriteTrailerBlock');
 
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     Reg.RootKey := HKEY_LOCAL_MACHINE;
     if Reg.OpenKey(REGSTR_KEY_UNIPOS_PRINT, True) then
@@ -386,14 +388,14 @@ function TUniposReader.ReadReceiptFlags: TReceiptFlagsRec;
 var
   Enabled: string;
   Seconds: string;
-  Reg: TRegistry;
+  Reg: TTntRegistry;
 begin
   Logger.Debug('TAntiFroudFilter.ReadReceiptFlags');
 
   Result.Enabled := False;
   Result.Seconds := 0;
 
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     Reg.Access := KEY_READ;
     Reg.RootKey := HKEY_LOCAL_MACHINE;
@@ -417,11 +419,11 @@ end;
 
 procedure TUniposReader.WriteReceiptFlags(const Data: TReceiptFlagsRec);
 var
-  Reg: TRegistry;
+  Reg: TTntRegistry;
 begin
   Logger.Debug('TAntiFroudFilter.WriteReceiptFlags');
 
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     Reg.RootKey := HKEY_LOCAL_MACHINE;
     if Reg.OpenKey(REGSTR_KEY_UNIPOS_PRINT, True) then

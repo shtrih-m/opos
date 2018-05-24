@@ -18,63 +18,63 @@ object fmFptrWritableProperties: TfmFptrWritableProperties
     366)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblSlipSelection: TLabel
+  object lblSlipSelection: TTntLabel
     Left = 8
     Top = 128
     Width = 64
     Height = 13
     Caption = 'SlipSelection:'
   end
-  object lblChangeDue: TLabel
+  object lblChangeDue: TTntLabel
     Left = 8
     Top = 8
     Width = 60
     Height = 13
     Caption = 'ChangeDue:'
   end
-  object lblDateType: TLabel
+  object lblDateType: TTntLabel
     Left = 8
     Top = 32
     Width = 50
     Height = 13
     Caption = 'DateType:'
   end
-  object lblFiscalReceiptStation: TLabel
+  object lblFiscalReceiptStation: TTntLabel
     Left = 8
     Top = 56
     Width = 100
     Height = 13
     Caption = 'FiscalReceiptStation:'
   end
-  object lblFiscalReceiptType: TLabel
+  object lblFiscalReceiptType: TTntLabel
     Left = 8
     Top = 80
     Width = 91
     Height = 13
     Caption = 'FiscalReceiptType:'
   end
-  object lblMessageType: TLabel
+  object lblMessageType: TTntLabel
     Left = 8
     Top = 104
     Width = 70
     Height = 13
     Caption = 'MessageType:'
   end
-  object lblPreLine: TLabel
+  object lblPreLine: TTntLabel
     Left = 8
     Top = 152
     Width = 39
     Height = 13
     Caption = 'PreLine:'
   end
-  object lblPostLine: TLabel
+  object lblPostLine: TTntLabel
     Left = 8
     Top = 176
     Width = 44
     Height = 13
     Caption = 'PostLine:'
   end
-  object chbDeviceEnabled: TCheckBox
+  object chbDeviceEnabled: TTntCheckBox
     Left = 8
     Top = 208
     Width = 105
@@ -83,7 +83,7 @@ object fmFptrWritableProperties: TfmFptrWritableProperties
     TabOrder = 0
     OnClick = chbDeviceEnabledClick
   end
-  object chbFreezeEvents: TCheckBox
+  object chbFreezeEvents: TTntCheckBox
     Left = 8
     Top = 232
     Width = 105
@@ -92,7 +92,7 @@ object fmFptrWritableProperties: TfmFptrWritableProperties
     TabOrder = 1
     OnClick = chbFreezeEventsClick
   end
-  object chbPowerNotify: TCheckBox
+  object chbPowerNotify: TTntCheckBox
     Left = 8
     Top = 256
     Width = 105
@@ -101,7 +101,7 @@ object fmFptrWritableProperties: TfmFptrWritableProperties
     TabOrder = 2
     OnClick = chbPowerNotifyClick
   end
-  object chbAsyncMode: TCheckBox
+  object chbAsyncMode: TTntCheckBox
     Left = 232
     Top = 208
     Width = 105
@@ -110,7 +110,7 @@ object fmFptrWritableProperties: TfmFptrWritableProperties
     TabOrder = 3
     OnClick = chbAsyncModeClick
   end
-  object chbCheckTotal: TCheckBox
+  object chbCheckTotal: TTntCheckBox
     Left = 120
     Top = 208
     Width = 105
@@ -119,7 +119,7 @@ object fmFptrWritableProperties: TfmFptrWritableProperties
     TabOrder = 4
     OnClick = chbCheckTotalClick
   end
-  object chbDuplicateReceipt: TCheckBox
+  object chbDuplicateReceipt: TTntCheckBox
     Left = 120
     Top = 232
     Width = 105
@@ -128,7 +128,7 @@ object fmFptrWritableProperties: TfmFptrWritableProperties
     TabOrder = 5
     OnClick = chbDuplicateReceiptClick
   end
-  object chbFlagWhenIdle: TCheckBox
+  object chbFlagWhenIdle: TTntCheckBox
     Left = 120
     Top = 256
     Width = 105
@@ -137,7 +137,7 @@ object fmFptrWritableProperties: TfmFptrWritableProperties
     TabOrder = 6
     OnClick = chbFlagWhenIdleClick
   end
-  object cbSlipSelection: TComboBox
+  object cbSlipSelection: TTntComboBox
     Left = 112
     Top = 128
     Width = 274
@@ -151,7 +151,7 @@ object fmFptrWritableProperties: TfmFptrWritableProperties
       'FPTR_SS_FULL_LENGTH'
       'FPTR_SS_VALIDATION')
   end
-  object edtChangeDue: TEdit
+  object edtChangeDue: TTntEdit
     Left = 112
     Top = 8
     Width = 274
@@ -160,7 +160,7 @@ object fmFptrWritableProperties: TfmFptrWritableProperties
     TabOrder = 8
     OnChange = edtChangeDueChange
   end
-  object cbDateType: TComboBox
+  object cbDateType: TTntComboBox
     Left = 112
     Top = 32
     Width = 274
@@ -177,7 +177,7 @@ object fmFptrWritableProperties: TfmFptrWritableProperties
       'FPTR_DT_RTC'
       'FPTR_DT_VAT')
   end
-  object cbFiscalReceiptStation: TComboBox
+  object cbFiscalReceiptStation: TTntComboBox
     Left = 112
     Top = 56
     Width = 274
@@ -191,7 +191,7 @@ object fmFptrWritableProperties: TfmFptrWritableProperties
       'FPTR_RS_RECEIPT'
       'FPTR_RS_SLIP')
   end
-  object cbFiscalReceiptType: TComboBox
+  object cbFiscalReceiptType: TTntComboBox
     Left = 112
     Top = 80
     Width = 274
@@ -209,7 +209,7 @@ object fmFptrWritableProperties: TfmFptrWritableProperties
       'FPTR_RT_SERVICE'
       'FPTR_RT_SIMPLE_INVOICE')
   end
-  object cbMessageType: TComboBox
+  object cbMessageType: TTntComboBox
     Left = 112
     Top = 104
     Width = 274
@@ -271,7 +271,7 @@ object fmFptrWritableProperties: TfmFptrWritableProperties
       'FPTR_MT_WITH_DISCOUNT'
       'FPTR_MT_WITHOUT_UPLIFT')
   end
-  object edtPreLine: TEdit
+  object edtPreLine: TTntEdit
     Left = 112
     Top = 152
     Width = 274
@@ -280,7 +280,7 @@ object fmFptrWritableProperties: TfmFptrWritableProperties
     TabOrder = 13
     OnChange = edtPreLineChange
   end
-  object edtPostLine: TEdit
+  object edtPostLine: TTntEdit
     Left = 112
     Top = 176
     Width = 274
@@ -289,7 +289,7 @@ object fmFptrWritableProperties: TfmFptrWritableProperties
     TabOrder = 14
     OnChange = edtPostLineChange
   end
-  object btnUpdate: TButton
+  object btnUpdate: TTntButton
     Left = 272
     Top = 240
     Width = 115

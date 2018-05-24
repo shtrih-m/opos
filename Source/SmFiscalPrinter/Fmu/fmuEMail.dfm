@@ -17,7 +17,7 @@ object fmEMail: TfmEMail
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
-  object Label1: TLabel
+  object Label1: TTntLabel
     Left = 8
     Top = 16
     Width = 231
@@ -96,7 +96,7 @@ object fmEMail: TfmEMail
     Caption = 'pnlEn2'
     TabOrder = 4
   end
-  object edtAddress: TEdit
+  object edtAddress: TTntEdit
     Left = 8
     Top = 56
     Width = 217

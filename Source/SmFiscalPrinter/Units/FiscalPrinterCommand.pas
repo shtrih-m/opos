@@ -232,12 +232,12 @@ end;
 
 function PrinterTimeToStr(Time: TPrinterTime): string;
 begin
-  Result := Format('%.2d:%.2d:%.2d)', [Time.Hour, Time.Min, Time.Sec]);
+  Result := Tnt_WideFormat('%.2d:%.2d:%.2d)', [Time.Hour, Time.Min, Time.Sec]);
 end;
 
 function PrinterDateToStr(Date: TPrinterDate): string;
 begin
-  Result := Format('%.2d.%.2d.%.4d)', [Date.Day, Date.Month, Date.Year + 2000]);
+  Result := Tnt_WideFormat('%.2d.%.2d.%.4d)', [Date.Day, Date.Month, Date.Year + 2000]);
 end;
 
 function FormatLineLength(const Text: string; MaxLength: Integer): string;

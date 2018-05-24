@@ -6,6 +6,8 @@ uses
   // VCL
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, ComCtrls, Spin,
+  // Tnt
+  TntClasses, TntStdCtrls, TntRegistry,
   // This
   untUtil, FptrTypes, PrinterParameters, FiscalPrinterDevice;
 
@@ -13,32 +15,32 @@ type
   { TfmFptrConnection }
 
   TfmFptrReceipt = class(TFptrPage)
-    gbParams: TGroupBox;
-    lblDefaultDepartment: TLabel;
-    lblCutType: TLabel;
-    lblEncoding: TLabel;
-    lblStatusCommand: TLabel;
-    lblHeaderType: TLabel;
-    cbCutType: TComboBox;
-    cbEncoding: TComboBox;
-    cbStatusCommand: TComboBox;
-    cbHeaderType: TComboBox;
-    lblZeroReceipt: TLabel;
-    cbZeroReceipt: TComboBox;
-    lblCompatLevel: TLabel;
-    cbCompatLevel: TComboBox;
-    cbReceiptType: TComboBox;
-    lblReceiptType: TLabel;
-    lblZeroReceiptNumber: TLabel;
-    chbCacheReceiptNumber: TCheckBox;
+    gbParams: TTntGroupBox;
+    lblDefaultDepartment: TTntLabel;
+    lblCutType: TTntLabel;
+    lblEncoding: TTntLabel;
+    lblStatusCommand: TTntLabel;
+    lblHeaderType: TTntLabel;
+    cbCutType: TTntComboBox;
+    cbEncoding: TTntComboBox;
+    cbStatusCommand: TTntComboBox;
+    cbHeaderType: TTntComboBox;
+    lblZeroReceipt: TTntLabel;
+    cbZeroReceipt: TTntComboBox;
+    lblCompatLevel: TTntLabel;
+    cbCompatLevel: TTntComboBox;
+    cbReceiptType: TTntComboBox;
+    lblReceiptType: TTntLabel;
+    lblZeroReceiptNumber: TTntLabel;
+    chbCacheReceiptNumber: TTntCheckBox;
     seDepartment: TSpinEdit;
     seZeroReceiptNumber: TSpinEdit;
-    chbZReceiptBeforeZReport: TCheckBox;
-    chbOpenReceiptEnabled: TCheckBox;
-    cbQuantityDecimalPlaces: TComboBox;
-    lblQuantityLength: TLabel;
-    lblPrintRecMessageMode: TLabel;
-    cbPrintRecMessageMode: TComboBox;
+    chbZReceiptBeforeZReport: TTntCheckBox;
+    chbOpenReceiptEnabled: TTntCheckBox;
+    cbQuantityDecimalPlaces: TTntComboBox;
+    lblQuantityLength: TTntLabel;
+    lblPrintRecMessageMode: TTntLabel;
+    cbPrintRecMessageMode: TTntComboBox;
   public
     procedure UpdatePage; override;
     procedure UpdateObject; override;

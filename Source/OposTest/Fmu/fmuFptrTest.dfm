@@ -17,49 +17,49 @@ object fmFptrTest: TfmFptrTest
     302)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblReceiptPeriod: TLabel
+  object lblReceiptPeriod: TTntLabel
     Left = 8
     Top = 8
     Width = 118
     Height = 13
     Caption = 'Receipt period, seconds:'
   end
-  object lblReceiptsPrinted_: TLabel
+  object lblReceiptsPrinted_: TTntLabel
     Left = 8
     Top = 104
     Width = 80
     Height = 13
     Caption = 'Receipts printed:'
   end
-  object lblReceiptsPrinted: TLabel
+  object lblReceiptsPrinted: TTntLabel
     Left = 104
     Top = 104
     Width = 6
     Height = 13
     Caption = '0'
   end
-  object lblErrorCount_: TLabel
+  object lblErrorCount_: TTntLabel
     Left = 8
     Top = 128
     Width = 55
     Height = 13
     Caption = 'Error count:'
   end
-  object lblErrorCount: TLabel
+  object lblErrorCount: TTntLabel
     Left = 104
     Top = 128
     Width = 6
     Height = 13
     Caption = '0'
   end
-  object lblReceiptItemsCount: TLabel
+  object lblReceiptItemsCount: TTntLabel
     Left = 8
     Top = 40
     Width = 97
     Height = 13
     Caption = 'Receipt items count:'
   end
-  object btnStart: TButton
+  object btnStart: TTntButton
     Left = 288
     Top = 8
     Width = 75
@@ -80,7 +80,7 @@ object fmFptrTest: TfmFptrTest
     TabOrder = 0
     Value = 5
   end
-  object chbStopOnError: TCheckBox
+  object chbStopOnError: TTntCheckBox
     Left = 8
     Top = 72
     Width = 233
@@ -88,7 +88,7 @@ object fmFptrTest: TfmFptrTest
     Caption = 'Stop on error'
     TabOrder = 2
   end
-  object btnStop: TButton
+  object btnStop: TTntButton
     Left = 288
     Top = 40
     Width = 75
@@ -99,7 +99,7 @@ object fmFptrTest: TfmFptrTest
     TabOrder = 5
     OnClick = btnStopClick
   end
-  object memMessages: TMemo
+  object memMessages: TTntMemo
     Left = 8
     Top = 152
     Width = 265

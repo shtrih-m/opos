@@ -6,34 +6,36 @@ uses
   // VCL
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, Registry, ExtCtrls,
+  // Tnt
+  TntStdCtrls, TntSysUtils,
   // This
   untPages, Opos, Oposhi, OposUtils, OposFiscalPrinter, OposDevice;
 
 type
   TfmFptrGeneral = class(TPage)
-    lblDeviceName: TLabel;
-    btnOpen: TButton;
-    btnClose: TButton;
-    btnRelease: TButton;
-    btnClaim: TButton;
-    edtTimeout: TEdit;
-    lblTimeout: TLabel;
-    btnClearError: TButton;
-    btnResetPrinter: TButton;
-    lblOpenResult: TLabel;
-    edtOpenResult: TEdit;
-    btnUpdatePrinterDevice: TButton;
-    cbPrinterDeviceName: TComboBox;
-    lblLevel: TLabel;
-    lblCheckHealthText: TLabel;
-    cbLevel: TComboBox;
-    btnCheckHealth: TButton;
-    CheckHealthText: TMemo;
+    lblDeviceName: TTntLabel;
+    btnOpen: TTntButton;
+    btnClose: TTntButton;
+    btnRelease: TTntButton;
+    btnClaim: TTntButton;
+    edtTimeout: TTntEdit;
+    lblTimeout: TTntLabel;
+    btnClearError: TTntButton;
+    btnResetPrinter: TTntButton;
+    lblOpenResult: TTntLabel;
+    edtOpenResult: TTntEdit;
+    btnUpdatePrinterDevice: TTntButton;
+    cbPrinterDeviceName: TTntComboBox;
+    lblLevel: TTntLabel;
+    lblCheckHealthText: TTntLabel;
+    cbLevel: TTntComboBox;
+    btnCheckHealth: TTntButton;
+    CheckHealthText: TTntMemo;
     Bevel1: TBevel;
-    lblDeviceEnabled: TLabel;
-    edtDeviceEnabled: TEdit;
-    btnEnable: TButton;
-    btnDisable: TButton;
+    lblDeviceEnabled: TTntLabel;
+    edtDeviceEnabled: TTntEdit;
+    btnEnable: TTntButton;
+    btnDisable: TTntButton;
     procedure btnOpenClick(Sender: TObject);
     procedure btnCloseClick(Sender: TObject);
     procedure btnClaimClick(Sender: TObject);

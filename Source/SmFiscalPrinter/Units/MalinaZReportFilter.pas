@@ -5,6 +5,8 @@ interface
 uses
   // VCL
   SysUtils,
+  // Tnt
+  TntSysUtils,
   // This
   FiscalPrinterImpl, LogFile, MalinaCard, PrinterTypes, FiscalPrinterTypes,
   NonfiscalDoc, FptrFilter, CustomReceipt, MalinaParams, PrinterParameters,
@@ -192,7 +194,7 @@ var
   Line1: string;
   Line2: string;
 begin
-  Line1 := Format('%.4d %s', [Count, Text]);
+  Line1 := Tnt_WideFormat('%.4d %s', [Count, Text]);
   Line2 := '=' + AmountToStr(Totals/100);
   Printer.PrintLines(Line1, Line2);
 end;

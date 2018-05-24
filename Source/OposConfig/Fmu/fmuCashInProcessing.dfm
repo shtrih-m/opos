@@ -19,14 +19,14 @@ object fmCashInProcessing: TfmCashInProcessing
     102)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblCashInTextPattern: TLabel
+  object lblCashInTextPattern: TTntLabel
     Left = 16
     Top = 48
     Width = 92
     Height = 13
     Caption = 'CashIn text pattern:'
   end
-  object chbCashInProcessingEnabled: TCheckBox
+  object chbCashInProcessingEnabled: TTntCheckBox
     Left = 8
     Top = 8
     Width = 289

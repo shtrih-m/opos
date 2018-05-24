@@ -6,6 +6,8 @@ uses
   // VCL
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, ExtCtrls, Spin, SyncObjs, ComObj, ActiveX, Registry,
+  // Tnt
+  TntStdCtrls, TntSysUtils, TntClasses, 
   // This
   untPages, Opos, OposFptr, Oposhi, OposUtils,
   OposFiscalPrinter, NotifyThread, SMFiscalPrinter, OposDevice;
@@ -14,23 +16,23 @@ type
   { TfmFptrTest2 }
 
   TfmFptrTest2 = class(TPage)
-    btnStart: TButton;
-    chbStopOnError: TCheckBox;
-    btnStop: TButton;
+    btnStart: TTntButton;
+    chbStopOnError: TTntCheckBox;
+    btnStop: TTntButton;
     Timer: TTimer;
-    lblErrorCount_: TLabel;
-    lblErrorCount: TLabel;
-    memMessages: TMemo;
-    cbPrinterDeviceName: TComboBox;
-    lblDeviceName: TLabel;
-    lblPrinterTestCount_: TLabel;
-    lblPrinterTestCount: TLabel;
+    lblErrorCount_: TTntLabel;
+    lblErrorCount: TTntLabel;
+    memMessages: TTntMemo;
+    cbPrinterDeviceName: TTntComboBox;
+    lblDeviceName: TTntLabel;
+    lblPrinterTestCount_: TTntLabel;
+    lblPrinterTestCount: TTntLabel;
     procedure btnStartClick(Sender: TObject);
     procedure btnStopClick(Sender: TObject);
     procedure TimerTimer(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
-    FMessages: TStrings;
+    FMessages: TTntStrings;
     FStopFlag: Boolean;
     FErrorCount: Integer;
     FPrinterTestCount: Integer;
@@ -62,7 +64,7 @@ implementation
 constructor TfmFptrTest2.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
-  FMessages := TStringList.Create;
+  FMessages := TTntStringList.Create;
   FLock := TCriticalsection.Create;
 end;
 

@@ -16,28 +16,28 @@ object fmFptrUnipos: TfmFptrUnipos
   Position = poScreenCenter
   PixelsPerInch = 96
   TextHeight = 13
-  object gbUniposFilter: TGroupBox
+  object gbUniposFilter: TTntGroupBox
     Left = 0
     Top = 0
     Width = 473
     Height = 129
     Caption = 'Unipos filter'
     TabOrder = 0
-    object lblUniposTrailerFont: TLabel
+    object lblUniposTrailerFont: TTntLabel
       Left = 32
       Top = 80
       Width = 91
       Height = 13
       Caption = 'Trailer font number:'
     end
-    object lblUniposHeaderFont: TLabel
+    object lblUniposHeaderFont: TTntLabel
       Left = 32
       Top = 52
       Width = 97
       Height = 13
       Caption = 'Header font number:'
     end
-    object cbUniposTrailerFont: TComboBox
+    object cbUniposTrailerFont: TTntComboBox
       Left = 144
       Top = 80
       Width = 81
@@ -55,7 +55,7 @@ object fmFptrUnipos: TfmFptrUnipos
         '6'
         '7')
     end
-    object cbUniposHeaderFont: TComboBox
+    object cbUniposHeaderFont: TTntComboBox
       Left = 144
       Top = 48
       Width = 81
@@ -73,7 +73,7 @@ object fmFptrUnipos: TfmFptrUnipos
         '6'
         '7')
     end
-    object chbUniposFilterEnabled: TCheckBox
+    object chbUniposFilterEnabled: TTntCheckBox
       Left = 16
       Top = 24
       Width = 121
@@ -82,35 +82,35 @@ object fmFptrUnipos: TfmFptrUnipos
       TabOrder = 0
     end
   end
-  object gbUniposPrinter: TGroupBox
+  object gbUniposPrinter: TTntGroupBox
     Left = 0
     Top = 136
     Width = 473
     Height = 145
     Caption = 'Unipos printer'
     TabOrder = 1
-    object lblUniposTextFont: TLabel
+    object lblUniposTextFont: TTntLabel
       Left = 40
       Top = 52
       Width = 83
       Height = 13
       Caption = 'Text font number:'
     end
-    object lblUniposPollPeriod: TLabel
+    object lblUniposPollPeriod: TTntLabel
       Left = 40
       Top = 80
       Width = 70
       Height = 13
       Caption = 'File poll period:'
     end
-    object Label1: TLabel
+    object Label1: TTntLabel
       Left = 40
       Top = 112
       Width = 48
       Height = 13
       Caption = 'Files path:'
     end
-    object cbUniposTextFont: TComboBox
+    object cbUniposTextFont: TTntComboBox
       Left = 144
       Top = 48
       Width = 81
@@ -128,7 +128,7 @@ object fmFptrUnipos: TfmFptrUnipos
         '6'
         '7')
     end
-    object edtUniposPollPeriod: TEdit
+    object edtUniposPollPeriod: TTntEdit
       Left = 144
       Top = 80
       Width = 65
@@ -145,7 +145,7 @@ object fmFptrUnipos: TfmFptrUnipos
       Max = 32767
       TabOrder = 3
     end
-    object chbUniposPrinterEnabled: TCheckBox
+    object chbUniposPrinterEnabled: TTntCheckBox
       Left = 16
       Top = 24
       Width = 225
@@ -153,7 +153,7 @@ object fmFptrUnipos: TfmFptrUnipos
       Caption = 'Unipos printer enabled'
       TabOrder = 0
     end
-    object edtUniposFilesPath: TEdit
+    object edtUniposFilesPath: TTntEdit
       Left = 144
       Top = 112
       Width = 313
@@ -162,35 +162,35 @@ object fmFptrUnipos: TfmFptrUnipos
       Text = 'edtUniposFilesPath'
     end
   end
-  object gbAntiFroudFilter: TGroupBox
+  object gbAntiFroudFilter: TTntGroupBox
     Left = 0
     Top = 288
     Width = 473
     Height = 241
     Caption = 'Anti froud filter'
     TabOrder = 2
-    object lblUniposUniqueItemPrefix: TLabel
+    object lblUniposUniqueItemPrefix: TTntLabel
       Left = 16
       Top = 48
       Width = 87
       Height = 13
       Caption = 'Unique item prefix:'
     end
-    object lblUniposSalesErrorText: TLabel
+    object lblUniposSalesErrorText: TTntLabel
       Left = 16
       Top = 80
       Width = 108
       Height = 13
       Caption = 'Sales receipt error text:'
     end
-    object lblUniposRefundErrorText: TLabel
+    object lblUniposRefundErrorText: TTntLabel
       Left = 16
       Top = 160
       Width = 117
       Height = 13
       Caption = 'Refund receipt error text:'
     end
-    object chbAntiFroudFilterEnabled: TCheckBox
+    object chbAntiFroudFilterEnabled: TTntCheckBox
       Left = 16
       Top = 24
       Width = 297
@@ -198,7 +198,7 @@ object fmFptrUnipos: TfmFptrUnipos
       Caption = 'Unipos anti froud filter enabled'
       TabOrder = 0
     end
-    object edtUniposUniqueItemPrefix: TEdit
+    object edtUniposUniqueItemPrefix: TTntEdit
       Left = 120
       Top = 48
       Width = 121
@@ -206,7 +206,7 @@ object fmFptrUnipos: TfmFptrUnipos
       TabOrder = 1
       Text = '+++'
     end
-    object memUniposSalesErrorText: TMemo
+    object memUniposSalesErrorText: TTntMemo
       Left = 16
       Top = 96
       Width = 441
@@ -219,7 +219,7 @@ object fmFptrUnipos: TfmFptrUnipos
       ParentFont = False
       TabOrder = 2
     end
-    object memUniposRefundErrorText: TMemo
+    object memUniposRefundErrorText: TTntMemo
       Left = 16
       Top = 176
       Width = 441

@@ -18,35 +18,35 @@ object fmFptrRecPackageAdjustVoid: TfmFptrRecPackageAdjustVoid
     270)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblAdjustmentType: TLabel
+  object lblAdjustmentType: TTntLabel
     Left = 8
     Top = 32
     Width = 79
     Height = 13
     Caption = 'AdjustmentType:'
   end
-  object lblVatAdjustment: TLabel
+  object lblVatAdjustment: TTntLabel
     Left = 8
     Top = 80
     Width = 71
     Height = 13
     Caption = 'VatAdjustment:'
   end
-  object Label1: TLabel
+  object Label1: TTntLabel
     Left = 8
     Top = 56
     Width = 79
     Height = 13
     Caption = 'AdjustmentType:'
   end
-  object lblPreLine: TLabel
+  object lblPreLine: TTntLabel
     Left = 8
     Top = 8
     Width = 39
     Height = 13
     Caption = 'PreLine:'
   end
-  object btnExecute: TButton
+  object btnExecute: TTntButton
     Left = 224
     Top = 112
     Width = 161
@@ -56,7 +56,7 @@ object fmFptrRecPackageAdjustVoid: TfmFptrRecPackageAdjustVoid
     TabOrder = 4
     OnClick = btnExecuteClick
   end
-  object edtAdjustmentType: TEdit
+  object edtAdjustmentType: TTntEdit
     Left = 96
     Top = 32
     Width = 289
@@ -65,7 +65,7 @@ object fmFptrRecPackageAdjustVoid: TfmFptrRecPackageAdjustVoid
     TabOrder = 1
     Text = '1'
   end
-  object edtVatAdjustment: TEdit
+  object edtVatAdjustment: TTntEdit
     Left = 96
     Top = 80
     Width = 289
@@ -74,7 +74,7 @@ object fmFptrRecPackageAdjustVoid: TfmFptrRecPackageAdjustVoid
     TabOrder = 3
     Text = '0'
   end
-  object cbAdjustmentType: TComboBox
+  object cbAdjustmentType: TTntComboBox
     Left = 96
     Top = 56
     Width = 289
@@ -88,7 +88,7 @@ object fmFptrRecPackageAdjustVoid: TfmFptrRecPackageAdjustVoid
       'FPTR_AT_DISCOUNT'
       'FPTR_AT_SURCHARGE')
   end
-  object edtPreLine: TEdit
+  object edtPreLine: TTntEdit
     Left = 96
     Top = 8
     Width = 289

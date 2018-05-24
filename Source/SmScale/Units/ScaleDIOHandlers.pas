@@ -7,6 +7,8 @@ uses
   SysUtils, Graphics, Extctrls,
   // Opos
   Opos, OposException,
+  // Tnt
+  TntSysUtils,
   // This
   DIOHandler, ScaleDirectIO, CommandDef, M5OposDevice,
   CommandParam, BinStream, StringUtils, ScaleParameters;
@@ -174,7 +176,7 @@ begin
       pString := Command.OutParams.AsText;
     end else
     begin
-      pString := Format('%d;%s', [ResultCode, Driver.GetErrorText(ResultCode)]);
+      pString := Tnt_WideFormat('%d;%s', [ResultCode, Driver.GetErrorText(ResultCode)]);
     end;
   finally
     Stream.Free;

@@ -3,7 +3,9 @@ unit BStrUtil;
 interface
 
 uses
-  Windows, SysUtils, Classes;
+  Windows, SysUtils, Classes,
+  // Tnt
+  TntSysUtils, TntClasses;
 
 type
   TSetOfChar = set of Char;
@@ -36,10 +38,10 @@ function HasSymbols(const S: String; const Symbols: TSetOfChar): Boolean;
 // Get k-index parameter of string type
 function GetStringK(const S: String; K: Integer; Delimiters: TSetOfChar): String;
 procedure StringsSetText(const Text: String; Delimiters: TSetOfChar;
-  Strings: TStrings);
+  Strings: TTntStrings);
 { StringsToString }
 // AppendStr(Result, Strings[I]);
-function StringsToString(Strings: TStrings): String;
+function StringsToString(Strings: TTntStrings): String;
 
 function RemoveFirstBkSlash(const Name: String): String;
 function RemoveLastBkSlash(const Name: String): String;
@@ -66,10 +68,10 @@ function RemoveFirstT(const ClassName: String): String;
 function ControlToChar(const Value: String): String;
 function CharToControl(const Value: String): String;
 
-procedure StringsAssignItems(Strings: TStrings;
+procedure StringsAssignItems(Strings: TTntStrings;
   const Items: array of string);
 
-procedure StringsAssignEntries(Strings: TStrings;
+procedure StringsAssignEntries(Strings: TTntStrings;
   Entries: array of TEntryCodeToName; EnabledCodes: TSetOfByte);
 
 procedure SkipBlanks(const S: String; var P: Integer);
@@ -136,7 +138,7 @@ begin
 end;
 
 procedure StringsSetText(const Text: String; Delimiters: TSetOfChar;
-  Strings: TStrings);
+  Strings: TTntStrings);
 var
   P, Start: PChar;
   S: string;
@@ -160,7 +162,7 @@ begin
   end;
 end;
 
-function StringsToString(Strings: TStrings): String;
+function StringsToString(Strings: TTntStrings): String;
 var
   I: Integer;
 begin
@@ -277,7 +279,7 @@ begin
     if Value[I] < chrZero then
     begin
       if (I > 1) and (Value[I-1] >= chrZero) then Result := Result + '''';
-      Result := Result + Format('#%.2d', [Ord(Value[I])])
+      Result := Result + Tnt_WideFormat('#%.2d', [Ord(Value[I])])
     end
     else
     begin
@@ -459,7 +461,7 @@ begin
   end;
 end;
 
-procedure StringsAssignEntries(Strings: TStrings;
+procedure StringsAssignEntries(Strings: TTntStrings;
   Entries: array of TEntryCodeToName; EnabledCodes: TSetOfByte);
 var
   I: Integer;
@@ -482,7 +484,7 @@ begin
   end;
 end;
 
-procedure StringsAssignItems(Strings: TStrings;
+procedure StringsAssignItems(Strings: TTntStrings;
   const Items: array of string);
 var
   I: Integer;

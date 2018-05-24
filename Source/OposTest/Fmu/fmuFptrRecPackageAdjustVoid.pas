@@ -6,6 +6,8 @@ uses
   // VCL
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls,
+  // Tnt
+  TntStdCtrls, TntRegistry,
   // This
   untPages, OposFiscalPrinter;
 
@@ -13,15 +15,15 @@ type
   { TfmPAVoid }
   
   TfmFptrRecPackageAdjustVoid = class(TPage)
-    btnExecute: TButton;
-    lblAdjustmentType: TLabel;
-    edtAdjustmentType: TEdit;
-    lblVatAdjustment: TLabel;
-    edtVatAdjustment: TEdit;
-    cbAdjustmentType: TComboBox;
-    Label1: TLabel;
-    lblPreLine: TLabel;
-    edtPreLine: TEdit;
+    btnExecute: TTntButton;
+    lblAdjustmentType: TTntLabel;
+    edtAdjustmentType: TTntEdit;
+    lblVatAdjustment: TTntLabel;
+    edtVatAdjustment: TTntEdit;
+    cbAdjustmentType: TTntComboBox;
+    Label1: TTntLabel;
+    lblPreLine: TTntLabel;
+    edtPreLine: TTntEdit;
     procedure btnExecuteClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure cbAdjustmentTypeChange(Sender: TObject);

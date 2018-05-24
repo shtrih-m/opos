@@ -5,6 +5,8 @@ interface
 uses
   // VCL
   Windows, SysUtils, SyncObjs,
+  // Tnt
+  TntSysUtils,
   // This
   StringUtils, ByteUtils, ScaleTypes, ScaleFrame,
   CommunicationError, DriverError, M5ScaleTypes,
@@ -179,7 +181,7 @@ begin
   Lock;
   try
     CommandCode := Ord(Command[1]);
-    CommandText := Format('%.2xh, %s', [CommandCode, GetCommandText(CommandCode)]);
+    CommandText := Tnt_WideFormat('%.2xh, %s', [CommandCode, GetCommandText(CommandCode)]);
     Logger.Debug(CommandText);
 
     ODS('-> ' + StrToHex(Command));
@@ -236,7 +238,7 @@ end;
 
 function TM5ScaleDevice.GetFullErrorText(Code: Integer): string;
 begin
-  Result := Format('(%d), %s', [Code, GetErrorText(Code)]);
+  Result := Tnt_WideFormat('(%d), %s', [Code, GetErrorText(Code)]);
 end;
 
 function TM5ScaleDevice.GetErrorText(Code: Integer): string;

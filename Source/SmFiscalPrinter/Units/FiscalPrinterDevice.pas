@@ -8,6 +8,8 @@ uses
   // 3'd
   // to enable loading this image formats
   JvGIF, JvPCX, PngImage, uZintBarcode, uZintInterface,
+  // Tnt
+  TntClasses,
   // Opos
   OposException, OposFptr, OposFptrHi, OposUtils, OposFptrUtils,
   // This
@@ -20,7 +22,7 @@ uses
   PrinterParameters, DirectIOAPI, FileUtils,
   PrinterDeviceFilter, TLV, CsvPrinterTableFormat, MalinaParams, DriverContext,
   PrinterFonts, TLVParser, TLVTags, GS1Barcode, EKMClient, WException,
-  gnugettext;
+  TntSysUtils, gnugettext;
 
 type
   { TFiscalPrinterDevice }
@@ -94,7 +96,7 @@ type
     function AlignLine(const Line: string; PrintWidth: Integer;
       Alignment: TTextAlignment = taLeft): string;
     procedure SplitText(const Text: string; Font: Integer;
-      Lines: TStrings);
+      Lines: TTntStrings);
     function ValidFieldValue(const FieldInfo: TPrinterFieldRec;
       const FieldValue: string): Boolean;
     function GetStatistics: TFiscalPrinterStatistics;
@@ -905,7 +907,7 @@ begin
     if ResultCode <> 0 then Break;
 
 
-    Text := Format('// %d, %s', [TableRec.Number, TableRec.Name]);
+    Text := Tnt_WideFormat('// %d, %s', [TableRec.Number, TableRec.Name]);
     OutputDebugString(PChar(Text));
 
     for RowNumber := 1 to TableRec.RowCount do
@@ -927,7 +929,7 @@ begin
         ParameterRec.DefValue := FieldValue;
         Parameters.Add(ParameterRec);
 
-        Text := Format('PARAMID_%d = %d; // %d,%d,%d %s, "%s"', [
+        Text := Tnt_WideFormat('PARAMID_%d = %d; // %d,%d,%d %s, "%s"', [
           ParameterID, ParameterID, TableNumber, RowNumber, FieldNumber,
           FieldRec.Name, FieldValue]);
 
@@ -5067,11 +5069,11 @@ procedure TFiscalPrinterDevice.PrintLineFont(const Data: TTextRec);
 var
   i: Integer;
   Line: string;
-  Lines: TStrings;
+  Lines: TTntStrings;
   PrintWidth: Integer;
 begin
   PrintWidth := GetPrintWidth(Data.Font);
-  Lines := TStringList.Create;
+  Lines := TTntStringList.Create;
   try
     if ProcessLine(Data.Text) then Exit;
 
@@ -5098,7 +5100,7 @@ begin
 end;
 
 procedure TFiscalPrinterDevice.SplitText(const Text: string; Font: Integer;
-  Lines: TStrings);
+  Lines: TTntStrings);
 var
   Line: string;
   AText: string;
@@ -5146,13 +5148,13 @@ var
   i: Integer;
   Text: string;
   Line: TTextRec;
-  Lines: TStrings;
+  Lines: TTntStrings;
 begin
   Line := Data;
   Text := Data.Text;
   if Text = '' then Text := ' ';
 
-  Lines := TStringList.Create;
+  Lines := TTntStringList.Create;
   try
     Lines.Text := Text;
     for i := 0 to Lines.Count-1 do
@@ -5382,10 +5384,10 @@ end;
 function TFiscalPrinterDevice.ReadEJDocumentText(MACNumber: Integer): string;
 var
   Line: string;
-  Lines: TStrings;
+  Lines: TTntStrings;
 begin
   Result := '';
-  Lines := TStringList.Create;
+  Lines := TTntStringList.Create;
   try
     if EJReportStop <> 0 then Exit;
     if ReadEJDocument(MACNumber, Line) <> 0 then Exit;
@@ -5406,13 +5408,13 @@ end;
 function TFiscalPrinterDevice.ParseEJDocument(const Text: string): TEJDocument;
 var
   Line: string;
-  Lines: TStrings;
+  Lines: TTntStrings;
 begin
   Result.Text := Text;
   Result.MACValue := 0;
   Result.MACNumber := 0;
 
-  Lines := TStringList.Create;
+  Lines := TTntStringList.Create;
   try
     Lines.Text := Text;
     if Lines.Count > 0 then
@@ -5430,9 +5432,9 @@ function TFiscalPrinterDevice.ReadEJActivationText(MaxCount: Integer): string;
 var
   i: Integer;
   Line: string;
-  Lines: TStrings;
+  Lines: TTntStrings;
 begin
-  Lines := TStringList.Create;
+  Lines := TTntStringList.Create;
   try
     if EJReportStop <> 0 then Exit;
     if ReadEJActivation(Line) <> 0 then Exit;
@@ -5939,7 +5941,7 @@ procedure TFiscalPrinterDevice.PrintQRCode3(Barcode: TBarcodeRec);
     Bits: TBits;
     i, j, k: Integer;
     Line: string;
-    Lines: TStrings;
+    Lines: TTntStrings;
     LineLength: Integer;
     CharLine: Integer;
   begin
@@ -5947,7 +5949,7 @@ procedure TFiscalPrinterDevice.PrintQRCode3(Barcode: TBarcodeRec);
 
     LineLength := 35;
     Bits := TBits.Create;
-    Lines := TStringList.Create;
+    Lines := TTntStringList.Create;
     try
       while Length(URL) > 0 do
       begin
@@ -7991,14 +7993,14 @@ var
   DeviceName: string;
   FileName: string;
   ResultCode: Integer;
-  FileNames: TStrings;
+  FileNames: TTntStrings;
   Tables: TPrinterTables;
   Reader: TCsvPrinterTableFormat;
 begin
   Logger.Debug('LoadTables("' + Path + '")');
 
   DeviceName := GetDeviceMetrics.DeviceName;
-  FileNames := TStringList.Create;
+  FileNames := TTntStringList.Create;
   Reader := TCsvPrinterTableFormat.Create(nil);
   Tables := TPrinterTables.Create;
   try
@@ -8666,7 +8668,7 @@ begin
       Data := TTLVTag.Int2ValueTLV(1162, 2) + TTLVTag.Int2ValueTLV(Length(Data), 2) + Data;
     end;
   else
-    raiseException('Invalid MarkType value');
+    raiseException(_('Invalid MarkType value'));
   end;
   Result := FSSendTLVOperation(Data);
 end;
@@ -8677,7 +8679,7 @@ var
   Answer: string;
 begin
   if Length(Data) > 249 then
-    raiseException('TLV data length too big');
+    raiseException(_('TLV data length too big'));
 
   Command := #$FF#$4D + IntToBin(FSysPassword, 4) + Copy(Data, 1, 249);
   Result := ExecuteData(Command, Answer);

@@ -17,49 +17,49 @@ object fmPrintRecVoidItem: TfmPrintRecVoidItem
     270)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblDescription: TLabel
+  object lblDescription: TTntLabel
     Left = 8
     Top = 8
     Width = 56
     Height = 13
     Caption = 'Description:'
   end
-  object lblAmount: TLabel
+  object lblAmount: TTntLabel
     Left = 8
     Top = 32
     Width = 39
     Height = 13
     Caption = 'Amount:'
   end
-  object lblQuantity: TLabel
+  object lblQuantity: TTntLabel
     Left = 8
     Top = 56
     Width = 42
     Height = 13
     Caption = 'Quantity:'
   end
-  object lblVatInfo: TLabel
+  object lblVatInfo: TTntLabel
     Left = 8
     Top = 128
     Width = 37
     Height = 13
     Caption = 'VatInfo:'
   end
-  object lblAdjustmentType: TLabel
+  object lblAdjustmentType: TTntLabel
     Left = 8
     Top = 80
     Width = 79
     Height = 13
     Caption = 'AdjustmentType:'
   end
-  object lblAdjustment: TLabel
+  object lblAdjustment: TTntLabel
     Left = 8
     Top = 104
     Width = 55
     Height = 13
     Caption = 'Adjustment:'
   end
-  object btnExecute: TButton
+  object btnExecute: TTntButton
     Left = 264
     Top = 160
     Width = 121
@@ -69,7 +69,7 @@ object fmPrintRecVoidItem: TfmPrintRecVoidItem
     TabOrder = 6
     OnClick = btnExecuteClick
   end
-  object edtDescription: TEdit
+  object edtDescription: TTntEdit
     Left = 96
     Top = 8
     Width = 289
@@ -78,7 +78,7 @@ object fmPrintRecVoidItem: TfmPrintRecVoidItem
     TabOrder = 0
     Text = 'Method printRecVoidItem'
   end
-  object edtAmount: TEdit
+  object edtAmount: TTntEdit
     Left = 96
     Top = 32
     Width = 289
@@ -87,7 +87,7 @@ object fmPrintRecVoidItem: TfmPrintRecVoidItem
     TabOrder = 1
     Text = '100'
   end
-  object edtQuantity: TEdit
+  object edtQuantity: TTntEdit
     Left = 96
     Top = 56
     Width = 289
@@ -96,7 +96,7 @@ object fmPrintRecVoidItem: TfmPrintRecVoidItem
     TabOrder = 2
     Text = '1000'
   end
-  object edtVatInfo: TEdit
+  object edtVatInfo: TTntEdit
     Left = 96
     Top = 128
     Width = 289
@@ -105,7 +105,7 @@ object fmPrintRecVoidItem: TfmPrintRecVoidItem
     TabOrder = 5
     Text = '0'
   end
-  object edtAdjustmentType: TEdit
+  object edtAdjustmentType: TTntEdit
     Left = 96
     Top = 80
     Width = 289
@@ -114,7 +114,7 @@ object fmPrintRecVoidItem: TfmPrintRecVoidItem
     TabOrder = 3
     Text = '0'
   end
-  object edtAdjustment: TEdit
+  object edtAdjustment: TTntEdit
     Left = 96
     Top = 104
     Width = 289

@@ -14,21 +14,21 @@ object fmFptrBarcode: TfmFptrBarcode
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
-  object lblBarLinePrintDelay: TLabel
+  object lblBarLinePrintDelay: TTntLabel
     Left = 8
     Top = 16
     Width = 108
     Height = 13
     Caption = 'Bar line print delay, ms:'
   end
-  object lblBarLineByteMode: TLabel
+  object lblBarLineByteMode: TTntLabel
     Left = 8
     Top = 48
     Width = 67
     Height = 13
     Caption = 'Bar line mode:'
   end
-  object Label1: TLabel
+  object Label1: TTntLabel
     Left = 8
     Top = 80
     Width = 226
@@ -42,56 +42,56 @@ object fmFptrBarcode: TfmFptrBarcode
     Height = 17
     Shape = bsTopLine
   end
-  object lblBarcodePrefix: TLabel
+  object lblBarcodePrefix: TTntLabel
     Left = 8
     Top = 120
     Width = 71
     Height = 13
     Caption = 'Barcode prefix:'
   end
-  object lblBarcodeHeight: TLabel
+  object lblBarcodeHeight: TTntLabel
     Left = 8
     Top = 152
     Width = 75
     Height = 13
     Caption = 'Barcode height:'
   end
-  object lblBarcodeType: TLabel
+  object lblBarcodeType: TTntLabel
     Left = 8
     Top = 184
     Width = 66
     Height = 13
     Caption = 'Barcode type:'
   end
-  object lblBarcodeModuleWidth: TLabel
+  object lblBarcodeModuleWidth: TTntLabel
     Left = 8
     Top = 216
     Width = 108
     Height = 13
     Caption = 'Barcode module width:'
   end
-  object lblBarcodeAlignment: TLabel
+  object lblBarcodeAlignment: TTntLabel
     Left = 8
     Top = 248
     Width = 91
     Height = 13
     Caption = 'Barcode alignment:'
   end
-  object lblBarcodeParameter1: TLabel
+  object lblBarcodeParameter1: TTntLabel
     Left = 8
     Top = 280
     Width = 102
     Height = 13
     Caption = 'Barcode parameter 1:'
   end
-  object lblBarcodeParameter2: TLabel
+  object lblBarcodeParameter2: TTntLabel
     Left = 8
     Top = 312
     Width = 102
     Height = 13
     Caption = 'Barcode parameter 2:'
   end
-  object lblBarcodeParameter3: TLabel
+  object lblBarcodeParameter3: TTntLabel
     Left = 8
     Top = 344
     Width = 102
@@ -105,7 +105,7 @@ object fmFptrBarcode: TfmFptrBarcode
     Height = 17
     Shape = bsTopLine
   end
-  object cbBarLineByteMode: TComboBox
+  object cbBarLineByteMode: TTntComboBox
     Left = 152
     Top = 48
     Width = 129
@@ -128,7 +128,7 @@ object fmFptrBarcode: TfmFptrBarcode
     TabOrder = 0
     Value = 0
   end
-  object edtBarcodePrefix: TEdit
+  object edtBarcodePrefix: TTntEdit
     Left = 104
     Top = 120
     Width = 177
@@ -146,7 +146,7 @@ object fmFptrBarcode: TfmFptrBarcode
     TabOrder = 3
     Value = 0
   end
-  object cbBarcodeType: TComboBox
+  object cbBarcodeType: TTntComboBox
     Left = 104
     Top = 184
     Width = 177
@@ -169,7 +169,7 @@ object fmFptrBarcode: TfmFptrBarcode
     TabOrder = 5
     Value = 0
   end
-  object cbBarcodeAlignment: TComboBox
+  object cbBarcodeAlignment: TTntComboBox
     Left = 128
     Top = 248
     Width = 153

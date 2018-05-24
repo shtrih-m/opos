@@ -7,6 +7,8 @@ uses
   StdCtrls, Controls, Classes, ComObj, SysUtils, Spin, ExtCtrls,
   // 3'd
   SynMemo, SynEdit,
+  // Tnt
+  TntClasses, TntStdCtrls, TntRegistry,
   // This
   PrinterParameters, FiscalPrinterDevice, FptrTypes, DirectIOAPI;
 
@@ -15,9 +17,9 @@ type
   { TfmFiscalStorage }
 
   TfmFiscalStorage = class(TFptrPage)
-    chbFSBarcodeEnabled: TCheckBox;
-    chbFSAddressEnabled: TCheckBox;
-    chbFSUpdatePrice: TCheckBox;
+    chbFSBarcodeEnabled: TTntCheckBox;
+    chbFSAddressEnabled: TTntCheckBox;
+    chbFSUpdatePrice: TTntCheckBox;
     procedure PageChange(Sender: TObject);
   public
     procedure UpdatePage; override;
@@ -48,3 +50,4 @@ begin
 end;
 
 end.
+

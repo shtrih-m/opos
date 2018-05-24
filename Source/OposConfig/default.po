@@ -1,0 +1,1889 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2018-05-24 14:48\n"
+"PO-Revision-Date: 2018-05-24 16:31+0300\n"
+"Last-Translator: Vitaly Kravtsov <kravtsov@shtrih-m.ru>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.6\n"
+"Language-Team: \n"
+"Language: ru\n"
+
+#. fmCashDrawer..Caption
+#: Fmu/fmuCashDrawer.dfm:6
+msgid "Cash drawer"
+msgstr "Денежный ящик"
+
+#. fmCashDrawer..Font.Name
+#. fmCashInProcessing..Font.Name
+#. fmDevice..Font.Name
+#. fmFiscalStorage..Font.Name
+#. fmFptrBarcode..Font.Name
+#. fmFptrConnection..Font.Name
+#. fmFptrFuel..Font.Name
+#. fmFptrHeader..Font.Name
+#. fmFptrJournal..Font.Name
+#. fmFptrLog..Font.Name
+#. fmFptrLogo..Font.Name
+#. fmFptrMalina..Font.Name
+#. fmFptrPawnTicket..Font.Name
+#. fmFptrPayType..Font.Name
+#. fmFptrReceipt..Font.Name
+#. fmFptrReplace..Font.Name
+#. fmFptrRetalix..Font.Name
+#. fmFptrTables..Font.Name
+#. fmFptrText..Font.Name
+#. fmFptrTrailer..Font.Name
+#. fmFptrUnipos..Font.Name
+#. fmFptrVatCode..Font.Name
+#. fmMain..Font.Name
+#. fmMarkChecker..Font.Name
+#. fmMiscParams..Font.Name
+#. fmPages..Font.Name
+#. fmRosneftAddText..Font.Name
+#. fmRosneftDiscountCard..Font.Name
+#. fmScaleGeneral..Font.Name
+#. fmScaleLog..Font.Name
+#. fmXReport..Font.Name
+#. fmZReport..Font.Name
+#: Fmu/fmuCashDrawer.dfm:13 Fmu/fmuCashInProcessing.dfm:13
+#: Fmu/fmuDevice.dfm:12 Fmu/fmuFiscalStorage.dfm:13
+#: Fmu/fmuFptrBarcode.dfm:11 Fmu/fmuFptrConnection.dfm:11
+#: Fmu/fmuFptrFuel.dfm:13 Fmu/fmuFptrHeader.dfm:13
+#: Fmu/fmuFptrJournal.dfm:13 Fmu/fmuFptrLog.dfm:13
+#: Fmu/fmuFptrLogo.dfm:13 Fmu/fmuFptrMalina.dfm:13
+#: Fmu/fmuFptrPawnTicket.dfm:13 Fmu/fmuFptrPayType.dfm:13
+#: Fmu/fmuFptrReceipt.dfm:11 Fmu/fmuFptrReplace.dfm:11
+#: Fmu/fmuFptrRetalix.dfm:13 Fmu/fmuFptrTables.dfm:11
+#: Fmu/fmuFptrText.dfm:13 Fmu/fmuFptrTrailer.dfm:13
+#: Fmu/fmuFptrUnipos.dfm:13 Fmu/fmuFptrVatCode.dfm:13
+#: Fmu/fmuMain.dfm:13 Fmu/fmuMarkChecker.dfm:14
+#: Fmu/fmuMiscParams.dfm:11 Fmu/fmuPages.dfm:14
+#: Fmu/fmuRosneftAddText.dfm:13 Fmu/fmuRosneftDiscountCard.dfm:13
+#: Fmu/fmuScaleGeneral.dfm:13 Fmu/fmuScaleLog.dfm:13
+#: Fmu/fmuXReport.dfm:11 Fmu/fmuZReport.dfm:11
+msgid "MS Sans Serif"
+msgstr ""
+
+#. fmCashDrawer..lblDrawerNumber..Caption
+#: Fmu/fmuCashDrawer.dfm:28
+msgid "Cash drawer number:"
+msgstr "Номер денежного ящика:"
+
+#. fmCashDrawer..lblFiscalPrinterDeviceName..Caption
+#: Fmu/fmuCashDrawer.dfm:35
+msgid "Fiscal printer DeviceName:"
+msgstr "Название устройства:"
+
+#. fmCashDrawer..lblCCOType..Caption
+#. fmScaleGeneral..gbParams..lblCCOType..Caption
+#: Fmu/fmuCashDrawer.dfm:42 Fmu/fmuScaleGeneral.dfm:84
+msgid "CCO type:"
+msgstr "Тип CCO( Common Controls Objects)"
+
+#. fmCashDrawer..cbFiscalPrinterDeviceName..Text
+#: Fmu/fmuCashDrawer.dfm:52
+msgid "cbFiscalPrinterDeviceName"
+msgstr ""
+
+#. fmCashDrawer..cbCCOType....Items.Strings
+#. fmFptrConnection..GroupBox1..cbCCOType....Items.Strings
+#. fmScaleGeneral..gbParams..cbCCOType....Items.Strings
+#: Fmu/fmuCashDrawer.dfm:64 Fmu/fmuFptrConnection.dfm:367
+#: Fmu/fmuScaleGeneral.dfm:198
+msgid "RCS CCO (default)"
+msgstr "RCS CCO (по умолчанию)"
+
+#. fmCashDrawer..cbCCOType....Items.Strings
+#. fmFptrConnection..GroupBox1..cbCCOType....Items.Strings
+#. fmScaleGeneral..gbParams..cbCCOType....Items.Strings
+#: Fmu/fmuCashDrawer.dfm:65 Fmu/fmuFptrConnection.dfm:368
+#: Fmu/fmuScaleGeneral.dfm:199
+msgid "NCR CCO"
+msgstr "NCR CCO`"
+
+#. fmCashDrawer..OpenDialog....Filter
+#. fmScaleGeneral..OpenDialog....Filter
+#: Fmu/fmuCashDrawer.dfm:81 Fmu/fmuScaleGeneral.dfm:225
+msgid ""
+"Log files (*.log)|*.log|Text files (*.txt)|*.txt|All files (*.*)|"
+"*.*"
+msgstr ""
+"Лог файлы (*.log)|*.log|Текстовые файлы (*.txt)|*.txt|Все файлы "
+"(*.*)|*.*"
+
+#. fmCashInProcessing..Caption
+#: Fmu/fmuCashInProcessing.dfm:6
+msgid "CashIn"
+msgstr "Внесение"
+
+#. fmCashInProcessing..lblCashInTextPattern..Caption
+#: Fmu/fmuCashInProcessing.dfm:27
+msgid "CashIn text pattern:"
+msgstr "Шаблон текста внесения"
+
+#. fmCashInProcessing..chbCashInProcessingEnabled..Caption
+#: Fmu/fmuCashInProcessing.dfm:34
+msgid "CashIn processing enabled"
+msgstr "Разрешены внесения"
+
+#. fmDevice..Caption
+#: Fmu/fmuDevice.dfm:5
+msgid "Device"
+msgstr "Устройство"
+
+#. fmDevice..lblDeviceName..Caption
+#: Fmu/fmuDevice.dfm:23
+msgid "Device name:"
+msgstr "Название устройства:"
+
+#. fmDevice..btnOK..Caption
+#. fmPages..btnOK..Caption
+#: Fmu/fmuDevice.dfm:30 Fmu/fmuPages.dfm:40
+msgid "OK"
+msgstr ""
+
+#. fmDevice..btnCancel..Caption
+#. fmPages..btnCancel..Caption
+#: Fmu/fmuDevice.dfm:41 Fmu/fmuPages.dfm:52
+msgid "Cancel"
+msgstr "Отмена"
+
+#. fmDevice..edtDeviceName..Text
+#: Fmu/fmuDevice.dfm:51
+msgid "edtDeviceName"
+msgstr ""
+
+#. fmFiscalStorage..Caption
+#: Fmu/fmuFiscalStorage.dfm:6
+msgid "Fiscal storage"
+msgstr "Фискальный  накопитель"
+
+#. fmFiscalStorage..chbFSBarcodeEnabled..Caption
+#: Fmu/fmuFiscalStorage.dfm:24
+msgid "Print QR code "
+msgstr "Печать QR кода"
+
+#. fmFiscalStorage..chbFSAddressEnabled..Caption
+#: Fmu/fmuFiscalStorage.dfm:32
+msgid "Customer EMail and phone query enabled"
+msgstr "Разрешен запрос адреса электронной почты и номера телефона"
+
+#. fmFiscalStorage..chbFSUpdatePrice..Caption
+#: Fmu/fmuFiscalStorage.dfm:40
+msgid "Update price on discounts"
+msgstr "Обновлять цену при скидках"
+
+#. fmFptrBarcode..Caption
+#: Fmu/fmuFptrBarcode.dfm:6
+msgid "Barcode"
+msgstr "Штрихкод"
+
+#. fmFptrBarcode..lblBarLinePrintDelay..Caption
+#: Fmu/fmuFptrBarcode.dfm:22
+msgid "Bar line print delay, ms:"
+msgstr "Задержка команды печати линии, мс. "
+
+#. fmFptrBarcode..lblBarLineByteMode..Caption
+#: Fmu/fmuFptrBarcode.dfm:29
+msgid "Bar line mode:"
+msgstr "Режим печати линии:"
+
+#. fmFptrBarcode..Label1..Caption
+#: Fmu/fmuFptrBarcode.dfm:36
+msgid "Bar line is used to print barcodes and separators"
+msgstr ""
+"Печать графической линии используется для печати штрихкодов и "
+"разделителей"
+
+#. fmFptrBarcode..lblBarcodePrefix..Caption
+#: Fmu/fmuFptrBarcode.dfm:50
+msgid "Barcode prefix:"
+msgstr "Префикс штрихкода:"
+
+#. fmFptrBarcode..lblBarcodeHeight..Caption
+#: Fmu/fmuFptrBarcode.dfm:57
+msgid "Barcode height:"
+msgstr "Высота штрихкода:"
+
+#. fmFptrBarcode..lblBarcodeType..Caption
+#: Fmu/fmuFptrBarcode.dfm:64
+msgid "Barcode type:"
+msgstr "Тип штрихкода:"
+
+#. fmFptrBarcode..lblBarcodeModuleWidth..Caption
+#: Fmu/fmuFptrBarcode.dfm:71
+msgid "Barcode module width:"
+msgstr "Ширина модуля штрихкода:"
+
+#. fmFptrBarcode..lblBarcodeAlignment..Caption
+#: Fmu/fmuFptrBarcode.dfm:78
+msgid "Barcode alignment:"
+msgstr "Выравнивание штрихкода:"
+
+#. fmFptrBarcode..lblBarcodeParameter1..Caption
+#: Fmu/fmuFptrBarcode.dfm:85
+msgid "Barcode parameter 1:"
+msgstr "Параметр 1 штрихкода:"
+
+#. fmFptrBarcode..lblBarcodeParameter2..Caption
+#: Fmu/fmuFptrBarcode.dfm:92
+msgid "Barcode parameter 2:"
+msgstr "Параметр 2 штрихкода:"
+
+#. fmFptrBarcode..lblBarcodeParameter3..Caption
+#: Fmu/fmuFptrBarcode.dfm:99
+msgid "Barcode parameter 3:"
+msgstr "Параметр 3 штрихкода:"
+
+#. fmFptrBarcode..cbBarLineByteMode....Items.Strings
+#. fmFptrBarcode..cbBarcodeType....Items.Strings
+#: Fmu/fmuFptrBarcode.dfm:117 Fmu/fmuFptrBarcode.dfm:158
+msgid "Autoselect"
+msgstr "Автовыбор"
+
+#. fmFptrBarcode..cbBarLineByteMode....Items.Strings
+#. fmFptrBarcode..cbBarcodeType....Items.Strings
+#: Fmu/fmuFptrBarcode.dfm:118 Fmu/fmuFptrBarcode.dfm:159
+msgid "Straight"
+msgstr "Обычный"
+
+#. fmFptrBarcode..cbBarLineByteMode....Items.Strings
+#. fmFptrBarcode..cbBarcodeType....Items.Strings
+#: Fmu/fmuFptrBarcode.dfm:119 Fmu/fmuFptrBarcode.dfm:160
+msgid "Reverse"
+msgstr "Обратный"
+
+#. fmFptrBarcode..edtBarcodePrefix..Text
+#: Fmu/fmuFptrBarcode.dfm:137
+msgid "edtBarcodePrefix"
+msgstr ""
+
+#. fmFptrBarcode..cbBarcodeAlignment....Items.Strings
+#: Fmu/fmuFptrBarcode.dfm:181
+msgid "CENTER"
+msgstr "ЦЕНТР"
+
+#. fmFptrBarcode..cbBarcodeAlignment....Items.Strings
+#: Fmu/fmuFptrBarcode.dfm:182
+msgid "LEFT"
+msgstr "ВЛЕВО"
+
+#. fmFptrBarcode..cbBarcodeAlignment....Items.Strings
+#: Fmu/fmuFptrBarcode.dfm:183
+msgid "RIGHT"
+msgstr "ВПРАВО"
+
+#. fmFptrConnection..Caption
+#. fmFptrConnection..gbConenctionParams..Caption
+#: Fmu/fmuFptrConnection.dfm:6 Fmu/fmuFptrConnection.dfm:29
+msgid "Connection"
+msgstr "Подключение"
+
+#. fmFptrConnection..lblStorage..Caption
+#: Fmu/fmuFptrConnection.dfm:22
+msgid "Parameters storage:"
+msgstr "Хранение параметров:"
+
+#. fmFptrConnection..gbConenctionParams..lblComPort..Caption
+#. fmScaleGeneral..gbParams..lblComPort..Caption
+#: Fmu/fmuFptrConnection.dfm:39 Fmu/fmuScaleGeneral.dfm:35
+msgid "COM port:"
+msgstr "COM порт:"
+
+#. fmFptrConnection..gbConenctionParams..lblBaudRate..Caption
+#. fmScaleGeneral..gbParams..lblBaudRate..Caption
+#: Fmu/fmuFptrConnection.dfm:46 Fmu/fmuScaleGeneral.dfm:42
+msgid "Baudrate:"
+msgstr "Скорость связи:"
+
+#. fmFptrConnection..gbConenctionParams..lblByteTimeout..Caption
+#. fmScaleGeneral..gbParams..lblByteTimeout..Caption
+#: Fmu/fmuFptrConnection.dfm:53 Fmu/fmuScaleGeneral.dfm:49
+msgid "Byte timeout, ms:"
+msgstr "Таймаут приема байта, мс:"
+
+#. fmFptrConnection..gbConenctionParams..lblMaxRetryCount..Caption
+#: Fmu/fmuFptrConnection.dfm:60
+msgid "Connect retries:"
+msgstr "Количество повторов подключения:"
+
+#. fmFptrConnection..gbConenctionParams..lblConnectionType..Caption
+#: Fmu/fmuFptrConnection.dfm:67
+msgid "Connection type:"
+msgstr "Тип подключения:"
+
+#. fmFptrConnection..gbConenctionParams..lblRemoteHost..Caption
+#: Fmu/fmuFptrConnection.dfm:74
+msgid "Host:"
+msgstr "Адрес:"
+
+#. fmFptrConnection..gbConenctionParams..lblRemotePort..Caption
+#: Fmu/fmuFptrConnection.dfm:81
+msgid "Port:"
+msgstr "Порт:"
+
+#. fmFptrConnection..gbConenctionParams..lblPrinterProtocol..Caption
+#: Fmu/fmuFptrConnection.dfm:88
+msgid "Protocol type:"
+msgstr "Тип протокола:"
+
+#. fmFptrConnection..gbConenctionParams..chbSearchByPort..Caption
+#. fmScaleGeneral..gbParams..chbSearchByPort..Caption
+#: Fmu/fmuFptrConnection.dfm:124 Fmu/fmuScaleGeneral.dfm:125
+msgid "Find device on all available COM ports"
+msgstr "Вести поиск устройства на всех COM портах"
+
+#. fmFptrConnection..gbConenctionParams..chbSearchByBaudRate..Caption
+#. fmScaleGeneral..gbParams..chbSearchByBaudRate..Caption
+#: Fmu/fmuFptrConnection.dfm:133 Fmu/fmuScaleGeneral.dfm:134
+msgid "Find device on all available baud rates"
+msgstr "Вести поиск устройства на всех скоростях"
+
+#. fmFptrConnection..gbConenctionParams..cbConnectionType....Items.Strings
+#: Fmu/fmuFptrConnection.dfm:146
+msgid "Local"
+msgstr "Локально"
+
+#. fmFptrConnection..gbConenctionParams..cbConnectionType....Items.Strings
+#: Fmu/fmuFptrConnection.dfm:147
+msgid "DCOM"
+msgstr ""
+
+#. fmFptrConnection..gbConenctionParams..cbConnectionType....Items.Strings
+#: Fmu/fmuFptrConnection.dfm:148
+msgid "TCP"
+msgstr ""
+
+#. fmFptrConnection..gbConenctionParams..cbConnectionType....Items.Strings
+#: Fmu/fmuFptrConnection.dfm:149
+msgid "SOCKET"
+msgstr ""
+
+#. fmFptrConnection..gbConenctionParams..edtRemoteHost..Text
+#: Fmu/fmuFptrConnection.dfm:157
+msgid "edtRemoteHost"
+msgstr ""
+
+#. fmFptrConnection..gbConenctionParams..cbPrinterProtocol....Items.Strings
+#: Fmu/fmuFptrConnection.dfm:189
+msgid "Standard"
+msgstr "Стандартный"
+
+#. fmFptrConnection..gbConenctionParams..cbPrinterProtocol....Items.Strings
+#: Fmu/fmuFptrConnection.dfm:190
+msgid "Protocol 2.0"
+msgstr "Протокол 2.0"
+
+#. fmFptrConnection..gbConenctionParams..cbMaxRetryCount....Items.Strings
+#: Fmu/fmuFptrConnection.dfm:201
+msgid "INFINITE"
+msgstr ""
+
+#. fmFptrConnection..gbPassword..Caption
+#: Fmu/fmuFptrConnection.dfm:219
+msgid "Passwords"
+msgstr "Пароли"
+
+#. fmFptrConnection..gbPassword..lblUsrPassword..Caption
+#: Fmu/fmuFptrConnection.dfm:226
+msgid "Operator password:"
+msgstr "Пароль оператра:"
+
+#. fmFptrConnection..gbPassword..lblSysPassword..Caption
+#: Fmu/fmuFptrConnection.dfm:233
+msgid "Administrator password:"
+msgstr "Пароль администратора:"
+
+#. fmFptrConnection..cbStorage....Items.Strings
+#: Fmu/fmuFptrConnection.dfm:265
+msgid "Registry"
+msgstr "Реестр"
+
+#. fmFptrConnection..cbStorage....Items.Strings
+#: Fmu/fmuFptrConnection.dfm:266
+msgid "Ini file"
+msgstr "Ini файл"
+
+#. fmFptrConnection..cbStorage....Items.Strings
+#: Fmu/fmuFptrConnection.dfm:267
+msgid "Registry IBT"
+msgstr "Реестр ИБТ"
+
+#. fmFptrConnection..GroupBox1..Caption
+#. fmFptrConnection..GroupBox1..cbPropertyUpdateMode....Items.Strings
+#: Fmu/fmuFptrConnection.dfm:274 Fmu/fmuFptrConnection.dfm:324
+msgid "Polling"
+msgstr "Опрос"
+
+#. fmFptrConnection..GroupBox1..lblPropertyUpdateMode..Caption
+#: Fmu/fmuFptrConnection.dfm:284
+msgid "Properties mode:"
+msgstr "Режим свойств:"
+
+#. fmFptrConnection..GroupBox1..lblPollInterval..Caption
+#: Fmu/fmuFptrConnection.dfm:291
+msgid "Poll interval, sec:"
+msgstr "Период опроса, секунд:"
+
+#. fmFptrConnection..GroupBox1..lblStatusInterval..Caption
+#: Fmu/fmuFptrConnection.dfm:298
+msgid "Status interval, ms:"
+msgstr "Интервал состояния, мс.:"
+
+#. fmFptrConnection..GroupBox1..lblStatusTimeout..Caption
+#: Fmu/fmuFptrConnection.dfm:305
+msgid "Status timeout, sec"
+msgstr "Таймаут состояния, сек. :"
+
+#. fmFptrConnection..GroupBox1..lblEventsType..Caption
+#: Fmu/fmuFptrConnection.dfm:312
+msgid "Events type:"
+msgstr "Тип событий:"
+
+#. fmFptrConnection..GroupBox1..cbPropertyUpdateMode....Items.Strings
+#. fmFptrReceipt..gbParams..cbHeaderType....Items.Strings
+#. fmFptrReceipt..gbParams..cbCompatLevel....Items.Strings
+#. fmFptrText..cbRFSeparatorLine....Items.Strings
+#. fmScaleGeneral..gbParams..cbCCOType....Items.Strings
+#: Fmu/fmuFptrConnection.dfm:323 Fmu/fmuFptrReceipt.dfm:155
+#: Fmu/fmuFptrReceipt.dfm:180 Fmu/fmuFptrText.dfm:155
+#: Fmu/fmuScaleGeneral.dfm:200
+msgid "None"
+msgstr "Нет"
+
+#. fmFptrConnection..GroupBox1..cbPropertyUpdateMode....Items.Strings
+#: Fmu/fmuFptrConnection.dfm:325
+msgid "Query"
+msgstr "Запрос"
+
+#. fmFptrConnection..GroupBox1..cbCCOType....Items.Strings
+#: Fmu/fmuFptrConnection.dfm:369
+msgid "NONE"
+msgstr "НЕТ"
+
+#. fmFptrFuel..Caption
+#: Fmu/fmuFptrFuel.dfm:6
+msgid "Fuel"
+msgstr "Топливо"
+
+#. fmFptrFuel..gbFuelFilter..Caption
+#: Fmu/fmuFptrFuel.dfm:24
+msgid "Fuel receipt item amount round"
+msgstr ""
+
+#. fmFptrFuel..gbFuelFilter..Label3..Caption
+#: Fmu/fmuFptrFuel.dfm:34
+msgid "Fuel receipt item text used to determine fuel sales"
+msgstr ""
+
+#. fmFptrFuel..gbFuelFilter..lblFuelItemText..Caption
+#: Fmu/fmuFptrFuel.dfm:41
+msgid "Fuel receipt item text:"
+msgstr ""
+
+#. fmFptrFuel..gbFuelFilter..lblFuelAmountStep..Caption
+#: Fmu/fmuFptrFuel.dfm:48
+msgid "Fuel amount step, RUB:"
+msgstr ""
+
+#. fmFptrFuel..gbFuelFilter..lblFuelAmountPrecision..Caption
+#: Fmu/fmuFptrFuel.dfm:55
+msgid "Fuel amount precision 0.01..1, RUB:"
+msgstr ""
+
+#. fmFptrFuel..gbFuelFilter..chbFuelRoundEnabled..Caption
+#: Fmu/fmuFptrFuel.dfm:62
+msgid "Fuel receipt item amount round enabled"
+msgstr ""
+
+#. fmFptrFuel..gbFuelFilter..memFuelItemText....Lines.Strings
+#: Fmu/fmuFptrFuel.dfm:72
+msgid "АИ-92"
+msgstr ""
+
+#. fmFptrFuel..gbFuelFilter..memFuelItemText....Lines.Strings
+#: Fmu/fmuFptrFuel.dfm:73
+msgid "АИ-95"
+msgstr ""
+
+#. fmFptrFuel..gbFuelFilter..memFuelItemText....Lines.Strings
+#: Fmu/fmuFptrFuel.dfm:74
+msgid "АИ-98"
+msgstr ""
+
+#. fmFptrFuel..gbFuelFilter..edtFuelAmountStep..Text
+#: Fmu/fmuFptrFuel.dfm:86
+msgid "edtFuelAmountStep"
+msgstr ""
+
+#. fmFptrFuel..gbFuelFilter..edtFuelAmountPrecision..Text
+#: Fmu/fmuFptrFuel.dfm:95
+msgid "edtFuelAmountPrecision"
+msgstr ""
+
+#. fmFptrFuel..gbFuelFilter..chbCashRoundEnabled..Caption
+#: Fmu/fmuFptrFuel.dfm:102
+msgid "Only cash receipt round enabled"
+msgstr ""
+
+#. fmFptrHeader..Caption
+#: Fmu/fmuFptrHeader.dfm:6
+msgid "Header"
+msgstr ""
+
+#. fmFptrHeader..gbHeader..lblNumHeaderLines..Caption
+#: Fmu/fmuFptrHeader.dfm:36
+msgid "Number header lines:"
+msgstr ""
+
+#. fmFptrHeader..gbHeader..lblHeaderFont..Caption
+#. fmFptrUnipos..gbUniposFilter..lblUniposHeaderFont..Caption
+#: Fmu/fmuFptrHeader.dfm:44 Fmu/fmuFptrUnipos.dfm:38
+msgid "Header font number:"
+msgstr ""
+
+#. fmFptrHeader..gbHeader..btnPrintHeader..Caption
+#: Fmu/fmuFptrHeader.dfm:82
+msgid "Print header"
+msgstr ""
+
+#. fmFptrHeader..gbHeader..chbSetHeaderLineEnabled..Caption
+#: Fmu/fmuFptrHeader.dfm:91
+msgid "SetHeaderLine method enabled"
+msgstr ""
+
+#. fmFptrHeader..gbHeader..chbCenterHeader..Caption
+#: Fmu/fmuFptrHeader.dfm:99
+msgid "Center header lines automatically"
+msgstr ""
+
+#. fmFptrHeader..symHeader..Font.Name
+#. fmFptrHeader..symHeader..Gutter.Font.Name
+#. fmFptrMalina..memReceipt..Font.Name
+#. fmFptrPawnTicket..memPawnTicketText..Font.Name
+#. fmFptrTrailer..symTrailer..Font.Name
+#. fmFptrTrailer..symTrailer..Gutter.Font.Name
+#. fmFptrUnipos..gbAntiFroudFilter..memUniposSalesErrorText..Font.Name
+#. fmFptrUnipos..gbAntiFroudFilter..memUniposRefundErrorText..Font.Name
+#: Fmu/fmuFptrHeader.dfm:112 Fmu/fmuFptrHeader.dfm:119
+#: Fmu/fmuFptrMalina.dfm:273 Fmu/fmuFptrPawnTicket.dfm:38
+#: Fmu/fmuFptrTrailer.dfm:32 Fmu/fmuFptrTrailer.dfm:39
+#: Fmu/fmuFptrUnipos.dfm:217 Fmu/fmuFptrUnipos.dfm:230
+msgid "Courier New"
+msgstr ""
+
+#. fmFptrJournal..Caption
+#: Fmu/fmuFptrJournal.dfm:6
+msgid "Journal paper"
+msgstr ""
+
+#. fmFptrJournal..chbJournalPrintHeader..Caption
+#: Fmu/fmuFptrJournal.dfm:24
+msgid "Print header on journal paper"
+msgstr ""
+
+#. fmFptrJournal..chbJournalPrintTrailer..Caption
+#: Fmu/fmuFptrJournal.dfm:32
+msgid "Print trailer on journal paper"
+msgstr ""
+
+#. fmFptrLog..Caption
+#. fmScaleLog..Caption
+#: Fmu/fmuFptrLog.dfm:6 Fmu/fmuScaleLog.dfm:6
+msgid "Log"
+msgstr ""
+
+#. fmFptrLog..gbLogParameters..Caption
+#. fmScaleLog..gbLogParameters..Caption
+#: Fmu/fmuFptrLog.dfm:28 Fmu/fmuScaleLog.dfm:28
+msgid "Log parameters"
+msgstr ""
+
+#. fmFptrLog..gbLogParameters..lblMaxLogFileCount..Caption
+#. fmScaleLog..gbLogParameters..lblMaxLogFileCount..Caption
+#: Fmu/fmuFptrLog.dfm:38 Fmu/fmuScaleLog.dfm:35
+msgid "Maximum log file count:"
+msgstr ""
+
+#. fmFptrLog..gbLogParameters..lblLogFilePath..Caption
+#: Fmu/fmuFptrLog.dfm:45
+msgid "Log file path:"
+msgstr ""
+
+#. fmFptrLog..gbLogParameters..chbLogEnabled..Caption
+#. fmScaleLog..gbLogParameters..chbLogEnabled..Caption
+#: Fmu/fmuFptrLog.dfm:52 Fmu/fmuScaleLog.dfm:42
+msgid "Log file enabled"
+msgstr ""
+
+#. fmFptrLog..gbLogParameters..edtLogFilePath..Text
+#: Fmu/fmuFptrLog.dfm:73
+msgid "edtLogFilePath"
+msgstr ""
+
+#. fmFptrLogo..Caption
+#: Fmu/fmuFptrLogo.dfm:6
+msgid "Logo"
+msgstr ""
+
+#. fmFptrLogo..GroupBox1..lblLogoPosition..Caption
+#: Fmu/fmuFptrLogo.dfm:49
+msgid "Logo position:"
+msgstr ""
+
+#. fmFptrLogo..GroupBox1..lblLogoSize..Caption
+#: Fmu/fmuFptrLogo.dfm:56
+msgid "Logo size:"
+msgstr ""
+
+#. fmFptrLogo..GroupBox1..lblProgress..Caption
+#: Fmu/fmuFptrLogo.dfm:64
+msgid "lblProgress"
+msgstr ""
+
+#. fmFptrLogo..GroupBox1..cbLogoPosition....Items.Strings
+#: Fmu/fmuFptrLogo.dfm:75
+msgid "After header"
+msgstr ""
+
+#. fmFptrLogo..GroupBox1..cbLogoPosition....Items.Strings
+#: Fmu/fmuFptrLogo.dfm:76
+msgid "Before header"
+msgstr ""
+
+#. fmFptrLogo..GroupBox1..cbLogoPosition....Items.Strings
+#: Fmu/fmuFptrLogo.dfm:77
+msgid "Before trailer"
+msgstr ""
+
+#. fmFptrLogo..GroupBox1..cbLogoPosition....Items.Strings
+#: Fmu/fmuFptrLogo.dfm:78
+msgid "After trailer"
+msgstr ""
+
+#. fmFptrLogo..GroupBox1..cbLogoPosition....Items.Strings
+#: Fmu/fmuFptrLogo.dfm:79
+msgid "After TOTAL line"
+msgstr ""
+
+#. fmFptrLogo..GroupBox1..btnPrintLogo..Caption
+#: Fmu/fmuFptrLogo.dfm:94
+msgid "Print"
+msgstr ""
+
+#. fmFptrLogo..GroupBox1..btnLoad..Caption
+#: Fmu/fmuFptrLogo.dfm:104
+msgid "Load"
+msgstr ""
+
+#. fmFptrLogo..GroupBox1..btnOpen..Caption
+#: Fmu/fmuFptrLogo.dfm:114
+msgid "Open"
+msgstr ""
+
+#. fmFptrLogo..GroupBox1..chbLogoCenter..Caption
+#: Fmu/fmuFptrLogo.dfm:124
+msgid "Center logo on page"
+msgstr ""
+
+#. fmFptrLogo..GroupBox1..chbLogoReloadEnabled..Caption
+#: Fmu/fmuFptrLogo.dfm:141
+msgid "Logo reload enabled"
+msgstr ""
+
+#. fmFptrMalina..Caption
+#: Fmu/fmuFptrMalina.dfm:6
+msgid "Malina"
+msgstr ""
+
+#. fmFptrMalina..lblMalinaRegistryKey..Caption
+#: Fmu/fmuFptrMalina.dfm:227
+msgid "Registry key:"
+msgstr ""
+
+#. fmFptrMalina..lblMalinaPromoText..Caption
+#: Fmu/fmuFptrMalina.dfm:234
+msgid "Promo text:"
+msgstr ""
+
+#. fmFptrMalina..lblMalinaCardPrefix..Caption
+#: Fmu/fmuFptrMalina.dfm:241
+msgid "Card prefix:"
+msgstr ""
+
+#. fmFptrMalina..lblMalinaCoefficient..Caption
+#: Fmu/fmuFptrMalina.dfm:248
+msgid "Coefficient:"
+msgstr ""
+
+#. fmFptrMalina..lblMalinaPoints..Caption
+#: Fmu/fmuFptrMalina.dfm:255
+msgid "Points:"
+msgstr ""
+
+#. fmFptrMalina..lblMalinaPointText..Caption
+#: Fmu/fmuFptrMalina.dfm:262
+msgid "Points text:"
+msgstr ""
+
+#. fmFptrMalina..memReceipt....Lines.Strings
+#: Fmu/fmuFptrMalina.dfm:276
+msgid "     ВР ГРАЖДАНСКИЙ (АЗК 009)"
+msgstr ""
+
+#. fmFptrMalina..memReceipt....Lines.Strings
+#: Fmu/fmuFptrMalina.dfm:277
+msgid "  ООО \"ТНК-ВР Северная столица\""
+msgstr ""
+
+#. fmFptrMalina..memReceipt....Lines.Strings
+#: Fmu/fmuFptrMalina.dfm:278
+msgid "  Северная пл., 2, тел. 332-72-56"
+msgstr ""
+
+#. fmFptrMalina..memReceipt....Lines.Strings
+#: Fmu/fmuFptrMalina.dfm:280
+msgid "ККМ 00019976 ИНН 007802411512  #8552"
+msgstr ""
+
+#. fmFptrMalina..memReceipt....Lines.Strings
+#: Fmu/fmuFptrMalina.dfm:281
+msgid "22.08.10 23:14"
+msgstr ""
+
+#. fmFptrMalina..memReceipt....Lines.Strings
+#: Fmu/fmuFptrMalina.dfm:282
+msgid "ПРОДАЖА                        №1283"
+msgstr ""
+
+#. fmFptrMalina..memReceipt....Lines.Strings
+#: Fmu/fmuFptrMalina.dfm:283
+msgid "ТРК 4: Бензин 95          Трз  41457"
+msgstr ""
+
+#. fmFptrMalina..memReceipt....Lines.Strings
+#: Fmu/fmuFptrMalina.dfm:284
+msgid "                      23.59 X 51.710"
+msgstr ""
+
+#. fmFptrMalina..memReceipt....Lines.Strings
+#: Fmu/fmuFptrMalina.dfm:285
+msgid "1                           =1219.84"
+msgstr ""
+
+#. fmFptrMalina..memReceipt....Lines.Strings
+#: Fmu/fmuFptrMalina.dfm:286
+msgid "Номер карты:        6393000039070330"
+msgstr ""
+
+#. fmFptrMalina..memReceipt....Lines.Strings
+#: Fmu/fmuFptrMalina.dfm:287
+msgid "------------------------------------"
+msgstr ""
+
+#. fmFptrMalina..memReceipt....Lines.Strings
+#: Fmu/fmuFptrMalina.dfm:288
+msgid "Подитог:                     1219.84"
+msgstr ""
+
+#. fmFptrMalina..memReceipt....Lines.Strings
+#: Fmu/fmuFptrMalina.dfm:289
+msgid "- 1.5%"
+msgstr ""
+
+#. fmFptrMalina..memReceipt....Lines.Strings
+#: Fmu/fmuFptrMalina.dfm:290
+msgid "СКИДКА                        =18.30"
+msgstr ""
+
+#. fmFptrMalina..memReceipt....Lines.Strings
+#: Fmu/fmuFptrMalina.dfm:291
+msgid "Перечислено Малина"
+msgstr ""
+
+#. fmFptrMalina..memReceipt....Lines.Strings
+#: Fmu/fmuFptrMalina.dfm:292
+msgid "1                             =18.30"
+msgstr ""
+
+#. fmFptrMalina..memReceipt....Lines.Strings
+#: Fmu/fmuFptrMalina.dfm:294
+msgid "Оператор: Иванова Т.И. ID: 254889"
+msgstr ""
+
+#. fmFptrMalina..memReceipt....Lines.Strings
+#: Fmu/fmuFptrMalina.dfm:295
+msgid "ИТОГ                        =1219.84"
+msgstr ""
+
+#. fmFptrMalina..memReceipt....Lines.Strings
+#: Fmu/fmuFptrMalina.dfm:296
+msgid "НАЛИЧНЫМИ                   =1500.00"
+msgstr ""
+
+#. fmFptrMalina..memReceipt....Lines.Strings
+#: Fmu/fmuFptrMalina.dfm:297
+msgid "СДАЧА                        =280.16"
+msgstr ""
+
+#. fmFptrMalina..memReceipt....Lines.Strings
+#: Fmu/fmuFptrMalina.dfm:298
+msgid "------------ ФП --------------------"
+msgstr ""
+
+#. fmFptrMalina..memReceipt....Lines.Strings
+#: Fmu/fmuFptrMalina.dfm:299
+msgid "                     ЭКЛЗ 0670467138"
+msgstr ""
+
+#. fmFptrMalina..memReceipt....Lines.Strings
+#: Fmu/fmuFptrMalina.dfm:300
+msgid "                    00102672 #056284"
+msgstr ""
+
+#. fmFptrMalina..memReceipt....Lines.Strings
+#: Fmu/fmuFptrMalina.dfm:301
+msgid "       Клиенту правила"
+msgstr ""
+
+#. fmFptrMalina..memReceipt....Lines.Strings
+#: Fmu/fmuFptrMalina.dfm:302
+msgid "     оказания услуг ясны"
+msgstr ""
+
+#. fmFptrMalina..chbMalinaFilterEnabled..Caption
+#: Fmu/fmuFptrMalina.dfm:312
+msgid "Malina processing enabled"
+msgstr ""
+
+#. fmFptrMalina..chbMalinaClearRegistry..Caption
+#: Fmu/fmuFptrMalina.dfm:350
+msgid "Clear registry data after each receipt"
+msgstr ""
+
+#. fmFptrPawnTicket..Caption
+#: Fmu/fmuFptrPawnTicket.dfm:6
+msgid "Pawn ticket"
+msgstr ""
+
+#. fmFptrPawnTicket..lblUniposSalesErrorText..Caption
+#: Fmu/fmuFptrPawnTicket.dfm:27
+msgid "Pawn ticket text:"
+msgstr ""
+
+#. fmFptrPawnTicket..rgPawnTicketMode..Caption
+#: Fmu/fmuFptrPawnTicket.dfm:50
+msgid "Pawn ticket mode"
+msgstr ""
+
+#. fmFptrPawnTicket..rgPawnTicketMode....Items.Strings
+#: Fmu/fmuFptrPawnTicket.dfm:52
+msgid "0 - print none"
+msgstr ""
+
+#. fmFptrPawnTicket..rgPawnTicketMode....Items.Strings
+#: Fmu/fmuFptrPawnTicket.dfm:53
+msgid "1 - print only first ticket"
+msgstr ""
+
+#. fmFptrPawnTicket..rgPawnTicketMode....Items.Strings
+#: Fmu/fmuFptrPawnTicket.dfm:54
+msgid "2 - print all tickets"
+msgstr ""
+
+#. fmFptrPayType..Caption
+#: Fmu/fmuFptrPayType.dfm:6
+msgid "Pay types"
+msgstr ""
+
+#. fmFptrPayType..lblDescription..Caption
+#: Fmu/fmuFptrPayType.dfm:28
+msgid "Payment type description:"
+msgstr ""
+
+#. fmFptrPayType..lblValue..Caption
+#: Fmu/fmuFptrPayType.dfm:35
+msgid "Payment type code:"
+msgstr ""
+
+#. fmFptrPayType..cbPaymentType....Items.Strings
+#: Fmu/fmuFptrPayType.dfm:54
+msgid "Cash"
+msgstr ""
+
+#. fmFptrPayType..cbPaymentType....Items.Strings
+#: Fmu/fmuFptrPayType.dfm:55
+msgid "Payment type 2"
+msgstr ""
+
+#. fmFptrPayType..cbPaymentType....Items.Strings
+#: Fmu/fmuFptrPayType.dfm:56
+msgid "Payment type 3"
+msgstr ""
+
+#. fmFptrPayType..cbPaymentType....Items.Strings
+#: Fmu/fmuFptrPayType.dfm:57
+msgid "Payment type 4"
+msgstr ""
+
+#. fmFptrPayType..lvPayTypes......Caption
+#. fmFptrReplace..ListView......Caption
+#: Fmu/fmuFptrPayType.dfm:67 Fmu/fmuFptrReplace.dfm:43
+msgid "№"
+msgstr ""
+
+#. fmFptrPayType..lvPayTypes......Caption
+#: Fmu/fmuFptrPayType.dfm:70
+msgid "Description"
+msgstr ""
+
+#. fmFptrPayType..lvPayTypes......Caption
+#: Fmu/fmuFptrPayType.dfm:74
+msgid "Code"
+msgstr ""
+
+#. fmFptrPayType..btnDelete..Caption
+#. fmFptrReplace..btnDelete..Caption
+#. fmFptrVatCode..btnDelete..Caption
+#: Fmu/fmuFptrPayType.dfm:91 Fmu/fmuFptrReplace.dfm:76
+#: Fmu/fmuFptrVatCode.dfm:65
+msgid "Delete"
+msgstr ""
+
+#. fmFptrPayType..btnAdd..Caption
+#. fmFptrReplace..btnAdd..Caption
+#. fmFptrVatCode..btnAdd..Caption
+#: Fmu/fmuFptrPayType.dfm:102 Fmu/fmuFptrReplace.dfm:66
+#: Fmu/fmuFptrVatCode.dfm:76
+msgid "Add"
+msgstr ""
+
+#. fmFptrReceipt..Caption
+#: Fmu/fmuFptrReceipt.dfm:6
+msgid "Receipt"
+msgstr ""
+
+#. fmFptrReceipt..gbParams..lblDefaultDepartment..Caption
+#: Fmu/fmuFptrReceipt.dfm:30
+msgid "Def. department:"
+msgstr ""
+
+#. fmFptrReceipt..gbParams..lblCutType..Caption
+#: Fmu/fmuFptrReceipt.dfm:37
+msgid "Cut type:"
+msgstr ""
+
+#. fmFptrReceipt..gbParams..lblEncoding..Caption
+#. fmScaleGeneral..gbParams..lblEncoding..Caption
+#: Fmu/fmuFptrReceipt.dfm:44 Fmu/fmuScaleGeneral.dfm:77
+msgid "Encoding:"
+msgstr ""
+
+#. fmFptrReceipt..gbParams..lblStatusCommand..Caption
+#: Fmu/fmuFptrReceipt.dfm:51
+msgid "Status command:"
+msgstr ""
+
+#. fmFptrReceipt..gbParams..lblHeaderType..Caption
+#: Fmu/fmuFptrReceipt.dfm:58
+msgid "Header type:"
+msgstr ""
+
+#. fmFptrReceipt..gbParams..lblZeroReceipt..Caption
+#: Fmu/fmuFptrReceipt.dfm:65
+msgid "Zero receipt:"
+msgstr ""
+
+#. fmFptrReceipt..gbParams..lblCompatLevel..Caption
+#: Fmu/fmuFptrReceipt.dfm:72
+msgid "Compatibility:"
+msgstr ""
+
+#. fmFptrReceipt..gbParams..lblReceiptType..Caption
+#: Fmu/fmuFptrReceipt.dfm:79
+msgid "Receipt type:"
+msgstr ""
+
+#. fmFptrReceipt..gbParams..lblZeroReceiptNumber..Caption
+#: Fmu/fmuFptrReceipt.dfm:86
+msgid "Zero receipt number:"
+msgstr ""
+
+#. fmFptrReceipt..gbParams..lblQuantityLength..Caption
+#: Fmu/fmuFptrReceipt.dfm:93
+msgid "Quantity length:"
+msgstr ""
+
+#. fmFptrReceipt..gbParams..lblPrintRecMessageMode..Caption
+#: Fmu/fmuFptrReceipt.dfm:100
+msgid "PrintRecMessage mode:"
+msgstr ""
+
+#. fmFptrReceipt..gbParams..cbCutType....Items.Strings
+#: Fmu/fmuFptrReceipt.dfm:112
+msgid "Full cut"
+msgstr ""
+
+#. fmFptrReceipt..gbParams..cbCutType....Items.Strings
+#: Fmu/fmuFptrReceipt.dfm:113
+msgid "Partial cut"
+msgstr ""
+
+#. fmFptrReceipt..gbParams..cbCutType....Items.Strings
+#: Fmu/fmuFptrReceipt.dfm:114
+msgid "No cut"
+msgstr ""
+
+#. fmFptrReceipt..gbParams..cbEncoding....Items.Strings
+#. fmScaleGeneral..gbParams..cbEncoding....Items.Strings
+#: Fmu/fmuFptrReceipt.dfm:126 Fmu/fmuScaleGeneral.dfm:186
+msgid "Windows"
+msgstr ""
+
+#. fmFptrReceipt..gbParams..cbEncoding....Items.Strings
+#. fmScaleGeneral..gbParams..cbEncoding....Items.Strings
+#: Fmu/fmuFptrReceipt.dfm:127 Fmu/fmuScaleGeneral.dfm:187
+msgid "CP866"
+msgstr ""
+
+#. fmFptrReceipt..gbParams..cbStatusCommand....Items.Strings
+#: Fmu/fmuFptrReceipt.dfm:139
+msgid "Driver selection"
+msgstr ""
+
+#. fmFptrReceipt..gbParams..cbStatusCommand....Items.Strings
+#: Fmu/fmuFptrReceipt.dfm:140
+msgid "Short status, 10h"
+msgstr ""
+
+#. fmFptrReceipt..gbParams..cbStatusCommand....Items.Strings
+#: Fmu/fmuFptrReceipt.dfm:141
+msgid "Long status, 11h"
+msgstr ""
+
+#. fmFptrReceipt..gbParams..cbHeaderType....Items.Strings
+#: Fmu/fmuFptrReceipt.dfm:153
+msgid "Printer header"
+msgstr ""
+
+#. fmFptrReceipt..gbParams..cbHeaderType....Items.Strings
+#: Fmu/fmuFptrReceipt.dfm:154
+msgid "Driver header"
+msgstr ""
+
+#. fmFptrReceipt..gbParams..cbZeroReceipt....Items.Strings
+#. fmMiscParams..cbTimeUpdateMode....Items.Strings
+#: Fmu/fmuFptrReceipt.dfm:167 Fmu/fmuMiscParams.dfm:175
+msgid "Normal"
+msgstr ""
+
+#. fmFptrReceipt..gbParams..cbZeroReceipt....Items.Strings
+#: Fmu/fmuFptrReceipt.dfm:168
+msgid "Nonfiscal"
+msgstr ""
+
+#. fmFptrReceipt..gbParams..cbCompatLevel....Items.Strings
+#: Fmu/fmuFptrReceipt.dfm:181
+msgid "Level 1"
+msgstr ""
+
+#. fmFptrReceipt..gbParams..cbCompatLevel....Items.Strings
+#: Fmu/fmuFptrReceipt.dfm:182
+msgid "Level 2"
+msgstr ""
+
+#. fmFptrReceipt..gbParams..cbReceiptType....Items.Strings
+#: Fmu/fmuFptrReceipt.dfm:194
+msgid "Normal receipt"
+msgstr ""
+
+#. fmFptrReceipt..gbParams..cbReceiptType....Items.Strings
+#: Fmu/fmuFptrReceipt.dfm:195
+msgid "Single position"
+msgstr ""
+
+#. fmFptrReceipt..gbParams..cbReceiptType....Items.Strings
+#: Fmu/fmuFptrReceipt.dfm:196
+msgid "GLOBUS receipt"
+msgstr ""
+
+#. fmFptrReceipt..gbParams..cbReceiptType....Items.Strings
+#: Fmu/fmuFptrReceipt.dfm:197
+msgid "GLOBUS text receipt"
+msgstr ""
+
+#. fmFptrReceipt..gbParams..chbCacheReceiptNumber..Caption
+#: Fmu/fmuFptrReceipt.dfm:204
+msgid "Cache receipt number"
+msgstr ""
+
+#. fmFptrReceipt..gbParams..chbZReceiptBeforeZReport..Caption
+#: Fmu/fmuFptrReceipt.dfm:232
+msgid "Zero receipt before Z report (day closed)"
+msgstr ""
+
+#. fmFptrReceipt..gbParams..chbOpenReceiptEnabled..Caption
+#: Fmu/fmuFptrReceipt.dfm:240
+msgid "Open receipt in beginFiscalReceipt"
+msgstr ""
+
+#. fmFptrReceipt..gbParams..cbQuantityDecimalPlaces....Items.Strings
+#: Fmu/fmuFptrReceipt.dfm:253
+msgid "3 digits"
+msgstr ""
+
+#. fmFptrReceipt..gbParams..cbQuantityDecimalPlaces....Items.Strings
+#: Fmu/fmuFptrReceipt.dfm:254
+msgid "6 digits"
+msgstr ""
+
+#. fmFptrReceipt..gbParams..cbPrintRecMessageMode....Items.Strings
+#: Fmu/fmuFptrReceipt.dfm:266
+msgid "1. Normal - after receipt ending"
+msgstr ""
+
+#. fmFptrReceipt..gbParams..cbPrintRecMessageMode....Items.Strings
+#: Fmu/fmuFptrReceipt.dfm:267
+msgid "2. Before receipt ending"
+msgstr ""
+
+#. fmFptrReplace..Caption
+#: Fmu/fmuFptrReplace.dfm:6
+msgid "Replace"
+msgstr ""
+
+#. fmFptrReplace..lblText..Caption
+#: Fmu/fmuFptrReplace.dfm:25
+msgid "Text:"
+msgstr ""
+
+#. fmFptrReplace..lblReplacement..Caption
+#: Fmu/fmuFptrReplace.dfm:33
+msgid "Replacement:"
+msgstr ""
+
+#. fmFptrReplace..ListView......Caption
+#. fmFptrText..Caption
+#: Fmu/fmuFptrReplace.dfm:46 Fmu/fmuFptrText.dfm:6
+msgid "Text"
+msgstr ""
+
+#. fmFptrReplace..ListView......Caption
+#: Fmu/fmuFptrReplace.dfm:51
+msgid "Replacement"
+msgstr ""
+
+#. fmFptrReplace..btnClear..Caption
+#: Fmu/fmuFptrReplace.dfm:86
+msgid "Clear"
+msgstr ""
+
+#. fmFptrReplace..chbTextReplacementEnabled..Caption
+#: Fmu/fmuFptrReplace.dfm:117
+msgid "Text replacement enabled"
+msgstr ""
+
+#. fmFptrRetalix..Caption
+#: Fmu/fmuFptrRetalix.dfm:6
+msgid "Retalix"
+msgstr ""
+
+#. fmFptrRetalix..lblRetalixDBPath..Caption
+#: Fmu/fmuFptrRetalix.dfm:27
+msgid "Database path:"
+msgstr ""
+
+#. fmFptrRetalix..Label1....Caption
+#: Fmu/fmuFptrRetalix.dfm:36
+msgid ""
+"Driver will user lcase SQL function that will slow down search "
+"time\n"
+"for 1 second or more. "
+msgstr ""
+
+#. fmFptrRetalix..chbRetalixDBEnabled..Caption
+#: Fmu/fmuFptrRetalix.dfm:52
+msgid "Retalix database query enabled"
+msgstr ""
+
+#. fmFptrRetalix..chbRetalixSearchCI..Caption
+#: Fmu/fmuFptrRetalix.dfm:60
+msgid "Search items case insensitively"
+msgstr ""
+
+#. fmFptrRetalix..chbRosneftDryReceiptEnabled..Caption
+#: Fmu/fmuFptrRetalix.dfm:68
+msgid "Rosneft \"dry\" receipts enabled"
+msgstr ""
+
+#. fmFptrTables..Caption
+#: Fmu/fmuFptrTables.dfm:6
+msgid "Tables"
+msgstr ""
+
+#. fmFptrTables..lblTableFilePath..Caption
+#: Fmu/fmuFptrTables.dfm:24
+msgid "Table file path:"
+msgstr ""
+
+#. fmFptrTables..chbTableEditEnabled..Caption
+#: Fmu/fmuFptrTables.dfm:31
+msgid "Table values changing enabled"
+msgstr ""
+
+#. fmFptrTables..chbWritePaymentNameEnabled..Caption
+#: Fmu/fmuFptrTables.dfm:39
+msgid "Write payment name enabled (via directIO)"
+msgstr ""
+
+#. fmFptrText..lblQuantityLength..Caption
+#: Fmu/fmuFptrText.dfm:24
+msgid "\"QUANTITY X PRICE\" field size, 0..56:"
+msgstr ""
+
+#. fmFptrText..lblRFAmountLength..Caption
+#: Fmu/fmuFptrText.dfm:31
+msgid "\"AMOUNT\" field size, 0..56:"
+msgstr ""
+
+#. fmFptrText..lblRFSeparatorLine..Caption
+#: Fmu/fmuFptrText.dfm:38
+msgid "Separator line:"
+msgstr ""
+
+#. fmFptrText..gbTextParameters..Caption
+#: Fmu/fmuFptrText.dfm:45
+msgid "Text parameters"
+msgstr ""
+
+#. fmFptrText..gbTextParameters..lblFontNumber..Caption
+#: Fmu/fmuFptrText.dfm:55
+msgid "Font number:"
+msgstr ""
+
+#. fmFptrText..gbTextParameters..lblCloseRecText..Caption
+#: Fmu/fmuFptrText.dfm:62
+msgid "Close receipt text:"
+msgstr ""
+
+#. fmFptrText..gbTextParameters..lblSubtotalName..Caption
+#: Fmu/fmuFptrText.dfm:69
+msgid "Subtotal text:"
+msgstr ""
+
+#. fmFptrText..gbTextParameters..lblVoidRecText..Caption
+#: Fmu/fmuFptrText.dfm:76
+msgid "Void receipt text:"
+msgstr ""
+
+#. fmFptrText..chbRFShowTaxLetters..Caption
+#: Fmu/fmuFptrText.dfm:143
+msgid "Show tax letters"
+msgstr ""
+
+#. fmFptrText..cbRFSeparatorLine....Items.Strings
+#: Fmu/fmuFptrText.dfm:156
+msgid "Dashed line"
+msgstr ""
+
+#. fmFptrText..cbRFSeparatorLine....Items.Strings
+#: Fmu/fmuFptrText.dfm:157
+msgid "Solid line"
+msgstr ""
+
+#. fmFptrTrailer..Caption
+#: Fmu/fmuFptrTrailer.dfm:6
+msgid "Trailer"
+msgstr ""
+
+#. fmFptrTrailer..gbTrailer..lblNumTrailerLines..Caption
+#: Fmu/fmuFptrTrailer.dfm:64
+msgid "Number trailer lines:"
+msgstr ""
+
+#. fmFptrTrailer..gbTrailer..lblTrailerFont..Caption
+#. fmFptrUnipos..gbUniposFilter..lblUniposTrailerFont..Caption
+#: Fmu/fmuFptrTrailer.dfm:72 Fmu/fmuFptrUnipos.dfm:31
+msgid "Trailer font number:"
+msgstr ""
+
+#. fmFptrTrailer..gbTrailer..btnPrintTrailer..Caption
+#: Fmu/fmuFptrTrailer.dfm:110
+msgid "Print trailer"
+msgstr ""
+
+#. fmFptrTrailer..gbTrailer..chbSetTrailerLineEnabled..Caption
+#: Fmu/fmuFptrTrailer.dfm:119
+msgid "SetTrailerLine method enabled"
+msgstr ""
+
+#. fmFptrUnipos..Caption
+#: Fmu/fmuFptrUnipos.dfm:6
+msgid "Unipos"
+msgstr ""
+
+#. fmFptrUnipos..gbUniposFilter..Caption
+#: Fmu/fmuFptrUnipos.dfm:24
+msgid "Unipos filter"
+msgstr ""
+
+#. fmFptrUnipos..gbUniposFilter..chbUniposFilterEnabled..Caption
+#: Fmu/fmuFptrUnipos.dfm:81
+msgid "Unipos filter enabled"
+msgstr ""
+
+#. fmFptrUnipos..gbUniposPrinter..Caption
+#: Fmu/fmuFptrUnipos.dfm:90
+msgid "Unipos printer"
+msgstr ""
+
+#. fmFptrUnipos..gbUniposPrinter..lblUniposTextFont..Caption
+#: Fmu/fmuFptrUnipos.dfm:97
+msgid "Text font number:"
+msgstr ""
+
+#. fmFptrUnipos..gbUniposPrinter..lblUniposPollPeriod..Caption
+#: Fmu/fmuFptrUnipos.dfm:104
+msgid "File poll period:"
+msgstr ""
+
+#. fmFptrUnipos..gbUniposPrinter..Label1..Caption
+#: Fmu/fmuFptrUnipos.dfm:111
+msgid "Files path:"
+msgstr ""
+
+#. fmFptrUnipos..gbUniposPrinter..chbUniposPrinterEnabled..Caption
+#: Fmu/fmuFptrUnipos.dfm:153
+msgid "Unipos printer enabled"
+msgstr ""
+
+#. fmFptrUnipos..gbUniposPrinter..edtUniposFilesPath..Text
+#: Fmu/fmuFptrUnipos.dfm:162
+msgid "edtUniposFilesPath"
+msgstr ""
+
+#. fmFptrUnipos..gbAntiFroudFilter..Caption
+#: Fmu/fmuFptrUnipos.dfm:170
+msgid "Anti froud filter"
+msgstr ""
+
+#. fmFptrUnipos..gbAntiFroudFilter..lblUniposUniqueItemPrefix..Caption
+#: Fmu/fmuFptrUnipos.dfm:177
+msgid "Unique item prefix:"
+msgstr ""
+
+#. fmFptrUnipos..gbAntiFroudFilter..lblUniposSalesErrorText..Caption
+#: Fmu/fmuFptrUnipos.dfm:184
+msgid "Sales receipt error text:"
+msgstr ""
+
+#. fmFptrUnipos..gbAntiFroudFilter..lblUniposRefundErrorText..Caption
+#: Fmu/fmuFptrUnipos.dfm:191
+msgid "Refund receipt error text:"
+msgstr ""
+
+#. fmFptrUnipos..gbAntiFroudFilter..chbAntiFroudFilterEnabled..Caption
+#: Fmu/fmuFptrUnipos.dfm:198
+msgid "Unipos anti froud filter enabled"
+msgstr ""
+
+#. fmFptrUnipos..gbAntiFroudFilter..edtUniposUniqueItemPrefix..Text
+#: Fmu/fmuFptrUnipos.dfm:207
+msgid "+++"
+msgstr ""
+
+#. fmFptrVatCode..Caption
+#: Fmu/fmuFptrVatCode.dfm:6
+msgid "VAT codes"
+msgstr ""
+
+#. fmFptrVatCode..lblAppVatCode..Caption
+#: Fmu/fmuFptrVatCode.dfm:27
+msgid "Application VAT code:"
+msgstr ""
+
+#. fmFptrVatCode..lblFptrVATCode..Caption
+#: Fmu/fmuFptrVatCode.dfm:34
+msgid "Fiscal printer VAT code:"
+msgstr ""
+
+#. fmFptrVatCode..lvVatCodes......Caption
+#: Fmu/fmuFptrVatCode.dfm:44
+msgid "Application VAT code"
+msgstr ""
+
+#. fmFptrVatCode..lvVatCodes......Caption
+#: Fmu/fmuFptrVatCode.dfm:48
+msgid "Printer VAT code"
+msgstr ""
+
+#. fmFptrVatCode..chbVatCodeEnabled..Caption
+#: Fmu/fmuFptrVatCode.dfm:105
+msgid "Vat code decode enabled"
+msgstr ""
+
+#. fmMain..Caption
+#: Fmu/fmuMain.dfm:6
+msgid "OPOS setup utility"
+msgstr ""
+
+#. fmMain..lblDevices..Caption
+#: Fmu/fmuMain.dfm:28
+msgid "Devices:"
+msgstr ""
+
+#. fmMain..lblDeviceType..Caption
+#: Fmu/fmuMain.dfm:35
+msgid "Device type:"
+msgstr ""
+
+#. fmMain..btnAddDevice..Caption
+#: Fmu/fmuMain.dfm:65
+msgid "Add device"
+msgstr ""
+
+#. fmMain..btnDeleteDevice..Caption
+#: Fmu/fmuMain.dfm:75
+msgid "Delete device"
+msgstr ""
+
+#. fmMain..btnEditDevice..Caption
+#: Fmu/fmuMain.dfm:87
+msgid "Edit device"
+msgstr ""
+
+#. fmMain..lbDeviceType....Items.Strings
+#: Fmu/fmuMain.dfm:100
+msgid "Fiscal Printer"
+msgstr ""
+
+#. fmMain..lbDeviceType....Items.Strings
+#: Fmu/fmuMain.dfm:101
+msgid "Cash Drawer"
+msgstr ""
+
+#. fmMain..lbDeviceType....Items.Strings
+#: Fmu/fmuMain.dfm:102
+msgid "POS Printer"
+msgstr ""
+
+#. fmMain..btnClose..Caption
+#: Fmu/fmuMain.dfm:112
+msgid "Close"
+msgstr ""
+
+#. fmMarkChecker..Caption
+#: Fmu/fmuMarkChecker.dfm:5
+msgid "Marking"
+msgstr ""
+
+#. fmMarkChecker..lblEkmServerHost..Caption
+#: Fmu/fmuMarkChecker.dfm:25
+msgid "IP address:"
+msgstr ""
+
+#. fmMarkChecker..lblEkmServerPort..Caption
+#: Fmu/fmuMarkChecker.dfm:32
+msgid "Port (0..65535):"
+msgstr ""
+
+#. fmMarkChecker..lblEkmServerTimeout..Caption
+#: Fmu/fmuMarkChecker.dfm:39
+msgid "Timeout, seconds (1..30):"
+msgstr ""
+
+#. fmMarkChecker..chkEkmServerEnabled..Caption
+#: Fmu/fmuMarkChecker.dfm:46
+msgid ""
+"Check marking on EKM server (conection to EKM server is needed)"
+msgstr ""
+
+#. fmMarkChecker..chkFSMarkCheckEnabled..Caption
+#: Fmu/fmuMarkChecker.dfm:81
+msgid "Check marking in fiscal storage (version 1.1 or later)"
+msgstr ""
+
+#. fmMiscParams..Caption
+#: Fmu/fmuMiscParams.dfm:6
+msgid "Misc parameters"
+msgstr ""
+
+#. fmMiscParams..lblMaxReceiptItems..Caption
+#: Fmu/fmuMiscParams.dfm:22
+msgid "Max receipt items:"
+msgstr ""
+
+#. fmMiscParams..lblMonitoringPort..Caption
+#: Fmu/fmuMiscParams.dfm:29
+msgid "Monitoring server port:"
+msgstr ""
+
+#. fmMiscParams..lblAmountDecimalPlaces..Caption
+#: Fmu/fmuMiscParams.dfm:43
+msgid "Application amount decimal places:"
+msgstr ""
+
+#. fmMiscParams..lblCapRecNearEndSensorMode..Caption
+#: Fmu/fmuMiscParams.dfm:57
+msgid "CapRecNearEndSensor mode:"
+msgstr ""
+
+#. fmMiscParams..lblTimeUpdateMode..Caption
+#: Fmu/fmuMiscParams.dfm:71
+msgid "Time update mode:"
+msgstr ""
+
+#. fmMiscParams..lblDocumentBlockSize..Caption
+#: Fmu/fmuMiscParams.dfm:78
+msgid "Document block size:"
+msgstr ""
+
+#. fmMiscParams..chbVoidReceiptOnMaxItems..Caption
+#: Fmu/fmuMiscParams.dfm:85
+msgid "Cancel receipt after maximum receipt items"
+msgstr ""
+
+#. fmMiscParams..chbPrintRecSubtotal..Caption
+#: Fmu/fmuMiscParams.dfm:103
+msgid "PrintRecSubtotal method enabled"
+msgstr ""
+
+#. fmMiscParams..chbDepartmentInText..Caption
+#: Fmu/fmuMiscParams.dfm:121
+msgid "Department number is 2 first chars of text"
+msgstr ""
+
+#. fmMiscParams..chbMonitoringEnabled..Caption
+#: Fmu/fmuMiscParams.dfm:129
+msgid "Monitoring enabled"
+msgstr ""
+
+#. fmMiscParams..cbAmountDecimalPlaces....Items.Strings
+#: Fmu/fmuMiscParams.dfm:143
+msgid "As in fiscal printer"
+msgstr ""
+
+#. fmMiscParams..cbCapRecNearEndSensorMode....Items.Strings
+#: Fmu/fmuMiscParams.dfm:154
+msgid "AUTO"
+msgstr ""
+
+#. fmMiscParams..cbCapRecNearEndSensorMode....Items.Strings
+#: Fmu/fmuMiscParams.dfm:155
+msgid "TRUE"
+msgstr ""
+
+#. fmMiscParams..cbCapRecNearEndSensorMode....Items.Strings
+#: Fmu/fmuMiscParams.dfm:156
+msgid "FALSE"
+msgstr ""
+
+#. fmMiscParams..chbWrapText..Caption
+#: Fmu/fmuMiscParams.dfm:163
+msgid "Wrap text"
+msgstr ""
+
+#. fmMiscParams..cbTimeUpdateMode....Items.Strings
+#: Fmu/fmuMiscParams.dfm:176
+msgid "When fiscal day is opened"
+msgstr ""
+
+#. fmMiscParams..cbTimeUpdateMode....Items.Strings
+#: Fmu/fmuMiscParams.dfm:177
+msgid "When fiscal day is opened without cancel"
+msgstr ""
+
+#. fmMiscParams..chbFSServiceEnabled..Caption
+#: Fmu/fmuMiscParams.dfm:184
+msgid "Fiscal storage service enabled"
+msgstr ""
+
+#. fmMiscParams..chbPingEnabled..Caption
+#: Fmu/fmuMiscParams.dfm:192
+msgid "PING device enabled"
+msgstr ""
+
+#. fmMiscParams..btnSetMaxDocumentBlockSize..Caption
+#: Fmu/fmuMiscParams.dfm:211
+msgid "Max value"
+msgstr ""
+
+#. fmPages..btnDefaults..Caption
+#: Fmu/fmuPages.dfm:30
+msgid "Defaults"
+msgstr ""
+
+#. fmPages..btnApply..Caption
+#: Fmu/fmuPages.dfm:63
+msgid "Apply"
+msgstr ""
+
+#. fmPages..pnlPage..Caption
+#: Fmu/fmuPages.dfm:85
+msgid "pnlPage"
+msgstr ""
+
+#. fmRosneftAddText..Caption
+#: Fmu/fmuRosneftAddText.dfm:6
+msgid "Rosneft additional text"
+msgstr ""
+
+#. fmRosneftAddText..lblRosneftItemName..Caption
+#: Fmu/fmuRosneftAddText.dfm:27
+msgid "Receipt item name:"
+msgstr ""
+
+#. fmRosneftAddText..lblRosneftAddText..Caption
+#: Fmu/fmuRosneftAddText.dfm:34
+msgid "Additional text block:"
+msgstr ""
+
+#. fmRosneftAddText..lblDepartment..Caption
+#: Fmu/fmuRosneftAddText.dfm:41
+msgid "Receipt item department:"
+msgstr ""
+
+#. fmRosneftAddText..chbRosneftAddTextEnabled..Caption
+#: Fmu/fmuRosneftAddText.dfm:48
+msgid "Additional text block enabled"
+msgstr ""
+
+#. fmRosneftAddText..edtRosneftItemName..Text
+#: Fmu/fmuRosneftAddText.dfm:58
+msgid "edtRosneftItemName"
+msgstr ""
+
+#. fmRosneftDiscountCard..Caption
+#: Fmu/fmuRosneftDiscountCard.dfm:6
+msgid "Rosneft, discount card"
+msgstr ""
+
+#. fmRosneftDiscountCard..lblRosneftCardMask..Caption
+#: Fmu/fmuRosneftDiscountCard.dfm:24
+msgid "Card mask (regular expression):"
+msgstr ""
+
+#. fmRosneftDiscountCard..lblRosneftCardName..Caption
+#: Fmu/fmuRosneftDiscountCard.dfm:31
+msgid "Card name (replacement string):"
+msgstr ""
+
+#. fmRosneftDiscountCard..Label1..Caption
+#: Fmu/fmuRosneftDiscountCard.dfm:45
+msgid "Card name:"
+msgstr ""
+
+#. fmRosneftDiscountCard..Label2..Caption
+#: Fmu/fmuRosneftDiscountCard.dfm:52
+msgid "Result card name:"
+msgstr ""
+
+#. fmRosneftDiscountCard..chbDiscountCards..Caption
+#: Fmu/fmuRosneftDiscountCard.dfm:59
+msgid "Process discount cards"
+msgstr ""
+
+#. fmRosneftDiscountCard..edtRosneftCardMask..Text
+#: Fmu/fmuRosneftDiscountCard.dfm:68
+msgid "edtRosneftCardMask"
+msgstr ""
+
+#. fmRosneftDiscountCard..edtRosneftCardName..Text
+#: Fmu/fmuRosneftDiscountCard.dfm:76
+msgid "edtRosneftCardName"
+msgstr ""
+
+#. fmRosneftDiscountCard..btnTest..Caption
+#: Fmu/fmuRosneftDiscountCard.dfm:83
+msgid "Test"
+msgstr ""
+
+#. fmRosneftDiscountCard..edtCardName..Text
+#: Fmu/fmuRosneftDiscountCard.dfm:93
+msgid "3% Loyalty 000302992000000040"
+msgstr ""
+
+#. fmScaleGeneral..Caption
+#: Fmu/fmuScaleGeneral.dfm:6
+msgid "Scale"
+msgstr ""
+
+#. fmScaleGeneral..gbParams..lblMaxRetryCount..Caption
+#: Fmu/fmuScaleGeneral.dfm:56
+msgid "Maximum connect retries:"
+msgstr ""
+
+#. fmScaleGeneral..gbParams..lblCommandTimeout..Caption
+#: Fmu/fmuScaleGeneral.dfm:63
+msgid "Command timeout, ms:"
+msgstr ""
+
+#. fmScaleGeneral..gbParams..lblPassword..Caption
+#: Fmu/fmuScaleGeneral.dfm:70
+msgid "Password:"
+msgstr ""
+
+#. fmScaleGeneral..gbParams..lblPollPeriod..Caption
+#: Fmu/fmuScaleGeneral.dfm:91
+msgid "Poll period:"
+msgstr ""
+
+#. fmScaleGeneral..gbParams..chbCapPrice..Caption
+#: Fmu/fmuScaleGeneral.dfm:208
+msgid ""
+"Use scale price calculating (additional commands will be sent)"
+msgstr ""
+
+#. fmXReport..Caption
+#. fmXReport..cbXReport....Items.Strings
+#: Fmu/fmuXReport.dfm:6 Fmu/fmuXReport.dfm:32
+msgid "X report"
+msgstr ""
+
+#. fmXReport..lblXReport..Caption
+#: Fmu/fmuXReport.dfm:21
+msgid "X report:"
+msgstr ""
+
+#. fmXReport..cbXReport....Items.Strings
+#: Fmu/fmuXReport.dfm:33
+msgid "Fiscal storage calculations report"
+msgstr ""
+
+#. fmZReport..Caption
+#: Fmu/fmuZReport.dfm:6
+msgid "Z report"
+msgstr ""
+
+#. fmZReport..lblXmlZReportFileName..Caption
+#: Fmu/fmuZReport.dfm:24
+msgid "XML Z report filename:"
+msgstr ""
+
+#. fmZReport..llblCsvZReportFileName..Caption
+#: Fmu/fmuZReport.dfm:31
+msgid "CSV Z report filename:"
+msgstr ""
+
+#. fmZReport..lblReceiptReportFileName..Caption
+#: Fmu/fmuZReport.dfm:38
+msgid "Receipt report filename:"
+msgstr ""
+
+#. fmZReport..chbXmlZReportEnabled..Caption
+#: Fmu/fmuZReport.dfm:45
+msgid "XML Z report enabled"
+msgstr ""
+
+#. fmZReport..edtXmlZReportFileName..Text
+#: Fmu/fmuZReport.dfm:55
+msgid "edtXmlZReportFileName"
+msgstr ""
+
+#. fmZReport..chbCsvZReportEnabled..Caption
+#: Fmu/fmuZReport.dfm:62
+msgid "CSV Z report enabled"
+msgstr ""
+
+#. fmZReport..edtCsvZReportFileName..Text
+#: Fmu/fmuZReport.dfm:72
+msgid "edtCsvZReportFileName"
+msgstr ""
+
+#. fmZReport..chbReceiptReportEnabled..Caption
+#: Fmu/fmuZReport.dfm:79
+msgid "Receipt report enabled"
+msgstr ""
+
+#. fmZReport..edtReceiptReportFileName..Text
+#: Fmu/fmuZReport.dfm:89
+msgid "edtReceiptReportFileName"
+msgstr ""
+
+#. fmZReport..chbReportDateStamp..Caption
+#: Fmu/fmuZReport.dfm:96
+msgid "Add report date to file name (HHmmDDMMYY)"
+msgstr ""
+
+#. Programmer's name: BLOCK
+#: OposConfig.rc:10
+msgid "StringFileInfo"
+msgstr ""
+
+#. Programmer's name: BLOCK
+#: OposConfig.rc:12
+msgid "040904E4"
+msgstr ""
+
+#. Programmer's name: VALUE
+#: OposConfig.rc:14
+msgid "CompanyName"
+msgstr ""
+
+#. Programmer's name: VALUE
+#: OposConfig.rc:15
+msgid "FileDescription"
+msgstr ""
+
+#. Programmer's name: VALUE
+#: OposConfig.rc:16
+msgid "FileVersion"
+msgstr ""
+
+#. Programmer's name: VALUE
+#: OposConfig.rc:17
+msgid "InternalName"
+msgstr ""
+
+#. Programmer's name: VALUE
+#: OposConfig.rc:18
+msgid "LegalCopyright"
+msgstr ""
+
+#. Programmer's name: VALUE
+#: OposConfig.rc:19
+msgid "OriginalFilename"
+msgstr ""
+
+#. Programmer's name: VALUE
+#: OposConfig.rc:20
+msgid "ProductName"
+msgstr ""
+
+#. Programmer's name: VALUE
+#: OposConfig.rc:21
+msgid "ProductVersion"
+msgstr ""
+
+#. Programmer's name: VALUE
+#: OposConfig.rc:22
+msgid "Comments"
+msgstr ""
+
+#. Programmer's name: BLOCK
+#: OposConfig.rc:26
+msgid "VarFileInfo"
+msgstr ""
+
+#. Programmer's name: VALUE
+#: OposConfig.rc:28
+msgid "Translation"
+msgstr ""
+
+#. Programmer's name: MAINICON  ICON  DISCARDABLE
+#: OposConfig.rc:32
+msgid "MAINICON.ico"
+msgstr ""
+
+#. Programmer's name: 1 24
+#: WindowsXP.rc:1
+msgid "WindowsXP.manifest"
+msgstr ""

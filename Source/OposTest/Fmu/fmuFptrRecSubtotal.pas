@@ -6,18 +6,20 @@ uses
   // VCL
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ExtCtrls,
+  // Tnt
+  TntStdCtrls, TntRegistry,
   // This
   untPages, OposFiscalPrinter;
 
 type
   TfmFptrRecSubtotal = class(TPage)
-    lblAmount: TLabel;
-    edtAmount: TEdit;
-    btnPrintRecSubtotal: TButton;
-    lblPreLine: TLabel;
-    edtPreLine: TEdit;
-    lblPostLine: TLabel;
-    edtPostLine: TEdit;
+    lblAmount: TTntLabel;
+    edtAmount: TTntEdit;
+    btnPrintRecSubtotal: TTntButton;
+    lblPreLine: TTntLabel;
+    edtPreLine: TTntEdit;
+    lblPostLine: TTntLabel;
+    edtPostLine: TTntEdit;
     procedure btnPrintRecSubtotalClick(Sender: TObject);
   end;
 

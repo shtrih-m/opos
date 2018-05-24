@@ -6,24 +6,26 @@ uses
   // VCL
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls,
+  // Tnt
+  TntStdCtrls, TntRegistry,
   // This
   untPages, OposFiscalPrinter;
 
 type
   TfmFptrRecItemAdjust = class(TPage)
-    btnExecute: TButton;
-    lblDescription: TLabel;
-    edtDescription: TEdit;
-    lblAdjustmentType: TLabel;
-    edtAdjustmentType: TEdit;
-    lblAmount: TLabel;
-    edtAmount: TEdit;
-    lblVatInfo: TLabel;
-    edtVatInfo: TEdit;
-    lblPreLine: TLabel;
-    edtPreLine: TEdit;
-    cbAdjustmentType: TComboBox;
-    Label1: TLabel;
+    btnExecute: TTntButton;
+    lblDescription: TTntLabel;
+    edtDescription: TTntEdit;
+    lblAdjustmentType: TTntLabel;
+    edtAdjustmentType: TTntEdit;
+    lblAmount: TTntLabel;
+    edtAmount: TTntEdit;
+    lblVatInfo: TTntLabel;
+    edtVatInfo: TTntEdit;
+    lblPreLine: TTntLabel;
+    edtPreLine: TTntEdit;
+    cbAdjustmentType: TTntComboBox;
+    Label1: TTntLabel;
     procedure btnExecuteClick(Sender: TObject);
     procedure cbAdjustmentTypeChange(Sender: TObject);
   end;

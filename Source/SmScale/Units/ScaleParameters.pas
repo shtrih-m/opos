@@ -9,6 +9,8 @@ uses
   Opos, Oposhi, OposException,
   // Shared
   LogFile,
+  // Tnt
+  TntSysUtils, TntClasses, TntRegistry,
   // this
   ScaleTypes, StringUtils;
 
@@ -155,14 +157,14 @@ end;
 
 class function TScaleParameters.GetKeyName(const DeviceName: string): string;
 begin
-  Result := Format('%s\%s\%s', [OPOS_ROOTKEY, OPOS_CLASSKEY_SCAL, DeviceName]);
+  Result := Tnt_WideFormat('%s\%s\%s', [OPOS_ROOTKEY, OPOS_CLASSKEY_SCAL, DeviceName]);
 end;
 
 class procedure TScaleParameters.DeleteKey(const DeviceName: string);
 var
-  Reg: TRegistry;
+  Reg: TTntRegistry;
 begin
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     Reg.RootKey := HKEY_LOCAL_MACHINE;
     Reg.DeleteKey(GetKeyName(DeviceName));
@@ -173,9 +175,9 @@ end;
 
 class procedure TScaleParameters.CreateKey(const DeviceName: string);
 var
-  Reg: TRegistry;
+  Reg: TTntRegistry;
 begin
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     Reg.RootKey := HKEY_LOCAL_MACHINE;
     Reg.CreateKey(GetKeyName(DeviceName));
@@ -186,11 +188,11 @@ end;
 
 procedure TScaleParameters.Load(const DeviceName: string);
 var
-  Reg: TRegistry;
+  Reg: TTntRegistry;
 begin
   Logger.Debug('TScaleParameters.Load', DeviceName);
 
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     Reg.Access := KEY_READ;
     Reg.RootKey := HKEY_LOCAL_MACHINE;
@@ -246,11 +248,11 @@ end;
 
 procedure TScaleParameters.Save(const DeviceName: string);
 var
-  Reg: TRegistry;
+  Reg: TTntRegistry;
 begin
   Logger.Debug('TScaleParameters.Save', DeviceName);
 
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     Reg.Access := KEY_ALL_ACCESS;
     Reg.RootKey := HKEY_LOCAL_MACHINE;

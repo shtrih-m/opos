@@ -20,28 +20,28 @@ object fmCashDrawer: TfmCashDrawer
     173)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblDrawerNumber: TLabel
+  object lblDrawerNumber: TTntLabel
     Left = 8
     Top = 16
     Width = 100
     Height = 13
     Caption = 'Cash drawer number:'
   end
-  object lblFiscalPrinterDeviceName: TLabel
+  object lblFiscalPrinterDeviceName: TTntLabel
     Left = 8
     Top = 48
     Width = 127
     Height = 13
     Caption = 'Fiscal printer DeviceName:'
   end
-  object lblCCOType: TLabel
+  object lblCCOType: TTntLabel
     Left = 8
     Top = 80
     Width = 48
     Height = 13
     Caption = 'CCO type:'
   end
-  object cbFiscalPrinterDeviceName: TComboBox
+  object cbFiscalPrinterDeviceName: TTntComboBox
     Left = 144
     Top = 48
     Width = 281
@@ -51,7 +51,7 @@ object fmCashDrawer: TfmCashDrawer
     TabOrder = 1
     Text = 'cbFiscalPrinterDeviceName'
   end
-  object cbCCOType: TComboBox
+  object cbCCOType: TTntComboBox
     Left = 144
     Top = 80
     Width = 281
@@ -75,7 +75,7 @@ object fmCashDrawer: TfmCashDrawer
     TabOrder = 0
     Value = 0
   end
-  object OpenDialog: TOpenDialog
+  object OpenDialog: TTntOpenDialog
     Filter = 
       'Log files (*.log)|*.log|Text files (*.txt)|*.txt|All files (*.*)' +
       '|*.*'

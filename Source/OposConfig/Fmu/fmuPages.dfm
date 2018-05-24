@@ -21,7 +21,7 @@ object fmPages: TfmPages
     504)
   PixelsPerInch = 96
   TextHeight = 13
-  object btnDefaults: TButton
+  object btnDefaults: TTntButton
     Left = 8
     Top = 472
     Width = 81
@@ -31,7 +31,7 @@ object fmPages: TfmPages
     TabOrder = 0
     OnClick = btnDefaultsClick
   end
-  object btnOK: TButton
+  object btnOK: TTntButton
     Left = 416
     Top = 472
     Width = 75
@@ -42,7 +42,7 @@ object fmPages: TfmPages
     TabOrder = 1
     OnClick = btnOKClick
   end
-  object btnCancel: TButton
+  object btnCancel: TTntButton
     Left = 496
     Top = 472
     Width = 75
@@ -53,7 +53,7 @@ object fmPages: TfmPages
     ModalResult = 2
     TabOrder = 2
   end
-  object btnApply: TButton
+  object btnApply: TTntButton
     Left = 576
     Top = 472
     Width = 75
@@ -65,7 +65,7 @@ object fmPages: TfmPages
     TabOrder = 3
     OnClick = btnApplyClick
   end
-  object lbPages: TListBox
+  object lbPages: TTntListBox
     Left = 8
     Top = 8
     Width = 145

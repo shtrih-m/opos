@@ -6,7 +6,7 @@ uses
   // VCL
   Classes, SysUtils,
   // This
-  EkmClient, DriverError;
+  EkmClient, DriverError, TntSysUtils;
 
 
 const
@@ -58,12 +58,12 @@ begin
     Tockens.Decode(Barcode);
     Tocken := Tockens.ItemByID('01');
     if Tocken = nil then
-      raiseError(E_TAG_NOT_FOUND, Format(STagNotFound, ['GTIN(01)']));
+      raiseError(E_TAG_NOT_FOUND, Tnt_WideFormat(STagNotFound, ['GTIN(01)']));
     Result.GTIN := Tocken.Data;
 
     Tocken := Tockens.ItemByID('21');
     if Tocken = nil then
-      raiseError(E_TAG_NOT_FOUND, Format(STagNotFound, ['SerialNumber(21)']));
+      raiseError(E_TAG_NOT_FOUND, Tnt_WideFormat(STagNotFound, ['SerialNumber(21)']));
     Result.Serial := Tocken.Data;
   finally
     Tockens.Free;
@@ -318,7 +318,7 @@ begin
       Tocken := Tockens[i];
       if ValidGS1TagId(Tocken.id) then
       begin
-        Result := Result + Format('(%s)%s', [Tocken.id, Tocken.Data]);
+        Result := Result + Tnt_WideFormat('(%s)%s', [Tocken.id, Tocken.Data]);
       end;
     end;
   finally
@@ -382,7 +382,7 @@ begin
           end;
           Inc(i, j);
         end;
-        Result := Result + Format('(%s)%s', [id, value]);
+        Result := Result + Tnt_WideFormat('(%s)%s', [id, value]);
         id := '';
       end;
     end;

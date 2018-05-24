@@ -6,6 +6,8 @@ uses
   // VCL
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, Registry, ExtCtrls, ComCtrls, Buttons,
+  // Tnt
+  TntSysUtils, TntClasses, TntStdCtrls, TntRegistry, TntButtons,
   // This
   BaseForm, OposDevice, FiscalPrinterDevice, CashDrawerDevice, ScaleDevice,
   fmuDevice;
@@ -14,15 +16,15 @@ type
   { TfmMain }
 
   TfmMain = class(TBaseForm)
-    lbDevices: TListBox;
-    lblDevices: TLabel;
-    lblDeviceType: TLabel;
+    lbDevices: TTntListBox;
+    lblDevices: TTntLabel;
+    lblDeviceType: TTntLabel;
     Bevel1: TBevel;
-    btnAddDevice: TBitBtn;
-    btnDeleteDevice: TBitBtn;
-    btnEditDevice: TBitBtn;
-    lbDeviceType: TListBox;
-    btnClose: TButton;
+    btnAddDevice: TTntBitBtn;
+    btnDeleteDevice: TTntBitBtn;
+    btnEditDevice: TTntBitBtn;
+    lbDeviceType: TTntListBox;
+    btnClose: TTntButton;
     procedure FormCreate(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
     procedure btnAddDeviceClick(Sender: TObject);
@@ -149,7 +151,7 @@ var
   DeviceName: string;
 begin
   DeviceName := lbDevices.Items[lbDevices.ItemIndex];
-  S := Format('Delete device ''%s''?', [DeviceName]);
+  S := Tnt_WideFormat('Delete device ''%s''?', [DeviceName]);
   if MessageBox(Handle, PChar(S), PChar(Application.Title),
     MB_YESNO or MB_ICONEXCLAMATION) = ID_YES then
   begin
@@ -216,3 +218,5 @@ begin
 end;
 
 end.
+
+

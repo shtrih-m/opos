@@ -6,17 +6,19 @@ uses
   // VCL
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ExtCtrls,
+  // Tnt
+  TntStdCtrls, TntRegistry,
   // This
   untPages, OposFiscalPrinter;
 
 type
   TfmFptrSlipInsertion = class(TPage)
-    lblTimeout: TLabel;
-    edtTimeout: TEdit;
-    btnBeginInsertion: TButton;
-    btnEndInsertion: TButton;
-    btnBeginRemoval: TButton;
-    btnEndRemoval: TButton;
+    lblTimeout: TTntLabel;
+    edtTimeout: TTntEdit;
+    btnBeginInsertion: TTntButton;
+    btnEndInsertion: TTntButton;
+    btnBeginRemoval: TTntButton;
+    btnEndRemoval: TTntButton;
     procedure btnBeginInsertionClick(Sender: TObject);
     procedure btnEndInsertionClick(Sender: TObject);
     procedure btnBeginRemovalClick(Sender: TObject);

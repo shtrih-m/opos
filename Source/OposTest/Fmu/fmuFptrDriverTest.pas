@@ -6,6 +6,8 @@ uses
   // VCL
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ExtCtrls, Grids, ActiveX, ComObj,
+  // Tnt
+  TntStdCtrls, TntRegistry,
   // This
   untPages, OposUtils, AlignStrings, DriverTest, PrinterTest;
 
@@ -13,9 +15,9 @@ type
   { TfmDriverTest }
 
   TfmFptrDriverTest = class(TPage)
-    Memo: TMemo;
-    ListBox: TListBox;
-    btnDayOpenedTest: TButton;
+    Memo: TTntMemo;
+    ListBox: TTntListBox;
+    btnDayOpenedTest: TTntButton;
     procedure btnDayOpenedTestClick(Sender: TObject);
   private
     FTests: TDriverTests;

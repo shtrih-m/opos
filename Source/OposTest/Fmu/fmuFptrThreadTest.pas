@@ -6,6 +6,8 @@ uses
   // VCL
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, ExtCtrls, Spin, SyncObjs, ComObj, ActiveX, Registry,
+  // Tnt
+  TntStdCtrls, TntSysUtils, TntClasses, TntRegistry, 
   // This
   untPages, Opos, OposFptr, Oposhi, OposUtils,
   OposFiscalPrinter, NotifyThread, SMCashDrawer, SMFiscalPrinter, OposDevice;
@@ -15,27 +17,27 @@ type
   { TfmFptrThreadTest }
 
   TfmFptrThreadTest = class(TPage)
-    btnStart: TButton;
-    chbStopOnError: TCheckBox;
-    btnStop: TButton;
+    btnStart: TTntButton;
+    chbStopOnError: TTntCheckBox;
+    btnStop: TTntButton;
     Timer: TTimer;
-    lblDrawerTestCount_: TLabel;
-    lblDrawerTestCount: TLabel;
-    lblErrorCount_: TLabel;
-    lblErrorCount: TLabel;
-    memMessages: TMemo;
-    cbPrinterDeviceName: TComboBox;
-    lblDeviceName: TLabel;
-    cbCashDeviceName: TComboBox;
-    lblCashDeviceName: TLabel;
-    lblPrinterTestCount_: TLabel;
-    lblPrinterTestCount: TLabel;
+    lblDrawerTestCount_: TTntLabel;
+    lblDrawerTestCount: TTntLabel;
+    lblErrorCount_: TTntLabel;
+    lblErrorCount: TTntLabel;
+    memMessages: TTntMemo;
+    cbPrinterDeviceName: TTntComboBox;
+    lblDeviceName: TTntLabel;
+    cbCashDeviceName: TTntComboBox;
+    lblCashDeviceName: TTntLabel;
+    lblPrinterTestCount_: TTntLabel;
+    lblPrinterTestCount: TTntLabel;
     procedure btnStartClick(Sender: TObject);
     procedure btnStopClick(Sender: TObject);
     procedure TimerTimer(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
-    FMessages: TStrings;
+    FMessages: TTntStrings;
     FStopFlag: Boolean;
     FErrorCount: Integer;
     FDrawerTestCount: Integer;
@@ -73,7 +75,7 @@ implementation
 constructor TfmFptrThreadTest.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
-  FMessages := TStringList.Create;
+  FMessages := TTntStringList.Create;
   FLock := TCriticalsection.Create;
 end;
 
@@ -290,9 +292,9 @@ end;
 
 procedure TfmFptrThreadTest.UpdateDrawerDevice;
 var
-  Reg: TRegistry;
+  Reg: TTntRegistry;
 begin
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   try
     Reg.RootKey := HKEY_LOCAL_MACHINE;
     Reg.Access := KEY_QUERY_VALUE + KEY_ENUMERATE_SUB_KEYS;

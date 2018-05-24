@@ -6,7 +6,7 @@ uses
   // VCL
   SysUtils, XMLDoc, XMLIntf,
   // This
-  XmlUtils, LogFile, FileUtils, PrinterTypes;
+  XmlUtils, LogFile, FileUtils, TntSysUtils, PrinterTypes;
 
 const
   /////////////////////////////////////////////////////////////////////////////
@@ -92,7 +92,7 @@ begin
   SetNodeInt(Node, 'type', R.RecType);
   SetNodeInt(Node, 'state', R.State);
   SetNodeInt(Node, 'amount', R.Amount);
-  SetNodeStr(Node, 'date', Format('%.2d.%.2d.%.4d %.2d:%.2d:%.2d', [
+  SetNodeStr(Node, 'date', Tnt_WideFormat('%.2d.%.2d.%.4d %.2d:%.2d:%.2d', [
     R.Date.Day, R.Date.Month, R.Date.Year + 2000,
     R.Time.Hour, R.Time.Min, R.Time.Sec]));
 

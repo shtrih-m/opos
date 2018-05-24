@@ -5,6 +5,8 @@ interface
 uses
   // VCL
   Windows, SysUtils, Variants, ComObj,
+  // Tnt
+  TntSysUtils,
   // This
   Opos, PrinterEncoding, PrinterParameters, PrinterParametersX, DirectIOAPI,
   OposFiscalPrinter_1_12_Lib_TLB, OposFiscalPrinter_1_13_Lib_TLB, StringUtils,
@@ -1928,7 +1930,7 @@ var
   pString: WideString;
 begin
   pData := Barcode.BarcodeType;
-  pString := Format('%s;%s;%d;%d;%d;', [
+  pString := Tnt_WideFormat('%s;%s;%d;%d;%d;', [
     Barcode.Data,
     Barcode.Text,
     Barcode.Height,
@@ -1943,7 +1945,7 @@ var
   pString: WideString;
 begin
   pData := Barcode.BarcodeType;
-  pString := Format('%s;%s;%d;%d;%d;', [
+  pString := Tnt_WideFormat('%s;%s;%d;%d;%d;', [
     StrToHexText(Barcode.Data),
     Barcode.Text,
     Barcode.Height,
@@ -1958,7 +1960,7 @@ var
   pString: WideString;
 begin
   pData := Barcode.BarcodeType;
-  pString := Format('%s;%s;%d;%d;%d;', [
+  pString := Tnt_WideFormat('%s;%s;%d;%d;%d;', [
     StrToHexText(Barcode.Data),
     StrToHexText(Barcode.Text),
     Barcode.Height,
@@ -2035,7 +2037,7 @@ var
   pData: Integer;
 begin
   pData := 0;
-  Value := Format('%d;%d;%d', [Table, Row, Field]);
+  Value := Tnt_WideFormat('%d;%d;%d', [Table, Row, Field]);
   Result := Driver.DirectIO(DIO_READ_TABLE, pData, Value);
 end;
 

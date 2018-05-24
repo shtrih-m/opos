@@ -262,7 +262,7 @@ end;
 
 class function TMalinaParams.GetSysKeyName(const DeviceName: WideString): WideString;
 begin
-  Result := Format('%s\%s\%s\', [OPOS_ROOTKEY, OPOS_CLASSKEY_FPTR, DeviceName]);
+  Result := Tnt_WideFormat('%s\%s\%s\', [OPOS_ROOTKEY, OPOS_CLASSKEY_FPTR, DeviceName]);
 end;
 
 class function TMalinaParams.DeviceExists(
@@ -283,9 +283,9 @@ end;
 procedure TMalinaParams.LogText(const Caption, Text: WideString);
 var
   i: Integer;
-  Lines: TStrings;
+  Lines: TTntStrings;
 begin
-  Lines := TStringList.Create;
+  Lines := TTntStringList.Create;
   try
     Lines.Text := Text;
     if Lines.Count = 1 then

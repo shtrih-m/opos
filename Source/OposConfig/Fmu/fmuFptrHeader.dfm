@@ -17,42 +17,17 @@ object fmFptrHeader: TfmFptrHeader
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
-  object symHeader: TSynMemo
-    Left = 0
-    Top = 0
-    Width = 648
-    Height = 368
-    Align = alClient
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Courier New'
-    Font.Style = []
-    TabOrder = 0
-    Gutter.DigitCount = 2
-    Gutter.Font.Charset = DEFAULT_CHARSET
-    Gutter.Font.Color = clWindowText
-    Gutter.Font.Height = -11
-    Gutter.Font.Name = 'Courier New'
-    Gutter.Font.Style = []
-    Gutter.LeftOffset = 6
-    Gutter.RightOffset = 4
-    Gutter.ShowLineNumbers = True
-    ScrollBars = ssVertical
-    OnChange = PageChange
-    FontSmoothing = fsmNone
-  end
-  object gbHeader: TGroupBox
+  object gbHeader: TTntGroupBox
     Left = 0
     Top = 368
     Width = 648
     Height = 100
     Align = alBottom
-    TabOrder = 1
+    TabOrder = 0
     DesignSize = (
       648
       100)
-    object lblNumHeaderLines: TLabel
+    object lblNumHeaderLines: TTntLabel
       Left = 354
       Top = 16
       Width = 100
@@ -60,7 +35,7 @@ object fmFptrHeader: TfmFptrHeader
       Anchors = [akTop, akRight]
       Caption = 'Number header lines:'
     end
-    object lblHeaderFont: TLabel
+    object lblHeaderFont: TTntLabel
       Left = 354
       Top = 48
       Width = 97
@@ -68,7 +43,7 @@ object fmFptrHeader: TfmFptrHeader
       Anchors = [akTop, akRight]
       Caption = 'Header font number:'
     end
-    object cbNumHeaderLines: TComboBox
+    object cbNumHeaderLines: TTntComboBox
       Left = 466
       Top = 16
       Width = 81
@@ -79,7 +54,7 @@ object fmFptrHeader: TfmFptrHeader
       TabOrder = 2
       OnChange = PageChange
     end
-    object cbHeaderFont: TComboBox
+    object cbHeaderFont: TTntComboBox
       Left = 466
       Top = 48
       Width = 81
@@ -98,7 +73,7 @@ object fmFptrHeader: TfmFptrHeader
         '6'
         '7')
     end
-    object btnPrintHeader: TButton
+    object btnPrintHeader: TTntButton
       Left = 554
       Top = 16
       Width = 91
@@ -108,7 +83,7 @@ object fmFptrHeader: TfmFptrHeader
       TabOrder = 4
       OnClick = btnPrintHeaderClick
     end
-    object chbSetHeaderLineEnabled: TCheckBox
+    object chbSetHeaderLineEnabled: TTntCheckBox
       Left = 8
       Top = 16
       Width = 169
@@ -116,7 +91,7 @@ object fmFptrHeader: TfmFptrHeader
       Caption = 'SetHeaderLine method enabled'
       TabOrder = 0
     end
-    object chbCenterHeader: TCheckBox
+    object chbCenterHeader: TTntCheckBox
       Left = 8
       Top = 48
       Width = 185
@@ -124,5 +99,30 @@ object fmFptrHeader: TfmFptrHeader
       Caption = 'Center header lines automatically'
       TabOrder = 1
     end
+  end
+  object symHeader: TSynMemo
+    Left = 0
+    Top = 0
+    Width = 648
+    Height = 368
+    Align = alClient
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Courier New'
+    Font.Style = []
+    TabOrder = 1
+    Gutter.DigitCount = 2
+    Gutter.Font.Charset = DEFAULT_CHARSET
+    Gutter.Font.Color = clWindowText
+    Gutter.Font.Height = -11
+    Gutter.Font.Name = 'Courier New'
+    Gutter.Font.Style = []
+    Gutter.LeftOffset = 6
+    Gutter.RightOffset = 4
+    Gutter.ShowLineNumbers = True
+    ScrollBars = ssVertical
+    OnChange = PageChange
+    FontSmoothing = fsmNone
   end
 end

@@ -13,14 +13,14 @@ object fmXReport: TfmXReport
   OldCreateOrder = False
   PixelsPerInch = 96
   TextHeight = 13
-  object lblXReport: TLabel
+  object lblXReport: TTntLabel
     Left = 8
     Top = 24
     Width = 40
     Height = 13
     Caption = 'X report:'
   end
-  object cbXReport: TComboBox
+  object cbXReport: TTntComboBox
     Left = 64
     Top = 24
     Width = 209

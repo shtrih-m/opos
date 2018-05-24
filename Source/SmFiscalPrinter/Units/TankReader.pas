@@ -64,12 +64,12 @@ implementation
 procedure RegDeleteKey(const KeyName: string);
 var
   i: Integer;
-  Reg: TRegistry;
-  Strings: TStrings;
+  Reg: TTntRegistry;
+  Strings: TTntStrings;
 begin
-  Reg := TRegistry.Create;
+  Reg := TTntRegistry.Create;
   Reg.RootKey := HKEY_LOCAL_MACHINE;
-  Strings := TStringList.Create;
+  Strings := TTntStringList.Create;
   try
     if Reg.OpenKey(KeyName, False) then
     begin

@@ -138,7 +138,8 @@ uses
   fmuFptrTest2 in '..\..\Source\OposTest\Fmu\fmuFptrTest2.pas' {fmFptrTest2},
   VatCode in '..\..\Source\SmFiscalPrinter\Units\VatCode.pas',
   fmuFptrDirectIOBarcode in '..\..\Source\OposTest\Fmu\fmuFptrDirectIOBarcode.pas' {fmFptrDirectIOBarcode},
-  WException in '..\..\Source\Shared\WException.pas';
+  WException in '..\..\Source\Shared\WException.pas',
+  TntIniFiles in '..\..\Source\Shared\TntIniFiles.pas';
 
 {$R *.RES}
 

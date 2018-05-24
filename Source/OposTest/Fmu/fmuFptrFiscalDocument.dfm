@@ -17,21 +17,21 @@ object fmFptrFiscalDocument: TfmFptrFiscalDocument
     270)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblAmount: TLabel
+  object lblAmount: TTntLabel
     Left = 8
     Top = 8
     Width = 39
     Height = 13
     Caption = 'Amount:'
   end
-  object lblLine: TLabel
+  object lblLine: TTntLabel
     Left = 8
     Top = 72
     Width = 23
     Height = 13
     Caption = 'Line:'
   end
-  object btnBeginFiscalDocument: TButton
+  object btnBeginFiscalDocument: TTntButton
     Left = 248
     Top = 8
     Width = 137
@@ -41,7 +41,7 @@ object fmFptrFiscalDocument: TfmFptrFiscalDocument
     TabOrder = 0
     OnClick = btnBeginFiscalDocumentClick
   end
-  object edtAmount: TEdit
+  object edtAmount: TTntEdit
     Left = 80
     Top = 8
     Width = 161
@@ -50,7 +50,7 @@ object fmFptrFiscalDocument: TfmFptrFiscalDocument
     TabOrder = 1
     Text = '0'
   end
-  object btnEndFiscalDocument: TButton
+  object btnEndFiscalDocument: TTntButton
     Left = 248
     Top = 40
     Width = 137
@@ -60,7 +60,7 @@ object fmFptrFiscalDocument: TfmFptrFiscalDocument
     TabOrder = 2
     OnClick = btnEndFiscalDocumentClick
   end
-  object btnPrintFiscalDocumentLine: TButton
+  object btnPrintFiscalDocumentLine: TTntButton
     Left = 248
     Top = 104
     Width = 137
@@ -70,7 +70,7 @@ object fmFptrFiscalDocument: TfmFptrFiscalDocument
     TabOrder = 3
     OnClick = btnPrintFiscalDocumentLineClick
   end
-  object edtLine: TEdit
+  object edtLine: TTntEdit
     Left = 40
     Top = 72
     Width = 345

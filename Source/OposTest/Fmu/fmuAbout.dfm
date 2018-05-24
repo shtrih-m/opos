@@ -35,7 +35,7 @@ object fmAbout: TfmAbout
     Height = 57
     Anchors = [akLeft, akTop, akRight]
   end
-  object lblAddress: TLabel
+  object lblAddress: TTntLabel
     Left = 92
     Top = 50
     Width = 191
@@ -47,7 +47,7 @@ object fmAbout: TfmAbout
     ParentColor = False
     Transparent = True
   end
-  object lblURL: TLabel
+  object lblURL: TTntLabel
     Left = 192
     Top = 146
     Width = 145
@@ -67,7 +67,7 @@ object fmAbout: TfmAbout
     Transparent = True
     OnClick = lblURLClick
   end
-  object lblWebSite: TLabel
+  object lblWebSite: TTntLabel
     Left = 88
     Top = 146
     Width = 97
@@ -77,7 +77,7 @@ object fmAbout: TfmAbout
     Caption = 'Home page:'
     Transparent = True
   end
-  object lblSupport: TLabel
+  object lblSupport: TTntLabel
     Left = 88
     Top = 162
     Width = 97
@@ -87,7 +87,7 @@ object fmAbout: TfmAbout
     Caption = 'Technical support:'
     Transparent = True
   end
-  object lblSupportMail: TLabel
+  object lblSupportMail: TTntLabel
     Left = 192
     Top = 162
     Width = 145
@@ -105,7 +105,7 @@ object fmAbout: TfmAbout
     Transparent = True
     OnClick = lblSupportMailClick
   end
-  object NameLabel: TLabel
+  object NameLabel: TTntLabel
     Left = 88
     Top = 4
     Width = 249
@@ -120,7 +120,7 @@ object fmAbout: TfmAbout
     ParentFont = False
     Transparent = True
   end
-  object lblFirmName: TLabel
+  object lblFirmName: TTntLabel
     Left = 93
     Top = 37
     Width = 225
@@ -224,7 +224,7 @@ object fmAbout: TfmAbout
     Anchors = [akLeft, akRight, akBottom]
     Shape = bsTopLine
   end
-  object btnOK: TButton
+  object btnOK: TTntButton
     Left = 240
     Top = 200
     Width = 89
@@ -236,7 +236,7 @@ object fmAbout: TfmAbout
     ModalResult = 1
     TabOrder = 0
   end
-  object lbVersion: TListBox
+  object lbVersion: TTntListBox
     Left = 88
     Top = 96
     Width = 241

@@ -16,14 +16,14 @@ object fmFptrTables: TfmFptrTables
     251)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblTableFilePath: TLabel
+  object lblTableFilePath: TTntLabel
     Left = 24
     Top = 64
     Width = 70
     Height = 13
     Caption = 'Table file path:'
   end
-  object chbTableEditEnabled: TCheckBox
+  object chbTableEditEnabled: TTntCheckBox
     Left = 8
     Top = 8
     Width = 361
@@ -31,7 +31,7 @@ object fmFptrTables: TfmFptrTables
     Caption = 'Table values changing enabled'
     TabOrder = 0
   end
-  object chbWritePaymentNameEnabled: TCheckBox
+  object chbWritePaymentNameEnabled: TTntCheckBox
     Left = 24
     Top = 32
     Width = 361
@@ -39,7 +39,7 @@ object fmFptrTables: TfmFptrTables
     Caption = 'Write payment name enabled (via directIO)'
     TabOrder = 1
   end
-  object edtTableFilePath: TEdit
+  object edtTableFilePath: TTntEdit
     Left = 104
     Top = 64
     Width = 313

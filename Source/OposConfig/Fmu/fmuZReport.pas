@@ -6,6 +6,8 @@ uses
   // VCL
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls,
+  // Tnt
+  TntClasses, TntStdCtrls, TntRegistry,
   // This
   FiscalPrinterDevice, untUtil, FptrTypes, PrinterParameters;
 
@@ -13,16 +15,16 @@ type
   { TfmZReport }
 
   TfmZReport = class(TFptrPage)
-    chbXmlZReportEnabled: TCheckBox;
-    edtXmlZReportFileName: TEdit;
-    chbCsvZReportEnabled: TCheckBox;
-    edtCsvZReportFileName: TEdit;
-    lblXmlZReportFileName: TLabel;
-    llblCsvZReportFileName: TLabel;
-    lblReceiptReportFileName: TLabel;
-    chbReceiptReportEnabled: TCheckBox;
-    edtReceiptReportFileName: TEdit;
-    chbReportDateStamp: TCheckBox;
+    chbXmlZReportEnabled: TTntCheckBox;
+    edtXmlZReportFileName: TTntEdit;
+    chbCsvZReportEnabled: TTntCheckBox;
+    edtCsvZReportFileName: TTntEdit;
+    lblXmlZReportFileName: TTntLabel;
+    llblCsvZReportFileName: TTntLabel;
+    lblReceiptReportFileName: TTntLabel;
+    chbReceiptReportEnabled: TTntCheckBox;
+    edtReceiptReportFileName: TTntEdit;
+    chbReportDateStamp: TTntCheckBox;
   public
     procedure UpdatePage; override;
     procedure UpdateObject; override;

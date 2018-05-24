@@ -6,22 +6,22 @@ uses
   // VCL
   StdCtrls, Controls, Classes, ComObj, SysUtils,
   // This
-  FiscalPrinterDevice, FptrTypes, MalinaParams;
+  FiscalPrinterDevice, FptrTypes, MalinaParams, TntStdCtrls;
 
 type
   { TfmFptrFuel }
 
   TfmFptrFuel = class(TFptrPage)
-    gbFuelFilter: TGroupBox;
-    Label3: TLabel;
-    lblFuelItemText: TLabel;
-    lblFuelAmountStep: TLabel;
-    lblFuelAmountPrecision: TLabel;
-    chbFuelRoundEnabled: TCheckBox;
-    memFuelItemText: TMemo;
-    edtFuelAmountStep: TEdit;
-    edtFuelAmountPrecision: TEdit;
-    chbCashRoundEnabled: TCheckBox;
+    gbFuelFilter: TTntGroupBox;
+    Label3: TTntLabel;
+    lblFuelItemText: TTntLabel;
+    lblFuelAmountStep: TTntLabel;
+    lblFuelAmountPrecision: TTntLabel;
+    chbFuelRoundEnabled: TTntCheckBox;
+    memFuelItemText: TTntMemo;
+    edtFuelAmountStep: TTntEdit;
+    edtFuelAmountPrecision: TTntEdit;
+    chbCashRoundEnabled: TTntCheckBox;
     procedure PageChange(Sender: TObject);
   public
     procedure UpdatePage; override;
@@ -58,3 +58,5 @@ begin
 end;
 
 end.
+
+

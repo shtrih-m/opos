@@ -6,14 +6,16 @@ uses
   // VCL
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls,
+  // Tnt
+  TntStdCtrls, TntRegistry,
   // This
   untPages, OposFiscalPrinter;
 
 type
   TfmFptrRecTaxID = class(TPage)
-    btnExecute: TButton;
-    lblTaxID: TLabel;
-    edtTaxID: TEdit;
+    btnExecute: TTntButton;
+    lblTaxID: TTntLabel;
+    edtTaxID: TTntEdit;
     procedure btnExecuteClick(Sender: TObject);
   end;
 

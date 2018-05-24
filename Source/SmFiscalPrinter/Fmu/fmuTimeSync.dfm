@@ -14,7 +14,7 @@ object fmTimeSync: TfmTimeSync
   OldCreateOrder = False
   PixelsPerInch = 96
   TextHeight = 13
-  object lblTimeSync: TLabel
+  object lblTimeSync: TTntLabel
     Left = 16
     Top = 16
     Width = 227
@@ -27,7 +27,7 @@ object fmTimeSync: TfmTimeSync
     Font.Style = []
     ParentFont = False
   end
-  object Label1: TLabel
+  object Label1: TTntLabel
     Left = 16
     Top = 88
     Width = 160
@@ -40,7 +40,7 @@ object fmTimeSync: TfmTimeSync
     Font.Style = []
     ParentFont = False
   end
-  object lblTimeLeft: TLabel
+  object lblTimeLeft: TTntLabel
     Left = 192
     Top = 88
     Width = 49
@@ -53,7 +53,7 @@ object fmTimeSync: TfmTimeSync
     Font.Style = []
     ParentFont = False
   end
-  object Label2: TLabel
+  object Label2: TTntLabel
     Left = 96
     Top = 48
     Width = 74

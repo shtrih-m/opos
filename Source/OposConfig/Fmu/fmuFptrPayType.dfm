@@ -20,21 +20,21 @@ object fmFptrPayType: TfmFptrPayType
     224)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblDescription: TLabel
+  object lblDescription: TTntLabel
     Left = 8
     Top = 12
     Width = 121
     Height = 13
     Caption = 'Payment type description:'
   end
-  object lblValue: TLabel
+  object lblValue: TTntLabel
     Left = 8
     Top = 44
     Width = 94
     Height = 13
     Caption = 'Payment type code:'
   end
-  object edtDescription: TEdit
+  object edtDescription: TTntEdit
     Left = 160
     Top = 8
     Width = 193
@@ -42,7 +42,7 @@ object fmFptrPayType: TfmFptrPayType
     TabOrder = 0
     Text = '0'
   end
-  object cbPaymentType: TComboBox
+  object cbPaymentType: TTntComboBox
     Left = 160
     Top = 40
     Width = 193
@@ -82,7 +82,7 @@ object fmFptrPayType: TfmFptrPayType
     TabOrder = 2
     ViewStyle = vsReport
   end
-  object btnDelete: TButton
+  object btnDelete: TTntButton
     Left = 384
     Top = 104
     Width = 75
@@ -93,7 +93,7 @@ object fmFptrPayType: TfmFptrPayType
     TabOrder = 3
     OnClick = btnDeleteClick
   end
-  object btnAdd: TButton
+  object btnAdd: TTntButton
     Left = 384
     Top = 72
     Width = 75

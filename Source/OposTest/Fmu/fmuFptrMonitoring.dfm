@@ -17,7 +17,7 @@ object fmFptrMonitoring: TfmFptrMonitoring
     264)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblHost: TLabel
+  object lblHost: TTntLabel
     Left = 8
     Top = 200
     Width = 25
@@ -25,7 +25,7 @@ object fmFptrMonitoring: TfmFptrMonitoring
     Anchors = [akLeft, akBottom]
     Caption = 'Host:'
   end
-  object lblPort: TLabel
+  object lblPort: TTntLabel
     Left = 8
     Top = 232
     Width = 22
@@ -33,7 +33,7 @@ object fmFptrMonitoring: TfmFptrMonitoring
     Anchors = [akLeft, akBottom]
     Caption = 'Port:'
   end
-  object btnReadStatus: TButton
+  object btnReadStatus: TTntButton
     Left = 320
     Top = 200
     Width = 97
@@ -43,7 +43,7 @@ object fmFptrMonitoring: TfmFptrMonitoring
     TabOrder = 3
     OnClick = btnReadStatusClick
   end
-  object btnClear: TButton
+  object btnClear: TTntButton
     Left = 320
     Top = 232
     Width = 97
@@ -53,7 +53,7 @@ object fmFptrMonitoring: TfmFptrMonitoring
     TabOrder = 4
     OnClick = btnClearClick
   end
-  object Memo: TMemo
+  object Memo: TTntMemo
     Left = 8
     Top = 8
     Width = 409
@@ -69,7 +69,7 @@ object fmFptrMonitoring: TfmFptrMonitoring
     TabOrder = 0
     WordWrap = False
   end
-  object edtHost: TEdit
+  object edtHost: TTntEdit
     Left = 80
     Top = 200
     Width = 233
@@ -78,7 +78,7 @@ object fmFptrMonitoring: TfmFptrMonitoring
     TabOrder = 1
     Text = '127.0.0.1'
   end
-  object edtPort: TEdit
+  object edtPort: TTntEdit
     Left = 80
     Top = 232
     Width = 233

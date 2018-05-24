@@ -12,32 +12,32 @@ object fmScaleMain: TfmScaleMain
   Font.Style = []
   OldCreateOrder = False
   DesignSize = (
-    375
-    285)
+    367
+    274)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblText: TLabel
+  object lblText: TTntLabel
     Left = 8
     Top = 72
     Width = 24
     Height = 13
     Caption = 'Text:'
   end
-  object lblWeightData: TLabel
+  object lblWeightData: TTntLabel
     Left = 8
     Top = 8
     Width = 60
     Height = 13
     Caption = 'WeightData:'
   end
-  object lblTimeout: TLabel
+  object lblTimeout: TTntLabel
     Left = 8
     Top = 40
     Width = 41
     Height = 13
     Caption = 'Timeout:'
   end
-  object btnDisplayText: TButton
+  object btnDisplayText: TTntButton
     Left = 296
     Top = 72
     Width = 75
@@ -47,7 +47,7 @@ object fmScaleMain: TfmScaleMain
     TabOrder = 0
     OnClick = btnDisplayTextClick
   end
-  object edtText: TEdit
+  object edtText: TTntEdit
     Left = 80
     Top = 72
     Width = 209
@@ -56,7 +56,7 @@ object fmScaleMain: TfmScaleMain
     TabOrder = 1
     Text = 'NCR 7874'
   end
-  object btnReadWeight: TButton
+  object btnReadWeight: TTntButton
     Left = 296
     Top = 8
     Width = 75
@@ -66,7 +66,7 @@ object fmScaleMain: TfmScaleMain
     TabOrder = 2
     OnClick = btnReadWeightClick
   end
-  object edtWeightData: TEdit
+  object edtWeightData: TTntEdit
     Left = 80
     Top = 8
     Width = 209
@@ -74,7 +74,7 @@ object fmScaleMain: TfmScaleMain
     Anchors = [akLeft, akTop, akRight]
     TabOrder = 3
   end
-  object edtTimeout: TEdit
+  object edtTimeout: TTntEdit
     Left = 80
     Top = 40
     Width = 209
@@ -83,7 +83,7 @@ object fmScaleMain: TfmScaleMain
     TabOrder = 4
     Text = '4000'
   end
-  object btnZeroScale: TButton
+  object btnZeroScale: TTntButton
     Left = 296
     Top = 40
     Width = 75

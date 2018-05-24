@@ -14,14 +14,14 @@ object fmMiscParams: TfmMiscParams
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
-  object lblMaxReceiptItems: TLabel
+  object lblMaxReceiptItems: TTntLabel
     Left = 40
     Top = 48
     Width = 85
     Height = 13
     Caption = 'Max receipt items:'
   end
-  object lblMonitoringPort: TLabel
+  object lblMonitoringPort: TTntLabel
     Left = 40
     Top = 192
     Width = 105
@@ -35,7 +35,7 @@ object fmMiscParams: TfmMiscParams
     Height = 25
     Shape = bsTopLine
   end
-  object lblAmountDecimalPlaces: TLabel
+  object lblAmountDecimalPlaces: TTntLabel
     Left = 8
     Top = 240
     Width = 166
@@ -49,7 +49,7 @@ object fmMiscParams: TfmMiscParams
     Height = 25
     Shape = bsTopLine
   end
-  object lblCapRecNearEndSensorMode: TLabel
+  object lblCapRecNearEndSensorMode: TTntLabel
     Left = 8
     Top = 288
     Width = 146
@@ -63,21 +63,21 @@ object fmMiscParams: TfmMiscParams
     Height = 25
     Shape = bsTopLine
   end
-  object lblTimeUpdateMode: TLabel
+  object lblTimeUpdateMode: TTntLabel
     Left = 8
     Top = 360
     Width = 91
     Height = 13
     Caption = 'Time update mode:'
   end
-  object lblDocumentBlockSize: TLabel
+  object lblDocumentBlockSize: TTntLabel
     Left = 32
     Top = 424
     Width = 102
     Height = 13
     Caption = 'Document block size:'
   end
-  object chbVoidReceiptOnMaxItems: TCheckBox
+  object chbVoidReceiptOnMaxItems: TTntCheckBox
     Left = 16
     Top = 16
     Width = 273
@@ -95,7 +95,7 @@ object fmMiscParams: TfmMiscParams
     TabOrder = 1
     Value = 1
   end
-  object chbPrintRecSubtotal: TCheckBox
+  object chbPrintRecSubtotal: TTntCheckBox
     Left = 16
     Top = 96
     Width = 273
@@ -113,7 +113,7 @@ object fmMiscParams: TfmMiscParams
     TabOrder = 5
     Value = 0
   end
-  object chbDepartmentInText: TCheckBox
+  object chbDepartmentInText: TTntCheckBox
     Left = 16
     Top = 128
     Width = 297
@@ -121,7 +121,7 @@ object fmMiscParams: TfmMiscParams
     Caption = 'Department number is 2 first chars of text'
     TabOrder = 3
   end
-  object chbMonitoringEnabled: TCheckBox
+  object chbMonitoringEnabled: TTntCheckBox
     Left = 16
     Top = 160
     Width = 297
@@ -129,7 +129,7 @@ object fmMiscParams: TfmMiscParams
     Caption = 'Monitoring enabled'
     TabOrder = 4
   end
-  object cbAmountDecimalPlaces: TComboBox
+  object cbAmountDecimalPlaces: TTntComboBox
     Left = 192
     Top = 240
     Width = 177
@@ -142,7 +142,7 @@ object fmMiscParams: TfmMiscParams
       '2'
       'As in fiscal printer')
   end
-  object cbCapRecNearEndSensorMode: TComboBox
+  object cbCapRecNearEndSensorMode: TTntComboBox
     Left = 192
     Top = 288
     Width = 177
@@ -155,7 +155,7 @@ object fmMiscParams: TfmMiscParams
       'TRUE'
       'FALSE')
   end
-  object chbWrapText: TCheckBox
+  object chbWrapText: TTntCheckBox
     Left = 8
     Top = 320
     Width = 97
@@ -163,7 +163,7 @@ object fmMiscParams: TfmMiscParams
     Caption = 'Wrap text'
     TabOrder = 8
   end
-  object cbTimeUpdateMode: TComboBox
+  object cbTimeUpdateMode: TTntComboBox
     Left = 112
     Top = 360
     Width = 255
@@ -176,7 +176,7 @@ object fmMiscParams: TfmMiscParams
       'When fiscal day is opened'
       'When fiscal day is opened without cancel')
   end
-  object chbFSServiceEnabled: TCheckBox
+  object chbFSServiceEnabled: TTntCheckBox
     Left = 8
     Top = 400
     Width = 321
@@ -184,7 +184,7 @@ object fmMiscParams: TfmMiscParams
     Caption = 'Fiscal storage service enabled'
     TabOrder = 10
   end
-  object chbPingEnabled: TCheckBox
+  object chbPingEnabled: TTntCheckBox
     Left = 8
     Top = 456
     Width = 209
@@ -203,7 +203,7 @@ object fmMiscParams: TfmMiscParams
     TabOrder = 11
     Value = 0
   end
-  object btnSetMaxDocumentBlockSize: TButton
+  object btnSetMaxDocumentBlockSize: TTntButton
     Left = 264
     Top = 424
     Width = 75

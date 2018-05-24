@@ -17,14 +17,14 @@ object fmFptrDirectIOEndDay: TfmFptrDirectIOEndDay
     270)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblResult: TLabel
+  object lblResult: TTntLabel
     Left = 8
     Top = 16
     Width = 33
     Height = 13
     Caption = 'Result:'
   end
-  object btnExecute: TButton
+  object btnExecute: TTntButton
     Left = 290
     Top = 48
     Width = 97
@@ -34,7 +34,7 @@ object fmFptrDirectIOEndDay: TfmFptrDirectIOEndDay
     TabOrder = 1
     OnClick = btnExecuteClick
   end
-  object edtResult: TEdit
+  object edtResult: TTntEdit
     Left = 64
     Top = 16
     Width = 323

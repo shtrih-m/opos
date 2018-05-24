@@ -8,6 +8,8 @@ uses
   // Opos
   Opos, Oposhi, OposScal, OposScalhi, OposEvents, OposException,
   OposScalUtils, OposSemaphore,
+  // Tnt
+  TntSysUtils, TntClasses, 
   // Shared
   NotifyThread, SerialPort, LogFile,
   // This
@@ -479,7 +481,7 @@ end;
 procedure TM5OposDevice.SearchDevice;
 var
   i: Integer;
-  Ports: TStringList;
+  Ports: TTntStringList;
   PortNumber: Integer;
   ByteTimeout: Integer;
 begin
@@ -487,7 +489,7 @@ begin
   if Connect(FParameters.PortNumber, ByteTimeout) then Exit;
   if Parameters.SearchByPortEnabled then
   begin
-    Ports := TStringList.Create;
+    Ports := TTntStringList.Create;
     try
       TSerialPorts.GetSystemPorts(Ports);
       for i := 0 to Ports.Count-1 do
@@ -554,7 +556,7 @@ begin
   try
     SearchDevice;
     FPhysicalDeviceName := FDeviceMetrics.Name;
-    FPhysicalDeviceDescription := Format(
+    FPhysicalDeviceDescription := Tnt_WideFormat(
       '%s, %d.%d, model: %d', [FDeviceMetrics.Name, FDeviceMetrics.MajorType,
       FDeviceMetrics.MinorType, FDeviceMetrics.Model]);
 
@@ -565,7 +567,7 @@ begin
 
     Statistics.ModelName := FDeviceMetrics.Name;
     Statistics.SerialNumber := '';
-    Statistics.FirmwareRevision := Format('%d.%.3d, %d.%.3d', [
+    Statistics.FirmwareRevision := Tnt_WideFormat('%d.%.3d, %d.%.3d', [
       FDeviceMetrics.MajorType, FDeviceMetrics.MinorType,
       FDeviceMetrics.MajorVersion, FDeviceMetrics.MinorVersion]);
     Statistics.InstallationDate := '';

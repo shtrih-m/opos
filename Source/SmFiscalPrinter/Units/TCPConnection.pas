@@ -9,7 +9,7 @@ uses
   IdTCPClient,
   // This
   PrinterConnection, DriverError, StringUtils, FptrServerLib_TLB, VSysUtils,
-  LogFile, WException;
+  LogFile, TntSysUtils, WException;
 
 type
   { TTCPConnection }
@@ -119,7 +119,7 @@ procedure TTCPConnection.OpenPort(PortNumber, BaudRate, ByteTimeout: Integer);
 var
   Command: string;
 begin
-  Command := Format('OPENPORT %d %d', [BaudRate, ByteTimeout]);
+  Command := Tnt_WideFormat('OPENPORT %d %d', [BaudRate, ByteTimeout]);
   SendCommand(Command);
 end;
 
@@ -127,7 +127,7 @@ function TTCPConnection.Send(Timeout: Integer; const Data: string): string;
 var
   Command: string;
 begin
-  Command := Format('SEND %d %s', [Timeout, StrToHexText(Data)]);
+  Command := Tnt_WideFormat('SEND %d %s', [Timeout, StrToHexText(Data)]);
   Result := HexToStr(SendCommand(Command));
 end;
 

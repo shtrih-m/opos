@@ -5,6 +5,8 @@ interface
 uses
   // VCL
   ComCtrls, StdCtrls, Controls, Classes,
+  // Tnt
+  TntClasses, TntStdCtrls, TntRegistry,
   // This
   ScaleDevice, FptrTypes, Spin;
 
@@ -12,9 +14,9 @@ type
   { TfmScaleLog }
 
   TfmScaleLog = class(TScalePage)
-    gbLogParameters: TGroupBox;
-    chbLogEnabled: TCheckBox;
-    lblMaxLogFileCount: TLabel;
+    gbLogParameters: TTntGroupBox;
+    chbLogEnabled: TTntCheckBox;
+    lblMaxLogFileCount: TTntLabel;
     seMaxLogFileCount: TSpinEdit;
     procedure PageChange(Sender: TObject);
   public

@@ -18,42 +18,42 @@ object fmFptrDirectIOStr: TfmFptrDirectIOStr
     270)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblTxData: TLabel
+  object lblTxData: TTntLabel
     Left = 8
     Top = 48
     Width = 56
     Height = 13
     Caption = 'Parameters:'
   end
-  object lblRxData: TLabel
+  object lblRxData: TTntLabel
     Left = 8
     Top = 80
     Width = 33
     Height = 13
     Caption = 'Result:'
   end
-  object lblCommand: TLabel
+  object lblCommand: TTntLabel
     Left = 8
     Top = 16
     Width = 50
     Height = 13
     Caption = 'Command:'
   end
-  object lblDescription: TLabel
+  object lblDescription: TTntLabel
     Left = 8
     Top = 112
     Width = 56
     Height = 13
     Caption = 'Description:'
   end
-  object Label1: TLabel
+  object Label1: TTntLabel
     Left = 8
     Top = 200
     Width = 38
     Height = 13
     Caption = 'Answer:'
   end
-  object btnExecute: TButton
+  object btnExecute: TTntButton
     Left = 288
     Top = 240
     Width = 97
@@ -63,7 +63,7 @@ object fmFptrDirectIOStr: TfmFptrDirectIOStr
     TabOrder = 5
     OnClick = btnExecuteClick
   end
-  object edtRxData: TEdit
+  object edtRxData: TTntEdit
     Left = 80
     Top = 80
     Width = 307
@@ -71,7 +71,7 @@ object fmFptrDirectIOStr: TfmFptrDirectIOStr
     Anchors = [akLeft, akTop, akRight]
     TabOrder = 2
   end
-  object edtTxData: TEdit
+  object edtTxData: TTntEdit
     Left = 80
     Top = 48
     Width = 307
@@ -80,7 +80,7 @@ object fmFptrDirectIOStr: TfmFptrDirectIOStr
     TabOrder = 1
     Text = '01'
   end
-  object cbCommand: TComboBox
+  object cbCommand: TTntComboBox
     Left = 80
     Top = 16
     Width = 307
@@ -93,7 +93,7 @@ object fmFptrDirectIOStr: TfmFptrDirectIOStr
     TabOrder = 0
     OnChange = cbCommandChange
   end
-  object memCommand: TMemo
+  object memCommand: TTntMemo
     Left = 80
     Top = 112
     Width = 307
@@ -104,7 +104,7 @@ object fmFptrDirectIOStr: TfmFptrDirectIOStr
     ScrollBars = ssVertical
     TabOrder = 3
   end
-  object memAnswer: TMemo
+  object memAnswer: TTntMemo
     Left = 80
     Top = 200
     Width = 307

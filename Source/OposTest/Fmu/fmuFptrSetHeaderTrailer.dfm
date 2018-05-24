@@ -17,21 +17,21 @@ object fmFptrSetHeaderTrailer: TfmFptrSetHeaderTrailer
     270)
   PixelsPerInch = 96
   TextHeight = 13
-  object lblHeader: TLabel
+  object lblHeader: TTntLabel
     Left = 8
     Top = 8
     Width = 38
     Height = 13
     Caption = 'Header:'
   end
-  object lblTrailer: TLabel
+  object lblTrailer: TTntLabel
     Left = 8
     Top = 120
     Width = 32
     Height = 13
     Caption = 'Trailer:'
   end
-  object btnSetHeader: TButton
+  object btnSetHeader: TTntButton
     Left = 184
     Top = 208
     Width = 97
@@ -41,7 +41,7 @@ object fmFptrSetHeaderTrailer: TfmFptrSetHeaderTrailer
     TabOrder = 0
     OnClick = btnSetHeaderClick
   end
-  object btnSetTrailer: TButton
+  object btnSetTrailer: TTntButton
     Left = 288
     Top = 208
     Width = 97
@@ -51,7 +51,7 @@ object fmFptrSetHeaderTrailer: TfmFptrSetHeaderTrailer
     TabOrder = 1
     OnClick = btnSetTrailerClick
   end
-  object mmHeader: TMemo
+  object mmHeader: TTntMemo
     Left = 8
     Top = 24
     Width = 379
@@ -59,7 +59,7 @@ object fmFptrSetHeaderTrailer: TfmFptrSetHeaderTrailer
     Anchors = [akLeft, akTop, akRight]
     TabOrder = 2
   end
-  object btnClear: TButton
+  object btnClear: TTntButton
     Left = 184
     Top = 240
     Width = 97
@@ -69,7 +69,7 @@ object fmFptrSetHeaderTrailer: TfmFptrSetHeaderTrailer
     TabOrder = 3
     OnClick = btnClearClick
   end
-  object mmTrailer: TMemo
+  object mmTrailer: TTntMemo
     Left = 8
     Top = 136
     Width = 379
@@ -77,7 +77,7 @@ object fmFptrSetHeaderTrailer: TfmFptrSetHeaderTrailer
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 4
   end
-  object btnDefault: TButton
+  object btnDefault: TTntButton
     Left = 288
     Top = 240
     Width = 97
@@ -87,7 +87,7 @@ object fmFptrSetHeaderTrailer: TfmFptrSetHeaderTrailer
     TabOrder = 5
     OnClick = btnDefaultClick
   end
-  object chbDoubleWidth: TCheckBox
+  object chbDoubleWidth: TTntCheckBox
     Left = 8
     Top = 208
     Width = 89

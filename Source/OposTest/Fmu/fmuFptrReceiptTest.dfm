@@ -17,7 +17,7 @@ object fmFptrReceiptTest: TfmFptrReceiptTest
     270)
   PixelsPerInch = 96
   TextHeight = 13
-  object btnExecute: TButton
+  object btnExecute: TTntButton
     Left = 304
     Top = 8
     Width = 81
@@ -27,7 +27,7 @@ object fmFptrReceiptTest: TfmFptrReceiptTest
     TabOrder = 0
     OnClick = btnExecuteClick
   end
-  object Memo: TMemo
+  object Memo: TTntMemo
     Left = 8
     Top = 40
     Width = 377
@@ -44,7 +44,7 @@ object fmFptrReceiptTest: TfmFptrReceiptTest
     TabOrder = 1
     WordWrap = False
   end
-  object cbTest: TComboBox
+  object cbTest: TTntComboBox
     Left = 8
     Top = 8
     Width = 289

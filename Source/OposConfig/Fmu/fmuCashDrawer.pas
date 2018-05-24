@@ -6,22 +6,24 @@ uses
   // VCL
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, Registry, ExtCtrls, ComCtrls, Spin,
+  // Tnt
+  TntDialogs,
   // Opos
   OposDevice,
   // This
   untPages, BaseForm, untUtil, CashDrawerParameters,
-  PrinterParameters, CashDrawerDevice;
+  PrinterParameters, CashDrawerDevice, TntStdCtrls;
 
 type
   { TfmCashDrawer }
 
   TfmCashDrawer = class(TCashPage)
-    OpenDialog: TOpenDialog;
-    lblDrawerNumber: TLabel;
-    lblFiscalPrinterDeviceName: TLabel;
-    cbFiscalPrinterDeviceName: TComboBox;
-    lblCCOType: TLabel;
-    cbCCOType: TComboBox;
+    OpenDialog: TTntOpenDialog;
+    lblDrawerNumber: TTntLabel;
+    lblFiscalPrinterDeviceName: TTntLabel;
+    cbFiscalPrinterDeviceName: TTntComboBox;
+    lblCCOType: TTntLabel;
+    cbCCOType: TTntComboBox;
     seDrawerNumber: TSpinEdit;
     procedure btnDefaultsClick(Sender: TObject);
     procedure btnOKClick(Sender: TObject);
@@ -96,3 +98,5 @@ begin
 end;
 
 end.
+
+

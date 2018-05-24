@@ -8,6 +8,8 @@ uses
   Registry, ComCtrls,
   // Opos
   OposCashDrawer, OposUtils,
+  // Tnt
+  TntStdCtrls, TntSysUtils,
   // This
   BaseForm, untPages, fmuCashGeneral, fmuCashWait;
 
@@ -17,14 +19,14 @@ type
   TfmCashDrawer = class(TBaseForm)
     pnlData: TPanel;
     Panel1: TPanel;
-    lblTime: TLabel;
-    lblResult: TLabel;
-    lblExtendedResult: TLabel;
-    edtTime: TEdit;
-    edtResult: TEdit;
-    edtExtendedResult: TEdit;
+    lblTime: TTntLabel;
+    lblResult: TTntLabel;
+    lblExtendedResult: TTntLabel;
+    edtTime: TTntEdit;
+    edtResult: TTntEdit;
+    edtExtendedResult: TTntEdit;
     Panel2: TPanel;
-    lbPages: TListBox;
+    lbPages: TTntListBox;
     procedure lbPagesClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnCloseClick(Sender: TObject);
@@ -38,7 +40,7 @@ type
     procedure UpdatePage(Sender: TObject);
     procedure StartCommand(Sender: TObject);
     procedure AddPage(PageClass: TPageClass);
-    procedure UpdatePages(ListBox: TListBox; Pages: TPages);
+    procedure UpdatePages(ListBox: TTntListBox; Pages: TPages);
   protected
     procedure ReadState(Reader: TReader); override;
   public
@@ -101,7 +103,7 @@ begin
   AddPage(TfmCashWait);
 end;
 
-procedure TfmCashDrawer.UpdatePages(ListBox: TListBox; Pages: TPages);
+procedure TfmCashDrawer.UpdatePages(ListBox: TTntListBox; Pages: TPages);
 var
   i: Integer;
   PageName: string;
@@ -113,7 +115,7 @@ begin
       Items.Clear;
       for i := 0 to Pages.Count-1 do
       begin
-        PageName := Format('%.2d. %s', [i+1, Pages[i].Caption]);
+        PageName := Tnt_WideFormat('%.2d. %s', [i+1, Pages[i].Caption]);
         Items.Add(PageName);
       end;
     finally

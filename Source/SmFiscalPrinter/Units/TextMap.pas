@@ -59,11 +59,11 @@ implementation
 procedure DeleteRegKey(const KeyName: string);
 var
   i: Integer;
-  Reg: TRegistry;
-  Strings: TStrings;
+  Reg: TTntRegistry;
+  Strings: TTntStrings;
 begin
-  Reg := TRegistry.Create;
-  Strings := TStringList.Create;
+  Reg := TTntRegistry.Create;
+  Strings := TTntStringList.Create;
   try
     Reg.Access := KEY_ALL_ACCESS;
     Reg.RootKey := HKEY_LOCAL_MACHINE;

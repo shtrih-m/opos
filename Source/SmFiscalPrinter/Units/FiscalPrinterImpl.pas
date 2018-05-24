@@ -9,7 +9,9 @@ uses
   // Opos
   Opos, OposFptr, Oposhi, OposFptrhi, OPOSException, OposUtils,
   OposFptrUtils, OposServiceDevice19,
-  // This
+  // Tnt
+  TntSysUtils, TntClasses,
+   // This
   MalinaParams,
   SmFiscalPrinterLib_TLB, LogFile, FiscalPrinterState, FiscalPrinterDevice,
   SerialPort, PrinterParameters, DIOHandler, NotifyThread, CommandDef,
@@ -920,7 +922,7 @@ begin
   end;
 
   if Result < 0 then
-    RaiseOposException(OPOS_E_ILLEGAL, Format('%s < 0', [ParamName]));
+    RaiseOposException(OPOS_E_ILLEGAL, Tnt_WideFormat('%s < 0', [ParamName]));
 end;
 
 procedure TFiscalPrinterImpl.PrintReportEnd;
@@ -974,13 +976,13 @@ begin
     Device.AmountDecimalPlaces := 0;
 
   // PhysicalDeviceName
-  FOposDevice.PhysicalDeviceName := Format('%s, № %s', [
+  FOposDevice.PhysicalDeviceName := Tnt_WideFormat('%s, № %s', [
     FDeviceMetrics.DeviceName, Status.SerialNumber]);
   Logger.Debug('PhysicalDeviceName: ' + FOposDevice.PhysicalDeviceName);
 
   // PhysicalDeviceDescription
   FOposDevice.PhysicalDeviceDescription :=
-    Format('%s, № %s, %s: %s.%s.%d %s, %s: %s.%s.%d %s', [
+    Tnt_WideFormat('%s, № %s, %s: %s.%s.%d %s, %s: %s.%s.%d %s', [
     FDeviceMetrics.DeviceName,
     Status.SerialNumber,
     _('ПО ФР'),
@@ -1017,7 +1019,7 @@ begin
   FDayOpened := Status.Mode <> ECRMODE_CLOSED;
   Statistics.ModelName := FDeviceMetrics.DeviceName;
   Statistics.SerialNumber := Status.SerialNumber;
-  Statistics.FirmwareRevision := Format('%s.%s, build %d', [
+  Statistics.FirmwareRevision := Tnt_WideFormat('%s.%s, build %d', [
     Status.FirmwareVersionHi, Status.FirmwareVersionLo,
     Status.FirmwareBuild]);
   Statistics.InstallationDate := '';
@@ -1430,7 +1432,7 @@ end;
 
 function TFiscalPrinterImpl.GetStateErrorMessage(const Mode: Integer): string;
 begin
-  Result := Format('%s: %d, %s', [_('Невозможно изменить состояние'), Mode, GetModeText(Mode)]);
+  Result := Tnt_WideFormat('%s: %d, %s', [_('Невозможно изменить состояние'), Mode, GetModeText(Mode)]);
 end;
 
 procedure TFiscalPrinterImpl.CheckPrinterStatus;
@@ -1782,12 +1784,12 @@ end;
 
 procedure TFiscalPrinterImpl.CheckHealthInternal;
 var
-  Lines: TStrings;
+  Lines: TTntStrings;
   FMFlags: TFMFlags;
   Status: TLongPrinterStatus;
   PrinterFlags: TPrinterFlags;
 begin
-  Lines := TStringList.Create;
+  Lines := TTntStringList.Create;
   try
     Status := Device.ReadLongStatus;
     FMFlags := Device.GetFMFlags(Status.FMFlags);
@@ -2631,15 +2633,15 @@ begin
         Status := Device.ReadLongStatus;
         case OptArgs of
           // ECR firmware version
-          0:  Data := Format('%s.%s', [Status.FirmwareVersionHi, Status.FirmwareVersionLo]);
+          0:  Data := Tnt_WideFormat('%s.%s', [Status.FirmwareVersionHi, Status.FirmwareVersionLo]);
           // ECR firmware build
-          1: Data := Format('%d', [Status.FirmwareBuild]);
+          1: Data := Tnt_WideFormat('%d', [Status.FirmwareBuild]);
           // FM firmware version
-          2: Data := Format('%s.%s', [Status.FMVersionHi, Status.FMVersionLo]);
+          2: Data := Tnt_WideFormat('%s.%s', [Status.FMVersionHi, Status.FMVersionLo]);
           // FM firmware build
-          3: Data := Format('%d', [Status.FMBuild]);
+          3: Data := Tnt_WideFormat('%d', [Status.FMBuild]);
         else
-          Data := Format('%s.%s', [Status.FirmwareVersionHi, Status.FirmwareVersionLo]);
+          Data := Tnt_WideFormat('%s.%s', [Status.FirmwareVersionHi, Status.FirmwareVersionLo]);
         end;
       end;
       FPTR_GD_PRINTER_ID:
@@ -4211,9 +4213,9 @@ function TFiscalPrinterImpl.ReadEJActivation: string;
 var
   Line: string;
   Count: Integer;
-  Lines: TStrings;
+  Lines: TTntStrings;
 begin
-  Lines := TStringList.Create;
+  Lines := TTntStringList.Create;
   try
     if Device.ReadEJActivation(Line) <> 0 then Exit;
     Lines.Add(Line);
