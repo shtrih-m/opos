@@ -9,10 +9,10 @@ uses
   // Png
   PngBitBtn,
   // This
-  LogFile, FormUtils;
+  BaseForm, LogFile, FormUtils;
 
 type
-  TfmSelect = class(TForm)
+  TfmSelect = class(TBaseForm)
     btnPhone: TPngBitBtn;
     btnEMail: TPngBitBtn;
     btnCancel: TPngBitBtn;

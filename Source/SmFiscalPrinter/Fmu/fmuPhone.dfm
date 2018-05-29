@@ -60,7 +60,7 @@ object fmPhone: TfmPhone
     OnClick = btnCancelClick
     PngOptions = [pngBlendOnDisabled, pngGrayscaleOnDisabled]
   end
-  object pnlKeyboard: TPanel
+  object pnlKeyboard: TTntPanel
     Left = 5
     Top = 88
     Width = 222

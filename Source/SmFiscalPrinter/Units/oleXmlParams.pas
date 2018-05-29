@@ -6,7 +6,7 @@ uses
   // VCL
   Windows, ComObj, ActiveX, StdVcl, ComServ, SysUtils, Classes,
   // This
-  SmFiscalPrinterLib_TLB, LogFile, XmlValue;
+  SmFiscalPrinterLib_TLB, LogFile, XmlValue, TranslationUtil;
 
 type
   { TDirectIOCommand }
@@ -128,6 +128,7 @@ begin
 end;
 
 initialization
+  SetTranslationLanguage;
   ComServer.SetServerName('OposShtrih');
   TAutoObjectFactory.Create(ComServer, TXmlParams, Class_XmlParams,
     ciMultiInstance, tmApartment);

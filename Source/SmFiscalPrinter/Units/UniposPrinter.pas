@@ -5,6 +5,8 @@ interface
 uses
   // VCL
   Windows, SysUtils, Classes, Registry, ActiveX, ComObj,
+  // Tnt
+  TntSysUtils,
   // This
   UniposReader, NotifyThread, LogFile, PrinterTypes, DebugUtils,
   FiscalPrinterTypes, OposSemaphore, MalinaParams, FileUtils, WException;
@@ -94,7 +96,7 @@ var
   Mask: string;
   F: TSearchRec;
 begin
-  Mask := IncludeTrailingpathDelimiter(Parameters.UniposFilesPath) + '*.*';
+  Mask := WideIncludeTrailingPathDelimiter(Parameters.UniposFilesPath) + '*.*';
   Result := FindFirst(Mask, faReadOnly + faArchive, F) = 0;
   if Result then
   begin

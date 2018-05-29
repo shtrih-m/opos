@@ -7,17 +7,17 @@ uses
   Windows, StdCtrls, Controls, ExtCtrls, Classes, Forms, SysUtils,
   Registry, ComCtrls,
   // Tnt
-  TntStdCtrls, TntSysUtils,
+  TntStdCtrls, TntComCtrls, TntSysUtils,
   // This
   BaseForm, untPages, OposUtils, OposPosPrinter, VersionInfo, OposPtrUtils,
-  fmuPtrGeneral;
+  fmuPtrGeneral, TntExtCtrls;
 
 type
   { TfmMain }
 
   TfmPosPrinter = class(TBaseForm)
-    pnlData: TPanel;
-    Panel1: TPanel;
+    pnlData: TTntPanel;
+    Panel1: TTntPanel;
     lblTime: TTntLabel;
     lblResult: TTntLabel;
     lblExtendedResult: TTntLabel;
@@ -26,7 +26,7 @@ type
     edtResult: TTntEdit;
     edtExtendedResult: TTntEdit;
     edtErrorString: TTntEdit;
-    Panel2: TPanel;
+    Panel2: TTntPanel;
     lbPages: TTntListBox;
     procedure lbPagesClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);

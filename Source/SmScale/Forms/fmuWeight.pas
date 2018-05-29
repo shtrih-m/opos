@@ -6,15 +6,15 @@ uses
   // VCL
   Windows, StdCtrls, ExtCtrls, Controls, Classes, SysUtils,
   // Tnt
-  TntSysUtils, TntClasses, TntStdCtrls,
+  TntComCtrls, TntStdCtrls, TntClasses, TntSysUtils,
   // This
-  ScalePage, M5ScaleTypes, JvExControls, JvSegmentedLEDDisplay;
+  ScalePage, M5ScaleTypes, JvExControls, JvSegmentedLEDDisplay, TntExtCtrls;
 
 type
   { TfmWeight }
 
   TfmWeight = class(TScalePage)
-    pnlWeight: TPanel;
+    pnlWeight: TTntPanel;
     btnSetTare: TTntButton;
     btnZeroScale: TTntButton;
     btnSetTareValue: TTntButton;
@@ -23,9 +23,9 @@ type
     chbAutoUpdate: TTntCheckBox;
     lblWeight: TTntLabel;
     lblWeightValue: TTntLabel;
-    pnlPrice: TPanel;
+    pnlPrice: TTntPanel;
     lblPriceValue: TTntLabel;
-    pblAmount: TPanel;
+    pblAmount: TTntPanel;
     lblAmountValue: TTntLabel;
     lblPrice: TTntLabel;
     lblAmount: TTntLabel;

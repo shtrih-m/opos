@@ -6,11 +6,11 @@ uses
   // VCL
   Windows, Classes, SysUtils, Controls, ExtCtrls, StdCtrls, Forms,
   // Tnt
-  TntStdCtrls, TntSysUtils,
+  TntStdCtrls, TntComCtrls, TntSysUtils,
   // Opos
   OposDevice,
   // This
-  BaseForm, untPages;
+  BaseForm, untPages, TntExtCtrls;
 
 type
   { TfmFiscalPrinter }
@@ -21,7 +21,7 @@ type
     btnCancel: TTntButton;
     btnApply: TTntButton;
     lbPages: TTntListBox;
-    pnlPage: TPanel;
+    pnlPage: TTntPanel;
     procedure btnOKClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnApplyClick(Sender: TObject);

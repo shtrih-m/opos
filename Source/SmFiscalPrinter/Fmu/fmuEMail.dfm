@@ -60,7 +60,7 @@ object fmEMail: TfmEMail
     OnClick = btnCancelClick
     PngOptions = [pngBlendOnDisabled, pngGrayscaleOnDisabled]
   end
-  object pnlRu1: TPanel
+  object pnlRu1: TTntPanel
     Left = 8
     Top = 88
     Width = 225
@@ -69,7 +69,7 @@ object fmEMail: TfmEMail
     Caption = 'pnlRu1'
     TabOrder = 0
   end
-  object pnlRu2: TPanel
+  object pnlRu2: TTntPanel
     Left = 8
     Top = 88
     Width = 225
@@ -78,7 +78,7 @@ object fmEMail: TfmEMail
     Caption = 'pnlRu2'
     TabOrder = 1
   end
-  object pnlEn1: TPanel
+  object pnlEn1: TTntPanel
     Left = 8
     Top = 88
     Width = 225
@@ -87,7 +87,7 @@ object fmEMail: TfmEMail
     Caption = 'pnlEn1'
     TabOrder = 3
   end
-  object pnlEn2: TPanel
+  object pnlEn2: TTntPanel
     Left = 8
     Top = 88
     Width = 225

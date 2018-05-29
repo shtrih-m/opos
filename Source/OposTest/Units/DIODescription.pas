@@ -1,3 +1,4 @@
+
 unit DIODescription;
 
 interface
@@ -20,7 +21,7 @@ const
   CRLF = #13#10;
   DIO_CUSTOM_COMMAND = $FFFF;
 
-  DIODescriptions: array[1..38] of TDirectIODescription = (
+  DIODescriptions: array[1..41] of TDirectIODescription = (
     (Command: DIO_COMMAND_PRINTER_XML;
      Description: 'XML command';
      DescriptionEx:  'Data: Printer command code' + #13#10 +
@@ -272,7 +273,25 @@ const
      'ResultCode - result code' + CRLF +
      'RecNumber - receipt number' + CRLF +
      'DocNumber - document number' + CRLF +
-     'DocMac - document authentication code';)
+     'DocMac - document authentication code';),
+
+    (Command: DIO_START_OPEN_DAY;
+     Description: 'Start open fiscal day';
+     DescriptionEx:
+       'Data: not used' + CRLF +
+       'String: not used';),
+
+    (Command: DIO_OPEN_DAY;
+     Description: 'Open fiscal day';
+     DescriptionEx:
+       'Data: not used' + CRLF +
+       'String: not used';),
+
+    (Command: DIO_START_CORRECTION;
+     Description: 'Start correction receipt';
+     DescriptionEx:
+       'Data: not used' + CRLF +
+       'String: not used';)
   );
 
 function GetDIODescription(ADIOCommand: Integer): TDirectIODescription;

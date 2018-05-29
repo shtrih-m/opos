@@ -19,33 +19,33 @@ type
     FLogger: ILogFile;
     FParameters: TPrinterParameters;
 
-    procedure LoadSysParameters(const DeviceName: string);
-    procedure LoadUsrParameters(const DeviceName: string);
-    procedure SaveSysParameters(const DeviceName: string);
-    procedure SaveUsrParameters(const DeviceName: string);
-    class function GetUsrKeyName(const DeviceName: string): string;
-    class function GetSysKeyName(const DeviceName: string): string;
+    procedure LoadSysParameters(const DeviceName: WideString);
+    procedure LoadUsrParameters(const DeviceName: WideString);
+    procedure SaveSysParameters(const DeviceName: WideString);
+    procedure SaveUsrParameters(const DeviceName: WideString);
+    class function GetUsrKeyName(const DeviceName: WideString): WideString;
+    class function GetSysKeyName(const DeviceName: WideString): WideString;
 
     property Parameters: TPrinterParameters read FParameters;
   public
     constructor Create(AParameters: TPrinterParameters; ALogger: ILogFile);
 
-    procedure Load(const DeviceName: string);
-    procedure Save(const DeviceName: string);
+    procedure Load(const DeviceName: WideString);
+    procedure Save(const DeviceName: WideString);
 
     property Logger: ILogFile read FLogger;
   end;
 
-function ReadEncodingReg(const DeviceName: string; Logger: ILogFile): Integer;
-procedure DeleteParametersReg(const DeviceName: string; Logger: ILogFile);
-procedure LoadParametersReg(Item: TPrinterParameters; const DeviceName: string;
+function ReadEncodingReg(const DeviceName: WideString; Logger: ILogFile): Integer;
+procedure DeleteParametersReg(const DeviceName: WideString; Logger: ILogFile);
+procedure LoadParametersReg(Item: TPrinterParameters; const DeviceName: WideString;
   Logger: ILogFile);
 
-procedure SaveParametersReg(Item: TPrinterParameters; const DeviceName: string;
+procedure SaveParametersReg(Item: TPrinterParameters; const DeviceName: WideString;
   Logger: ILogFile);
 
 procedure SaveUsrParametersReg(Item: TPrinterParameters;
-  const DeviceName: string; Logger: ILogFile);
+  const DeviceName: WideString; Logger: ILogFile);
 
 implementation
 
@@ -54,7 +54,7 @@ const
   REG_KEY_PAYTYPES  = 'PaymentTypes';
   MsgKeyOpenError   = 'Error opening registry key: %s';
 
-function ReadEncodingReg(const DeviceName: string; Logger: ILogFile): Integer;
+function ReadEncodingReg(const DeviceName: WideString; Logger: ILogFile): Integer;
 var
   P: TPrinterParameters;
 begin
@@ -67,7 +67,7 @@ begin
   end;
 end;
 
-procedure DeleteParametersReg(const DeviceName: string; Logger: ILogFile);
+procedure DeleteParametersReg(const DeviceName: WideString; Logger: ILogFile);
 var
   Reg: TTntRegistry;
 begin
@@ -85,7 +85,7 @@ begin
   Reg.Free;
 end;
 
-procedure LoadParametersReg(Item: TPrinterParameters; const DeviceName: string;
+procedure LoadParametersReg(Item: TPrinterParameters; const DeviceName: WideString;
   Logger: ILogFile);
 var
   Reader: TPrinterParametersReg;
@@ -98,7 +98,7 @@ begin
   end;
 end;
 
-procedure SaveParametersReg(Item: TPrinterParameters; const DeviceName: string;
+procedure SaveParametersReg(Item: TPrinterParameters; const DeviceName: WideString;
   Logger: ILogFile);
 var
   Writer: TPrinterParametersReg;
@@ -112,7 +112,7 @@ begin
 end;
 
 procedure SaveUsrParametersReg(Item: TPrinterParameters;
-  const DeviceName: string; Logger: ILogFile);
+  const DeviceName: WideString; Logger: ILogFile);
 var
   Writer: TPrinterParametersReg;
 begin
@@ -134,12 +134,12 @@ begin
   FLogger := ALogger;
 end;
 
-class function TPrinterParametersReg.GetSysKeyName(const DeviceName: string): string;
+class function TPrinterParametersReg.GetSysKeyName(const DeviceName: WideString): WideString;
 begin
   Result := Tnt_WideFormat('%s\%s\%s', [OPOS_ROOTKEY, OPOS_CLASSKEY_FPTR, DeviceName]);
 end;
 
-procedure TPrinterParametersReg.Load(const DeviceName: string);
+procedure TPrinterParametersReg.Load(const DeviceName: WideString);
 begin
   try
     LoadSysParameters(DeviceName);
@@ -152,7 +152,7 @@ begin
   end;
 end;
 
-procedure TPrinterParametersReg.Save(const DeviceName: string);
+procedure TPrinterParametersReg.Save(const DeviceName: WideString);
 begin
   try
     SaveUsrParameters(DeviceName);
@@ -163,13 +163,13 @@ begin
   end;
 end;
 
-procedure TPrinterParametersReg.LoadSysParameters(const DeviceName: string);
+procedure TPrinterParametersReg.LoadSysParameters(const DeviceName: WideString);
 var
   i: Integer;
   Reg: TTntRegistry;
   Names: TTntStrings;
-  KeyName: string;
-  PayTypeText: string;
+  KeyName: WideString;
+  PayTypeText: WideString;
   PayTypeCode: Integer;
   AppVatCode: Integer;
   FptrVatCode: Integer;
@@ -529,11 +529,11 @@ begin
   end;
 end;
 
-procedure TPrinterParametersReg.SaveSysParameters(const DeviceName: string);
+procedure TPrinterParametersReg.SaveSysParameters(const DeviceName: WideString);
 var
   i: Integer;
   Reg: TTntRegistry;
-  KeyName: string;
+  KeyName: WideString;
 begin
   Reg := TTntRegistry.Create;
   try
@@ -677,12 +677,12 @@ begin
   end;
 end;
 
-class function TPrinterParametersReg.GetUsrKeyName(const DeviceName: string): string;
+class function TPrinterParametersReg.GetUsrKeyName(const DeviceName: WideString): WideString;
 begin
   Result := Tnt_WideFormat('%s\%s\%s', [OPOS_ROOTKEY, OPOS_CLASSKEY_FPTR, DeviceName]);
 end;
 
-procedure TPrinterParametersReg.LoadUsrParameters(const DeviceName: string);
+procedure TPrinterParametersReg.LoadUsrParameters(const DeviceName: WideString);
 var
   Reg: TTntRegistry;
 begin
@@ -728,7 +728,7 @@ begin
   end;
 end;
 
-procedure TPrinterParametersReg.SaveUsrParameters(const DeviceName: string);
+procedure TPrinterParametersReg.SaveUsrParameters(const DeviceName: WideString);
 var
   Reg: TTntRegistry;
 begin

@@ -11,18 +11,18 @@ uses
   // Tnt
   TntStdCtrls, TntSysUtils,
   // This
-  untPages, VersionInfo, fmuScaleGeneral, fmuScaleMain,
-  fmuScaleProperties, fmuScaleHealth;
+  BaseForm, untPages, VersionInfo, fmuScaleGeneral, fmuScaleMain,
+  fmuScaleProperties, fmuScaleHealth, TntExtCtrls;
 
 type
   { TfmMain }
 
-  TfmScale = class(TForm)
-    pnlData: TPanel;
-    Panel1: TPanel;
+  TfmScale = class(TBaseForm)
+    pnlData: TTntPanel;
+    Panel1: TTntPanel;
     lblTime: TTntLabel;
     edtTime: TTntEdit;
-    Panel2: TPanel;
+    Panel2: TTntPanel;
     lbPages: TTntListBox;
     lblResult: TTntLabel;
     edtResult: TTntEdit;

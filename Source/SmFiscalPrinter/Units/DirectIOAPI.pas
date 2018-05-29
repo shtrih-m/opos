@@ -85,6 +85,7 @@ const
   DIO_START_OPEN_DAY            = 58; // start open day
   DIO_OPEN_DAY                  = 59; // open day
   DIO_CHECK_MARKING             = 60; // check marking
+  DIO_START_CORRECTION          = 61; // start correction receipt
 
 
   DIO_PRINT_TEXT2                = 1000;  // print text
@@ -226,9 +227,9 @@ const
   /////////////////////////////////////////////////////////////////////////////
   // BarcodeAlignment values
 
-  BARCODE_ALIGNMENT_CENTER  = 0;
-  BARCODE_ALIGNMENT_LEFT     = 1;
-  BARCODE_ALIGNMENT_RIGHT   = 2;
+  BARCODE_ALIGNMENT_CENTER    = 0;
+  BARCODE_ALIGNMENT_LEFT      = 1;
+  BARCODE_ALIGNMENT_RIGHT     = 2;
 
   /////////////////////////////////////////////////////////////////////////////
   // DriverParameterxxx constants

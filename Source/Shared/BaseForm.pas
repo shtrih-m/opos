@@ -6,18 +6,20 @@ uses
   // VCL
   Windows, Forms, Classes, Controls, StdCtrls,
   // Tnt
-  TntStdCtrls;
+  TntForms, TntStdCtrls, TntComCtrls, TntExtCtrls, TntClasses,
+  gnugettext;
 
 type
   { TBaseForm }
 
-  TBaseForm = class(TForm)
+  TBaseForm = class(TTntForm)
   private
     FActiveControl: TWinControl;
-  protected
-    procedure ReadState(Reader: TReader); override;
   public
-    procedure EnableButtons(Value: Boolean); virtual;
+    procedure EnableButtons; overload;
+    procedure DisableButtons;
+    procedure EnableButtons(Value: Boolean); overload; virtual; 
+    constructor Create(AOwner: TComponent); override;
   end;
 
 procedure EnableControls(WinControl: TWinControl; Value: Boolean);
@@ -40,6 +42,8 @@ begin
     end;
   end;
 end;
+
+// Запрещение оконных элементов управления
 
 procedure EnableControls(WinControl: TWinControl; Value: Boolean);
 var
@@ -69,10 +73,12 @@ begin
   end;
   if WinControl is TTntButton then
   begin
+    // Запоминаем
     if WinControl.Focused and (not Value) then
       FocusedControl := WinControl;
 
     EnableWinControl(WinControl, Value);
+    // Устанавливаем
     if Value and (FocusedControl = WinControl) and WinControl.CanFocus then
       WinControl.SetFocus;
   end;
@@ -80,22 +86,10 @@ end;
 
 { TBaseForm }
 
-procedure TBaseForm.ReadState(Reader: TReader);
+constructor TBaseForm.Create(AOwner: TComponent);
 begin
-  DisableAlign;
-  try
-    inherited ReadState(Reader);
-    if BorderStyle = bsSizeable then
-    begin
-      Height := Height + GetSystemMetrics(SM_CYCAPTION) - 19 +
-        (GetSystemMetrics(SM_CYSIZEFRAME)-GetSystemMetrics(SM_CYEDGE)-1)*2;
-
-      Width := Width +
-        (GetSystemMetrics(SM_CXSIZEFRAME)-GetSystemMetrics(SM_CXEDGE)-1)*2;
-    end;
-  finally
-    EnableAlign;
-  end;
+  inherited Create(AOwner);
+  TranslateComponent(Self);
 end;
 
 procedure TBaseForm.EnableButtons(Value: Boolean);
@@ -103,11 +97,15 @@ begin
   EnableControlsFocused(Self, Value, FActiveControl);
 end;
 
+
+procedure TBaseForm.EnableButtons;
+begin
+  EnableControlsFocused(Self, True, FActiveControl);
+end;
+
+procedure TBaseForm.DisableButtons;
+begin
+  EnableControlsFocused(Self, False, FActiveControl);
+end;
+
 end.
-
-
-
-
-
-
-

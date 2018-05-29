@@ -217,7 +217,10 @@ uses
   duBitUtils in 'Units\duBitUtils.pas',
   WException in '..\..\Source\Shared\WException.pas',
   CorrectionReceipt in '..\..\Source\SmFiscalPrinter\Units\CorrectionReceipt.pas',
-  TntIniFiles in '..\..\Source\Shared\TntIniFiles.pas';
+  TntIniFiles in '..\..\Source\Shared\TntIniFiles.pas',
+  BaseForm in '..\..\Source\Shared\BaseForm.pas',
+  TranslationUtil in '..\..\Source\SmFiscalPrinter\Units\TranslationUtil.pas',
+  LangUtils in '..\..\Source\Shared\LangUtils.pas';
 
 {$R *.RES}
 {$R ..\..\Source\SmFiscalPrinter\SmFiscalPrinter.TLB}

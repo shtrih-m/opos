@@ -6,26 +6,26 @@ uses
   // VCL
   Windows, Classes, SysUtils, ShlObj, ShFolder, Registry,
   // Tnt
-  TntClasses, TntStdCtrls, TntRegistry;
+  TntClasses, TntStdCtrls, TntRegistry, TntSysUtils;
 
-function GetModulePath: string;
-function GetModuleFileName: string;
-function ReadFileData(const FileName: string): string;
-procedure WriteFileData(const FileName, Data: string);
-function GetLongFileName(const FileName: string): string;
-function GetSystemPath: string;
+function GetModulePath: WideString;
+function GetModuleFileName: WideString;
+function ReadFileData(const FileName: AnsiString): AnsiString;
+procedure WriteFileData(const FileName, Data: AnsiString);
+function GetLongFileName(const FileName: WideString): WideString;
+function GetSystemPath: WideString;
 function CLSIDToFileName(const CLSID: TGUID): String;
-procedure DeleteFiles(const FileMask: string);
+procedure DeleteFiles(const FileMask: WideString);
 
 implementation
 
-function GetModulePath: string;
+function GetModulePath: WideString;
 begin
-  Result := IncludeTrailingPathDelimiter(ExtractFilePath(
+  Result := WideIncludeTrailingPathDelimiter(ExtractFilePath(
     GetLongFileName(GetModuleFileName)));
 end;
 
-function GetModFileName: string;
+function GetModFileName: WideString;
 var
   Buffer: array[0..261] of Char;
 begin
@@ -33,12 +33,12 @@ begin
     Buffer, SizeOf(Buffer)));
 end;
 
-function GetModuleFileName: string;
+function GetModuleFileName: WideString;
 begin
   Result := GetLongFileName(GetModFileName);
 end;
 
-function ReadFileData(const FileName: string): string;
+function ReadFileData(const FileName: AnsiString): AnsiString;
 var
   Stream: TFileStream;
 begin
@@ -55,7 +55,7 @@ begin
   end;
 end;
 
-procedure WriteFileData(const FileName, Data: string);
+procedure WriteFileData(const FileName, Data: AnsiString);
 var
   Stream: TFileStream;
 begin
@@ -68,12 +68,12 @@ begin
   end;
 end;
 
-function GetLongFileName(const FileName: string): string;
+function GetLongFileName(const FileName: WideString): WideString;
 var
   L: Integer;
   Handle: Integer;
-  Buffer: array[0..MAX_PATH] of Char;
-  GetLongPathName: function (ShortPathName: PChar; LongPathName: PChar;
+  Buffer: array[0..MAX_PATH] of WideChar;
+  GetLongPathName: function (ShortPathName: PWideChar; LongPathName: PWideChar;
     cchBuffer: Integer): Integer stdcall;
 const
   kernel = 'kernel32.dll';
@@ -82,22 +82,22 @@ begin
   Handle := GetModuleHandle(kernel);
   if Handle <> 0 then
   begin
-    @GetLongPathName := GetProcAddress(Handle, 'GetLongPathNameA');
+    @GetLongPathName := GetProcAddress(Handle, 'GetLongPathNameW');
     if Assigned(GetLongPathName) then
     begin
-      L := GetLongPathName(PChar(FileName), Buffer, SizeOf(Buffer));
+      L := GetLongPathName(PWideChar(FileName), Buffer, SizeOf(Buffer));
       SetString(Result, Buffer, L);
     end;
   end;
 end;
 
-function GetSystemPath: string;
+function GetSystemPath: WideString;
 var
-  Buffer: array[0..MAX_PATH] of Char;
+  Buffer: array[0..MAX_PATH] of WideChar;
 begin
   Result := '';
-  SHGetSpecialFolderPath(0, Buffer, CSIDL_SYSTEM, False);
-  Result := IncludeTrailingPathDelimiter(Buffer);
+  SHGetSpecialFolderPathW(0, Buffer, CSIDL_SYSTEM, False);
+  Result := WideIncludeTrailingPathDelimiter(Buffer);
 end;
 
 function ExtractQuotedStr(const Src: String): String;
@@ -133,11 +133,11 @@ begin
   end;
 end;
 
-procedure GetFileNames(const Mask: string; FileNames: TTntStrings);
+procedure GetFileNames(const Mask: WideString; FileNames: TTntStrings);
 var
   F: TSearchRec;
   Result: Integer;
-  FileName: string;
+  FileName: WideString;
 begin
   Result := FindFirst(Mask, faAnyFile, F);
   while Result = 0 do
@@ -149,7 +149,7 @@ begin
   FindClose(F);
 end;
 
-procedure DeleteFiles(const FileMask: string);
+procedure DeleteFiles(const FileMask: WideString);
 var
   FileNames: TTntStringList;
 begin

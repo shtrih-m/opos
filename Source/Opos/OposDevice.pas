@@ -8,7 +8,7 @@ Uses
   // Tnt
   TntSysUtils, TntClasses, TntRegistry,
   // Opos
-  Oposhi, VersionInfo;
+  Oposhi, VersionInfo, GNUGetText, DriverError;
 
 type
   TOposDevice = class;
@@ -72,9 +72,6 @@ function CLSIDToFileName(const CLSID: TGUID): String;
 function ProgIDToFileName(const ProgID: WideString): WideString;
 
 implementation
-
-resourcestring
-  MsgKeyOpenError = 'Error opening registry key: %s';
 
 function ExtractQuotedStr(const Src: String): String;
 begin
@@ -205,7 +202,7 @@ begin
 
     KeyName := GetRegKeyName;
     if not Reg.OpenKey(KeyName, True) then
-      raise Exception.CreateFmt(MsgKeyOpenError, [KeyName]);
+      raiseOpenKeyError(KeyName);
 
     Reg.CreateKey(DeviceName);
     Reg.CloseKey;
@@ -229,7 +226,7 @@ begin
     Reg.RootKey := HKEY_LOCAL_MACHINE;
     KeyName := GetRegKeyName;
     if not Reg.OpenKey(KeyName, False) then
-      raise Exception.CreateFmt(MsgKeyOpenError, [KeyName]);
+      raiseOpenKeyError(KeyName);
 
     Reg.DeleteKey(DeviceName);
   finally
@@ -313,7 +310,7 @@ begin
     Reg.RootKey := HKEY_LOCAL_MACHINE;
     KeyName := GetRegKeyName;
     if not Reg.OpenKey(KeyName, False) then
-      raise Exception.CreateFmt(MsgKeyOpenError, [KeyName]);
+      raiseOpenKeyError(KeyName);
 
     Reg.GetKeyNames(DeviceNames);
     Reg.CloseKey;

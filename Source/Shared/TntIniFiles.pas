@@ -16,10 +16,10 @@ interface
 uses
   SysUtils, Classes,
   // Tnt
-  TntClasses, TntWideStrUtils, TntSysUtils;
+  TntClasses, TntWideStrUtils, TntSysUtils, WException;
 
 type
-  EIniFileException = class(Exception);
+  EIniFileException = class(WideException);
 
   TCustomIniFile = class(TObject)
   private
@@ -311,17 +311,17 @@ end;
 function TCustomIniFile.ReadBinaryStream(const Section, Name: WideString;
   Value: TStream): Integer;
 var
-  Text: string;
-  Stream: TMemoryStream;
   Pos: Integer;
+  Text: AnsiString;
+  Stream: TTntMemoryStream;
 begin
   Text := ReadString(Section, Name, '');
   if Text <> '' then
   begin
-    if Value is TMemoryStream then
-      Stream := TMemoryStream(Value)
+    if Value is TTntMemoryStream then
+      Stream := TTntMemoryStream(Value)
     else
-      Stream := TMemoryStream.Create;
+      Stream := TTntMemoryStream.Create;
 
     try
       Pos := Stream.Position;
@@ -343,16 +343,16 @@ end;
 procedure TCustomIniFile.WriteBinaryStream(const Section, Name: WideString;
   Value: TStream);
 var
-  Text: string;
-  Stream: TMemoryStream;
+  Text: AnsiString;
+  Stream: TTntMemoryStream;
 begin
   SetLength(Text, (Value.Size - Value.Position) * 2);
   if Length(Text) > 0 then
   begin
-    if Value is TMemoryStream then
-      Stream := TMemoryStream(Value)
+    if Value is TTntMemoryStream then
+      Stream := TTntMemoryStream(Value)
     else
-      Stream := TMemoryStream.Create;
+      Stream := TTntMemoryStream.Create;
 
     try
       if Stream <> Value then

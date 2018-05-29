@@ -16,7 +16,7 @@ object fmFptrFuel: TfmFptrFuel
   Position = poScreenCenter
   PixelsPerInch = 96
   TextHeight = 13
-  object gbFuelFilter: TGroupBox
+  object gbFuelFilter: TTntGroupBox
     Left = 0
     Top = 0
     Width = 433
@@ -62,7 +62,7 @@ object fmFptrFuel: TfmFptrFuel
       Caption = 'Fuel receipt item amount round enabled'
       TabOrder = 0
     end
-    object memFuelItemText: TMemo
+    object memFuelItemText: TTntMemo
       Left = 16
       Top = 128
       Width = 409

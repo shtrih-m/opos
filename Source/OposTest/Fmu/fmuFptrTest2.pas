@@ -121,6 +121,7 @@ begin
     begin
       Inc(FErrorCount);
       AddMessage('TestFiscalPrinter: ' + E.Message);
+      if FStopOnError then raise;
     end;
   end;
 end;

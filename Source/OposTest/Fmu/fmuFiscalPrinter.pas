@@ -7,7 +7,7 @@ uses
   Windows, StdCtrls, Controls, ExtCtrls, Classes, Forms, SysUtils,
   Registry, ComCtrls,
   // Tnt
-  TntStdCtrls, TntSysUtils,
+  TntStdCtrls, TntSysUtils, TntComCtrls, 
   // Opos
   OposFptrUtils, OposUtils,
   // This
@@ -34,14 +34,14 @@ uses
   fmuTankReport,
   fmuFptrFroudReceipt,
   {$ENDIF}
-  DebugUtils;
+  DebugUtils, TntExtCtrls;
 
 type
   { TfmMain }
 
   TfmFiscalPrinter = class(TBaseForm)
-    pnlData: TPanel;
-    Panel1: TPanel;
+    pnlData: TTntPanel;
+    Panel1: TTntPanel;
     lblTime: TTntLabel;
     lblResult: TTntLabel;
     lblExtendedResult: TTntLabel;
@@ -52,7 +52,7 @@ type
     edtExtendedResult: TTntEdit;
     edtPrinterState: TTntEdit;
     edtErrorString: TTntEdit;
-    Panel2: TPanel;
+    Panel2: TTntPanel;
     lbPages: TTntListBox;
     procedure lbPagesClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);

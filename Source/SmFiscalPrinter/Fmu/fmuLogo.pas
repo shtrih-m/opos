@@ -7,10 +7,10 @@ uses
   Windows, Messages, StdCtrls, Controls, Classes, SysUtils, Registry, Dialogs,
   Forms, ComCtrls, Buttons, ExtDlgs, ExtCtrls, Graphics,
   // Tnt
-  TntStdCtrls, TntSysUtils, TntButtons, 
+  TntStdCtrls, TntSysUtils, TntButtons, TntComCtrls, TntExtCtrls,
   // This
-  FiscalPrinterImpl, Opos, Oposhi, OposUtils, untUtil, FiscalPrinterDevice,
-  FiscalPrinterTypes, PrinterParameters;
+  BaseForm, FiscalPrinterImpl, Opos, Oposhi, OposUtils, untUtil,
+  FiscalPrinterDevice, FiscalPrinterTypes, PrinterParameters;
 
 const
   WM_NOTIFY = WM_USER + 1;
@@ -18,13 +18,13 @@ const
 type
   { TfmLogo }
 
-  TfmLogo = class(TForm)
+  TfmLogo = class(TBaseForm)
     btnClose: TTntButton;
     OpenPictureDialog: TOpenPictureDialog;
     btnOpen: TTntBitBtn;
     btnLoad: TTntBitBtn;
     btnPrint: TTntBitBtn;
-    Panel1: TPanel;
+    Panel1: TTntPanel;
     lblMaxImageSize: TTntLabel;
     lblInfo1: TTntLabel;
     lblImageSize: TTntLabel;
@@ -32,7 +32,7 @@ type
     edtMaxImageSize: TTntEdit;
     lblWarn: TTntLabel;
     imgWarn: TImage;
-    Panel2: TPanel;
+    Panel2: TTntPanel;
     Image: TImage;
     lblProgress: TTntLabel;
     chbLogoCenter: TTntCheckBox;
@@ -41,7 +41,6 @@ type
     procedure btnCloseClick(Sender: TObject);
     procedure btnPrintClick(Sender: TObject);
   private
-    FButton: TTntButton;
     FPrinter: TFiscalPrinterImpl;
     FApplicationTitle: string;
     FApplicationHandle: THandle;
@@ -145,11 +144,11 @@ end;
 
 procedure TfmLogo.btnPrintClick(Sender: TObject);
 begin
-  EnableButtons(Self, False, FButton);
+  EnableButtons(False);
   try
     Printer.PrintLogo;
   finally
-    EnableButtons(Self, True, FButton);
+    EnableButtons(True);
   end;
 end;
 

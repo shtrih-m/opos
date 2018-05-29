@@ -20,7 +20,7 @@ object fmCashDrawer: TfmCashDrawer
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
-  object pnlData: TPanel
+  object pnlData: TTntPanel
     Left = 178
     Top = 0
     Width = 366
@@ -29,7 +29,7 @@ object fmCashDrawer: TfmCashDrawer
     BevelOuter = bvNone
     TabOrder = 0
   end
-  object Panel1: TPanel
+  object Panel1: TTntPanel
     Left = 0
     Top = 375
     Width = 544
@@ -97,7 +97,7 @@ object fmCashDrawer: TfmCashDrawer
       TabOrder = 2
     end
   end
-  object Panel2: TPanel
+  object Panel2: TTntPanel
     Left = 0
     Top = 0
     Width = 178

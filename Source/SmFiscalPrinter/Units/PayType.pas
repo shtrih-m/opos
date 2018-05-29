@@ -21,8 +21,8 @@ type
   public
     constructor Create;
     destructor Destroy; override;
-    function ItemByText(const Text: string): TPayType;
-    function Add(ACode: Byte; const AText: string): TPayType;
+    function ItemByText(const Text: WideString): TPayType;
+    function Add(ACode: Byte; const AText: WideString): TPayType;
     procedure Clear;
 
     property Count: Integer read GetCount;
@@ -34,15 +34,15 @@ type
   TPayType = class
   private
     FCode: Byte;
-    FText: string;
+    FText: WideString;
     FOwner: TPayTypes;
     procedure SetOwner(AOwner: TPayTypes);
   public
-    constructor Create(AOwner: TPayTypes; ACode: Byte; const AText: string);
+    constructor Create(AOwner: TPayTypes; ACode: Byte; const AText: WideString);
     destructor Destroy; override;
 
     property Code: Byte read FCode;
-    property Text: string read FText;
+    property Text: WideString read FText;
   end;
 
 implementation
@@ -89,7 +89,7 @@ begin
   FList.Remove(AItem);
 end;
 
-function TPayTypes.ItemByText(const Text: string): TPayType;
+function TPayTypes.ItemByText(const Text: WideString): TPayType;
 var
   i: Integer;
 begin
@@ -101,14 +101,14 @@ begin
   Result := nil;
 end;
 
-function TPayTypes.Add(ACode: Byte; const AText: string): TPayType;
+function TPayTypes.Add(ACode: Byte; const AText: WideString): TPayType;
 begin
   Result := TPayType.Create(Self, ACode, AText);
 end;
 
 { TPayType }
 
-constructor TPayType.Create(AOwner: TPayTypes; ACode: Byte; const AText: string);
+constructor TPayType.Create(AOwner: TPayTypes; ACode: Byte; const AText: WideString);
 begin
   inherited Create;
   SetOwner(AOwner);

@@ -28,21 +28,21 @@ type
     FCCOType: Integer;
     FEncoding: Integer;
     FDrawerNumber: Integer;
-    FFptrDeviceName: string;
+    FFptrDeviceName: WideString;
 
-    function GetKeyName(const DeviceName: string): string;
+    function GetKeyName(const DeviceName: WideString): WideString;
     procedure WriteLogParameters;
     property Logger: ILogFile read FLogger;
   public
     constructor Create(ALogger: ILogFile);
     procedure SetDefaults;
-    procedure Load(const DeviceName: string);
-    procedure Save(const DeviceName: string);
+    procedure Load(const DeviceName: WideString);
+    procedure Save(const DeviceName: WideString);
 
     property CCOType: Integer read FCCOType write FCCOType;
     property Encoding: Integer read FEncoding write FEncoding;
     property DrawerNumber: Integer read FDrawerNumber write FDrawerNumber;
-    property FptrDeviceName: string read FFptrDeviceName write FFptrDeviceName;
+    property FptrDeviceName: WideString read FFptrDeviceName write FFptrDeviceName;
   end;
 
 const
@@ -70,12 +70,12 @@ begin
   Logger.Debug('CCOType: ' + IntToStr(CCOType));
 end;
 
-function TCashDrawerParameters.GetKeyName(const DeviceName: string): string;
+function TCashDrawerParameters.GetKeyName(const DeviceName: WideString): WideString;
 begin
   Result := Tnt_WideFormat('%s\%s\%s', [OPOS_ROOTKEY, OPOS_CLASSKEY_CASH, DeviceName]);
 end;
 
-procedure TCashDrawerParameters.Load(const DeviceName: string);
+procedure TCashDrawerParameters.Load(const DeviceName: WideString);
 var
   Reg: TTntRegistry;
 begin
@@ -110,7 +110,7 @@ begin
   WriteLogParameters;
 end;
 
-procedure TCashDrawerParameters.Save(const DeviceName: string);
+procedure TCashDrawerParameters.Save(const DeviceName: WideString);
 var
   Reg: TTntRegistry;
 begin

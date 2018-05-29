@@ -19,17 +19,17 @@ type
     Min: Integer;
   end;
 
-function GetErrorLocusText(Value: Integer): string;
-function GetResultCodeText(Value: Integer): string;
-function GetErrorResponseText(Value: Integer): string;
-function PowerStateToStr(PowerState: Integer): string;
-function GetCommonPropertyName(const ID: Integer): string;
-function GetCommonStatusUpdateEventText(Value: Integer): string;
-function GetOpenResultText(Value: Integer): string;
-function BinaryConversionToStr(Value: Integer): string;
-function StateToStr(Value: Integer): string;
-function PowerReportingToStr(Value: Integer): string;
-function PowerNotifyToStr(Value: Integer): string;
+function GetErrorLocusText(Value: Integer): WideString;
+function GetResultCodeText(Value: Integer): WideString;
+function GetErrorResponseText(Value: Integer): WideString;
+function PowerStateToStr(PowerState: Integer): WideString;
+function GetCommonPropertyName(const ID: Integer): WideString;
+function GetCommonStatusUpdateEventText(Value: Integer): WideString;
+function GetOpenResultText(Value: Integer): WideString;
+function BinaryConversionToStr(Value: Integer): WideString;
+function StateToStr(Value: Integer): WideString;
+function PowerReportingToStr(Value: Integer): WideString;
+function PowerNotifyToStr(Value: Integer): WideString;
 
 const
   CRLF = #13#10;
@@ -94,7 +94,7 @@ const
 
 implementation
 
-function GetCommonPropertyName(const ID: Integer): string;
+function GetCommonPropertyName(const ID: Integer): WideString;
 begin
   case ID of
     // common
@@ -126,7 +126,7 @@ begin
   end;
 end;
 
-function GetResultCodeText(Value: Integer): string;
+function GetResultCodeText(Value: Integer): WideString;
 begin
   case Value of
     OPOS_SUCCESS          : Result := 'OPOS_SUCCESS';
@@ -160,7 +160,7 @@ begin
   end;
 end;
 
-function GetErrorLocusText(Value: Integer): string;
+function GetErrorLocusText(Value: Integer): WideString;
 begin
   case Value of
     OPOS_EL_OUTPUT       : Result := 'OPOS_EL_OUTPUT';
@@ -171,7 +171,7 @@ begin
   end;
 end;
 
-function GetErrorResponseText(Value: Integer): string;
+function GetErrorResponseText(Value: Integer): WideString;
 begin
   case Value of
     OPOS_ER_RETRY         : Result := 'OPOS_ER_RETRY';
@@ -182,7 +182,7 @@ begin
   end;
 end;
 
-function GetCommonStatusUpdateEventText(Value: Integer): string;
+function GetCommonStatusUpdateEventText(Value: Integer): WideString;
 begin
   case Value of
     // common
@@ -202,7 +202,7 @@ begin
   end;
 end;
 
-function PowerStateToStr(PowerState: Integer): string;
+function PowerStateToStr(PowerState: Integer): WideString;
 begin
   case PowerState of
     OPOS_PS_UNKNOWN     : Result := 'OPOS_PS_UNKNOWN';
@@ -215,7 +215,7 @@ begin
   end;
 end;
 
-function GetOpenResultText(Value: Integer): string;
+function GetOpenResultText(Value: Integer): WideString;
 begin
   case Value of
     OPOS_OR_ALREADYOPEN   : Result := S_OPOS_OR_ALREADYOPEN;
@@ -234,7 +234,7 @@ begin
   end;
 end;
 
-function BinaryConversionToStr(Value: Integer): string;
+function BinaryConversionToStr(Value: Integer): WideString;
 begin
   case Value of
     0: Result := 'OPOS_BC_NONE';
@@ -245,7 +245,7 @@ begin
   end;
 end;
 
-function StateToStr(Value: Integer): string;
+function StateToStr(Value: Integer): WideString;
 begin
   case Value of
     OPOS_S_CLOSED: Result := 'OPOS_S_CLOSED';
@@ -257,7 +257,7 @@ begin
   end;
 end;
 
-function PowerReportingToStr(Value: Integer): string;
+function PowerReportingToStr(Value: Integer): WideString;
 begin
   case Value of
     OPOS_PR_NONE: Result := 'OPOS_PR_NONE';
@@ -268,7 +268,7 @@ begin
   end;
 end;
 
-function PowerNotifyToStr(Value: Integer): string;
+function PowerNotifyToStr(Value: Integer): WideString;
 begin
   case Value of
     OPOS_PN_DISABLED: Result := 'OPOS_PN_DISABLED';

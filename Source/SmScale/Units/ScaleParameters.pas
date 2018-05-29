@@ -46,11 +46,11 @@ type
     constructor Create(ALogger: ILogFile);
     procedure SetDefaults; virtual;
     procedure WriteLogParameters;
-    procedure Load(const DeviceName: string); virtual;
-    procedure Save(const DeviceName: string); virtual;
-    class procedure DeleteKey(const DeviceName: string);
-    class procedure CreateKey(const DeviceName: string);
-    class function GetKeyName(const DeviceName: string): string;
+    procedure Load(const DeviceName: WideString); virtual;
+    procedure Save(const DeviceName: WideString); virtual;
+    class procedure DeleteKey(const DeviceName: WideString);
+    class procedure CreateKey(const DeviceName: WideString);
+    class function GetKeyName(const DeviceName: WideString): WideString;
     property Logger: ILogFile read FLogger;
   end;
 
@@ -155,12 +155,12 @@ begin
   Logger.Debug('PollPeriod              : ' + IntToStr(PollPeriod));
 end;
 
-class function TScaleParameters.GetKeyName(const DeviceName: string): string;
+class function TScaleParameters.GetKeyName(const DeviceName: WideString): WideString;
 begin
   Result := Tnt_WideFormat('%s\%s\%s', [OPOS_ROOTKEY, OPOS_CLASSKEY_SCAL, DeviceName]);
 end;
 
-class procedure TScaleParameters.DeleteKey(const DeviceName: string);
+class procedure TScaleParameters.DeleteKey(const DeviceName: WideString);
 var
   Reg: TTntRegistry;
 begin
@@ -173,7 +173,7 @@ begin
   end;
 end;
 
-class procedure TScaleParameters.CreateKey(const DeviceName: string);
+class procedure TScaleParameters.CreateKey(const DeviceName: WideString);
 var
   Reg: TTntRegistry;
 begin
@@ -186,7 +186,7 @@ begin
   end;
 end;
 
-procedure TScaleParameters.Load(const DeviceName: string);
+procedure TScaleParameters.Load(const DeviceName: WideString);
 var
   Reg: TTntRegistry;
 begin
@@ -246,7 +246,7 @@ begin
   WriteLogParameters;
 end;
 
-procedure TScaleParameters.Save(const DeviceName: string);
+procedure TScaleParameters.Save(const DeviceName: WideString);
 var
   Reg: TTntRegistry;
 begin

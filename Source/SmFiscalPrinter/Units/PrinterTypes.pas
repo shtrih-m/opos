@@ -446,12 +446,12 @@ type
     Date: TPrinterDate;
     Time: TPrinterTime;
     FMFlags: Byte;
-    SerialNumber: string;
+    SerialNumber: WideString;
     DayNumber: Word;
     RemainingFiscalMemory: Word;
     RegistrationNumber: Byte;
     FreeRegistration: Byte;
-    FiscalID: string;
+    FiscalID: WideString;
   end;
 
   { TPrinterFlags }
@@ -519,7 +519,7 @@ type
   { TTaxInfo }
 
   TTaxInfo = record
-    Name: string;
+    Name: WideString;
     Rate: Integer;
   end;
 
@@ -642,7 +642,7 @@ type
 
   TStdSlipParams = packed record
     DocType: Byte;              // Document type (1 byte) '0' - sale, '1' - buy, '2' - sale refund, '3' - buy refund
-    DupType: Byte;              // Duplicate type (1 byte) '0' - columns, '1' - string blocks
+    DupType: Byte;              // Duplicate type (1 byte) '0' - columns, '1' - WideString blocks
     DupCount: Byte;             // Duplicate count (1 byte) 0Е5
     DupOffset1: Byte;           // Spacing between original and 1-st duplicate (1 byte) *
     DupOffset2: Byte;           // Spacing between 1-st and 2-nd duplicate (1 byte) *
@@ -660,22 +660,22 @@ type
     QuantityLine: Byte;         // Quantity times price line number (1 byte) 0Е3, '0' - do not print
     SummLine: Byte;             // Sum line number (1 byte) 1Е3
     DepartmentLine: Byte;       // Department line number (1 byte) 1Е3
-    TextFont: Byte;             // Text string font number (1 byte)
+    TextFont: Byte;             // Text WideString font number (1 byte)
     QuantityFont: Byte;         // Quantity font numter (1 byte)
     MultSignFont: Byte;         // Multiplication sign font number (1 byte)
     PriceFont: Byte;            // Price font number (1 byte)
     SumFont: Byte;              // Sum font number (1 byte)
     DepartmentFont: Byte;       // Department font number (1 byte)
-    TextWidth: Byte;            // Text string field character count (1 byte)
+    TextWidth: Byte;            // Text WideString field character count (1 byte)
     QuantityWidth: Byte;        // Quantity field character count (1 byte)
     PriceWidth: Byte;           // Price field character count (1 byte)
     SumWidth: Byte;             // Sum field character count (1 byte)
     DepartmentWidth: Byte;      // Department field character count (1 byte)
-    TextOffset: Byte;           // Text string field horizontal spacing (1 byte)
+    TextOffset: Byte;           // Text WideString field horizontal spacing (1 byte)
     QuantityOffset: Byte;       // Quantity times price field horizontal spacing (1 byte)
     SumOffset: Byte;            // Sum field horizontal spacing (1 byte)
     DepartmentOffset: Byte;     // Department field horizontal spacing (1 byte)
-    LineNumber: Byte;           // Vertical position of first transaction string (1 byte)
+    LineNumber: Byte;           // Vertical position of first transaction WideString (1 byte)
   end;
 
   { TFSSale }
@@ -689,14 +689,14 @@ type
     Charge: Int64;
     Discount: Int64;
     Barcode: Int64;
-    Text: string;               // Ќазвание товара
-    AdjText: string;            // Ќазвание скидки или надбавки
-    Parameter1: string;
-    Parameter2: string;
-    Parameter3: string;
-    Parameter4: string;
-    UnitName: string;
-    ItemBarcode: string;
+    Text: WideString;               // Ќазвание товара
+    AdjText: WideString;            // Ќазвание скидки или надбавки
+    Parameter1: WideString;
+    Parameter2: WideString;
+    Parameter3: WideString;
+    Parameter4: WideString;
+    UnitName: WideString;
+    ItemBarcode: WideString;
     MarkType: Integer;
   end;
   PFSSale = ^TFSSale;
@@ -711,11 +711,11 @@ type
     TaxAmount: Int64;
     Department: Byte;   // Department (1 byte) 0Е16
     Tax: Byte;          // Tax 1 (1 byte) '0' - no tax, '1'Е'4' - tax group
-    Text: string;         // Ќазвание товара
-    UnitName: string;
+    Text: WideString;         // Ќазвание товара
+    UnitName: WideString;
     PaymentType: Byte;
     PaymentItem: Byte;
-    ItemBarcode: string;
+    ItemBarcode: WideString;
     MarkType: Integer;
   end;
 
@@ -735,22 +735,22 @@ type
     Tax2: Byte;         // Tax 2 (1 byte) '0' - no tax, '1'Е'4' - tax group
     Tax3: Byte;         // Tax 3 (1 byte) '0' - no tax, '1'Е'4' - tax group
     Tax4: Byte;         // Tax 4 (1 byte) '0' - no tax, '1'Е'4' - tax group
-    Text: string;       // Text (40 byte)
+    Text: WideString;       // Text (40 byte)
   end;
 
   { TSlipDiscountParams }
 
   TSlipDiscountParams = packed record
     LineCount: Byte;    // Transaction line count (1 byte) 1Е2
-    TextLine: Byte;     // Text string line number (1 byte) 0Е2, '0' - do not print
+    TextLine: Byte;     // Text WideString line number (1 byte) 0Е2, '0' - do not print
     NameLine: Byte;     // Transaction name line number (1 byte) 1Е2
     AmountLine: Byte;   // Sum line number (1 byte) 1Е2
-    TextFont: Byte;     // Text string font number (1 byte)
+    TextFont: Byte;     // Text WideString font number (1 byte)
     NameFont: Byte;     // Transaction name font number (1 byte)
     AmountFont: Byte;   // Sum font number (1 byte)
-    TextWidth: Byte;    // Text string field character count (1 byte)
+    TextWidth: Byte;    // Text WideString field character count (1 byte)
     AmountWidth: Byte;  // Sum field character count (1 byte)
-    TextOffset: Byte;   // Text string field horizontal spacing (1 byte)
+    TextOffset: Byte;   // Text WideString field horizontal spacing (1 byte)
     NameOffset: Byte;   // Transaction name field horizontal spacing (1 byte)
     AmountOffset: Byte; // Sum field horizontal spacing (1 byte)
   end;
@@ -766,7 +766,7 @@ type
     Tax2: Byte;          // Tax 2 (1 byte) '0' - not, '1'Е'4' - tax group
     Tax3: Byte;          // Tax 3 (1 byte) '0' - not, '1'Е'4' - tax group
     Tax4: Byte;          // Tax 4 (1 byte) '0' - not, '1'Е'4' - tax group
-    Text: string;        // Text (40 byte)
+    Text: WideString;        // Text (40 byte)
   end;
 
   { TCloseReceiptParams }
@@ -781,7 +781,7 @@ type
     Tax2: Byte;         // Tax 2 (1 byte) '0' - no tax, '1'Е'4' - tax group
     Tax3: Byte;         // Tax 3 (1 byte) '0' - no tax, '1'Е'4' - tax group
     Tax4: Byte;         // Tax 4 (1 byte) '0' - no tax, '1'Е'4' - tax group
-    Text: string;       // Text (40 byte)
+    Text: WideString;       // Text (40 byte)
   end;
 
   { TCloseReceiptResult }
@@ -806,7 +806,7 @@ type
     Tax2: Byte;         // Tax 2 (1 byte) '0' - no tax, '1'Е'4' - tax group
     Tax3: Byte;         // Tax 3 (1 byte) '0' - no tax, '1'Е'4' - tax group
     Tax4: Byte;         // Tax 4 (1 byte) '0' - no tax, '1'Е'4' - tax group
-    Text: string;       // Text (40 byte)
+    Text: WideString;       // Text (40 byte)
   end;
 
   { TReceiptDiscount2 }
@@ -815,7 +815,7 @@ type
     Discount: Int64;      // Discount (5 bytes)
     Charge: Int64;        // Charge (5 bytes)
     Tax: Byte;            // Tax  (1 byte) '0' - no tax, '1'Е'4' - tax group
-    Text: string;         // Text (40 byte)
+    Text: WideString;         // Text (40 byte)
   end;
 
   { TDeviceMetrics }
@@ -827,7 +827,7 @@ type
     ProtocolSubVersion: Byte;   // Device protocol subversion (1 byte) 0Е255
     Model: Byte;                // Device model (1 byte) 0Е255
     Language: Byte;             // Device language (1 byte) 0Е255 Russian - 0; English - 1;
-    DeviceName: string;         // Device name - string of characters in WIN1251.
+    DeviceName: WideString;         // Device name - WideString of characters in WIN1251.
   end;
 
   { TEJFlags }
@@ -899,9 +899,9 @@ type
   { TEJActivation }
 
   TEJActivation = record
-    EJSerial: string;
-    ActivationDate: string;
-    ActivationTime: string;
+    EJSerial: WideString;
+    ActivationDate: WideString;
+    ActivationTime: WideString;
   end;
 
   { TReceiptFormatItem }
@@ -911,7 +911,7 @@ type
     Offset: Integer;
     Width: Integer;
     Alignment: Integer;
-    Name: string;
+    Name: WideString;
   end;
 
   { TReceiptFormat }
@@ -944,7 +944,7 @@ type
 
   TTextRec = record
     ID: Integer;
-    Text: string;
+    Text: WideString;
     Station: Integer;
     Font: Integer;
     Alignment: TTextAlignment;
@@ -954,8 +954,8 @@ type
   { TBarcodeRec }
 
   TBarcodeRec = record
-    Data: string; // barcode data
-    Text: string; // barcode text
+    Data: WideString; // barcode data
+    Text: WideString; // barcode text
     Height: Integer;
     BarcodeType: Integer;
     ModuleWidth: Integer;
@@ -979,7 +979,7 @@ type
   TBarcode2DData = record
     BlockType: Byte;
     BlockNumber: Byte;
-    BlockData: string;
+    BlockData: WideString;
   end;
 
   { TBarcode2D }
@@ -1071,9 +1071,9 @@ type
 
   TFSTicket = record
     Number: Integer;
-    Data: string;
+    Data: WideString;
     Date: TPrinterDateTime;   // ƒата и врем€             DATE_TIME      5
-    DocumentMac: string;      // ‘искальный признак ќ‘ƒ   DATA           18
+    DocumentMac: WideString;      // ‘искальный признак ќ‘ƒ   DATA           18
     DocumentNum: Integer;     // Ќомер ‘ƒ                 Uint32, LE     4
   end;
 
@@ -1084,7 +1084,7 @@ type
     Discount: Byte;
     TaxAmount: array [1..6] of Int64;
     TaxSystem: Byte;
-    Text: string;
+    Text: WideString;
   end;
 
   { TFSCloseReceiptResult2 }
@@ -1167,8 +1167,8 @@ type
   { TFSFiscalization }
 
   TFSFiscalization = record
-    TaxID: string;
-    RegID: string;
+    TaxID: WideString;
+    RegID: WideString;
     TaxCode: Byte;
     WorkMode: Byte;
   end;
@@ -1176,8 +1176,8 @@ type
   { TFSReFiscalization }
 
   TFSReFiscalization = record
-    TaxID: string;
-    RegID: string;
+    TaxID: WideString;
+    RegID: WideString;
     TaxCode: Byte;
     WorkMode: Byte;
     ReasonCode: Byte;
@@ -1203,17 +1203,17 @@ type
 
   TFSReadDocData = record
     Password: Integer;
-    TLVData: string;
+    TLVData: WideString;
   end;
 
 
-function GetCommandName(Command: Integer): string;
-function GetModeDescription(Value: Integer): string;
-function GetDeviceCodeDescription(Value: Integer): string;
-function GetErrorText(Code: Integer; IsFSInstalled: Boolean): string;
-function GetFullErrorText(Code: Integer; IsFSEnabled: Boolean): string;
-function GetAdvancedModeDescription(Value: Integer): string;
-function GetCashRegisterName(Value: Integer): string;
+function GetCommandName(Command: Integer): WideString;
+function GetModeDescription(Value: Integer): WideString;
+function GetDeviceCodeDescription(Value: Integer): WideString;
+function GetErrorText(Code: Integer; IsFSInstalled: Boolean): WideString;
+function GetFullErrorText(Code: Integer; IsFSEnabled: Boolean): WideString;
+function GetAdvancedModeDescription(Value: Integer): WideString;
+function GetCashRegisterName(Value: Integer): WideString;
 function BaudRateToCBR(Value: TBaudRate): Integer;
 function CBRToBaudRate(Value: Integer): TBaudRate;
 function IsRecStation(Stations: Byte): Boolean;
@@ -1226,17 +1226,17 @@ function ComparePrinterDate(const Date1, Date2: TPrinterDate): Integer;
 
 function EncodePrinterFlags(Flags: TPrinterFlags): Word;
 function DecodePrinterFlags(Flags: Word): TPrinterFlags;
-function GetModeText(Mode: Integer): string;
-function GetOperRegisterName(Value: Integer): string;
+function GetModeText(Mode: Integer): WideString;
+function GetOperRegisterName(Value: Integer): WideString;
 function PrinterDateToDate(Date: TPrinterDate): TDateTime;
 function PrinterTimeToTime(Time: TPrinterTime): TDateTime;
-function BinToPrinterDate(const P: string): TPrinterDate;
-function BinToPrinterDateTime2(const P: string): TPrinterDateTime;
-function PrinterDateTimeToStr2(Date: TPrinterDateTime): string;
-function PrinterDateTimeToStr3(Date: TPrinterDateTime): string;
-function PrinterTimeToStr(Time: TPrinterTime): string;
-function PrinterTimeToStr2(Time: TPrinterTime): string;
-function PrinterDateToStr(Date: TPrinterDate): string;
+function BinToPrinterDate(const P: WideString): TPrinterDate;
+function BinToPrinterDateTime2(const P: WideString): TPrinterDateTime;
+function PrinterDateTimeToStr2(Date: TPrinterDateTime): WideString;
+function PrinterDateTimeToStr3(Date: TPrinterDateTime): WideString;
+function PrinterTimeToStr(Time: TPrinterTime): WideString;
+function PrinterTimeToStr2(Time: TPrinterTime): WideString;
+function PrinterDateToStr(Date: TPrinterDate): WideString;
 function IsEqual(const I1, I2: TPrinterStatus): Boolean;
 
 implementation
@@ -1300,13 +1300,13 @@ begin
   Result := Value <> 0;
 end;
 
-function GetFullErrorText(Code: Integer; IsFSEnabled: Boolean): string;
+function GetFullErrorText(Code: Integer; IsFSEnabled: Boolean): WideString;
 begin
   Result := Tnt_WideFormat('(%d), %s', [Code, GetErrorText(Code, IsFSEnabled)]);
 end;
 
 
-function FSGetErrorText(Code: Integer; const Text: string): string;
+function FSGetErrorText(Code: Integer; const Text: WideString): WideString;
 begin
   case Code of
     $01: Result := _('FS: Unknown command or invalid format');
@@ -1335,7 +1335,7 @@ begin
   end;
 end;
 
-function FSGetErrorTextRus(Code: Integer; const Text: string): string;
+function FSGetErrorTextRus(Code: Integer; const Text: WideString): WideString;
 begin
   case Code of
     $01: Result := _('‘Ќ: Ќеизвестна€ команда, неверный формат посылки или неизвестные параметры');
@@ -1366,7 +1366,7 @@ begin
   end;
 end;
 
-function GetErrorText2Rus(Code: Integer): string;
+function GetErrorText2Rus(Code: Integer): WideString;
 begin
   case Code of
     $00: Result := _('ќшибок нет');
@@ -1561,19 +1561,19 @@ begin
   end;
 end;
 
-function GetErrorTextFM(Code: Integer): string;
+function GetErrorTextFM(Code: Integer): WideString;
 begin
   Result := GetErrorText2Rus(Code);
 end;
 
-function GetErrorTextFS(Code: Integer): string;
+function GetErrorTextFS(Code: Integer): WideString;
 begin
   Result := GetErrorText2Rus(Code);
   Result := FSGetErrorTextRus(Code, Result);
 end;
 
 
-function GetErrorText(Code: Integer; IsFSInstalled: Boolean): string;
+function GetErrorText(Code: Integer; IsFSInstalled: Boolean): WideString;
 begin
   if IsFSInstalled then
     Result := GetErrorTextFS(Code)
@@ -1582,7 +1582,7 @@ begin
 end;
 
 
-function GetAdvancedModeDescription(Value: Integer): string;
+function GetAdvancedModeDescription(Value: Integer): WideString;
 begin
   case Value of
     0: Result := _('Paper presented');
@@ -1596,7 +1596,7 @@ begin
   end;
 end;
 
-function GetDeviceCodeDescription(Value: Integer): string;
+function GetDeviceCodeDescription(Value: Integer): WideString;
 begin
   case Value of
     1: Result := _('FM1 accumulator');
@@ -1611,7 +1611,7 @@ begin
   end;
 end;
 
-function GetModeDescription(Value: Integer): string;
+function GetModeDescription(Value: Integer): WideString;
 begin
   case Value of
     $01: Result := _('Data dumping');
@@ -1648,7 +1648,7 @@ end;
 
 { Get command name }
 
-function GetCommandName(Command: Integer): string;
+function GetCommandName(Command: Integer): WideString;
 begin
   case Command of
     $01: Result := _('Get dump');
@@ -1659,12 +1659,12 @@ begin
     $0F: Result := _('Get long serial number and long ECRRN');
     $10: Result := _('Get short ECR status');
     $11: Result := _('Get ECR status');
-    $12: Result := _('Print bold string');
+    $12: Result := _('Print bold WideString');
     $13: Result := _('Beep');
     $14: Result := _('Set communication parameters');
     $15: Result := _('Read communication parameters');
     $16: Result := _('Technological reset');
-    $17: Result := _('Print string');
+    $17: Result := _('Print WideString');
     $18: Result := _('Print document header');
     $19: Result := _('Test run');
     $1A: Result := _('Get cash totalizer value');
@@ -1688,7 +1688,7 @@ begin
     $2C: Result := _('Print operation totalizers report');
     $2D: Result := _('Get table structure');
     $2E: Result := _('Get field structure');
-    $2F: Result := _('Print string with font');
+    $2F: Result := _('Print WideString with font');
     $40: Result := _('Daily report without cleaning');
     $41: Result := _('Daily report with cleaning');
     $42: Result := _('Print Department report');
@@ -1722,7 +1722,7 @@ begin
     $78: Result := _('Slip configuration');
     $79: Result := _('Standard slip configuration');
     $7A: Result := _('Fill slip buffer with nonfiscal information');
-    $7B: Result := _('Clear slip buffer string');
+    $7B: Result := _('Clear slip buffer WideString');
     $7C: Result := _('Clear slip buffer');
     $7D: Result := _('Print slip');
     $7E: Result := _('Common slip configuration');
@@ -1845,7 +1845,7 @@ begin
   end;
 end;
 
-function GetCashRegisterName(Value: Integer): string;
+function GetCashRegisterName(Value: Integer): WideString;
 begin
   case Value of
     0: Result := _('Sales accumulation in 1 department in receipt');
@@ -2103,7 +2103,7 @@ begin
 end;
 
 const
-  EngOperRegNames: array [0..185] of string = (
+  EngOperRegNames: array [0..185] of WideString = (
     'Sales quantity in department 1 in receipt',
     'Buy quantity in department 1 in receipt',
     'Sales return quantity in department 1 in receipt',
@@ -2292,7 +2292,7 @@ const
     'Document number'
   );
 
-function GetOperRegisterName(Value: Integer): string;
+function GetOperRegisterName(Value: Integer): WideString;
 begin
   Result := '';
   if (Value >= Low(EngOperRegNames))and(Value <= High(EngOperRegNames)) then
@@ -2391,7 +2391,7 @@ begin
   Result := CompareInt(Date1.Day, Date2.Day);
 end;
 
-function GetModeText(Mode: Integer): string;
+function GetModeText(Mode: Integer): WideString;
 begin
   { !!! }
 end;
@@ -2406,14 +2406,14 @@ begin
   Result := EncodeTime(Time.Hour, Time.Min, Time.Sec, 0);
 end;
 
-function BinToPrinterDate(const P: string): TPrinterDate;
+function BinToPrinterDate(const P: WideString): TPrinterDate;
 begin
   Result.Year := Ord(P[1]);
   Result.Month := Ord(P[2]);
   Result.Day := Ord(P[3]);
 end;
 
-function BinToPrinterDateTime2(const P: string): TPrinterDateTime;
+function BinToPrinterDateTime2(const P: WideString): TPrinterDateTime;
 begin
   Result.Year := Ord(P[1]);
   Result.Month := Ord(P[2]);
@@ -2423,29 +2423,29 @@ begin
   Result.Sec := 0;
 end;
 
-function PrinterDateTimeToStr2(Date: TPrinterDateTime): string;
+function PrinterDateTimeToStr2(Date: TPrinterDateTime): WideString;
 begin
   Result := Tnt_WideFormat('%.2d.%.2d.%.4d %.2d:%.2d', [
     Date.Day, Date.Month, Date.Year + 2000, Date.Hour, Date.Min]);
 end;
 
-function PrinterDateTimeToStr3(Date: TPrinterDateTime): string;
+function PrinterDateTimeToStr3(Date: TPrinterDateTime): WideString;
 begin
   Result := Tnt_WideFormat('%.2d%.2d%.4d%.2d%.2d', [
     Date.Day, Date.Month, Date.Year + 2000, Date.Hour, Date.Min]);
 end;
 
-function PrinterTimeToStr(Time: TPrinterTime): string;
+function PrinterTimeToStr(Time: TPrinterTime): WideString;
 begin
   Result := Tnt_WideFormat('%.2d:%.2d:%.2d', [Time.Hour, Time.Min, Time.Sec]);
 end;
 
-function PrinterTimeToStr2(Time: TPrinterTime): string;
+function PrinterTimeToStr2(Time: TPrinterTime): WideString;
 begin
   Result := Tnt_WideFormat('%.2d:%.2d', [Time.Hour, Time.Min]);
 end;
 
-function PrinterDateToStr(Date: TPrinterDate): string;
+function PrinterDateToStr(Date: TPrinterDate): WideString;
 begin
   Result := Tnt_WideFormat('%.2d.%.2d.%.4d', [Date.Day, Date.Month, Date.Year + 2000]);
 end;

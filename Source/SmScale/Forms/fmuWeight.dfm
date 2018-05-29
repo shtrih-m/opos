@@ -52,7 +52,7 @@ object fmWeight: TfmWeight
     Height = 17
     Shape = bsTopLine
   end
-  object pnlWeight: TPanel
+  object pnlWeight: TTntPanel
     Left = 8
     Top = 24
     Width = 121
@@ -124,7 +124,7 @@ object fmWeight: TfmWeight
     Caption = 'Autoupdate values'
     TabOrder = 5
   end
-  object pnlPrice: TPanel
+  object pnlPrice: TTntPanel
     Left = 136
     Top = 24
     Width = 121
@@ -155,7 +155,7 @@ object fmWeight: TfmWeight
       Layout = tlCenter
     end
   end
-  object pblAmount: TPanel
+  object pblAmount: TTntPanel
     Left = 264
     Top = 24
     Width = 121

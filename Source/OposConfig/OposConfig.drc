@@ -8,42 +8,42 @@
   resources were bound to the produced executable.
 */
 
-#define OleConst_SCannotActivate 65184
-#define OleConst_SNoWindowHandle 65185
-#define OleConst_SInvalidLicense 65186
-#define OleConst_SNotLicensed 65187
-#define pnglang_EPNGMissingMultipleIDATText 65200
-#define pnglang_EPNGZLIBErrorText 65201
-#define pnglang_EPNGInvalidPaletteText 65202
-#define pnglang_EPNGInvalidFileHeaderText 65203
-#define pnglang_EPNGIHDRNotFirstText 65204
-#define pnglang_EPNGSizeExceedsText 65205
-#define pnglang_EPNGUnknownPalEntryText 65206
-#define pnglang_EPNGUnknownCriticalChunkText 65207
-#define pnglang_EPNGUnknownCompressionText 65208
-#define pnglang_EPNGUnknownInterlaceText 65209
-#define pnglang_EPNGCannotAssignChunkText 65210
-#define pnglang_EPNGUnexpectedEndText 65211
-#define pnglang_EPNGNoImageDataText 65212
-#define pnglang_EPNGCannotChangeSizeText 65213
-#define pnglang_EPNGOutMemoryText 65214
-#define pnglang_EPNGHeaderNotPresentText 65215
-#define ComConst_STooManyParams 65216
+#define pnglang_EPNGNoImageDataText 65184
+#define pnglang_EPNGCannotChangeSizeText 65185
+#define pnglang_EPNGOutMemoryText 65186
+#define pnglang_EPNGHeaderNotPresentText 65187
+#define SynEditTextBuffer_SListIndexOutOfBounds 65200
+#define SynEditTextBuffer_SInvalidCapacity 65201
+#define pnglang_EPngInvalidCRCText 65202
+#define pnglang_EPNGInvalidIHDRText 65203
+#define pnglang_EPNGMissingMultipleIDATText 65204
+#define pnglang_EPNGZLIBErrorText 65205
+#define pnglang_EPNGInvalidPaletteText 65206
+#define pnglang_EPNGInvalidFileHeaderText 65207
+#define pnglang_EPNGIHDRNotFirstText 65208
+#define pnglang_EPNGSizeExceedsText 65209
+#define pnglang_EPNGUnknownPalEntryText 65210
+#define pnglang_EPNGUnknownCriticalChunkText 65211
+#define pnglang_EPNGUnknownCompressionText 65212
+#define pnglang_EPNGUnknownInterlaceText 65213
+#define pnglang_EPNGCannotAssignChunkText 65214
+#define pnglang_EPNGUnexpectedEndText 65215
+#define ComConst_SDCOMNotInstalled 65216
 #define ComConst_SAutomationWarning 65217
 #define ComConst_SNoCloseActiveServer1 65218
 #define ComConst_SNoCloseActiveServer2 65219
-#define TntSystem_SBufferOverflow 65220
-#define TntSystem_SInvalidUTF7 65221
-#define TntFormatStrUtils_SInvalidFormatSpecifier 65222
-#define OposDevice_MsgKeyOpenError 65223
-#define SynEditStrConst_SYNS_ScrollInfoFmt 65224
-#define SynEditStrConst_SYNS_ScrollInfoFmtTop 65225
-#define SynEditStrConst_SYNS_EDuplicateShortcut 65226
-#define SynEditStrConst_SYNS_FriendlyLangUnknown 65227
-#define SynEditTextBuffer_SListIndexOutOfBounds 65228
-#define SynEditTextBuffer_SInvalidCapacity 65229
-#define pnglang_EPngInvalidCRCText 65230
-#define pnglang_EPNGInvalidIHDRText 65231
+#define TntFormatStrUtils_SInvalidFormatSpecifier 65220
+#define TntSystem_SBufferOverflow 65221
+#define TntSystem_SInvalidUTF7 65222
+#define OleConst_SCannotActivate 65223
+#define OleConst_SNoWindowHandle 65224
+#define OleConst_SInvalidLicense 65225
+#define OleConst_SNotLicensed 65226
+#define OleConst_sNoRunningObject 65227
+#define SynEditStrConst_SYNS_ScrollInfoFmt 65228
+#define SynEditStrConst_SYNS_ScrollInfoFmtTop 65229
+#define SynEditStrConst_SYNS_EDuplicateShortcut 65230
+#define SynEditStrConst_SYNS_FriendlyLangUnknown 65231
 #define ComStrs_sTabFailClear 65232
 #define ComStrs_sTabFailDelete 65233
 #define ComStrs_sTabFailRetrieve 65234
@@ -53,13 +53,13 @@
 #define ComStrs_sTabMustBeMultiLine 65238
 #define ComStrs_sInvalidOwner 65239
 #define ComStrs_sRichEditInsertError 65240
-#define ComStrs_sUDAssociated 65241
-#define ComStrs_sPageIndexError 65242
-#define ComStrs_sInvalidComCtl32 65243
-#define WinHelpViewer_hNoKeyword 65244
-#define ComConst_SOleError 65245
-#define ComConst_SNoMethod 65246
-#define ComConst_SVarNotObject 65247
+#define ComStrs_sPageIndexError 65241
+#define ComStrs_sInvalidComCtl32 65242
+#define WinHelpViewer_hNoKeyword 65243
+#define ComConst_SOleError 65244
+#define ComConst_SNoMethod 65245
+#define ComConst_SVarNotObject 65246
+#define ComConst_STooManyParams 65247
 #define ExtCtrls_clNameHighlight 65248
 #define ExtCtrls_clNameHighlightText 65249
 #define ExtCtrls_clNameInactiveBorder 65250
@@ -350,10 +350,14 @@
 #define SysConst_SDiskFull 65535
 STRINGTABLE
 BEGIN
-	OleConst_SCannotActivate,	"OLE control activation failed"
-	OleConst_SNoWindowHandle,	"Could not obtain OLE control window handle"
-	OleConst_SInvalidLicense,	"License information for %s is invalid"
-	OleConst_SNotLicensed,	"License information for %s not found. You cannot use this control in design mode"
+	pnglang_EPNGNoImageDataText,	"This \"Portable Network Graphics\" image contains no data."
+	pnglang_EPNGCannotChangeSizeText,	"The \"Portable Network Graphics\" image can not be resize by changing width and height properties. Try assigning the image from a bitmap."
+	pnglang_EPNGOutMemoryText,	"Some operation could not be performed because the system is out of resources. Close some windows and try again."
+	pnglang_EPNGHeaderNotPresentText,	"This operation is not valid because the current image contains no valid header."
+	SynEditTextBuffer_SListIndexOutOfBounds,	"Invalid stringlist index %d"
+	SynEditTextBuffer_SInvalidCapacity,	"Stringlist capacity cannot be smaller than count"
+	pnglang_EPngInvalidCRCText,	"This \"Portable Network Graphics\" image is not valid because it contains invalid pieces of data (crc error)"
+	pnglang_EPNGInvalidIHDRText,	"The \"Portable Network Graphics\" image could not be loaded because one of its main piece of data (ihdr) might be corrupted"
 	pnglang_EPNGMissingMultipleIDATText,	"This \"Portable Network Graphics\" image is invalid because it has missing image parts."
 	pnglang_EPNGZLIBErrorText,	"Could not decompress the image because it contains invalid compressed data.\r\n Description: "
 	pnglang_EPNGInvalidPaletteText,	"The \"Portable Network Graphics\" image contains an invalid palette."
@@ -366,26 +370,22 @@ BEGIN
 	pnglang_EPNGUnknownInterlaceText,	"This \"Portable Network Graphics\" image uses an unknown interlace scheme which could not be decoded."
 	pnglang_EPNGCannotAssignChunkText,	"The chunks must be compatible to be assigned."
 	pnglang_EPNGUnexpectedEndText,	"This \"Portable Network Graphics\" image is invalid because the decoder found an unexpected end of the file."
-	pnglang_EPNGNoImageDataText,	"This \"Portable Network Graphics\" image contains no data."
-	pnglang_EPNGCannotChangeSizeText,	"The \"Portable Network Graphics\" image can not be resize by changing width and height properties. Try assigning the image from a bitmap."
-	pnglang_EPNGOutMemoryText,	"Some operation could not be performed because the system is out of resources. Close some windows and try again."
-	pnglang_EPNGHeaderNotPresentText,	"This operation is not valid because the current image contains no valid header."
-	ComConst_STooManyParams,	"Dispatch methods do not support more than 64 parameters"
+	ComConst_SDCOMNotInstalled,	"DCOM not installed"
 	ComConst_SAutomationWarning,	"COM Server Warning"
 	ComConst_SNoCloseActiveServer1,	"There are still active COM objects in this application.  One or more clients may have references to these objects, so manually closing "
 	ComConst_SNoCloseActiveServer2,	"this application may cause those client application(s) to fail.\r\n\r\nAre you sure you want to close this application?"
+	TntFormatStrUtils_SInvalidFormatSpecifier,	"Invalid Format Specifier: %s"
 	TntSystem_SBufferOverflow,	"Buffer overflow"
 	TntSystem_SInvalidUTF7,	"Invalid UTF7"
-	TntFormatStrUtils_SInvalidFormatSpecifier,	"Invalid Format Specifier: %s"
-	OposDevice_MsgKeyOpenError,	"Error opening registry key: %s"
+	OleConst_SCannotActivate,	"OLE control activation failed"
+	OleConst_SNoWindowHandle,	"Could not obtain OLE control window handle"
+	OleConst_SInvalidLicense,	"License information for %s is invalid"
+	OleConst_SNotLicensed,	"License information for %s not found. You cannot use this control in design mode"
+	OleConst_sNoRunningObject,	"Unable to retrieve a pointer to a running object registered with OLE for %s/%s"
 	SynEditStrConst_SYNS_ScrollInfoFmt,	"%d - %d"
 	SynEditStrConst_SYNS_ScrollInfoFmtTop,	"Top Line: %d"
 	SynEditStrConst_SYNS_EDuplicateShortcut,	"Shortcut already exists"
 	SynEditStrConst_SYNS_FriendlyLangUnknown,	"<Unknown>"
-	SynEditTextBuffer_SListIndexOutOfBounds,	"Invalid stringlist index %d"
-	SynEditTextBuffer_SInvalidCapacity,	"Stringlist capacity cannot be smaller than count"
-	pnglang_EPngInvalidCRCText,	"This \"Portable Network Graphics\" image is not valid because it contains invalid pieces of data (crc error)"
-	pnglang_EPNGInvalidIHDRText,	"The \"Portable Network Graphics\" image could not be loaded because one of its main piece of data (ihdr) might be corrupted"
 	ComStrs_sTabFailClear,	"Failed to clear tab control"
 	ComStrs_sTabFailDelete,	"Failed to delete tab at index %d"
 	ComStrs_sTabFailRetrieve,	"Failed to retrieve tab at index %d"
@@ -395,13 +395,13 @@ BEGIN
 	ComStrs_sTabMustBeMultiLine,	"MultiLine must be True when TabPosition is tpLeft or tpRight"
 	ComStrs_sInvalidOwner,	"Invalid owner"
 	ComStrs_sRichEditInsertError,	"RichEdit line insertion error"
-	ComStrs_sUDAssociated,	"%s is already associated with %s"
 	ComStrs_sPageIndexError,	"%d is an invalid PageIndex value.  PageIndex must be between 0 and %d"
 	ComStrs_sInvalidComCtl32,	"This control requires version 4.70 or greater of COMCTL32.DLL"
 	WinHelpViewer_hNoKeyword,	"No help keyword specified."
 	ComConst_SOleError,	"OLE error %.8x"
 	ComConst_SNoMethod,	"Method '%s' not supported by automation object"
 	ComConst_SVarNotObject,	"Variant does not reference an automation object"
+	ComConst_STooManyParams,	"Dispatch methods do not support more than 64 parameters"
 	ExtCtrls_clNameHighlight,	"Highlight Background"
 	ExtCtrls_clNameHighlightText,	"Highlight Text"
 	ExtCtrls_clNameInactiveBorder,	"Inactive Border"

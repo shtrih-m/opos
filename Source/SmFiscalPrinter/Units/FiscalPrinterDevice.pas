@@ -6596,7 +6596,7 @@ begin
     if Integer(GetTickCount) > (TickCount + Parameters.StatusTimeout*1000) then
       raiseException(SStatusWaitTimeout);
 
-    Result := GetPrinterStatus;
+    Result := ReadPrinterStatus;
     Mode := Result.Mode and $0F;
     case Result.AdvancedMode of
       AMODE_IDLE:
@@ -8004,7 +8004,7 @@ begin
   Reader := TCsvPrinterTableFormat.Create(nil);
   Tables := TPrinterTables.Create;
   try
-    Mask := IncludeTrailingpathDelimiter(Path) + '*.csv';
+    Mask := WideIncludeTrailingPathDelimiter(Path) + '*.csv';
     ResultCode := FindFirst(Mask, faAnyFile, F);
     if ResultCode = 0 then
     begin
@@ -8080,7 +8080,7 @@ end;
 
 function TFiscalPrinterDevice.IsRecOpened: Boolean;
 begin
-  Result := (GetPrinterStatus.Mode and $0F) = MODE_REC;
+  Result := (ReadPrinterStatus.Mode and $0F) = MODE_REC;
 end;
 
 function TFiscalPrinterDevice.ReadLoaderVersion(var Version: string): Integer;

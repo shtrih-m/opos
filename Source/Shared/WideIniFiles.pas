@@ -127,10 +127,10 @@ type
   end;
 
 {$IFDEF MSWINDOWS}
-  { TIniFile - Encapsulates the Windows INI file interface
+  { TTntIniFile - Encapsulates the Windows INI file interface
     (Get/SetPrivateProfileXXX functions) }
 
-  TIniFile = class(TCustomIniFile)
+  TTntIniFile = class(TCustomIniFile)
   public
     destructor Destroy; override;
     function ReadString(const Section, Ident, Default: WideString): WideString; override;
@@ -143,7 +143,7 @@ type
     procedure UpdateFile; override;
   end;
 {$ELSE}
-    TIniFile = class(TMemIniFile)
+    TTntIniFile = class(TMemIniFile)
     public
       destructor Destroy; override;
     end;
@@ -312,16 +312,16 @@ function TCustomIniFile.ReadBinaryStream(const Section, Name: WideString;
   Value: TStream): Integer;
 var
   Text: string;
-  Stream: TMemoryStream;
+  Stream: TTntMemoryStream;
   Pos: Integer;
 begin
   Text := ReadString(Section, Name, '');
   if Text <> '' then
   begin
-    if Value is TMemoryStream then
-      Stream := TMemoryStream(Value)
+    if Value is TTntMemoryStream then
+      Stream := TTntMemoryStream(Value)
     else
-      Stream := TMemoryStream.Create;
+      Stream := TTntMemoryStream.Create;
 
     try
       Pos := Stream.Position;
@@ -344,15 +344,15 @@ procedure TCustomIniFile.WriteBinaryStream(const Section, Name: WideString;
   Value: TStream);
 var
   Text: string;
-  Stream: TMemoryStream;
+  Stream: TTntMemoryStream;
 begin
   SetLength(Text, (Value.Size - Value.Position) * 2);
   if Length(Text) > 0 then
   begin
-    if Value is TMemoryStream then
-      Stream := TMemoryStream(Value)
+    if Value is TTntMemoryStream then
+      Stream := TTntMemoryStream(Value)
     else
-      Stream := TMemoryStream.Create;
+      Stream := TTntMemoryStream.Create;
 
     try
       if Stream <> Value then
@@ -818,15 +818,15 @@ begin
 end;
 
 {$IFDEF MSWINDOWS}
-{ TIniFile }
+{ TTntIniFile }
 
-destructor TIniFile.Destroy;
+destructor TTntIniFile.Destroy;
 begin
   UpdateFile;         // flush changes to disk
   inherited Destroy;
 end;
 
-function TIniFile.ReadString(const Section, Ident, Default: WideString): WideString;
+function TTntIniFile.ReadString(const Section, Ident, Default: WideString): WideString;
 var
   Buffer: array[0..2047] of WideChar;
 begin
@@ -834,14 +834,14 @@ begin
     PWideChar(Ident), PWideChar(Default), Buffer, SizeOf(Buffer), PWideChar(FFileName)));
 end;
 
-procedure TIniFile.WriteString(const Section, Ident, Value: WideString);
+procedure TTntIniFile.WriteString(const Section, Ident, Value: WideString);
 begin
   if not WritePrivateProfileStringW(PWideChar(Section), PWideChar(Ident),
                                    PWideChar(Value), PWideChar(FFileName)) then
     raise EIniFileException.CreateResFmt(@SIniFileWriteError, [FileName]);
 end;
 
-procedure TIniFile.ReadSections(Strings: TTntStrings);
+procedure TTntIniFile.ReadSections(Strings: TTntStrings);
 const
   BufSize = 16384;
 var
@@ -870,7 +870,7 @@ begin
   end;
 end;
 
-procedure TIniFile.ReadSection(const Section: WideString; Strings: TTntStrings);
+procedure TTntIniFile.ReadSection(const Section: WideString; Strings: TTntStrings);
 const
   BufSize = 16384;
 var
@@ -899,7 +899,7 @@ begin
   end;
 end;
 
-procedure TIniFile.ReadSectionValues(const Section: WideString; Strings: TTntStrings);
+procedure TTntIniFile.ReadSectionValues(const Section: WideString; Strings: TTntStrings);
 var
   KeyList: TTntStringList;
   I: Integer;
@@ -920,24 +920,24 @@ begin
   end;
 end;
 
-procedure TIniFile.EraseSection(const Section: WideString);
+procedure TTntIniFile.EraseSection(const Section: WideString);
 begin
   if not WritePrivateProfileStringW(PWideChar(Section), nil, nil, PWideChar(FFileName)) then
     raise EIniFileException.CreateResFmt(@SIniFileWriteError, [FileName]);
 end;
 
-procedure TIniFile.DeleteKey(const Section, Ident: WideString);
+procedure TTntIniFile.DeleteKey(const Section, Ident: WideString);
 begin
   WritePrivateProfileStringW(PWideChar(Section), PWideChar(Ident), nil, PWideChar(FFileName));
 end;
 
-procedure TIniFile.UpdateFile;
+procedure TTntIniFile.UpdateFile;
 begin
   WritePrivateProfileStringW(nil, nil, nil, PWideChar(FFileName));
 end;
 {$ELSE}
 
-destructor TIniFile.Destroy;
+destructor TTntIniFile.Destroy;
 begin
   UpdateFile;
   inherited Destroy;

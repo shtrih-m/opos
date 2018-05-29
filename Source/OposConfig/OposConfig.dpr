@@ -2,6 +2,9 @@ program OposConfig;
 
 uses
   Forms,
+  SysUtils,
+  gnugettext,
+  LangUtils in '..\Shared\LangUtils.pas',
   fmuMain in 'Fmu\fmuMain.pas' {fmMain},
   fmuScaleGeneral in 'Fmu\fmuScaleGeneral.pas' {fmScaleGeneral},
   fmuDevice in 'Fmu\fmuDevice.pas' {fmDevice},
@@ -87,8 +90,11 @@ uses
 {$R WindowsXP.RES}
 
 begin
+  bindtextdomain('OposTst', IncludeTrailingPathDelimiter(ExtractFilePath(GetDllFileName)) + 'locale');
+  textdomain('OposTst');
+  UseLanguage(GetLanguage);
+
   Application.Initialize;
-  Application.Title := 'OPOS setup utility';
   Application.CreateForm(TfmMain, fmMain);
   Application.Run;
 end.

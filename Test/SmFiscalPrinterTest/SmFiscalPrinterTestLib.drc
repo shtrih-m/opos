@@ -18,6 +18,7 @@
 #define pnglang_EPNGCannotAddInvalidImageText 64807
 #define pnglang_EPNGOutMemoryText 64808
 #define pnglang_EPNGHeaderNotPresentText 64809
+#define OleConst_sNoRunningObject 64810
 #define JvResources_RsHotLight 64816
 #define JvResources_RsMenuBar 64817
 #define JvResources_RsMenuHighlight 64818
@@ -750,6 +751,7 @@ BEGIN
 	pnglang_EPNGCannotAddInvalidImageText,	"It's not allowed to add a new chunk because the current image is invalid."
 	pnglang_EPNGOutMemoryText,	"Some operation could not be performed because the system is out of resources. Close some windows and try again."
 	pnglang_EPNGHeaderNotPresentText,	"This operation is not valid because the current image contains no valid header."
+	OleConst_sNoRunningObject,	"Unable to retrieve a pointer to a running object registered with OLE for %s/%s"
 	JvResources_RsHotLight,	"Hot Light"
 	JvResources_RsMenuBar,	"Menu Bar"
 	JvResources_RsMenuHighlight,	"Menu Highlight"

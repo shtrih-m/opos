@@ -96,7 +96,7 @@ PackageDLLOutputDir=
 PackageDCPOutputDir=
 SearchPath=C:\COMPON~1\JVCL\jcl\lib\d7\debug
 Packages=Vcl50;SynEdit_D5;SynEdit_R5;vcl;rtl;indy
-Conditionals=MALINA
+Conditionals=
 DebugSourceDirs=
 UsePackages=0
 [Parameters]
@@ -115,7 +115,7 @@ AutoIncBuild=1
 MajorVer=1
 MinorVer=13
 Release=0
-Build=514
+Build=534
 Debug=0
 PreRelease=0
 Special=0
@@ -126,7 +126,7 @@ CodePage=1252
 [Version Info Keys]
 CompanyName=SHTRIH-M
 FileDescription=OPOS setup utility
-FileVersion=1.13.0.514
+FileVersion=1.13.0.534
 InternalName=OPOS setup
 LegalCopyright=SHTRIH-M © 2013
 LegalTrademarks=

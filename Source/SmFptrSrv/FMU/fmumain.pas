@@ -10,13 +10,13 @@ uses
   // Tnt
   TntStdCtrls, TntSysUtils,
   // This
-  PortConnection, fmuAbout, VersionInfo, oleMain, TrayIcon, TCPServer,
-  SrvParams;
+  BaseForm, PortConnection, fmuAbout, VersionInfo, oleMain, TrayIcon,
+  TCPServer, SrvParams;
 
 type
   { TfmMain }
 
-  TfmMain = class(TForm)
+  TfmMain = class(TBaseForm)
     btnOK: TTntButton;
     btnCancel: TTntButton;
     ImageList: TImageList;

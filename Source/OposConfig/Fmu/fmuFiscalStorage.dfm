@@ -16,7 +16,7 @@ object fmFiscalStorage: TfmFiscalStorage
   Position = poScreenCenter
   PixelsPerInch = 96
   TextHeight = 13
-  object chbFSBarcodeEnabled: TCheckBox
+  object chbFSBarcodeEnabled: TTntCheckBox
     Left = 8
     Top = 56
     Width = 148
@@ -24,7 +24,7 @@ object fmFiscalStorage: TfmFiscalStorage
     Caption = 'Print QR code '
     TabOrder = 2
   end
-  object chbFSAddressEnabled: TCheckBox
+  object chbFSAddressEnabled: TTntCheckBox
     Left = 8
     Top = 32
     Width = 225
@@ -32,7 +32,7 @@ object fmFiscalStorage: TfmFiscalStorage
     Caption = 'Customer EMail and phone query enabled'
     TabOrder = 1
   end
-  object chbFSUpdatePrice: TCheckBox
+  object chbFSUpdatePrice: TTntCheckBox
     Left = 8
     Top = 8
     Width = 329

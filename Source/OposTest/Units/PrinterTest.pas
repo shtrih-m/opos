@@ -3119,29 +3119,7 @@ end;
 
 procedure TRecNearEndTest.Execute;
 begin
-  Check(FiscalPrinter.Open('SHTRIH-M-OPOS-1'));
-  FiscalPrinter.ServiceObjectVersion;
-  Check(FiscalPrinter.ClaimDevice(10));
-  FiscalPrinter.Get_ServiceObjectDescription;
-  FiscalPrinter.Get_ServiceObjectVersion;
-  FiscalPrinter.Get_DeviceDescription;
-  FiscalPrinter.Get_DeviceName;
-  FiscalPrinter.Set_PowerNotify(1);
-  FiscalPrinter.Set_DeviceEnabled(True);
-  FiscalPrinter.Get_DeviceEnabled;
-  FiscalPrinter.Get_DescriptionLength;
-  FiscalPrinter.Get_CapPredefinedPaymentLines;
-  FiscalPrinter.Get_PredefinedPaymentLines;
-  FiscalPrinter.Get_Claimed;
-  FiscalPrinter.Get_Claimed;
-  FiscalPrinter.Set_AsyncMode(False);
-  FiscalPrinter.Get_DeviceEnabled;
-  FiscalPrinter.Get_CapPowerReporting;
-  FiscalPrinter.Get_PowerState;
-  FiscalPrinter.Get_Claimed;
-  FiscalPrinter.Set_DeviceEnabled(True);
   FiscalPrinter.CheckHealth(1);
-  FiscalPrinter.Set_DeviceEnabled(True);
   FiscalPrinter.Get_Claimed;
   FiscalPrinter.Get_State;
   FiscalPrinter.Get_DeviceEnabled;
@@ -3166,7 +3144,6 @@ begin
   FiscalPrinter.Get_CapPowerReporting;
   FiscalPrinter.Get_PowerState;
   FiscalPrinter.Get_Claimed;
-  FiscalPrinter.Set_DeviceEnabled(True);
   FiscalPrinter.CapRecNearEndSensor;
   FiscalPrinter.RecNearEnd;
 end;
@@ -3471,13 +3448,8 @@ end;
 { TTestReceipt6 }
 
 procedure TTestReceipt6.Execute;
-var
-  i: Integer;
 begin
-  for i := 1 to 100 do
-  begin
-    PrintReceipt;
-  end;
+  PrintReceipt;
 end;
 
 procedure TTestReceipt6.PrintReceipt;
@@ -4001,16 +3973,6 @@ end;
 
 procedure TPreLineReceiptTest.Execute;
 begin
-  FiscalPrinter.Close;
-  Check(FiscalPrinter.Open('SHTRIH-M-OPOS-1'));
-  FiscalPrinter.ServiceObjectVersion;
-  Check(FiscalPrinter.ClaimDevice(0));
-  FiscalPrinter.ServiceObjectDescription;
-  FiscalPrinter.ServiceObjectVersion;
-  FiscalPrinter.DeviceDescription;
-  FiscalPrinter.DeviceName;
-  FiscalPrinter.PowerNotify := 1;
-  FiscalPrinter.DeviceEnabled := True;
   FiscalPrinter.DeviceEnabled;
   FiscalPrinter.DescriptionLength;
   FiscalPrinter.CapPredefinedPaymentLines;

@@ -16,16 +16,16 @@ type
     ProductBuild: WORD;
   end;
 
-function GetDllFileName: string;
-function GetModuleDate: string;
-function GetModuleVersion: string;
-function GetFileVersionInfoStr: string;
-function GetFileVersionInfoStr2: string;
+function GetDllFileName: WideString;
+function GetModuleDate: WideString;
+function GetModuleVersion: WideString;
+function GetFileVersionInfoStr: WideString;
+function GetFileVersionInfoStr2: WideString;
 function GetFileVersionInfo: TVersionInfo;
-function GetOPOSVersion: string;
+function GetOPOSVersion: WideString;
 
-function VersionInfoToStr(const V: TVersionInfo): string;
-function ReadFileVersion(const FileName: string): TVersionInfo;
+function VersionInfoToStr(const V: TVersionInfo): WideString;
+function ReadFileVersion(const FileName: WideString): TVersionInfo;
 
 implementation
 
@@ -61,7 +61,7 @@ begin
   end;
 end;
 
-function GetFileVersionInfoStr: string;
+function GetFileVersionInfoStr: WideString;
 var
   vi: TVersionInfo;
 begin
@@ -70,7 +70,7 @@ begin
     vi.ProductRelease, vi.ProductBuild]);
 end;
 
-function GetFileVersionInfoStr2: string;
+function GetFileVersionInfoStr2: WideString;
 var
   vi: TVersionInfo;
 begin
@@ -78,7 +78,7 @@ begin
   Result := Tnt_WideFormat('%d.%d', [vi.MajorVersion, vi.MinorVersion]);
 end;
 
-function GetModuleFileName: string;
+function GetModuleFileName: WideString;
 var
   Buffer: array[0..261] of Char;
 begin
@@ -86,7 +86,7 @@ begin
     Buffer, SizeOf(Buffer)));
 end;
 
-function GetModuleDate: string;
+function GetModuleDate: WideString;
 var
   FileTime: TFileTime;
   ModuleDate: TDateTime;
@@ -94,7 +94,7 @@ var
   Data: TWin32FileAttributeData;
 begin
   Result := 'unknown';
-  if GetFileAttributesEx(PChar(GetModuleFileName), GetFileExInfoStandard, @Data) then
+  if GetFileAttributesExW(PWideChar(GetModuleFileName), GetFileExInfoStandard, @Data) then
   begin
     if FileTimeToLocalFileTime(Data.ftLastWriteTime, FileTime) then
     begin
@@ -109,12 +109,12 @@ begin
   end;
 end;
 
-function GetModuleVersion: string;
+function GetModuleVersion: WideString;
 begin
   Result := GetFileVersionInfoStr + ' from ' + GetModuleDate;
 end;
 
-function GetDllFileName: string;
+function GetDllFileName: WideString;
 var
   Buffer: array[0..261] of Char;
 begin
@@ -122,19 +122,19 @@ begin
     Buffer, SizeOf(Buffer)));
 end;
 
-function GetOPOSVersion: string;
+function GetOPOSVersion: WideString;
 begin
   Result := '1.12';
 end;
 
 
-function VersionInfoToStr(const V: TVersionInfo): string;
+function VersionInfoToStr(const V: TVersionInfo): WideString;
 begin
   Result := Tnt_WideFormat('%d.%d.%d.%d', [V.MajorVersion, V.MinorVersion,
     V.ProductRelease, V.ProductBuild]);
 end;
 
-function ReadFileVersion(const FileName: string): TVersionInfo;
+function ReadFileVersion(const FileName: WideString): TVersionInfo;
 var
   VerInfoSize: DWORD;
   VerInfo: Pointer;
@@ -147,15 +147,15 @@ begin
   Result.ProductRelease := 0;
   Result.ProductBuild := 0;
 
-  VerInfoSize := GetFileVersionInfoSize(PChar(FileName), Dummy);
+  VerInfoSize := GetFileVersionInfoSizeW(PWideChar(FileName), Dummy);
   if VerInfoSize = 0 then Exit;
   GetMem(VerInfo, VerInfoSize);
   if not assigned(VerInfo) then Exit;
 
   try
-    if Windows.GetFileVersionInfo(PChar(FileName), 0, VerInfoSize, VerInfo) then
+    if Windows.GetFileVersionInfoW(PWideChar(FileName), 0, VerInfoSize, VerInfo) then
     begin
-      if VerQueryValue(VerInfo, '\', Pointer(VerValue), VerValueSize) then
+      if VerQueryValueW(VerInfo, '\', Pointer(VerValue), VerValueSize) then
       begin
         with VerValue^ do
         begin

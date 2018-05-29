@@ -6,7 +6,7 @@ uses
   // VCL
   Windows, SysUtils, Classes,
   // Tnt
-  TntClasses, TntStdCtrls, TntRegistry, TntIniFiles,
+  TntClasses, TntStdCtrls, TntRegistry, TntIniFiles, TntSysUtils, 
   // This
   PrinterParameters, FileUtils, LogFile, SmIniFile, SmFiscalPrinterLib_TLB,
   DirectIOAPI, VatCode;
@@ -15,33 +15,33 @@ type
   { IParamsReader }
 
   IParamsReader = interface
-    procedure Load(const DeviceName: string);
-    procedure Save(const DeviceName: string);
+    procedure Load(const DeviceName: WideString);
+    procedure Save(const DeviceName: WideString);
     procedure WriteText(const Section, Ident, Value: String);
     procedure WriteString(const Section, Ident, Value: String);
-    procedure WriteBool(const Section, Ident: string; Value: Boolean);
-    procedure WriteInteger(const Section, Ident: string; Value: Longint);
-    function ReadText(const Section, Ident, Default: string): string;
-    function ReadString(const Section, Ident, Default: string): string;
-    function ReadInteger(const Section, Ident: string; Default: Longint): Longint;
-    function ReadBool(const Section, Ident: string; Default: Boolean): Boolean;
+    procedure WriteBool(const Section, Ident: WideString; Value: Boolean);
+    procedure WriteInteger(const Section, Ident: WideString; Value: Longint);
+    function ReadText(const Section, Ident, Default: WideString): WideString;
+    function ReadString(const Section, Ident, Default: WideString): WideString;
+    function ReadInteger(const Section, Ident: WideString; Default: Longint): Longint;
+    function ReadBool(const Section, Ident: WideString; Default: Boolean): Boolean;
   end;
 
   (*
-  { TIniFileReader }
+  { TTntIniFileReader }
 
-  TIniFileReader = class(TInterfacedObject, IParamsReader)
+  TTntIniFileReader = class(TInterfacedObject, IParamsReader)
   public
-    procedure Load(const DeviceName: string);
-    procedure Save(const DeviceName: string);
+    procedure Load(const DeviceName: WideString);
+    procedure Save(const DeviceName: WideString);
     procedure WriteText(const Section, Ident, Value: String);
     procedure WriteString(const Section, Ident, Value: String);
-    procedure WriteBool(const Section, Ident: string; Value: Boolean);
-    procedure WriteInteger(const Section, Ident: string; Value: Longint);
-    function ReadText(const Section, Ident, Default: string): string;
-    function ReadString(const Section, Ident, Default: string): string;
-    function ReadInteger(const Section, Ident: string; Default: Longint): Longint;
-    function ReadBool(const Section, Ident: string; Default: Boolean): Boolean;
+    procedure WriteBool(const Section, Ident: WideString; Value: Boolean);
+    procedure WriteInteger(const Section, Ident: WideString; Value: Longint);
+    function ReadText(const Section, Ident, Default: WideString): WideString;
+    function ReadString(const Section, Ident, Default: WideString): WideString;
+    function ReadInteger(const Section, Ident: WideString; Default: Longint): Longint;
+    function ReadBool(const Section, Ident: WideString; Default: Boolean): Boolean;
   end;
 
   *)
@@ -52,42 +52,42 @@ type
   private
     FLogger: ILogFile;
     FParameters: TPrinterParameters;
-    procedure LoadIni(const DeviceName: string);
+    procedure LoadIni(const DeviceName: WideString);
     property Parameters: TPrinterParameters read FParameters;
 
-    class function GetIniFileName: string;
-    class function GetSectionName(const DeviceName: string): string;
-    class function DoReadStorage(const DeviceName: string): Integer;
-    class procedure DoSaveStorage(const DeviceName: string;
+    class function GetIniFileName: WideString;
+    class function GetSectionName(const DeviceName: WideString): WideString;
+    class function DoReadStorage(const DeviceName: WideString): Integer;
+    class procedure DoSaveStorage(const DeviceName: WideString;
       Storage: Integer);
-    procedure SaveSysParameters(const DeviceName: string);
-    procedure SaveUsrParameters(const DeviceName: string);
+    procedure SaveSysParameters(const DeviceName: WideString);
+    procedure SaveUsrParameters(const DeviceName: WideString);
 
     property Logger: ILogFile read FLogger;
   public
     constructor Create(AParameters: TPrinterParameters; ALogger: ILogFile);
-    procedure Load(const DeviceName: string);
-    procedure Save(const DeviceName: string);
-    class function ReadStorage(const DeviceName: string): Integer;
-    class procedure SaveStorage(const DeviceName: string; Storage: Integer);
+    procedure Load(const DeviceName: WideString);
+    procedure Save(const DeviceName: WideString);
+    class function ReadStorage(const DeviceName: WideString): Integer;
+    class procedure SaveStorage(const DeviceName: WideString; Storage: Integer);
   end;
 
-function ReadEncodingIni(const DeviceName: string; Logger: ILogFile): Integer;
+function ReadEncodingIni(const DeviceName: WideString; Logger: ILogFile): Integer;
 
-procedure DeleteParametersIni(const DeviceName: string);
+procedure DeleteParametersIni(const DeviceName: WideString);
 
 procedure LoadParametersIni(Item: TPrinterParameters;
-  const DeviceName: string; Logger: ILogFile);
+  const DeviceName: WideString; Logger: ILogFile);
 
 procedure SaveParametersIni(Item: TPrinterParameters;
-  const DeviceName: string; Logger: ILogFile);
+  const DeviceName: WideString; Logger: ILogFile);
 
 procedure SaveUsrParametersIni(Item: TPrinterParameters;
-  const DeviceName: string; Logger: ILogFile);
+  const DeviceName: WideString; Logger: ILogFile);
 
 implementation
 
-function ReadEncodingIni(const DeviceName: string; Logger: ILogFile): Integer;
+function ReadEncodingIni(const DeviceName: WideString; Logger: ILogFile): Integer;
 var
   P: TPrinterParameters;
 begin
@@ -100,7 +100,7 @@ begin
   end;
 end;
 
-procedure DeleteParametersIni(const DeviceName: string);
+procedure DeleteParametersIni(const DeviceName: WideString);
 begin
   try
     DeleteFile(TPrinterParametersIni.GetIniFileName);
@@ -111,7 +111,7 @@ begin
 end;
 
 procedure LoadParametersIni(Item: TPrinterParameters;
-  const DeviceName: string; Logger: ILogFile);
+  const DeviceName: WideString; Logger: ILogFile);
 var
   Reader: TPrinterParametersIni;
 begin
@@ -123,7 +123,7 @@ begin
   end;
 end;
 
-procedure SaveParametersIni(Item: TPrinterParameters; const DeviceName: string;
+procedure SaveParametersIni(Item: TPrinterParameters; const DeviceName: WideString;
   Logger: ILogFile);
 var
   Writer: TPrinterParametersIni;
@@ -137,7 +137,7 @@ begin
 end;
 
 procedure SaveUsrParametersIni(Item: TPrinterParameters;
-  const DeviceName: string; Logger: ILogFile);
+  const DeviceName: WideString; Logger: ILogFile);
 var
   Writer: TPrinterParametersIni;
 begin
@@ -159,7 +159,7 @@ begin
   FLogger := ALogger;
 end;
 
-procedure TPrinterParametersIni.Load(const DeviceName: string);
+procedure TPrinterParametersIni.Load(const DeviceName: WideString);
 begin
   try
     LoadIni(DeviceName);
@@ -171,7 +171,7 @@ begin
   end;
 end;
 
-procedure TPrinterParametersIni.Save(const DeviceName: string);
+procedure TPrinterParametersIni.Save(const DeviceName: WideString);
 begin
   try
     SaveUsrParameters(DeviceName);
@@ -182,26 +182,26 @@ begin
   end;
 end;
 
-class function TPrinterParametersIni.GetIniFileName: string;
+class function TPrinterParametersIni.GetIniFileName: WideString;
 begin
-  Result := IncludeTrailingPathDelimiter(ExtractFilePath(
+  Result := WideIncludeTrailingPathDelimiter(ExtractFilePath(
     CLSIDToFileName(Class_FiscalPrinter))) + 'FiscalPrinter.ini';
 end;
 
-class function TPrinterParametersIni.GetSectionName(const DeviceName: string): string;
+class function TPrinterParametersIni.GetSectionName(const DeviceName: WideString): WideString;
 begin
   Result := 'FiscalPrinter_' + DeviceName;
 end;
 
-procedure TPrinterParametersIni.LoadIni(const DeviceName: string);
+procedure TPrinterParametersIni.LoadIni(const DeviceName: WideString);
 var
   i: Integer;
-  Section: string;
+  Section: WideString;
   Names: TTntStrings;
   AppVatCode: Integer;
   FptrVatCode: Integer;
   IniFile: TSmIniFile;
-  PayTypeText: string;
+  PayTypeText: WideString;
   PayTypeCode: Integer;
 begin
   Logger.Debug('TPrinterParametersIni.Load', [DeviceName]);
@@ -376,10 +376,10 @@ begin
   end;
 end;
 
-procedure TPrinterParametersIni.SaveSysParameters(const DeviceName: string);
+procedure TPrinterParametersIni.SaveSysParameters(const DeviceName: WideString);
 var
   i: Integer;
-  Section: string;
+  Section: WideString;
   IniFile: TSmIniFile;
   VatCode: TVatCode;
 begin
@@ -515,9 +515,9 @@ begin
   end;
 end;
 
-procedure TPrinterParametersIni.SaveUsrParameters(const DeviceName: string);
+procedure TPrinterParametersIni.SaveUsrParameters(const DeviceName: WideString);
 var
-  Section: string;
+  Section: WideString;
   IniFile: TSmIniFile;
 begin
   IniFile := TSmIniFile.Create(GetIniFileName);
@@ -540,9 +540,9 @@ begin
 end;
 
 class function TPrinterParametersIni.DoReadStorage(
-  const DeviceName: string): Integer;
+  const DeviceName: WideString): Integer;
 var
-  Section: string;
+  Section: WideString;
   IniFile: TSmIniFile;
 begin
   Result := StorageIni;
@@ -559,7 +559,7 @@ begin
 end;
 
 class function TPrinterParametersIni.ReadStorage(
-  const DeviceName: string): Integer;
+  const DeviceName: WideString): Integer;
 begin
   Result := StorageIni;
   try
@@ -570,10 +570,10 @@ begin
 end;
 
 class procedure TPrinterParametersIni.DoSaveStorage(
-  const DeviceName: string;
+  const DeviceName: WideString;
   Storage: Integer);
 var
-  Section: string;
+  Section: WideString;
   IniFile: TSmIniFile;
 begin
   IniFile := TSmIniFile.Create(GetIniFileName);
@@ -585,7 +585,7 @@ begin
   end;
 end;
 
-class procedure TPrinterParametersIni.SaveStorage(const DeviceName: string;
+class procedure TPrinterParametersIni.SaveStorage(const DeviceName: WideString;
   Storage: Integer);
 begin
   try

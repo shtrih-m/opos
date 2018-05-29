@@ -30,7 +30,7 @@ implementation
 
 procedure TIniFileTest.Setup;
 var
-  FileName: string;
+  FileName: WideString;
 begin
   FileName := ChangeFileExt(GetModuleFileName, '.ini');
   DeleteFile(FileName);
@@ -44,8 +44,8 @@ end;
 
 procedure TIniFileTest.CheckReadString;
 var
-  Line1: string;
-  Line2: string;
+  Line1: WideString;
+  Line2: WideString;
 begin
   Line2 := IniFile.ReadText('Section1', 'Ident1', '');
   CheckEquals('', Line2, 'Line2 <> ""');

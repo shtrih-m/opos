@@ -20,7 +20,7 @@ object fmFiscalPrinter: TfmFiscalPrinter
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
-  object pnlData: TPanel
+  object pnlData: TTntPanel
     Left = 178
     Top = 0
     Width = 366
@@ -29,7 +29,7 @@ object fmFiscalPrinter: TfmFiscalPrinter
     BevelOuter = bvNone
     TabOrder = 0
   end
-  object Panel1: TPanel
+  object Panel1: TTntPanel
     Left = 0
     Top = 330
     Width = 544
@@ -129,7 +129,7 @@ object fmFiscalPrinter: TfmFiscalPrinter
       TabOrder = 4
     end
   end
-  object Panel2: TPanel
+  object Panel2: TTntPanel
     Left = 0
     Top = 0
     Width = 178

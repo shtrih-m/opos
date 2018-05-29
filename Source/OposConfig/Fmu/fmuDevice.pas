@@ -6,8 +6,10 @@ uses
   // VCL
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls,
+  // Tnt
+  TntStdCtrls,
   // This
-  BaseForm, TntStdCtrls;
+  BaseForm;
 
 type
   TfmDevice = class(TBaseForm)
@@ -17,13 +19,13 @@ type
     edtDeviceName: TTntEdit;
   end;
 
-function EditDeviceName(var DeviceName: string): Boolean;
+function EditDeviceName(var DeviceName: WideString): Boolean;
 
 implementation
 
 {$R *.DFM}
 
-function EditDeviceName(var DeviceName: string): Boolean;
+function EditDeviceName(var DeviceName: WideString): Boolean;
 var
   fm: TfmDevice;
 begin

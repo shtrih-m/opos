@@ -6,9 +6,9 @@ uses
   // VCL
   Windows, Classes, SysUtils, Controls, ExtCtrls, StdCtrls, Forms,
   // Tnt
-  TntSysUtils, TntClasses, TntStdCtrls,
+  TntComCtrls, TntStdCtrls, TntSysUtils,
   // This
-  BaseForm, untPages;
+  BaseForm, untPages, TntExtCtrls;
 
 type
   { TfmFiscalPrinter }
@@ -16,7 +16,7 @@ type
   TfmPages = class(TBaseForm)
     btnOK: TTntButton;
     lbPages: TTntListBox;
-    pnlPage: TPanel;
+    pnlPage: TTntPanel;
     edtRecieve: TTntEdit;
     edtTxData: TTntEdit;
     edtResult: TTntEdit;

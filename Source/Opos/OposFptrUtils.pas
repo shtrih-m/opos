@@ -9,23 +9,23 @@ uses
   Opos, OposUtils, Oposhi, OposFptr, OposFptrhi, OposException, TntSysUtils,
   gnugettext;
 
-function PrinterStateToStr(Value: Integer): string;
-function EncodeOposDate(const Date: TOposDate): string;
-function DecodeOposDate(const Date: string): TOposDate;
-function GetFptrPropertyName(const ID: Integer): string;
-function GetResultCodeExtendedText(Value: Integer): string;
-function GetStatusUpdateEventText(Value: Integer): string;
+function PrinterStateToStr(Value: Integer): WideString;
+function EncodeOposDate(const Date: TOposDate): WideString;
+function DecodeOposDate(const Date: WideString): TOposDate;
+function GetFptrPropertyName(const ID: Integer): WideString;
+function GetResultCodeExtendedText(Value: Integer): WideString;
+function GetStatusUpdateEventText(Value: Integer): WideString;
 procedure OposFptrCheck(Driver: OleVariant; ResultCode: Integer);
-function OposFptrGetErrorText(Driver: OleVariant): string;
-function ActualCurrencyToStr(Value: Integer): string;
-function ContractorIdToStr(Value: Integer): string;
-function CountryCodeToStr(Value: Integer): string;
-function ErrorLevelToStr(Value: Integer): string;
-function DateTypeToStr(Value: Integer): string;
-function FiscalReceiptTypeToStr(Value: Integer): string;
-function MessageTypeToStr(Value: Integer): string;
-function TotalizerTypeToStr(Value: Integer): string;
-function StationToStr(Value: Integer): string;
+function OposFptrGetErrorText(Driver: OleVariant): WideString;
+function ActualCurrencyToStr(Value: Integer): WideString;
+function ContractorIdToStr(Value: Integer): WideString;
+function CountryCodeToStr(Value: Integer): WideString;
+function ErrorLevelToStr(Value: Integer): WideString;
+function DateTypeToStr(Value: Integer): WideString;
+function FiscalReceiptTypeToStr(Value: Integer): WideString;
+function MessageTypeToStr(Value: Integer): WideString;
+function TotalizerTypeToStr(Value: Integer): WideString;
+function StationToStr(Value: Integer): WideString;
 
 procedure raiseOposFptrRecEmpty;
 procedure raiseOposFptrJrnEmpty;
@@ -48,7 +48,7 @@ begin
   raiseExtendedError(OPOS_EFPTR_COVER_OPEN, _('Cover is opened'));
 end;
 
-function OposFptrGetErrorText(Driver: OleVariant): string;
+function OposFptrGetErrorText(Driver: OleVariant): WideString;
 begin
   if Driver.ResultCode = OPOS_E_EXTENDED then
     Result := Tnt_WideFormat('%s %s', [
@@ -64,7 +64,7 @@ begin
     raise Exception.Create(OposFptrGetErrorText(Driver));
 end;
 
-function GetFptrPropertyName(const ID: Integer): string;
+function GetFptrPropertyName(const ID: Integer): WideString;
 begin
   case ID of
     // fiscal printer
@@ -181,7 +181,7 @@ end;
 // hh hour (0-23)
 // mm minutes (0-59)
 
-function DecodeOposDate(const Date: string): TOposDate;
+function DecodeOposDate(const Date: WideString): TOposDate;
 begin
   Result.Day := StrToInt(Copy(Date, 1, 2));
   Result.Month := StrToInt(Copy(Date, 3, 2));
@@ -205,13 +205,13 @@ begin
     raiseExtendedError(OPOS_EFPTR_BAD_DATE, _('Invalid minutes'));
 end;
 
-function EncodeOposDate(const Date: TOposDate): string;
+function EncodeOposDate(const Date: TOposDate): WideString;
 begin
   Result := Tnt_WideFormat('%.2d%.2d%.4d%.2d%.2d',[
     Date.Day, Date.Month, Date.Year, Date.Hour, Date.Min]);
 end;
 
-function GetResultCodeExtendedText(Value: Integer): string;
+function GetResultCodeExtendedText(Value: Integer): WideString;
 begin
   case Value of
     OPOS_EFPTR_COVER_OPEN                 : Result := 'OPOS_EFPTR_COVER_OPEN';
@@ -243,7 +243,7 @@ begin
   end;
 end;
 
-function PrinterStateTostr(Value: Integer): string;
+function PrinterStateTostr(Value: Integer): WideString;
 begin
   case Value of
     FPTR_PS_MONITOR               : Result := 'FPTR_PS_MONITOR';
@@ -261,7 +261,7 @@ begin
   end;
 end;
 
-function GetStatusUpdateEventText(Value: Integer): string;
+function GetStatusUpdateEventText(Value: Integer): WideString;
 begin
   case Value of
     // fptr
@@ -288,7 +288,7 @@ begin
   end;
 end;
 
-function ActualCurrencyToStr(Value: Integer): string;
+function ActualCurrencyToStr(Value: Integer): WideString;
 begin
   case Value of
     FPTR_AC_BRC: Result := 'FPTR_AC_BRC';
@@ -309,7 +309,7 @@ begin
   end;
 end;
 
-function ContractorIdToStr(Value: Integer): string;
+function ContractorIdToStr(Value: Integer): WideString;
 begin
   case Value of
     FPTR_CID_FIRST: Result := 'FPTR_CID_FIRST';
@@ -320,7 +320,7 @@ begin
   end;
 end;
 
-function CountryCodeToStr(Value: Integer): string;
+function CountryCodeToStr(Value: Integer): WideString;
 begin
   case Value of
     FPTR_CC_BRAZIL: Result := 'FPTR_CC_BRAZIL';
@@ -340,7 +340,7 @@ begin
   end;
 end;
 
-function DateTypeToStr(Value: Integer): string;
+function DateTypeToStr(Value: Integer): WideString;
 begin
   case Value of
     FPTR_DT_CONF: Result := 'FPTR_DT_CONF';
@@ -354,7 +354,7 @@ begin
   end;
 end;
 
-function ErrorLevelToStr(Value: Integer): string;
+function ErrorLevelToStr(Value: Integer): WideString;
 begin
   case Value of
     FPTR_EL_NONE: Result := 'FPTR_EL_NONE';
@@ -366,7 +366,7 @@ begin
   end;
 end;
 
-function FiscalReceiptTypeToStr(Value: Integer): string;
+function FiscalReceiptTypeToStr(Value: Integer): WideString;
 begin
   case Value of
     FPTR_RT_CASH_IN: Result := 'FPTR_RT_CASH_IN';
@@ -381,7 +381,7 @@ begin
   end;
 end;
 
-function MessageTypeToStr(Value: Integer): string;
+function MessageTypeToStr(Value: Integer): WideString;
 begin
   case Value of
     FPTR_MT_ADVANCE: Result := 'FPTR_MT_ADVANCE';
@@ -439,7 +439,7 @@ begin
   end;
 end;
 
-function TotalizerTypeToStr(Value: Integer): string;
+function TotalizerTypeToStr(Value: Integer): WideString;
 begin
   case Value of
     FPTR_TT_DOCUMENT: Result := 'FPTR_TT_DOCUMENT';
@@ -451,7 +451,7 @@ begin
   end;
 end;
 
-function StationToStr(Value: Integer): string;
+function StationToStr(Value: Integer): WideString;
 begin
   case Value of
     FPTR_S_JOURNAL: Result := 'FPTR_S_JOURNAL';

@@ -4,7 +4,9 @@ interface
 
 uses
   // VCL
-  SysUtils, WException;
+  SysUtils,
+  // This
+  WException, GNUGetText;
 
 type
   { EDriverError }
@@ -18,8 +20,14 @@ type
   end;
 
 procedure RaiseError(Code: Integer; const Message: WideString);
+procedure raiseOpenKeyError(const KeyName: WideString);
 
 implementation
+
+procedure raiseOpenKeyError(const KeyName: WideString);
+begin
+  raiseExceptionFmt('%s: %s', [_('Error opening registry'), KeyName]);
+end;
 
 { EDriverError }
 

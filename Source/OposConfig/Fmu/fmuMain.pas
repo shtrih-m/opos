@@ -7,10 +7,10 @@ uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, Registry, ExtCtrls, ComCtrls, Buttons,
   // Tnt
-  TntSysUtils, TntClasses, TntStdCtrls, TntRegistry, TntButtons,
+  TntSysUtils, TntClasses, TntStdCtrls, TntRegistry, TntButtons, TntForms, 
   // This
   BaseForm, OposDevice, FiscalPrinterDevice, CashDrawerDevice, ScaleDevice,
-  fmuDevice;
+  fmuDevice, GNUGetText;
 
 type
   { TfmMain }
@@ -113,7 +113,7 @@ end;
 procedure TfmMain.EditDevice;
 var
   Device: TOposDevice;
-  DeviceName: string;
+  DeviceName: WideString;
   DeviceType: Integer;
 begin
   if lbDevices.ItemIndex = -1 then Exit;
@@ -138,6 +138,7 @@ procedure TfmMain.FormCreate(Sender: TObject);
 begin
   lbDeviceType.ItemIndex := 0;
   SetDeviceType(0);
+  Application.Title := Caption;
 end;
 
 procedure TfmMain.btnCancelClick(Sender: TObject);
@@ -147,12 +148,12 @@ end;
 
 procedure TfmMain.DeleteDevice;
 var
-  S: string;
-  DeviceName: string;
+  S: WideString;
+  DeviceName: WideString;
 begin
   DeviceName := lbDevices.Items[lbDevices.ItemIndex];
-  S := Tnt_WideFormat('Delete device ''%s''?', [DeviceName]);
-  if MessageBox(Handle, PChar(S), PChar(Application.Title),
+  S := Tnt_WideFormat('%s ''%s''?', [_('Delete device'), DeviceName]);
+  if MessageBoxW(Handle, PWideChar(S), PWideChar(TntApplication.Title),
     MB_YESNO or MB_ICONEXCLAMATION) = ID_YES then
   begin
     Devices[FDeviceType].Delete(DeviceName);
@@ -163,9 +164,9 @@ end;
 
 procedure TfmMain.btnAddDeviceClick(Sender: TObject);
 var
-  DeviceName: string;
+  DeviceName: WideString;
 begin
-  DeviceName := 'NewDevice';
+  DeviceName := _('NewDevice');
   if EditDeviceName(DeviceName) then
   begin
     Devices[FDeviceType].Add(DeviceName);

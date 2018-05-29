@@ -7,10 +7,10 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Buttons, PngBitBtn, ExtCtrls, Mask,
   // Tnt
-  TntStdCtrls, TntSysUtils,
+  TntStdCtrls, TntSysUtils, TntComCtrls, TntExtCtrls, TntButtons,
   // This
   LogFile, PngImageList, ImgList, JvExButtons, JvBitBtn, JvImageList,
-  ActnList, PngSpeedButton, FormUtils;
+  ActnList, PngSpeedButton, FormUtils, BaseForm;
 
 const
   /////////////////////////////////////////////////////////////////////////////
@@ -23,20 +23,20 @@ type
   TVButton = class;
   TTextButton = class;
   TTntButtonType = (btText, btBackspace, btShift, btRu, btEn);
-  TSpeedButtons = array [0..27] of TSpeedButton;
+  TTntSpeedButtons = array [0..27] of TTntSpeedButton;
 
   { TfmEMail }
 
-  TfmEMail = class(TForm)
+  TfmEMail = class(TBaseForm)
     btnOK: TPngSpeedButton;
     btnCancel: TPngSpeedButton;
     Label1: TTntLabel;
     edtAddress: TTntEdit;
     ImageList: TImageList;
-    pnlEn1: TPanel;
-    pnlEn2: TPanel;
-    pnlRu1: TPanel;
-    pnlRu2: TPanel;
+    pnlEn1: TTntPanel;
+    pnlEn2: TTntPanel;
+    pnlRu1: TTntPanel;
+    pnlRu2: TTntPanel;
     procedure btnOKClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
@@ -46,11 +46,11 @@ type
     FPageIndex: Integer;
     FButtonIndex: Integer;
     FShiftPressed: Boolean;
-    FSpeedButtons: array [0..3] of TSpeedButtons;
-    FPages: array [0..3] of TPanel;
+    FSpeedButtons: array [0..3] of TTntSpeedButtons;
+    FPages: array [0..3] of TTntPanel;
 
     procedure AddButton(const S1, S2: WideString);
-    function CreateButton(AOwner: TPanel): TSpeedButton;
+    function CreateButton(AOwner: TTntPanel): TTntSpeedButton;
     procedure ButtonClick(Sender: TObject);
     procedure AddButton3(const S: WideString);
     procedure UpdatePage2;
@@ -165,11 +165,11 @@ const
   ButtonWidth = 54;
 
 
-function TfmEMail.CreateButton(AOwner: TPanel): TSpeedButton;
+function TfmEMail.CreateButton(AOwner: TTntPanel): TTntSpeedButton;
 var
-  Button: TSpeedButton;
+  Button: TTntSpeedButton;
 begin
-  Button := TSpeedButton.Create(AOwner);
+  Button := TTntSpeedButton.Create(AOwner);
   Button.Parent := AOwner;
   Button.Width := ButtonWidth;
   Button.Height := ButtonWidth;
@@ -211,7 +211,7 @@ procedure TfmEMail.AddButton(const S1, S2: WideString);
   end;
 
 var
-  Button: TSpeedButton;
+  Button: TTntSpeedButton;
 begin
   Button := CreateButton(FPages[FPageIndex]);
   Button.Tag := Integer(CreateTextButton(S1));
@@ -228,7 +228,7 @@ end;
 
 procedure TfmEMail.AddButton2(ImageIndex: Integer; ButtonType: TTntButtonType);
 var
-  Button: TSpeedButton;
+  Button: TTntSpeedButton;
   GroupIndex: Integer;
 const
   LastGroupIndex: Integer = 0;
@@ -273,7 +273,7 @@ procedure TfmEMail.AddButton3(const S: WideString);
   end;
 
 var
-  Button: TSpeedButton;
+  Button: TTntSpeedButton;
 begin
   Button := CreateButton(FPages[FPageIndex]);
   Button.Tag := Integer(CreateTextButton(S));
@@ -371,10 +371,10 @@ end;
 
 procedure TfmEMail.ButtonClick(Sender: TObject);
 var
-  Button: TSpeedButton;
+  Button: TTntSpeedButton;
   VButton: TVButton;
 begin
-  Button := Sender as TSpeedButton;
+  Button := Sender as TTntSpeedButton;
   VButton := TVButton(Button.Tag);
   case VButton.ButtonType of
     btText:

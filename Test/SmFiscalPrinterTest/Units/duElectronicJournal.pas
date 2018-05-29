@@ -24,9 +24,9 @@ implementation
 
 procedure TElectronicJournalTest.CheckDecodeDateLine;
 var
-  Data: string;
-  Result1: string;
-  Result2: string;
+  Data: WideString;
+  Result1: WideString;
+  Result2: WideString;
 begin
   Data := '«¿ –.—Ã. 0162 13/08/08  11:22 Œœ≈–¿“Œ–30 ';
   Result1 := TElectronicJournal.DecodeDateLine(Data);

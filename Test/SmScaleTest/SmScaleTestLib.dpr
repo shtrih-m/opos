@@ -82,7 +82,8 @@ uses
   PortUtil in '..\..\Source\Shared\PortUtil.pas',
   TextReport in '..\..\Source\Shared\TextReport.pas',
   PrinterPort in '..\..\Source\SmFiscalPrinter\Units\PrinterPort.pas',
-  WException in '..\..\Source\Shared\WException.pas';
+  WException in '..\..\Source\Shared\WException.pas',
+  TntIniFiles in '..\..\Source\Shared\TntIniFiles.pas';
 
 {$R *.RES}
 

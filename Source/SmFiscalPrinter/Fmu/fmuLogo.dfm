@@ -62,7 +62,7 @@ object fmLogo: TfmLogo
     TabOrder = 2
     OnClick = btnPrintClick
   end
-  object Panel1: TPanel
+  object Panel1: TTntPanel
     Left = 8
     Top = 272
     Width = 313
@@ -281,7 +281,7 @@ object fmLogo: TfmLogo
       TabOrder = 2
     end
   end
-  object Panel2: TPanel
+  object Panel2: TTntPanel
     Left = 8
     Top = 8
     Width = 409

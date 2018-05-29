@@ -139,6 +139,7 @@ begin
     begin
       Inc(FErrorCount);
       AddMessage('ERROR: ' + E.Message);
+      if FStopOnError then raise;
     end;
   end;
 end;

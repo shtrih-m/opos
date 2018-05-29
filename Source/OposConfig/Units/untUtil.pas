@@ -9,7 +9,7 @@ uses
   TntClasses, TntStdCtrls, TntRegistry;
 
 procedure CreatePorts(Strings: TTntStrings);
-procedure DeleteRegKey(const KeyName: string);
+procedure DeleteRegKey(const KeyName: WideString);
 procedure EnableButtons(WinControl: TWinControl; Value: Boolean; var AButton: TTntButton);
 
 implementation
@@ -50,7 +50,7 @@ begin
     Strings.Add('COM' + IntToStr(i));
 end;
 
-procedure DeleteRegKey(const KeyName: string);
+procedure DeleteRegKey(const KeyName: WideString);
 var
   i: Integer;
   Reg: TTntRegistry;

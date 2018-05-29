@@ -7,10 +7,10 @@ uses
   Windows, StdCtrls, Controls, Classes, SysUtils, Registry, Dialogs, Forms,
   ComCtrls, Buttons, ExtDlgs, ExtCtrls, ComObj,
   // Tnt
-  TntSysUtils, TntClasses, TntStdCtrls, TntRegistry, TntExtCtrls, 
+  TntSysUtils, TntClasses, TntStdCtrls, TntRegistry, TntExtCtrls, TntButtons,
   // This
   FiscalPrinterDevice, PrinterParameters, PrinterParametersX, FptrTypes,
-  DirectIOAPI, DriverContext, TntButtons;
+  DirectIOAPI, DriverContext, GNUGetText;
 
 type
   { TfmFptrLogo }
@@ -81,7 +81,7 @@ begin
     DIRECTIO_EVENT_PROGRESS:
     begin
       ProgressBar.Position := pData;
-      lblProgress.Caption := Tnt_WideFormat('Load status: %d%%', [pData]);
+      lblProgress.Caption := Tnt_WideFormat('%s: %d%%', [_('Load status'), pData]);
       Application.ProcessMessages;
     end;
   end;

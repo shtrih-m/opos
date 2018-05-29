@@ -371,9 +371,9 @@ type
     FBaudRate: Integer;
     FSysPassword: Integer;        // system administrator password
     FUsrPassword: Integer;        // operator password
-    FSubtotalText: string;
-    FCloseRecText: string;
-    FVoidRecText: string;
+    FSubtotalText: WideString;
+    FCloseRecText: WideString;
+    FVoidRecText: WideString;
     FFontNumber: Integer;
     FByteTimeout: Integer;              // driver byte timeout
     FDeviceByteTimeout: Integer;        // device byte timeout
@@ -390,7 +390,7 @@ type
     FHeaderFont: Integer;
     FTrailerFont: Integer;
     FEncoding: Integer;
-    FRemoteHost: string;
+    FRemoteHost: WideString;
     FRemotePort: Integer;
     FConnectionType: Integer;
     FStatusCommand: Integer;
@@ -398,14 +398,14 @@ type
     FBarLinePrintDelay: Integer;
     FCompatLevel: Integer;
     FCCOType: Integer;
-    FHeader: string;
-    FTrailer: string;
+    FHeader: WideString;
+    FTrailer: WideString;
     FDepartment: Integer;
     FLogoCenter: Boolean;
     FHeaderPrinted: Boolean;
     FLogoSize: Integer;
     FLogoReloadEnabled: Boolean;
-    FLogoFileName: string;
+    FLogoFileName: WideString;
     FIsLogoLoaded: Boolean;
     FReceiptType: Integer;
     FZeroReceiptType: Integer;
@@ -413,8 +413,8 @@ type
     FTableEditEnabled: Boolean;
     FXmlZReportEnabled: Boolean;
     FCsvZReportEnabled: Boolean;
-    FXmlZReportFileName: string;
-    FCsvZReportFileName: string;
+    FXmlZReportFileName: WideString;
+    FCsvZReportFileName: WideString;
     FLogMaxCount: Integer;
     FVoidReceiptOnMaxItems: Boolean;
     FMaxReceiptItems: Integer;
@@ -434,7 +434,7 @@ type
     FMonitoringEnabled: Boolean;
     FPropertyUpdateMode: Integer;
     FReceiptReportEnabled: Boolean;
-    FReceiptReportFileName: string;
+    FReceiptReportFileName: WideString;
     FZReceiptBeforeZReport: Boolean;
     FDepartmentInText: Boolean;
     FCenterHeader: Boolean;
@@ -443,7 +443,7 @@ type
     FQuantityDecimalPlaces: Integer;
     FDocumentBlockSize: Integer;
 
-    procedure LogText(const Caption, Text: string);
+    procedure LogText(const Caption, Text: WideString);
     procedure SetLogoPosition(const Value: Integer);
     procedure SetNumHeaderLines(const Value: Integer);
     procedure SetNumTrailerLines(const Value: Integer);
@@ -477,12 +477,12 @@ type
     XReport: Integer;
     FSBarcodeEnabled: Boolean;
     FSAddressEnabled: Boolean;
-    FPSerial: string;
-    LogFilePath: string;
+    FPSerial: WideString;
+    LogFilePath: WideString;
     ReportDateStamp: Boolean;
     FSUpdatePrice: Boolean;
 
-    BarcodePrefix: string;
+    BarcodePrefix: WideString;
     BarcodeHeight: Integer;
     BarcodeType: Integer;
     BarcodeModuleWidth: Integer;
@@ -494,35 +494,35 @@ type
     WrapText: Boolean;
     WritePaymentNameEnabled: Boolean;
     TimeUpdateMode: Integer;
-    ReceiptItemsHeader: string;
-    ReceiptItemsTrailer: string;
-    ReceiptItemFormat: string;
+    ReceiptItemsHeader: WideString;
+    ReceiptItemsTrailer: WideString;
+    ReceiptItemFormat: WideString;
     RecPrintType: Integer;
     PrintSingleQuantity: Boolean;
     TableFilePath: WideString;
-    DefTableFilePath: string;
+    DefTableFilePath: WideString;
     VatCodeEnabled: Boolean;
     HandleErrorCode: Boolean;
     FSServiceEnabled: Boolean;
     PrinterProtocol: Integer;
 
-    Parameter1: string;
-    Parameter2: string;
-    Parameter3: string;
-    Parameter4: string;
-    Parameter5: string;
-    Parameter6: string;
-    Parameter7: string;
-    Parameter8: string;
-    Parameter9: string;
-    Parameter10: string;
+    Parameter1: WideString;
+    Parameter2: WideString;
+    Parameter3: WideString;
+    Parameter4: WideString;
+    Parameter5: WideString;
+    Parameter6: WideString;
+    Parameter7: WideString;
+    Parameter8: WideString;
+    Parameter9: WideString;
+    Parameter10: WideString;
     PrintUnitName: Boolean;
     OpenReceiptEnabled: Boolean;
     PingEnabled: Boolean;
-    Barcode: string;
+    Barcode: WideString;
     MarkType: Integer;
     PrintRecMessageMode: Integer;
-    EkmServerHost: string;
+    EkmServerHost: WideString;
     EkmServerPort: Integer;
     EkmServerTimeout: Integer;
     EkmServerEnabled: Boolean;
@@ -550,12 +550,12 @@ type
     procedure SetDefaults;
     procedure WriteLogParameters;
     function IsLocalConnection: Boolean;
-    class function DefXmlZReportFileName: string;
-    class function DefCsvZReportFileName: string;
-    class function DefReceiptReportFileName: string;
-    function GetPrinterMessage(ID: Integer): string;
+    class function DefXmlZReportFileName: WideString;
+    class function DefCsvZReportFileName: WideString;
+    class function DefReceiptReportFileName: WideString;
+    function GetPrinterMessage(ID: Integer): WideString;
     function GetVatInfo(AppVatCode: Integer): Integer;
-    procedure SetPrinterMessage(ID: Integer; const S: string);
+    procedure SetPrinterMessage(ID: Integer; const S: WideString);
   published
     property Storage: Integer read FStorage write FStorage;
     property BaudRate: Integer read FBaudRate write SetBaudRate;
@@ -565,9 +565,9 @@ type
     property UsrPassword: Integer read FUsrPassword write FUsrPassword;
     property ByteTimeout: Integer read FByteTimeout write SetByteTimeout;
     property StatusInterval: Integer read FStatusInterval write FStatusInterval;
-    property SubtotalText: string read FSubtotalText write FSubtotalText;
-    property CloseRecText: string read FCloseRecText write FCloseRecText;
-    property VoidRecText: string read FVoidRecText write FVoidRecText;
+    property SubtotalText: WideString read FSubtotalText write FSubtotalText;
+    property CloseRecText: WideString read FCloseRecText write FCloseRecText;
+    property VoidRecText: WideString read FVoidRecText write FVoidRecText;
     property PollIntervalInSeconds: Integer read FPollIntervalInSeconds write SetPollIntervalInSeconds;
     property MaxRetryCount: Integer read FMaxRetryCount write SetMaxRetryCount;
     property DeviceByteTimeout: Integer read FDeviceByteTimeout write SetDeviceByteTimeout;
@@ -578,7 +578,7 @@ type
     property PayTypes: TPayTypes read FPayTypes;
     property VatCodes: TVatCodes read FVatCodes;
     property Encoding: Integer read FEncoding write SetEncoding;
-    property RemoteHost: string read FRemoteHost write FRemoteHost;
+    property RemoteHost: WideString read FRemoteHost write FRemoteHost;
     property RemotePort: Integer read FRemotePort write FRemotePort;
     property HeaderType: Integer read FHeaderType write SetHeaderType;
     property HeaderFont: Integer read FHeaderFont write SetHeaderFont;
@@ -591,11 +591,11 @@ type
     property NumTrailerLines: Integer read FNumTrailerLines write SetNumTrailerLines;
     property BarLinePrintDelay: Integer read FBarLinePrintDelay write FBarLinePrintDelay;
     property CompatLevel: Integer read FCompatLevel write SetCompatLevel;
-    property Header: string read FHeader write FHeader;
-    property Trailer: string read FTrailer write FTrailer;
+    property Header: WideString read FHeader write FHeader;
+    property Trailer: WideString read FTrailer write FTrailer;
     property LogoSize: Integer read FLogoSize write FLogoSize;
     property LogoCenter: Boolean read FLogoCenter write FLogoCenter;
-    property LogoFileName: string read FLogoFileName write FLogoFileName;
+    property LogoFileName: WideString read FLogoFileName write FLogoFileName;
     property IsLogoLoaded: Boolean read FIsLogoLoaded write FIsLogoLoaded;
 
     property Department: Integer read FDepartment write SetDepartment;
@@ -608,8 +608,8 @@ type
     property TableEditEnabled: Boolean read FTableEditEnabled write FTableEditEnabled;
     property XmlZReportEnabled: Boolean read FXmlZReportEnabled write FXmlZReportEnabled;
     property CsvZReportEnabled: Boolean read FCsvZReportEnabled write FCsvZReportEnabled;
-    property XmlZReportFileName: string read FXmlZReportFileName write FXmlZReportFileName;
-    property CsvZReportFileName: string read FCsvZReportFileName write FCsvZReportFileName;
+    property XmlZReportFileName: WideString read FXmlZReportFileName write FXmlZReportFileName;
+    property CsvZReportFileName: WideString read FCsvZReportFileName write FCsvZReportFileName;
     property VoidReceiptOnMaxItems: Boolean read FVoidReceiptOnMaxItems write FVoidReceiptOnMaxItems;
     property MaxReceiptItems: Integer read FMaxReceiptItems write FMaxReceiptItems;
     property JournalPrintHeader: Boolean read FJournalPrintHeader write FJournalPrintHeader;
@@ -627,7 +627,7 @@ type
     property MonitoringPort: Integer read FMonitoringPort write FMonitoringPort;
     property MonitoringEnabled: Boolean read FMonitoringEnabled write FMonitoringEnabled;
     property PropertyUpdateMode: Integer read FPropertyUpdateMode write SetPropertyUpdateMode;
-    property ReceiptReportFileName: string read FReceiptReportFileName write FReceiptReportFileName;
+    property ReceiptReportFileName: WideString read FReceiptReportFileName write FReceiptReportFileName;
     property ReceiptReportEnabled: Boolean read FReceiptReportEnabled write FReceiptReportEnabled;
     property ZReceiptBeforeZReport: Boolean read FZReceiptBeforeZReport write FZReceiptBeforeZReport;
     property DepartmentInText: Boolean read FDepartmentInText write FDepartmentInText;
@@ -660,7 +660,7 @@ const
   MsgTrainVoidDiscountText    = 17;
   MsgTrainVoidChargeText      = 18;
 
-  TrainModeMessagesRus: array [0..18] of string = (
+  TrainModeMessagesRus: array [0..18] of WideString = (
     ' –≈∆»Ã “–≈Õ»–Œ¬ » ',
     '¬Õ≈—≈Õ»≈',
     '¬€œÀ¿“¿',
@@ -681,7 +681,7 @@ const
     '—“Œ–ÕŒ — »ƒ »',
     '—“Œ–ÕŒ Õ¿ƒ¡¿¬ »');
 
-  TrainModeMessagesEng: array [0..18] of string = (
+  TrainModeMessagesEng: array [0..18] of WideString = (
     ' TRAINING MODE ',
     'CASH IN',
     'CASH OUT',
@@ -870,7 +870,7 @@ begin
   FSMarkCheckEnabled := DefFSMarkCheckEnabled;
 end;
 
-procedure TPrinterParameters.LogText(const Caption, Text: string);
+procedure TPrinterParameters.LogText(const Caption, Text: WideString);
 var
   i: Integer;
   Lines: TTntStrings;
@@ -1020,17 +1020,17 @@ begin
     FLogoPosition := Value;
 end;
 
-class function TPrinterParameters.DefXmlZReportFileName: string;
+class function TPrinterParameters.DefXmlZReportFileName: WideString;
 begin
   Result := GetModulePath + 'ZReport.xml';
 end;
 
-class function TPrinterParameters.DefCsvZReportFileName: string;
+class function TPrinterParameters.DefCsvZReportFileName: WideString;
 begin
   Result := GetModulePath + 'ZReport.csv';
 end;
 
-class function TPrinterParameters.DefReceiptReportFileName: string;
+class function TPrinterParameters.DefReceiptReportFileName: WideString;
 begin
   Result := GetModulePath + 'ZCheckReport.xml';
 end;
@@ -1167,7 +1167,7 @@ begin
     FPortNumber := Value;
 end;
 
-function TPrinterParameters.GetPrinterMessage(ID: Integer): string;
+function TPrinterParameters.GetPrinterMessage(ID: Integer): WideString;
 begin
   Result := '';
   if (ID < Low(TrainModeMessagesRus))or(ID > High(TrainModeMessagesRus)) then Exit;
@@ -1175,7 +1175,7 @@ begin
 end;
 
 procedure TPrinterParameters.SetPrinterMessage(ID: Integer;
-  const S: string);
+  const S: WideString);
 begin
   { !!! }
 end;

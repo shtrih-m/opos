@@ -87,7 +87,8 @@ uses
   TLVParser in '..\SmFiscalPrinter\Units\TLVParser.pas',
   GS1Barcode in '..\SmFiscalPrinter\Units\GS1Barcode.pas',
   EkmClient in '..\SmFiscalPrinter\Units\EkmClient.pas',
-  WException in '..\Shared\WException.pas';
+  WException in '..\Shared\WException.pas',
+  TntIniFiles in '..\Shared\TntIniFiles.pas';
 
 {$R *.TLB}
 

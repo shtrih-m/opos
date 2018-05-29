@@ -6,7 +6,7 @@ uses
   // VCL
   Windows, Classes, SysUtils, IniFiles,
   // Tnt
-  TntClasses,
+  TntClasses, TntIniFiles, 
   // This
   StatisticItem, OposStat, MSXML, LogFile, FileUtils;
 
@@ -493,11 +493,11 @@ procedure TOposStatistics.IniLoad(const DeviceName: string);
 var
   i: Integer;
   ItemText: string;
-  IniFile: TIniFile;
+  IniFile: TTntIniFile;
   Item: TStatisticItem;
 begin
   try
-    IniFile := TIniFile.Create(GetIniFileName);
+    IniFile := TTntIniFile.Create(GetIniFileName);
     try
       for i := 0 to Items.Count-1 do
       begin
@@ -522,11 +522,11 @@ end;
 procedure TOposStatistics.IniSave(const DeviceName: string);
 var
   i: Integer;
-  IniFile: TIniFile;
+  IniFile: TTntIniFile;
   Item: TStatisticItem;
 begin
   try
-    IniFile := TIniFile.Create(GetIniFileName);
+    IniFile := TTntIniFile.Create(GetIniFileName);
     try
       for i := 0 to Items.Count-1 do
       begin

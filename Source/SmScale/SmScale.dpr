@@ -67,7 +67,8 @@ uses
   PortUtil in '..\Shared\PortUtil.pas',
   TextReport in '..\Shared\TextReport.pas',
   PrinterPort in '..\SmFiscalPrinter\Units\PrinterPort.pas',
-  WException in '..\Shared\WException.pas';
+  WException in '..\Shared\WException.pas',
+  TntIniFiles in '..\Shared\TntIniFiles.pas';
 
 exports
   DllGetClassObject,

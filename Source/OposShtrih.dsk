@@ -1,37 +1,19 @@
 [Closed Files]
-File_0=SourceModule,'C:\projects\OPOSShtrih\Source\OposConfig\Fmu\fmuDevice.dfm',0,1,1,1,1,0,0
-File_1=SourceModule,'C:\projects\OPOSShtrih\Test\SmFiscalPrinterTest\Units\duGS1Barcode.pas',0,1,27,167,28,0,0
-File_2=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\SharedPrinter.pas',0,1,221,45,232,0,0
-File_3=SourceModule,'C:\projects\OPOSShtrih\Source\SmFptrSrv\FMU\dmuServer.pas',0,1,51,38,62,0,0
-File_4=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\SmIniFile.pas',0,1,1,4,9,0,0
-File_5=SourceModule,'C:\projects\OPOSShtrih\Source\Shared\TntIniFiles.pas',0,1,1,1,1,0,0
-File_6=SourceModule,'C:\projects\OPOSShtrih\Source\OposTest\Fmu\fmuFptrRecItemVoid.pas',0,1,1,2,10,0,0
-File_7=SourceModule,'C:\projects\OPOSShtrih\Test\SmFiscalPrinterTest\Units\RegressTests.pas',0,1,1,34,7,0,0
-File_8=SourceModule,'C:\projects\OPOSShtrih\Source\SmFptrSrv\Units\oleMain.pas',0,1,1,1,1,0,0
-File_9=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\oleCashDrawer.pas',0,1,1,1,1,0,0
+File_0=SourceModule,'C:\projects\OPOSShtrih\Source\Opos\OposDevice.pas',0,1,1,47,11,0,0
+File_1=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\PrinterTypes.pas',0,1,1,1,1,0,0
+File_2=SourceModule,'C:\projects\OPOSShtrih\Source\Shared\DriverError.pas',0,1,1,28,24,0,0
+File_3=SourceModule,'C:\projects\OPOSShtrih\Source\Shared\WException.pas',0,1,1,27,24,0,0
+File_4=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\PrinterParametersRegIBT.pas',0,1,1,29,12,0,0
+File_5=SourceModule,'C:\projects\OPOSShtrih\Source\Shared\VersionInfo.pas',0,1,136,30,139,0,0
+File_6=SourceModule,'c:\program files (x86)\borland\delphi7\source\rtl\Win\Windows.pas',0,1,29433,1,29450,0,0
+File_7=SourceModule,'C:\projects\OPOSShtrih\Source\Shared\TntIniFiles.pas',0,1,1,79,22,0,0
+File_8=SourceModule,'c:\program files (x86)\borland\delphi7\source\rtl\common\classes.pas',0,1,8083,1,8102,0,0
+File_9=SourceModule,'C:\projects\OPOSShtrih\Source\OposConfig\Units\MalinaReceipt.pas',0,1,1,19,34,0,0
 
 [Modules]
-Module0=C:\projects\OPOSShtrih\Source\OposConfig\Fmu\fmuDevice.pas
-Count=1
-EditWindowCount=1
+Count=0
+EditWindowCount=0
 TypeLibWindowCount=3
-
-[C:\projects\OPOSShtrih\Source\OposConfig\Fmu\fmuDevice.pas]
-ModuleType=SourceModule
-FormState=1
-FormOnTop=1
-
-[C:\projects\OPOSShtrih\Test\OposTestTest\OposTestTestLib.dpr]
-FormState=0
-FormOnTop=0
-
-[C:\projects\OPOSShtrih\Test\SmFiscalPrinterTest\SmFiscalPrinterTestLib.dpr]
-FormState=0
-FormOnTop=0
-
-[C:\projects\OPOSShtrih\Test\OposConfigTest\OposConfigTestLib.dpr]
-FormState=0
-FormOnTop=0
 
 [C:\projects\OPOSShtrih\Source\OposShtrih.bpg]
 FormState=0
@@ -65,15 +47,11 @@ FormOnTop=0
 FormState=0
 FormOnTop=0
 
-[C:\projects\OPOSShtrih\Source\SmFptrSrv\SmFptrSrv.dpr]
-FormState=0
-FormOnTop=0
-
-[C:\projects\OPOSShtrih\Source\SmFptrSrv\SmFptrSrv.tlb]
-FormState=0
-FormOnTop=0
-
 [C:\projects\OPOSShtrih\Test\OposConfigTest\OposConfigTest.dpr]
+FormState=0
+FormOnTop=0
+
+[C:\projects\OPOSShtrih\Test\OposConfigTest\OposConfigTestLib.dpr]
 FormState=0
 FormOnTop=0
 
@@ -81,7 +59,15 @@ FormOnTop=0
 FormState=0
 FormOnTop=0
 
+[C:\projects\OPOSShtrih\Test\SmFiscalPrinterTest\SmFiscalPrinterTestLib.dpr]
+FormState=0
+FormOnTop=0
+
 [C:\projects\OPOSShtrih\Test\OposTestTest\OposTestTest.dpr]
+FormState=0
+FormOnTop=0
+
+[C:\projects\OPOSShtrih\Test\OposTestTest\OposTestTestLib.dpr]
 FormState=0
 FormOnTop=0
 
@@ -93,37 +79,17 @@ FormOnTop=0
 FormState=0
 FormOnTop=0
 
-[EditWindow0]
-ViewCount=1
-CurrentView=0
-View0=0
-CodeExplorer=CodeExplorer@EditWindow0
-MessageView=MessageView@EditWindow0
-Create=1
-Visible=1
-State=0
-Left=324
-Top=138
-Width=1302
-Height=682
-MaxLeft=-1
-MaxTop=-1
-ClientWidth=1286
-ClientHeight=644
-LeftPanelSize=0
-LeftPanelClients=CodeExplorer@EditWindow0
-LeftPanelData=00000400010000000C000000436F64654578706C6F7265720000000000000000000000000000000000FFFFFFFF
-RightPanelSize=0
-BottomPanelSize=0
-BottomPanelClients=MessageView@EditWindow0
-BottomPanelData=00000400010000000B0000004D657373616765566965770000000000000000000000000000000000FFFFFFFF
+[C:\projects\OPOSShtrih\Source\SmFptrSrv\SmFptrSrv.dpr]
+FormState=0
+FormOnTop=0
 
-[View0]
-Module=C:\projects\OPOSShtrih\Source\OposConfig\Fmu\fmuDevice.pas
-CursorX=1
-CursorY=1
-TopLine=1
-LeftCol=1
+[C:\projects\OPOSShtrih\Source\SmFptrSrv\SmFptrSrv.tlb]
+FormState=0
+FormOnTop=0
+
+[C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FSSalesReceipt.pas]
+FormState=0
+FormOnTop=0
 
 [TypeLibEditWindow0]
 Create=1
@@ -195,9 +161,12 @@ LRDockWidth=320
 Dockable=1
 
 [Breakpoints]
-Count=2
+Count=5
 Breakpoint0='C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\CustomReceipt.pas',160,'',0,1,'',1,0,0,'',1,'','',''
 Breakpoint1='C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\MalinaPlugin.pas',194,'',0,1,'',1,0,0,'',1,'','',''
+Breakpoint2='C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FSSalesReceipt.pas',1191,'',0,1,'',1,0,0,'',1,'','',''
+Breakpoint3='C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FSSalesReceipt.pas',1156,'',0,1,'',1,0,0,'',1,'','',''
+Breakpoint4='C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterImpl.pas',3739,'',0,1,'',1,0,0,'',1,'','',''
 
 [AddressBreakpoints]
 Count=0
@@ -206,8 +175,8 @@ Count=0
 Create=1
 Visible=1
 State=2
-Left=345
-Top=0
+Left=92
+Top=16
 Width=1575
 Height=122
 MaxLeft=-1
@@ -223,12 +192,12 @@ Visible=1
 State=0
 Left=8
 Top=124
-Width=501
-Height=455
+Width=472
+Height=453
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=485
-ClientHeight=421
+ClientWidth=456
+ClientHeight=419
 TBDockHeight=681
 LRDockWidth=445
 Dockable=0
@@ -278,9 +247,9 @@ ClientHeight=797
 TBDockHeight=681
 LRDockWidth=291
 Dockable=1
-SplitPos=77
+SplitPos=149
 ArrangeBy=Name
-SelectedItem=Caption
+SelectedItem=
 ExpandedItems=Anchors,Attributes,BorderIcons,Constraints,Font,Font.Style,Greeting,Options,ProviderFlags,TestModeInfo,Title,Title.Font,VisibleButtons
 HiddenCategories=
 
@@ -449,38 +418,6 @@ Column1Width=100
 Column2Width=545
 EntryPointPane=225
 CompUnitPane=104
-
-[CodeExplorer@EditWindow0]
-Create=1
-Visible=0
-State=0
-Left=-128
-Top=-6
-Width=140
-Height=305
-MaxLeft=-1
-MaxTop=-1
-ClientWidth=140
-ClientHeight=305
-TBDockHeight=305
-LRDockWidth=140
-Dockable=1
-
-[MessageView@EditWindow0]
-Create=1
-Visible=0
-State=0
-Left=-134
-Top=-705
-Width=443
-Height=85
-MaxLeft=-1
-MaxTop=-1
-ClientWidth=443
-ClientHeight=85
-TBDockHeight=85
-LRDockWidth=443
-Dockable=1
 
 [DockHosts]
 DockHostCount=1

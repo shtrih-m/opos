@@ -7,18 +7,18 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Buttons, PngBitBtn, ExtCtrls, Mask,
   // Tnt
-  TntStdCtrls, TntSysUtils,
+  TntStdCtrls, TntSysUtils, TntComCtrls, TntExtCtrls,
   // This
-  LogFile, PngSpeedButton, FormUtils;
+  BaseForm, LogFile, PngSpeedButton, FormUtils;
 
 type
   { TfmPhone }
 
-  TfmPhone = class(TForm)
+  TfmPhone = class(TBaseForm)
     btnOK: TPngSpeedButton;
     btnCancel: TPngSpeedButton;
     Label1: TTntLabel;
-    pnlKeyboard: TPanel;
+    pnlKeyboard: TTntPanel;
     btn2: TPngSpeedButton;
     btn3: TPngSpeedButton;
     btn4: TPngSpeedButton;

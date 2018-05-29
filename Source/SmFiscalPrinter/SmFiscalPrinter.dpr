@@ -171,7 +171,10 @@ uses
   GS1Barcode in 'Units\GS1Barcode.pas',
   WException in '..\Shared\WException.pas',
   CorrectionReceipt in 'Units\CorrectionReceipt.pas',
-  TntIniFiles in '..\Shared\TntIniFiles.pas';
+  TntIniFiles in '..\Shared\TntIniFiles.pas',
+  TranslationUtil in 'Units\TranslationUtil.pas',
+  LangUtils in '..\Shared\LangUtils.pas',
+  BaseForm in '..\Shared\BaseForm.pas';
 
 exports
   DllGetClassObject,

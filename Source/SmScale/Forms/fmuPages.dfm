@@ -68,7 +68,7 @@ object fmPages: TfmPages
     TabOrder = 1
     OnClick = lbPagesClick
   end
-  object pnlPage: TPanel
+  object pnlPage: TTntPanel
     Left = 136
     Top = 8
     Width = 385

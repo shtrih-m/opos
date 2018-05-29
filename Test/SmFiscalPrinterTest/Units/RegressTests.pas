@@ -152,8 +152,8 @@ begin
   CheckEquals(1, FSSale.Data.Department, 'FSSale.Data.Department');
   CheckEquals(4, FSSale.Data.Tax, 'FSSale.Data.Tax');
   CheckEquals('', FSSale.Data.UnitName, 'FSSale.Data.UnitName');
-  CheckEquals(0, FSSale.Data.PaymentType, 'FSSale.Data.PaymentType');
-  CheckEquals(0, FSSale.Data.PaymentItem, 'FSSale.Data.PaymentItem');
+  CheckEquals(1, FSSale.Data.PaymentType, 'FSSale.Data.PaymentType');
+  CheckEquals(1, FSSale.Data.PaymentItem, 'FSSale.Data.PaymentItem');
   CheckEquals('', FSSale.Data.ItemBarcode, 'FSSale.Data.ItemBarcode');
 
   FSSale.Free;

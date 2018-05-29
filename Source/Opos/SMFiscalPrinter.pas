@@ -8,16 +8,17 @@ uses
   // Tnt
   TntSysUtils,
   // This
-  Opos, PrinterEncoding, PrinterParameters, PrinterParametersX, DirectIOAPI,
+  Opos, OposFptrUtils,
+  PrinterEncoding, PrinterParameters, PrinterParametersX, DirectIOAPI,
   OposFiscalPrinter_1_12_Lib_TLB, OposFiscalPrinter_1_13_Lib_TLB, StringUtils,
-  LogFile;
+  LogFile, WException;
 
 type
   { TBarcodeRec }
 
   TBarcodeRec = record
-    Data: string; // barcode data
-    Text: string; // barcode text
+    Data: WideString; // barcode data
+    Text: WideString; // barcode text
     Height: Integer;
     BarcodeType: Integer;
     ModuleWidth: Integer;
@@ -274,19 +275,19 @@ type
     function SetBoolParameter(ParamID: Integer; Value: Boolean): Integer;
     function SetParameter(ParamID: Integer; const Value: WideString): Integer; overload;
     function SetParameter(ParamID: Integer; const Value: Integer): Integer; overload;
-    procedure PrintImage(const FileName: string);
-    procedure PrintImageScale(const FileName: string; Scale: Integer);
-    procedure PrintBarcode(const Data: string; BarcodeType: Integer);
+    procedure PrintImage(const FileName: WideString);
+    procedure PrintImageScale(const FileName: WideString; Scale: Integer);
+    procedure PrintBarcode(const Data: WideString; BarcodeType: Integer);
     function PrintBarcode2(const Barcode: TBarcodeRec): Integer;
     function PrintBarcodeHex(const Barcode: TBarcodeRec): Integer;
     function PrintBarcodeHex2(const Barcode: TBarcodeRec): Integer;
     function SetAdjustmentAmount(Amount: Integer): Integer;
-    function FSReadTicketHex(Number: Integer; var Ticket: string): Integer;
-    function FSReadTicketStr(Number: Integer; var Ticket: string): Integer;
-    function WriteFPParameter(ParamId: Integer; const Value: string): Integer;
+    function FSReadTicketHex(Number: Integer; var Ticket: WideString): Integer;
+    function FSReadTicketStr(Number: Integer; var Ticket: WideString): Integer;
+    function WriteFPParameter(ParamId: Integer; const Value: WideString): Integer;
     function PrintFSDocument(Number: Integer): Integer;
-    function ReadFSDocument(Number: Integer; var S: string): Integer;
-    function CheckItemBarcode(const Barcode: string): Integer;
+    function ReadFSDocument(Number: Integer; var S: WideString): Integer;
+    function CheckItemBarcode(const Barcode: WideString): Integer;
 
     property OpenResult: Integer read Get_OpenResult;
     property BinaryConversion: Integer read Get_BinaryConversion write Set_BinaryConversion;
@@ -447,7 +448,7 @@ type
       Quantity: Integer; VatInfo: Integer; UnitAmount: Currency;
       const UnitName: WideString): Integer; safecall;
   public
-    function LoadLogo(const FileName: string): Integer; safecall;
+    function LoadLogo(const FileName: WideString): Integer; safecall;
     function PrintLogo: Integer; safecall;
     function PrintSeparator(Height: Integer): Integer; overload; safecall;
     function PrintSeparator(Height, SeparatorType: Integer): Integer; overload; safecall;
@@ -458,8 +459,8 @@ type
     function ReadCashRegister(RegisterNumber: Integer): Int64;
     procedure DisableNextHeader;
 
-    function FSWriteTLV(const Data: string): Integer;
-    function FSWriteTag(TagID: Integer; const Data: string): Integer;
+    function FSWriteTLV(const Data: WideString): Integer;
+    function FSWriteTag(TagID: Integer; const Data: WideString): Integer;
     function WriteCustomerAddress(const Address: WideString): Integer;
     function PrintText(const Text: WideString; Font: Integer): Integer;
     function ReadTable(Table, Row, Field: Integer; var Value: WideString): Integer;
@@ -470,27 +471,27 @@ type
 
   { FiscalPrinterError }
 
-  FiscalPrinterError = class(Exception);
+  FiscalPrinterError = class(WideException);
 
 implementation
 
-function BoolToStr(Value: Boolean): string;
+function BoolToStr(Value: Boolean): WideString;
 begin
   if Value then Result := '1'
   else Result := '0';
 end;
 
-function StrToBool(const Value: string): Boolean;
+function StrToBool(const Value: WideString): Boolean;
 begin
   Result := Value <> '0';
 end;
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-// Wrapper class to encode - decode strings and to implement DirectIO features
+// Wrapper class to encode - decode WideStrings and to implement DirectIO features
 //
-// Appliication -> Encode strings -> Driver
-// Appliication <- Decode strings <- Driver
+// Appliication -> Encode WideStrings -> Driver
+// Appliication <- Decode WideStrings <- Driver
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -1827,7 +1828,7 @@ begin
   Result := Driver.DirectIO(DIO_PRINT_SEPARATOR, pData, pString)
 end;
 
-function TSMFiscalPrinter.LoadLogo(const FileName: string): Integer;
+function TSMFiscalPrinter.LoadLogo(const FileName: WideString): Integer;
 var
   pData: Integer;
   pString: WideString;
@@ -1850,14 +1851,16 @@ end;
 procedure TSMFiscalPrinter.Check(AResultCode: Integer);
 begin
   if AResultCode <> OPOS_SUCCESS then
-    raise FiscalPrinterError.Create('');
+  begin
+    raise FiscalPrinterError.Create(OposFptrGetErrorText(Driver.OleObject));
+  end;
 end;
 
 function TSMFiscalPrinter.CommandStr(Code: Integer; const InParams: WideString;
   var OutParams: WideString): Integer;
 var
   P: Integer;
-  ResultCode: string;
+  ResultCode: WideString;
   Params: WideString;
 begin
   Params := InParams;
@@ -1894,7 +1897,7 @@ begin
   Result := StrToInt64(pString);
 end;
 
-procedure TSMFiscalPrinter.PrintImage(const FileName: string);
+procedure TSMFiscalPrinter.PrintImage(const FileName: WideString);
 var
   pData: Integer;
   pString: WideString;
@@ -1904,7 +1907,7 @@ begin
   Check(Driver.DirectIO(DIO_PRINT_IMAGE, pData, pString));
 end;
 
-procedure TSMFiscalPrinter.PrintImageScale(const FileName: string; Scale: Integer);
+procedure TSMFiscalPrinter.PrintImageScale(const FileName: WideString; Scale: Integer);
 var
   pData: Integer;
   pString: WideString;
@@ -1914,7 +1917,7 @@ begin
   Check(Driver.DirectIO(DIO_PRINT_IMAGE, pData, pString));
 end;
 
-procedure TSMFiscalPrinter.PrintBarcode(const Data: string; BarcodeType: Integer);
+procedure TSMFiscalPrinter.PrintBarcode(const Data: WideString; BarcodeType: Integer);
 var
   pData: Integer;
   pString: WideString;
@@ -2000,7 +2003,7 @@ begin
 end;
 
 function TSMFiscalPrinter.FSWriteTag(TagID: Integer;
-  const Data: string): Integer;
+  const Data: WideString): Integer;
 var
   pData: Integer;
   pString: WideString;
@@ -2010,7 +2013,7 @@ begin
   Result := Driver.DirectIO(DIO_WRITE_FS_STRING_TAG, pData, pString);
 end;
 
-function TSMFiscalPrinter.FSWriteTLV(const Data: string): Integer;
+function TSMFiscalPrinter.FSWriteTLV(const Data: WideString): Integer;
 var
   pData: Integer;
   pString: WideString;
@@ -2051,7 +2054,7 @@ begin
   Result := Driver.DirectIO(DIO_FS_PRINT_CALC_REPORT, pData, pString);
 end;
 
-function TSMFiscalPrinter.FSReadTicketHex(Number: Integer; var Ticket: string): Integer;
+function TSMFiscalPrinter.FSReadTicketHex(Number: Integer; var Ticket: WideString): Integer;
 var
   pData: Integer;
   pString: WideString;
@@ -2062,7 +2065,7 @@ begin
   Ticket := pString;
 end;
 
-function TSMFiscalPrinter.FSReadTicketStr(Number: Integer; var Ticket: string): Integer;
+function TSMFiscalPrinter.FSReadTicketStr(Number: Integer; var Ticket: WideString): Integer;
 var
   pData: Integer;
   pString: WideString;
@@ -2074,7 +2077,7 @@ begin
 end;
 
 function TSMFiscalPrinter.WriteFPParameter(ParamId: Integer;
-  const Value: string): Integer;
+  const Value: WideString): Integer;
 var
   pData: Integer;
   pString: WideString;
@@ -2094,7 +2097,7 @@ begin
   Result := Driver.DirectIO(DIO_PRINT_FS_DOCUMENT, pData, pString);
 end;
 
-function TSMFiscalPrinter.ReadFSDocument(Number: Integer; var S: string): Integer;
+function TSMFiscalPrinter.ReadFSDocument(Number: Integer; var S: WideString): Integer;
 var
   pData: Integer;
   pString: WideString;
@@ -2105,7 +2108,7 @@ begin
   S := pString;
 end;
 
-function TSMFiscalPrinter.CheckItemBarcode(const Barcode: string): Integer;
+function TSMFiscalPrinter.CheckItemBarcode(const Barcode: WideString): Integer;
 var
   pData: Integer;
   pString: WideString;

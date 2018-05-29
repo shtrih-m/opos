@@ -7,10 +7,12 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Buttons, PngBitBtn, ExtCtrls, DateUtils,
   // Tnt
-  TntStdCtrls, TntSysUtils;
+  TntStdCtrls, TntSysUtils,
+  // This
+  BaseForm;
 
 type
-  TfmTimeSync = class(TForm)
+  TfmTimeSync = class(TBaseForm)
     lblTimeSync: TTntLabel;
     Label1: TTntLabel;
     btnCancel: TPngBitBtn;

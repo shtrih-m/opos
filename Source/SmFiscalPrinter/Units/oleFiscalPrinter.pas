@@ -9,7 +9,7 @@ uses
   OposFptrUtils,
   // This
   FiscalPrinterImpl, SmFiscalPrinterLib_TLB, LogFile, PrinterEncoding,
-  PrinterParameters;
+  PrinterParameters, TranslationUtil;
 
 type
   { ToleFiscalPrinter }
@@ -1447,6 +1447,7 @@ begin
 end;
 
 initialization
+  SetTranslationLanguage;
   DecimalSeparator := '.';
   ComServer.SetServerName('OposShtrih');
   TAutoObjectFactory.Create(ComServer, ToleFiscalPrinter, Class_FiscalPrinter,

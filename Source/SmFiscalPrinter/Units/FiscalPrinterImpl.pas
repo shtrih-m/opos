@@ -679,6 +679,7 @@ begin
   TDIOStartOpenDay.CreateCommand(FDIOHandlers, DIO_START_OPEN_DAY, Self);
   TDIOOpenDay.CreateCommand(FDIOHandlers, DIO_OPEN_DAY, Self);
   TDIOCheckMarking.CreateCommand(FDIOHandlers, DIO_CHECK_MARKING, Self);
+  TDIOStartCorrection.CreateCommand(FDIOHandlers, DIO_START_CORRECTION, Self);
 end;
 
 procedure TFiscalPrinterImpl.CreateDIOHandlers1;
@@ -748,6 +749,7 @@ begin
   TDIOStartOpenDay.CreateCommand(FDIOHandlers, DIO_START_OPEN_DAY, Self);
   TDIOOpenDay.CreateCommand(FDIOHandlers, DIO_OPEN_DAY, Self);
   TDIOCheckMarking.CreateCommand(FDIOHandlers, DIO_CHECK_MARKING, Self);
+  TDIOStartCorrection.CreateCommand(FDIOHandlers, DIO_START_CORRECTION, Self);
 end;
 
 procedure TFiscalPrinterImpl.CreateDIOHandlers2;
@@ -818,6 +820,7 @@ begin
   TDIOStartOpenDay.CreateCommand(FDIOHandlers, DIO_START_OPEN_DAY, Self);
   TDIOOpenDay.CreateCommand(FDIOHandlers, DIO_OPEN_DAY, Self);
   TDIOCheckMarking.CreateCommand(FDIOHandlers, DIO_CHECK_MARKING, Self);
+  TDIOStartCorrection.CreateCommand(FDIOHandlers, DIO_START_CORRECTION, Self);
 end;
 
 procedure TFiscalPrinterImpl.SetPrinter(APrinter: ISharedPrinter);

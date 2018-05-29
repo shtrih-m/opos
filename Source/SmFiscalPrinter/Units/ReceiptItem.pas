@@ -52,8 +52,8 @@ type
   TSaleReceiptItem = class(TReceiptItem)
   public
     Data: TPriceReg;
-    PreLine: string;
-    PostLine: string;
+    PreLine: WideString;
+    PostLine: WideString;
   end;
 
   { TStornoReceiptItem }
@@ -61,8 +61,8 @@ type
   TStornoReceiptItem = class(TReceiptItem)
   public
     Data: TPriceReg;
-    PreLine: string;
-    PostLine: string;
+    PreLine: WideString;
+    PostLine: WideString;
   end;
 
   { TDiscountReceiptItem }
@@ -70,8 +70,8 @@ type
   TDiscountReceiptItem = class(TReceiptItem)
   public
     Data: TAmountOperation;
-    PreLine: string;
-    PostLine: string;
+    PreLine: WideString;
+    PostLine: WideString;
     function GetTotal: Int64; override;
     procedure Assign(Item: TReceiptItem); override;
   end;
@@ -81,8 +81,8 @@ type
   TChargeReceiptItem = class(TReceiptItem)
   public
     Data: TAmountOperation;
-    PreLine: string;
-    PostLine: string;
+    PreLine: WideString;
+    PostLine: WideString;
     function GetTotal: Int64; override;
   end;
 
@@ -109,8 +109,8 @@ type
   public
     Pos: Integer;
     Data: TFSSale;
-    PreLine: string;
-    PostLine: string;
+    PreLine: WideString;
+    PostLine: WideString;
     FUnitPrice: Int64;
 
     function GetTotal2: Int64;
@@ -131,11 +131,11 @@ type
     property Quantity: Double read Data.Quantity write Data.Quantity;
     property Department: Byte read Data.Department write Data.Department;
     property Tax: Byte read Data.Tax write Data.Tax;
-    property Text: string read Data.Text write Data.Text;
+    property Text: WideString read Data.Text write Data.Text;
     property Charge: Int64 read Data.Charge write Data.Charge;
     property Discount: Int64 read Data.Discount write Data.Discount;
     property Barcode: Int64 read Data.Barcode write Data.Barcode;
-    property AdjText: string read Data.AdjText write Data.AdjText;
+    property AdjText: WideString read Data.AdjText write Data.AdjText;
     property UnitPrice: Int64 read FUnitPrice write FUnitPrice;
     property PriceWithDiscount: Int64 read FPriceWithDiscount write FPriceWithDiscount;
   end;
@@ -152,7 +152,7 @@ type
 
   TTLVReceiptItem = class(TReceiptItem)
   public
-    Data: string;
+    Data: WideString;
     procedure Assign(Item: TReceiptItem); override;
   end;
 

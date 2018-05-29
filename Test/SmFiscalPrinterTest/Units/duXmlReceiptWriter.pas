@@ -29,7 +29,7 @@ procedure TXmlReceiptWriterTest.CreateReceiptFile;
 var
   i: Integer;
   R: TReceiptRec;
-  FileName: string;
+  FileName: WideString;
   Document: IXMLDocument;
 begin
   FileName := GetModulePath + 'XmlReceipt3.xml';
@@ -59,7 +59,7 @@ end;
 procedure TXmlReceiptWriterTest.CheckAddTime;
 var
   R: TReceiptRec;
-  FileName: string;
+  FileName: WideString;
   TickCount: Integer;
 begin
   TickCount := GetTickCount;
@@ -87,8 +87,8 @@ end;
 procedure TXmlReceiptWriterTest.CheckWrite;
 var
   R: TReceiptRec;
-  FileName1: string;
-  FileName2: string;
+  FileName1: WideString;
+  FileName2: WideString;
 begin
   FileName1 := GetModulePath + 'XmlReceipt.xml';
   FileName2 := GetModulePath + 'XmlReceipt1.xml';

@@ -139,7 +139,8 @@ uses
   VatCode in '..\..\Source\SmFiscalPrinter\Units\VatCode.pas',
   fmuFptrDirectIOBarcode in '..\..\Source\OposTest\Fmu\fmuFptrDirectIOBarcode.pas' {fmFptrDirectIOBarcode},
   WException in '..\..\Source\Shared\WException.pas',
-  TntIniFiles in '..\..\Source\Shared\TntIniFiles.pas';
+  TntIniFiles in '..\..\Source\Shared\TntIniFiles.pas',
+  DriverError in '..\..\Source\Shared\DriverError.pas';
 
 {$R *.RES}
 

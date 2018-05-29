@@ -34,7 +34,7 @@ object fmCashInProcessing: TfmCashInProcessing
     Caption = 'CashIn processing enabled'
     TabOrder = 0
   end
-  object edtCashInTextPattern: TEdit
+  object edtCashInTextPattern: TTntEdit
     Left = 128
     Top = 48
     Width = 204

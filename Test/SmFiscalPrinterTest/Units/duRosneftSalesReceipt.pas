@@ -41,7 +41,7 @@ end;
 
 procedure TRosneftSalesReceiptTest.TestRegExpr;
 var
-  S: string;
+  S: WideString;
 const
   Card1 = '3% Loyalty 000302992000000040';
   ReplaceStr = 'ÊÀĞÒÀ ÊÎÌÀÍÄÀ 700599######';

@@ -88,7 +88,7 @@ object fmGraph: TfmGraph
       TabOrder = 4
       OnClick = btnMonochrome2Click
     end
-    object pnlImage: TPanel
+    object pnlImage: TTntPanel
       Left = 16
       Top = 16
       Width = 289

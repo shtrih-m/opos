@@ -9,7 +9,7 @@ uses
   TntClasses, TntStdCtrls, TntRegistry,
   // This
   PrinterParameters, FileUtils, LogFile, SmIniFile, Oposhi, WException,
-  TntSysUtils, gnugettext;
+  TntSysUtils, DriverError, gnugettext;
 
 type
   { TPrinterParametersRegIBT }
@@ -20,44 +20,43 @@ type
     FParameters: TPrinterParameters;
     procedure LoadIBTParameters;
     procedure SaveIBTParameters;
-    procedure LoadSysParameters(const DeviceName: string);
-    procedure LoadUsrParameters(const DeviceName: string);
-    procedure SaveSysParameters(const DeviceName: string);
-    procedure SaveUsrParameters(const DeviceName: string);
-    class function GetUsrKeyName(const DeviceName: string): string;
+    procedure LoadSysParameters(const DeviceName: WideString);
+    procedure LoadUsrParameters(const DeviceName: WideString);
+    procedure SaveSysParameters(const DeviceName: WideString);
+    procedure SaveUsrParameters(const DeviceName: WideString);
+    class function GetUsrKeyName(const DeviceName: WideString): WideString;
 
     property Parameters: TPrinterParameters read FParameters;
-    class function GetSysKeyName(const DeviceName: string): string;
+    class function GetSysKeyName(const DeviceName: WideString): WideString;
   public
     constructor Create(AParameters: TPrinterParameters; ALogger: ILogFile);
 
-    procedure Load(const DeviceName: string);
-    procedure Save(const DeviceName: string);
+    procedure Load(const DeviceName: WideString);
+    procedure Save(const DeviceName: WideString);
     property Logger: ILogFile read FLogger;
   end;
 
-function ReadEncodingRegIBT(const DeviceName: string;
+function ReadEncodingRegIBT(const DeviceName: WideString;
   Logger: ILogFile): Integer;
 
 procedure LoadParametersRegIBT(Item: TPrinterParameters;
-  const DeviceName: string; Logger: ILogFile);
+  const DeviceName: WideString; Logger: ILogFile);
 
 procedure SaveParametersRegIBT(Item: TPrinterParameters;
-  const DeviceName: string; Logger: ILogFile);
+  const DeviceName: WideString; Logger: ILogFile);
 
 procedure SaveUsrParametersRegIBT(Item: TPrinterParameters;
-  const DeviceName: string; Logger: ILogFile);
+  const DeviceName: WideString; Logger: ILogFile);
 
 implementation
 
 const
-  REG_KEY_VATCODES      = 'VatCodes';
-  REG_KEY_PAYTYPES   = 'PaymentTypes';
-  MsgKeyOpenError       = 'Error opening registry key: %s';
-  REGSTR_KEY_IBT        = 'SOFTWARE\POSITIVE\POSITIVE32\Terminal';
+  REG_KEY_VATCODES    = 'VatCodes';
+  REG_KEY_PAYTYPES    = 'PaymentTypes';
+  REGSTR_KEY_IBT      = 'SOFTWARE\POSITIVE\POSITIVE32\Terminal';
 
 
-function ReadEncodingRegIBT(const DeviceName: string;
+function ReadEncodingRegIBT(const DeviceName: WideString;
   Logger: ILogFile): Integer;
 var
   P: TPrinterParameters;
@@ -72,7 +71,7 @@ begin
 end;
 
 procedure LoadParametersRegIBT(Item: TPrinterParameters;
-  const DeviceName: string; Logger: ILogFile);
+  const DeviceName: WideString; Logger: ILogFile);
 var
   Reader: TPrinterParametersRegIBT;
 begin
@@ -85,7 +84,7 @@ begin
 end;
 
 procedure SaveParametersRegIBT(Item: TPrinterParameters;
-  const DeviceName: string; Logger: ILogFile);
+  const DeviceName: WideString; Logger: ILogFile);
 var
   Writer: TPrinterParametersRegIBT;
 begin
@@ -98,7 +97,7 @@ begin
 end;
 
 procedure SaveUsrParametersRegIBT(Item: TPrinterParameters;
-  const DeviceName: string; Logger: ILogFile);
+  const DeviceName: WideString; Logger: ILogFile);
 var
   Writer: TPrinterParametersRegIBT;
 begin
@@ -120,12 +119,12 @@ begin
   FLogger := ALogger;
 end;
 
-class function TPrinterParametersRegIBT.GetSysKeyName(const DeviceName: string): string;
+class function TPrinterParametersRegIBT.GetSysKeyName(const DeviceName: WideString): WideString;
 begin
   Result := Tnt_WideFormat('%s\%s\%s', [OPOS_ROOTKEY, OPOS_CLASSKEY_FPTR, DeviceName]);
 end;
 
-procedure TPrinterParametersRegIBT.Load(const DeviceName: string);
+procedure TPrinterParametersRegIBT.Load(const DeviceName: WideString);
 begin
   try
     LoadIBTParameters;
@@ -139,7 +138,7 @@ begin
   end;
 end;
 
-procedure TPrinterParametersRegIBT.Save(const DeviceName: string);
+procedure TPrinterParametersRegIBT.Save(const DeviceName: WideString);
 begin
   try
     SaveIBTParameters;
@@ -197,13 +196,13 @@ begin
   end;
 end;
 
-procedure TPrinterParametersRegIBT.LoadSysParameters(const DeviceName: string);
+procedure TPrinterParametersRegIBT.LoadSysParameters(const DeviceName: WideString);
 var
   i: Integer;
   Reg: TTntRegistry;
   Names: TTntStrings;
-  KeyName: string;
-  PayTypeText: string;
+  KeyName: WideString;
+  PayTypeText: WideString;
   PayTypeCode: Integer;
   AppVatCode: Integer;
   FptrVatCode: Integer;
@@ -560,11 +559,11 @@ begin
   end;
 end;
 
-procedure TPrinterParametersRegIBT.SaveSysParameters(const DeviceName: string);
+procedure TPrinterParametersRegIBT.SaveSysParameters(const DeviceName: WideString);
 var
   i: Integer;
   Reg: TTntRegistry;
-  KeyName: string;
+  KeyName: WideString;
 begin
   Reg := TTntRegistry.Create;
   try
@@ -572,7 +571,7 @@ begin
     Reg.RootKey := HKEY_LOCAL_MACHINE;
     KeyName := GetSysKeyName(DeviceName);
     if not Reg.OpenKey(KeyName, True) then
-      raiseExceptionFmt(MsgKeyOpenError, [KeyName]);
+      raiseOpenKeyError(KeyName);
 
     Reg.WriteString('', FiscalPrinterProgID);
     Reg.WriteInteger('ComNumber', Parameters.PortNumber);
@@ -707,12 +706,12 @@ begin
   end;
 end;
 
-class function TPrinterParametersRegIBT.GetUsrKeyName(const DeviceName: string): string;
+class function TPrinterParametersRegIBT.GetUsrKeyName(const DeviceName: WideString): WideString;
 begin
   Result := Tnt_WideFormat('%s\%s\%s', [OPOS_ROOTKEY, OPOS_CLASSKEY_FPTR, DeviceName]);
 end;
 
-procedure TPrinterParametersRegIBT.LoadUsrParameters(const DeviceName: string);
+procedure TPrinterParametersRegIBT.LoadUsrParameters(const DeviceName: WideString);
 var
   Reg: TTntRegistry;
 begin
@@ -752,7 +751,7 @@ begin
   end;
 end;
 
-procedure TPrinterParametersRegIBT.SaveUsrParameters(const DeviceName: string);
+procedure TPrinterParametersRegIBT.SaveUsrParameters(const DeviceName: WideString);
 var
   Reg: TTntRegistry;
 begin

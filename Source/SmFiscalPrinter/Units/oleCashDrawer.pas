@@ -13,7 +13,7 @@ uses
   FiscalPrinterDevice, CashDrawerParameters, LogFile, SharedPrinter,
   PrinterTypes, FiscalPrinterTypes, ServiceVersion, StringUtils,
   OposEventsRCS, OposEventsNull, NotifyLink, PrinterParameters,
-  DriverError, WException, gnugettext;
+  DriverError, WException, gnugettext, TranslationUtil;
 
 type
   { ToleCashDrawer }
@@ -770,6 +770,7 @@ begin
 end;
 
 initialization
+  SetTranslationLanguage;
   ComServer.SetServerName('OposShtrih');
   TAutoObjectFactory.Create(ComServer, ToleCashDrawer, Class_CashDrawer,
     ciMultiInstance, tmApartment);

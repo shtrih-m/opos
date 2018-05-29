@@ -20,7 +20,7 @@ type
     btnWideLoadLineData: TTntButton;
     btnMonochrome1: TTntButton;
     btnMonochrome2: TTntButton;
-    pnlImage: TPanel;
+    pnlImage: TTntPanel;
     Image: TImage;
     ProgressBar: TProgressBar;
     btnOpenPicture: TTntBitBtn;

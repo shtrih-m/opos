@@ -895,6 +895,18 @@ type
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
+  { TDIOStartCorrection }
+
+  TDIOStartCorrection = class(TDIOHandler)
+  private
+    FPrinter: TFiscalPrinterImpl;
+  public
+    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
+      APrinter: TFiscalPrinterImpl);
+
+    procedure DirectIO(var pData: Integer; var pString: WideString); override;
+  end;
+
 implementation
 
 function BoolToStr(Value: Boolean): string;
@@ -2481,7 +2493,7 @@ end;
 procedure TDIOReadCashDrawerState.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
-  pData := BoolToInt[FPrinter.Device.GetPrinterStatus.Flags.DrawerOpened];
+  pData := BoolToInt[FPrinter.Device.ReadPrinterStatus.Flags.DrawerOpened];
 end;
 
 { TDIOFSFiscalize }
@@ -2676,6 +2688,21 @@ procedure TDIOCheckMarking.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
   FPrinter.Device.Check(FPrinter.Device.CheckItemBarcode(pString));
+end;
+
+{ TDIOStartCorrection }
+
+constructor TDIOStartCorrection.CreateCommand(AOwner: TDIOHandlers;
+  ACommand: Integer; APrinter: TFiscalPrinterImpl);
+begin
+  inherited Create(AOwner, ACommand);
+  FPrinter := APrinter;
+end;
+
+procedure TDIOStartCorrection.DirectIO(var pData: Integer;
+  var pString: WideString);
+begin
+  FPrinter.Device.Check(FPrinter.Device.FSStartCorrectionReceipt);
 end;
 
 end.

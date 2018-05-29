@@ -12,8 +12,8 @@ type
   { TMalinaParamsRec }
 
   TMalinaParamsRec = record
-    SaleText: string;         // Перечислено Малина
-    CardPrefix: string;       // Номер карты:
+    SaleText: WideString;         // Перечислено Малина
+    CardPrefix: WideString;       // Номер карты:
     MalinaCoeff: Double;      // Коэффициент
     MalinaPoints: Integer;    // Количество баллов
   end;
@@ -22,16 +22,16 @@ type
 
   TMalinaReceipt = class
   public
-    class function CreateReceipt(const Params: TMalinaParamsRec): string;
+    class function CreateReceipt(const Params: TMalinaParamsRec): WideString;
   end;
 
 implementation
 
 { TMalinaReceipt }
 
-class function TMalinaReceipt.CreateReceipt(const Params: TMalinaParamsRec): string;
+class function TMalinaReceipt.CreateReceipt(const Params: TMalinaParamsRec): WideString;
 var
-  Line: string;
+  Line: WideString;
   Points: Integer;
   Lines: TTntStrings;
 begin

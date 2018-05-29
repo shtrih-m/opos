@@ -33,11 +33,12 @@ implementation
 
 procedure TfmFptrDirectIOFS.btnReadFSDocumentClick(Sender: TObject);
 var
-  S: string;
+  S: WideString;
 begin
   EnableButtons(False);
   try
-    FiscalPrinter.Check(FiscalPrinter.ReadFSDocument(seDocumentNumber.Value, S));
+    Memo.Clear;
+    FiscalPrinter.ReadFSDocument(seDocumentNumber.Value, S);
     Memo.Text := S;
   finally
     EnableButtons(True);
@@ -48,7 +49,7 @@ procedure TfmFptrDirectIOFS.btnPrintFSDocumentClick(Sender: TObject);
 begin
   EnableButtons(False);
   try
-    FiscalPrinter.Check(FiscalPrinter.PrintFSDocument(seDocumentNumber.Value));
+    FiscalPrinter.PrintFSDocument(seDocumentNumber.Value);
   finally
     EnableButtons(True);
   end;
