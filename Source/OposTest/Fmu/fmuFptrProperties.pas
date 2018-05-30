@@ -17,9 +17,9 @@ type
     Memo: TTntMemo;
     procedure btnRefreshClick(Sender: TObject);
   private
-    function GetPropVal(const PropertyName: WideString): string;
+    function GetPropVal(const PropertyName: WideString): WideString;
     procedure UpdateProps;
-    procedure AddProp(const PropName: string; PropText: string = '');
+    procedure AddProp(const PropName: WideString; PropText: WideString = '');
   public
     procedure UpdateForm;
   end;
@@ -282,7 +282,7 @@ CapPositiveSubtotalAdjustment
 
 *)
 
-function TfmFptrProperties.GetPropVal(const PropertyName: WideString): string;
+function TfmFptrProperties.GetPropVal(const PropertyName: WideString): WideString;
 var
   Value: Variant;
   Intf: IDispatch;
@@ -307,7 +307,7 @@ end;
 
 procedure TfmFptrProperties.UpdateForm;
 var
-  S: string;
+  S: WideString;
   i: Integer;
   TypeAttr: PTypeAttr;
   Dispatch: IDispatch;
@@ -342,9 +342,9 @@ begin
   end;
 end;
 
-procedure TfmFptrProperties.AddProp(const PropName: string; PropText: string);
+procedure TfmFptrProperties.AddProp(const PropName: WideString; PropText: WideString);
 var
-  Line: string;
+  Line: WideString;
 begin
   Line := GetPropVal(PropName);
   Line := Tnt_WideFormat('%-30s: %s', [PropName, Line]);

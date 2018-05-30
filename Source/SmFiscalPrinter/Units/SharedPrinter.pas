@@ -30,7 +30,7 @@ type
   private
     FOpened: Boolean;
     FConnectCount: Integer;
-    FDeviceName: string;
+    FDeviceName: WideString;
     FConnected: Boolean;
     FCheckTotal: Boolean;
     FHeader: TFixedStrings;
@@ -47,8 +47,8 @@ type
     FStatusLinks: TNotifyLinks;
     FConnectLinks: TNotifyLinks;
     FStation: Integer;
-    FPreLine: string;
-    FPostLine: string;
+    FPreLine: WideString;
+    FPostLine: WideString;
     FNumHeaderLines: Integer;
     FNumTrailerLines: Integer;
     FEJStatus1: TEJStatus1;
@@ -70,7 +70,7 @@ type
     function ReadRecFormatItem(Row: Integer): TRecFormatItem;
     function ReadRecFormatTable: TRecFormatTable;
     function CreateConnection: IPrinterConnection;
-    function GetDeviceName: string;
+    function GetDeviceName: WideString;
     function GetCheckTotal: Boolean;
     procedure SetCheckTotal(const Value: Boolean);
     function GetHeader: TFixedStrings;
@@ -81,12 +81,12 @@ type
     procedure SetPollEnabled(const Value: Boolean);
     procedure DeviceProc(Sender: TObject);
     function GetStatusLinks: TNotifyLinks;
-    function GetPostLine: string;
-    function GetPreLine: string;
-    procedure SetPostLine(const Value: string);
-    procedure SetPreLine(const Value: string);
-    function GetSeparatorData(SeparatorType, PrintWidth: Integer): string;
-    procedure LoadParams(const DeviceName: string);
+    function GetPostLine: WideString;
+    function GetPreLine: WideString;
+    procedure SetPostLine(const Value: WideString);
+    procedure SetPreLine(const Value: WideString);
+    function GetSeparatorData(SeparatorType, PrintWidth: Integer): WideString;
+    procedure LoadParams(const DeviceName: WideString);
     function GetNumHeaderLines: Integer;
     function GetNumTrailerLines: Integer;
     function GetDeviceMetrics: TDeviceMetrics;
@@ -96,21 +96,21 @@ type
     procedure DeviceDisconnect(Sender: TObject);
     function GetAppAmountDecimalPlaces: Integer;
     function GetDevice: IFiscalPrinterDevice;
-    procedure SetDeviceName(const Value: string);
+    procedure SetDeviceName(const Value: WideString);
     procedure SleepEx(TimeinMilliseconds: Integer);
     function GetLogger: ILogFile;
     function CreateProtocol(Port: IPrinterPort): IPrinterConnection;
     procedure DevicePrinterStatus(Sender: TObject);
     procedure PingProc(Sender: TObject);
   public
-    constructor Create(const ADeviceName: string);
+    constructor Create(const ADeviceName: WideString);
     destructor Destroy; override;
 
-    function FormatText(const Value: string;
-      RecFormatSize: Integer): string;
+    function FormatText(const Value: WideString;
+      RecFormatSize: Integer): WideString;
 
     procedure ProgressEvent(Progress: Integer);
-    procedure Open(const DeviceName: string);
+    procedure Open(const DeviceName: WideString);
     procedure Close;
     procedure ReleaseDevice;
     procedure ClaimDevice(Timeout: Integer);
@@ -133,29 +133,29 @@ type
     procedure RetBuy(Operation: TPriceReg);
     procedure Storno(Operation: TPriceReg);
     procedure RetSale(Operation: TPriceReg);
-    procedure PrintRecText(const Text: string);
-    procedure LoadLogo(const FileName: string);
-    procedure PrintLines(const Line1, Line2: string);
+    procedure PrintRecText(const Text: WideString);
+    procedure LoadLogo(const FileName: WideString);
+    procedure PrintLines(const Line1, Line2: WideString);
     procedure ReceiptClose(Params: TCloseReceiptParams);
     procedure ReceiptCharge(Operation: TAmountOperation);
     procedure ReceiptDiscount(Operation: TAmountOperation);
-    procedure PrintLine(Stations: Integer; const Line: string);
+    procedure PrintLine(Stations: Integer; const Line: WideString);
 
-    procedure PrintText(const Text: string); overload;
-    procedure PrintText(Station: Integer; const Text: string); overload;
-    procedure PrintText(const Text: string; Station, Font: Integer;
+    procedure PrintText(const Text: WideString); overload;
+    procedure PrintText(Station: Integer; const Text: WideString); overload;
+    procedure PrintText(const Text: WideString; Station, Font: Integer;
       Alignment: TTextAlignment = taLeft); overload;
 
 
-    procedure PrintBoldString(Flags: Byte; const Text: string);
+    procedure PrintBoldString(Flags: Byte; const Text: WideString);
     procedure ReceiptStornoDiscount(Operation: TAmountOperation);
     procedure ReceiptStornoCharge(Operation: TAmountOperation);
-    procedure PrintCurrency(const Line: string; Value: Currency);
-    procedure PrintDocHeader(const DocName: string; DocNumber: Word);
-    procedure PrintImage(const FileName: string);
-    procedure PrintImageScale(const FileName: string; Scale: Integer);
+    procedure PrintCurrency(const Line: WideString; Value: Currency);
+    procedure PrintDocHeader(const DocName: WideString; DocNumber: Word);
+    procedure PrintImage(const FileName: WideString);
+    procedure PrintImageScale(const FileName: WideString; Scale: Integer);
 
-    function FormatBoldLines(const Line1, Line2: string): string;
+    function FormatBoldLines(const Line1, Line2: WideString): WideString;
     procedure AddStatusLink(Link: TNotifyLink);
     procedure AddConnectLink(Link: TNotifyLink);
     procedure RemoveStatusLink(Link: TNotifyLink);
@@ -169,12 +169,12 @@ type
     function CurrencyToInt(Value: Currency): Int64;
     function IntToCurrency(Value: Int64): Currency;
     function IsDecimalPoint: Boolean;
-    function CurrencyToStr(Value: Currency): string;
+    function CurrencyToStr(Value: Currency): WideString;
     function GetFilter: TEscFilter;
 
     procedure ReleasePrinter;
     procedure ClaimPrinter(Timeout: Integer);
-    function GetPrinterSemaphoreName: string;
+    function GetPrinterSemaphoreName: WideString;
     procedure SetDevice(Value: IFiscalPrinterDevice);
     function GetConnection: IPrinterConnection;
     procedure SetConnection(const Value: IPrinterConnection);
@@ -193,8 +193,8 @@ type
     property CheckTotal: Boolean read GetCheckTotal write SetCheckTotal;
     property OnProgress: TProgressEvent read GetOnProgress write SetOnProgress;
     property PollEnabled: Boolean read GetPollEnabled write SetPollEnabled;
-    property PreLine: string read GetPreLine write SetPreLine;
-    property PostLine: string read GetPostLine write SetPostLine;
+    property PreLine: WideString read GetPreLine write SetPreLine;
+    property PostLine: WideString read GetPostLine write SetPostLine;
     property NumHeaderLines: Integer read GetNumHeaderLines;
     property NumTrailerLines: Integer read GetNumTrailerLines;
     property DeviceMetrics: TDeviceMetrics read GetDeviceMetrics;
@@ -202,16 +202,16 @@ type
     property EJStatus1: TEJStatus1 read GetEJStatus1;
     property EJActivation: TEJActivation read GetEJActivation;
     property ConnectLinks: TNotifyLinks read FConnectLinks;
-    property DeviceName: string read GetDeviceName write SetDeviceName;
+    property DeviceName: WideString read GetDeviceName write SetDeviceName;
     property Parameters: TPrinterParameters read GetParameters;
     property Logger: ILogFile read GetLogger;
   end;
 
-function GetPrinter(const DeviceName: string): ISharedPrinter;
+function GetPrinter(const DeviceName: WideString): ISharedPrinter;
 
 implementation
 
-function GetStringsCount(const Text: string): Integer;
+function GetStringsCount(const Text: WideString): Integer;
 var
   Strings: TTntStrings;
 begin
@@ -252,7 +252,7 @@ begin
   end;
 end;
 
-function GetPrinter(const DeviceName: string): ISharedPrinter;
+function GetPrinter(const DeviceName: WideString): ISharedPrinter;
 var
   i: Integer;
 begin
@@ -275,7 +275,7 @@ end;
 
 { TSharedPrinter }
 
-constructor TSharedPrinter.Create(const ADeviceName: string);
+constructor TSharedPrinter.Create(const ADeviceName: WideString);
 begin
   inherited Create;
   FDeviceName := ADeviceName;
@@ -388,12 +388,12 @@ begin
   FCheckTotal := Value;
 end;
 
-function TSharedPrinter.GetDeviceName: string;
+function TSharedPrinter.GetDeviceName: WideString;
 begin
   Result := FDeviceName;
 end;
 
-procedure TSharedPrinter.SetDeviceName(const Value: string);
+procedure TSharedPrinter.SetDeviceName(const Value: WideString);
 begin
   FDeviceName := Value;
 end;
@@ -461,7 +461,7 @@ begin
   Logger.Error('TSharedPrinter.Close.1');
 end;
 
-procedure TSharedPrinter.Open(const DeviceName: string);
+procedure TSharedPrinter.Open(const DeviceName: WideString);
 begin
   if Opened then Exit;
 
@@ -488,7 +488,7 @@ begin
   LoadParams(DeviceName);
 end;
 
-procedure TSharedPrinter.LoadParams(const DeviceName: string);
+procedure TSharedPrinter.LoadParams(const DeviceName: WideString);
 begin
   LoadParameters(Parameters, DeviceName, Logger);
   Logger.MaxCount := Parameters.LogMaxCount;
@@ -787,17 +787,17 @@ begin
   end;
 end;
 
-procedure TSharedPrinter.PrintLines(const Line1, Line2: string);
+procedure TSharedPrinter.PrintLines(const Line1, Line2: WideString);
 begin
   PrintRecText(Device.FormatLines(Line1, Line2));
 end;
 
-procedure TSharedPrinter.PrintLine(Stations: Integer; const Line: string);
+procedure TSharedPrinter.PrintLine(Stations: Integer; const Line: WideString);
 begin
   Device.PrintStringFont(Stations, Parameters.FontNumber, Line);
 end;
 
-procedure TSharedPrinter.PrintText(const Text: string);
+procedure TSharedPrinter.PrintText(const Text: WideString);
 var
   Data: TTextREc;
 begin
@@ -809,7 +809,7 @@ begin
   Device.PrintText(Data);
 end;
 
-procedure TSharedPrinter.PrintText(Station: Integer; const Text: string);
+procedure TSharedPrinter.PrintText(Station: Integer; const Text: WideString);
 var
   Data: TTextREc;
 begin
@@ -821,7 +821,7 @@ begin
   Device.PrintText(Data);
 end;
 
-procedure TSharedPrinter.PrintText(const Text: string;
+procedure TSharedPrinter.PrintText(const Text: WideString;
   Station, Font: Integer; Alignment: TTextAlignment = taLeft);
 var
   Data: TTextREc;
@@ -834,12 +834,12 @@ begin
   Device.PrintText(Data);
 end;
 
-procedure TSharedPrinter.PrintRecText(const Text: string);
+procedure TSharedPrinter.PrintRecText(const Text: WideString);
 begin
   PrintText(Text);
 end;
 
-procedure TSharedPrinter.PrintCurrency(const Line: string; Value: Currency);
+procedure TSharedPrinter.PrintCurrency(const Line: WideString; Value: Currency);
 begin
   PrintRecText(Device.FormatLines(Line, '=' + CurrencyToStr(Value)));
 end;
@@ -849,7 +849,7 @@ begin
   PrintLine(GetStation, Parameters.VoidRecText);
 end;
 
-procedure TSharedPrinter.PrintDocHeader(const DocName: string;
+procedure TSharedPrinter.PrintDocHeader(const DocName: WideString;
   DocNumber: Word);
 begin
   Device.PrintDocHeader(DocName, DocNumber);
@@ -877,12 +877,12 @@ begin
   Device.Check(Value);
 end;
 
-function TSharedPrinter.FormatBoldLines(const Line1, Line2: string): string;
+function TSharedPrinter.FormatBoldLines(const Line1, Line2: WideString): WideString;
 begin
   Result := Device.FormatBoldLines(Line1, Line2);
 end;
 
-procedure TSharedPrinter.PrintBoldString(Flags: Byte; const Text: string);
+procedure TSharedPrinter.PrintBoldString(Flags: Byte; const Text: WideString);
 begin
   Device.PrintBoldString(Flags, Text);
 end;
@@ -907,8 +907,8 @@ begin
   Device.Check(Device.ReceiptCancel);
 end;
 
-function TSharedPrinter.FormatText(const Value: string;
-  RecFormatSize: Integer): string;
+function TSharedPrinter.FormatText(const Value: WideString;
+  RecFormatSize: Integer): WideString;
 begin
   if Device.Tables.Params.RecFormatEnabled then
   begin
@@ -1019,7 +1019,7 @@ begin
     FOnProgress(Progress);
 end;
 
-procedure TSharedPrinter.LoadLogo(const FileName: string);
+procedure TSharedPrinter.LoadLogo(const FileName: WideString);
 var
   ImageHeight: Integer;
 begin
@@ -1030,7 +1030,7 @@ begin
   SaveParameters;
 end;
 
-procedure TSharedPrinter.PrintImage(const FileName: string);
+procedure TSharedPrinter.PrintImage(const FileName: WideString);
 var
   StartLine: Integer;
 begin
@@ -1042,7 +1042,7 @@ begin
   Device.PrintImage(FileName, StartLine);
 end;
 
-procedure TSharedPrinter.PrintImageScale(const FileName: string; Scale: Integer);
+procedure TSharedPrinter.PrintImageScale(const FileName: WideString; Scale: Integer);
 var
   StartLine: Integer;
 begin
@@ -1179,22 +1179,22 @@ begin
   FStation := Value;
 end;
 
-function TSharedPrinter.GetPostLine: string;
+function TSharedPrinter.GetPostLine: WideString;
 begin
   Result := FPostLine;
 end;
 
-function TSharedPrinter.GetPreLine: string;
+function TSharedPrinter.GetPreLine: WideString;
 begin
   Result := FPreLine;
 end;
 
-procedure TSharedPrinter.SetPostLine(const Value: string);
+procedure TSharedPrinter.SetPostLine(const Value: WideString);
 begin
   FPostLine := Value;
 end;
 
-procedure TSharedPrinter.SetPreLine(const Value: string);
+procedure TSharedPrinter.SetPreLine(const Value: WideString);
 begin
   FPreLine := Value;
 end;
@@ -1208,14 +1208,14 @@ begin
 end;
 
 function TSharedPrinter.GetSeparatorData(
-  SeparatorType, PrintWidth: Integer): string;
+  SeparatorType, PrintWidth: Integer): WideString;
 const
   SEPARATOR_PATTERN_BLACK    = #$FF;
   SEPARATOR_PATTERN_WHITE    = #$00;
   SEPARATOR_PATTERN_DOTTED_1 = #$FF#$FF#$FF#$00#$00#$00;
   SEPARATOR_PATTERN_DOTTED_2 = #$FF#$FF#$FF#$FF#$00#$00#$00#$00;
 var
-  Pattern: string;
+  Pattern: WideString;
 begin
   case SeparatorType of
     DIO_SEPARATOR_BLACK    : Pattern := SEPARATOR_PATTERN_BLACK;
@@ -1234,7 +1234,7 @@ end;
 procedure TSharedPrinter.PrintSeparator(
   SeparatorType, SeparatorHeight: Integer);
 var
-  Data: string;
+  Data: WideString;
 begin
   Data := GetSeparatorData(SeparatorType, GetPrintWidthInDots div 8);
   Check(Device.PrintBarLine(SeparatorHeight, Data));
@@ -1270,7 +1270,7 @@ begin
   end;
 end;
 
-function TSharedPrinter.CurrencyToStr(Value: Currency): string;
+function TSharedPrinter.CurrencyToStr(Value: Currency): WideString;
 var
   SaveDecimalSeparator: Char;
 begin
@@ -1289,7 +1289,7 @@ begin
   end;
 end;
 
-function TSharedPrinter.GetPrinterSemaphoreName: string;
+function TSharedPrinter.GetPrinterSemaphoreName: WideString;
 begin
   Result := 'PrinterSemaphore_' + FDeviceName;
 end;

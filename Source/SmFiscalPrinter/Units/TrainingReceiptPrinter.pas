@@ -52,7 +52,7 @@ type
     function ReadOperatingRegister(ID: Byte): Word;
     procedure PrintSubtotal;
     procedure PrintText(const Data: TTextRec); overload;
-    procedure PrintText2(const Text: string; Station, Font: Integer;
+    procedure PrintText2(const Text: WideString; Station, Font: Integer;
       Alignment: TTextAlignment);
     function GetTables: TDeviceTables;
     function OpenReceipt(ReceiptType: Byte): Integer;
@@ -64,7 +64,7 @@ type
 implementation
 
 
-function GetTaxLetter(Tax: Integer): string;
+function GetTaxLetter(Tax: Integer): WideString;
 const
   TaxLetter = '¿¡¬√';
 begin
@@ -73,7 +73,7 @@ begin
     Result := TaxLetter[Tax];
 end;
 
-function GetTaxLetters(Tax1, Tax2, Tax3, Tax4: Integer): string;
+function GetTaxLetters(Tax1, Tax2, Tax3, Tax4: Integer): WideString;
 begin
   Result := '';
   Result := Result + GetTaxLetter(Tax1);
@@ -107,7 +107,7 @@ end;
 
 procedure TTrainingReceiptPrinter.PrintMode;
 var
-  Line: string;
+  Line: WideString;
   L1, L2: Integer;
 begin
   Line := Parameters.GetPrinterMessage(MsgTrainModeText);
@@ -136,7 +136,7 @@ end;
 
 procedure TTrainingReceiptPrinter.Sale(Operation: TPriceReg);
 var
-  S: string;
+  S: WideString;
   Total: Int64;
 begin
   OpenReceipt(RecTypeSale);
@@ -152,7 +152,7 @@ end;
 
 procedure TTrainingReceiptPrinter.Buy(Operation: TPriceReg);
 var
-  S: string;
+  S: WideString;
   Total: Int64;
 begin
   OpenReceipt(RecTypeBuy);
@@ -167,7 +167,7 @@ end;
 
 procedure TTrainingReceiptPrinter.RetBuy(Operation: TPriceReg);
 var
-  S: string;
+  S: WideString;
   Total: Int64;
 begin
   OpenReceipt(RecTypeRetBuy);
@@ -194,7 +194,7 @@ end;
 
 procedure TTrainingReceiptPrinter.ReceiptClose(Params: TCloseReceiptParams);
 var
-  Line: string;
+  Line: WideString;
   CashAmount: Int64;
   ChangeAmount: Int64;
   CashlessAmount: Int64;
@@ -240,8 +240,8 @@ end;
 
 procedure TTrainingReceiptPrinter.ReceiptDiscount(Operation: TAmountOperation);
 var
-  S1: string;
-  S2: string;
+  S1: WideString;
+  S2: WideString;
 begin
   CheckRecOpened;
   Printer.PrintRecText(Operation.Text);
@@ -254,8 +254,8 @@ end;
 
 procedure TTrainingReceiptPrinter.ReceiptCharge(Operation: TAmountOperation);
 var
-  S1: string;
-  S2: string;
+  S1: WideString;
+  S2: WideString;
 begin
   CheckRecOpened;
   Printer.PrintRecText(Operation.Text);
@@ -268,7 +268,7 @@ end;
 
 procedure TTrainingReceiptPrinter.RetSale(Operation: TPriceReg);
 var
-  S: string;
+  S: WideString;
   Total: Int64;
 begin
   OpenReceipt(RecTypeRetSale);
@@ -298,8 +298,8 @@ end;
 procedure TTrainingReceiptPrinter.ReceiptStornoDiscount(
   Operation: TAmountOperation);
 var
-  S1: string;
-  S2: string;
+  S1: WideString;
+  S2: WideString;
 begin
   CheckRecOpened;
   Printer.PrintRecText(Operation.Text);
@@ -313,8 +313,8 @@ end;
 procedure TTrainingReceiptPrinter.ReceiptStornoCharge(
   Operation: TAmountOperation);
 var
-  S1: string;
-  S2: string;
+  S1: WideString;
+  S2: WideString;
 begin
   CheckRecOpened;
   Printer.PrintRecText(Operation.Text);
@@ -358,7 +358,7 @@ begin
   Device.PrintText(Data);
 end;
 
-procedure TTrainingReceiptPrinter.PrintText2(const Text: string; Station,
+procedure TTrainingReceiptPrinter.PrintText2(const Text: WideString; Station,
   Font: Integer; Alignment: TTextAlignment);
 begin
 

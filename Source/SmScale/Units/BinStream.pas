@@ -11,8 +11,8 @@ type
 
   TBinStream = class(TMemoryStream)
   private
-    function GetData: string;
-    procedure SetData(const Value: string);
+    function GetData: AnsiString;
+    procedure SetData(const Value: AnsiString);
   public
     function ReadByte: Byte;
     function ReadWord: Word;
@@ -21,20 +21,20 @@ type
     procedure WriteByte(Value: Byte);
     procedure WriteWORD(Value: WORD);
     procedure WriteDWORD(Value: DWORD);
-    function ReadString: string; overload;
-    function ReadString(Size: Integer): string; overload;
+    function ReadString: AnsiString; overload;
+    function ReadString(Size: Integer): AnsiString; overload;
     function ReadInt(Size: Integer): Int64; overload;
     procedure WriteInt(Value: Int64; Size: Integer); overload;
-    procedure WriteString(const Data: string); overload;
+    procedure WriteString(const Data: AnsiString); overload;
 
-    property Data: string read GetData write SetData;
+    property Data: AnsiString read GetData write SetData;
   end;
 
 implementation
 
 { TBinStream }
 
-function TBinStream.GetData: string;
+function TBinStream.GetData: AnsiString;
 begin
   Result := '';
   Position := 0;
@@ -45,7 +45,7 @@ begin
   end;
 end;
 
-procedure TBinStream.SetData(const Value: string);
+procedure TBinStream.SetData(const Value: AnsiString);
 begin
   Clear;
   if Length(Value) > 0 then
@@ -101,13 +101,13 @@ begin
   Write(Value, Size);
 end;
 
-procedure TBinStream.WriteString(const Data: string);
+procedure TBinStream.WriteString(const Data: AnsiString);
 begin
   if Length(Data) > 0 then
     Write(Data[1], Length(Data));
 end;
 
-function TBinStream.ReadString(Size: Integer): string;
+function TBinStream.ReadString(Size: Integer): AnsiString;
 begin
   Result := '';
   if Size > 0 then
@@ -117,7 +117,7 @@ begin
   end;
 end;
 
-function TBinStream.ReadString: string;
+function TBinStream.ReadString: AnsiString;
 var
   Len: Integer;
 begin

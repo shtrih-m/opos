@@ -69,7 +69,6 @@ uses
   fmuFptrUnipos in 'Fmu\fmuFptrUnipos.pas' {fmFptrUnipos},
   SettingsParams in '..\SmFiscalPrinter\Units\SettingsParams.pas',
   fmuFptrHeader in 'Fmu\fmuFptrHeader.pas' {fmFptrHeader},
-  TlvSender in '..\Shared\TlvSender.pas',
   fmuFptrPawnTicket in 'Fmu\fmuFptrPawnTicket.pas' {fmFptrPawnTicket},
   fmuFiscalStorage in 'Fmu\fmuFiscalStorage.pas' {fmFiscalStorage},
   RegExpr in '..\SmFiscalPrinter\Units\RegExpr.pas',

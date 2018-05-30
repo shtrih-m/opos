@@ -17,7 +17,7 @@ type
     constructor Create(ADevice: IFiscalPrinterDevice);
 
     procedure Close;
-    procedure Open(const DeviceName: string);
+    procedure Open(const DeviceName: WideString);
     procedure ReleaseDevice;
     procedure ClaimDevice(Timeout: Integer);
     procedure SetDevice(Value: IFiscalPrinterDevice);
@@ -33,21 +33,21 @@ type
     function GetPrintWidthInDots: Integer;
     function WaitForPrinting: TPrinterStatus;
     procedure PrintCancelReceipt;
-    procedure PrintCurrency(const Line: string; Value: Currency);
-    procedure PrintDocHeader(const DocName: string; DocNumber: Word);
+    procedure PrintCurrency(const Line: WideString; Value: Currency);
+    procedure PrintDocHeader(const DocName: WideString; DocNumber: Word);
     procedure PrintFakeReceipt;
-    procedure PrintLine(Stations: Integer; const Line: string);
-    procedure PrintLines(const Line1, Line2: string);
-    procedure PrintRecText(const Text: string);
+    procedure PrintLine(Stations: Integer; const Line: WideString);
+    procedure PrintLines(const Line1, Line2: WideString);
+    procedure PrintRecText(const Text: WideString);
 
-    procedure PrintText(const Text: string); overload;
-    procedure PrintText(Station: Integer; const Text: string); overload;
-    procedure PrintText(const Text: string; Station: Integer;
+    procedure PrintText(const Text: WideString); overload;
+    procedure PrintText(Station: Integer; const Text: WideString); overload;
+    procedure PrintText(const Text: WideString; Station: Integer;
       Font: Integer; Alignment: TTextAlignment); overload;
 
     procedure Check(Value: Integer);
-    function FormatBoldLines(const Line1, Line2: string): string;
-    procedure PrintBoldString(Flags: Byte; const Text: string);
+    function FormatBoldLines(const Line1, Line2: WideString): WideString;
+    procedure PrintBoldString(Flags: Byte; const Text: WideString);
     procedure PrintZReport;
     procedure ReceiptCancel;
     procedure CashIn(Amount: Int64);
@@ -64,18 +64,18 @@ type
     procedure ReceiptStornoCharge(Operation: TAmountOperation);
     procedure PrintSubtotal(Value: Int64);
     procedure WriteLogParameters;
-    function GetDeviceName: string;
+    function GetDeviceName: WideString;
     function GetDevice: IFiscalPrinterDevice;
     function GetParameters: TPrinterParameters;
     function GetCheckTotal: Boolean;
     procedure SetCheckTotal(const Value: Boolean);
     function GetHeader: TFixedStrings;
     function GetTrailer: TFixedStrings;
-    function GetAdditionalTrailer: string;
+    function GetAdditionalTrailer: WideString;
     function GetPrinterStatus: TPrinterStatus;
-    procedure SetAdditionalTrailer(const Value: string);
+    procedure SetAdditionalTrailer(const Value: WideString);
     function IsReceiptOpened: Boolean;
-    procedure LoadLogo(const FileName: string);
+    procedure LoadLogo(const FileName: WideString);
     procedure SetOnProgress(const Value: TProgressEvent);
     function GetOnProgress: TProgressEvent;
     function GetPollEnabled: Boolean;
@@ -87,11 +87,11 @@ type
     function GetIsOnline: Boolean;
     function GetStation: Integer;
     procedure SetStation(Value: Integer);
-    function GetPostLine: string;
-    function GetPreLine: string;
-    procedure SetPostLine(const Value: string);
-    procedure SetPreLine(const Value: string);
-    function PrintBarLine(Height: Word; Data: string): Integer;
+    function GetPostLine: WideString;
+    function GetPreLine: WideString;
+    procedure SetPostLine(const Value: WideString);
+    procedure SetPreLine(const Value: WideString);
+    function PrintBarLine(Height: Word; Data: WideString): Integer;
     procedure PrintLogo;
     procedure PrintSeparator(SeparatorType, SeparatorHeight: Integer);
     function GetNumHeaderLines: Integer;
@@ -105,27 +105,27 @@ type
     function IsDecimalPoint: Boolean;
     function IntToCurrency(Value: Int64): Currency;
     function CurrencyToInt(Value: Currency): Int64;
-    function CurrencyToStr(Value: Currency): string;
-    procedure PrintImage(const FileName: string);
-    procedure PrintImageScale(const FileName: string; Scale: Integer);
+    function CurrencyToStr(Value: Currency): WideString;
+    procedure PrintImage(const FileName: WideString);
+    procedure PrintImageScale(const FileName: WideString; Scale: Integer);
 
     procedure ReleasePrinter;
     procedure ClaimPrinter(Timeout: Integer);
-    function GetPrinterSemaphoreName: string;
+    function GetPrinterSemaphoreName: WideString;
     function GetConnection: IPrinterConnection;
     procedure SetConnection(const Value: IPrinterConnection);
-    procedure SetDeviceName(const Value: string);
+    procedure SetDeviceName(const Value: WideString);
     procedure StartPing;
     procedure StopPing;
 
-    property DeviceName: string read GetDeviceName;
+    property DeviceName: WideString read GetDeviceName;
     property Header: TFixedStrings read GetHeader;
     property Trailer: TFixedStrings read GetTrailer;
     property PrintWidth: Integer read GetPrintWidth;
     property Device: IFiscalPrinterDevice read GetDevice;
     property Parameters: TPrinterParameters read GetParameters;
     property CheckTotal: Boolean read GetCheckTotal write SetCheckTotal;
-    property AdditionalTrailer: string read GetAdditionalTrailer write SetAdditionalTrailer;
+    property AdditionalTrailer: WideString read GetAdditionalTrailer write SetAdditionalTrailer;
   end;
 
 implementation
@@ -179,12 +179,12 @@ begin
 end;
 
 function TMockSharedPrinter.FormatBoldLines(const Line1,
-  Line2: string): string;
+  Line2: WideString): WideString;
 begin
 
 end;
 
-function TMockSharedPrinter.GetAdditionalTrailer: string;
+function TMockSharedPrinter.GetAdditionalTrailer: WideString;
 begin
 
 end;
@@ -199,7 +199,7 @@ begin
   Result := FDevice;
 end;
 
-function TMockSharedPrinter.GetDeviceName: string;
+function TMockSharedPrinter.GetDeviceName: WideString;
 begin
 
 end;
@@ -239,13 +239,13 @@ begin
   Result := False;
 end;
 
-procedure TMockSharedPrinter.Open(const DeviceName: string);
+procedure TMockSharedPrinter.Open(const DeviceName: WideString);
 begin
 
 end;
 
 procedure TMockSharedPrinter.PrintBoldString(Flags: Byte;
-  const Text: string);
+  const Text: WideString);
 begin
 
 end;
@@ -255,13 +255,13 @@ begin
 
 end;
 
-procedure TMockSharedPrinter.PrintCurrency(const Line: string;
+procedure TMockSharedPrinter.PrintCurrency(const Line: WideString;
   Value: Currency);
 begin
 
 end;
 
-procedure TMockSharedPrinter.PrintDocHeader(const DocName: string;
+procedure TMockSharedPrinter.PrintDocHeader(const DocName: WideString;
   DocNumber: Word);
 begin
 
@@ -278,17 +278,17 @@ begin
 end;
 
 procedure TMockSharedPrinter.PrintLine(Stations: Integer;
-  const Line: string);
+  const Line: WideString);
 begin
 
 end;
 
-procedure TMockSharedPrinter.PrintLines(const Line1, Line2: string);
+procedure TMockSharedPrinter.PrintLines(const Line1, Line2: WideString);
 begin
 
 end;
 
-procedure TMockSharedPrinter.PrintRecText(const Text: string);
+procedure TMockSharedPrinter.PrintRecText(const Text: WideString);
 begin
 
 end;
@@ -298,12 +298,12 @@ begin
 
 end;
 
-procedure TMockSharedPrinter.PrintText(const Text: string);
+procedure TMockSharedPrinter.PrintText(const Text: WideString);
 begin
 
 end;
 
-procedure TMockSharedPrinter.PrintText(const Text: string;
+procedure TMockSharedPrinter.PrintText(const Text: WideString;
   Station, Font: Integer; Alignment: TTextAlignment);
 begin
 
@@ -361,7 +361,7 @@ begin
 
 end;
 
-procedure TMockSharedPrinter.SetAdditionalTrailer(const Value: string);
+procedure TMockSharedPrinter.SetAdditionalTrailer(const Value: WideString);
 begin
 
 end;
@@ -406,7 +406,7 @@ begin
 
 end;
 
-procedure TMockSharedPrinter.LoadLogo(const FileName: string);
+procedure TMockSharedPrinter.LoadLogo(const FileName: WideString);
 begin
 
 end;
@@ -456,22 +456,22 @@ begin
   Result := 0;
 end;
 
-function TMockSharedPrinter.GetPostLine: string;
+function TMockSharedPrinter.GetPostLine: WideString;
 begin
 
 end;
 
-function TMockSharedPrinter.GetPreLine: string;
+function TMockSharedPrinter.GetPreLine: WideString;
 begin
 
 end;
 
-procedure TMockSharedPrinter.SetPostLine(const Value: string);
+procedure TMockSharedPrinter.SetPostLine(const Value: WideString);
 begin
 
 end;
 
-procedure TMockSharedPrinter.SetPreLine(const Value: string);
+procedure TMockSharedPrinter.SetPreLine(const Value: WideString);
 begin
 
 end;
@@ -482,7 +482,7 @@ begin
 end;
 
 function TMockSharedPrinter.PrintBarLine(Height: Word;
-  Data: string): Integer;
+  Data: WideString): Integer;
 begin
   Result := 0;
 end;
@@ -548,7 +548,7 @@ begin
   Result := 0;
 end;
 
-function TMockSharedPrinter.CurrencyToStr(Value: Currency): string;
+function TMockSharedPrinter.CurrencyToStr(Value: Currency): WideString;
 begin
   Result := '';
 end;
@@ -563,13 +563,13 @@ begin
   Result := False;
 end;
 
-procedure TMockSharedPrinter.PrintImage(const FileName: string);
+procedure TMockSharedPrinter.PrintImage(const FileName: WideString);
 begin
 
 end;
 
 procedure TMockSharedPrinter.PrintText(Station: Integer;
-  const Text: string);
+  const Text: WideString);
 begin
 
 end;
@@ -579,7 +579,7 @@ begin
 
 end;
 
-function TMockSharedPrinter.GetPrinterSemaphoreName: string;
+function TMockSharedPrinter.GetPrinterSemaphoreName: WideString;
 begin
 
 end;
@@ -594,7 +594,7 @@ begin
 
 end;
 
-procedure TMockSharedPrinter.PrintImageScale(const FileName: string;
+procedure TMockSharedPrinter.PrintImageScale(const FileName: WideString;
   Scale: Integer);
 begin
 
@@ -611,7 +611,7 @@ begin
 
 end;
 
-procedure TMockSharedPrinter.SetDeviceName(const Value: string);
+procedure TMockSharedPrinter.SetDeviceName(const Value: WideString);
 begin
 
 end;

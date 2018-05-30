@@ -31,13 +31,13 @@ type
     procedure Purge;
     procedure Close;
     procedure Open;
-    procedure Write(const Data: string);
+    procedure Write(const Data: AnsiString);
     procedure SetCmdTimeout(Value: DWORD);
     function ReadChar(var C: Char): Boolean;
-    function Read(Count: DWORD): string;
+    function Read(Count: DWORD): AnsiString;
     function GetTimeout: DWORD;
     function GetBaudRate: DWORD;
-    function GetPortName: string;
+    function GetPortName: AnsiString;
     procedure SetTimeout(Value: DWORD);
     procedure SetBaudRate(Value: DWORD);
   end;
@@ -142,7 +142,7 @@ begin
   Unlock;
 end;
 
-procedure TSocketPort.Write(const Data: string);
+procedure TSocketPort.Write(const Data: AnsiString);
 var
   i: Integer;
   Buffer: TIdBytes;
@@ -166,7 +166,7 @@ begin
   end;
 end;
 
-function TSocketPort.Read(Count: DWORD): string;
+function TSocketPort.Read(Count: DWORD): AnsiString;
 var
   C: Char;
   i: Integer;
@@ -229,7 +229,7 @@ procedure TSocketPort.Purge;
 begin
 end;
 
-function TSocketPort.GetPortName: string;
+function TSocketPort.GetPortName: AnsiString;
 begin
   Result := FParameters.RemoteHost;
 end;

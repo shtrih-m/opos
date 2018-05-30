@@ -19,9 +19,9 @@ type
 
   TPrinterProtocol2 = class(TInterfacedObject, IPrinterConnection)
   private
-    FOutput: string;
-    FRawInput: string;
-    FRawOutput: string;
+    FOutput: AnsiString;
+    FRawInput: AnsiString;
+    FRawOutput: AnsiString;
     FFrameNumber: Integer;
     FLogger: ILogFile;
     FPort: IPrinterPort;
@@ -31,23 +31,23 @@ type
 
     property Port: IPrinterPort read FPort;
     property Logger: ILogFile read FLogger;
-    function DeStuffing(const AStr: string;
-      var IsFinalEsc: Boolean): string;
-    function Encode(const Data: string): string;
+    function DeStuffing(const AStr: AnsiString;
+      var IsFinalEsc: Boolean): AnsiString;
+    function Encode(const Data: AnsiString): AnsiString;
     procedure NoHardwareError;
     procedure Purge;
     function ReadAnswer: Integer;
     function ReadChar(var C: Char): Boolean;
     function ReadEscChar(var C: Char): Boolean;
-    function ReadRaw(Count: DWORD; var Value: string): Boolean;
+    function ReadRaw(Count: DWORD; var Value: AnsiString): Boolean;
     function ReadSignature: Boolean;
     function ReadWord(var Value: Word): Boolean;
-    procedure SendCommand(const Data: string);
+    procedure SendCommand(const Data: AnsiString);
     procedure SetCmdTimeout(Value: DWORD);
     procedure StepFrameNumber;
-    function Stuffing(const AStr: string): string;
+    function Stuffing(const AStr: AnsiString): AnsiString;
     procedure SynchronizeFrames;
-    procedure Write(const Data: string);
+    procedure Write(const Data: AnsiString);
   public
     constructor Create(ALogger: ILogFile; APort: IPrinterPort; AParams: TPrinterParameters);
     destructor Destroy; override;
@@ -59,7 +59,7 @@ type
     procedure CloseReceipt;
     procedure OpenReceipt(Password: Integer);
     procedure ClaimDevice(PortNumber, Timeout: Integer);
-    function Send(Timeout: Integer; const Data: string): string;
+    function Send(Timeout: Integer; const Data: AnsiString): AnsiString;
     procedure OpenPort(PortNumber, BaudRate, ByteTimeout: Integer);
   end;
 
@@ -80,7 +80,7 @@ begin
   Result := Result xor ((Result and $00FF) shl 5);
 end;
 
-function GetCRC(const Data: string): Word;
+function GetCRC(const Data: AnsiString): Word;
 var
   i: Integer;
 begin
@@ -101,7 +101,7 @@ begin
   FSynchronized := False;
 end;
 
-function TPrinterProtocol2.Stuffing(const AStr: string): string;
+function TPrinterProtocol2.Stuffing(const AStr: AnsiString): AnsiString;
 var
   i: Integer;
 begin
@@ -118,7 +118,7 @@ begin
   end;
 end;
 
-function TPrinterProtocol2.DeStuffing(const AStr: string; var IsFinalEsc: Boolean): string;
+function TPrinterProtocol2.DeStuffing(const AStr: AnsiString; var IsFinalEsc: Boolean): AnsiString;
 var
   i: Integer;
 begin
@@ -217,13 +217,13 @@ begin
   Value := MakeWord(Ord(C1), Ord(C2));
 end;
 
-procedure TPrinterProtocol2.Write(const Data: string);
+procedure TPrinterProtocol2.Write(const Data: AnsiString);
 begin
   Logger.WriteTxData(Data);
   Port.Write(Data);
 end;
 
-function TPrinterProtocol2.ReadRaw(Count: DWORD; var Value: string): Boolean;
+function TPrinterProtocol2.ReadRaw(Count: DWORD; var Value: AnsiString): Boolean;
 begin
   Result := True;
   Value := '';
@@ -235,16 +235,16 @@ end;
 
 { Посылка команды }
 
-procedure TPrinterProtocol2.SendCommand(const Data: string);
+procedure TPrinterProtocol2.SendCommand(const Data: AnsiString);
 var
-  Frame: string;
+  Frame: AnsiString;
 begin
   Frame := Encode(Data);
   FRawInput := Frame;
   Write(Frame);
 end;
 
-function TPrinterProtocol2.Send(Timeout: Integer; const Data: string): string;
+function TPrinterProtocol2.Send(Timeout: Integer; const Data: AnsiString): AnsiString;
 var
   FNum: Integer;
   SyncErrCount: Integer;
@@ -312,7 +312,7 @@ var
   C: Char;
   Len: Word;
   Num: Word;
-  Data: string;
+  Data: AnsiString;
   Crc: Word;
   i: Integer;
   IsFinalEsc: Boolean;
@@ -367,7 +367,7 @@ begin
   until  C = STX;
 end;
 
-function TPrinterProtocol2.Encode(const Data: string): string;
+function TPrinterProtocol2.Encode(const Data: AnsiString): AnsiString;
 var
   Len: Word;
   CRC: Word;

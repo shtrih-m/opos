@@ -17,20 +17,20 @@ type
   private
     FLogger: ILogFile;
     FAmount: Integer;
-    FDateTime: string;
-    FCardNumber: string;
+    FDateTime: WideString;
+    FCardNumber: WideString;
     FOperationType: Integer;
   public
     constructor Create(ALogger: ILogFile);
 
     procedure Clear;
-    procedure Load(const Key: string);
-    procedure Save(const Key: string);
+    procedure Load(const Key: WideString);
+    procedure Save(const Key: WideString);
 
     property Logger: ILogFile read FLogger;
     property Amount: Integer read FAmount write FAmount;
-    property DateTime: string read FDateTime write FDateTime;
-    property CardNumber: string read FCardNumber write FCardNumber;
+    property DateTime: WideString read FDateTime write FDateTime;
+    property CardNumber: WideString read FCardNumber write FCardNumber;
     property OperationType: Integer read FOperationType write FOperationType;
   end;
 
@@ -58,7 +58,7 @@ begin
   FOperationType := 0;
 end;
 
-procedure TMalinaCard.Save(const Key: string);
+procedure TMalinaCard.Save(const Key: WideString);
 var
   Reg: TTntRegistry;
 begin
@@ -79,7 +79,7 @@ begin
   Reg.Free;
 end;
 
-procedure TMalinaCard.Load(const Key: string);
+procedure TMalinaCard.Load(const Key: WideString);
 var
   Reg: TTntRegistry;
 begin

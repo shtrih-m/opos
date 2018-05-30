@@ -14,7 +14,7 @@ procedure SafeSetRadioButton(RadioButton: TTntRadioButton; Value: Boolean);
 // Процедура устанавливает переключатель у TRadioGroup
 procedure SafeSetRadioGroup(RadioGroup: TRadioGroup; Value: Integer);
 // Процедура устанавливает свойство Text у TTntEdit
-procedure SafeSetEdit(Edit: TCustomEdit; const Value: String);
+procedure SafeSetEdit(Edit: TCustomEdit; const Value: AnsiString);
 // Процедура устанавливает свойство ItemIndex у TTntComboBox
 procedure SafeSetComboBox(ComboBox: TTntComboBox; Value: Integer);
 // Устанавливает свойство Lines у Memo
@@ -116,7 +116,7 @@ type
     property OnChange;
   end;
 
-procedure SafeSetEdit(Edit: TCustomEdit; const Value: String);
+procedure SafeSetEdit(Edit: TCustomEdit; const Value: AnsiString);
 var
   SaveOnChange: TNotifyEvent;
   TmpEdit: TExposeCustomEdit;

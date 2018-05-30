@@ -38,7 +38,7 @@ type
 
   TXmlReceiptWriter = class
   public
-    class procedure AddReceipt(const R: TReceiptRec; const FileName: string); overload;
+    class procedure AddReceipt(const R: TReceiptRec; const FileName: WideString); overload;
     class procedure AddReceipt(const R: TReceiptRec; Document: IXMLDocument); overload;
   end;
 
@@ -113,7 +113,7 @@ begin
 end;
 
 class procedure TXmlReceiptWriter.AddReceipt(const R: TReceiptRec;
-  const FileName: string);
+  const FileName: WideString);
 var
   Document: IXMLDocument;
 begin

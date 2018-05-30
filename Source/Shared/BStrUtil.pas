@@ -12,73 +12,73 @@ type
   TSetOfByte = set of Byte;
   TEntryCodeToName = record
     Code: Integer;
-    Name: String;
+    Name: AnsiString;
   end;
   
-  { TStringParser }
+  { TAnsiStringParser }
 
-  TStringParser = class
+  TAnsiStringParser = class
   private
     fLen: Integer;
-    fLine: String;
+    fLine: AnsiString;
     fDelimiters: TSetOfChar;
-    procedure SetLine(const Value: String);
+    procedure SetLine(const Value: AnsiString);
   protected
     fLastPos: Integer;
   public
-    function NextToken: string;
-    property Line: String read fLine write SetLine;
+    function NextToken: AnsiString;
+    property Line: AnsiString read fLine write SetLine;
     property Delimiters: TSetOfChar read fDelimiters write fDelimiters;
     property Len: Integer read fLen;
     property LastPos: Integer read fLastPos;
   end;
 
-function TrimStr(const S: String; Valid: TSetOfChar): String;
-function HasSymbols(const S: String; const Symbols: TSetOfChar): Boolean;
-// Get k-index parameter of string type
-function GetStringK(const S: String; K: Integer; Delimiters: TSetOfChar): String;
-procedure StringsSetText(const Text: String; Delimiters: TSetOfChar;
+function TrimStr(const S: AnsiString; Valid: TSetOfChar): AnsiString;
+function HasSymbols(const S: AnsiString; const Symbols: TSetOfChar): Boolean;
+// Get k-index parameter of AnsiString type
+function GetStringK(const S: AnsiString; K: Integer; Delimiters: TSetOfChar): AnsiString;
+procedure StringsSetText(const Text: AnsiString; Delimiters: TSetOfChar;
   Strings: TTntStrings);
-{ StringsToString }
+{ StringsToAnsiString }
 // AppendStr(Result, Strings[I]);
-function StringsToString(Strings: TTntStrings): String;
+function StringsToAnsiString(Strings: TTntStrings): AnsiString;
 
-function RemoveFirstBkSlash(const Name: String): String;
-function RemoveLastBkSlash(const Name: String): String;
-function AddLastBkSlash(const Name: String): String;
-function AddFirstBkSlash(const Name: String): String;
-// Replace string by another string
+function RemoveFirstBkSlash(const Name: AnsiString): AnsiString;
+function RemoveLastBkSlash(const Name: AnsiString): AnsiString;
+function AddLastBkSlash(const Name: AnsiString): AnsiString;
+function AddFirstBkSlash(const Name: AnsiString): AnsiString;
+// Replace AnsiString by another AnsiString
 function PutValue(
-  // Source string
+  // Source AnsiString
   const Src,
   // What to replace
   VarName,
-  // Replace string
-  VarValue: String;
-  // Output string
-  var Dst: String;
+  // Replace AnsiString
+  VarValue: AnsiString;
+  // Output AnsiString
+  var Dst: AnsiString;
   // Ignore case
   IgnoreCase: Boolean):
   // True if something changed
   Boolean;
 
 // Removes first 'T' from class name
-function RemoveFirstT(const ClassName: String): String;
+function RemoveFirstT(const ClassName: AnsiString): AnsiString;
 
-function ControlToChar(const Value: String): String;
-function CharToControl(const Value: String): String;
+function ControlToChar(const Value: AnsiString): AnsiString;
+function CharToControl(const Value: AnsiString): AnsiString;
 
 procedure StringsAssignItems(Strings: TTntStrings;
-  const Items: array of string);
+  const Items: array of AnsiString);
 
 procedure StringsAssignEntries(Strings: TTntStrings;
   Entries: array of TEntryCodeToName; EnabledCodes: TSetOfByte);
 
-procedure SkipBlanks(const S: String; var P: Integer);
+procedure SkipBlanks(const S: AnsiString; var P: Integer);
 
 implementation
 
-function TrimStr(const S: String; Valid: TSetOfChar): String;
+function TrimStr(const S: AnsiString; Valid: TSetOfChar): AnsiString;
 var
   I, L, P: Integer;
 begin
@@ -96,7 +96,7 @@ begin
   end;
 end;
 
-function HasSymbols(const S: String; const Symbols: TSetOfChar): Boolean;
+function HasSymbols(const S: AnsiString; const Symbols: TSetOfChar): Boolean;
 var
   I: Integer;
 begin
@@ -111,7 +111,7 @@ begin
   Result := False;
 end;
 
-function GetStringK(const S: String; K: Integer; Delimiters: TSetOfChar): String;
+function GetStringK(const S: AnsiString; K: Integer; Delimiters: TSetOfChar): AnsiString;
 var
   LastPos: Integer;
   CurPos: Integer;
@@ -137,11 +137,11 @@ begin
   Result := '';
 end;
 
-procedure StringsSetText(const Text: String; Delimiters: TSetOfChar;
+procedure StringsSetText(const Text: AnsiString; Delimiters: TSetOfChar;
   Strings: TTntStrings);
 var
   P, Start: PChar;
-  S: string;
+  S: AnsiString;
 begin
   Include(Delimiters, #0);
   Strings.BeginUpdate;
@@ -162,7 +162,7 @@ begin
   end;
 end;
 
-function StringsToString(Strings: TTntStrings): String;
+function StringsToAnsiString(Strings: TTntStrings): AnsiString;
 var
   I: Integer;
 begin
@@ -175,14 +175,14 @@ begin
   end;
 end;
 
-function RemoveFirstBkSlash(const Name: String): String;
+function RemoveFirstBkSlash(const Name: AnsiString): AnsiString;
 begin
   Result := Name;
   if (Result <> '')
      and (Result[1] = '\') then Result := Copy(Result, 2, MaxInt);
 end;
 
-function RemoveLastBkSlash(const Name: String): String;
+function RemoveLastBkSlash(const Name: AnsiString): AnsiString;
 begin
   Result := Name;
   if (Result <> '')
@@ -190,14 +190,14 @@ begin
     SetLength(Result, Length(Result) - 1);
 end;
 
-function AddFirstBkSlash(const Name: String): String;
+function AddFirstBkSlash(const Name: AnsiString): AnsiString;
 begin
   Result := Name;
   if (Result <> '') and (Result[1] <> '\') then
     Result := '\' + Result;
 end;
 
-function AddLastBkSlash(const Name: String): String;
+function AddLastBkSlash(const Name: AnsiString): AnsiString;
 begin
   Result := Name;
   if (Result <> '')
@@ -205,11 +205,11 @@ begin
        Result := Result + '\';
 end;
 
-function PutValue(const Src, VarName, VarValue: String; var Dst: String;
+function PutValue(const Src, VarName, VarValue: AnsiString; var Dst: AnsiString;
   IgnoreCase: Boolean): Boolean;
 var
   P: Integer;
-  strTemp: String;
+  strTemp: AnsiString;
 begin
   Result := False;
   Dst := '';
@@ -232,7 +232,7 @@ begin
   until (P = 0);
 end;
 
-function RemoveFirstT(const ClassName: String): String;
+function RemoveFirstT(const ClassName: AnsiString): AnsiString;
 begin
   if ClassName[1] = 'T' then
     Result := Copy(ClassName, 2, MaxInt)
@@ -240,9 +240,9 @@ begin
     Result := ClassName;
 end;
 
-{ TStringParser }
+{ TAnsiStringParser }
 
-function TStringParser.NextToken: string;
+function TAnsiStringParser.NextToken: AnsiString;
 var
   I: Integer;
 begin
@@ -260,14 +260,14 @@ begin
   end;
 end;
 
-procedure TStringParser.SetLine(const Value: String);
+procedure TAnsiStringParser.SetLine(const Value: AnsiString);
 begin
   fLastPos := 1;
   fLine := Value;
   fLen := Length(fLine);
 end;
 
-function ControlToChar(const Value: String): String;
+function ControlToChar(const Value: AnsiString): AnsiString;
 const
   chrZero = ' ';
 var
@@ -291,20 +291,20 @@ begin
     Result := Result + '''';
 end;
 
-procedure SkipBlanks(const S: String; var P: Integer);
+procedure SkipBlanks(const S: AnsiString; var P: Integer);
 begin
   while (P <= Length(S)) and (S[P] = ' ') do Inc(P);
 end;
 
-function CharToControl(const Value: String): String;
+function CharToControl(const Value: AnsiString): AnsiString;
 type
   TState = (Unknown, FoundGrid, FoundApostrophe, WaitApostropheEnd);
 const
   strUnknown = 'Unknown symbol [%s] in position [%d]';
-  strNoStringEnd = 'No string end';
+  strNoAnsiStringEnd = 'No AnsiString end';
 var
   State: TState;
-  strControl: String;
+  strControl: AnsiString;
   I: Integer;
 begin
   Result := '';
@@ -346,7 +346,7 @@ begin
         if (I > Length(Value)) then
         begin
           Result := Result + Chr(StrToInt(strControl));
-          Exit; // End of string
+          Exit; // End of AnsiString
         end;
         if not (Value[I] in ['0'..'9']) then
         begin
@@ -387,18 +387,18 @@ begin
         if Value[I] <> '''' then
         begin
           // Current state is '.
-          State := WaitApostropheEnd; // Wait for string end
+          State := WaitApostropheEnd; // Wait for AnsiString end
           Result := Result + Value[I];
           Inc(I);
           Continue;
         end;
         // Current state is ''
         Inc(I);
-        if (I > Length(Value)) then Exit; //  Empty string
+        if (I > Length(Value)) then Exit; //  Empty AnsiString
         if (Value[I] <> '''') then
         begin
           // Current state is ''.
-          State := Unknown; // Empty string, skip
+          State := Unknown; // Empty AnsiString, skip
           Continue;
         end;
         // Current state is '''
@@ -408,7 +408,7 @@ begin
         if (Value[I] <> '''') then
         begin
           // Current state is '''.
-          State := WaitApostropheEnd; // Wait for string end
+          State := WaitApostropheEnd; // Wait for AnsiString end
           Result := Result + Value[I];
           Continue;
         end;
@@ -421,7 +421,7 @@ begin
     WaitApostropheEnd:
       begin
         if (I > Length(Value)) then
-          raise Exception.Create(strNoStringEnd);
+          raise Exception.Create(strNoAnsiStringEnd);
         if Value[I] <> '''' then
         begin
           // Current state is '...
@@ -431,8 +431,8 @@ begin
         end;
         // Current state is '...'
         Inc(I);
-        if (I > Length(Value)) then Exit; // String end detected
-        if (Value[I] <> '''') then // String end detected
+        if (I > Length(Value)) then Exit; // AnsiString end detected
+        if (Value[I] <> '''') then // AnsiString end detected
         begin
           // Current state is '...'.
           State := Unknown;
@@ -449,7 +449,7 @@ begin
           // Current state is '...''.
           Result := Result + Value[I];
           Inc(I);
-          Continue; // Wait for string end
+          Continue; // Wait for AnsiString end
         end;
         // Current state is '...'''
         Result := Result + '''';
@@ -485,7 +485,7 @@ begin
 end;
 
 procedure StringsAssignItems(Strings: TTntStrings;
-  const Items: array of string);
+  const Items: array of AnsiString);
 var
   I: Integer;
 begin

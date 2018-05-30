@@ -40,7 +40,7 @@ type
     property Params: TMalinaParams read GetParams;
     property Printer: ISharedPrinter read FPrinter;
     property Parameters: TPrinterParameters read GetParameters;
-    procedure PrintAmount(const Text: string; Count, Totals: Int64);
+    procedure PrintAmount(const Text: WideString; Count, Totals: Int64);
   public
     constructor Create(AOwner: TFptrFilters; APrinter: ISharedPrinter);
     destructor Destroy; override;
@@ -68,7 +68,7 @@ end;
 procedure TMalinaFilter.BeforeCloseReceipt;
 var
   Mode: Integer;
-  Text: string;
+  Text: WideString;
   Points: Integer;
   Subtotal: Int64;
 begin
@@ -143,10 +143,10 @@ begin
   FItemCount.RetBuy := Printer.Device.ReadOperatingRegister(Number + 3);
 end;
 
-procedure TMalinaFilter.PrintAmount(const Text: string; Count, Totals: Int64);
+procedure TMalinaFilter.PrintAmount(const Text: WideString; Count, Totals: Int64);
 var
-  Line1: string;
-  Line2: string;
+  Line1: WideString;
+  Line2: WideString;
 begin
   Line1 := Tnt_WideFormat('%.4d %s', [Count, Text]);
   Line2 := '=' + AmountToStr(Totals/100);

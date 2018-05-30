@@ -32,7 +32,7 @@ type
     procedure InsertItem(AItem: TPrinterTable);
     procedure RemoveItem(AItem: TPrinterTable);
   public
-    DeviceName: string;
+    DeviceName: WideString;
   public
     constructor Create;
     destructor Destroy; override;

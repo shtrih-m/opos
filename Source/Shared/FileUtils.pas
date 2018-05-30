@@ -14,7 +14,7 @@ function ReadFileData(const FileName: AnsiString): AnsiString;
 procedure WriteFileData(const FileName, Data: AnsiString);
 function GetLongFileName(const FileName: WideString): WideString;
 function GetSystemPath: WideString;
-function CLSIDToFileName(const CLSID: TGUID): String;
+function CLSIDToFileName(const CLSID: TGUID): WideString;
 procedure DeleteFiles(const FileMask: WideString);
 
 implementation
@@ -100,17 +100,17 @@ begin
   Result := WideIncludeTrailingPathDelimiter(Buffer);
 end;
 
-function ExtractQuotedStr(const Src: String): String;
+function ExtractQuotedStr(const Src: WideString): WideString;
 begin
   Result := Src;
   if Src[1] = '"' then Delete(Result, 1, 1);;
   if Result[Length(Result)] = '"' then SetLength(Result, Length(Result) - 1);
 end;
 
-function CLSIDToFileName(const CLSID: TGUID): String;
+function CLSIDToFileName(const CLSID: TGUID): WideString;
 var
   Reg: TTntRegistry;
-  strCLSID: String;
+  strCLSID: WideString;
 begin
   Result := '';
   Reg := TTntRegistry.Create;

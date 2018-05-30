@@ -26,7 +26,7 @@ type
   TDayOpenedTest = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TSetPOSIDTest }
@@ -34,7 +34,7 @@ type
   TSetPOSIDTest = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TAdditionalHeaderTest }
@@ -42,7 +42,7 @@ type
   TAdditionalHeaderTest = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TTenderNameTest }
@@ -50,7 +50,7 @@ type
   TTenderNameTest = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TZReportTest }
@@ -58,7 +58,7 @@ type
   TZReportTest = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TChangeTest }
@@ -66,7 +66,7 @@ type
   TChangeTest = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { THeaderTrailerTest }
@@ -74,7 +74,7 @@ type
   THeaderTrailerTest = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TFrameLengthTest }
@@ -82,7 +82,7 @@ type
   TFrameLengthTest = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TCashInTest }
@@ -90,7 +90,7 @@ type
   TCashInTest = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TCashOutTest }
@@ -98,7 +98,7 @@ type
   TCashOutTest = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TDirectIOTest1 }
@@ -106,7 +106,7 @@ type
   TDirectIOTest1 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TDirectIOTest2 }
@@ -114,7 +114,7 @@ type
   TDirectIOTest2 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TDateTest }
@@ -122,18 +122,18 @@ type
   TDateTest = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TX5Test }
 
   TX5Test = class(TDriverTest)
   private
-    procedure SetHeaderText(const Text: string);
-    procedure SetTrailerText(const Text: string);
+    procedure SetHeaderText(const Text: WideString);
+    procedure SetTrailerText(const Text: WideString);
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TX5Test2 }
@@ -141,7 +141,7 @@ type
   TX5Test2 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TNonFiscalReceiptTest }
@@ -149,7 +149,7 @@ type
   TNonFiscalReceiptTest = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TGenericReceiptTest }
@@ -157,7 +157,7 @@ type
   TGenericReceiptTest = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TSalesReceiptTest }
@@ -165,7 +165,7 @@ type
   TSalesReceiptTest = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TSalesReceiptTest2 }
@@ -173,7 +173,7 @@ type
   TSalesReceiptTest2 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TSalesReceiptTest3 }
@@ -181,7 +181,7 @@ type
   TSalesReceiptTest3 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TSalesReceiptTest4 }
@@ -189,7 +189,7 @@ type
   TSalesReceiptTest4 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TSalesReceiptTest5 }
@@ -197,7 +197,7 @@ type
   TSalesReceiptTest5 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TSalesReceiptTest6 }
@@ -205,7 +205,7 @@ type
   TSalesReceiptTest6 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TSalesReceiptTest7 }
@@ -213,7 +213,7 @@ type
   TSalesReceiptTest7 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TSalesReceiptTest8 }
@@ -221,7 +221,7 @@ type
   TSalesReceiptTest8 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TSalesReceiptTest9 }
@@ -229,7 +229,7 @@ type
   TSalesReceiptTest9 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TSalesReceiptTest10 }
@@ -237,7 +237,7 @@ type
   TSalesReceiptTest10 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TSalesReceiptTest11 }
@@ -245,7 +245,7 @@ type
   TSalesReceiptTest11 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TSalesReceiptTest12 }
@@ -253,7 +253,7 @@ type
   TSalesReceiptTest12 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TRefundReceiptTest }
@@ -261,7 +261,7 @@ type
   TRefundReceiptTest = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TRefundReceiptTest2 }
@@ -269,7 +269,7 @@ type
   TRefundReceiptTest2 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TEmptySalesReceipt }
@@ -277,7 +277,7 @@ type
   TEmptySalesReceipt = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TEmptySalesReceipt2 }
@@ -285,7 +285,7 @@ type
   TEmptySalesReceipt2 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TEmptyRefundReceipt }
@@ -293,7 +293,7 @@ type
   TEmptyRefundReceipt = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TEmptyRefundReceipt2 }
@@ -301,7 +301,7 @@ type
   TEmptyRefundReceipt2 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TReceipt2 }
@@ -309,7 +309,7 @@ type
   TReceipt2 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TZeroReceipt }
@@ -317,7 +317,7 @@ type
   TZeroReceipt = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TRoundTest }
@@ -325,7 +325,7 @@ type
   TRoundTest = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TReceiptDiscountTest }
@@ -333,7 +333,7 @@ type
   TReceiptDiscountTest = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TReceiptDiscountTest2 }
@@ -341,7 +341,7 @@ type
   TReceiptDiscountTest2 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TGlobusReceiptTest }
@@ -349,7 +349,7 @@ type
   TGlobusReceiptTest = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TCancelReceiptTest }
@@ -359,7 +359,7 @@ type
     procedure PrintSeparator;
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TStornoReceiptTest }
@@ -367,7 +367,7 @@ type
   TStornoReceiptTest = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TReadEJACtivationResultTest }
@@ -375,7 +375,7 @@ type
   TReadEJACtivationResultTest = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TReadEJACtivationResultTest2 }
@@ -383,7 +383,7 @@ type
   TReadEJACtivationResultTest2 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TReadEJACtivationResultTest3 }
@@ -391,7 +391,7 @@ type
   TReadEJACtivationResultTest3 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TReadEJACtivationResultTest4 }
@@ -399,7 +399,7 @@ type
   TReadEJACtivationResultTest4 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TBoldTextTest }
@@ -407,7 +407,7 @@ type
   TBoldTextTest = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TPrint10Test }
@@ -415,7 +415,7 @@ type
   TPrint10Test = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TPrint20Test }
@@ -423,7 +423,7 @@ type
   TPrint20Test = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TPrintNormalTest }
@@ -431,7 +431,7 @@ type
   TPrintNormalTest = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TRecNearEndTest }
@@ -439,7 +439,7 @@ type
   TRecNearEndTest = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TDiscountCardTest }
@@ -447,7 +447,7 @@ type
   TDiscountCardTest = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TDiscountCardTest2 }
@@ -455,7 +455,7 @@ type
   TDiscountCardTest2 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TQRCodeTest }
@@ -463,7 +463,7 @@ type
   TQRCodeTest = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TTestReceipt2 }
@@ -471,7 +471,7 @@ type
   TTestReceipt2 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TTestReceipt3 }
@@ -479,7 +479,7 @@ type
   TTestReceipt3 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TTestReceipt4 }
@@ -487,7 +487,7 @@ type
   TTestReceipt4 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TTestReceipt5 }
@@ -495,7 +495,7 @@ type
   TTestReceipt5 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TTestReceipt6 }
@@ -505,7 +505,7 @@ type
     procedure PrintReceipt;
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TTestReceipt7 }
@@ -513,7 +513,7 @@ type
   TTestReceipt7 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TTestReceipt8 }
@@ -521,7 +521,7 @@ type
   TTestReceipt8 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TTestReceipt9 }
@@ -529,7 +529,7 @@ type
   TTestReceipt9 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TTestReceipt10 }
@@ -537,7 +537,7 @@ type
   TTestReceipt10 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TTestReceipt11 }
@@ -545,7 +545,7 @@ type
   TTestReceipt11 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TTestDiscountReceipt }
@@ -553,7 +553,7 @@ type
   TTestDiscountReceipt = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TDiscountReceipt2 }
@@ -561,7 +561,7 @@ type
   TDiscountReceipt2 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TDiscountReceipt3 }
@@ -569,7 +569,7 @@ type
   TDiscountReceipt3 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TDiscountReceipt4 }
@@ -577,7 +577,7 @@ type
   TDiscountReceipt4 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TDiscountReceipt5 }
@@ -585,7 +585,7 @@ type
   TDiscountReceipt5 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TDiscountReceipt6 }
@@ -593,7 +593,7 @@ type
   TDiscountReceipt6 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TDiscountReceipt7 }
@@ -601,7 +601,7 @@ type
   TDiscountReceipt7 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TDiscountReceipt8 }
@@ -609,7 +609,7 @@ type
   TDiscountReceipt8 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TRetalixReceipt }
@@ -617,7 +617,7 @@ type
   TRetalixReceipt = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { THangReceiptTest }
@@ -625,7 +625,7 @@ type
   THangReceiptTest = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TRosneftReceiptTest }
@@ -633,7 +633,7 @@ type
   TRosneftReceiptTest = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TAdjustmentReceiptTest }
@@ -643,7 +643,7 @@ type
     procedure PrintQRCode;
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TCorrectionReceiptTest }
@@ -651,7 +651,7 @@ type
   TCorrectionReceiptTest = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TTLVReceiptTest }
@@ -659,7 +659,7 @@ type
   TTLVReceiptTest = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TPreLineReceiptTest }
@@ -667,7 +667,7 @@ type
   TPreLineReceiptTest = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TZeroReceiptTest }
@@ -675,7 +675,7 @@ type
   TZeroReceiptTest = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TZeroReceiptTest2 }
@@ -683,7 +683,7 @@ type
   TZeroReceiptTest2 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TReceiptTest8 }
@@ -691,7 +691,7 @@ type
   TReceiptTest8 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TReceiptTest9 }
@@ -701,7 +701,7 @@ type
     procedure PrintQRCode;
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TReceiptTest10 }
@@ -709,7 +709,7 @@ type
   TReceiptTest10 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TReceiptTest11 }
@@ -717,7 +717,7 @@ type
   TReceiptTest11 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TReceiptTest12 }
@@ -725,7 +725,7 @@ type
   TReceiptTest12 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TReceiptTest13 }
@@ -733,7 +733,7 @@ type
   TReceiptTest13 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TReceiptTest14 }
@@ -741,7 +741,7 @@ type
   TReceiptTest14 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TReceiptTest15 }
@@ -749,7 +749,7 @@ type
   TReceiptTest15 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TReceiptTest16 }
@@ -757,7 +757,7 @@ type
   TReceiptTest16 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TReceiptTest17 }
@@ -765,7 +765,7 @@ type
   TReceiptTest17 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TReceiptTest18 }
@@ -773,7 +773,7 @@ type
   TReceiptTest18 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TReceiptTest19 }
@@ -781,7 +781,7 @@ type
   TReceiptTest19 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TReceiptTest20 }
@@ -789,7 +789,7 @@ type
   TReceiptTest20 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TReceiptTest21 }
@@ -797,7 +797,7 @@ type
   TReceiptTest21 = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
   { TCorrectionReceipt2Test }
@@ -805,7 +805,7 @@ type
   TCorrectionReceipt2Test = class(TDriverTest)
   public
     procedure Execute; override;
-    function GetDisplayText: string; override;
+    function GetDisplayText: WideString; override;
   end;
 
 implementation
@@ -859,14 +859,14 @@ begin
   AddLine('Test successfully completed!');
 end;
 
-function TDayOpenedTest.GetDisplayText: string;
+function TDayOpenedTest.GetDisplayText: WideString;
 begin
   Result := 'Day opened test';
 end;
 
 { TSetPOSIDTest }
 
-function TSetPOSIDTest.GetDisplayText: string;
+function TSetPOSIDTest.GetDisplayText: WideString;
 begin
   Result := 'Set POSID test';
 end;
@@ -903,7 +903,7 @@ end;
 
 { TAdditionalHeaderTest }
 
-function TAdditionalHeaderTest.GetDisplayText: string;
+function TAdditionalHeaderTest.GetDisplayText: WideString;
 begin
   Result := 'Additional header test';
 end;
@@ -934,7 +934,7 @@ end;
 
 { TTenderNameTest }
 
-function TTenderNameTest.GetDisplayText: string;
+function TTenderNameTest.GetDisplayText: WideString;
 begin
   Result := 'Tender name test';
 end;
@@ -991,7 +991,7 @@ end;
 
 { TZReportTest }
 
-function TZReportTest.GetDisplayText: string;
+function TZReportTest.GetDisplayText: WideString;
 begin
   Result := 'ZReport test';
 end;
@@ -1014,7 +1014,7 @@ end;
 
 { TChangeTest }
 
-function TChangeTest.GetDisplayText: string;
+function TChangeTest.GetDisplayText: WideString;
 begin
   Result := 'Change test';
 end;
@@ -1062,7 +1062,7 @@ end;
 
 { THeaderTrailerTest }
 
-function THeaderTrailerTest.GetDisplayText: string;
+function THeaderTrailerTest.GetDisplayText: WideString;
 begin
   Result := 'Header trailer test';
 end;
@@ -1112,7 +1112,7 @@ end;
 
 { TFrameLengthTest }
 
-function TFrameLengthTest.GetDisplayText: string;
+function TFrameLengthTest.GetDisplayText: WideString;
 begin
   Result := 'Frame length test';
 end;
@@ -1146,7 +1146,7 @@ end;
 
 { TCashInTest }
 
-function TCashInTest.GetDisplayText: string;
+function TCashInTest.GetDisplayText: WideString;
 begin
   Result := 'Cash in test';
 end;
@@ -1195,7 +1195,7 @@ end;
 
 { TCashOutTest }
 
-function TCashOutTest.GetDisplayText: string;
+function TCashOutTest.GetDisplayText: WideString;
 begin
   Result := 'Cash out test';
 end;
@@ -1243,7 +1243,7 @@ end;
 
 { TDirectIOTest1 }
 
-function TDirectIOTest1.GetDisplayText: string;
+function TDirectIOTest1.GetDisplayText: WideString;
 begin
   Result := 'DirectIO test 1';
 end;
@@ -1298,7 +1298,7 @@ begin
   FiscalPrinter.AdditionalTrailer := AdditionalTrailer;
   Check(FiscalPrinter.BeginFiscalReceipt(False));
 
-  // 1. Empty string
+  // 1. Empty WideString
   pData := 0;
   pString := '';
   CheckBool(FiscalPrinter.DirectIO(1, pData, pString) = OPOS_E_ILLEGAL);
@@ -1320,7 +1320,7 @@ begin
   CheckBool(FiscalPrinter.DirectIO(1, pData, pString) = OPOS_E_ILLEGAL);
 end;
 
-function TDirectIOTest2.GetDisplayText: string;
+function TDirectIOTest2.GetDisplayText: WideString;
 begin
   Result := 'DirectIO test 2';
 end;
@@ -1348,22 +1348,22 @@ begin
   end;
 end;
 
-function TDateTest.GetDisplayText: string;
+function TDateTest.GetDisplayText: WideString;
 begin
   Result := 'Check date test';
 end;
 
 { TX5Test }
 
-function TX5Test.GetDisplayText: string;
+function TX5Test.GetDisplayText: WideString;
 begin
   Result := 'X5 test';
 end;
 
-procedure TX5Test.SetHeaderText(const Text: string);
+procedure TX5Test.SetHeaderText(const Text: WideString);
 var
   i: Integer;
-  Line: string;
+  Line: WideString;
   Count: Integer;
   Lines: TTntStrings;
 begin
@@ -1382,10 +1382,10 @@ begin
   end;
 end;
 
-procedure TX5Test.SetTrailerText(const Text: string);
+procedure TX5Test.SetTrailerText(const Text: WideString);
 var
   i: Integer;
-  Line: string;
+  Line: WideString;
   Count: Integer;
   Lines: TTntStrings;
 begin
@@ -1426,7 +1426,7 @@ const
 
 var
   i: Integer;
-  Line: string;
+  Line: WideString;
 begin
   // Clear memo
   Memo.Lines.Clear;
@@ -1469,7 +1469,7 @@ end;
 
 { TX5Test2 }
 
-function TX5Test2.GetDisplayText: string;
+function TX5Test2.GetDisplayText: WideString;
 begin
   Result := 'X5 test';
 end;
@@ -1477,7 +1477,7 @@ end;
 procedure TX5Test2.Execute;
 var
   i: Integer;
-  Line: string;
+  Line: WideString;
 begin
   // Clear memo
   Memo.Lines.Clear;
@@ -1543,7 +1543,7 @@ begin
   AddLine('Test completed !');
 end;
 
-function TNonFiscalReceiptTest.GetDisplayText: string;
+function TNonFiscalReceiptTest.GetDisplayText: WideString;
 begin
   Result := 'Non fiscal receipt';
 end;
@@ -1592,7 +1592,7 @@ begin
   AddLine('Test completed !');
 end;
 
-function TGenericReceiptTest.GetDisplayText: string;
+function TGenericReceiptTest.GetDisplayText: WideString;
 begin
   Result := 'Generic receipt';
 end;
@@ -1627,7 +1627,7 @@ begin
   AddLine('Test completed !');
 end;
 
-function TSalesReceiptTest.GetDisplayText: string;
+function TSalesReceiptTest.GetDisplayText: WideString;
 begin
   Result := 'Sales receipt test';
 end;
@@ -1682,7 +1682,7 @@ begin
   AddLine('Test completed !');
 end;
 
-function TRefundReceiptTest.GetDisplayText: string;
+function TRefundReceiptTest.GetDisplayText: WideString;
 begin
   Result := 'Refund receipt test';
 end;
@@ -1751,14 +1751,14 @@ begin
   AddLine('Test completed !');
 end;
 
-function TRefundReceiptTest2.GetDisplayText: string;
+function TRefundReceiptTest2.GetDisplayText: WideString;
 begin
   Result := 'Refund receipt test 2';
 end;
 
 { TEmptySalesReceipt }
 
-function TEmptySalesReceipt.GetDisplayText: string;
+function TEmptySalesReceipt.GetDisplayText: WideString;
 begin
   Result := 'Empty sales receipt';
 end;
@@ -1797,7 +1797,7 @@ end;
 
 { TEmptySalesReceipt2 }
 
-function TEmptySalesReceipt2.GetDisplayText: string;
+function TEmptySalesReceipt2.GetDisplayText: WideString;
 begin
   Result := 'Empty sales receipt 2';
 end;
@@ -1836,7 +1836,7 @@ end;
 
 { TEmptyRefundReceipt }
 
-function TEmptyRefundReceipt.GetDisplayText: string;
+function TEmptyRefundReceipt.GetDisplayText: WideString;
 begin
   Result := 'Empty refund receipt';
 end;
@@ -1875,7 +1875,7 @@ end;
 
 { TEmptyRefundReceipt2 }
 
-function TEmptyRefundReceipt2.GetDisplayText: string;
+function TEmptyRefundReceipt2.GetDisplayText: WideString;
 begin
   Result := 'Empty refund receipt 2';
 end;
@@ -1914,7 +1914,7 @@ end;
 
 { TReceipt2 }
 
-function TReceipt2.GetDisplayText: string;
+function TReceipt2.GetDisplayText: WideString;
 begin
   Result := 'Sales receipt 2';
 end;
@@ -2021,7 +2021,7 @@ begin
   AddLine('Test completed !');
 end;
 
-function TSalesReceiptTest2.GetDisplayText: string;
+function TSalesReceiptTest2.GetDisplayText: WideString;
 begin
   Result := 'Sales receipt test 2';
 end;
@@ -2078,7 +2078,7 @@ begin
   AddLine('Test completed !');
 end;
 
-function TSalesReceiptTest3.GetDisplayText: string;
+function TSalesReceiptTest3.GetDisplayText: WideString;
 begin
   Result := 'Sales receipt test 3';
 end;
@@ -2162,14 +2162,14 @@ begin
   AddLine('Test completed !');
 end;
 
-function TSalesReceiptTest4.GetDisplayText: string;
+function TSalesReceiptTest4.GetDisplayText: WideString;
 begin
   Result := 'Sales receipt test 4';
 end;
 
 { TSalesReceiptTest5 }
 
-function TSalesReceiptTest5.GetDisplayText: string;
+function TSalesReceiptTest5.GetDisplayText: WideString;
 begin
   Result := 'Sales receipt test 5';
 end;
@@ -2253,7 +2253,7 @@ end;
 
 { TSalesReceiptTest6 }
 
-function TSalesReceiptTest6.GetDisplayText: string;
+function TSalesReceiptTest6.GetDisplayText: WideString;
 begin
   Result := 'Sales receipt test 6';
 end;
@@ -2337,7 +2337,7 @@ end;
 
 { TSalesReceiptTest7 }
 
-function TSalesReceiptTest7.GetDisplayText: string;
+function TSalesReceiptTest7.GetDisplayText: WideString;
 begin
   Result := 'Sales receipt test 7';
 end;
@@ -2377,7 +2377,7 @@ end;
 
 { TSalesReceiptTest8 }
 
-function TSalesReceiptTest8.GetDisplayText: string;
+function TSalesReceiptTest8.GetDisplayText: WideString;
 begin
   Result := 'Sales receipt test 8';
 end;
@@ -2435,7 +2435,7 @@ end;
 
 { TSalesReceiptTest9 }
 
-function TSalesReceiptTest9.GetDisplayText: string;
+function TSalesReceiptTest9.GetDisplayText: WideString;
 begin
   Result := 'Sales receipt test 9';
 end;
@@ -2467,7 +2467,7 @@ end;
 
 { TSalesReceiptTest10 }
 
-function TSalesReceiptTest10.GetDisplayText: string;
+function TSalesReceiptTest10.GetDisplayText: WideString;
 begin
   Result := 'Sales receipt test 10';
 end;
@@ -2498,7 +2498,7 @@ end;
 
 { TSalesReceiptTest11 }
 
-function TSalesReceiptTest11.GetDisplayText: string;
+function TSalesReceiptTest11.GetDisplayText: WideString;
 begin
   Result := 'Sales receipt test 11';
 end;
@@ -2538,7 +2538,7 @@ end;
 
 { TSalesReceiptTest12 }
 
-function TSalesReceiptTest12.GetDisplayText: string;
+function TSalesReceiptTest12.GetDisplayText: WideString;
 begin
   Result := 'Department test';
 end;
@@ -2582,7 +2582,7 @@ end;
 
 { TZeroReceipt }
 
-function TZeroReceipt.GetDisplayText: string;
+function TZeroReceipt.GetDisplayText: WideString;
 begin
   Result := 'Zero receipt';
 end;
@@ -2621,7 +2621,7 @@ end;
 
 { TRoundTest }
 
-function TRoundTest.GetDisplayText: string;
+function TRoundTest.GetDisplayText: WideString;
 begin
   Result := 'Round test';
 end;
@@ -2658,7 +2658,7 @@ end;
 
 { TReceiptDiscountTest }
 
-function TReceiptDiscountTest.GetDisplayText: string;
+function TReceiptDiscountTest.GetDisplayText: WideString;
 begin
   Result := 'Receipt discount test';
 end;
@@ -2689,7 +2689,7 @@ end;
 
 { TReceiptDiscountTest2 }
 
-function TReceiptDiscountTest2.GetDisplayText: string;
+function TReceiptDiscountTest2.GetDisplayText: WideString;
 begin
   Result := 'Receipt discount test 2';
 end;
@@ -2730,14 +2730,14 @@ end;
 
 { TGlobusReceiptTest }
 
-function TGlobusReceiptTest.GetDisplayText: string;
+function TGlobusReceiptTest.GetDisplayText: WideString;
 begin
   Result := 'GLOBUS receipt test';
 end;
 
 procedure TGlobusReceiptTest.Execute;
 
-  function getImageCommand(const fileName: string): string;
+  function getImageCommand(const fileName: WideString): WideString;
   begin
     Result := #$1B#$62 + fileName + #$0A;
   end;
@@ -2787,7 +2787,7 @@ end;
 
 { TCancelReceiptTest }
 
-function TCancelReceiptTest.GetDisplayText: string;
+function TCancelReceiptTest.GetDisplayText: WideString;
 begin
   Result := 'Cancel receipt test';
 end;
@@ -2828,7 +2828,7 @@ end;
 
 { TStornoReceiptTest }
 
-function TStornoReceiptTest.GetDisplayText: string;
+function TStornoReceiptTest.GetDisplayText: WideString;
 begin
   Result := 'Storno receipt test';
 end;
@@ -2876,7 +2876,7 @@ end;
 
 { TReadEJACtivationResultTest }
 
-function TReadEJACtivationResultTest.GetDisplayText: string;
+function TReadEJACtivationResultTest.GetDisplayText: WideString;
 begin
   Result := 'Read EJ activation';
 end;
@@ -2910,7 +2910,7 @@ end;
 
 { TReadEJACtivationResultTest2 }
 
-function TReadEJACtivationResultTest2.GetDisplayText: string;
+function TReadEJACtivationResultTest2.GetDisplayText: WideString;
 begin
   Result := 'Read EJ activation 2';
 end;
@@ -2945,7 +2945,7 @@ end;
 
 { TReadEJACtivationResultTest3 }
 
-function TReadEJACtivationResultTest3.GetDisplayText: string;
+function TReadEJACtivationResultTest3.GetDisplayText: WideString;
 begin
   Result := 'Read EJ activation 3';
 end;
@@ -2973,7 +2973,7 @@ end;
 
 { TReadEJACtivationResultTest4 }
 
-function TReadEJACtivationResultTest4.GetDisplayText: string;
+function TReadEJACtivationResultTest4.GetDisplayText: WideString;
 begin
   Result := 'Read EJ activation 4';
 end;
@@ -2992,7 +2992,7 @@ end;
 
 { TBoldTextTest }
 
-function TBoldTextTest.GetDisplayText: string;
+function TBoldTextTest.GetDisplayText: WideString;
 begin
   Result := 'Bold text test';
 end;
@@ -3047,7 +3047,7 @@ begin
   AddLine('Время выполнения: ' + IntToStr(TickCount));
 end;
 
-function TPrint10Test.GetDisplayText: string;
+function TPrint10Test.GetDisplayText: WideString;
 begin
   Result := 'Print 10 items receipts';
 end;
@@ -3077,7 +3077,7 @@ begin
   AddLine('Время выполнения: ' + IntToStr(TickCount));
 end;
 
-function TPrint20Test.GetDisplayText: string;
+function TPrint20Test.GetDisplayText: WideString;
 begin
   Result := 'Print 20 items receipts';
 end;
@@ -3110,7 +3110,7 @@ begin
   AddLine('Время выполнения: ' + IntToStr(TickCount));
 end;
 
-function TPrintNormalTest.GetDisplayText: string;
+function TPrintNormalTest.GetDisplayText: WideString;
 begin
   Result := 'PrintNormal before receipt items';
 end;
@@ -3148,7 +3148,7 @@ begin
   FiscalPrinter.RecNearEnd;
 end;
 
-function TRecNearEndTest.GetDisplayText: string;
+function TRecNearEndTest.GetDisplayText: WideString;
 begin
   Result := 'RecNearEnd test';
 end;
@@ -3253,7 +3253,7 @@ begin
   AddLine('Test completed !');
 end;
 
-function TDiscountCardTest.GetDisplayText: string;
+function TDiscountCardTest.GetDisplayText: WideString;
 begin
   Result := 'Discount card test';
 end;
@@ -3298,7 +3298,7 @@ begin
   AddLine('Test completed !');
 end;
 
-function TDiscountCardTest2.GetDisplayText: string;
+function TDiscountCardTest2.GetDisplayText: WideString;
 begin
   Result := 'Discount card test 2';
 end;
@@ -3310,7 +3310,7 @@ var
   i: Integer;
   pData: Integer;
   pString: WideString;
-  BarcodeData: string;
+  BarcodeData: WideString;
 begin
   Check(FiscalPrinter.ResetPrinter);
 
@@ -3337,14 +3337,14 @@ begin
   Check(FiscalPrinter.EndNonFiscal);
 end;
 
-function TQRCodeTest.GetDisplayText: string;
+function TQRCodeTest.GetDisplayText: WideString;
 begin
   Result := 'QR Code Test';
 end;
 
 { TTestReceipt2 }
 
-function TTestReceipt2.GetDisplayText: string;
+function TTestReceipt2.GetDisplayText: WideString;
 begin
   Result := 'Discount receipt';
 end;
@@ -3362,7 +3362,7 @@ end;
 
 { TTestReceipt3 }
 
-function TTestReceipt3.GetDisplayText: string;
+function TTestReceipt3.GetDisplayText: WideString;
 begin
   Result := 'Discount receipt 2';
 end;
@@ -3399,7 +3399,7 @@ end;
 
 { TTestReceipt4 }
 
-function TTestReceipt4.GetDisplayText: string;
+function TTestReceipt4.GetDisplayText: WideString;
 begin
   Result := 'Discount receipt 3';
 end;
@@ -3426,7 +3426,7 @@ end;
 
 { TTestReceipt5 }
 
-function TTestReceipt5.GetDisplayText: string;
+function TTestReceipt5.GetDisplayText: WideString;
 begin
   Result := 'Barcode test receipt';
 end;
@@ -3477,7 +3477,7 @@ begin
   Check(FiscalPrinter.EndFiscalReceipt(True));
 end;
 
-function TTestReceipt6.GetDisplayText: string;
+function TTestReceipt6.GetDisplayText: WideString;
 begin
   Result := 'Barcode test receipt 2';
 end;
@@ -3515,14 +3515,14 @@ begin
   Check(FiscalPrinter.EndFiscalReceipt(True));
 end;
 
-function TTestReceipt7.GetDisplayText: string;
+function TTestReceipt7.GetDisplayText: WideString;
 begin
   Result := 'Discount receipt test';
 end;
 
 { TTestReceipt8 }
 
-function TTestReceipt8.GetDisplayText: string;
+function TTestReceipt8.GetDisplayText: WideString;
 begin
   Result := 'Discount receipt test 2';
 end;
@@ -3553,7 +3553,7 @@ begin
   Check(FiscalPrinter.EndFiscalReceipt(True));
 end;
 
-function TTestReceipt9.GetDisplayText: string;
+function TTestReceipt9.GetDisplayText: WideString;
 begin
   Result := 'Discount receipt test 3';
 end;
@@ -3577,7 +3577,7 @@ begin
   Check(FiscalPrinter.EndFiscalReceipt(True));
 end;
 
-function TTestReceipt10.GetDisplayText: string;
+function TTestReceipt10.GetDisplayText: WideString;
 begin
   Result := 'Refund receipt 10';
 end;
@@ -3601,14 +3601,14 @@ begin
   Check(FiscalPrinter.EndFiscalReceipt(True));
 end;
 
-function TTestReceipt11.GetDisplayText: string;
+function TTestReceipt11.GetDisplayText: WideString;
 begin
   Result := 'Sales receipt 11';
 end;
 
 { TTestDiscountReceipt }
 
-function TTestDiscountReceipt.GetDisplayText: string;
+function TTestDiscountReceipt.GetDisplayText: WideString;
 begin
   Result := 'Test discount receipt';
 end;
@@ -3629,7 +3629,7 @@ end;
 
 { TDiscountReceipt2 }
 
-function TDiscountReceipt2.GetDisplayText: string;
+function TDiscountReceipt2.GetDisplayText: WideString;
 begin
   Result := 'Discount receipt 2';
 end;
@@ -3648,7 +3648,7 @@ end;
 
 { TDiscountReceipt3 }
 
-function TDiscountReceipt3.GetDisplayText: string;
+function TDiscountReceipt3.GetDisplayText: WideString;
 begin
   Result := 'Discount receipt 3';
 end;
@@ -3669,7 +3669,7 @@ end;
 
 { TDiscountReceipt4 }
 
-function TDiscountReceipt4.GetDisplayText: string;
+function TDiscountReceipt4.GetDisplayText: WideString;
 begin
   Result := 'Discount receipt 4';
 end;
@@ -3688,7 +3688,7 @@ end;
 
 { TRetalixReceipt }
 
-function TRetalixReceipt.GetDisplayText: string;
+function TRetalixReceipt.GetDisplayText: WideString;
 begin
   Result := 'Retalix test receipt';
 end;
@@ -3738,7 +3738,7 @@ begin
   Check(FiscalPrinter.EndNonFiscal);
 end;
 
-function THangReceiptTest.GetDisplayText: string;
+function THangReceiptTest.GetDisplayText: WideString;
 begin
   Result := 'THangReceiptTest';
 end;
@@ -3759,7 +3759,7 @@ begin
   Check(FiscalPrinter.EndFiscalReceipt(True));
 end;
 
-function TRosneftReceiptTest.GetDisplayText: string;
+function TRosneftReceiptTest.GetDisplayText: WideString;
 begin
   Result := 'Rosneft receipt test';
 end;
@@ -3780,7 +3780,7 @@ begin
   Check(FiscalPrinter.EndFiscalReceipt(True));
 end;
 
-function TDiscountReceipt5.GetDisplayText: string;
+function TDiscountReceipt5.GetDisplayText: WideString;
 begin
   Result := 'Discount receipt 5';
 end;
@@ -3798,7 +3798,7 @@ begin
   Check(FiscalPrinter.EndFiscalReceipt(True));
 end;
 
-function TDiscountReceipt6.GetDisplayText: string;
+function TDiscountReceipt6.GetDisplayText: WideString;
 begin
   Result := 'Discount receipt 6';
 end;
@@ -3806,7 +3806,7 @@ end;
 
 { TDiscountReceipt7 }
 
-function TDiscountReceipt7.GetDisplayText: string;
+function TDiscountReceipt7.GetDisplayText: WideString;
 begin
   Result := 'Discount receipt 7';
 end;
@@ -3835,7 +3835,7 @@ begin
   Check(FiscalPrinter.EndFiscalReceipt(True));
 end;
 
-function TDiscountReceipt8.GetDisplayText: string;
+function TDiscountReceipt8.GetDisplayText: WideString;
 begin
   Result := 'Test receipt 8';
 end;
@@ -3888,7 +3888,7 @@ begin
   Check(FiscalPrinter.EndNonFiscal);
 end;
 
-function TAdjustmentReceiptTest.GetDisplayText: string;
+function TAdjustmentReceiptTest.GetDisplayText: WideString;
 begin
   Result := 'Adjustment receipt test';
 end;
@@ -3920,14 +3920,14 @@ begin
   Check(FiscalPrinter.EndFiscalReceipt(True));
 end;
 
-function TCorrectionReceiptTest.GetDisplayText: string;
+function TCorrectionReceiptTest.GetDisplayText: WideString;
 begin
   Result := 'Correction receipt test';
 end;
 
 { TTLVReceiptTest }
 
-function TTLVReceiptTest.GetDisplayText: string;
+function TTLVReceiptTest.GetDisplayText: WideString;
 begin
   Result := 'TLV receipt test';
 end;
@@ -3949,7 +3949,7 @@ end;
 
 { TPreLineReceiptTest }
 
-function TPreLineReceiptTest.GetDisplayText: string;
+function TPreLineReceiptTest.GetDisplayText: WideString;
 begin
   Result := 'Pre Line Receipt Test';
 end;
@@ -4006,7 +4006,7 @@ begin
   Check(FiscalPrinter.EndFiscalReceipt(False));
 end;
 
-function TZeroReceiptTest.GetDisplayText: string;
+function TZeroReceiptTest.GetDisplayText: WideString;
 begin
   Result := 'Zero receipt test';
 end;
@@ -4024,14 +4024,14 @@ begin
   Check(FiscalPrinter.EndFiscalReceipt(False));
 end;
 
-function TZeroReceiptTest2.GetDisplayText: string;
+function TZeroReceiptTest2.GetDisplayText: WideString;
 begin
   Result := 'Zero refund receipt test';
 end;
 
 { TReceiptTest8 }
 
-function TReceiptTest8.GetDisplayText: string;
+function TReceiptTest8.GetDisplayText: WideString;
 begin
   Result := 'ReceiptTest8';
 end;
@@ -4107,7 +4107,7 @@ begin
   Check(FiscalPrinter.EndFiscalReceipt(False));
 end;
 
-function TReceiptTest9.GetDisplayText: string;
+function TReceiptTest9.GetDisplayText: WideString;
 begin
   Result := 'ReceiptTest9';
 end;
@@ -4126,14 +4126,14 @@ begin
   Check(FiscalPrinter.endFiscalReceipt(false));
 end;
 
-function TReceiptTest10.GetDisplayText: string;
+function TReceiptTest10.GetDisplayText: WideString;
 begin
   Result := 'ReceiptTest10';
 end;
 
 { TReceiptTest11 }
 
-function TReceiptTest11.GetDisplayText: string;
+function TReceiptTest11.GetDisplayText: WideString;
 begin
   Result := 'ReceiptTest11';
 end;
@@ -4161,7 +4161,7 @@ procedure TReceiptTest11.Execute;
       '0123456789012345678901234567890123456789012345678901234567890123456789' +
       '01234567';
   var
-    Line: string;
+    Line: WideString;
     OptArgs: Integer;
     Data: WideString;
     TextLength: Integer;
@@ -4237,7 +4237,7 @@ end;
 
 procedure TReceiptTest12.Execute;
 var
-  EgaisQRCode: string;
+  EgaisQRCode: WideString;
   Barcode: TBarcodeRec;
 begin
   EgaisQRCode := 'https://check.egais.ru?id=a9e56cb9-21d6-4404-9f24-668020fadf6a&dt=0910141104&cn=Magazin2014 ' +
@@ -4269,7 +4269,7 @@ begin
   FiscalPrinter.EndFiscalReceipt(True);
 end;
 
-function TReceiptTest12.GetDisplayText: string;
+function TReceiptTest12.GetDisplayText: WideString;
 begin
   Result := 'ReceiptTest12';
 end;
@@ -4296,14 +4296,14 @@ begin
   Check(FiscalPrinter.EndFiscalReceipt(False));
 end;
 
-function TReceiptTest13.GetDisplayText: string;
+function TReceiptTest13.GetDisplayText: WideString;
 begin
   Result := 'ReceiptTest13';
 end;
 
 { TReceiptTest14 }
 
-function TReceiptTest14.GetDisplayText: string;
+function TReceiptTest14.GetDisplayText: WideString;
 begin
   Result := 'ReceiptTest14';
 end;
@@ -4358,7 +4358,7 @@ end;
 
 { TReceiptTest15 }
 
-function TReceiptTest15.GetDisplayText: string;
+function TReceiptTest15.GetDisplayText: WideString;
 begin
   Result := 'ReceiptTest15';
 end;
@@ -4431,14 +4431,14 @@ end;
 
 { TReceiptTest16 }
 
-function TReceiptTest16.GetDisplayText: string;
+function TReceiptTest16.GetDisplayText: WideString;
 begin
   Result := 'Test multiline text in printRecItem method';
 end;
 
 procedure TReceiptTest16.Execute;
 var
-  Text: string;
+  Text: WideString;
 begin
   Text :=
     '01234567890123456789012345678901234567890123456789' +
@@ -4458,7 +4458,7 @@ end;
 
 { TReceiptTest17 }
 
-function TReceiptTest17.GetDisplayText: string;
+function TReceiptTest17.GetDisplayText: WideString;
 begin
   Result := 'Open fiscal day test';
 end;
@@ -4485,7 +4485,7 @@ end;
 
 { TReceiptTest18 }
 
-function TReceiptTest18.GetDisplayText: string;
+function TReceiptTest18.GetDisplayText: WideString;
 begin
   Result := 'Check item marking';
 end;
@@ -4520,7 +4520,7 @@ end;
 
 { TReceiptTest19 }
 
-function TReceiptTest19.GetDisplayText: string;
+function TReceiptTest19.GetDisplayText: WideString;
 begin
   Result := 'TReceiptTest19';
 end;
@@ -4611,14 +4611,14 @@ begin
   FiscalPrinter.EndFiscalReceipt(True);
 end;
 
-function TReceiptTest20.GetDisplayText: string;
+function TReceiptTest20.GetDisplayText: WideString;
 begin
   Result := 'TReceiptTest20';
 end;
 
 { TReceiptTest21 }
 
-function TReceiptTest21.GetDisplayText: string;
+function TReceiptTest21.GetDisplayText: WideString;
 begin
   Result := 'TReceiptTest21';
 end;
@@ -4675,7 +4675,7 @@ begin
 *)
 end;
 
-function TCorrectionReceipt2Test.GetDisplayText: string;
+function TCorrectionReceipt2Test.GetDisplayText: WideString;
 begin
   Result := 'Correction receipt 2 test';
 end;

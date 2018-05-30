@@ -49,7 +49,7 @@ type
     FParameters2: TPrinterParameters2;
     FIsOnline: Boolean;
     FResultCode: Integer;
-    FResultText: string;
+    FResultText: WideString;
     FLogger: TClassLogger;
     FTaxPassword: DWORD;        // tax officer password
     FSysPassword: DWORD;        // system administrator password
@@ -87,22 +87,22 @@ type
     procedure SetPrinterStatus(Value: TPrinterStatus);
     procedure WriteLogModelParameters(const Model: TPrinterModelRec);
 
-    function GetModelsFileName: string;
+    function GetModelsFileName: WideString;
     function SelectModel: TPrinterModel;
     function GetPrinterModel: TPrinterModel;
     function GetDeviceMetrics: TDeviceMetrics;
     function MinProtocolVersion(V1, V2: Integer): Boolean;
-    function CenterLine(const Line: string): string;
-    function AlignLine(const Line: string; PrintWidth: Integer;
-      Alignment: TTextAlignment = taLeft): string;
-    procedure SplitText(const Text: string; Font: Integer;
+    function CenterLine(const Line: WideString): WideString;
+    function AlignLine(const Line: WideString; PrintWidth: Integer;
+      Alignment: TTextAlignment = taLeft): WideString;
+    procedure SplitText(const Text: WideString; Font: Integer;
       Lines: TTntStrings);
     function ValidFieldValue(const FieldInfo: TPrinterFieldRec;
-      const FieldValue: string): Boolean;
+      const FieldValue: WideString): Boolean;
     function GetStatistics: TFiscalPrinterStatistics;
     function GetResultCode: Integer;
-    function GetResultText: string;
-    function ReadEJActivationText(MaxCount: Integer): string;
+    function GetResultText: WideString;
+    function ReadEJActivationText(MaxCount: Integer): WideString;
     function GetIsOnline: Boolean;
     function GetOnConnect: TNotifyEvent;
     function GetOnDisconnect: TNotifyEvent;
@@ -118,7 +118,7 @@ type
     function DrawScale(const P: TDrawScale): Integer;
     function Is1DBarcode(Symbology: Integer): Boolean;
     procedure LoadBitmap(StartLine: Integer; Bitmap: TBitmap);
-    function GetLineData(Bitmap: TBitmap; Index: Integer): string;
+    function GetLineData(Bitmap: TBitmap; Index: Integer): AnsiString;
     procedure ProgressEvent(Progress: Integer);
     function Is2DBarcode(Symbology: Integer): Boolean;
     procedure Connect;
@@ -135,32 +135,32 @@ type
     procedure LoadBitmap512(StartLine: Integer; Bitmap: TBitmap;
       Scale: Integer);
     function TestCommand(Code: Integer): Boolean;
-    function ReadEJDocumentText(MACNumber: Integer): string;
-    function ReadEJDocument(MACNumber: Integer; var Line: string): Integer;
-    function ParseEJDocument(const Text: string): TEJDocument;
+    function ReadEJDocumentText(MACNumber: Integer): WideString;
+    function ReadEJDocument(MACNumber: Integer; var Line: WideString): Integer;
+    function ParseEJDocument(const Text: WideString): TEJDocument;
     function FSSale(const P: TFSSale): Integer;
     function FSSale2(const P: TFSSale2): Integer;
     function FSStorno(const P: TFSSale): Integer;
-    function ProcessLine(const Line: string): Boolean;
+    function ProcessLine(const Line: WideString): Boolean;
     function FSReadStatus(var R: TFSStatus): Integer;
     function FSFindDocument(DocNumber: Integer; var R: TFSDocument): Integer;
     function FSReadDocMac(var DocMac: Int64): Integer;
 
     function FSReadBlock(const P: TFSBlockRequest;
-      var Block: string): Integer;
+      var Block: AnsiString): Integer;
     function FSStartWrite(DataSize: Word; var BlockSize: Byte): Integer;
     function FSWriteBlock(const Block: TFSBlock): Integer;
-    function FSReadBlockData: string;
-    procedure FSWriteBlockData(const BlockData: string);
+    function FSReadBlockData: AnsiString;
+    procedure FSWriteBlockData(const BlockData: AnsiString);
     function FSReadState(var R: TFSState): Integer;
     function ReadCapFiscalStorage: Boolean;
-    function GetErrorText(Code: Integer): string;
+    function GetErrorText(Code: Integer): WideString;
     function OpenFiscalDay: Boolean;
     function GetCapFiscalStorage: Boolean;
     function GetCapOpenReceipt: Boolean;
     function GetCapReceiptDiscount2: Boolean;
     procedure PrintCommStatus;
-    procedure WriteFPParameter(ParamId: Integer; const Value: string);
+    procedure WriteFPParameter(ParamId: Integer; const Value: WideString);
     function GetDiscountMode: Integer;
     function GetIsFiscalized: Boolean;
     function ReadDayTotalsByReceiptType(Index: Integer): Int64;
@@ -168,13 +168,13 @@ type
     function ReadDayTotals: TFMTotals;
     function LoadPicture(Picture: TPicture; StartLine: Integer): Integer;
 
-    procedure PrintString(Flags: Byte; const Line: string);
+    procedure PrintString(Flags: Byte; const Line: WideString);
     procedure WriteFields(Table: TPrinterTable);
     function FSReadTicket(var R: TFSTicket): Integer;
     function GetLogger: ILogFile;
     function GetMalinaParams: TMalinaParams;
     function GetCapDiscount: Boolean;
-    function ReadLoaderVersion(var Version: string): Integer;
+    function ReadLoaderVersion(var Version: WideString): Integer;
     function GetCapFSCloseReceipt2: Boolean;
     function ReceiptCancelPassword(Password: Integer): Integer;
     function IsSupported(ResultCode: Integer): Boolean;
@@ -183,16 +183,16 @@ type
     procedure SetFooterFlag(Value: Boolean);
     procedure PrintQRCode3(Barcode: TBarcodeRec);
     function GetBlockSize(BlockSize: Integer): Integer;
-    function ReadFSDocument(Number: Integer): string;
+    function ReadFSDocument(Number: Integer): WideString;
     procedure PrintFSDocument(Number: Integer);
     function FSReadDocData(var P: TFSReadDocData): Integer;
     function FSReadDocument(var P: TFSReadDocument): Integer;
     function FSStartOpenDay: Integer;
     function IsMobilePrinter: Boolean;
     procedure EkmCheckBarcode(const Barcode: TGS1Barcode);
-    function CheckItemBarcode(const Barcode: string): Integer;
-    function LoadBarcodeData(const Barcode: string): Integer;
-    function SendItemBarcode(const Barcode: string;
+    function CheckItemBarcode(const Barcode: WideString): Integer;
+    function LoadBarcodeData(const Barcode: WideString): Integer;
+    function SendItemBarcode(const Barcode: WideString;
       MarkType: Integer): Integer;
     function GetFSCloseReceiptResult2: TFSCloseReceiptResult2;
     function IsFSDocumentOpened: Boolean;
@@ -226,10 +226,10 @@ type
     function GetFMFlags(Flags: Byte): TFMFlags;
     function ReadShortStatus: TShortPrinterStatus;
     function StartDump(DeviceCode: Integer): Integer;
-    function PrintBoldString(Flags: Byte; const Text: string): Integer;
+    function PrintBoldString(Flags: Byte; const Text: WideString): Integer;
     function GetPortParams(Port: Byte): TPortParams;
     function SetPortParams(Port: Byte; const PortParams: TPortParams): Integer;
-    procedure PrintDocHeader(const DocName: string; DocNumber: Word);
+    procedure PrintDocHeader(const DocName: WideString; DocNumber: Word);
     procedure StartTest(Interval: Byte);
     function ReadCashRegister(ID: Integer): Int64;
     function ReadCashReg2(RegID: Integer): Int64;
@@ -237,12 +237,12 @@ type
     function ReadOperatingReg(ID: Byte; var R: TOperRegisterRec): Integer;
     procedure WriteLicense(License: Int64);
     function ReadLicense: Int64;
-    function WriteTable(Table, Row, Field: Integer; const FieldValue: string): Integer;
+    function WriteTable(Table, Row, Field: Integer; const FieldValue: WideString): Integer;
     function WriteTableInt(Table, Row, Field, Value: Integer): Integer;
     function DoWriteTable(Table, Row, Field: Integer;
-      const FieldValue: string): Integer;
-    function ReadTableBin(Table, Row, Field: Integer): string;
-    function ReadTableStr(Table, Row, Field: Integer): string;
+      const FieldValue: WideString): Integer;
+    function ReadTableBin(Table, Row, Field: Integer): WideString;
+    function ReadTableStr(Table, Row, Field: Integer): WideString;
     function ReadTableInt(Table, Row, Field: Integer): Integer;
     procedure SetPointPosition(PointPosition: Byte);
     procedure SetTime(const Time: TPrinterTime);
@@ -277,19 +277,19 @@ type
     function ReadFMTotals(Flags: Byte; var R: TFMTotals): Integer;
     function ContinuePrint: Integer;
 
-    function PrintBarcode(const Barcode: string): Integer;
+    function PrintBarcode(const Barcode: WideString): Integer;
     function PrintGraphics(Line1, Line2: Word): Integer;
     function PrintGraphics1(Line1, Line2: Byte): Integer;
     function PrintGraphics2(Line1, Line2: Word): Integer;
     function PrintGraphics3(Line1, Line2: Word): Integer; overload;
     function PrintGraphics3(const P: TPrintGraphics3): Integer; overload;
-    function LoadGraphics(Line: Word; Data: string): Integer;
-    function LoadGraphics1(Line: Byte; Data: string): Integer;
-    function LoadGraphics2(Line: Word; Data: string): Integer;
-    function LoadGraphics3(Line: Word; Data: string): Integer; overload;
+    function LoadGraphics(Line: Word; Data: WideString): Integer;
+    function LoadGraphics1(Line: Byte; Data: WideString): Integer;
+    function LoadGraphics2(Line: Word; Data: WideString): Integer;
+    function LoadGraphics3(Line: Word; Data: WideString): Integer; overload;
     function LoadGraphics3(const P: TLoadGraphics3): Integer; overload;
-    function PrintBarLine(Height: Word; Data: string): Integer;
-    function PrintGraphicsLine(Height: Word; Flags: Byte; Data: string): Integer;
+    function PrintBarLine(Height: Word; Data: AnsiString): Integer;
+    function PrintGraphicsLine(Height: Word; Flags: Byte; Data: WideString): Integer;
     function ReadDeviceMetrics: TDeviceMetrics;
     function GetDayDiscountTotal: Int64;
     function GetRecDiscountTotal: Int64;
@@ -300,13 +300,13 @@ type
     function ReadTableInfo(Table: Byte; var R: TPrinterTableRec): Integer;
     function ReadTableStructure(Table: Byte; var R: TPrinterTableRec): Integer;
     function ReadFieldStructure(Table, Field: Byte): TPrinterFieldRec;
-    function GetEJSesssionResult(Number: Word; var Text: string): Integer;
-    function GetEJReportLine(var Line: string): Integer;
-    function ReadEJActivation(var Line: string): Integer;
+    function GetEJSesssionResult(Number: Word; var Text: WideString): Integer;
+    function GetEJReportLine(var Line: WideString): Integer;
+    function ReadEJActivation(var Line: WideString): Integer;
     function EJReportStop: Integer;
     procedure Check(Code: Integer);
     function GetEJStatus1(var Status: TEJStatus1): Integer;
-    procedure PrintStringFont(Flags, Font: Byte; const Line: string);
+    procedure PrintStringFont(Flags, Font: Byte; const Line: WideString);
     procedure PrintJournal(DayNumber: Integer);
 
     function GetSysPassword: DWORD;
@@ -314,7 +314,8 @@ type
     function GetUsrPassword: DWORD;
     function GetPrintWidth: Integer; overload;
     function GetPrintWidth(Font: Integer): Integer; overload;
-    function Execute(const Data: string): string;
+
+    function Execute(const Data: AnsiString): AnsiString;
     function ExecuteStream(Stream: TBinStream): Integer;
     function ExecutePrinterCommand(Command: TPrinterCommand): Integer;
 
@@ -338,15 +339,15 @@ type
     function ReceiptStornoCharge(Operation: TAmountOperation): Integer;
     function PrintReceiptCopy: Integer;
     function OpenReceipt(ReceiptType: Byte): Integer;
-    function FormatLines(const Line1, Line2: string): string;
-    procedure PrintLines(const Line1, Line2: string);
-    function FormatBoldLines(const Line1, Line2: string): string;
+    function FormatLines(const Line1, Line2: WideString): WideString;
+    procedure PrintLines(const Line1, Line2: WideString);
+    function FormatBoldLines(const Line1, Line2: WideString): WideString;
     procedure EJTotalsReportDate(const Parameters: TDateReport);
     procedure EJTotalsReportNumber(const Parameters: TNumberReport);
     function ExecuteStream2(Stream: TBinStream): Integer;
-    function GetFieldValue(FieldInfo: TPrinterFieldRec; const Value: string): string;
-    function FieldToStr(FieldInfo: TPrinterFieldRec; const Value: string): string;
-    function BinToFieldValue(FieldInfo: TPrinterFieldRec; const Value: string): string;
+    function GetFieldValue(FieldInfo: TPrinterFieldRec; const Value: WideString): WideString;
+    function FieldToStr(FieldInfo: TPrinterFieldRec; const Value: WideString): WideString;
+    function BinToFieldValue(FieldInfo: TPrinterFieldRec; const Value: WideString): WideString;
     class function ByteToTimeout(Value: Byte): DWORD;
     class function TimeoutToByte(Value: Integer): Byte;
     procedure InterruptReport;
@@ -358,19 +359,19 @@ type
     function ReportOnDateRange(ReportType: Byte; Range: TDayDateRange): TDayRange;
     function ReportOnNumberRange(ReportType: Byte; Range: TDayNumberRange): TDayRange;
     function DecodeEJFlags(Flags: Byte): TEJFlags;
-    function GetLine(const Text: string): string; overload;
-    function GetLine(const Text: string; MinLength, MaxLength: Integer): string; overload;
-    function GetText(const Text: string; MinLength: Integer): string;
+    function GetLine(const Text: WideString): WideString; overload;
+    function GetLine(const Text: WideString; MinLength, MaxLength: Integer): WideString; overload;
+    function GetText(const Text: WideString; MinLength: Integer): WideString;
     class function BaudRateToCode(BaudRate: Integer): Integer;
     class function CodeToBaudRate(BaudRate: Integer): Integer;
-    function FieldToInt(FieldInfo: TPrinterFieldRec; const Value: string): Integer;
+    function FieldToInt(FieldInfo: TPrinterFieldRec; const Value: WideString): Integer;
     function ReadFieldInfo(Table, Field: Byte; var R: TPrinterFieldRec): Integer;
-    function ExecuteData(const TxData: string; var RxData: string): Integer;
+    function ExecuteData(const TxData: AnsiString; var RxData: AnsiString): Integer;
     function ExecuteCommand(var Command: TCommandRec): Integer;
 
     function SendCommand(var Command: TCommandRec): Integer;
-    function AlignLines(const Line1, Line2: string;
-      LineWidth: Integer): string;
+    function AlignLines(const Line1, Line2: WideString;
+      LineWidth: Integer): WideString;
     function GetModel: TPrinterModelRec;
     function GetOnCommand: TCommandEvent;
     function GetOnPrinterStatus: TNotifyEvent;
@@ -379,7 +380,7 @@ type
     procedure SetOnCommand(Value: TCommandEvent);
     procedure SetBeforeCommand(Value: TCommandEvent);
     procedure PrintText(const Data: TTextRec); overload;
-    procedure PrintText(Station: Integer; const Text: string); overload;
+    procedure PrintText(Station: Integer; const Text: WideString); overload;
     function GetTables: TDeviceTables;
     procedure SetTables(const Value: TDeviceTables);
 
@@ -405,28 +406,28 @@ type
     function IsDayOpened(Mode: Integer): Boolean;
     procedure PrintBarcode2(const Barcode: TBarcodeRec);
     function GetStartLine: Integer;
-    function LoadImage(const FileName: string; StartLine: Integer): Integer;
-    procedure PrintImage(const FileName: string; StartLine: Integer);
-    procedure PrintImageScale(const FileName: string; StartLine, Scale: Integer);
-    procedure PrintTextFont(Station: Integer; Font: Integer; const Text: string);
+    function LoadImage(const FileName: WideString; StartLine: Integer): Integer;
+    procedure PrintImage(const FileName: WideString; StartLine: Integer);
+    procedure PrintImageScale(const FileName: WideString; StartLine, Scale: Integer);
+    procedure PrintTextFont(Station: Integer; Font: Integer; const Text: WideString);
     procedure LoadTables(const Path: WideString);
 
-    function FSWriteTLV(const TLVData: string): Integer;
+    function FSWriteTLV(const TLVData: AnsiString): Integer;
     function FSPrintCalcReport(var R: TFSCalcReport): Integer;
     function FSReadCommStatus(var R: TFSCommStatus): Integer;
     function FSReadExpireDate(var Date: TPrinterDate): Integer;
     function FSReadFiscalResult(var R: TFSFiscalResult): Integer;
-    function FSWriteTag(TagID: Integer; const Data: string): Integer;
+    function FSWriteTag(TagID: Integer; const Data: WideString): Integer;
 
     function ReadSysOperatorNumber: Integer;
     function ReadUsrOperatorNumber: Integer;
     function readOperatorNumber(Password: Integer): Integer;
-    function WriteCustomerAddress(const Value: string): Integer;
+    function WriteCustomerAddress(const Value: WideString): Integer;
 
     function ReadShortStatus2(Password: Integer): TShortPrinterStatus;
     function GetTaxInfo(Tax: Integer): TTaxInfo;
     function ReadDiscountMode: Integer;
-    function ReadFPParameter(ParamId: Integer): string;
+    function ReadFPParameter(ParamId: Integer): WideString;
     function FSReadTotals(var R: TFMTotals): Integer;
     function ReadFPDayTotals(Flags: Integer): TFMTotals;
     function ReadTotalsByReceiptType(Index: Integer): Int64;
@@ -443,14 +444,14 @@ type
     function IsCapBarcode2D: Boolean;
     function IsCapEnablePrint: Boolean;
     function ReadCashReg(ID: Integer; var R: TCashRegisterRec): Integer;
-    function FSSendTLVOperation(const Data: string): Integer;
+    function FSSendTLVOperation(const Data: WideString): Integer;
     function FSStartCorrectionReceipt: Integer;
 
     property IsOnline: Boolean read GetIsOnline;
     property Tables: TPrinterTables read FTables;
     property Fields: TPrinterFields read FFields;
     property Model: TPrinterModelRec read GetModel;
-    property ResultText: string read GetResultText;
+    property ResultText: WideString read GetResultText;
     property ResultCode: Integer read GetResultCode;
     property Connection: IPrinterConnection read FConnection;
     property CapFiscalStorage: Boolean read GetCapFiscalStorage;
@@ -501,12 +502,12 @@ begin
     $0F: Result := 1000; // Get long serial number and long ECRRN
     $10: Result := 1000; // Get short ECR status
     $11: Result := 1000; // Get ECR status
-    $12: Result := 1000; // Print bold string
+    $12: Result := 1000; // Print bold AnsiString
     $13: Result := 1000; // Beep
     $14: Result := 1000; // Set communication parameters
     $15: Result := 1000; // Read communication parameters
     $16: Result := 60000; // Technological reset
-    $17: Result := 1000; // Print string
+    $17: Result := 1000; // Print AnsiString
     $18: Result := 1000; // Print document header
     $19: Result := 10000; // Test run
     $1A: Result := 1000; // Get cash totalizer value
@@ -530,7 +531,7 @@ begin
     $2C: Result := 30000; // Print operation totalizers report
     $2D: Result := 1000; // Get table structure
     $2E: Result := 1000; // Get field structure
-    $2F: Result := 1000; // Print string with font
+    $2F: Result := 1000; // Print AnsiString with font
     $40: Result := 30000; // Daily report without cleaning
     $41: Result := 30000; // Daily report with cleaning
     $42: Result := 30000; // Print Department report
@@ -564,7 +565,7 @@ begin
     $78: Result := 30000; // Slip configuration
     $79: Result := 30000; // Standard slip configuration
     $7A: Result := 30000; // Fill slip buffer with nonfiscal information
-    $7B: Result := 30000; // Clear slip buffer string
+    $7B: Result := 30000; // Clear slip buffer AnsiString
     $7C: Result := 30000; // Clear slip buffer
     $7D: Result := 30000; // Print slip
     $7E: Result := 30000; // Common slip configuration
@@ -687,7 +688,7 @@ begin
   end;
 end;
 
-function CenterGraphicsLine(const Data: string; MaxLen, Scale: Integer): string;
+function CenterGraphicsLine(const Data: AnsiString; MaxLen, Scale: Integer): AnsiString;
 begin
   if Scale = 0 then
     raiseException('Scale = 0');
@@ -702,13 +703,13 @@ end;
 const
   MinLineWidth = 40;
 
-function PrinterDateToBin(Value: TPrinterDate): string;
+function PrinterDateToBin(Value: TPrinterDate): AnsiString;
 begin
   SetLength(Result, Sizeof(Value));
   Move(Value, Result[1], Sizeof(Value));
 end;
 
-procedure CheckMinLength(const Data: string; MinLength: Integer);
+procedure CheckMinLength(const Data: AnsiString; MinLength: Integer);
 begin
   if Length(Data) < MinLength then
     raise ECommunicationError.Create(_('Answer data length is too short'));
@@ -800,7 +801,7 @@ begin
   Result := FResultCode;
 end;
 
-function TFiscalPrinterDevice.GetResultText: string;
+function TFiscalPrinterDevice.GetResultText: WideString;
 begin
   Result := FResultText;
 end;
@@ -820,7 +821,7 @@ begin
   FLock.Leave;
 end;
 
-function TFiscalPrinterDevice.GetModelsFileName: string;
+function TFiscalPrinterDevice.GetModelsFileName: WideString;
 begin
   Result := IncludeTrailingBackSlash(ExtractFilePath(GetDllFileName)) +
       ModelsFileName;
@@ -848,7 +849,7 @@ end;
 
 procedure TFiscalPrinterDevice.ReadModelTables;
 var
-  FieldValue: string;
+  FieldValue: AnsiString;
   RowNumber: Integer;
   FieldNumber: Integer;
   ResultCode: Integer;
@@ -884,9 +885,9 @@ end;
 
 procedure TFiscalPrinterDevice.ReadModelParameters;
 var
-  Text: string;
+  Text: AnsiString;
   ParameterID: Integer;
-  FieldValue: string;
+  FieldValue: AnsiString;
   RowNumber: Integer;
   FieldNumber: Integer;
   ResultCode: Integer;
@@ -955,20 +956,20 @@ begin
   end;
 end;
 
-function TFiscalPrinterDevice.GetLine(const Text: string): string;
+function TFiscalPrinterDevice.GetLine(const Text: WideString): WideString;
 begin
   Result := GetLine(Text, MinLineWidth, GetPrintWidth);
 end;
 
-function TFiscalPrinterDevice.GetLine(const Text: string;
-  MinLength, MaxLength: Integer): string;
+function TFiscalPrinterDevice.GetLine(const Text: WideString;
+  MinLength, MaxLength: Integer): WideString;
 begin
   Result := Copy(Text, 1, MaxLength);
   Result := Result + StringOfChar(#0, MinLength - Length(Result));
 end;
 
-function TFiscalPrinterDevice.GetText(const Text: string;
-  MinLength: Integer): string;
+function TFiscalPrinterDevice.GetText(const Text: WideString;
+  MinLength: Integer): WideString;
 begin
   Result := Text;
   if not FCapFiscalStorage then
@@ -1041,7 +1042,7 @@ end;
 
 function TFiscalPrinterDevice.ValidFieldValue(
   const FieldInfo: TPrinterFieldRec;
-  const FieldValue: string): Boolean;
+  const FieldValue: WideString): Boolean;
 var
   I: Integer;
 begin
@@ -1148,12 +1149,12 @@ begin
     $0F, // Get long serial number and long ECRRN
     $10, // Get short ECR status
     $11, // Get ECR status
-    $12, // Print bold string
+    $12, // Print bold AnsiString
     $13, // Beep
     $14, // Set communication parameters
     $15, // Read communication parameters
     $16, // Technological reset
-    $17, // Print string
+    $17, // Print AnsiString
     $18, // Print document header
     $19, // Test run
     $1A, // Get cash totalizer value
@@ -1177,7 +1178,7 @@ begin
     $2C, // Print operation totalizers report
     $2D, // Get table structure
     $2E, // Get field structure
-    $2F, // Print string with font
+    $2F, // Print AnsiString with font
     $40, // Daily report without cleaning
     $41, // Daily report with cleaning
     $42, // Print Department report
@@ -1206,7 +1207,7 @@ begin
     $78, // Slip configuration
     $79, // Standard slip configuration
     $7A, // Fill slip buffer with nonfiscal information
-    $7B, // Clear slip buffer string
+    $7B, // Clear slip buffer AnsiString
     $7C, // Clear slip buffer
     $7D, // Print slip
     $7E, // Common slip configuration
@@ -1363,7 +1364,7 @@ begin
   end;
 end;
 
-function TFiscalPrinterDevice.GetErrorText(Code: Integer): string;
+function TFiscalPrinterDevice.GetErrorText(Code: Integer): WideString;
 begin
   Result := PrinterTypes.GetErrorText(Code, FCapFiscalStorage);
 end;
@@ -1390,10 +1391,10 @@ begin
   end;
 end;
 
-function TFiscalPrinterDevice.ExecuteData(const TxData: string;
-  var RxData: string): Integer;
+function TFiscalPrinterDevice.ExecuteData(const TxData: AnsiString;
+  var RxData: AnsiString): Integer;
 
-function GetCommandCode(const TxData: string): Integer;
+function GetCommandCode(const TxData: AnsiString): Integer;
 begin
   Result := 0;
   if Length(TxData) > 0 then
@@ -1414,8 +1415,8 @@ end;
 
 function TFiscalPrinterDevice.ExecuteStream(Stream: TBinStream): Integer;
 var
-  RxData: string;
-  TxData: string;
+  RxData: AnsiString;
+  TxData: AnsiString;
 begin
   RxData := '';
   TxData := Stream.Data;
@@ -1425,8 +1426,8 @@ end;
 
 function TFiscalPrinterDevice.ExecuteStream2(Stream: TBinStream): Integer;
 var
-  RxData: string;
-  TxData: string;
+  RxData: AnsiString;
+  TxData: AnsiString;
 begin
   RxData := '';
   TxData := Stream.Data;
@@ -1436,8 +1437,8 @@ end;
 
 function TFiscalPrinterDevice.ExecutePrinterCommand(Command: TPrinterCommand): Integer;
 var
-  RxData: string;
-  TxData: string;
+  RxData: AnsiString;
+  TxData: AnsiString;
   Stream: TBinStream;
 begin
   Stream := TBinStream.Create;
@@ -1760,7 +1761,7 @@ end;
 
 ******************************************************************************)
 
-function TFiscalPrinterDevice.PrintBoldString(Flags: Byte; const Text: string): Integer;
+function TFiscalPrinterDevice.PrintBoldString(Flags: Byte; const Text: WideString): Integer;
 var
   Stream: TBinStream;
 begin
@@ -1913,9 +1914,9 @@ begin
 end;
 
 procedure TFiscalPrinterDevice.PrintString(Flags: Byte;
-  const Line: string);
+  const Line: WideString);
 var
-  Text: string;
+  Text: AnsiString;
 begin
   FLogger.Debug(Format('PrintString(%d,''%s'')', [Flags, Line]));
 
@@ -1980,7 +1981,7 @@ end;
 
 ******************************************************************************)
 
-procedure TFiscalPrinterDevice.PrintDocHeader(const DocName: string; DocNumber: Word);
+procedure TFiscalPrinterDevice.PrintDocHeader(const DocName: WideString; DocNumber: Word);
 var
   Stream: TBinStream;
 begin
@@ -2153,8 +2154,8 @@ end;
 function TFiscalPrinterDevice.ReadOperatingReg(ID: Byte;
   var R: TOperRegisterRec): Integer;
 var
-  Data: string;
-  Command: string;
+  Data: AnsiString;
+  Command: AnsiString;
 begin
   FLogger.Debug(Format('ReadOperatingRegister(%d)', [ID]));
 
@@ -2234,7 +2235,7 @@ end;
 
 function TFiscalPrinterDevice.DoWriteTable(
   Table, Row, Field: Integer;
-  const FieldValue: string): Integer;
+  const FieldValue: WideString): Integer;
 var
   Command: TWriteTableCommand;
 begin
@@ -2270,7 +2271,7 @@ end;
 ******************************************************************************)
 
 function TFiscalPrinterDevice.ReadTableBin(Table, Row,
-  Field: Integer): string;
+  Field: Integer): WideString;
 var
   Command: TReadTableCommand;
 begin
@@ -2404,8 +2405,8 @@ end;
 
 procedure TFiscalPrinterDevice.CutPaper(CutType: Byte);
 var
-  Command: string;
-  Answer: string;
+  Command: AnsiString;
+  Answer: AnsiString;
 begin
   FLogger.Debug(Format('CutPaper(%d)', [CutType]));
 
@@ -2441,7 +2442,7 @@ end;
 
 function TFiscalPrinterDevice.ReadFontInfo(FontNumber: Byte): TFontInfo;
 var
-  Data: string;
+  Data: AnsiString;
 begin
   FLogger.Debug(Format('ReadFontInfo(%d)', [FontNumber]));
   Data := Execute(#$26 + IntToBin(GetSysPassword, 4) + Chr(FontNumber));
@@ -2578,8 +2579,8 @@ end;
 function TFiscalPrinterDevice.ReadTableInfo(Table: Byte;
   var R: TPrinterTableRec): Integer;
 var
-  Data: string;
-  Command: string;
+  Data: AnsiString;
+  Command: AnsiString;
 begin
   FLogger.Debug(Format('ReadTableInfo(%d)', [Table]));
   Command := #$2D + IntToBin(GetSysPassword, 4) + Chr(Table);
@@ -2616,8 +2617,8 @@ end;
 function TFiscalPrinterDevice.ReadFieldInfo(Table, Field: Byte;
   var R: TPrinterFieldRec): Integer;
 var
-  Data: string;
-  Command: string;
+  Data: AnsiString;
+  Command: AnsiString;
 begin
   FLogger.Debug(Format('ReadFieldInfo(%d,%d)', [Table, Field]));
   Command := #$2E + IntToBin(GetSysPassword, 4) + Chr(Table) + Chr(Field);
@@ -2656,9 +2657,9 @@ end;
 ******************************************************************************)
 
 procedure TFiscalPrinterDevice.PrintStringFont(Flags, Font: Byte;
-  const Line: string);
+  const Line: WideString);
 var
-  Text: string;
+  Text: AnsiString;
 begin
   Text := Line;
   Flags := GetPrintFlags(Flags);
@@ -2696,7 +2697,7 @@ begin
   end;
 end;
 
-procedure TFiscalPrinterDevice.PrintLines(const Line1, Line2: string);
+procedure TFiscalPrinterDevice.PrintLines(const Line1, Line2: WideString);
 begin
   PrintStringFont(PRINTER_STATION_REC, Parameters.FontNumber,
     FormatLines(Line1, Line2));
@@ -2892,7 +2893,7 @@ end;
 
 ******************************************************************************)
 
-function BinToInt2(const Data: string; Index, Size: Integer): Int64;
+function BinToInt2(const Data: AnsiString; Index, Size: Integer): Int64;
 begin
   Result := 0;
   if Copy(Data, Index, Size) <> StringOfChar(#$FF, Size) then
@@ -2901,8 +2902,8 @@ end;
 
 function TFiscalPrinterDevice.ReadFMTotals(Flags: Byte; var R: TFMTotals): Integer;
 var
-  Command: string;
-  Answer: string;
+  Command: AnsiString;
+  Answer: AnsiString;
 begin
   FLogger.Debug(Format('ReadFMTotals(%d)', [Flags]));
   Command := #$62 + IntToBin(GetSysPassword, 4) + Chr(Flags);
@@ -2936,7 +2937,7 @@ end;
 
 function TFiscalPrinterDevice.ReadFMLastRecordDate: TFMRecordDate;
 var
-  Data: string;
+  Data: AnsiString;
 begin
   Data := Execute(#$63 + IntToBin(GetTaxPassword, 4));
   CheckMinLength(Data, Sizeof(Result));
@@ -2960,7 +2961,7 @@ end;
 
 function TFiscalPrinterDevice.ReadDaysRange: TDayRange;
 var
-  Data: string;
+  Data: AnsiString;
 begin
   Data := Execute(#$64 + IntToBin(GetTaxPassword, 4));
   CheckMinLength(Data, Sizeof(Result));
@@ -2988,7 +2989,7 @@ end;
 function TFiscalPrinterDevice.Fiscalization(Password, PrinterID,
   FiscalID: Int64): TFiscalizationResult;
 var
-  Data: string;
+  Data: AnsiString;
 begin
   FLogger.Debug(Format('Fiscalization(%d,%d,%d)',
     [Password, PrinterID, FiscalID]));
@@ -3024,7 +3025,7 @@ end;
 function TFiscalPrinterDevice.ReportOnDateRange(ReportType: Byte;
   Range: TDayDateRange): TDayRange;
 var
-  Data: string;
+  Data: AnsiString;
 begin
   FLogger.Debug(Format('ReportOnDateRange(%d,%s,%s)',
     [ReportType, PrinterDateToStr(Range.Date1), PrinterDateToStr(Range.Date2)]));
@@ -3060,7 +3061,7 @@ end;
 function TFiscalPrinterDevice.ReportOnNumberRange(ReportType: Byte;
   Range: TDayNumberRange): TDayRange;
 var
-  Data: string;
+  Data: AnsiString;
 begin
   FLogger.Debug(Format('ReportOnDateRange(%d,%d,%d)',
     [ReportType, Range.Number1, Range.Number2]));
@@ -3610,7 +3611,7 @@ end;
 
 procedure TFiscalPrinterDevice.UpdateDepartment(var P: TPriceReg);
 var
-  S: string;
+  S: AnsiString;
   V, Code: Integer;
 begin
   if Parameters.DepartmentInText then
@@ -3940,8 +3941,8 @@ end;
 function TFiscalPrinterDevice.ReceiptDiscount2(
   Operation: TReceiptDiscount2): Integer;
 var
-  Answer: string;
-  Command: string;
+  Answer: AnsiString;
+  Command: AnsiString;
 begin
   Command := #$FF#$4B +
     IntToBin(GetUsrPassword, 4) +
@@ -4278,7 +4279,7 @@ end;
 
 ******************************************************************************)
 
-function TFiscalPrinterDevice.LoadGraphics1(Line: Byte; Data: string): Integer;
+function TFiscalPrinterDevice.LoadGraphics1(Line: Byte; Data: WideString): Integer;
 var
   Stream: TBinStream;
 begin
@@ -4341,7 +4342,7 @@ end;
 
 ******************************************************************************)
 
-function TFiscalPrinterDevice.PrintBarcode(const Barcode: string): Integer;
+function TFiscalPrinterDevice.PrintBarcode(const Barcode: WideString): Integer;
 var
   IBarcode: Int64;
   Stream: TBinStream;
@@ -4404,7 +4405,7 @@ end;
 
 ******************************************************************************)
 
-function TFiscalPrinterDevice.LoadGraphics2(Line: Word; Data: string): Integer;
+function TFiscalPrinterDevice.LoadGraphics2(Line: Word; Data: WideString): Integer;
 var
   Stream: TBinStream;
 begin
@@ -4438,7 +4439,7 @@ end;
 ******************************************************************************)
 
 function TFiscalPrinterDevice.PrintGraphicsLine(Height: Word; Flags: Byte;
-  Data: string): Integer;
+  Data: WideString): Integer;
 var
   Stream: TBinStream;
 begin
@@ -4472,8 +4473,8 @@ end;
   ·	Subprotocol version supported by device (1 byte) 0…255
   ·	Device model (1 byte) 0…255
   ·	Language (1 byte) 0…255, '0' - Russian, '1' - English
-  ·	Device name (X bytes) string of WIN1251 code page characters;
-    string length in bytes depends on device model
+  ·	Device name (X bytes) AnsiString of WIN1251 code page characters;
+    AnsiString length in bytes depends on device model
 
 ******************************************************************************)
 
@@ -4498,7 +4499,7 @@ begin
 end;
 
 function TFiscalPrinterDevice.FieldToInt(FieldInfo: TPrinterFieldRec;
-  const Value: string): Integer;
+  const Value: WideString): Integer;
 begin
   Result := 0;
   case FieldInfo.FieldType of
@@ -4510,19 +4511,7 @@ begin
 end;
 
 function TFiscalPrinterDevice.FieldToStr(FieldInfo: TPrinterFieldRec;
-  const Value: string): string;
-begin
-  case FieldInfo.FieldType of
-    PRINTER_FIELD_TYPE_INT: Result := IntToStr(BinToInt(Value, 1, FieldInfo.Size));
-    PRINTER_FIELD_TYPE_STR: Result := PChar(Value);
-  else
-    raiseException(_('Invalid field type'));
-  end;
-end;
-
-function TFiscalPrinterDevice.BinToFieldValue(
-  FieldInfo: TPrinterFieldRec;
-  const Value: string): string;
+  const Value: WideString): WideString;
 begin
   case FieldInfo.FieldType of
     PRINTER_FIELD_TYPE_INT: Result := IntToStr(BinToInt(Value, 1, FieldInfo.Size));
@@ -4532,7 +4521,20 @@ begin
   end;
 end;
 
-function TFiscalPrinterDevice.GetFieldValue(FieldInfo: TPrinterFieldRec; const Value: string): string;
+function TFiscalPrinterDevice.BinToFieldValue(
+  FieldInfo: TPrinterFieldRec;
+  const Value: WideString): WideString;
+begin
+  case FieldInfo.FieldType of
+    PRINTER_FIELD_TYPE_INT: Result := IntToStr(BinToInt(Value, 1, FieldInfo.Size));
+    PRINTER_FIELD_TYPE_STR: Result := Value;
+  else
+    raiseException(_('Invalid field type'));
+  end;
+end;
+
+function TFiscalPrinterDevice.GetFieldValue(FieldInfo: TPrinterFieldRec;
+  const Value: WideString): WideString;
 begin
   case FieldInfo.FieldType of
     PRINTER_FIELD_TYPE_INT: Result := IntToBin(StrToInt(Value), FieldInfo.Size);
@@ -4544,9 +4546,9 @@ end;
 
 function TFiscalPrinterDevice.WriteTable(
   Table, Row, Field: Integer;
-  const FieldValue: string): Integer;
+  const FieldValue: WideString): Integer;
 var
-  Data: string;
+  Data: AnsiString;
   FieldInfo: TPrinterFieldRec;
 begin
   Result := 0;
@@ -4571,7 +4573,7 @@ end;
 
 function TFiscalPrinterDevice.ReadTableInt(Table, Row, Field: Integer): Integer;
 var
-  Data: string;
+  Data: AnsiString;
   FieldInfo: TPrinterFieldRec;
 begin
   FieldInfo := ReadFieldStructure(Table, Field);
@@ -4579,9 +4581,9 @@ begin
   Result := FieldToInt(FieldInfo, Data);
 end;
 
-function TFiscalPrinterDevice.ReadTableStr(Table, Row, Field: Integer): string;
+function TFiscalPrinterDevice.ReadTableStr(Table, Row, Field: Integer): WideString;
 var
-  Data: string;
+  Data: AnsiString;
   FieldInfo: TPrinterFieldRec;
 begin
   FieldInfo := ReadFieldStructure(Table, Field);
@@ -4766,17 +4768,19 @@ end;
   ·	Number of daily totals (2 bytes) 0000…2100
   Answer:		BAH. Length: 18 bytes.
   ·	Result Code (1 byte)
-  ·	ECR model (16 bytes) string of WIN1251 code page characters
+  ·	ECR model (16 bytes) AnsiString of WIN1251 code page characters
 
 *******************************************************************************)
 
 function TFiscalPrinterDevice.GetEJSesssionResult(Number: Word;
-  var Text: string): Integer;
+  var Text: WideString): Integer;
 var
-  Data: string;
+  Command: AnsiString;
+  Answer: AnsiString;
 begin
-  Data := #$BA + IntToBin(GetSysPassword, 4) + IntToBin(Number, 2);
-  Result := ExecuteData(Data, Text);
+  Command := #$BA + IntToBin(GetSysPassword, 4) + IntToBin(Number, 2);
+  Result := ExecuteData(Command, Answer);
+  Text := Answer;
 end;
 
 (*******************************************************************************
@@ -4790,10 +4794,12 @@ end;
 
 *******************************************************************************)
 
-function TFiscalPrinterDevice.ReadEJActivation(var Line: string): Integer;
+function TFiscalPrinterDevice.ReadEJActivation(var Line: WideString): Integer;
+var
+  Answer: AnsiString;
 begin
-  Result := ExecuteData(#$BB + IntToBin(GetSysPassword, 4), Line);
-  Line := TrimRight(PChar(Line));
+  Result := ExecuteData(#$BB + IntToBin(GetSysPassword, 4), Answer);
+  Line := TrimRight(PChar(Answer));
 end;
 
 (*******************************************************************************
@@ -4808,10 +4814,12 @@ end;
 
 *******************************************************************************)
 
-function TFiscalPrinterDevice.GetEJReportLine(var Line: string): Integer;
+function TFiscalPrinterDevice.GetEJReportLine(var Line: WideString): Integer;
+var
+  Answer: AnsiString;
 begin
-  Result := ExecuteData(#$B3 + IntToBin(GetSysPassword, 4), Line);
-  Line := TrimRight(PChar(Line));
+  Result := ExecuteData(#$B3 + IntToBin(GetSysPassword, 4), Answer);
+  Line := TrimRight(PChar(Answer));
 end;
 
 (*******************************************************************************
@@ -4827,7 +4835,7 @@ end;
 
 function TFiscalPrinterDevice.EJReportStop: Integer;
 var
-  RxData: string;
+  RxData: AnsiString;
 begin
   Result := ExecuteData(#$AC + IntToBin(GetSysPassword, 4), RxData);
 end;
@@ -4883,10 +4891,10 @@ begin
   end;
 end;
 
-function TFiscalPrinterDevice.AlignLines(const Line1, Line2: string;
-  LineWidth: Integer): string;
+function TFiscalPrinterDevice.AlignLines(const Line1, Line2: WideString;
+  LineWidth: Integer): WideString;
 var
-  S: string;
+  S: WideString;
 begin
   Result := Copy(Line2, 1, LineWidth);
   if Length(Result) < LineWidth then
@@ -4896,12 +4904,12 @@ begin
   end;
 end;
 
-function TFiscalPrinterDevice.FormatLines(const Line1, Line2: string): string;
+function TFiscalPrinterDevice.FormatLines(const Line1, Line2: WideString): WideString;
 begin
   Result := AlignLines(Line1, Line2, GetPrintWidth);
 end;
 
-function TFiscalPrinterDevice.FormatBoldLines(const Line1, Line2: string): string;
+function TFiscalPrinterDevice.FormatBoldLines(const Line1, Line2: WideString): WideString;
 begin
   Result := AlignLines(Line1, Line2, GetPrintWidth div 2);
 end;
@@ -5010,8 +5018,8 @@ begin
   FBeforeCommand := Value;
 end;
 
-function TFiscalPrinterDevice.AlignLine(const Line: string;
-  PrintWidth: Integer; Alignment: TTextAlignment = taLeft): string;
+function TFiscalPrinterDevice.AlignLine(const Line: WideString;
+  PrintWidth: Integer; Alignment: TTextAlignment = taLeft): WideString;
 var
   L: Integer;
   L1: Integer;
@@ -5033,7 +5041,7 @@ begin
   end;
 end;
 
-function TFiscalPrinterDevice.CenterLine(const Line: string): string;
+function TFiscalPrinterDevice.CenterLine(const Line: WideString): WideString;
 var
   L: Integer;
   L1: Integer;
@@ -5047,7 +5055,7 @@ begin
   Result := StringOfChar(' ', L1) + Result + StringOfChar(' ', L2);
 end;
 
-function TFiscalPrinterDevice.ProcessLine(const Line: string): Boolean;
+function TFiscalPrinterDevice.ProcessLine(const Line: WideString): Boolean;
 var
   Barcode: TBarcodeRec;
 begin
@@ -5068,7 +5076,7 @@ end;
 procedure TFiscalPrinterDevice.PrintLineFont(const Data: TTextRec);
 var
   i: Integer;
-  Line: string;
+  Line: AnsiString;
   Lines: TTntStrings;
   PrintWidth: Integer;
 begin
@@ -5099,11 +5107,11 @@ begin
   end;
 end;
 
-procedure TFiscalPrinterDevice.SplitText(const Text: string; Font: Integer;
+procedure TFiscalPrinterDevice.SplitText(const Text: WideString; Font: Integer;
   Lines: TTntStrings);
 var
-  Line: string;
-  AText: string;
+  Line: WideString;
+  AText: WideString;
   PrintWidth: Integer;
 begin
   Lines.Clear;
@@ -5119,7 +5127,7 @@ begin
 end;
 
 procedure TFiscalPrinterDevice.PrintTextFont(Station: Integer;
-  Font: Integer; const Text: string);
+  Font: Integer; const Text: WideString);
 var
   Data: TTextRec;
 begin
@@ -5131,7 +5139,7 @@ begin
   PrintText(Data);
 end;
 
-procedure TFiscalPrinterDevice.PrintText(Station: Integer; const Text: string);
+procedure TFiscalPrinterDevice.PrintText(Station: Integer; const Text: WideString);
 var
   Data: TTextRec;
 begin
@@ -5146,7 +5154,7 @@ end;
 procedure TFiscalPrinterDevice.PrintText(const Data: TTextRec);
 var
   i: Integer;
-  Text: string;
+  Text: AnsiString;
   Line: TTextRec;
   Lines: TTntStrings;
 begin
@@ -5254,7 +5262,7 @@ begin
   RaiseError(Code, GetErrorText(Code));
 end;
 
-function TFiscalPrinterDevice.Execute(const Data: string): string;
+function TFiscalPrinterDevice.Execute(const Data: AnsiString): AnsiString;
 begin
   Check(ExecuteData(Data, Result));
 end;
@@ -5372,18 +5380,20 @@ begin
 end;
 
 function TFiscalPrinterDevice.ReadEJDocument(MACNumber: Integer;
-  var Line: string): Integer;
+  var Line: WideString): Integer;
 var
-  Command: string;
+  Command: AnsiString;
+  Answer: AnsiString;
 begin
   Command := #$B5 + IntToBin(GetSysPassword, 4) + IntToBin(MACNumber, 4);
-  Result := ExecuteData(Command, Line);
+  Result := ExecuteData(Command, Answer);
+  Line := Answer;
 end;
 
 
-function TFiscalPrinterDevice.ReadEJDocumentText(MACNumber: Integer): string;
+function TFiscalPrinterDevice.ReadEJDocumentText(MACNumber: Integer): WideString;
 var
-  Line: string;
+  Line: WideString;
   Lines: TTntStrings;
 begin
   Result := '';
@@ -5405,9 +5415,9 @@ begin
 end;
 
 // 00000068 #049021
-function TFiscalPrinterDevice.ParseEJDocument(const Text: string): TEJDocument;
+function TFiscalPrinterDevice.ParseEJDocument(const Text: WideString): TEJDocument;
 var
-  Line: string;
+  Line: WideString;
   Lines: TTntStrings;
 begin
   Result.Text := Text;
@@ -5428,10 +5438,10 @@ begin
   end;
 end;
 
-function TFiscalPrinterDevice.ReadEJActivationText(MaxCount: Integer): string;
+function TFiscalPrinterDevice.ReadEJActivationText(MaxCount: Integer): WideString;
 var
   i: Integer;
-  Line: string;
+  Line: WideString;
   Lines: TTntStrings;
 begin
   Lines := TTntStringList.Create;
@@ -5483,7 +5493,7 @@ begin
 end;
 
 function TFiscalPrinterDevice.LoadGraphics(Line: Word;
-  Data: string): Integer;
+  Data: WideString): Integer;
 begin
   Result := 0;
   if FCapGraphics2 then
@@ -5558,7 +5568,7 @@ end;
 
 procedure TFiscalPrinterDevice.PrintBarcode2(const Barcode: TBarcodeRec);
 var
-  Line: string;
+  Line: AnsiString;
   TickCount: Integer;
   ABarcode: TBarcodeRec;
 begin
@@ -5604,7 +5614,7 @@ begin
   WaitForPrinting;
 end;
 
-function TFiscalPrinterDevice.LoadBarcodeData(const Barcode: string): Integer;
+function TFiscalPrinterDevice.LoadBarcodeData(const Barcode: WideString): Integer;
 const
   DATA_BLOCK_SIZE = 64;
 var
@@ -5667,8 +5677,8 @@ end;
 
 function TFiscalPrinterDevice.DrawScale(const P: TDrawScale): Integer;
 var
-  Command: string;
-  Answer: string;
+  Command: AnsiString;
+  Answer: AnsiString;
   LastLine: Integer;
 begin
   LastLine := P.LastLine;
@@ -5934,13 +5944,13 @@ end;
 
 procedure TFiscalPrinterDevice.PrintQRCode3(Barcode: TBarcodeRec);
 
-  procedure DrawQRCodeText(URL, Sign: string; Bitmap: TBitmap;
+  procedure DrawQRCodeText(URL, Sign: AnsiString; Bitmap: TBitmap;
     BitmapWidth: Integer);
   var
     Y: Integer;
     Bits: TBits;
     i, j, k: Integer;
-    Line: string;
+    Line: AnsiString;
     Lines: TTntStrings;
     LineLength: Integer;
     CharLine: Integer;
@@ -5991,8 +6001,8 @@ procedure TFiscalPrinterDevice.PrintQRCode3(Barcode: TBarcodeRec);
 
 var
   P: Integer;
-  URLText: string;
-  SignText: string;
+  URLText: AnsiString;
+  SignText: AnsiString;
   Bitmap: TBitmap;
   StartLine: Integer;
   BitmapWidth: Integer;
@@ -6199,7 +6209,7 @@ begin
   end;
 end;
 
-procedure TFiscalPrinterDevice.PrintImage(const FileName: string;
+procedure TFiscalPrinterDevice.PrintImage(const FileName: WideString;
   StartLine: Integer);
 var
   ImageHeight: Integer;
@@ -6208,7 +6218,7 @@ begin
   Check(PrintGraphics(StartLine, StartLine + ImageHeight - 1));
 end;
 
-procedure TFiscalPrinterDevice.PrintImageScale(const FileName: string;
+procedure TFiscalPrinterDevice.PrintImageScale(const FileName: WideString;
   StartLine, Scale: Integer);
 var
   Bitmap: TBitmap;
@@ -6286,7 +6296,7 @@ begin
   end;
 end;
 
-function Inverse(const S: string): string;
+function Inverse(const S: AnsiString): AnsiString;
 var
   i: Integer;
 begin
@@ -6295,7 +6305,7 @@ begin
     Result := Result + Chr(Ord(S[i]) xor $FF);
 end;
 
-function TFiscalPrinterDevice.GetLineData(Bitmap: TBitmap; Index: Integer): string;
+function TFiscalPrinterDevice.GetLineData(Bitmap: TBitmap; Index: Integer): AnsiString;
 var
   B: Byte;
   i: Integer;
@@ -6351,7 +6361,7 @@ end;
 procedure TFiscalPrinterDevice.LoadBitmap320(StartLine: Integer; Bitmap: TBitmap);
 var
   i: Integer;
-  Data: string;
+  Data: AnsiString;
   Count: Integer;
   Progress: Integer;
   NewProgress: Integer;
@@ -6382,10 +6392,10 @@ procedure TFiscalPrinterDevice.LoadBitmap512(StartLine: Integer;
   Bitmap: TBitmap; Scale: Integer);
 var
   i, j: Integer;
-  Line: string;
+  Line: AnsiString;
   Row: Integer;
-  Answer: string;
-  Command: string;
+  Answer: AnsiString;
+  Command: AnsiString;
   Progress: Integer;
   NewProgress: Integer;
   ProgressStep: Double;
@@ -6434,7 +6444,7 @@ begin
   ProgressEvent(100);
 end;
 
-function TFiscalPrinterDevice.LoadImage(const FileName: string;
+function TFiscalPrinterDevice.LoadImage(const FileName: WideString;
   StartLine: Integer): Integer;
 var
   Picture: TPicture;
@@ -6570,7 +6580,7 @@ end;
 
 function TFiscalPrinterDevice.TestCommand(Code: Integer): Boolean;
 var
-  RxData: string;
+  RxData: AnsiString;
 begin
   if Code > $FF then
   begin
@@ -6673,7 +6683,7 @@ begin
   Result := FPrinterStatus;
 end;
 
-function TFiscalPrinterDevice.PrintBarLine(Height: Word; Data: string): Integer;
+function TFiscalPrinterDevice.PrintBarLine(Height: Word; Data: AnsiString): Integer;
 var
   IsSwapBytes: Boolean;
 begin
@@ -6707,8 +6717,8 @@ end;
 
 function TFiscalPrinterDevice.LoadBarcode2D(const Data: TBarcode2DData): Integer;
 var
-  Answer: string;
-  Command: string;
+  Answer: AnsiString;
+  Command: AnsiString;
 begin
   Command := #$DD +
       IntToBin(GetUsrPassword, 4) +
@@ -6767,8 +6777,8 @@ end;
 
 function TFiscalPrinterDevice.PrintBarcode2D(const Barcode: TBarcode2D): Integer;
 var
-  Command: string;
-  Answer: string;
+  Command: AnsiString;
+  Answer: AnsiString;
 begin
   Command := #$DE +
     IntToBin(GetUsrPassword, 4) +
@@ -6798,10 +6808,10 @@ end;
 Порядковый номер оператора (1 байт) 1…30
 *)
 
-function TFiscalPrinterDevice.LoadGraphics3(Line: Word; Data: string): Integer;
+function TFiscalPrinterDevice.LoadGraphics3(Line: Word; Data: WideString): Integer;
 var
-  Answer: string;
-  Command: string;
+  Answer: AnsiString;
+  Command: AnsiString;
 begin
   if Length(Data) > 64 then
     raiseException(_('Image data length > 64 bytes'));
@@ -6813,8 +6823,8 @@ end;
 
 function TFiscalPrinterDevice.LoadGraphics3(const P: TLoadGraphics3): Integer;
 var
-  Answer: string;
-  Command: string;
+  Answer: AnsiString;
+  Command: AnsiString;
 begin
   Command := #$4E + IntToBin(GetUsrPassword, 4) + Chr(Length(P.Data)) +
     IntToBin(P.FirstLineNum, 2) + IntToBin(P.NextLinesNum, 2) +
@@ -6855,8 +6865,8 @@ end;
 
 function TFiscalPrinterDevice.PrintGraphics3(const P: TPrintGraphics3): Integer;
 var
-  Answer: string;
-  Command: string;
+  Answer: AnsiString;
+  Command: AnsiString;
   Flags: Byte;
 begin
   Flags := GetPrintFlags(P.Flags);
@@ -6872,10 +6882,10 @@ begin
 
 end;
 
-function TFiscalPrinterDevice.FSWriteTLV(const TLVData: string): Integer;
+function TFiscalPrinterDevice.FSWriteTLV(const TLVData: AnsiString): Integer;
 var
-  Answer: string;
-  Command: string;
+  Answer: AnsiString;
+  Command: AnsiString;
 begin
   Command := #$FF#$0C + IntToBin(GetSysPassword, 4) + Copy(TLVData, 1, 250);
   Result := ExecuteData(Command, Answer);
@@ -6920,8 +6930,8 @@ end;
 
 function TFiscalPrinterDevice.FSSale(const P: TFSSale): Integer;
 var
-  Answer: string;
-  Command: string;
+  Answer: AnsiString;
+  Command: AnsiString;
 begin
   Command := #$FF#$0D + IntToBin(GetUsrPassword, 4) +
     Chr(Abs(P.RecType)) +
@@ -6962,8 +6972,8 @@ end;
 
 function TFiscalPrinterDevice.FSSale2(const P: TFSSale2): Integer;
 var
-  Answer: string;
-  Command: string;
+  Answer: AnsiString;
+  Command: AnsiString;
 begin
   Command := #$FF#$46 + IntToBin(GetUsrPassword, 4) +
     Chr(Abs(P.RecType)) +
@@ -6986,8 +6996,8 @@ end;
 
 function TFiscalPrinterDevice.FSStorno(const P: TFSSale): Integer;
 var
-  Answer: string;
-  Command: string;
+  Answer: AnsiString;
+  Command: AnsiString;
 begin
   Command := #$FF#$0E + IntToBin(GetUsrPassword, 4) +
     Chr(Abs(P.RecType)) +
@@ -7038,8 +7048,8 @@ end;
 
 function TFiscalPrinterDevice.FSReadState(var R: TFSState): Integer;
 var
-  Answer: string;
-  Command: string;
+  Answer: AnsiString;
+  Command: AnsiString;
 begin
   Command := #$FF#$01 + IntToBin(GetSysPassword, 4);
   Result := ExecuteData(Command, Answer);
@@ -7071,8 +7081,8 @@ end;
 
 function TFiscalPrinterDevice.FSCancelDocument: Integer;
 var
-  Answer: string;
-  Command: string;
+  Answer: AnsiString;
+  Command: AnsiString;
 begin
   Command := #$FF#$08 + IntToBin(GetSysPassword, 4);
   Result := ExecuteData(Command, Answer);
@@ -7092,8 +7102,8 @@ end;
 
 function TFiscalPrinterDevice.FSReadStatus(var R: TFSStatus): Integer;
 var
-  Answer: string;
-  Command: string;
+  Answer: AnsiString;
+  Command: AnsiString;
 begin
   Command := #$FF#$30 + IntToBin(GetSysPassword, 4);
   Result := ExecuteData(Command, Answer);
@@ -7136,7 +7146,7 @@ function TFiscalPrinterDevice.FSFindDocument(DocNumber: Integer;
   Режим работы	Byte	1}
   *)
 
-  procedure DecodeDocType1(const Data: string; var R: TFSDocument1);
+  procedure DecodeDocType1(const Data: AnsiString; var R: TFSDocument1);
   begin
     CheckMinLength(Data, 47);
     R.Date := BinToPrinterDateTime2(Data);
@@ -7156,7 +7166,7 @@ function TFiscalPrinterDevice.FSFindDocument(DocNumber: Integer;
   Номер смены	Uint16, LE	2}
   *)
 
-  procedure DecodeDocType2(const Data: string; var R: TFSDocument2);
+  procedure DecodeDocType2(const Data: AnsiString; var R: TFSDocument2);
   begin
     CheckMinLength(Data, 15);
     R.Date := BinToPrinterDateTime2(Data);
@@ -7174,7 +7184,7 @@ function TFiscalPrinterDevice.FSFindDocument(DocNumber: Integer;
   Сумма операции	Uint40, LE	5
   *)
 
-  procedure DecodeDocType3(const Data: string; var R: TFSDocument3);
+  procedure DecodeDocType3(const Data: AnsiString; var R: TFSDocument3);
   begin
     CheckMinLength(Data, 19);
     R.Date := BinToPrinterDateTime2(Data);
@@ -7191,7 +7201,7 @@ function TFiscalPrinterDevice.FSFindDocument(DocNumber: Integer;
   ИНН	ASCII	12
   Регистрационный номер ККТ	ASCII	20 *)
 
-  procedure DecodeDocType6(const Data: string; var R: TFSDocument6);
+  procedure DecodeDocType6(const Data: AnsiString; var R: TFSDocument6);
   begin
     CheckMinLength(Data, 45);
     R.Date := BinToPrinterDateTime2(Data);
@@ -7211,7 +7221,7 @@ function TFiscalPrinterDevice.FSFindDocument(DocNumber: Integer;
   Режим работы	Byte	1
   Код причины перерегистрации	Byte	1}
 
-  procedure DecodeDocType11(const Data: string; var R: TFSDocument11);
+  procedure DecodeDocType11(const Data: AnsiString; var R: TFSDocument11);
   begin
     CheckMinLength(Data, 48);
     R.Date := BinToPrinterDateTime2(Data);
@@ -7231,7 +7241,7 @@ function TFiscalPrinterDevice.FSFindDocument(DocNumber: Integer;
   Кол-во неподтвержденных документов	Uint32, LE	4
   Дата первого неподтвержденного документа	DATE_TIME	5}
 
-  procedure DecodeDocType21(const Data: string; var R: TFSDocument21);
+  procedure DecodeDocType21(const Data: AnsiString; var R: TFSDocument21);
   begin
     CheckMinLength(Data, 20);
     R.Date := BinToPrinterDateTime2(Data);
@@ -7242,8 +7252,8 @@ function TFiscalPrinterDevice.FSFindDocument(DocNumber: Integer;
   end;
 
 var
-  Answer: string;
-  Command: string;
+  Answer: AnsiString;
+  Command: AnsiString;
 begin
   Command := #$FF#$0A + IntToBin(GetSysPassword, 4) + IntToBin(DocNumber, 4);
   Result := ExecuteData(Command, Answer);
@@ -7301,10 +7311,10 @@ end;
 *)
 
 function TFiscalPrinterDevice.FSReadBlock(const P: TFSBlockRequest;
-  var Block: string): Integer;
+  var Block: AnsiString): Integer;
 var
-  Answer: string;
-  Command: string;
+  Answer: AnsiString;
+  Command: AnsiString;
 begin
   Command := #$FF#$31 + IntToBin(GetSysPassword, 4) +
     IntToBin(P.Offset, 2) + Chr(P.Size);
@@ -7329,8 +7339,8 @@ end;
 function TFiscalPrinterDevice.FSStartWrite(DataSize: Word;
   var BlockSize: Byte): Integer;
 var
-  Answer: string;
-  Command: string;
+  Answer: AnsiString;
+  Command: AnsiString;
 begin
   Command := #$FF#$32 + IntToBin(GetSysPassword, 4) + IntToBin(DataSize, 2);
   Result := ExecuteData(Command, Answer);
@@ -7356,8 +7366,8 @@ end;
 
 function TFiscalPrinterDevice.FSWriteBlock(const Block: TFSBlock): Integer;
 var
-  Answer: string;
-  Command: string;
+  Answer: AnsiString;
+  Command: AnsiString;
 begin
   Command := #$FF#$33 + IntToBin(GetSysPassword, 4) +
     IntToBin(Block.Offset, 2) + IntToBin(Length(Block.Data), 1) +
@@ -7376,12 +7386,12 @@ begin
     Result := GetParameters.DocumentBlockSize;
 end;
 
-function TFiscalPrinterDevice.FSReadBlockData: string;
+function TFiscalPrinterDevice.FSReadBlockData: AnsiString;
 var
   i: Integer;
   Count: Integer;
-  Block: string;
-  BlockData: string;
+  Block: AnsiString;
+  BlockData: AnsiString;
   Status: TFSStatus;
   DataSize: Integer;
   BlockSize: Integer;
@@ -7414,7 +7424,7 @@ begin
   end;
 end;
 
-procedure TFiscalPrinterDevice.FSWriteBlockData(const BlockData: string);
+procedure TFiscalPrinterDevice.FSWriteBlockData(const BlockData: AnsiString);
 var
   i: Integer;
   Count: Integer;
@@ -7455,8 +7465,8 @@ end;
 
 function TFiscalPrinterDevice.FSPrintCalcReport(var R: TFSCalcReport): Integer;
 var
-  Answer: string;
-  Command: string;
+  Answer: AnsiString;
+  Command: AnsiString;
 begin
   Command := #$FF#$38 + IntToBin(GetSysPassword, 4);
   Result := ExecuteData(Command, Answer);
@@ -7508,8 +7518,8 @@ function TFiscalPrinterDevice.FSReadCommStatus(
   end;
 
 var
-  Answer: string;
-  Command: string;
+  Answer: AnsiString;
+  Command: AnsiString;
 begin
   Command := #$FF#$39 + IntToBin(GetSysPassword, 4);
   Result := ExecuteData(Command, Answer);
@@ -7536,8 +7546,8 @@ end;
 
 function TFiscalPrinterDevice.FSReadExpireDate(var Date: TPrinterDate): Integer;
 var
-  Answer: string;
-  Command: string;
+  Answer: AnsiString;
+  Command: AnsiString;
 begin
   Command := #$FF#$03 + IntToBin(GetSysPassword, 4);
   Result := ExecuteData(Command, Answer);
@@ -7566,8 +7576,8 @@ end;
 
 function TFiscalPrinterDevice.FSReadFiscalResult(var R: TFSFiscalResult): Integer;
 var
-  Answer: string;
-  Command: string;
+  Answer: AnsiString;
+  Command: AnsiString;
 begin
   Command := #$FF#$09 + IntToBin(GetSysPassword, 4);
   Result := ExecuteData(Command, Answer);
@@ -7596,8 +7606,8 @@ end;
 
 function TFiscalPrinterDevice.FSReadTicket(var R: TFSTicket): Integer;
 var
-  Answer: string;
-  Command: string;
+  Answer: AnsiString;
+  Command: AnsiString;
 begin
   Command := #$FF#$3C + IntToBin(GetSysPassword, 4) + IntToBin(R.Number, 4);
   Result := ExecuteData(Command, Answer);
@@ -7624,17 +7634,17 @@ begin
   Result := FCapOpenReceipt;
 end;
 
-function TFiscalPrinterDevice.WriteCustomerAddress(const Value: string): Integer;
+function TFiscalPrinterDevice.WriteCustomerAddress(const Value: WideString): Integer;
 begin
   Result := FSWriteTag(1008, Value);
 end;
 
-function TFiscalPrinterDevice.FSWriteTag(TagID: Integer; const Data: string): Integer;
+function TFiscalPrinterDevice.FSWriteTag(TagID: Integer; const Data: WideString): Integer;
 begin
   Result := FSWriteTLV(TagToStr(TagID, Data));
 end;
 
-function TFiscalPrinterDevice.ReadFPParameter(ParamId: Integer): string;
+function TFiscalPrinterDevice.ReadFPParameter(ParamId: Integer): WideString;
 begin
   case ParamId of
     DIO_FPTR_PARAMETER_QRCODE_ENABLED:
@@ -7710,7 +7720,7 @@ begin
 end;
 
 procedure TFiscalPrinterDevice.WriteFPParameter(ParamId: Integer;
-  const Value: string);
+  const Value: WideString);
 begin
   case ParamId of
     DIO_FPTR_PARAMETER_QRCODE_ENABLED:
@@ -7780,8 +7790,8 @@ end;
 
 function TFiscalPrinterDevice.FSReadTotals(var R: TFMTotals): Integer;
 var
-  Command: string;
-  Answer: string;
+  Command: AnsiString;
+  Answer: AnsiString;
 begin
   FLogger.Debug('FSReadTotals');
   Command := #$FE#$F4#$00#$00#$00#$00;
@@ -7906,8 +7916,8 @@ end;
 function TFiscalPrinterDevice.FSPrintCorrectionReceipt(
   var Command: TFSCorrectionReceipt): Integer;
 var
-  Cmd: string;
-  Data: string;
+  Cmd: AnsiString;
+  Data: AnsiString;
 begin
   OpenFiscalDay;
 
@@ -7950,8 +7960,8 @@ end;
 function TFiscalPrinterDevice.FSPrintCorrectionReceipt2(
   var Data: TFSCorrectionReceipt2): Integer;
 var
-  Command: string;
-  Answer: string;
+  Command: AnsiString;
+  Answer: AnsiString;
 begin
   OpenFiscalDay;
 
@@ -7988,10 +7998,10 @@ procedure TFiscalPrinterDevice.LoadTables(const Path: WideString);
 var
   i: Integer;
   j: Integer;
-  Mask: string;
+  Mask: AnsiString;
   F: TSearchRec;
-  DeviceName: string;
-  FileName: string;
+  DeviceName: AnsiString;
+  FileName: AnsiString;
   ResultCode: Integer;
   FileNames: TTntStrings;
   Tables: TPrinterTables;
@@ -8045,7 +8055,7 @@ end;
 procedure TFiscalPrinterDevice.WriteFields(Table: TPrinterTable);
 var
   i: Integer;
-  Data: string;
+  Data: AnsiString;
   Field: TPrinterField;
   FieldValue: WideString;
 begin
@@ -8083,10 +8093,10 @@ begin
   Result := (ReadPrinterStatus.Mode and $0F) = MODE_REC;
 end;
 
-function TFiscalPrinterDevice.ReadLoaderVersion(var Version: string): Integer;
+function TFiscalPrinterDevice.ReadLoaderVersion(var Version: WideString): Integer;
 var
-  Answer: string;
-  Command: string;
+  Answer: AnsiString;
+  Command: AnsiString;
 begin
   Command := #$FE#$EC#$00#$00#$00#$00;
   Result := ExecuteData(Command, Answer);
@@ -8142,8 +8152,8 @@ function TFiscalPrinterDevice.ReceiptClose2(
   const P: TFSCloseReceiptParams2;
   var R: TFSCloseReceiptResult2): Integer;
 var
-  Command: string;
-  Answer: string;
+  Command: AnsiString;
+  Answer: AnsiString;
 begin
   Command := #$FF#$45 + IntToBin(GetUsrPassword, 4) +
     IntToBin(P.Payments[0], 5) +
@@ -8289,8 +8299,8 @@ C3H и печати графической линии C5H
 function TFiscalPrinterDevice.ReadParameters2(
   var R: TPrinterParameters2): Integer;
 var
-  Answer: string;
-  Command: string;
+  Answer: AnsiString;
+  Command: AnsiString;
 begin
   Command := #$F7#$01;
   Result := ExecuteData(Command, Answer);
@@ -8395,8 +8405,8 @@ end;
 function TFiscalPrinterDevice.FSFiscalization(const P: TFSFiscalization;
   var R: TFDDocument): Integer;
 var
-  Answer: string;
-  Command: string;
+  Answer: AnsiString;
+  Command: AnsiString;
 begin
   Command := #$FF#$06 +
     IntToBin(GetSysPassword, 4) +
@@ -8416,8 +8426,8 @@ end;
 function TFiscalPrinterDevice.FSReFiscalization(const P: TFSReFiscalization;
   var R: TFDDocument): Integer;
 var
-  Answer: string;
-  Command: string;
+  Answer: AnsiString;
+  Command: AnsiString;
 begin
   Command := #$FF#$34 +
     IntToBin(GetSysPassword, 4) +
@@ -8479,9 +8489,9 @@ begin
   Result := FCapEnablePrint;
 end;
 
-function TFiscalPrinterDevice.ReadFSDocument(Number: Integer): string;
+function TFiscalPrinterDevice.ReadFSDocument(Number: Integer): WideString;
 
-  function TLVToText(const TLVData: string): string;
+  function TLVToText(const TLVData: AnsiString): AnsiString;
   var
     Parser: TTLVParser;
   begin
@@ -8527,8 +8537,8 @@ end;
 
 function TFiscalPrinterDevice.FSReadDocument(var P: TFSReadDocument): Integer;
 var
-  Answer: string;
-  Command: string;
+  Answer: AnsiString;
+  Command: AnsiString;
 begin
   Command := #$FF#$3A + IntToBin(P.Password, 4) + IntToBin(P.Number, 4);
   Result := ExecuteData(Command, Answer);
@@ -8552,8 +8562,8 @@ end;
 
 function TFiscalPrinterDevice.FSReadDocData(var P: TFSReadDocData): Integer;
 var
-  Answer: string;
-  Command: string;
+  Answer: AnsiString;
+  Command: AnsiString;
 begin
   Command := #$FF#$3B + IntToBin(P.Password, 4);
   Result := ExecuteData(Command, Answer);
@@ -8565,8 +8575,8 @@ end;
 
 function TFiscalPrinterDevice.FSStartOpenDay: Integer;
 var
-  Answer: string;
-  Command: string;
+  Answer: AnsiString;
+  Command: AnsiString;
 begin
   Command := #$FF#$41 + IntToBin(FSysPassword, 4);
   Result := ExecuteData(Command, Answer);
@@ -8590,11 +8600,11 @@ begin
   end;
 end;
 
-function TFiscalPrinterDevice.CheckItemBarcode(const Barcode: string): Integer;
+function TFiscalPrinterDevice.CheckItemBarcode(const Barcode: WideString): Integer;
 var
-  Data: string;
-  Answer: string;
-  Command: string;
+  Data: AnsiString;
+  Answer: AnsiString;
+  Command: AnsiString;
   GS1Barcode: TGS1Barcode;
 begin
   Result := 0;
@@ -8630,12 +8640,12 @@ end;
 *)
 
 
-function TFiscalPrinterDevice.SendItemBarcode(const Barcode: string;
+function TFiscalPrinterDevice.SendItemBarcode(const Barcode: WideString;
   MarkType: Integer): Integer;
 var
-  Data: string;
-  GTIN: string;
-  Serial: string;
+  Data: AnsiString;
+  GTIN: AnsiString;
+  Serial: AnsiString;
   GS1Barcode: TGS1Barcode;
 begin
   Result := 0;
@@ -8673,10 +8683,10 @@ begin
   Result := FSSendTLVOperation(Data);
 end;
 
-function TFiscalPrinterDevice.FSSendTLVOperation(const Data: string): Integer;
+function TFiscalPrinterDevice.FSSendTLVOperation(const Data: WideString): Integer;
 var
-  Command: string;
-  Answer: string;
+  Command: AnsiString;
+  Answer: AnsiString;
 begin
   if Length(Data) > 249 then
     raiseException(_('TLV data length too big'));
@@ -8700,8 +8710,8 @@ end;
 
 function TFiscalPrinterDevice.FSStartCorrectionReceipt: Integer;
 var
-  Command: string;
-  Answer: string;
+  Command: AnsiString;
+  Answer: AnsiString;
 begin
   Command := #$FF#$35 + IntToBin(FSysPassword, 4);
   Result := ExecuteData(Command, Answer);

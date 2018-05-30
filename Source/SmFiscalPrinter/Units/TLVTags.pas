@@ -40,8 +40,8 @@ type
     constructor Create;
     destructor Destroy; override;
     function Add: TTLVTag;
-    procedure AddTag(ANumber: Integer; const ADescription: string;
-      const AShortDescription: string; AType: TTagType;
+    procedure AddTag(ANumber: Integer; const ADescription: AnsiString;
+      const AShortDescription: AnsiString; AType: TTagType;
       ALength: Integer; AFixedLength: Boolean = False);
     procedure Clear;
     function Find(ANumber: Integer): TTLVTag;
@@ -56,9 +56,9 @@ type
     FOwner: TTLVTags;
     FTag: Integer;
     FLength: Integer;
-    FDescription: string;
+    FDescription: AnsiString;
     FTagType: TTagType;
-    FShortDescription: string;
+    FShortDescription: AnsiString;
     FFixedLength: Boolean;
 
     procedure SetOwner(AOwner: TTLVTags);
@@ -66,32 +66,32 @@ type
     constructor Create(AOwner: TTLVTags);
     destructor Destroy; override;
 
-    function GetStrValue(AData: string): string;
-    class function Format(t: Integer; v: Variant): string;
-    class function Int2ValueTLV(aValue: Int64; aSizeInBytes: Integer): string;
-    class function VLN2ValueTLV(aValue: Int64): string;
-    class function VLN2ValueTLVLen(aValue: Int64; ALen: Integer): string;
-    class function FVLN2ValueTLV(aValue: Currency): string;
-    class function FVLN2ValueTLVLen(aValue: Currency; ALength: Integer): string;
-    class function ValueTLV2FVLNstr(s: string): string;
-    class function UnixTime2ValueTLV(d: TDateTime): string;
-    class function ASCII2ValueTLV(aValue: WideString): string;
+    function GetStrValue(AData: AnsiString): AnsiString;
+    class function Format(t: Integer; v: Variant): AnsiString;
+    class function Int2ValueTLV(aValue: Int64; aSizeInBytes: Integer): AnsiString;
+    class function VLN2ValueTLV(aValue: Int64): AnsiString;
+    class function VLN2ValueTLVLen(aValue: Int64; ALen: Integer): AnsiString;
+    class function FVLN2ValueTLV(aValue: Currency): AnsiString;
+    class function FVLN2ValueTLVLen(aValue: Currency; ALength: Integer): AnsiString;
+    class function ValueTLV2FVLNstr(s: AnsiString): AnsiString;
+    class function UnixTime2ValueTLV(d: TDateTime): AnsiString;
+    class function ASCII2ValueTLV(aValue: WideString): AnsiString;
 
-    class function ValueTLV2UnixTime(s: string): TDateTime;
-    class function ValueTLV2Int(s: string): Int64;
-    class function ValueTLV2VLN(s: string): Int64;
-    class function ValueTLV2FVLN(s: string): Currency;
-    class function ValueTLV2ASCII(s: string): WideString;
-    class function Int2Bytes(Value: UInt64; SizeInBytes: Integer): string;
+    class function ValueTLV2UnixTime(s: AnsiString): TDateTime;
+    class function ValueTLV2Int(s: AnsiString): Int64;
+    class function ValueTLV2VLN(s: AnsiString): Int64;
+    class function ValueTLV2FVLN(s: AnsiString): Currency;
+    class function ValueTLV2ASCII(s: AnsiString): WideString;
+    class function Int2Bytes(Value: UInt64; SizeInBytes: Integer): AnsiString;
 
-    function ValueToBin(const Data: string): string;
+    function ValueToBin(const Data: AnsiString): AnsiString;
 
     property Tag: Integer read FTag write FTag;
     property Length: Integer read FLength write FLength;
     property TagType: TTagType read FTagType write FTagType;
-    property Description: string read FDescription write FDescription;
+    property Description: AnsiString read FDescription write FDescription;
     property FixedLength: Boolean read FFixedLength write FFixedLength;
-    property ShortDescription: string read FShortDescription write FShortDescription;
+    property ShortDescription: AnsiString read FShortDescription write FShortDescription;
   end;
 
 function TLVDocTypeToStr(ATag: Integer): WideString;
@@ -117,7 +117,7 @@ begin
   end;
 end;
 
-function CalcTypeToStr(AType: Integer): string;
+function CalcTypeToStr(AType: Integer): AnsiString;
 begin
   case AType of
     1: Result := _('Приход');
@@ -138,7 +138,7 @@ end;
 4 Единый сельскохозяйственный налог
 5 Патентная система налогообложения}
 
-function TaxSystemToStr(AType: Integer): string;
+function TaxSystemToStr(AType: Integer): AnsiString;
 begin
   If AType = 0 then
   begin
@@ -212,8 +212,8 @@ begin
   Result := TTLVTag.Create(Self);
 end;
 
-procedure TTLVTags.AddTag(ANumber: Integer; const ADescription: string;
-  const AShortDescription: string; AType: TTagType; ALength: Integer;
+procedure TTLVTags.AddTag(ANumber: Integer; const ADescription: AnsiString;
+  const AShortDescription: AnsiString; AType: TTagType; ALength: Integer;
   AFixedLength: Boolean = False);
 var
   T: TTLVTag;
@@ -418,7 +418,7 @@ begin
   inherited Destroy;
 end;
 
-function TTLVTag.GetStrValue(AData: string): string;
+function TTLVTag.GetStrValue(AData: AnsiString): AnsiString;
 var
   saveSeparator: Char;
 begin
@@ -437,7 +437,7 @@ begin
               end;
       ttByteArray: begin
                      case Tag of
-                       1077: Result := IntToStr(Cardinal(TTLVTag.ValueTLV2Int(Reversestring(Copy(AData, 3, 4)))));
+                       1077: Result := IntToStr(Cardinal(TTLVTag.ValueTLV2Int(ReverseString(Copy(AData, 3, 4)))));
                      else
                        Result := StrToHex(AData);
                      end;
@@ -463,7 +463,7 @@ begin
   end;
 end;
 
-class function TTLVTag.Int2ValueTLV(aValue: Int64; aSizeInBytes: Integer): string;
+class function TTLVTag.Int2ValueTLV(aValue: Int64; aSizeInBytes: Integer): AnsiString;
 var
   d: Int64;
   i, c: Integer;
@@ -484,7 +484,7 @@ begin
   end;
 end;
 
-class function TTLVTag.VLN2ValueTLV(aValue: Int64): string;
+class function TTLVTag.VLN2ValueTLV(aValue: Int64): AnsiString;
 var
   d: Int64;
   i, c: Integer;
@@ -504,7 +504,7 @@ begin
   end;
 end;
 
-class function TTLVTag.FVLN2ValueTLV(aValue: Currency): string;
+class function TTLVTag.FVLN2ValueTLV(aValue: Currency): AnsiString;
 var
   i: Int64;
   k: Byte;
@@ -525,7 +525,7 @@ begin
   Result := Char(k) + VLN2ValueTLV(i);
 end;
 
-class function TTLVTag.UnixTime2ValueTLV(d: TDateTime): string;
+class function TTLVTag.UnixTime2ValueTLV(d: TDateTime): AnsiString;
 var
   c: Int64;
 begin
@@ -540,7 +540,7 @@ begin
   Result[1] := Char((c and $FF));
 end;
 
-class function TTLVTag.ValueTLV2UnixTime(s: string): TDateTime;
+class function TTLVTag.ValueTLV2UnixTime(s: AnsiString): TDateTime;
 begin
   Result := 0;
   if System.Length(s) <> 4 then
@@ -549,7 +549,7 @@ begin
   Result := (((Byte(s[4]) shl 24) or (Byte(s[3]) shl 16) or (Byte(s[2]) shl 8) or Byte(s[1])) / 86400) + EncodeDateTime(1970, 1, 1, 0, 0, 0, 0);
 end;
 
-class function TTLVTag.ASCII2ValueTLV(aValue: WideString): string;
+class function TTLVTag.ASCII2ValueTLV(aValue: WideString): AnsiString;
 var
   l: Integer;
   P: PChar;
@@ -570,7 +570,7 @@ begin
   end;
 end;
 
-class function TTLVTag.ValueTLV2ASCII(s: string): WideString;
+class function TTLVTag.ValueTLV2ASCII(s: AnsiString): WideString;
 var
   l: Integer;
 begin
@@ -580,7 +580,7 @@ begin
     MultiByteToWideChar(CP_OEMCP, MB_PRECOMPOSED, PChar(@s[1]), -1, PWideChar(@Result[1]), l - 1);
 end;
 
-class function TTLVTag.ValueTLV2Int(s: string): Int64;
+class function TTLVTag.ValueTLV2Int(s: AnsiString): Int64;
 var
   i: Integer;
 begin
@@ -591,12 +591,12 @@ begin
   end;
 end;
 
-class function TTLVTag.ValueTLV2VLN(s: string): Int64;
+class function TTLVTag.ValueTLV2VLN(s: AnsiString): Int64;
 begin
   Result := ValueTLV2Int(s);
 end;
 
-class function TTLVTag.ValueTLV2FVLN(s: string): Currency;
+class function TTLVTag.ValueTLV2FVLN(s: AnsiString): Currency;
 var
   i: Byte;
 begin
@@ -612,7 +612,7 @@ begin
 end;
 
 class function TTLVTag.VLN2ValueTLVLen(aValue: Int64;
-  ALen: Integer): string;
+  ALen: Integer): AnsiString;
 var
   d: Int64;
   i, c: Integer;
@@ -632,7 +632,7 @@ begin
   end;
 end;
 
-class function TTLVTag.FVLN2ValueTLVLen(aValue: Currency; ALength: Integer): string;
+class function TTLVTag.FVLN2ValueTLVLen(aValue: Currency; ALength: Integer): AnsiString;
 var
   i: Int64;
   k: Byte;
@@ -653,7 +653,7 @@ begin
   Result := Char(k) + VLN2ValueTLVLen(i, Alength - 1);
 end;
 
-class function TTLVTag.ValueTLV2FVLNstr(s: string): string;
+class function TTLVTag.ValueTLV2FVLNstr(s: AnsiString): AnsiString;
 var
   i: Byte;
   R: Double;
@@ -680,7 +680,7 @@ begin
   end;
 end;
 
-class function TTLVTag.Int2Bytes(Value: UInt64; SizeInBytes: Integer): string;
+class function TTLVTag.Int2Bytes(Value: UInt64; SizeInBytes: Integer): AnsiString;
 var
   V: Int64;
   i: Integer;
@@ -697,7 +697,7 @@ begin
   Result := StringOfChar(#0, SizeInBytes - System.Length(Result)) + Result;
 end;
 
-class function TTLVTag.Format(t: Integer; v: Variant): string;
+class function TTLVTag.Format(t: Integer; v: Variant): AnsiString;
 begin
   case t of
     ttByte      : Result := Int2ValueTLV(v, 1);
@@ -711,7 +711,7 @@ begin
   end;
 end;
 
-function TTLVTag.ValueToBin(const Data: string): string;
+function TTLVTag.ValueToBin(const Data: AnsiString): AnsiString;
 begin
   case TagType of
     ttByte: Result := Int2ValueTLV(Tag, 2) +

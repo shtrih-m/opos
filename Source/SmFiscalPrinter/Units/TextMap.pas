@@ -56,7 +56,7 @@ type
 
 implementation
 
-procedure DeleteRegKey(const KeyName: string);
+procedure DeleteRegKey(const KeyName: WideString);
 var
   i: Integer;
   Reg: TTntRegistry;

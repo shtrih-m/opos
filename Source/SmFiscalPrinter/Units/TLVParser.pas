@@ -16,12 +16,12 @@ type
     FList: TTLVTags;
     FIdent: Integer;
     FShowTagNumbers: Boolean;
-    function GetIdent: string;
+    function GetIdent: AnsiString;
   public
     constructor Create;
     destructor Destroy; override;
-    function ParseTLV(AData: string): string;
-    function DoParseTLV(AData: string): string;
+    function ParseTLV(AData: AnsiString): AnsiString;
+    function DoParseTLV(AData: AnsiString): AnsiString;
     property ShowTagNumbers: Boolean read FShowTagNumbers write FShowTagNumbers;
   end;
 
@@ -40,13 +40,13 @@ begin
   inherited;
 end;
 
-function TTLVParser.DoParseTLV(AData: string): string;
+function TTLVParser.DoParseTLV(AData: AnsiString): AnsiString;
 var
-  S: string;
+  S: AnsiString;
   t: Integer;
   i: Integer;
   l: Integer;
-  Data: string;
+  Data: AnsiString;
   Item: TTLVTag;
 begin
   Result := '';
@@ -102,14 +102,14 @@ begin
   Result := S;
 end;
 
-function TTLVParser.GetIdent: string;
+function TTLVParser.GetIdent: AnsiString;
 begin
   Result := '';
   if FIdent > 0 then
     Result := StringOfChar(' ', FIdent);
 end;
 
-function TTLVParser.ParseTLV(AData: string): string;
+function TTLVParser.ParseTLV(AData: AnsiString): AnsiString;
 begin
   FIdent := 0;
   Result := DoParseTLV(AData);

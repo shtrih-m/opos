@@ -882,11 +882,11 @@ type
 
   TCommandRec = packed record
     Code: Integer;              // command code
-    TxData: string;             // tx data
-    RxData: string;             // rx data
     ResultCode: Byte;           // result code
     RepeatFlag: Boolean;        // repeat command
     Timeout: Integer;           // command timeout
+    TxData: AnsiString;         // tx data
+    RxData: AnsiString;         // rx data
   end;
 
   { TCashInResultRec }

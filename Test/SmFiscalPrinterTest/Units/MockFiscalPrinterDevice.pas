@@ -55,12 +55,12 @@ type
     procedure StopDump;
     procedure SetLongSerial(Serial: Int64);
     function SetPortParams(Port: Byte; const PortParams: TPortParams): Integer;
-    procedure PrintDocHeader(const DocName: string; DocNumber: Word);
+    procedure PrintDocHeader(const DocName: WideString; DocNumber: Word);
     procedure StartTest(Interval: Byte);
     procedure WriteLicense(License: Int64);
     function WriteTableInt(Table, Row, Field, Value: Integer): Integer;
-    function WriteTable(Table, Row, Field: Integer; const FieldValue: string): Integer;
-    function DoWriteTable(Table, Row, Field: Integer; const FieldValue: string): Integer;
+    function WriteTable(Table, Row, Field: Integer; const FieldValue: WideString): Integer;
+    function DoWriteTable(Table, Row, Field: Integer; const FieldValue: WideString): Integer;
     procedure SetPointPosition(PointPosition: Byte);
     procedure SetTime(const Time: TPrinterTime);
     procedure SetDate(const Date: TPrinterDate);
@@ -74,7 +74,7 @@ type
     procedure EjectSlip(Direction: Byte);
     procedure StopTest;
     procedure PrintActnTotalizers;
-    procedure PrintStringFont(Station, Font: Byte; const Line: string);
+    procedure PrintStringFont(Station, Font: Byte; const Line: WideString);
     procedure PrintXReport;
     procedure PrintZReport;
     procedure PrintDepartmentsReport;
@@ -85,7 +85,7 @@ type
     procedure WriteSerial(Serial: DWORD);
     procedure InitFiscalMemory;
     procedure Check(Value: Integer);
-    procedure PrintString(Stations: Byte; const Text: string);
+    procedure PrintString(Stations: Byte; const Text: WideString);
     procedure SetSysPassword(const Value: DWORD);
     procedure SetTaxPassword(const Value: DWORD);
     procedure SetUsrPassword(const Value: DWORD);
@@ -103,7 +103,7 @@ type
     function ReadShortStatus: TShortPrinterStatus;
     function ReadLongStatus: TLongPrinterStatus;
     function GetFMFlags(Flags: Byte): TFMFlags;
-    function PrintBoldString(Flags: Byte; const Text: string): Integer;
+    function PrintBoldString(Flags: Byte; const Text: WideString): Integer;
     function Beep: Integer;
     function GetPortParams(Port: Byte): TPortParams;
 
@@ -114,8 +114,8 @@ type
     function ReadOperatingRegister(ID: Byte): Word;
     function ReadOperatingReg(ID: Byte; var R: TOperRegisterRec): Integer;
     function ReadLicense: Int64;
-    function ReadTableBin(Table, Row, Field: Integer): string;
-    function ReadTableStr(Table, Row, Field: Integer): string;
+    function ReadTableBin(Table, Row, Field: Integer): WideString;
+    function ReadTableStr(Table, Row, Field: Integer): WideString;
     function ReadTableInt(Table, Row, Field: Integer): Integer;
     function ReadFontInfo(FontNumber: Byte): TFontInfo;
     function ReadFMTotals(Flags: Byte; var R: TFMTotals): Integer;
@@ -127,11 +127,11 @@ type
     function SlipStdDiscount(Discount: TSlipDiscount): Integer;
     function SlipClose(Params: TCloseReceiptParams): TCloseReceiptResult;
     function ContinuePrint: Integer;
-    function PrintBarcode(const Barcode: string): Integer;
+    function PrintBarcode(const Barcode: WideString): Integer;
     procedure PrintBarcode2(const Barcode: TBarcodeRec);
     function PrintGraphics(Line1, Line2: Word): Integer;
-    function LoadGraphics(Line: Word; Data: string): Integer;
-    function PrintBarLine(Height: Word; Data: string): Integer;
+    function LoadGraphics(Line: Word; Data: WideString): Integer;
+    function PrintBarLine(Height: Word; Data: AnsiString): Integer;
     function GetDeviceMetrics: TDeviceMetrics;
     function GetDayDiscountTotal: Int64;
     function GetRecDiscountTotal: Int64;
@@ -140,12 +140,12 @@ type
     function GetDayItemVoidTotal: Int64;
     function GetRecItemVoidTotal: Int64;
     function ReadFieldStructure(Table, Field: Byte): TPrinterFieldRec;
-    function GetEJSesssionResult(Number: Word; var Text: string): Integer;
-    function GetEJReportLine(var Line: string): Integer;
-    function ReadEJActivation(var Line: string): Integer;
+    function GetEJSesssionResult(Number: Word; var Text: WideString): Integer;
+    function GetEJReportLine(var Line: WideString): Integer;
+    function ReadEJActivation(var Line: WideString): Integer;
     function EJReportStop: Integer;
     function GetEJStatus1(var Status: TEJStatus1): Integer;
-    function Execute(const Data: string): string;
+    function Execute(const Data: AnsiString): AnsiString;
     function ExecuteStream(Stream: TBinStream): Integer;
     function ExecutePrinterCommand(Command: TPrinterCommand): Integer;
     function GetPrintWidth: Integer; overload;
@@ -169,12 +169,12 @@ type
     function ReceiptStornoCharge(Operation: TAmountOperation): Integer;
     function PrintReceiptCopy: Integer;
     function OpenReceipt(ReceiptType: Byte): Integer;
-    function FormatLines(const Line1, Line2: string): string;
-    function FormatBoldLines(const Line1, Line2: string): string;
+    function FormatLines(const Line1, Line2: WideString): WideString;
+    function FormatBoldLines(const Line1, Line2: WideString): WideString;
     function ExecuteStream2(Stream: TBinStream): Integer;
-    function GetFieldValue(FieldInfo: TPrinterFieldRec; const Value: string): string;
-    function FieldToStr(FieldInfo: TPrinterFieldRec; const Value: string): string;
-    function BinToFieldValue(FieldInfo: TPrinterFieldRec; const Value: string): string;
+    function GetFieldValue(FieldInfo: TPrinterFieldRec; const Value: WideString): WideString;
+    function FieldToStr(FieldInfo: TPrinterFieldRec; const Value: WideString): WideString;
+    function BinToFieldValue(FieldInfo: TPrinterFieldRec; const Value: WideString): WideString;
     function ReadDaysRange: TDayRange;
     function ReadFMLastRecordDate: TFMRecordDate;
     function ReadFiscInfo(FiscNumber: Byte): TFiscInfo;
@@ -185,14 +185,14 @@ type
     function DecodeEJFlags(Flags: Byte): TEJFlags;
     function ReadTableInfo(Table: Byte; var R: TPrinterTableRec): Integer;
     function ReadTableStructure(Table: Byte; var R: TPrinterTableRec): Integer;
-    function GetLine(const Text: string): string; overload;
-    function GetLine(const Text: string; MinLength, MaxLength: Integer): string; overload;
-    function FieldToInt(FieldInfo: TPrinterFieldRec; const Value: string): Integer;
+    function GetLine(const Text: WideString): WideString; overload;
+    function GetLine(const Text: WideString; MinLength, MaxLength: Integer): WideString; overload;
+    function FieldToInt(FieldInfo: TPrinterFieldRec; const Value: WideString): Integer;
     function ReadFieldInfo(Table, Field: Byte; var R: TPrinterFieldRec): Integer;
-    function ExecuteData(const Data: string; var RxData: string): Integer;
+    function ExecuteData(const Data: AnsiString; var RxData: AnsiString): Integer;
     function ExecuteCommand(var Command: TCommandRec): Integer;
     function SendCommand(var Command: TCommandRec): Integer;
-    function AlignLines(const Line1, Line2: string; LineWidth: Integer): string;
+    function AlignLines(const Line1, Line2: WideString; LineWidth: Integer): WideString;
     function GetModel: TPrinterModelRec;
     function GetOnCommand: TCommandEvent;
     function GetTables: TDeviceTables;
@@ -214,7 +214,7 @@ type
     procedure LoadModels;
     procedure SaveModels;
     function GetResultCode: Integer;
-    function GetResultText: string;
+    function GetResultText: WideString;
     function QueryEJActivation: TEJActivation;
     function GetIsOnline: Boolean;
     function GetOnConnect: TNotifyEvent;
@@ -224,52 +224,52 @@ type
     procedure AddFilter(AFilter: IFiscalPrinterFilter);
     procedure RemoveFilter(AFilter: IFiscalPrinterFilter);
     procedure PrintText(const Data: TTextRec); overload;
-    procedure PrintText(Station: Integer; const Text: string); overload;
-    procedure PrintTextFont(Station: Integer; Font: Integer; const Text: string);
+    procedure PrintText(Station: Integer; const Text: WideString); overload;
+    procedure PrintTextFont(Station: Integer; Font: Integer; const Text: WideString);
 
 
-    function CenterLine(const Line: string): string;
+    function CenterLine(const Line: WideString): WideString;
     procedure CheckGraphicsSize(Line: Word);
     function IsDayOpened(Mode: Integer): Boolean;
     function GetAmountDecimalPlaces: Integer;
     procedure SetAmountDecimalPlaces(const Value: Integer);
-    function LoadImage(const FileName: string; StartLine: Integer): Integer;
-    procedure PrintImage(const FileName: string; StartLine: Integer);
-    procedure PrintImageScale(const FileName: string; StartLine, Scale: Integer);
-    function ReadEJDocumentText(MACNumber: Integer): string;
-    function ReadEJDocument(MACNumber: Integer; var Line: string): Integer;
-    function ParseEJDocument(const Text: string): TEJDocument;
+    function LoadImage(const FileName: WideString; StartLine: Integer): Integer;
+    procedure PrintImage(const FileName: WideString; StartLine: Integer);
+    procedure PrintImageScale(const FileName: WideString; StartLine, Scale: Integer);
+    function ReadEJDocumentText(MACNumber: Integer): WideString;
+    function ReadEJDocument(MACNumber: Integer; var Line: WideString): Integer;
+    function ParseEJDocument(const Text: WideString): TEJDocument;
 
     function FSReadState(var R: TFSState): Integer;
-    function FSWriteTLV(const TLVData: string): Integer;
+    function FSWriteTLV(const TLVData: AnsiString): Integer;
     function FSSale(const P: TFSSale): Integer;
     function FSStorno(const P: TFSSale): Integer;
     function FSReadStatus(var R: TFSStatus): Integer;
-    function FSReadBlock(const P: TFSBlockRequest; var Block: string): Integer;
+    function FSReadBlock(const P: TFSBlockRequest; var Block: AnsiString): Integer;
     function FSStartWrite(DataSize: Word; var BlockSize: Byte): Integer;
     function FSWriteBlock(const Block: TFSBlock): Integer;
-    function FSReadBlockData: string;
-    procedure FSWriteBlockData(const BlockData: string);
+    function FSReadBlockData: AnsiString;
+    procedure FSWriteBlockData(const BlockData: AnsiString);
     function FSPrintCalcReport(var R: TFSCalcReport): Integer;
     function FSFindDocument(DocNumber: Integer; var R: TFSDocument): Integer;
     function FSReadDocMac(var DocMac: Int64): Integer;
     function FSReadExpireDate(var Date: TPrinterDate): Integer;
     function FSReadCommStatus(var R: TFSCommStatus): Integer;
     function FSReadFiscalResult(var R: TFSFiscalResult): Integer;
-    function FSWriteTag(TagID: Integer; const Data: string): Integer;
-    function WriteCustomerAddress(const Value: string): Integer;
+    function FSWriteTag(TagID: Integer; const Data: WideString): Integer;
+    function WriteCustomerAddress(const Value: WideString): Integer;
 
     function ReadPrinterStatus: TPrinterStatus;
-    function GetErrorText(Code: Integer): string;
+    function GetErrorText(Code: Integer): WideString;
     function OpenFiscalDay: Boolean;
     function ReadSysOperatorNumber: Integer;
     function ReadUsrOperatorNumber: Integer;
     function GetTaxInfo(Tax: Integer): TTaxInfo;
-    function ReadFPParameter(ParamId: Integer): string;
-    function ReadFSParameter(ParamID: Integer; const pString: string): string;
+    function ReadFPParameter(ParamId: Integer): WideString;
+    function ReadFSParameter(ParamID: Integer; const pString: WideString): WideString;
     function GetDiscountMode: Integer;
     function GetIsFiscalized: Boolean;
-    procedure WriteFPParameter(ParamId: Integer; const Value: string);
+    procedure WriteFPParameter(ParamId: Integer; const Value: WideString);
     function FSReadTotals(var R: TFMTotals): Integer;
     function ReadDayTotals: TFMTotals;
     function ReadFPTotals(Flags: Integer): TFMTotals;
@@ -281,7 +281,7 @@ type
     function GetCapOpenReceipt: Boolean;
     function IsRecOpened: Boolean;
     function GetCapDiscount: Boolean;
-    function ReadLoaderVersion(var Version: string): Integer;
+    function ReadLoaderVersion(var Version: WideString): Integer;
     function ReceiptClose2(const P: TFSCloseReceiptParams2;
       var R: TFSCloseReceiptResult2): Integer;
     function FSSale2(const P: TFSSale2): Integer;
@@ -296,12 +296,12 @@ type
     procedure SetOnPrinterStatus(Value: TNotifyEvent);
     function IsCapBarcode2D: Boolean;
     function IsCapEnablePrint: Boolean;
-    function ReadFSDocument(Number: Integer): string;
+    function ReadFSDocument(Number: Integer): WideString;
     procedure PrintFSDocument(Number: Integer);
     function FSStartOpenDay: Integer;
-    function CheckItemBarcode(const Barcode: string): Integer;
-    function FSSendTLVOperation(const Data: string): Integer;
-    function SendItemBarcode(const Barcode: string; MarkType: Integer): Integer;
+    function CheckItemBarcode(const Barcode: WideString): Integer;
+    function FSSendTLVOperation(const Data: WideString): Integer;
+    function SendItemBarcode(const Barcode: WideString; MarkType: Integer): Integer;
     function GetFSCloseReceiptResult2: TFSCloseReceiptResult2;
     function FSStartCorrectionReceipt: Integer;
 
@@ -354,8 +354,8 @@ begin
   Result := FContext;
 end;
 
-function TMockFiscalPrinterDevice.AlignLines(const Line1, Line2: string;
-  LineWidth: Integer): string;
+function TMockFiscalPrinterDevice.AlignLines(const Line1, Line2: WideString;
+  LineWidth: Integer): WideString;
 begin
 
 end;
@@ -366,7 +366,7 @@ begin
 end;
 
 function TMockFiscalPrinterDevice.BinToFieldValue(
-  FieldInfo: TPrinterFieldRec; const Value: string): string;
+  FieldInfo: TPrinterFieldRec; const Value: WideString): WideString;
 begin
 
 end;
@@ -418,7 +418,7 @@ end;
 
 function TMockFiscalPrinterDevice.DoWriteTable(
   Table, Row, Field: Integer;
-  const FieldValue: string): Integer;
+  const FieldValue: WideString): Integer;
 begin
   Result := 0;
 end;
@@ -445,7 +445,7 @@ begin
 
 end;
 
-function TMockFiscalPrinterDevice.Execute(const Data: string): string;
+function TMockFiscalPrinterDevice.Execute(const Data: AnsiString): AnsiString;
 begin
 
 end;
@@ -456,8 +456,8 @@ begin
   Result := 0;
 end;
 
-function TMockFiscalPrinterDevice.ExecuteData(const Data: string;
-  var RxData: string): Integer;
+function TMockFiscalPrinterDevice.ExecuteData(const Data: AnsiString;
+  var RxData: AnsiString): Integer;
 begin
   Result := 0;
 end;
@@ -485,13 +485,13 @@ begin
 end;
 
 function TMockFiscalPrinterDevice.FieldToInt(FieldInfo: TPrinterFieldRec;
-  const Value: string): Integer;
+  const Value: WideString): Integer;
 begin
   Result := 0;
 end;
 
 function TMockFiscalPrinterDevice.FieldToStr(FieldInfo: TPrinterFieldRec;
-  const Value: string): string;
+  const Value: WideString): WideString;
 begin
   Result := '';
 end;
@@ -503,13 +503,13 @@ begin
 end;
 
 function TMockFiscalPrinterDevice.FormatBoldLines(const Line1,
-  Line2: string): string;
+  Line2: WideString): WideString;
 begin
   Result := '';
 end;
 
 function TMockFiscalPrinterDevice.FormatLines(const Line1,
-  Line2: string): string;
+  Line2: WideString): WideString;
 begin
   Result := '';
 end;
@@ -545,18 +545,18 @@ begin
 end;
 
 function TMockFiscalPrinterDevice.GetEJReportLine(
-  var Line: string): Integer;
+  var Line: WideString): Integer;
 begin
   Result := 0;
 end;
 
-function TMockFiscalPrinterDevice.ReadEJActivation(var Line: string): Integer;
+function TMockFiscalPrinterDevice.ReadEJActivation(var Line: WideString): Integer;
 begin
   Result := 0;
 end;
 
 function TMockFiscalPrinterDevice.GetEJSesssionResult(Number: Word;
-  var Text: string): Integer;
+  var Text: WideString): Integer;
 begin
   Result := 0;
 end;
@@ -568,7 +568,7 @@ begin
 end;
 
 function TMockFiscalPrinterDevice.GetFieldValue(
-  FieldInfo: TPrinterFieldRec; const Value: string): string;
+  FieldInfo: TPrinterFieldRec; const Value: WideString): WideString;
 begin
   Result := '';
 end;
@@ -578,13 +578,13 @@ begin
 
 end;
 
-function TMockFiscalPrinterDevice.GetLine(const Text: string; MinLength,
-  MaxLength: Integer): string;
+function TMockFiscalPrinterDevice.GetLine(const Text: WideString; MinLength,
+  MaxLength: Integer): WideString;
 begin
 
 end;
 
-function TMockFiscalPrinterDevice.GetLine(const Text: string): string;
+function TMockFiscalPrinterDevice.GetLine(const Text: WideString): WideString;
 begin
 
 end;
@@ -681,7 +681,7 @@ begin
 end;
 
 function TMockFiscalPrinterDevice.LoadGraphics(Line: Word;
-  Data: string): Integer;
+  Data: WideString): Integer;
 begin
   Result := 0;
 end;
@@ -724,19 +724,19 @@ begin
 
 end;
 
-function TMockFiscalPrinterDevice.PrintBarcode(const Barcode: string): Integer;
+function TMockFiscalPrinterDevice.PrintBarcode(const Barcode: WideString): Integer;
 begin
   Result := 0;
 end;
 
 function TMockFiscalPrinterDevice.PrintBarLine(Height: Word;
-  Data: string): Integer;
+  Data: AnsiString): Integer;
 begin
   Result := 0;
 end;
 
 function TMockFiscalPrinterDevice.PrintBoldString(Flags: Byte;
-  const Text: string): Integer;
+  const Text: WideString): Integer;
 begin
   Result := 0;
 end;
@@ -746,7 +746,7 @@ begin
 
 end;
 
-procedure TMockFiscalPrinterDevice.PrintDocHeader(const DocName: string;
+procedure TMockFiscalPrinterDevice.PrintDocHeader(const DocName: WideString;
   DocNumber: Word);
 begin
 
@@ -774,13 +774,13 @@ begin
 end;
 
 procedure TMockFiscalPrinterDevice.PrintString(Stations: Byte;
-  const Text: string);
+  const Text: WideString);
 begin
 
 end;
 
 procedure TMockFiscalPrinterDevice.PrintStringFont(Station, Font: Byte;
-  const Line: string);
+  const Line: WideString);
 begin
 
 end;
@@ -849,7 +849,7 @@ begin
 end;
 
 function TMockFiscalPrinterDevice.ReadTableBin(Table, Row,
-  Field: Integer): string;
+  Field: Integer): WideString;
 begin
   Result := '';
 end;
@@ -861,7 +861,7 @@ begin
 end;
 
 function TMockFiscalPrinterDevice.ReadTableStr(Table, Row,
-  Field: Integer): string;
+  Field: Integer): WideString;
 begin
   Result := '';
 end;
@@ -1052,7 +1052,7 @@ end;
 
 function TMockFiscalPrinterDevice.WriteTable(
   Table, Row, Field: Integer;
-  const FieldValue: string): Integer;
+  const FieldValue: WideString): Integer;
 begin
   Result := 0;
 end;
@@ -1210,7 +1210,7 @@ begin
   Result := 0;
 end;
 
-function TMockFiscalPrinterDevice.GetResultText: string;
+function TMockFiscalPrinterDevice.GetResultText: WideString;
 begin
 
 end;
@@ -1268,12 +1268,12 @@ begin
 
 end;
 
-procedure TMockFiscalPrinterDevice.PrintText(Station: Integer; const Text: string);
+procedure TMockFiscalPrinterDevice.PrintText(Station: Integer; const Text: WideString);
 begin
 
 end;
 
-function TMockFiscalPrinterDevice.CenterLine(const Line: string): string;
+function TMockFiscalPrinterDevice.CenterLine(const Line: WideString): WideString;
 begin
   Result := Line;
 end;
@@ -1317,13 +1317,13 @@ begin
   { !!! }
 end;
 
-function TMockFiscalPrinterDevice.LoadImage(const FileName: string;
+function TMockFiscalPrinterDevice.LoadImage(const FileName: WideString;
   StartLine: Integer): Integer;
 begin
   Result := 0;
 end;
 
-procedure TMockFiscalPrinterDevice.PrintImage(const FileName: string;
+procedure TMockFiscalPrinterDevice.PrintImage(const FileName: WideString;
   StartLine: Integer);
 begin
 
@@ -1335,7 +1335,7 @@ begin
 end;
 
 procedure TMockFiscalPrinterDevice.PrintTextFont(Station, Font: Integer;
-  const Text: string);
+  const Text: WideString);
 begin
 
 end;
@@ -1346,26 +1346,26 @@ begin
   Result := 0;
 end;
 
-procedure TMockFiscalPrinterDevice.PrintImageScale(const FileName: string;
+procedure TMockFiscalPrinterDevice.PrintImageScale(const FileName: WideString;
   StartLine, Scale: Integer);
 begin
 
 end;
 
 function TMockFiscalPrinterDevice.ParseEJDocument(
-  const Text: string): TEJDocument;
+  const Text: WideString): TEJDocument;
 begin
 
 end;
 
 function TMockFiscalPrinterDevice.ReadEJDocument(MACNumber: Integer;
-  var Line: string): Integer;
+  var Line: WideString): Integer;
 begin
   Result := 0;
 end;
 
 function TMockFiscalPrinterDevice.ReadEJDocumentText(
-  MACNumber: Integer): string;
+  MACNumber: Integer): WideString;
 begin
 
 end;
@@ -1408,18 +1408,18 @@ begin
 end;
 
 function TMockFiscalPrinterDevice.FSWriteTLV(
-  const TLVData: string): Integer;
+  const TLVData: AnsiString): Integer;
 begin
   Result := 0;
 end;
 
 function TMockFiscalPrinterDevice.FSReadBlock(const P: TFSBlockRequest;
-  var Block: string): Integer;
+  var Block: AnsiString): Integer;
 begin
   Result := 0;
 end;
 
-function TMockFiscalPrinterDevice.FSReadBlockData: string;
+function TMockFiscalPrinterDevice.FSReadBlockData: AnsiString;
 begin
   Result := '';
 end;
@@ -1442,12 +1442,12 @@ begin
 end;
 
 procedure TMockFiscalPrinterDevice.FSWriteBlockData(
-  const BlockData: string);
+  const BlockData: AnsiString);
 begin
 
 end;
 
-function TMockFiscalPrinterDevice.GetErrorText(Code: Integer): string;
+function TMockFiscalPrinterDevice.GetErrorText(Code: Integer): WideString;
 begin
 
 end;
@@ -1531,13 +1531,13 @@ begin
 end;
 
 function TMockFiscalPrinterDevice.FSWriteTag(TagID: Integer;
-  const Data: string): Integer;
+  const Data: WideString): Integer;
 begin
   Result := 0;
 end;
 
 function TMockFiscalPrinterDevice.WriteCustomerAddress(
-  const Value: string): Integer;
+  const Value: WideString): Integer;
 begin
   Result := 0;
 end;
@@ -1548,13 +1548,13 @@ begin
 end;
 
 function TMockFiscalPrinterDevice.ReadFPParameter(
-  ParamId: Integer): string;
+  ParamId: Integer): WideString;
 begin
   Result := '';
 end;
 
 procedure TMockFiscalPrinterDevice.WriteFPParameter(ParamId: Integer;
-  const Value: string);
+  const Value: WideString);
 begin
 
 end;
@@ -1597,7 +1597,7 @@ begin
 end;
 
 function TMockFiscalPrinterDevice.ReadFSParameter(ParamID: Integer;
-  const pString: string): string;
+  const pString: WideString): WideString;
 begin
   Result := '';
 end;
@@ -1638,7 +1638,7 @@ begin
 end;
 
 function TMockFiscalPrinterDevice.ReadLoaderVersion(
-  var Version: string): Integer;
+  var Version: WideString): Integer;
 begin
   Result := 0;
 end;
@@ -1727,7 +1727,7 @@ begin
 
 end;
 
-function TMockFiscalPrinterDevice.ReadFSDocument(Number: Integer): string;
+function TMockFiscalPrinterDevice.ReadFSDocument(Number: Integer): WideString;
 begin
 
 end;
@@ -1744,18 +1744,18 @@ begin
 end;
 
 function TMockFiscalPrinterDevice.CheckItemBarcode(
-  const Barcode: string): Integer;
+  const Barcode: WideString): Integer;
 begin
   Result := 0;
 end;
 
 function TMockFiscalPrinterDevice.FSSendTLVOperation(
-  const Data: string): Integer;
+  const Data: WideString): Integer;
 begin
   Result := 0;
 end;
 
-function TMockFiscalPrinterDevice.SendItemBarcode(const Barcode: string;
+function TMockFiscalPrinterDevice.SendItemBarcode(const Barcode: WideString;
   MarkType: Integer): Integer;
 begin
   Result := 0;

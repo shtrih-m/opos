@@ -39,9 +39,9 @@ type
     procedure Print1DBarcodes;
     procedure Print2DBarcodes;
     procedure PrintBarcodeHex(BarcodeType: Integer; const Text,
-      Barcode: string; ModuleWidth: Integer);
+      Barcode: WideString; ModuleWidth: Integer);
   public
-    procedure PrintBarcode(BarcodeType: Integer; const Text, Barcode: string;
+    procedure PrintBarcode(BarcodeType: Integer; const Text, Barcode: WideString;
       ModuleWidth: Integer);
   end;
 
@@ -52,7 +52,7 @@ implementation
 { TfmDirectIOBarcode }
 
 procedure TfmFptrDirectIOBarcode.PrintBarcode(BarcodeType: Integer;
-  const Text, Barcode: string; ModuleWidth: Integer);
+  const Text, Barcode: WideString; ModuleWidth: Integer);
 var
   TickCount: Integer;
   ResultCode: Integer;
@@ -80,7 +80,7 @@ begin
 end;
 
 procedure TfmFptrDirectIOBarcode.PrintBarcodeHex(BarcodeType: Integer;
-  const Text, Barcode: string; ModuleWidth: Integer);
+  const Text, Barcode: WideString; ModuleWidth: Integer);
 var
   TickCount: Integer;
   ResultCode: Integer;
@@ -190,8 +190,8 @@ const
     DIO_BARCODE_PDF417TRUNC,
     DIO_BARCODE_MICROPDF417);
 var
-  Barcode: string;
-  BarcodeName: string;
+  Barcode: WideString;
+  BarcodeName: WideString;
   BarcodeType: Integer;
   ModuleSize: Integer;
 begin
@@ -233,8 +233,8 @@ const
     DIO_BARCODE_PDF417TRUNC,
     DIO_BARCODE_MICROPDF417);
 var
-  Barcode: string;
-  BarcodeName: string;
+  Barcode: WideString;
+  BarcodeName: WideString;
   BarcodeType: Integer;
   ModuleSize: Integer;
 begin

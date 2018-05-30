@@ -22,19 +22,19 @@ type
     function Listen(Backlog: Integer): Boolean;
     function WaitRead(Timeout: Integer): Integer;
     function WaitWrite(Timeout: Integer): Integer;
-    function ReadLn(const Separator: string): string;
+    function ReadLn(const Separator: AnsiString): AnsiString;
 
     procedure Close;
     procedure Disconnect;
-    procedure Send(const Data: string);
-    function Bind(Family: Integer; const IP: string; Port: Integer): Boolean;
+    procedure Send(const Data: AnsiString);
+    function Bind(Family: Integer; const IP: AnsiString; Port: Integer): Boolean;
 
     property Socket: TSocket read FSocket write FSocket;
   end;
 
 implementation
 
-procedure LogError(const Msg: string);
+procedure LogError(const Msg: AnsiString);
 begin
   // Logger.Error(Msg); { !!! }
 end;
@@ -59,7 +59,7 @@ begin
     CloseSocket(FSocket);
 end;
 
-function TSimpleSocket.Bind(Family: Integer; const IP: string; Port: Integer): Boolean;
+function TSimpleSocket.Bind(Family: Integer; const IP: AnsiString; Port: Integer): Boolean;
 var
   service: TSockAddrIn;
 begin
@@ -127,9 +127,9 @@ begin
   while recv(FSocket, Buf[0], SizeOf(Buf), 0) > 0 do;
 end;
 
-function TSimpleSocket.ReadLn(const Separator: string): string;
+function TSimpleSocket.ReadLn(const Separator: AnsiString): AnsiString;
 var
-  S: string;
+  S: AnsiString;
   rc: Integer;
   Buf: array [byte] of char;
 begin
@@ -151,7 +151,7 @@ begin
   until rc <= 0;
 end;
 
-procedure TSimpleSocket.Send(const Data: string);
+procedure TSimpleSocket.Send(const Data: AnsiString);
 var
   rc: Integer;
   Buf: array [byte] of char;

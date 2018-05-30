@@ -19,38 +19,38 @@ type
     function GetLogger: ILogFile;
     function GetMalinaParams: TMalinaParams;
   private
-    FDBPath: string;
+    FDBPath: WideString;
     FIsOpened: Boolean;
     FContext: TDriverContext;
     FConnection: ADOInt._Connection;
     
     property Logger: ILogFile read GetLogger;
   public
-    constructor Create(const DBPath: string; AContext: TDriverContext);
+    constructor Create(const DBPath: WideString; AContext: TDriverContext);
     destructor Destroy; override;
 
     procedure Open;
     procedure Close;
     function IsOpened: Boolean;
     function ReadTaxGroup(ItemName: WideString): Integer;
-    function ReadCashierName(var CashierName: string): Boolean;
-    class function ParseItemName(const ItemName: string): string;
-    class function ReplaceOperator(const Line, Cashier: string): string;
-    function ParseOperator(const Line: string; var Cashier: string): Boolean;
-    class function ParseCashierName(const Line: string; var Cashier: string): Boolean;
+    function ReadCashierName(var CashierName: WideString): Boolean;
+    class function ParseItemName(const ItemName: WideString): WideString;
+    class function ReplaceOperator(const Line, Cashier: WideString): WideString;
+    function ParseOperator(const Line: WideString; var Cashier: WideString): Boolean;
+    class function ParseCashierName(const Line: WideString; var Cashier: WideString): Boolean;
     property MalinaParams: TMalinaParams read GetMalinaParams;
   end;
 
-function RetalixReadCashierName(const DBPath: string;
-  var CashierName: string; Context: TDriverContext): Boolean;
+function RetalixReadCashierName(const DBPath: WideString;
+  var CashierName: WideString; Context: TDriverContext): Boolean;
 
-function RetalixReadTaxGroup(const DBPath: string;
-  const ItemName: string; Context: TDriverContext): Integer;
+function RetalixReadTaxGroup(const DBPath: WideString;
+  const ItemName: WideString; Context: TDriverContext): Integer;
 
 implementation
 
-function RetalixReadCashierName(const DBPath: string;
-  var CashierName: string; Context: TDriverContext): Boolean;
+function RetalixReadCashierName(const DBPath: WideString;
+  var CashierName: WideString; Context: TDriverContext): Boolean;
 var
   RetalixDB: TRetalix;
 begin
@@ -63,8 +63,8 @@ begin
   end;
 end;
 
-function RetalixReadTaxGroup(const DBPath: string;
-  const ItemName: string; Context: TDriverContext): Integer;
+function RetalixReadTaxGroup(const DBPath: WideString;
+  const ItemName: WideString; Context: TDriverContext): Integer;
 var
   RetalixDB: TRetalix;
 begin
@@ -99,7 +99,7 @@ end;
 
 { TRetalix }
 
-constructor TRetalix.Create(const DBPath: string; AContext: TDriverContext);
+constructor TRetalix.Create(const DBPath: WideString; AContext: TDriverContext);
 begin
   inherited Create;
   FDBPath := DBPath;
@@ -168,7 +168,7 @@ begin
   end;
 end;
 
-function TRetalix.ReadCashierName(var CashierName: string): Boolean;
+function TRetalix.ReadCashierName(var CashierName: WideString): Boolean;
 var
   S: WideString;
   SQL: WideString;
@@ -208,7 +208,7 @@ end;
 
 // ТРК 4:АИ-95-К5               Трз1449
 
-class function TRetalix.ParseItemName(const ItemName: string): string;
+class function TRetalix.ParseItemName(const ItemName: WideString): WideString;
 begin
   Result := ItemName;
   if ExecRegExpr('ТРК.+:', ItemName) then
@@ -265,8 +265,8 @@ end;
 
 //  Оператор: Щукина Оль  ID: 154826».
 
-function TRetalix.ParseOperator(const Line: string;
-  var Cashier: string): Boolean;
+function TRetalix.ParseOperator(const Line: WideString;
+  var Cashier: WideString): Boolean;
 begin
   Result := False;
   try
@@ -282,13 +282,13 @@ begin
 end;
 
 //Cashier
-class function TRetalix.ParseCashierName(const Line: string;
-  var Cashier: string): Boolean;
+class function TRetalix.ParseCashierName(const Line: WideString;
+  var Cashier: WideString): Boolean;
 const
   CashierPrefix = 'оператор:';
 var
   P: Integer;
-  Line1: string;
+  Line1: WideString;
 begin
   Line1 := Copy(Trim(Line), 1, Length(CashierPrefix));
   Result := AnsiCompareText(Line1, CashierPrefix) = 0;
@@ -305,7 +305,7 @@ begin
   end;
 end;
 
-class function TRetalix.ReplaceOperator(const Line, Cashier: string): string;
+class function TRetalix.ReplaceOperator(const Line, Cashier: WideString): WideString;
 var
   P: Integer;
 begin

@@ -61,7 +61,7 @@ const
 
 implementation
 
-procedure RegDeleteKey(const KeyName: string);
+procedure RegDeleteKey(const KeyName: WideString);
 var
   i: Integer;
   Reg: TTntRegistry;

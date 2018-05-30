@@ -91,7 +91,7 @@ begin
   end;
 end;
 
-function IsManualTag(const TagName: string): Boolean;
+function IsManualTag(const TagName: WideString): Boolean;
 begin
   Result := Pos('MANUAL_', TagName) <> 0;
 end;

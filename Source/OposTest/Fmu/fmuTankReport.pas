@@ -85,7 +85,7 @@ var
   Reader: TTankReader;
 const
   MaxTanks = 2;
-  GradeNames: array [0..2] of string =
+  GradeNames: array [0..2] of WideString =
     ('AÈ-76', 'AÈ-92', 'AÈ-95');
 begin
   Reader := TTankReader.Create;

@@ -30,7 +30,7 @@ type
     procedure btnValidRefundReceiptClick(Sender: TObject);
     procedure btnInvalidSalesReceipt2Click(Sender: TObject);
   private
-    procedure AddLine(const Line: string);
+    procedure AddLine(const Line: WideString);
     procedure WriteReceiptFlags;
   end;
 
@@ -51,7 +51,7 @@ end;
 
 { TfmTankReport }
 
-procedure TfmFptrFroudReceipt.AddLine(const Line: string);
+procedure TfmFptrFroudReceipt.AddLine(const Line: WideString);
 begin
   Memo.Lines.Add(Line);
 end;

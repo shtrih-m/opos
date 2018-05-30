@@ -85,7 +85,7 @@ end;
 procedure TfmPages.UpdatePages(ListBox: TTntListBox; Pages: TPages);
 var
   i: Integer;
-  PageName: string;
+  PageName: WideString;
 begin
   lbPages.Items.BeginUpdate;
   try

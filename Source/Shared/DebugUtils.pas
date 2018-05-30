@@ -6,14 +6,14 @@ uses
   // VCL
   Windows;
 
-procedure ODS(const S: string);
+procedure ODS(const S: WideString);
 
 implementation
 
-procedure ODS(const S: string);
+procedure ODS(const S: WideString);
 begin
 {$IFDEF DEBUG}
-  OutputDebugString(PChar(S));
+  OutputDebugStringW(PWideChar(S));
 {$ENDIF}
 end;
 

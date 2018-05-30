@@ -17,7 +17,7 @@ type
 
     procedure Close;
     procedure Release;
-    procedure Open(const AName: string);
+    procedure Open(const AName: WideString);
     function WaitFor(Timeout: Integer): Integer;
   end;
 
@@ -43,16 +43,16 @@ begin
   end;
 end;
 
-procedure TSemaphore.Open(const AName: string);
+procedure TSemaphore.Open(const AName: WideString);
 begin
   if FHandle = 0 then
   begin
-    FHandle := CreateSemaphore(nil, 1, 1, PChar(AName));
+    FHandle := CreateSemaphoreW(nil, 1, 1, PWideChar(AName));
     if FHandle = 0 then
     begin
       if GetLastError = ERROR_ALREADY_EXISTS then
       begin
-        FHandle := OpenSemaphore(SEMAPHORE_MODIFY_STATE, False, PChar(AName));
+        FHandle := OpenSemaphoreW(SEMAPHORE_MODIFY_STATE, False, PWideChar(AName));
         if FHandle = 0 then
           RaiseLastOsError;
       end;

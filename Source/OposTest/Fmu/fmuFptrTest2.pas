@@ -36,7 +36,7 @@ type
     FStopFlag: Boolean;
     FErrorCount: Integer;
     FPrinterTestCount: Integer;
-    FPrinterDevice: string;
+    FPrinterDevice: WideString;
     FStopOnError: Boolean;
     FThread: TNotifyThread;
     FLock: TCriticalsection;
@@ -45,7 +45,7 @@ type
     procedure UpdatePrinterDevice;
     procedure ThreadProc1(Sender: TObject);
     procedure ThreadTerminated(Sender: TObject);
-    procedure AddMessage(const S: string);
+    procedure AddMessage(const S: WideString);
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -76,7 +76,7 @@ begin
   inherited Destroy;
 end;
 
-procedure TfmFptrTest2.AddMessage(const S: string);
+procedure TfmFptrTest2.AddMessage(const S: WideString);
 begin
   FLock.Enter;
   try

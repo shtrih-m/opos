@@ -70,7 +70,7 @@ end;
 procedure TfmFptrDirectIO.FillComboBox;
 var
   i: Integer;
-  S: string;
+  S: WideString;
 begin
   cbCommand.Clear;
   for i := Low(DIODescriptions) to High(DIODescriptions) do

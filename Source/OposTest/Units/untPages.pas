@@ -47,12 +47,12 @@ type
 
   TPageClass = class of TPage;
 
-function Date2Str(Value: TDateTime): string;
-function DateTime2Str(Value: TDateTime): string;
+function Date2Str(Value: TDateTime): WideString;
+function DateTime2Str(Value: TDateTime): WideString;
 
 implementation
 
-function Date2Str(Value: TDateTime): string;
+function Date2Str(Value: TDateTime): WideString;
 var
   Year, Month, Day: Word;
 begin
@@ -60,7 +60,7 @@ begin
   Result := Tnt_WideFormat('%.2d%.2d%.4d0000', [Day, Month, Year]);
 end;
 
-function DateTime2Str(Value: TDateTime): string;
+function DateTime2Str(Value: TDateTime): WideString;
 var
   Year, Month, Day: Word;
   Hour, Min, Sec, MSec: Word;

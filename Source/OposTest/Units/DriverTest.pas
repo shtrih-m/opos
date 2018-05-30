@@ -43,7 +43,7 @@ type
     procedure SetTrailerLines;
     procedure PrintTestReceipt;
     procedure PrintTenderReceipt;
-    procedure AddLine(const S: string);
+    procedure AddLine(const S: WideString);
     procedure Check(AResultCode: Integer);
   public
     constructor Create(AOwner: TDriverTests; AMemo: TTntMemo);
@@ -51,7 +51,7 @@ type
 
     procedure Execute; virtual; abstract;
     function ReadRecNumber: Integer;
-    function GetDisplayText: string; virtual; abstract;
+    function GetDisplayText: WideString; virtual; abstract;
 
     property Memo: TTntMemo read FMemo;
   end;
@@ -128,7 +128,7 @@ begin
   end;
 end;
 
-procedure TDriverTest.AddLine(const S: string);
+procedure TDriverTest.AddLine(const S: WideString);
 begin
   Memo.Lines.Add(S);
 end;
@@ -146,7 +146,7 @@ end;
 
 procedure TDriverTest.Check(AResultCode: Integer);
 var
-  ErrorString: string;
+  ErrorString: WideString;
   ResultCodeExtended: Integer;
 begin
   if AResultCode <> OPOS_SUCCESS then
@@ -208,7 +208,7 @@ end;
 
 procedure TDriverTest.SetHeaderLines;
 var
-  S: string;
+  S: WideString;
   i: Integer;
 begin
   for i := 1 to FiscalPrinter.NumHeaderLines do
@@ -223,8 +223,8 @@ end;
 
 procedure TDriverTest.SetTrailerLines;
 var
-  S: string;
   i: Integer;
+  S: WideString;
 begin
   for i := 1 to FiscalPrinter.NumTrailerLines do
   begin

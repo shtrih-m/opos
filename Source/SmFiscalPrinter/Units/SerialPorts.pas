@@ -18,8 +18,8 @@ type
     class procedure GetPorts(Ports: TTntStrings);
     class procedure GetSystemPorts(Ports: TTntStringList);
 
-    class function GetPortNames: string;
-    class function GetSystemPortNames: string;
+    class function GetPortNames: WideString;
+    class function GetSystemPortNames: WideString;
   end;
 
 implementation
@@ -52,8 +52,8 @@ end;
 
 class procedure TSerialPorts.GetSystemPorts(Ports: TTntStringList);
 var
-  S: string;
-  S1: string;
+  S: WideString;
+  S1: WideString;
   i: Integer;
   Code: Integer;
   Reg: TTntRegistry;
@@ -88,7 +88,7 @@ begin
   end;
 end;
 
-class function TSerialPorts.GetSystemPortNames: string;
+class function TSerialPorts.GetSystemPortNames: WideString;
 var
   PortNames: TTntStringList;
 begin
@@ -101,7 +101,7 @@ begin
   end;
 end;
 
-class function TSerialPorts.GetPortNames: string;
+class function TSerialPorts.GetPortNames: WideString;
 var
   PortNames: TTntStringList;
 begin

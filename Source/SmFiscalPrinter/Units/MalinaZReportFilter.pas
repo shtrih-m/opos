@@ -47,7 +47,7 @@ type
     procedure ReadDiscounts;
     procedure ReadTaxAmounts;
     procedure PrintTaxAmounts;
-    procedure PrintAmount(const Text: string; Count, Totals: Int64);
+    procedure PrintAmount(const Text: WideString; Count, Totals: Int64);
 
     property Printer: ISharedPrinter read FPrinter;
     property Device: IFiscalPrinterDevice read GetDevice;
@@ -63,7 +63,7 @@ type
 implementation
 
 const
-  RecName: array [0..3] of string = (
+  RecName: array [0..3] of WideString = (
     'ÏĞÈÕÎÄ', 'ĞÀÑÕÎÄ','ÂÎÇÂĞÀÒ ÏĞÈÕÎÄÀ', 'ÂÎÇÂĞÀÒ ĞÀÑÕÎÄÀ');
 
 { TMalinaZReportFilter }
@@ -122,7 +122,7 @@ end;
 
 procedure TMalinaZReportFilter.PrintTaxAmounts;
 var
-  Line: string;
+  Line: WideString;
   HasTax: Boolean;
   RecType: Integer;
   TaxType: Integer;
@@ -189,10 +189,10 @@ begin
   end;
 end;
 
-procedure TMalinaZReportFilter.PrintAmount(const Text: string; Count, Totals: Int64);
+procedure TMalinaZReportFilter.PrintAmount(const Text: WideString; Count, Totals: Int64);
 var
-  Line1: string;
-  Line2: string;
+  Line1: WideString;
+  Line2: WideString;
 begin
   Line1 := Tnt_WideFormat('%.4d %s', [Count, Text]);
   Line2 := '=' + AmountToStr(Totals/100);

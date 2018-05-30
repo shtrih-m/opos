@@ -17,17 +17,17 @@ type
   TTCPConnection = class(TInterfacedObject, IPrinterConnection)
   private
     FLogger: ILogFile;
-    FRemoteHost: string;
+    FRemoteHost: AnsiString;
     FRemotePort: Integer;
     FConnection: TIdTCPClient;
 
     procedure Connect;
-    function SendCommand(const Command: string): string;
+    function SendCommand(const Command: AnsiString): AnsiString;
     procedure DoConnect;
     procedure DoDisconnect;
     property Logger: ILogFile read FLogger;
   public
-    constructor Create(const ARemoteHost: string;
+    constructor Create(const ARemoteHost: AnsiString;
       ARemotePort: Integer; APortNumber, ABaudRate, AByteTimeout: Integer;
       ALogger: ILogFile);
     destructor Destroy; override;
@@ -37,7 +37,7 @@ type
     procedure CloseReceipt;
     procedure ClaimDevice(PortNumber, Timeout: Integer);
     procedure OpenReceipt(Password: Integer);
-    function Send(Timeout: Integer; const Data: string): string;
+    function Send(Timeout: Integer; const Data: AnsiString): AnsiString;
     procedure OpenPort(PortNumber, BaudRate, ByteTimeout: Integer);
   end;
 
@@ -45,7 +45,7 @@ implementation
 
 { TTCPConnection }
 
-constructor TTCPConnection.Create(const ARemoteHost: string;
+constructor TTCPConnection.Create(const ARemoteHost: AnsiString;
   ARemotePort: Integer; APortNumber, ABaudRate, AByteTimeout: Integer;
   ALogger: ILogFile);
 begin
@@ -99,9 +99,9 @@ begin
 end;
 
 
-function TTCPConnection.SendCommand(const Command: string): string;
+function TTCPConnection.SendCommand(const Command: AnsiString): AnsiString;
 var
-  ResultText: string;
+  ResultText: AnsiString;
   ResultCode: Integer;
 begin
   Connect;
@@ -117,15 +117,15 @@ end;
 
 procedure TTCPConnection.OpenPort(PortNumber, BaudRate, ByteTimeout: Integer);
 var
-  Command: string;
+  Command: AnsiString;
 begin
   Command := Tnt_WideFormat('OPENPORT %d %d', [BaudRate, ByteTimeout]);
   SendCommand(Command);
 end;
 
-function TTCPConnection.Send(Timeout: Integer; const Data: string): string;
+function TTCPConnection.Send(Timeout: Integer; const Data: AnsiString): AnsiString;
 var
-  Command: string;
+  Command: AnsiString;
 begin
   Command := Tnt_WideFormat('SEND %d %s', [Timeout, StrToHexText(Data)]);
   Result := HexToStr(SendCommand(Command));

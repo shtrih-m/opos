@@ -10,20 +10,20 @@ uses
   // gnugettext
   gnugettext;
 
-function GetLanguage: string;
-procedure SetLanguage(const Language: string);
+function GetLanguage: WideString;
+procedure SetLanguage(const Language: WideString);
 function GetRes(Value: PResStringRec): WideString;
-function GetLanguageParamsFileName: string;
-function GetUserShtrihPath: string;
+function GetLanguageParamsFileName: WideString;
+function GetUserShtrihPath: WideString;
 
 implementation
 var
-  GLanguage: string = '';
+  GLanguage: WideString = '';
 
 const
   LangParamsFileName = 'locale.ini';
 
-function GetUserShtrihPath: string;
+function GetUserShtrihPath: WideString;
 begin
   SetLength(Result, MAX_PATH);
   ShlObj.SHGetSpecialFolderPath(0, @Result[1], CSIDL_APPDATA, false);
@@ -37,19 +37,19 @@ begin
     CreateDir(Result);
 end;
 
-function GetLanguageParamsFileName: string;
+function GetLanguageParamsFileName: WideString;
 begin
   Result := WideIncludeTrailingPathDelimiter(GetUserShtrihPath) + LangParamsFileName;
 end;
 
-// Посколько resourcestrings в Delphi 7 не юникодные,
+// Посколько resourceWideStrings в Delphi 7 не юникодные,
 // получаем таким способом
 function GetRes(Value: PResStringRec): WideString;
 begin
   Result := LoadResStringW(Value);
 end;
 
-function GetModuleFileName: string;
+function GetModuleFileName: WideString;
 var
   Buffer: array[0..261] of Char;
 begin
@@ -57,7 +57,7 @@ begin
     Buffer, SizeOf(Buffer)));
 end;
 
-function GetLanguage: string;
+function GetLanguage: WideString;
 var
   F: TTntIniFile;
 begin
@@ -81,7 +81,7 @@ begin
   GLanguage := Result;
 end;
 
-procedure SetLanguage(const Language: string);
+procedure SetLanguage(const Language: WideString);
 var
   F: TTntIniFile;
 begin

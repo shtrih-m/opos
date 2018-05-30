@@ -190,7 +190,7 @@ begin
   end;
 end;
 
-function GetStatusUpdateEventText(Data: Integer): string;
+function GetStatusUpdateEventText(Data: Integer): WideString;
 begin
   case Data of
     CASH_SUE_DRAWERCLOSED : Result := 'CASH_SUE_DRAWERCLOSED';
@@ -208,7 +208,7 @@ end;
 procedure TfmCashGeneral.DirectIOEvent(ASender: TObject; EventNumber: Integer;
   var pData: Integer; var pString: WideString);
 var
-  Text: string;
+  Text: WideString;
 begin
   Text := Tnt_WideFormat('DirectIOEvent(%d, %d, "%s")', [
     ASender, EventNumber, pData, pString]);

@@ -52,7 +52,7 @@ const
 
 var
   i: Integer;
-  Answer: string;
+  Answer: AnsiString;
   Connection: TIdTCPClient;
 begin
   Memo.Clear;

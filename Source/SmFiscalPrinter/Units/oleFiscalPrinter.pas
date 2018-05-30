@@ -32,8 +32,8 @@ type
     constructor Create(ADriver: TFiscalPrinterImpl);
     destructor Destroy; override;
 
-    function EncodeString(const Text: string): WideString;
-    function DecodeString(const Text: WideString): string;
+    function EncodeString(const Text: WideString): WideString;
+    function DecodeString(const Text: WideString): WideString;
   public
     // IFiscalPrinterService_1_12
     function Get_OpenResult: Integer; safecall;
@@ -388,12 +388,12 @@ begin
   GetLock.Leave;
 end;
 
-function ToleFiscalPrinter.DecodeString(const Text: WideString): string;
+function ToleFiscalPrinter.DecodeString(const Text: WideString): WideString;
 begin
   Result := Driver.DecodeString(Text);
 end;
 
-function ToleFiscalPrinter.EncodeString(const Text: string): WideString;
+function ToleFiscalPrinter.EncodeString(const Text: WideString): WideString;
 begin
   Result := Driver.EncodeString(Text);
 end;
@@ -800,7 +800,7 @@ end;
 function ToleFiscalPrinter.PrintRecNotPaid(const ADescription: WideString;
   Amount: Currency): Integer;
 var
-  Description: string;
+  Description: WideString;
 begin
   Lock;
   Description := DecodeString(ADescription);
@@ -813,7 +813,7 @@ end;
 function ToleFiscalPrinter.PrintRecRefund(const ADescription: WideString;
   Amount: Currency; VatInfo: Integer): Integer;
 var
-  Description: string;
+  Description: WideString;
 begin
   Lock;
   Description := DecodeString(ADescription);
@@ -835,7 +835,7 @@ end;
 function ToleFiscalPrinter.PrintRecTotal(Total: Currency;
   Payment: Currency; const ADescription: WideString): Integer;
 var
-  Description: string;
+  Description: WideString;
 begin
   Lock;
   Description := DecodeString(ADescription);
@@ -847,7 +847,7 @@ end;
 
 function ToleFiscalPrinter.PrintRecVoid(const ADescription: WideString): Integer;
 var
-  Description: string;
+  Description: WideString;
 begin
   Lock;
   Description := DecodeString(ADescription);
@@ -860,8 +860,8 @@ end;
 function ToleFiscalPrinter.PrintReport(ReportType: Integer;
   const AStartNum: WideString; const AEndNum: WideString): Integer;
 var
-  EndNum: string;
-  StartNum: string;
+  EndNum: WideString;
+  StartNum: WideString;
 begin
   Lock;
   EndNum := DecodeString(AEndNum);
@@ -930,8 +930,8 @@ function ToleFiscalPrinter.SetPOSID(
   const APOSID: WideString;
   const ACashierID: WideString): Integer;
 var
-  POSID: string;
-  CashierID: string;
+  POSID: WideString;
+  CashierID: WideString;
 begin
   Lock;
   POSID := DecodeString(APOSID);
@@ -1015,7 +1015,7 @@ end;
 function ToleFiscalPrinter.PrintRecPackageAdjustVoid(AdjustmentType: Integer;
   const AVatAdjustment: WideString): Integer;
 var
-  VatAdjustment: string;
+  VatAdjustment: WideString;
 begin
   Lock;
   VatAdjustment := DecodeString(AVatAdjustment);
@@ -1030,7 +1030,7 @@ end;
 function ToleFiscalPrinter.PrintRecRefundVoid(const ADescription: WideString;
   Amount: Currency; VatInfo: Integer): Integer;
 var
-  Description: string;
+  Description: WideString;
 begin
   Lock;
   Description := DecodeString(ADescription);
@@ -1052,7 +1052,7 @@ end;
 
 function ToleFiscalPrinter.PrintRecTaxID(const ATaxID: WideString): Integer;
 var
-  TaxID: string;
+  TaxID: WideString;
 begin
   Lock;
   TaxID := DecodeString(ATaxID);
@@ -1110,7 +1110,7 @@ end;
 function ToleFiscalPrinter.ResetStatistics(
   const AStatisticsBuffer: WideString): Integer;
 var
-  StatisticsBuffer: string;
+  StatisticsBuffer: WideString;
 begin
   Lock;
   StatisticsBuffer := DecodeString(AStatisticsBuffer);
@@ -1134,7 +1134,7 @@ end;
 function ToleFiscalPrinter.UpdateStatistics(
   const AStatisticsBuffer: WideString): Integer;
 var
-  StatisticsBuffer: string;
+  StatisticsBuffer: WideString;
 begin
   Lock;
   StatisticsBuffer := DecodeString(AStatisticsBuffer);
@@ -1148,7 +1148,7 @@ function ToleFiscalPrinter.CompareFirmwareVersion(
   const AFirmwareFileName: WideString;
   out pResult: Integer): Integer;
 var
-  FirmwareFileName: string;
+  FirmwareFileName: WideString;
 begin
   Lock;
   FirmwareFileName := DecodeString(AFirmwareFileName);
@@ -1161,7 +1161,7 @@ end;
 function ToleFiscalPrinter.UpdateFirmware(
   const AFirmwareFileName: WideString): Integer;
 var
-  FirmwareFileName: string;
+  FirmwareFileName: WideString;
 begin
   Lock;
   FirmwareFileName := DecodeString(AFirmwareFileName);
@@ -1198,8 +1198,8 @@ function ToleFiscalPrinter.PrintRecItem(
   UnitPrice: Currency;
   const AUnitName: WideString): Integer;
 var
-  UnitName: string;
-  Description: string;
+  UnitName: WideString;
+  Description: WideString;
 begin
   Lock;
 
@@ -1220,7 +1220,7 @@ function ToleFiscalPrinter.PrintRecItemAdjustment(AdjustmentType: Integer;
   const ADescription: WideString; Amount: Currency;
   VatInfo: Integer): Integer;
 var
-  Description: string;
+  Description: WideString;
 begin
   Lock;
 
@@ -1243,7 +1243,7 @@ function ToleFiscalPrinter.PrintRecItemAdjustmentVoid(
   Amount: Currency;
   VatInfo: Integer): Integer;
 var
-  Description: string;
+  Description: WideString;
 begin
   Lock;
   Description := DecodeString(ADescription);
@@ -1267,9 +1267,9 @@ function ToleFiscalPrinter.PrintRecItemFuel(
   SpecialTax: Currency;
   const ASpecialTaxName: WideString): Integer;
 var
-  UnitName: string;
-  Description: string;
-  SpecialTaxName: string;
+  UnitName: WideString;
+  Description: WideString;
+  SpecialTaxName: WideString;
 begin
   Lock;
 
@@ -1294,7 +1294,7 @@ function ToleFiscalPrinter.PrintRecItemFuelVoid(
   VatInfo: Integer;
   SpecialTax: Currency): Integer;
 var
-  Description: string;
+  Description: WideString;
 begin
   Lock;
 
@@ -1317,8 +1317,8 @@ function ToleFiscalPrinter.PrintRecItemRefund(
   UnitAmount: Currency;
   const AUnitName: WideString): Integer;
 var
-  UnitName: string;
-  Description: string;
+  UnitName: WideString;
+  Description: WideString;
 begin
   Lock;
   UnitName := DecodeString(AUnitName);
@@ -1341,8 +1341,8 @@ function ToleFiscalPrinter.PrintRecItemRefundVoid(
   UnitAmount: Currency;
   const AUnitName: WideString): Integer;
 var
-  UnitName: string;
-  Description: string;
+  UnitName: WideString;
+  Description: WideString;
 begin
   Lock;
   UnitName := DecodeString(AUnitName);
@@ -1365,8 +1365,8 @@ function ToleFiscalPrinter.PrintRecItemVoid(
   UnitPrice: Currency;
   const AUnitName: WideString): Integer;
 var
-  UnitName: string;
-  Description: string;
+  UnitName: WideString;
+  Description: WideString;
 begin
   Lock;
   UnitName := DecodeString(AUnitName);
@@ -1409,7 +1409,7 @@ function ToleFiscalPrinter.PrintRecSubtotalAdjustment(
   const ADescription: WideString;
   Amount: Currency): Integer;
 var
-  Description: string;
+  Description: WideString;
 begin
   Lock;
   Description := DecodeString(ADescription);

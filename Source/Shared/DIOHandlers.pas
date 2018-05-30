@@ -909,13 +909,13 @@ type
 
 implementation
 
-function BoolToStr(Value: Boolean): string;
+function BoolToStr(Value: Boolean): WideString;
 begin
   if Value then Result := '1'
   else Result := '0';
 end;
 
-function StrToBool(const Value: string): Boolean;
+function StrToBool(const Value: WideString): Boolean;
 begin
   Result := Value <> '0';
 end;
@@ -983,8 +983,8 @@ end;
 
 procedure TDIOHexCommand.DirectIO(var pData: Integer; var pString: WideString);
 var
-  TxData: string;
-  RxData: string;
+  TxData: AnsiString;
+  RxData: AnsiString;
 begin
   Printer.CheckEnabled;
   TxData := HexToStr(pString);
@@ -1491,7 +1491,7 @@ var
   Table: Integer;
   Field: Integer;
   Row: Integer;
-  FieldValue: string;
+  FieldValue: WideString;
 begin
   Table := GetInteger(pString, 1, ValueDelimiters);
   Row := GetInteger(pString, 2, ValueDelimiters);
@@ -1686,7 +1686,7 @@ end;
 procedure TDIOZReportXML.DirectIO(var pData: Integer;
   var pString: WideString);
 var
-  FileName: string;
+  FileName: WideString;
   ZReport: TZReport;
 begin
   FileName := pString;
@@ -1715,7 +1715,7 @@ end;
 procedure TDIOZReportCSV.DirectIO(var pData: Integer;
   var pString: WideString);
 var
-  FileName: string;
+  FileName: WideString;
   ZReport: TZReport;
 begin
   FileName := pString;
@@ -2055,10 +2055,10 @@ begin
   FPrinter := APrinter;
 end;
 
-function GetParam(const S: string; N: Integer): string;
+function GetParam(const S: WideString; N: Integer): WideString;
 var
   i: Integer;
-  Tocken: string;
+  Tocken: WideString;
   WasSeparator: Boolean;
   TockenNumber: Integer;
 begin
@@ -2086,9 +2086,9 @@ begin
   Result := Tocken;
 end;
 
-function ParamsToDate(Params: TTntStrings): string;
+function ParamsToDate(Params: TTntStrings): WideString;
 var
-  Date, Time: string;
+  Date, Time: WideString;
   OposDate: TOposDate;
 begin
   Result := '';
@@ -2105,7 +2105,7 @@ begin
   end;
 end;
 
-function ParamsToString(Params: TTntStrings): string;
+function ParamsToString(Params: TTntStrings): WideString;
 var
   i: Integer;
 begin
@@ -2391,7 +2391,7 @@ end;
 procedure TDIOWriteTableFile.DirectIO(var pData: Integer;
   var pString: WideString);
 var
-  TableFilePath: string;
+  TableFilePath: WideString;
 begin
   TableFilePath := pString;
   FPrinter.Device.LoadTables(TableFilePath);

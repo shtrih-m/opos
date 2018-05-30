@@ -45,7 +45,7 @@ type
     procedure PrintReceipt;
     procedure ThreadProc(Sender: TObject);
     procedure ThreadTerminated(Sender: TObject);
-    procedure AddMessage(const S: string);
+    procedure AddMessage(const S: WideString);
     procedure Sleep2(PeriodInMs: Integer);
   public
     constructor Create(AOwner: TComponent); override;
@@ -74,7 +74,7 @@ begin
   inherited Destroy;
 end;
 
-procedure TfmFptrTest.AddMessage(const S: string);
+procedure TfmFptrTest.AddMessage(const S: WideString);
 begin
   FLock.Enter;
   try
@@ -117,7 +117,7 @@ end;
 procedure TfmFptrTest.PrintReceipt;
 var
   i: Integer;
-  ItemName: string;
+  ItemName: WideString;
 begin
   try
     Check(FiscalPrinter.ResetPrinter);

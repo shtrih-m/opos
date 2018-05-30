@@ -11,13 +11,13 @@ uses
 type
   TAlignType = (atLeft, atRight, atCenter);
 
-function AlignString(const S: string; Width: Integer; at: TAlignType): string;
+function AlignString(const S: WideString; Width: Integer; at: TAlignType): WideString;
 
 implementation
 
-function AlignString(const S: string; Width: Integer; at: TAlignType): string;
+function AlignString(const S: WideString; Width: Integer; at: TAlignType): WideString;
 var
-  LS: string;
+  LS: WideString;
   L: Integer;
   L1: Integer;
 begin

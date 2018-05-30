@@ -15,15 +15,15 @@ type
 
   TEJReportParser = class
   public
-    class function ParseActivation(const Text: string): TEJActivation;
+    class function ParseActivation(const Text: WideString): TEJActivation;
   end;
 
 implementation
 
-function GetParam(const S: string; N: Integer): string;
+function GetParam(const S: WideString; N: Integer): WideString;
 var
   i: Integer;
-  Tocken: string;
+  Tocken: WideString;
   WasSeparator: Boolean;
   TockenNumber: Integer;
 begin
@@ -94,7 +94,7 @@ end;
 *)
 
 class function TEJReportParser.ParseActivation(
-  const Text: string): TEJActivation;
+  const Text: WideString): TEJActivation;
 var
   Lines: TTntStrings;
 begin

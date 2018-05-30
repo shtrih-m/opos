@@ -30,9 +30,9 @@ type
     function AddDateTime(ATag: Word; Value: TDateTime): TTLV;
     function AddInt64(ATag: Word; Value: UInt64): TTLV;
     function AddCurrency(ATag: Word; Value: Currency): TTLV;
-    function GetRawData: string;
-    function AddStr(ATag: Word; Value: string; Len: Integer): TTLV;
-    function AddBytes(ATag: Word; Value: string; Len: Integer): TTLV;
+    function GetRawData: AnsiString;
+    function AddStr(ATag: Word; Value: AnsiString; Len: Integer): TTLV;
+    function AddBytes(ATag: Word; Value: AnsiString; Len: Integer): TTLV;
 
     procedure Clear;
     property Count: Integer read GetCount;
@@ -44,27 +44,27 @@ type
   TTLV = class
   private
     FOwner: TTLVList;
-    FData: string;
+    FData: AnsiString;
     FItems: TTLVList;
     FLen: Word;
     FTag: Word;
     procedure SetOwner(AOwner: TTLVList);
-    function GetRawData: string;
+    function GetRawData: AnsiString;
   public
     constructor Create(AOwner: TTLVList);
     destructor Destroy; override;
     property Items: TTLVList read FItems write FItems;
-    property Data: string read FData write FData;
-    property RawData: string read GetRawData;
+    property Data: AnsiString read FData write FData;
+    property RawData: AnsiString read GetRawData;
     property Tag: Word read FTag write FTag;
     property Len: Word read FLen write FLen;
   end;
 
-function TagToStr(TagID: Integer; const Data: string): string;
+function TagToStr(TagID: Integer; const Data: AnsiString): AnsiString;
 
 implementation
 
-function TagToStr(TagID: Integer; const Data: string): string;
+function TagToStr(TagID: Integer; const Data: AnsiString): AnsiString;
 var
   Tag: TTLVTag;
   Tags: TTLVTags;
@@ -89,7 +89,7 @@ begin
 end;
 
 
-function IntToBin(Value, Count: Int64): string;
+function IntToBin(Value, Count: Int64): AnsiString;
 begin
   Result := '';
   if Count in [1..8] then
@@ -147,7 +147,7 @@ begin
   Result.Tag := ATag;
 end;
 
-function TTLVList.GetRawData: string;
+function TTLVList.GetRawData: AnsiString;
 var
   i: Integer;
 begin
@@ -182,9 +182,9 @@ begin
   Result.Data := TTLVTag.Int2Bytes(Value, Len);
 end;
 
-function TTLVList.AddStr(ATag: Word; Value: string; Len: Integer): TTLV;
+function TTLVList.AddStr(ATag: Word; Value: AnsiString; Len: Integer): TTLV;
 var
-  S: string;
+  S: AnsiString;
 begin
   Result := Add(ATag);
   S := TTLVTag.ASCII2ValueTLV(Value);
@@ -196,9 +196,9 @@ begin
   Result.Data := S;
 end;
 
-function TTLVList.AddBytes(ATag: Word; Value: string; Len: Integer): TTLV;
+function TTLVList.AddBytes(ATag: Word; Value: AnsiString; Len: Integer): TTLV;
 var
-  S: string;
+  S: AnsiString;
 begin
   Result := Add(ATag);
 
@@ -239,7 +239,7 @@ begin
   inherited Destroy;
 end;
 
-function TTLV.GetRawData: string;
+function TTLV.GetRawData: AnsiString;
 begin
   if FData = '' then
   begin

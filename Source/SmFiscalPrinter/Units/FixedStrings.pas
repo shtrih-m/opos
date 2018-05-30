@@ -11,26 +11,26 @@ uses
 
 type
   { TFixedStrings }
-  { Class for fixed count string - need for header and trailer }
+  { Class for fixed count WideString - need for header and trailer }
 
   TFixedStrings = class
   private
     FLines: TTntStrings;
-    function GetText: string;
+    function GetText: WideString;
     function GetCount: Integer;
     procedure SetCount(Value: Integer);
-    procedure SetText(const Text: string);
-    function GetItem(Index: Integer): string;
-    procedure SetItem(Index: Integer; const Value: string);
+    procedure SetText(const Text: WideString);
+    function GetItem(Index: Integer): WideString;
+    procedure SetItem(Index: Integer; const Value: WideString);
   public
     constructor Create;
     destructor Destroy; override;
     procedure Assign(Strings: TTntStrings);
     function ValidIndex(Index: Integer): Boolean;
 
-    property Text: string read GetText write SetText;
+    property Text: WideString read GetText write SetText;
     property Count: Integer read GetCount write SetCount;
-    property Items[Index: Integer]: string read GetItem write SetItem; default;
+    property Items[Index: Integer]: WideString read GetItem write SetItem; default;
   end;
 
 implementation
@@ -54,7 +54,7 @@ begin
   Result := FLines.Count;
 end;
 
-function TFixedStrings.GetItem(Index: Integer): string;
+function TFixedStrings.GetItem(Index: Integer): WideString;
 begin
   Result := '';
   if ValidIndex(Index) then
@@ -63,12 +63,12 @@ begin
   if Result = '' then Result := ' ';
 end;
 
-procedure TFixedStrings.SetItem(Index: Integer; const Value: string);
+procedure TFixedStrings.SetItem(Index: Integer; const Value: WideString);
 begin
   FLines[Index] := Value;
 end;
 
-{ Add or delete string }
+{ Add or delete WideString }
 
 procedure TFixedStrings.SetCount(Value: Integer);
 begin
@@ -81,12 +81,12 @@ begin
   end;
 end;
 
-function TFixedStrings.GetText: string;
+function TFixedStrings.GetText: WideString;
 begin
   Result := FLines.Text;
 end;
 
-procedure TFixedStrings.SetText(const Text: string);
+procedure TFixedStrings.SetText(const Text: WideString);
 var
   Strings: TTntStrings;
 begin

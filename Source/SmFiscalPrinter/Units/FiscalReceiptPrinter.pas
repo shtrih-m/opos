@@ -30,7 +30,7 @@ type
     function ReadCashRegister(ID: Byte): Int64;
     function ReadOperatingRegister(ID: Byte): Word;
     procedure PrintSubtotal;
-    procedure PrintText2(const Text: string; Station, Font: Integer;
+    procedure PrintText2(const Text: WideString; Station, Font: Integer;
       Alignment: TTextAlignment);
 
     procedure ReceiptClose(Params: TCloseReceiptParams);
@@ -148,7 +148,7 @@ begin
   Result := Device.ReadOperatingRegister(ID);
 end;
 
-procedure TFiscalReceiptPrinter.PrintText2(const Text: string; Station,
+procedure TFiscalReceiptPrinter.PrintText2(const Text: WideString; Station,
   Font: Integer; Alignment: TTextAlignment);
 var
   Data: TTextRec;

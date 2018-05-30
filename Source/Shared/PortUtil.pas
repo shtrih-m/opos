@@ -25,11 +25,11 @@ begin
     RaiseLastError;
 end;
 
-function IsCOMName(const Name: string; PortNumber: Integer): Boolean;
+function IsCOMName(const Name: AnsiString; PortNumber: Integer): Boolean;
 var
   p1: Integer;
   p2: Integer;
-  ComName: string;
+  ComName: AnsiString;
   ComNumber: Integer;
 begin
   p1 := Pos('(COM', Name);
@@ -40,7 +40,7 @@ begin
 end;
 
 // Имя устройства в формате "Serial port (COM1)"
-function GetDeviceName(DevInfo: HDEVINFO; const DevData: TSPDevInfoData): string;
+function GetDeviceName(DevInfo: HDEVINFO; const DevData: TSPDevInfoData): AnsiString;
 var
   BytesReturned: DWORD;
   RegDataType: DWORD;
@@ -68,7 +68,7 @@ var
   DevData: TSPDevInfoData;
   DeviceInterfaceData: TSPDeviceInterfaceData;
   RES: BOOL;
-  Name: string;
+  Name: AnsiString;
 begin
   LoadSetupApi;
   Result := 0;

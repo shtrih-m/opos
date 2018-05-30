@@ -6,7 +6,7 @@ uses
   // This
   Windows, Classes, SysUtils,
   // Tnt
-  TntClasses,
+  TntClasses, TntSysUtils,
   // This
   ReceiptItem, PrinterParameters, TextParser, StringUtils;
 
@@ -18,8 +18,8 @@ type
   { TTemplateFieldRec }
 
   TTemplateFieldRec = record
-    Name: string;
-    Prefix: string;
+    Name: WideString;
+    Prefix: WideString;
     Length: Integer;
     Alignment: TFieldAlignment;
     IsSpacer: Boolean;
@@ -29,19 +29,19 @@ type
 
   TReceiptTemplate = class
   private
-    FTemplate: string;
+    FTemplate: WideString;
     FPrintWidth: Integer;
-    function GetFieldValue(const Field, Prefix: string;
-      const Item: TFSSaleItem; var IsSpacer: Boolean): string;
+    function GetFieldValue(const Field, Prefix: WideString;
+      const Item: TFSSaleItem; var IsSpacer: Boolean): WideString;
   public
     constructor Create(APrintWidth: Integer);
 
-    function getItemText(const Item: TFSSaleItem): string;
-    function ParseField(const Field: string): TTemplateFieldRec;
-    function ParseField2(const Field: string): TTemplateFieldRec;
-    function GetText(const FormatLine: string; const Item: TFSSaleItem): string;
+    function getItemText(const Item: TFSSaleItem): WideString;
+    function ParseField(const Field: WideString): TTemplateFieldRec;
+    function ParseField2(const Field: WideString): TTemplateFieldRec;
+    function GetText(const FormatLine: WideString; const Item: TFSSaleItem): WideString;
 
-    property Template: string read FTemplate write FTemplate;
+    property Template: WideString read FTemplate write FTemplate;
   end;
 
 implementation
@@ -56,16 +56,16 @@ end;
 
 
 // %51lTITLE%;%8lPRICE% %6lDISCOUNT%  %8lSUM%       %3QUAN%    %=$10TOTAL_TAX%
-function TReceiptTemplate.GetText(const FormatLine: string;
-  const Item: TFSSaleItem): string;
+function TReceiptTemplate.GetText(const FormatLine: WideString;
+  const Item: TFSSaleItem): WideString;
 type
   TParserState = (stNone, stChar, stESC, stField);
 var
-  C: Char;
+  C: WideChar;
   i: Integer;
-  Line: string;
-  Field: string;
-  Prefix: string;
+  Line: WideString;
+  Field: WideString;
+  Prefix: WideString;
   Count: Integer;
   IsSpacer: Boolean;
   State: TParserState;
@@ -107,7 +107,7 @@ begin
     else
       if State = stField then
       begin
-        if (Field = '')and (C <> '-')and(not IsCharAlphaNumeric(C)) then
+        if (Field = '')and (C <> '-')and(not IsWideCharAlphaNumeric(C)) then
         begin
           Prefix := Prefix + C;
         end else
@@ -128,7 +128,7 @@ begin
   end;
 end;
 
-function GetTaxLetter(Tax: Integer): string;
+function GetTaxLetter(Tax: Integer): WideString;
 const
   taxLetters = '¿¡¬√ƒ≈';
 begin
@@ -140,11 +140,11 @@ begin
 end;
 
 
-function TReceiptTemplate.GetFieldValue(const Field, Prefix: string;
-  const Item: TFSSaleItem; var IsSpacer: Boolean): string;
+function TReceiptTemplate.GetFieldValue(const Field, Prefix: WideString;
+  const Item: TFSSaleItem; var IsSpacer: Boolean): WideString;
 var
   L: Integer;
-  TaxLetter: string;
+  TaxLetter: WideString;
   FieldData: TTemplateFieldRec;
 begin
   Result := '';
@@ -224,13 +224,13 @@ begin
   end;
 end;
 
-function TReceiptTemplate.ParseField(const Field: string): TTemplateFieldRec;
+function TReceiptTemplate.ParseField(const Field: WideString): TTemplateFieldRec;
 type
   TFieldParserState = (stNone, stLength, stText);
 var
-  C: Char;
+  C: WideChar;
   i: Integer;
-  Text: string;
+  Text: WideString;
   State: TFieldParserState;
 begin
   Result.Name := '';
@@ -295,7 +295,7 @@ begin
   Result.Name := Text;
 end;
 
-function TReceiptTemplate.getItemText(const Item: TFSSaleItem): string;
+function TReceiptTemplate.getItemText(const Item: TFSSaleItem): WideString;
 var
   i: Integer;
   Lines: TTntStrings;
@@ -323,7 +323,7 @@ begin
 end;
 
 function TReceiptTemplate.ParseField2(
-  const Field: string): TTemplateFieldRec;
+  const Field: WideString): TTemplateFieldRec;
 var
   Parser: TTextParser;
   TextField: TTextParserField;

@@ -7,15 +7,15 @@ type
 
   TPrinterFrame = class
   public
-    class function GetCRC(const Data: string): Byte;
-    class function Encode(const Data: string): string;
+    class function GetCRC(const Data: AnsiString): Byte;
+    class function Encode(const Data: AnsiString): AnsiString;
   end;
 
 implementation
 
 { TPrinterFrame }
 
-class function TPrinterFrame.Encode(const Data: string): string;
+class function TPrinterFrame.Encode(const Data: AnsiString): AnsiString;
 const
   STX = #2;
 var
@@ -26,7 +26,7 @@ begin
   Result := STX + Result + Chr(GetCRC(Result));
 end;
 
-class function TPrinterFrame.GetCRC(const Data: string): Byte;
+class function TPrinterFrame.GetCRC(const Data: AnsiString): Byte;
 var
   i: Integer;
 begin

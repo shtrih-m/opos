@@ -36,37 +36,37 @@ type
     function GetSubtotal: Int64;
     procedure PrintSubtotal;
     procedure PrintText(const Data: TTextRec);
-    procedure PrintTextLine(const S: string);
+    procedure PrintTextLine(const S: WideString);
     procedure PrintPreLine;
     procedure PrintPostLine;
     function CurrencyToInt(Value: Currency): Int64;
     function IntToCurrency(Value: Int64): Currency;
     function CheckTotal: Boolean;
     procedure PrintCancelReceipt;
-    procedure PrintDocHeader(const DocName: string; DocNumber: Word);
+    procedure PrintDocHeader(const DocName: WideString; DocNumber: Word);
     procedure WaitForPrinting;
     procedure PrintDocHeaderEnd;
-    procedure PrintLines(const Line1, Line2: string);
+    procedure PrintLines(const Line1, Line2: WideString);
     function ReadPrinterStatus: TPrinterStatus;
-    function GetPayCode(const Description: string): Integer;
+    function GetPayCode(const Description: WideString): Integer;
     function GetModel: TPrinterModelRec;
     function OpenReceipt(ReceiptType: Byte): Integer;
-    procedure PrintCurrency(const Line: string; Value: Currency);
+    procedure PrintCurrency(const Line: WideString; Value: Currency);
     procedure PrintSeparator(SeparatorType, SeparatorHeight: Integer);
-    function DeviceName: string;
-    function FormatBoldLines(const Line1, Line2: string): string;
-    function PrintBoldString(Flags: Byte; const Text: string): Integer;
+    function DeviceName: WideString;
+    function FormatBoldLines(const Line1, Line2: WideString): WideString;
+    function PrintBoldString(Flags: Byte; const Text: WideString): Integer;
     function GetStation: Integer;
-    procedure PrintText2(const Text: string; Station, Font: Integer;
+    procedure PrintText2(const Text: WideString; Station, Font: Integer;
       Alignment: TTextAlignment);
     function GetPrintWidth: Integer;
-    function CurrencyToStr(Value: Currency): string;
+    function CurrencyToStr(Value: Currency): WideString;
     function IsDecimalPoint: Boolean;
     function GetTables: TDeviceTables;
     function IsDayOpened(Mode: Integer): Boolean;
     function FSSale(const P: TFSSale): Integer;
     function FSStorno(const P: TFSSale): Integer;
-    function FSWriteTLV(const TLVData: string): Integer;
+    function FSWriteTLV(const TLVData: WideString): Integer;
     function GetPrinter: ISharedPrinter;
     function GetTaxTotals(Amount: Int64): TTaxTotals;
 
@@ -100,29 +100,29 @@ type
     procedure WaitForPrinting;
     procedure PrintCancelReceipt;
     procedure PrintDocHeaderEnd; virtual;
-    procedure PrintTextLine(const S: string);
+    procedure PrintTextLine(const S: WideString);
     procedure PrintText(const Data: TTextRec);
 
-    procedure PrintLines(const Line1, Line2: string);
-    procedure PrintDocHeader(const DocName: string; DocNumber: Word);
-    procedure PrintCurrency(const Line: string; Value: Currency);
+    procedure PrintLines(const Line1, Line2: WideString);
+    procedure PrintDocHeader(const DocName: WideString; DocNumber: Word);
+    procedure PrintCurrency(const Line: WideString; Value: Currency);
     procedure PrintSeparator(SeparatorType, SeparatorHeight: Integer);
 
     function CurrencyToInt(Value: Currency): Int64;
     function IntToCurrency(Value: Int64): Currency;
-    function GetPayCode(const Description: string): Integer;
+    function GetPayCode(const Description: WideString): Integer;
     function IsDecimalPoint: Boolean;
-    function CurrencyToStr(Value: Currency): string;
+    function CurrencyToStr(Value: Currency): WideString;
     function CheckTotal: Boolean;
     function GetModel: TPrinterModelRec;
-    function DeviceName: string;
-    function FormatBoldLines(const Line1, Line2: string): string;
-    function PrintBoldString(Flags: Byte; const Text: string): Integer;
+    function DeviceName: WideString;
+    function FormatBoldLines(const Line1, Line2: WideString): WideString;
+    function PrintBoldString(Flags: Byte; const Text: WideString): Integer;
     function IsDayOpened(Mode: Integer): Boolean;
     function FSSale(const P: TFSSale): Integer;
     function FSStorno(const P: TFSSale): Integer;
-    function FSWriteTLV(const TLVData: string): Integer;
-    procedure PrintText2(const Text: string; Station, Font: Integer;
+    function FSWriteTLV(const TLVData: WideString): Integer;
+    procedure PrintText2(const Text: WideString; Station, Font: Integer;
       Alignment: TTextAlignment);
 
     property Station: Integer read GetStation;
@@ -177,19 +177,19 @@ begin
   Printer.PrintCancelReceipt;
 end;
 
-procedure TReceiptPrinter.PrintCurrency(const Line: string;
+procedure TReceiptPrinter.PrintCurrency(const Line: WideString;
   Value: Currency);
 begin
   Printer.PrintCurrency(Line, Value);
 end;
 
-procedure TReceiptPrinter.PrintDocHeader(const DocName: string;
+procedure TReceiptPrinter.PrintDocHeader(const DocName: WideString;
   DocNumber: Word);
 begin
   Printer.PrintDocHeader(DocName, DocNumber);
 end;
 
-procedure TReceiptPrinter.PrintLines(const Line1, Line2: string);
+procedure TReceiptPrinter.PrintLines(const Line1, Line2: WideString);
 begin
   Printer.PrintLines(Line1, Line2);
 end;
@@ -199,7 +199,7 @@ begin
   Result := (Device.ReadPrinterStatus.Mode and $0F) = MODE_REC;
 end;
 
-procedure TReceiptPrinter.PrintTextLine(const S: string);
+procedure TReceiptPrinter.PrintTextLine(const S: WideString);
 begin
   Printer.PrintText(S);
 end;
@@ -218,7 +218,7 @@ begin
   Result := Device.ReadPrinterStatus;
 end;
 
-function TReceiptPrinter.GetPayCode(const Description: string): Integer;
+function TReceiptPrinter.GetPayCode(const Description: WideString): Integer;
 var
   PayType: TPayType;
 begin
@@ -253,7 +253,7 @@ begin
   Result := Printer.IsDecimalPoint;
 end;
 
-function TReceiptPrinter.CurrencyToStr(Value: Currency): string;
+function TReceiptPrinter.CurrencyToStr(Value: Currency): WideString;
 begin
   Result := Printer.CurrencyToStr(Value);
 end;
@@ -282,24 +282,24 @@ end;
 
 *)
 
-function TReceiptPrinter.DeviceName: string;
+function TReceiptPrinter.DeviceName: WideString;
 begin
   Result := Printer.DeviceName;
 end;
 
 function TReceiptPrinter.FormatBoldLines(const Line1,
-  Line2: string): string;
+  Line2: WideString): WideString;
 begin
   Result := Device.FormatBoldLines(Line1, Line2);
 end;
 
 function TReceiptPrinter.PrintBoldString(Flags: Byte;
-  const Text: string): Integer;
+  const Text: WideString): Integer;
 begin
   Result := Device.PrintBoldString(Flags, Text);
 end;
 
-procedure TReceiptPrinter.PrintText2(const Text: string;
+procedure TReceiptPrinter.PrintText2(const Text: WideString;
   Station, Font: Integer; Alignment: TTextAlignment);
 var
   Data: TTextREc;
@@ -342,7 +342,7 @@ begin
   Result := Device.FSStorno(P);
 end;
 
-function TReceiptPrinter.FSWriteTLV(const TLVData: string): Integer;
+function TReceiptPrinter.FSWriteTLV(const TLVData: WideString): Integer;
 begin
   Result := Device.FSWriteTLV(TLVData);
 end;

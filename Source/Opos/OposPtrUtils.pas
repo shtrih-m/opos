@@ -8,12 +8,12 @@ uses
   // Opos
   OposUtils, OposPtr, OposPtrhi;
 
-function GetPtrPropertyName(const ID: Integer): string;
-function GetResultCodeExtendedText(Value: Integer): string;
+function GetPtrPropertyName(const ID: Integer): WideString;
+function GetResultCodeExtendedText(Value: Integer): WideString;
 
 implementation
 
-function GetPtrPropertyName(const ID: Integer): string;
+function GetPtrPropertyName(const ID: Integer): WideString;
 begin
   case ID of
     // POS printer
@@ -145,7 +145,7 @@ begin
   end;
 end;
 
-function GetResultCodeExtendedText(Value: Integer): string;
+function GetResultCodeExtendedText(Value: Integer): WideString;
 begin
   case Value of
     OPOS_EPTR_COVER_OPEN            : Result := 'OPOS_EPTR_COVER_OPEN';

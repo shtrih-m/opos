@@ -151,8 +151,6 @@ uses
   SysUtilsTest in 'Units\SysUtilsTest.pas',
   PrinterDeviceFilter in '..\..\Source\SmFiscalPrinter\Units\PrinterDeviceFilter.pas',
   ReceiptReportFilter in '..\..\Source\SmFiscalPrinter\Units\ReceiptReportFilter.pas',
-  TlvSenderStatic in '..\..\Source\Shared\TlvSenderStatic.pas',
-  TlvSender in '..\..\Source\Shared\TlvSender.pas',
   MathUtils in '..\..\Source\Shared\MathUtils.pas',
   duRosneftSalesReceipt in 'Units\duRosneftSalesReceipt.pas',
   SettingsParams in '..\..\Source\SmFiscalPrinter\Units\SettingsParams.pas',

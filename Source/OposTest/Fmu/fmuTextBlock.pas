@@ -41,7 +41,7 @@ type
     procedure SaveTextBlocks;
     procedure PrintSalesReceipt;
     procedure PrintRefundReceipt;
-    procedure AddLine(const S: string);
+    procedure AddLine(const S: WideString);
     procedure Check(AResultCode: Integer);
     procedure CheckTextBlocks;
   public
@@ -79,7 +79,7 @@ begin
   inherited Destroy;
 end;
 
-procedure TfmTextBlock.AddLine(const S: string);
+procedure TfmTextBlock.AddLine(const S: WideString);
 begin
   Memo.Lines.Add(S);
 end;

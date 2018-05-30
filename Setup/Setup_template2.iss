@@ -1,10 +1,26 @@
+[CustomMessages]
+; Russian
+ru.AppName="ШТРИХ-М: OPOS драйвер фискального регистратора"
+ru.AppVerName="ШТРИХ-М: OPOS драйвер фискального регистратора ${version2}"
+ru.AppPublisher=ШТРИХ-М
+ru.AppCopyright="Copyright, 2018 ШТРИХ-М"
+ru.VersionInfoCompany="ШТРИХ-М"
+ru.VersionInfoDescription="OPOS драйвер фискального регистратора"
+; English
+en.AppName="SHTRIH-M: OPOS fiscal printer driver"
+en.AppVerName="SHTRIH-M: OPOS fiscal printer driver ${version2}"
+en.AppPublisher=SHTRIH-M
+en.AppCopyright="Copyright, 2018 SHTRIH-M"
+en.VersionInfoCompany="SHTRIH-M"
+en.VersionInfoDescription="OPOS fiscal printer driver"
 [Setup]
-AppName="SHTRIH-M: OPOS fiscal printer driver"
-AppVerName="SHTRIH-M: OPOS fiscal printer driver ${version2}"
-AppPublisher=SHTRIH-M
-AppCopyright="Copyright, 2018 SHTRIH-M"
-VersionInfoCompany="SHTRIH-M"
-VersionInfoDescription="OPOS fiscal printer driver"
+AppName= {cm:AppName}
+AppVerName= {cm:AppVerName}
+AppPublisher= {cm:AppPublisher}
+AppCopyright= {cm:AppCopyright}
+VersionInfoCompany= {cm:VersionInfoCompany}
+VersionInfoDescription= {cm:VersionInfoDescription}
+
 AppVersion=${version2}
 AppPublisherURL=http://www.shtrih-m.ru
 AppSupportURL=http://www.shtrih-m.ru
@@ -17,6 +33,7 @@ VersionInfoVersion=${version}
 DefaultDirName= {pf}\OPOS\SHTRIH-M\
 DefaultGroupName=OPOS\SHTRIH-M\
 UninstallDisplayIcon= {app}\Uninstall.exe
+UsePreviousLanguage=No
 AllowNoIcons=Yes
 OutputDir="."
 [Setup]
@@ -24,12 +41,16 @@ OutputBaseFilename=Setup
 [Components]
 Name: "main"; Description: "Driver files"; Types: full compact custom; Flags: fixed
 Name: "source"; Description: "Samples and source code"; 
+[Languages]
+Name: "en"; MessagesFile: "compiler:Default.isl"
+Name: "ru"; MessagesFile: "compiler:Languages\Russian.isl"
 [Files]
 ; Version history
 Source: "History.txt"; DestDir: "{app}"; Flags: ignoreversion; components: main;
 ; Localization params
 Source: "Setup\locales\SmFiscalPrinter.mo"; DestDir: "{app}\locale\en\LC_MESSAGES\"; Flags: 32bit; Components: main
-Source: "Setup\Locales\ru\locale.ini"; DestDir: "{userappdata}\SHTRIH-M\OposShtrih"; DestName: "locale.ini"; Flags: 32bit; Components: main; 
+Source: "Setup\Locales\ru\locale.ini"; DestDir: "{userappdata}\SHTRIH-M\OposShtrih"; DestName: "locale.ini"; Flags: 32bit; Components: main; Languages: ru
+Source: "Setup\Locales\en\locale.ini"; DestDir: "{userappdata}\SHTRIH-M\OposShtrih"; DestName: "locale.ini"; Flags: 32bit; Components: main; Languages: en
 ; Logo files
 Source: "Setup\Logo\*.*"; DestDir: "{app}\Bin\Logo"; Flags: ignoreversion; components: main;
 ; Drivers

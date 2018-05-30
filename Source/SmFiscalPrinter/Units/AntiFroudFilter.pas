@@ -23,8 +23,8 @@ type
     FReader: TUniposReader;
     function ValidReceiptFlags: Boolean;
     function GetPrinter: ISharedPrinter;
-    function IsSpecialItem(const Description: string): Boolean;
-    function ExcludePrefix(const Description: string): string;
+    function IsSpecialItem(const Description: WideString): Boolean;
+    function ExcludePrefix(const Description: WideString): WideString;
 
     procedure PrintInfoReceipt;
     procedure Check(ResultCode: Integer);
@@ -132,17 +132,17 @@ begin
   ADescription := ExcludePrefix(ADescription);
 end;
 
-function TAntiFroudFilter.ExcludePrefix(const Description: string): string;
+function TAntiFroudFilter.ExcludePrefix(const Description: WideString): WideString;
 var
-  Prefix: string;
+  Prefix: WideString;
 begin
   Prefix := Params.UniposUniqueItemPrefix;
   Result := StringReplace(Description, Prefix, '', [rfIgnoreCase]);
 end;
 
-function TAntiFroudFilter.IsSpecialItem(const Description: string): Boolean;
+function TAntiFroudFilter.IsSpecialItem(const Description: WideString): Boolean;
 var
-  Prefix: string;
+  Prefix: WideString;
 begin
   Prefix := Params.UniposUniqueItemPrefix;
   Result := Pos(Prefix, TrimLeft(Description)) = 1;
@@ -208,7 +208,7 @@ end;
 
 procedure TAntiFroudFilter.PrintInfoReceipt;
 var
-  Text: string;
+  Text: WideString;
 begin
   Text := Params.UniposSalesErrorText;
   Check(FService.BeginNonFiscal);
@@ -256,7 +256,7 @@ end;
 
 procedure TAntiFroudFilter.CheckRefundReceipt(const Description: WideString);
 var
-  Text: string;
+  Text: WideString;
 begin
   if IsSpecialItem(Description) then
   begin

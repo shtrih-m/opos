@@ -16,16 +16,16 @@ type
   { TGS1Barcode }
 
   TGS1Barcode = record
-    GTIN: string;
-    Serial: string;
+    GTIN: AnsiString;
+    Serial: AnsiString;
   end;
 
   { TGS1Tocken }
 
   TGS1Tocken = class(TCollectionItem)
   public
-    id: string;
-    Data: string;
+    id: AnsiString;
+    Data: AnsiString;
   end;
 
   { TGS1Tockens }
@@ -34,19 +34,19 @@ type
   private
     function GetItem(Index: Integer): TGS1Tocken;
   public
-    procedure Decode(const Data: string);
-    function ItemByID(const ID: string): TGS1Tocken;
+    procedure Decode(const Data: AnsiString);
+    function ItemByID(const ID: AnsiString): TGS1Tocken;
     property Items[Index: Integer]: TGS1Tocken read GetItem; default;
   end;
 
-function DecodeGS1(const Barcode: string): TGS1Barcode;
-function GS1DecodeBraces(const Barcode: string): string;
-function GS1EncodeBraces(const Barcode: string): string;
-function GS1FilterTockens(const Barcode: string): string;
+function DecodeGS1(const Barcode: AnsiString): TGS1Barcode;
+function GS1DecodeBraces(const Barcode: AnsiString): AnsiString;
+function GS1EncodeBraces(const Barcode: AnsiString): AnsiString;
+function GS1FilterTockens(const Barcode: AnsiString): AnsiString;
 
 implementation
 
-function DecodeGS1(const Barcode: string): TGS1Barcode;
+function DecodeGS1(const Barcode: AnsiString): TGS1Barcode;
 var
   Tocken: TGS1Tocken;
   Tockens: TGS1Tockens;
@@ -74,7 +74,7 @@ type
   { TAIREc }
 
   TAIREc = record
-    id: string;
+    id: AnsiString;
     min: Integer;
     max: Integer;
   end;
@@ -242,7 +242,7 @@ const
     (id: '99'; min: 1; max: 90) // Company internal information
   );
 
-function GetAI(const id: string; var Item: TAIREc): Boolean;
+function GetAI(const id: AnsiString; var Item: TAIREc): Boolean;
 var
   i: Integer;
 begin
@@ -258,7 +258,7 @@ begin
   end;
 end;
 
-function GS1EncodeBraces(const Barcode: string): string;
+function GS1EncodeBraces(const Barcode: AnsiString): AnsiString;
 var
   i: Integer;
   Item: TAIRec;
@@ -293,12 +293,12 @@ end;
 
 //(01)18901148006024(21)09ICXT3D9BZ8L(10)111(17)190117(240)3004(91)0001(92)2dKkY5iBAmuKEAU2eqIElw/0OYK0P2/+j2O2Y/K8mQDxI51I1L+X2BHCdZdShioTaKqaCvbhfnBD/ZmQJh8RQw==
 
-function ValidGS1TagId(const TagId: string): Boolean;
+function ValidGS1TagId(const TagId: AnsiString): Boolean;
 begin
   Result := (TagId <> '10')and(TagId <> '17');
 end;
 
-function GS1FilterTockens(const Barcode: string): string;
+function GS1FilterTockens(const Barcode: AnsiString): AnsiString;
 var
   i: Integer;
   Tocken: TGS1Tocken;
@@ -332,11 +332,11 @@ end;
 -4Hi7uGl
 *)
 
-function GS1DecodeBraces(const Barcode: string): string;
+function GS1DecodeBraces(const Barcode: AnsiString): AnsiString;
 var
-  id: string;
+  id: AnsiString;
   i, j: Integer;
-  value: string;
+  value: AnsiString;
   Item: TAIREc;
 begin
   Result := Barcode;
@@ -395,13 +395,13 @@ end;
 type
   TDecodeState = (dsCode, dsData);
 
-procedure TGS1Tockens.Decode(const Data: string);
+procedure TGS1Tockens.Decode(const Data: AnsiString);
 var
   i: Integer;
   Tocken: TGS1Tocken;
   State: TDecodeState;
-  TockenID: string;
-  TockenData: string;
+  TockenID: AnsiString;
+  TockenData: AnsiString;
 begin
   Clear;
   State := dsCode;
@@ -450,7 +450,7 @@ begin
   Result := inherited Items[Index] as TGS1Tocken;
 end;
 
-function TGS1Tockens.ItemByID(const ID: string): TGS1Tocken;
+function TGS1Tockens.ItemByID(const ID: AnsiString): TGS1Tocken;
 var
   i: Integer;
 begin

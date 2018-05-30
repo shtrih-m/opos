@@ -14,7 +14,7 @@ type
 
   TDCOMConnection = class(TInterfacedObject, IPrinterConnection)
   private
-    FRemoteHost: string;
+    FRemoteHost: AnsiString;
     FRemotePort: Integer;
     FDriver: IFptrServer;
     FPortNumber: Integer;
@@ -26,7 +26,7 @@ type
 
     property Driver: IFptrServer read GetDriver;
   public
-    constructor Create(const ARemoteHost: string; ARemotePort: Integer;
+    constructor Create(const ARemoteHost: AnsiString; ARemotePort: Integer;
       APortNumber, ABaudRate, AByteTimeout: Integer);
     destructor Destroy; override;
 
@@ -35,7 +35,7 @@ type
     procedure CloseReceipt;
     procedure ClaimDevice(PortNumber, Timeout: Integer);
     procedure OpenReceipt(Password: Integer);
-    function Send(Timeout: Integer; const Data: string): string;
+    function Send(Timeout: Integer; const Data: AnsiString): AnsiString;
     procedure OpenPort(PortNumber, BaudRate, ByteTimeout: Integer);
   end;
 
@@ -43,7 +43,7 @@ implementation
 
 { TDCOMConnection }
 
-constructor TDCOMConnection.Create(const ARemoteHost: string; ARemotePort: Integer;
+constructor TDCOMConnection.Create(const ARemoteHost: AnsiString; ARemotePort: Integer;
   APortNumber, ABaudRate, AByteTimeout: Integer);
 begin
   inherited Create;
@@ -111,7 +111,7 @@ begin
 end;
 
 function TDCOMConnection.Send(Timeout: Integer;
-  const Data: string): string;
+  const Data: AnsiString): AnsiString;
 var
   ResultCode: Integer;
 begin

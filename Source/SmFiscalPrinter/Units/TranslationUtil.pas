@@ -10,7 +10,7 @@ uses
   VersionInfo, LangUtils;
 
 procedure SetTranslationLanguage;
-procedure SetCustomTranslationLanguage(const Language: string);
+procedure SetCustomTranslationLanguage(const Language: WideString);
 
 implementation
 
@@ -21,7 +21,7 @@ begin
   UseLanguage(GetLanguage);
 end;
 
-procedure SetCustomTranslationLanguage(const Language: string);
+procedure SetCustomTranslationLanguage(const Language: WideString);
 begin
   bindtextdomain('SharpDrv', IncludeTrailingBackslash(ExtractFilePath(GetDllFileName)) + 'locale');
   textdomain('SharpDrv');

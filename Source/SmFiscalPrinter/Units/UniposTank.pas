@@ -25,7 +25,7 @@ type
     destructor Destroy; override;
 
     procedure Clear;
-    function Add(const AName: string): TUniposTank;
+    function Add(const AName: WideString): TUniposTank;
 
     property Count: Integer read GetCount;
     property Items[Index: Integer]: TUniposTank read GetItem; default;
@@ -35,15 +35,15 @@ type
 
   TUniposTank = class
   private
-    FName: string;
+    FName: WideString;
     FValues: TTntStrings;
     FOwner: TUniposTanks;
     procedure SetOwner(AOwner: TUniposTanks);
   public
-    constructor Create(AOwner: TUniposTanks; const AName: string);
+    constructor Create(AOwner: TUniposTanks; const AName: WideString);
     destructor Destroy; override;
 
-    property Name: string read FName;
+    property Name: WideString read FName;
     property Values: TTntStrings read FValues;
   end;
 
@@ -91,14 +91,14 @@ begin
   FList.Remove(AItem);
 end;
 
-function TUniposTanks.Add(const AName: string): TUniposTank;
+function TUniposTanks.Add(const AName: WideString): TUniposTank;
 begin
   Result := TUniposTank.Create(Self, AName);
 end;
 
 { TUniposTank }
 
-constructor TUniposTank.Create(AOwner: TUniposTanks; const AName: string);
+constructor TUniposTank.Create(AOwner: TUniposTanks; const AName: WideString);
 begin
   inherited Create;
   SetOwner(AOwner);

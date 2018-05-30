@@ -6,17 +6,17 @@ uses
   // VCL
   Windows;
 
-function GetCompName: string;
+function GetCompName: WideString;
 
 implementation
 
-function GetCompName: string;
+function GetCompName: WideString;
 var
   Size: DWORD;
-  LocalMachine: array [0..MAX_COMPUTERNAME_LENGTH] of char;
+  LocalMachine: array [0..MAX_COMPUTERNAME_LENGTH] of WideChar;
 begin
   Size := Sizeof(LocalMachine);
-  if GetComputerName(LocalMachine, Size) then
+  if GetComputerNameW(LocalMachine, Size) then
     Result := LocalMachine else Result := '';
 end;
 

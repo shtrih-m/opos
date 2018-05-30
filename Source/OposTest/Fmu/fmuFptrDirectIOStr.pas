@@ -30,7 +30,7 @@ type
     procedure cbCommandChange(Sender: TObject);
   private
     function GetCommands: TCommandDefs;
-    procedure UpdateCommandText(const S: string);
+    procedure UpdateCommandText(const S: WideString);
   private
     FCommands: TCommandDefs;
     procedure UpdateCommandHint;
@@ -92,7 +92,7 @@ begin
   end;
 end;
 
-procedure TfmFptrDirectIOStr.UpdateCommandText(const S: string);
+procedure TfmFptrDirectIOStr.UpdateCommandText(const S: WideString);
 var
   i: Integer;
   Strings: TTntStrings;
@@ -138,8 +138,8 @@ end;
 
 procedure TfmFptrDirectIOStr.FormCreate(Sender: TObject);
 var
-  S: string;
   i: Integer;
+  S: WideString;
   Command: TCommandDef;
 begin
   cbCommand.Items.BeginUpdate;

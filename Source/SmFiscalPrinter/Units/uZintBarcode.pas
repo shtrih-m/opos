@@ -124,15 +124,15 @@ type
     FScale : Single;
 
     procedure CheckForError(AReturnValue : Integer);
-    function ErrorTextFromSymbol : String;
-    procedure SetData(const Value: WideString);
+    function ErrorTextFromSymbol : AnsiString;
+    procedure SetData(const Value: AnsiString);
     procedure Changed;
 
     procedure CreateSymbol;
     procedure FreeSymbol;
 
     procedure SetType(const Value: TZBType);
-    function GetData: WideString;
+    function GetData: AnsiString;
     function GetType: TZBType;
     procedure SetScale(const Value: Single);
     function GetHeight: Integer;
@@ -147,8 +147,8 @@ type
     procedure SetOption(const Index, Value: Integer);
     procedure SetRotation(const Value: TZBRotation);
     function GetBarcodeSize: TPoint;
-    function GetPrimary: String;
-    procedure SetPrimary(const Value: String);
+    function GetPrimary: AnsiString;
+    procedure SetPrimary(const Value: AnsiString);
     function GetSHRT: Boolean;
     procedure SetSHRT(const Value: Boolean);
     procedure SetStacked(const Value: Boolean);
@@ -170,7 +170,7 @@ type
     property OnChanged : TNotifyEvent read FOnChanged write FOnChanged;
   published
     property BarcodeType : TZBType read GetType write SetType;
-    property Data : Widestring read GetData write SetData;
+    property Data : AnsiString read GetData write SetData;
     property Scale : Single read FScale write SetScale stored true;
     property Height : Integer read GetHeight write SetHeight;
     property BorderWidth : Integer read GetBorderWidth write SetBorderWidth;
@@ -181,7 +181,7 @@ type
     property Option2 : Integer index 2 read GetOption write SetOption;
     property Option3 : Integer index 3 read GetOption write SetOption;
     property Rotation : TZBRotation read FRotation write SetRotation;
-    property Primary : String read GetPrimary write SetPrimary;
+    property Primary : AnsiString read GetPrimary write SetPrimary;
     property ShowHumanReadableText : Boolean read GetSHRT write SetSHRT;
     property Stacked : Boolean read FStacked write SetStacked;
     property InputMode : TZInputMode read GetInputMode write SetInputMode;
@@ -356,7 +356,7 @@ begin
   CheckForError(ZBarcode_Encode_and_Buffer(FSymbol, PAnsiChar(FData), Length(FData), rotation));
 end;
 
-function TZintBarcode.ErrorTextFromSymbol: String;
+function TZintBarcode.ErrorTextFromSymbol: AnsiString;
 var
   s : AnsiString;
 begin
@@ -419,10 +419,10 @@ begin
   Result := StrToInt('$' + S);
 end;
 
-function TZintBarcode.GetData: Widestring;
+function TZintBarcode.GetData: AnsiString;
 begin
   {$IFDEF UNICODE}
-  Result := UTF8ToWideString(FData);
+  Result := UTF8ToAnsiString(FData);
   {$ELSE}
   Result := UTF8Decode(FData);
   {$ENDIF}
@@ -472,7 +472,7 @@ begin
     Include(Result, tSMALL_TEXT);
 end;
 
-function TZintBarcode.GetPrimary: String;
+function TZintBarcode.GetPrimary: AnsiString;
 begin
   Result := StrPas(PAnsiChar(@FSymbol.primary));
 end;
@@ -594,7 +594,7 @@ begin
   Changed;
 end;
 
-procedure TZintBarcode.SetData(const Value: Widestring);
+procedure TZintBarcode.SetData(const Value: AnsiString);
 var
   OldData : UTF8String;
 begin
@@ -648,7 +648,7 @@ begin
   Changed;
 end;
 
-procedure TZintBarcode.SetPrimary(const Value: String);
+procedure TZintBarcode.SetPrimary(const Value: AnsiString);
 begin
   StrPCopy(@FSymbol.primary, Value);
   Changed;

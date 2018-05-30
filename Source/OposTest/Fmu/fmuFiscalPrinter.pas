@@ -198,7 +198,7 @@ end;
 procedure TfmFiscalPrinter.UpdatePages(ListBox: TTntListBox; Pages: TPages);
 var
   i: Integer;
-  PageName: string;
+  PageName: WideString;
 begin
   with ListBox do
   begin

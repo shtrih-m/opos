@@ -86,7 +86,7 @@ type
   { TBarcodeType }
 
   TBarcodeType = record
-    Name: string;
+    Name: WideString;
     Code: Integer;
   end;
 

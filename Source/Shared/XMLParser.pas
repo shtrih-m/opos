@@ -210,7 +210,7 @@ end;
 
 procedure TXmlParser.ConvertFile(const FileName: WideString);
 var
-  Data: string;
+  Data: WideString;
   Stream: TStream;
 begin
   Stream := TFileStream.Create(FileName, fmOpenReadWrite);

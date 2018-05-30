@@ -15,18 +15,18 @@ type
     procedure Purge;
     procedure Close;
     procedure Open;
-    procedure Write(const Data: string);
+    procedure Write(const Data: AnsiString);
     procedure SetTimeout(Value: DWORD);
     procedure SetBaudRate(Value: DWORD);
     procedure SetCmdTimeout(Value: DWORD);
 
     function ReadChar(var C: Char): Boolean;
-    function Read(Count: DWORD): string;
+    function Read(Count: DWORD): AnsiString;
     function GetTimeout: DWORD;
-    function GetPortName: string;
+    function GetPortName: AnsiString;
     function GetBaudRate: DWORD;
 
-    property PortName: string read GetPortName;
+    property PortName: AnsiString read GetPortName;
     property Timeout: DWORD read GetTimeout write SetTimeout;
     property BaudRate: DWORD read GetBaudRate write SetBaudRate;
   end;

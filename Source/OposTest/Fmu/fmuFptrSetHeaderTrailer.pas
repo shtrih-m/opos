@@ -37,7 +37,7 @@ implementation
 procedure TfmFptrSetHeaderTrailer.btnSetHeaderClick(Sender: TObject);
 var
   i: Integer;
-  Data: string;
+  Data: WideString;
   Result: Integer;
   DoubleWidth: Boolean;
 begin
@@ -61,7 +61,7 @@ end;
 procedure TfmFptrSetHeaderTrailer.btnSetTrailerClick(Sender: TObject);
 var
   i: Integer;
-  Data: string;
+  Data: WideString;
   Result: Integer;
   DoubleWidth: Boolean;
 begin
@@ -91,7 +91,7 @@ end;
 procedure TfmFptrSetHeaderTrailer.btnDefaultClick(Sender: TObject);
 var
   i: Integer;
-  Data: string;
+  Data: WideString;
   Count: Integer;
 begin
   mmHeader.Clear;

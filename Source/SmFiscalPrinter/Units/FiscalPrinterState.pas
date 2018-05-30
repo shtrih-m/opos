@@ -16,7 +16,7 @@ type
     FState: Integer;
   public
     class procedure CheckValidState(AState: Integer);
-    class function GetStateText(AState: Integer): string;
+    class function GetStateText(AState: Integer): WideString;
     class function ValidState(const Value: Integer): Boolean;
 
     function IsReceiptEnding: Boolean;
@@ -51,7 +51,7 @@ begin
     raiseException(_('Invalid printer state'));
 end;
 
-class function TFiscalPrinterState.GetStateText(AState: Integer): string;
+class function TFiscalPrinterState.GetStateText(AState: Integer): WideString;
 begin
   case AState of
     FPTR_PS_MONITOR                     : Result := 'FPTR_PS_MONITOR';

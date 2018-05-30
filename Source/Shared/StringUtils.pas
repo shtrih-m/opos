@@ -9,37 +9,37 @@ uses
 type
   TSetOfChar = set of char;
 
-function StrToHex(const S: string): string;
-function StrToHexText(const S: string): string;
-function HexToStr(const Data: string): string;
-function QuantityToStr(Value: Double): string;
-function IntToBin(Value: Int64; Size: Integer): string;
-function BinToInt(const Data: string; Index, Size: Integer): Int64;
-function BinToInt64(const Data: string; Index, Size: Integer): Int64;
-function BinToInteger(const Data: string; Index, Size: Integer): Integer;
+function StrToHex(const S: AnsiString): AnsiString;
+function StrToHexText(const S: AnsiString): AnsiString;
+function HexToStr(const Data: AnsiString): AnsiString;
+function QuantityToStr(Value: Double): AnsiString;
+function IntToBin(Value: Int64; Size: Integer): AnsiString;
+function BinToInt(const Data: AnsiString; Index, Size: Integer): Int64;
+function BinToInt64(const Data: AnsiString; Index, Size: Integer): Int64;
+function BinToInteger(const Data: AnsiString; Index, Size: Integer): Integer;
 
-function Str1251To866(const S: string): string;
-function Str866To1251(const S: string): string;
+function Str1251To866(const S: AnsiString): AnsiString;
+function Str866To1251(const S: AnsiString): AnsiString;
 
-function GetString(const S: String; K: Integer; Delimiters: TSetOfChar): string;
-function GetInteger(const Data: string; Index: Integer; Delimiters: TSetOfChar): Integer;
+function GetString(const S: AnsiString; K: Integer; Delimiters: TSetOfChar): AnsiString;
+function GetInteger(const Data: AnsiString; Index: Integer; Delimiters: TSetOfChar): Integer;
 
-function WideStringToAnsiString(CodePage: Integer; const S: WideString): string;
-function AnsiStringToWideString(CodePage: Integer; const S: string): WideString;
+function WideStringToAnsiString(CodePage: Integer; const S: WideString): AnsiString;
+function AnsiStringToWideString(CodePage: Integer; const S: AnsiString): WideString;
 
-function BoolToStr(Value: Boolean): string;
-function BoolToStr2(Value: Boolean): string;
-function StrToBool(const Value: string): Boolean;
-function AmountToStr(Value: Currency): string;
-function AddTrailingSpaces(const S: string; Len: Integer): string;
-function StrToDouble(const S: string): Double;
+function BoolToStr(Value: Boolean): AnsiString;
+function BoolToStr2(Value: Boolean): AnsiString;
+function StrToBool(const Value: AnsiString): Boolean;
+function AmountToStr(Value: Currency): AnsiString;
+function AddTrailingSpaces(const S: AnsiString; Len: Integer): AnsiString;
+function StrToDouble(const S: AnsiString): Double;
 
 
 implementation
 
-function StrToDouble(const S: string): Double;
+function StrToDouble(const S: AnsiString): Double;
 var
-  Text: string;
+  Text: AnsiString;
   SaveDecimalSeparator: Char;
 begin
   SaveDecimalSeparator := DecimalSeparator;
@@ -52,18 +52,18 @@ begin
   end;
 end;
 
-function BoolToStr(Value: Boolean): string;
+function BoolToStr(Value: Boolean): AnsiString;
 begin
   if Value then Result := '1'
   else Result := '0';
 end;
 
-function StrToBool(const Value: string): Boolean;
+function StrToBool(const Value: AnsiString): Boolean;
 begin
   Result := Value <> '0';
 end;
 
-function GetSubString(const S: String; var Value: string; K: Integer;
+function GetSubString(const S: AnsiString; var Value: AnsiString; K: Integer;
   Delimiters: TSetOfChar): Boolean;
 var
   LastPos: Integer;
@@ -91,22 +91,22 @@ begin
   end;
 end;
 
-function GetString(const S: String; K: Integer; Delimiters: TSetOfChar): string;
+function GetString(const S: AnsiString; K: Integer; Delimiters: TSetOfChar): AnsiString;
 begin
   Result := '';
   GetSubString(S, Result, K, Delimiters);
 end;
 
-function GetInteger(const Data: string; Index: Integer; Delimiters: TSetOfChar): Integer;
+function GetInteger(const Data: AnsiString; Index: Integer; Delimiters: TSetOfChar): Integer;
 var
-  S: string;
+  S: AnsiString;
 begin
   Result := 0;
   if GetSubString(Data, S, Index, Delimiters) then
     Result := StrToInt(S);
 end;
 
-function QuantityToStr(Value: Double): string;
+function QuantityToStr(Value: Double): AnsiString;
 var
   SaveDecimalSeparator: Char;
 begin
@@ -119,31 +119,31 @@ begin
   end;
 end;
 
-function IntToBin(Value: Int64; Size: Integer): string;
+function IntToBin(Value: Int64; Size: Integer): AnsiString;
 begin
   SetLength(Result, Size);
   Move(Value, Result[1], Size);
 end;
 
-function BinToInt(const Data: string; Index, Size: Integer): Int64;
+function BinToInt(const Data: AnsiString; Index, Size: Integer): Int64;
 begin
   Result := 0;
   Move(Data[Index], Result, Size);
 end;
 
-function BinToInteger(const Data: string; Index, Size: Integer): Integer;
+function BinToInteger(const Data: AnsiString; Index, Size: Integer): Integer;
 begin
   Result := 0;
   Move(Data[Index], Result, Size);
 end;
 
-function BinToInt64(const Data: string; Index, Size: Integer): Int64;
+function BinToInt64(const Data: AnsiString; Index, Size: Integer): Int64;
 begin
   Result := 0;
   Move(Data[Index], Result, Size);
 end;
 
-function StrToHex(const S: string): string;
+function StrToHex(const S: AnsiString): AnsiString;
 var
   i: Integer;
 begin
@@ -155,7 +155,7 @@ begin
   end;
 end;
 
-function StrToHexText(const S: string): string;
+function StrToHexText(const S: AnsiString): AnsiString;
 var
   i: Integer;
 begin
@@ -166,9 +166,9 @@ begin
   end;
 end;
 
-function HexToStr(const Data: string): string;
+function HexToStr(const Data: AnsiString): AnsiString;
 var
-  S: string;
+  S: AnsiString;
   i: Integer;
   V, Code: Integer;
 begin
@@ -194,7 +194,7 @@ begin
   end;
 end;
 
-function BoolToStr2(Value: Boolean): string;
+function BoolToStr2(Value: Boolean): AnsiString;
 begin
   if Value then Result := 'True'
   else Result := 'False';
@@ -225,7 +225,7 @@ begin
   Result := Chr(Table866To1251[Ord(C)]);
 end;
 
-function Str866To1251(const S: string): string;
+function Str866To1251(const S: AnsiString): AnsiString;
 var
   i: Integer;
 begin
@@ -260,7 +260,7 @@ begin
   Result := Chr(Table1251To866[Ord(C)]);
 end;
 
-function Str1251To866(const S: string): string;
+function Str1251To866(const S: AnsiString): AnsiString;
 var
   i: Integer;
 begin
@@ -269,7 +269,7 @@ begin
     Result := Result + Char1251To866(S[i]);
 end;
 
-function WideStringToAnsiString(CodePage: Integer; const S: WideString): string;
+function WideStringToAnsiString(CodePage: Integer; const S: WideString): AnsiString;
 var
   P: PAnsiChar;
   Count: Integer;
@@ -290,7 +290,7 @@ begin
   end;
 end;
 
-function AnsiStringToWideString(CodePage: Integer; const S: string): WideString;
+function AnsiStringToWideString(CodePage: Integer; const S: AnsiString): WideString;
 var
   P: PWideChar;
   Count: Integer;
@@ -308,7 +308,7 @@ begin
   end;
 end;
 
-function AmountToStr(Value: Currency): string;
+function AmountToStr(Value: Currency): AnsiString;
 var
   FormatSettings: TFormatSettings;
 begin
@@ -317,7 +317,7 @@ begin
   Result := FormatFloat('0.00', Value, FormatSettings);
 end;
 
-function AddTrailingSpaces(const S: string; Len: Integer): string;
+function AddTrailingSpaces(const S: AnsiString; Len: Integer): AnsiString;
 begin
   Result := Copy(S, 1, Len);
   Result := Result + StringOfChar(' ', Len - Length(Result));

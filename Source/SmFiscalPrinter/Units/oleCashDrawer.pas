@@ -45,15 +45,15 @@ type
     procedure StatusUpdateEvent(Data: Integer);
     procedure SetDrawerOpened(DrawerOpened: Boolean);
     function HandleException(E: Exception): Integer;
-    procedure LoadParameters(const DeviceName: string);
+    procedure LoadParameters(const DeviceName: WideString);
     function DoOpen(const DeviceClass, DeviceName: WideString;
       const pDispatch: IDispatch): Integer;
 
     property Printer: ISharedPrinter read GetPrinter;
     property Device: IFiscalPrinterDevice read GetDevice;
     property Parameters: TCashDrawerParameters read FParameters;
-    function DecodeString(const S: string): string;
-    function EncodeString(const S: string): string;
+    function DecodeString(const S: WideString): WideString;
+    function EncodeString(const S: WideString): WideString;
     function IllegalError: Integer;
     function GetEventInterface(FDispatch: IDispatch): IOposEvents;
     procedure StatusChanged(Sender: TObject);
@@ -137,7 +137,7 @@ begin
   FOposDevice.CheckEnabled;
 end;
 
-function ToleCashDrawer.DecodeString(const S: string): string;
+function ToleCashDrawer.DecodeString(const S: WideString): WideString;
 begin
   case Parameters.Encoding of
     Encoding866: Result := Str866To1251(S);
@@ -146,7 +146,7 @@ begin
   end;
 end;
 
-function ToleCashDrawer.EncodeString(const S: string): string;
+function ToleCashDrawer.EncodeString(const S: WideString): WideString;
 begin
   case Parameters.Encoding of
     Encoding866: Result := Str1251To866(S);
@@ -231,7 +231,7 @@ begin
   Result.ResultCodeExtended := OPOSERREXT + FPTR_ERROR_BASE + E.ErrorCode;
 end;
 
-procedure ToleCashDrawer.LoadParameters(const DeviceName: string);
+procedure ToleCashDrawer.LoadParameters(const DeviceName: WideString);
 begin
   Logger.Debug('ToleCashDrawer.LoadParameters', DeviceName);
   try
@@ -658,7 +658,7 @@ end;
 function ToleCashDrawer.CompareFirmwareVersion(
   const AFirmwareFileName: WideString; out pResult: Integer): Integer;
 var
-  FirmwareFileName: string;
+  FirmwareFileName: WideString;
 begin
   Lock;
   FirmwareFileName := DecodeString(AFirmwareFileName);
@@ -678,7 +678,7 @@ end;
 function ToleCashDrawer.ResetStatistics(
   const AStatisticsBuffer: WideString): Integer;
 var
-  StatisticsBuffer: string;
+  StatisticsBuffer: WideString;
 begin
   Lock;
   try
@@ -715,7 +715,7 @@ end;
 function ToleCashDrawer.UpdateFirmware(
   const AFirmwareFileName: WideString): Integer;
 var
-  FirmwareFileName: string;
+  FirmwareFileName: WideString;
 begin
   Lock;
   FirmwareFileName := DecodeString(AFirmwareFileName);
@@ -735,7 +735,7 @@ end;
 function ToleCashDrawer.UpdateStatistics(
   const AStatisticsBuffer: WideString): Integer;
 var
-  StatisticsBuffer: string;
+  StatisticsBuffer: WideString;
 begin
   Lock;
   try

@@ -27,7 +27,7 @@ type
   { TFSServiceParams }
 
   TFSServiceParams = record
-    Host: string;
+    Host: AnsiString;
     Port: Integer;
     PollInterval: Integer; // in ms
   end;
@@ -45,7 +45,7 @@ type
     procedure Start;
     procedure CheckFS;
     function GetLogger: ILogFile;
-    function SendData(const Command: string): string;
+    function SendData(const Command: AnsiString): AnsiString;
     procedure ThreadProc(Sender: TObject);
     procedure Sleep2(Timeout: Integer);
 
@@ -131,8 +131,8 @@ end;
 
 procedure TFSService.CheckFS;
 var
-  Answer: string;
-  BlockData: string;
+  Answer: AnsiString;
+  BlockData: AnsiString;
 begin
   try
     BlockData := FDevice.FSReadBlockData;
@@ -151,7 +151,7 @@ begin
   end;
 end;
 
-function StrToIdBytes(const Data: string): TIdBytes;
+function StrToIdBytes(const Data: AnsiString): TIdBytes;
 var
   i: Integer;
 begin
@@ -160,7 +160,7 @@ begin
     Result[i-1] := Ord(Data[i]);
 end;
 
-function IdBytesToStr(const Data: TIdBytes): string;
+function IdBytesToStr(const Data: TIdBytes): AnsiString;
 var
   i: Integer;
 begin
@@ -169,7 +169,7 @@ begin
     Result[i] := Chr(Data[i-1]);
 end;
 
-function TFSService.SendData(const Command: string): string;
+function TFSService.SendData(const Command: AnsiString): AnsiString;
 const
   FSTimeout = 100000;
 var

@@ -104,7 +104,7 @@ implementation
 
 {$R *.DFM}
 
-function AmountToStr(Value: Double): string;
+function AmountToStr(Value: Double): WideString;
 begin
   Result := Tnt_WideFormat('%.2f', [Value]);
 end;
@@ -271,7 +271,7 @@ end;
 
 procedure TfmScaleGeneral.DataEvent(ASender: TObject; Status: Integer);
 var
-  S: string;
+  S: WideString;
 begin
   S := Tnt_WideFormat('DataEvent(Weight: %d)', [Status]);
   memEvents.Lines.Add(S);
@@ -281,7 +281,7 @@ end;
 procedure TfmScaleGeneral.DirectIOEvent(Sender: TObject; EventNumber: Integer;
   var pData: Integer; var pString: WideString);
 var
-  S: string;
+  S: WideString;
 begin
   S := Tnt_WideFormat('DirectIOEvent(%d, %d, %s)', [EventNumber, pData, pString]);
   memEvents.Lines.Add(S);
@@ -291,7 +291,7 @@ end;
 procedure TfmScaleGeneral.ErrorEvent(Sender: TObject; ResultCode,
   ResultCodeExtended, ErrorLocus: Integer; var pErrorResponse: Integer);
 var
-  S: string;
+  S: WideString;
 begin
   S := Tnt_WideFormat('ErrorEvent: %s, %s, %s, %s)', [
     GetResultCodeText(ResultCode),
@@ -304,7 +304,7 @@ end;
 
 procedure TfmScaleGeneral.StatusUpdateEvent(Sender: TObject; Data: Integer);
 var
-  S: string;
+  S: WideString;
 begin
   S := Tnt_WideFormat('StatusUpdateEvent(%s)', [GetScaleStatusUpdateEventText(Data)]);
   memEvents.Lines.Add(S);

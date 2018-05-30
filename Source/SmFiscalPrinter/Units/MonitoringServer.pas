@@ -15,12 +15,12 @@ type
   TMonitoringServer = class
   private
     function GetDevice: IFiscalPrinterDevice;
-    function CommandFN_UNIXTIME: string;
-    function CommandCNT_QUEUE: string;
-    function CommandDateLast: string;
-    function CommandCashReg(Command: string): string;
-    function CommandOperReg(Command: string): string;
-    function CommandOfdSEttings(Command: string): string;
+    function CommandFN_UNIXTIME: AnsiString;
+    function CommandCNT_QUEUE: AnsiString;
+    function CommandDateLast: AnsiString;
+    function CommandCashReg(Command: AnsiString): AnsiString;
+    function CommandOperReg(Command: AnsiString): AnsiString;
+    function CommandOfdSEttings(Command: AnsiString): AnsiString;
     function GetLogger: ILogFile;
   private
     FPort: Integer;
@@ -28,13 +28,13 @@ type
     FPrinter: ISharedPrinter;
 
     procedure ThreadProc(Sender: TObject);
-    function RunCommand(const Command: string): string;
-    function CommandStatus: string;
-    function IsCommand(const Text, Command: string): Boolean;
-    function CommandECTP: string;
-    function CommandInfo: string;
-    function CommandFN: string;
-    function CommandFWVersion: string;
+    function RunCommand(const Command: AnsiString): AnsiString;
+    function CommandStatus: AnsiString;
+    function IsCommand(const Text, Command: AnsiString): Boolean;
+    function CommandECTP: AnsiString;
+    function CommandInfo: AnsiString;
+    function CommandFN: AnsiString;
+    function CommandFWVersion: AnsiString;
 
 
     property Device: IFiscalPrinterDevice read GetDevice;
@@ -74,7 +74,7 @@ end;
 
 procedure TMonitoringServer.ThreadProc(Sender: TObject);
 var
-  Data: string;
+  Data: AnsiString;
   WSAData: TWSAData;
   ErrorCode: Integer;
   ServerSocket: TSimpleSocket;
@@ -148,12 +148,12 @@ begin
   end;
 end;
 
-function TMonitoringServer.IsCommand(const Text, Command: string): Boolean;
+function TMonitoringServer.IsCommand(const Text, Command: AnsiString): Boolean;
 begin
   Result := Pos(Command, Text) = 1;
 end;
 
-function TMonitoringServer.CommandStatus: string;
+function TMonitoringServer.CommandStatus: AnsiString;
 begin
   Result := 'OK';
   if FPrinter.Device.ResultCode <> 0 then
@@ -161,7 +161,7 @@ begin
       FPrinter.Device.ResultCode, FPrinter.Device.ResultText]);
 end;
 
-function TMonitoringServer.CommandInfo: string;
+function TMonitoringServer.CommandInfo: AnsiString;
 begin
   Result := Tnt_WideFormat('%s,%s,%.10d', [
     FPrinter.DeviceMetrics.DeviceName,
@@ -169,7 +169,7 @@ begin
     FPrinter.EJStatus1.EJNumber]);
 end;
 
-function TMonitoringServer.CommandECTP: string;
+function TMonitoringServer.CommandECTP: AnsiString;
 begin
   Result := Tnt_WideFormat('%s,%s,%s', [
     FPrinter.EJActivation.EJSerial,
@@ -194,13 +194,13 @@ DATE_LAST	  Дата последнего отправленного документа в ОФД
 
 *)
 
-function PrinterDateTimeToStr(Date: TPrinterDateTime): string;
+function PrinterDateTimeToStr(Date: TPrinterDateTime): AnsiString;
 begin
   Result := Tnt_WideFormat('%.2d.%.2d.%.4d,%.2d:%.2d', [
     Date.Day, Date.Month, Date.Year + 2000, Date.Hour, Date.Min]);
 end;
 
-function TMonitoringServer.CommandFN: string;
+function TMonitoringServer.CommandFN: AnsiString;
 var
   FSState: TFSState;
   FSFiscalResult: TFSFiscalResult;
@@ -211,11 +211,11 @@ begin
     FSState.FSNumber, PrinterDateTimeToStr(FSFiscalResult.Date)])
 end;
 
-function TMonitoringServer.CommandFWVersion: string;
+function TMonitoringServer.CommandFWVersion: AnsiString;
 var
-  MainVersion1: string;
-  MainVersion2: string;
-  LoaderVersion: string;
+  MainVersion1: WideString;
+  MainVersion2: WideString;
+  LoaderVersion: WideString;
   Status: TLongPrinterStatus;
 begin
   Status := Device.ReadLongStatus; { !!! }
@@ -233,7 +233,7 @@ begin
 end;
 
 // FN_UNIXTIME Дата активизации ФН в UNIXTIME
-function TMonitoringServer.CommandFN_UNIXTIME: string;
+function TMonitoringServer.CommandFN_UNIXTIME: AnsiString;
 var
   Date: TDateTime;
   D: TPrinterDateTime;
@@ -246,7 +246,7 @@ begin
 end;
 
 // CNT_QUEUE Кол-во документов, ожидающих отправки в ОФД (очередь)
-function TMonitoringServer.CommandCNT_QUEUE: string;
+function TMonitoringServer.CommandCNT_QUEUE: AnsiString;
 var
   FSCommStatus: TFSCommStatus;
 begin
@@ -255,7 +255,7 @@ begin
 end;
 
 // DATE_LAST Дата последнего отправленного документа в ОФД
-function TMonitoringServer.CommandDateLast: string;
+function TMonitoringServer.CommandDateLast: AnsiString;
 var
   FSCommStatus: TFSCommStatus;
 begin
@@ -266,7 +266,7 @@ end;
 
 // CASH_REG Номер регистра
 // Содержимое денежного регистра
-function TMonitoringServer.CommandCashReg(Command: string): string;
+function TMonitoringServer.CommandCashReg(Command: AnsiString): AnsiString;
 var
   V, Code: Integer;
 begin
@@ -290,10 +290,10 @@ end;
 Пример: connect.ofd-ya.ru:7779 (Формат: сервер:порт)
 *)
 
-function TMonitoringServer.CommandOfdSEttings(Command: string): string;
+function TMonitoringServer.CommandOfdSEttings(Command: AnsiString): AnsiString;
 var
-  Port: string;
-  Server: string;
+  Port: AnsiString;
+  Server: AnsiString;
 begin
   Result := '';
   if Device.CapFiscalStorage then
@@ -306,7 +306,7 @@ end;
 
 // OPER_REG Номер регистра
 // Содержимое операционного регистра
-function TMonitoringServer.CommandOperReg(Command: string): string;
+function TMonitoringServer.CommandOperReg(Command: AnsiString): AnsiString;
 var
   V, Code: Integer;
 begin
@@ -319,7 +319,7 @@ begin
   Result := IntToStr(Device.ReadOperatingRegister(V));
 end;
 
-function TMonitoringServer.RunCommand(const Command: string): string;
+function TMonitoringServer.RunCommand(const Command: AnsiString): AnsiString;
 begin
   Result := '';
   try

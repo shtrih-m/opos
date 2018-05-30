@@ -38,7 +38,7 @@ type
     FService: TFSService;
     FFilter: TEscFilter;
     FInitPrinter: Boolean;
-    FLastErrorText: string;
+    FLastErrorText: WideString;
     FFilters: TFptrFilters;
     FLastErrorCode: Integer;
     FReceipt: TCustomReceipt;
@@ -64,18 +64,18 @@ type
     procedure CancelReceipt2;
     procedure UpdatePrinterDate;
     procedure CheckCapSetVatTable;
-    procedure PrintTextFont(Station: Integer; Font: Integer; const Text: string);
+    procedure PrintTextFont(Station: Integer; Font: Integer; const Text: WideString);
 
     function GetLogger: ILogFile;
     function GetFilters: TFptrFilters;
     function GetMalinaParams: TMalinaParams;
     function GetNonFiscalDoc: TNonFiscalDoc;
-    function GetPrinterSemaphoreName: string;
-    function GetHeaderLine(N: Integer): string;
+    function GetPrinterSemaphoreName: WideString;
+    function GetHeaderLine(N: Integer): WideString;
     function GetParameters: TPrinterParameters;
-    function GetTrailerLine(N: Integer): string;
-    function AddDateStamp(const FileName: string): string;
-    function ParseCashierName(const Line: string): string;
+    function GetTrailerLine(N: Integer): WideString;
+    function AddDateStamp(const FileName: WideString): WideString;
+    function ParseCashierName(const Line: WideString): WideString;
     function HandleDriverError(E: EDriverError): TOPOSError;
     function CreateNormalSalesReceipt(RecType: Integer): TCustomReceipt;
     function EJHandleError(FPCode, ResultCodeExtended: Integer): Integer;
@@ -107,8 +107,8 @@ type
     procedure SetJrnPaperState(IsEmpty, IsNearEnd: Boolean);
     procedure SetRecPaperState(IsEmpty, IsNearEnd: Boolean);
     procedure PrinterCommand(Sender: TObject; var Command: TCommandRec);
-    procedure PrintImage(const FileName: string);
-    procedure PrintImageScale(const FileName: string; Scale: Integer);
+    procedure PrintImage(const FileName: WideString);
+    procedure PrintImageScale(const FileName: WideString; Scale: Integer);
     procedure SetAdjustmentAmount(Amount: Integer);
     procedure PrintText(const Data: TTextRec); overload;
 
@@ -121,8 +121,8 @@ type
     function WaitForPrinting: TPrinterStatus;
     function GetDevice: IFiscalPrinterDevice;
     function GetLongStatus: TLongPrinterStatus;
-    function GetStateErrorMessage(const Mode: Integer): string;
-    function GetDayNumber(const ParamValue, ParamName: string): Integer;
+    function GetStateErrorMessage(const Mode: Integer): WideString;
+    function GetDayNumber(const ParamValue, ParamName: WideString): Integer;
     function ReadCashRegister(ID: Byte): Int64;
     function CreateReceipt(FiscalReceiptType: Integer): TCustomReceipt;
     function CreateSalesReceipt: TCustomReceipt;
@@ -131,8 +131,8 @@ type
     function CreateCorrectionReceipt2(RecType: Integer): TCustomReceipt;
     function GetEventInterface(FDispatch: IDispatch): IOposEvents;
     procedure StatusChanged(Sender: TObject);
-    procedure PrintText(const Text: string); overload;
-    procedure PrintText(const Text: string; Station: Integer); overload;
+    procedure PrintText(const Text: WideString); overload;
+    procedure PrintText(const Text: WideString; Station: Integer); overload;
     procedure DoPrintHeader;
     procedure DoPrintTrailer;
     function GetStatistics: TFiscalPrinterStatistics;
@@ -153,7 +153,7 @@ type
     property Receipt: TCustomReceipt read GetReceipt;
     function GetAppAmountDecimalPlaces: Integer;
     function GetCapRecNearEnd(Value: Boolean): Boolean;
-    function ReadFSParameter(ParamID: Integer; const pString: string): string;
+    function ReadFSParameter(ParamID: Integer; const pString: WideString): WideString;
   private
     // boolean
     FDayOpened: Boolean;
@@ -239,17 +239,17 @@ type
     FTotalizerType: Integer;
     FStartHeaderLine: Integer;
 
-    FAdditionalHeader: string;
-    FAdditionalTrailer: string;
-    FPredefinedPaymentLines: string;
-    FReservedWord: string;
-    FChangeDue: string;
-    FSubtotalText: string;
+    FAdditionalHeader: WideString;
+    FAdditionalTrailer: WideString;
+    FPredefinedPaymentLines: WideString;
+    FReservedWord: WideString;
+    FChangeDue: WideString;
+    FSubtotalText: WideString;
     FHeaderEnabled: Boolean;
 
     procedure Connect;
     procedure SetDeviceEnabled(Value: Boolean);
-    function GetModulePath: string;
+    function GetModulePath: WideString;
     procedure InternalInit;
     procedure PrintNonFiscalEnd;
     procedure CheckHealthInternal;
@@ -270,7 +270,7 @@ type
   public
     procedure SaveParameters;
     procedure SaveZReportFile;
-    function GetCommandDefsFileName: string;
+    function GetCommandDefsFileName: WideString;
     function BeginFiscalDocument(DocumentAmount: Integer): Integer; safecall;
     function BeginFiscalReceipt(PrintHeader: WordBool): Integer; safecall;
     function BeginFixedOutput(Station, DocumentType: Integer): Integer;
@@ -454,19 +454,19 @@ type
     procedure PrintTrailer;
     procedure CheckEnabled;
     procedure WriteDeviceTables;
-    procedure LoadLogo(const FileName: string);
+    procedure LoadLogo(const FileName: WideString);
     procedure DirectIOEvent(EventNumber: Integer; var pData: Integer; var pString: WideString);
-    function ReadEJActivation: string;
+    function ReadEJActivation: WideString;
     procedure PrintBarcode(const Barcode: TBarcodeRec);
-    function EncodeString(const S: string): WideString;
-    function DecodeString(const Text: WideString): string;
+    function EncodeString(const S: WideString): WideString;
+    function DecodeString(const Text: WideString): WideString;
     procedure DisableNextHeader;
-    procedure FSWriteTLV(const TLVData: string);
-    procedure WriteCustomerAddress(const Value: string);
-    procedure FSWriteTag(TagID: Integer; const Data: string);
+    procedure FSWriteTLV(const TLVData: WideString);
+    procedure WriteCustomerAddress(const Value: WideString);
+    procedure FSWriteTag(TagID: Integer; const Data: WideString);
     procedure SetPrinter(APrinter: ISharedPrinter);
-    procedure WriteFPParameter(ParamId: Integer; const Value: string);
-    function ReadFSDocument(Number: Integer): string;
+    procedure WriteFPParameter(ParamId: Integer; const Value: WideString);
+    function ReadFSDocument(Number: Integer): WideString;
     procedure PrintFSDocument(Number: Integer);
     function FSPrintCorrectionReceipt(var Command: TFSCorrectionReceipt): Integer;
     function FSPrintCorrectionReceipt2(var Data: TFSCorrectionReceipt2): Integer;
@@ -478,7 +478,7 @@ type
     property Statistics: TFiscalPrinterStatistics read GetStatistics;
     property Device: IFiscalPrinterDevice read GetDevice;
     property LastErrorCode: Integer read FLastErrorCode;
-    property LastErrorText: string read FLastErrorText;
+    property LastErrorText: WideString read FLastErrorText;
     property Parameters: TPrinterParameters read GetParameters;
     property MalinaParams: TMalinaParams read GetMalinaParams;
   end;
@@ -536,7 +536,7 @@ begin
   Result := Printer.Device;
 end;
 
-function TFiscalPrinterImpl.DecodeString(const Text: WideString): string;
+function TFiscalPrinterImpl.DecodeString(const Text: WideString): WideString;
 begin
   case Parameters.Encoding of
     Encoding866: Result := Str866To1251(Text);
@@ -550,7 +550,7 @@ begin
 end;
 
 
-function TFiscalPrinterImpl.EncodeString(const S: string): WideString;
+function TFiscalPrinterImpl.EncodeString(const S: WideString): WideString;
 begin
   case Parameters.Encoding of
     Encoding866: Result := Str1251To866(S);
@@ -914,7 +914,7 @@ begin
 end;
 
 function TFiscalPrinterImpl.GetDayNumber(
-  const ParamValue, ParamName: string): Integer;
+  const ParamValue, ParamName: WideString): Integer;
 begin
   Result := 0;
   try
@@ -1159,7 +1159,7 @@ begin
   FOposDevice.FreezeEvents := Value;
 end;
 
-procedure TFiscalPrinterImpl.PrintText(const Text: string);
+procedure TFiscalPrinterImpl.PrintText(const Text: WideString);
 var
   Data: TTextRec;
 begin
@@ -1171,7 +1171,7 @@ begin
   Device.PrintText(Data);
 end;
 
-procedure TFiscalPrinterImpl.PrintText(const Text: string; Station: Integer);
+procedure TFiscalPrinterImpl.PrintText(const Text: WideString; Station: Integer);
 var
   Data: TTextRec;
 begin
@@ -1183,12 +1183,12 @@ begin
   Device.PrintText(Data);
 end;
 
-function TFiscalPrinterImpl.GetModulePath: string;
+function TFiscalPrinterImpl.GetModulePath: WideString;
 begin
   Result := IncludeTrailingBackSlash(ExtractFilePath(GetModuleFileName));
 end;
 
-function TFiscalPrinterImpl.GetCommandDefsFileName: string;
+function TFiscalPrinterImpl.GetCommandDefsFileName: WideString;
 begin
   Result :=  GetModulePath + 'commands.xml';
 end;
@@ -1269,7 +1269,7 @@ var
   i: Integer;
   TableInfo: TPrinterTableRec;
 const
-  BoolToStr: array [Boolean] of string = ('0', '1');
+  BoolToStr: array [Boolean] of WideString = ('0', '1');
 begin
   try
     Device.LoadTables(Parameters.TableFilePath);
@@ -1309,7 +1309,7 @@ procedure TFiscalPrinterImpl.ReadHeader;
 var
   i: Integer;
   Row: Integer;
-  Line: string;
+  Line: WideString;
   TableInfo: TPrinterTableRec;
 begin
   Device.Check(Device.ReadTableStructure(PRINTER_TABLE_TEXT, TableInfo));
@@ -1336,7 +1336,7 @@ procedure TFiscalPrinterImpl.ReadTrailer;
 var
   i: Integer;
   Row: Integer;
-  Line: string;
+  Line: WideString;
   TableInfo: TPrinterTableRec;
 begin
   Device.Check(Device.ReadTableStructure(PRINTER_TABLE_TEXT, TableInfo));
@@ -1433,7 +1433,7 @@ begin
   end;
 end;
 
-function TFiscalPrinterImpl.GetStateErrorMessage(const Mode: Integer): string;
+function TFiscalPrinterImpl.GetStateErrorMessage(const Mode: Integer): WideString;
 begin
   Result := Tnt_WideFormat('%s: %d, %s', [_('Невозможно изменить состояние'), Mode, GetModeText(Mode)]);
 end;
@@ -1856,7 +1856,7 @@ begin
   end;
 end;
 
-function TFiscalPrinterImpl.GetHeaderLine(N: Integer): string;
+function TFiscalPrinterImpl.GetHeaderLine(N: Integer): WideString;
 begin
   Result := ' ';
   if Printer.Header.ValidIndex(N) then
@@ -1866,7 +1866,7 @@ begin
     Result := Device.CenterLine(Result);
 end;
 
-function TFiscalPrinterImpl.GetTrailerLine(N: Integer): string;
+function TFiscalPrinterImpl.GetTrailerLine(N: Integer): WideString;
 begin
   Result := ' ';
   if Printer.Trailer.ValidIndex(N) then
@@ -3215,7 +3215,7 @@ function TFiscalPrinterImpl.PrintRecItem(
   Quantity, VatInfo: Integer; UnitPrice: Currency;
   const AUnitName: WideString): Integer;
 var
-  UnitName: string;
+  UnitName: WideString;
   Description: WideString;
   Department: Integer;
 begin
@@ -3680,9 +3680,9 @@ begin
 end;
 
 // HHmmDDMMYY
-function TFiscalPrinterImpl.AddDateStamp(const FileName: string): string;
+function TFiscalPrinterImpl.AddDateStamp(const FileName: WideString): WideString;
 var
-  Stamp: string;
+  Stamp: WideString;
 begin
   Result := FileName;
   if Parameters.ReportDateStamp then
@@ -3695,7 +3695,7 @@ end;
 procedure TFiscalPrinterImpl.SaveZReportFile;
 var
   ZReport: TZReport;
-  FileName: string;
+  FileName: WideString;
 begin
   if (Parameters.XmlZReportEnabled or Parameters.CsvZReportEnabled) then
   begin
@@ -4185,18 +4185,18 @@ begin
   Printer.SaveParameters;
 end;
 
-procedure TFiscalPrinterImpl.PrintImage(const FileName: string);
+procedure TFiscalPrinterImpl.PrintImage(const FileName: WideString);
 begin
   Printer.PrintImage(FileName);
 end;
 
-procedure TFiscalPrinterImpl.PrintImageScale(const FileName: string;
+procedure TFiscalPrinterImpl.PrintImageScale(const FileName: WideString;
   Scale: Integer);
 begin
   Printer.PrintImageScale(FileName, Scale);
 end;
 
-procedure TFiscalPrinterImpl.LoadLogo(const FileName: string);
+procedure TFiscalPrinterImpl.LoadLogo(const FileName: WideString);
 begin
   Printer.LoadLogo(FileName);
 end;
@@ -4212,9 +4212,9 @@ begin
   end;
 end;
 
-function TFiscalPrinterImpl.ReadEJActivation: string;
+function TFiscalPrinterImpl.ReadEJActivation: WideString;
 var
-  Line: string;
+  Line: WideString;
   Count: Integer;
   Lines: TTntStrings;
 begin
@@ -4250,20 +4250,20 @@ begin
 end;
 
 
-function TFiscalPrinterImpl.GetPrinterSemaphoreName: string;
+function TFiscalPrinterImpl.GetPrinterSemaphoreName: WideString;
 begin
   Result := FPrinter.GetPrinterSemaphoreName;
 end;
 
 procedure TFiscalPrinterImpl.PrintTextFont(Station, Font: Integer;
-  const Text: string);
+  const Text: WideString);
 begin
   Device.PrintTextFont(Station, Font, Text);
 end;
 
-function TFiscalPrinterImpl.ParseCashierName(const Line: string): string;
+function TFiscalPrinterImpl.ParseCashierName(const Line: WideString): WideString;
 var
-  Cashier: string;
+  Cashier: WideString;
 begin
   Cashier := '';
   Result := Line;
@@ -4518,17 +4518,17 @@ begin
   FHeaderEnabled := False;
 end;
 
-procedure TFiscalPrinterImpl.WriteCustomerAddress(const Value: string);
+procedure TFiscalPrinterImpl.WriteCustomerAddress(const Value: WideString);
 begin
   FSWriteTag(1008, Value);
 end;
 
-procedure TFiscalPrinterImpl.FSWriteTag(TagID: Integer; const Data: string);
+procedure TFiscalPrinterImpl.FSWriteTag(TagID: Integer; const Data: WideString);
 begin
   FSWriteTLV(TagToStr(TagID, Data));
 end;
 
-procedure TFiscalPrinterImpl.FSWriteTLV(const TLVData: string);
+procedure TFiscalPrinterImpl.FSWriteTLV(const TLVData: WideString);
 begin
   Receipt.FSWriteTLV(TLVData);
 end;
@@ -4549,7 +4549,7 @@ begin
 end;
 
 procedure TFiscalPrinterImpl.WriteFPParameter(ParamId: Integer;
-  const Value: string);
+  const Value: WideString);
 begin
   Receipt.WriteFPParameter(ParamId, Value);
 end;
@@ -4560,7 +4560,7 @@ begin
   PrintNonFiscalEnd;
 end;
 
-function TFiscalPrinterImpl.ReadFSDocument(Number: Integer): string;
+function TFiscalPrinterImpl.ReadFSDocument(Number: Integer): WideString;
 begin
   Result := Device.ReadFSDocument(Number);
 end;
@@ -4616,7 +4616,7 @@ begin
 end;
 
 function TFiscalPrinterImpl.ReadFSParameter(ParamID: Integer;
-  const pString: string): string;
+  const pString: WideString): WideString;
 
   (*
   7.1.8 Формат квитанции, при выдаче из Архива ФН

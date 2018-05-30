@@ -37,7 +37,7 @@ type
     function GetHandle: THandle;
     procedure UpdateCommProperties;
     function GetOpened: Boolean;
-    function GetDeviceName: string;
+    function GetDeviceName: AnsiString;
     procedure UpdateDCB(BaudRate: DWORD);
     procedure SetBaudRate(Value: DWORD);
     procedure SetPortNumber(Value: Integer);
@@ -59,11 +59,11 @@ type
     procedure Flush;
     procedure Lock;
     procedure Unlock;
-    procedure Write(const Data: string);
-    function Read(Count: DWORD): string;
+    procedure Write(const Data: AnsiString);
+    function Read(Count: DWORD): AnsiString;
     procedure SetCmdTimeout(Value: DWORD);
     function ReadChar(var C: Char): Boolean;
-    function GetPortName: string;
+    function GetPortName: AnsiString;
 
     property Opened: Boolean read GetOpened;
     property Timeout: DWORD read GetTimeout write SetTimeout;
@@ -109,7 +109,7 @@ begin
   end;
 end;
 
-function GetProviderSubTypeText(Value: Integer): string;
+function GetProviderSubTypeText(Value: Integer): AnsiString;
 begin
   case Value of
     PST_UNSPECIFIED     : Result := 'PST_UNSPECIFIED';
@@ -135,7 +135,7 @@ begin
   Result := (Value and Mask) <> 0;
 end;
 
-function StringsToText(Strings: TTntStrings): string;
+function StringsToText(Strings: TTntStrings): AnsiString;
 var
   i: Integer;
 begin
@@ -147,7 +147,7 @@ begin
   end;
 end;
 
-function GetProviderCapabilitiesText(Value: Integer): string;
+function GetProviderCapabilitiesText(Value: Integer): AnsiString;
 var
   Strings: TTntStrings;
 begin
@@ -171,7 +171,7 @@ begin
   end;
 end;
 
-function GetSettableParamsText(const Value: Integer): string;
+function GetSettableParamsText(const Value: Integer): AnsiString;
 var
   Strings: TTntStrings;
 begin
@@ -192,7 +192,7 @@ begin
   end;
 end;
 
-function GetBaudRatesText(const Value: Integer): string;
+function GetBaudRatesText(const Value: Integer): AnsiString;
 var
   Strings: TTntStrings;
 begin
@@ -226,7 +226,7 @@ begin
   end;
 end;
 
-function GetDataBitsText(const Value: Integer): string;
+function GetDataBitsText(const Value: Integer): AnsiString;
 var
   Strings: TTntStrings;
 begin
@@ -246,7 +246,7 @@ begin
   end;
 end;
 
-function GetStopParityText(const Value: Integer): string;
+function GetStopParityText(const Value: Integer): AnsiString;
 var
   Strings: TTntStrings;
 begin
@@ -268,7 +268,7 @@ begin
   end;
 end;
 
-function GetLastErrorText: string;
+function GetLastErrorText: AnsiString;
 begin
   Result := Tnt_WideFormat(SOSError, [GetLastError, SysErrorMessage(GetLastError)]);
 end;
@@ -362,7 +362,7 @@ begin
   Result := FHandle <> INVALID_HANDLE_VALUE;
 end;
 
-function TSerialPort.GetDeviceName: string;
+function TSerialPort.GetDeviceName: AnsiString;
 begin
   Result := 'COM' + IntToStr(PortNumber);
 end;
@@ -370,7 +370,7 @@ end;
 procedure TSerialPort.CreateHandle;
 var
   i: Integer;
-  DevName: string;
+  DevName: AnsiString;
 const
   MaxReconnectCount = 3;
 begin
@@ -541,7 +541,7 @@ begin
   end;
 end;
 
-procedure TSerialPort.Write(const Data: string);
+procedure TSerialPort.Write(const Data: AnsiString);
 var
   Count: DWORD;
   WriteCount: DWORD;
@@ -586,7 +586,7 @@ begin
   end;
 end;
 
-function TSerialPort.Read(Count: DWORD): string;
+function TSerialPort.Read(Count: DWORD): AnsiString;
 var
   ReadCount: DWORD;
 begin
@@ -703,7 +703,7 @@ begin
   Result := FPortNumber;
 end;
 
-function TSerialPort.GetPortName: string;
+function TSerialPort.GetPortName: AnsiString;
 begin
   Result := IntToStr(PortNumber);
 end;

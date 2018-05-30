@@ -6,7 +6,7 @@ uses
   Math;
 
 function SwapByte(Value: Byte): Byte;
-function SwapBytes(const S: string): string;
+function SwapBytes(const S: AnsiString): AnsiString;
 procedure SetBit(var Value: Byte; Bit: Byte);
 function TestBit(Value: Int64; Bit: Integer): Boolean;
 
@@ -49,7 +49,7 @@ begin
   end;
 end;
 
-function SwapBytes(const S: string): string;
+function SwapBytes(const S: AnsiString): AnsiString;
 var
   i: Integer;
 begin

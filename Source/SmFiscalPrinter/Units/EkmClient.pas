@@ -49,7 +49,7 @@ type
     Context: Int64;
     Reserved: Int64;
     MessageSize: Word;
-    Message: string;
+    Message: AnsiString;
   end;
 
   { TEkmServerResponse }
@@ -62,27 +62,27 @@ type
     SaleEnabled: Byte;
     Reserved: Byte;
     MessageSize: Word;
-    Message: string;
+    Message: AnsiString;
   end;
 
   { TEkmClient }
 
   TEkmClient = class
   public
-    Host: string;
+    Host: AnsiString;
     Port: Integer;
     Timeout: Integer;
   public
     constructor Create;
-    function ReadSaleEnabled(const GTIN, Serial: string): Boolean;
+    function ReadSaleEnabled(const GTIN, Serial: AnsiString): Boolean;
   end;
 
-function StrToIdBytes(const Data: string): TIdBytes;
-function IdBytesToStr(const Data: TIdBytes): string;
+function StrToIdBytes(const Data: AnsiString): TIdBytes;
+function IdBytesToStr(const Data: TIdBytes): AnsiString;
 
 implementation
 
-function StrToIdBytes(const Data: string): TIdBytes;
+function StrToIdBytes(const Data: AnsiString): TIdBytes;
 var
   i: Integer;
 begin
@@ -91,7 +91,7 @@ begin
     Result[i-1] := Ord(Data[i]);
 end;
 
-function IdBytesToStr(const Data: TIdBytes): string;
+function IdBytesToStr(const Data: TIdBytes): AnsiString;
 var
   i: Integer;
 begin
@@ -110,10 +110,10 @@ begin
   Timeout := 5;
 end;
 
-function TEkmClient.ReadSaleEnabled(const GTIN, Serial: string): Boolean;
+function TEkmClient.ReadSaleEnabled(const GTIN, Serial: AnsiString): Boolean;
 var
-  TxData: string;
-  RxData: string;
+  TxData: AnsiString;
+  RxData: AnsiString;
   Buffer: TIdBytes;
   Connection: TIdTcpClient;
   Request: TEkmServerRequest;

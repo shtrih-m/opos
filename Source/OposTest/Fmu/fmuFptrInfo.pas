@@ -28,7 +28,7 @@ implementation
 
 {$R *.DFM}
 
-function ReadControlVersion(const ProgID: string): string;
+function ReadControlVersion(const ProgID: WideString): WideString;
 var
   V: OleVariant;
 begin
@@ -47,14 +47,14 @@ end;
 procedure TfmFptrInfo.UpdateDevices;
 var
   i: Integer;
-  DeviceName: string;
+  DeviceName: WideString;
   Device: TOposDevice;
-  ServiceProgID: string;
+  ServiceProgID: WideString;
   DeviceNames: TTntStrings;
-  ServiceFileVersion: string;
-  ServiceObjectVersion: string;
-  ControlObjectVersion: string;
-  ControlObjectFileVersion: string;
+  ServiceFileVersion: WideString;
+  ServiceObjectVersion: WideString;
+  ControlObjectVersion: WideString;
+  ControlObjectFileVersion: WideString;
 begin
   try
     lblServiceFileVersion.Caption :=

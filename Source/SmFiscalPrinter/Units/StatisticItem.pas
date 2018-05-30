@@ -28,11 +28,11 @@ type
     destructor Destroy; override;
 
     procedure Clear;
-    procedure Reset(const AName: string);
+    procedure Reset(const AName: WideString);
     procedure Assign(Source: TStatisticItems);
-    function ItemByName(const AName: string): TStatisticItem;
+    function ItemByName(const AName: WideString): TStatisticItem;
     function AddItem(Item: TStatisticItem): TStatisticItem;
-    function Add(const AName: string; AItemType: TStatisticType): TStatisticItem;
+    function Add(const AName: WideString; AItemType: TStatisticType): TStatisticItem;
 
     property Count: Integer read GetCount;
     property Items[Index: Integer]: TStatisticItem read GetItem; default;
@@ -42,15 +42,15 @@ type
 
   TStatisticItem = class
   private
-    FName: string;
+    FName: WideString;
     FCounter: Int64;
     FIsEmpty: Boolean;
     FItemType: TStatisticType;
     FOwner: TStatisticItems;
     procedure SetOwner(AOwner: TStatisticItems);
-    function GetText: string;
+    function GetText: WideString;
   public
-    constructor Create(AOwner: TStatisticItems; const AName: string;
+    constructor Create(AOwner: TStatisticItems; const AName: WideString;
       AItemType: TStatisticType);
     destructor Destroy; override;
 
@@ -58,12 +58,12 @@ type
     function IsOpos: Boolean;
     function IsManufacturer: Boolean;
     procedure IncCounter(Count: Integer);
-    procedure SetValue(const Value: string);
+    procedure SetValue(const Value: WideString);
     procedure Assign(Source: TStatisticItem);
-    function Select(const AName: string): Boolean;
+    function Select(const AName: WideString): Boolean;
 
-    property Name: string read FName;
-    property Text: string read GetText;
+    property Name: WideString read FName;
+    property Text: WideString read GetText;
     property ItemType: TStatisticType read FItemType;
     property Counter: Int64 read FCounter write FCounter;
     property IsEmpty: Boolean read FIsEmpty write FIsEmpty;
@@ -113,7 +113,7 @@ begin
   FList.Remove(AItem);
 end;
 
-procedure TStatisticItems.Reset(const AName: string);
+procedure TStatisticItems.Reset(const AName: WideString);
 var
   i: Integer;
   Item: TStatisticItem;
@@ -125,7 +125,7 @@ begin
   end;
 end;
 
-function TStatisticItems.ItemByName(const AName: string): TStatisticItem;
+function TStatisticItems.ItemByName(const AName: WideString): TStatisticItem;
 var
   i: Integer;
 begin
@@ -152,7 +152,7 @@ begin
   end;
 end;
 
-function TStatisticItems.Add(const AName: string;
+function TStatisticItems.Add(const AName: WideString;
   AItemType: TStatisticType): TStatisticItem;
 begin
   Result := TStatisticItem.Create(Self, AName, AItemType);
@@ -167,7 +167,7 @@ end;
 { TStatisticItem }
 
 constructor TStatisticItem.Create(AOwner: TStatisticItems;
-const AName: string; AItemType: TStatisticType);
+const AName: WideString; AItemType: TStatisticType);
 begin
   inherited Create;
   FName := AName;
@@ -205,7 +205,7 @@ begin
   FCounter := Source.Counter;
 end;
 
-function TStatisticItem.GetText: string;
+function TStatisticItem.GetText: WideString;
 begin
   if IsEmpty then Result := ''
   else Result := IntToStr(Counter);
@@ -221,12 +221,12 @@ begin
   Result := ItemType = stOpos;
 end;
 
-procedure TStatisticItem.SetValue(const Value: string);
+procedure TStatisticItem.SetValue(const Value: WideString);
 begin
   FCounter := StrToInt64(Value);
 end;
 
-function TStatisticItem.Select(const AName: string): Boolean;
+function TStatisticItem.Select(const AName: WideString): Boolean;
 begin
   Result := AName = '';
   if Result then Exit;

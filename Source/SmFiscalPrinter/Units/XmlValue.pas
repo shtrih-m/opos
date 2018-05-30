@@ -20,8 +20,8 @@ type
     function GetItem(Index: Integer): TXmlValue;
     procedure InsertItem(AItem: TXmlValue);
     procedure RemoveItem(AItem: TXmlValue);
-    function GetAsXml: string;
-    procedure SetAsXml(const Xml: string);
+    function GetAsXml: WideString;
+    procedure SetAsXml(const Xml: WideString);
   public
     constructor Create;
     destructor Destroy; override;
@@ -29,11 +29,11 @@ type
     procedure Clear;
     procedure ClearValue;
     function Add: TXmlValue;
-    function FindItem(const Name: string): TXmlValue;
-    function ItemByName(const Name: string): TXmlValue;
+    function FindItem(const Name: WideString): TXmlValue;
+    function ItemByName(const Name: WideString): TXmlValue;
 
     property Count: Integer read GetCount;
-    property AsXml: string read GetAsXml write SetAsXml;
+    property AsXml: WideString read GetAsXml write SetAsXml;
     property Items[Index: Integer]: TXmlValue read GetItem; default;
   end;
 
@@ -41,16 +41,16 @@ type
 
   TXmlValue = class
   private
-    FName: string;
-    FValue: string;
+    FName: WideString;
+    FValue: WideString;
     FOwner: TXmlValues;
     procedure SetOwner(AOwner: TXmlValues);
   public
     constructor Create(AOwner: TXmlValues);
     destructor Destroy; override;
 
-    property Name: string read FName write FName;
-    property Value: string read FValue write FValue;
+    property Name: WideString read FName write FName;
+    property Value: WideString read FValue write FValue;
   end;
 
 implementation
@@ -102,7 +102,7 @@ begin
   Result := TXmlValue.Create(Self);
 end;
 
-function TXmlValues.FindItem(const Name: string): TXmlValue;
+function TXmlValues.FindItem(const Name: WideString): TXmlValue;
 var
   i: Integer;
 begin
@@ -114,14 +114,14 @@ begin
   Result := nil;
 end;
 
-function TXmlValues.ItemByName(const Name: string): TXmlValue;
+function TXmlValues.ItemByName(const Name: WideString): TXmlValue;
 begin
   Result := FindItem(Name);
   if Result = nil then
     raiseException(_('Параметр не найден'));
 end;
 
-function TXmlValues.GetAsXml: string;
+function TXmlValues.GetAsXml: WideString;
 var
   i: Integer;
   Node: TXmlItem;
@@ -144,14 +144,14 @@ begin
   end;
 end;
 
-procedure TXmlValues.SetAsXml(const Xml: string);
+procedure TXmlValues.SetAsXml(const Xml: WideString);
 var
   i: Integer;
   Node: TXmlItem;
   Root: TXmlItem;
   Parser: TXmlParser;
-  ParamName: string;
-  ParamValue: string;
+  ParamName: WideString;
+  ParamValue: WideString;
   Param: TXmlValue;
 begin
   Parser := TXmlParser.Create;

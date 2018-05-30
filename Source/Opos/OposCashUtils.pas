@@ -8,12 +8,12 @@ uses
   // Opos
   OposUtils, OposCashhi;
 
-function GetCashPropertyName(const ID: Integer): string;
-function GetResultCodeExtendedText(Value: Integer): string;
+function GetCashPropertyName(const ID: Integer): WideString;
+function GetResultCodeExtendedText(Value: Integer): WideString;
 
 implementation
 
-function GetCashPropertyName(const ID: Integer): string;
+function GetCashPropertyName(const ID: Integer): WideString;
 begin
   case ID of
     PIDXCash_DrawerOpened  : Result := 'PIDXCash_DrawerOpened';
@@ -24,7 +24,7 @@ begin
   end;
 end;
 
-function GetResultCodeExtendedText(Value: Integer): string;
+function GetResultCodeExtendedText(Value: Integer): WideString;
 begin
   Result := IntToStr(Value);
 end;

@@ -19,7 +19,7 @@ type
   protected
     procedure Setup; override;
     procedure Teardown; override;
-    function GetDBPath: string;
+    function GetDBPath: WideString;
   published
     procedure CheckOpen;
     procedure CheckReadTaxGroup;
@@ -44,7 +44,7 @@ begin
   Context.Free;
 end;
 
-function TRetalixTest.GetDBPath: string;
+function TRetalixTest.GetDBPath: WideString;
 begin
   //Result := 'c:\positive\datapdx\';
   Result := GetModulePath + 'Retalix';
@@ -88,7 +88,7 @@ end;
 
 procedure TRetalixTest.CheckParseCashierName;
 var
-  Cashier: string;
+  Cashier: WideString;
 begin
   Check(TRetalix.ParseCashierName('Оператор: ts ID:    3945140', Cashier));
   CheckEquals('ts', Cashier);
@@ -104,8 +104,8 @@ end;
 
 procedure TRetalixTest.CheckParseOperator;
 var
-  Text: string;
-  Cashier: string;
+  Text: WideString;
+  Cashier: WideString;
   Retalix: TRetalix;
 begin
   // DBPath must exists!
@@ -151,8 +151,8 @@ end;
 
 procedure TRetalixTest.CheckReplaceOperator;
 var
-  Line: string;
-  Cashier: string;
+  Line: WideString;
+  Cashier: WideString;
 begin
   Cashier := 'Кассир Иванов';
   Line := 'Оператор:ts ID:    3945140';

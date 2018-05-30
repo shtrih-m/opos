@@ -16,35 +16,35 @@ type
   TOposStatistics = class
   private
     FItems: TStatisticItems;
-    FDeviceCategory: string;
-    FUnifiedPOSVersion: string;
-    FManufacturerName: string;
-    FModelName: string;
-    FSerialNumber: string;
-    FFirmwareRevision: string;
-    FInterfaceName: string;
-    FInstallationDate: string;
+    FDeviceCategory: WideString;
+    FUnifiedPOSVersion: WideString;
+    FManufacturerName: WideString;
+    FModelName: WideString;
+    FSerialNumber: WideString;
+    FFirmwareRevision: WideString;
+    FInterfaceName: WideString;
+    FInstallationDate: WideString;
     FLogger: ILogFile;
 
-    function SaveToXml: string;
-    function GetIniFileName: string;
+    function SaveToXml: WideString;
+    function GetIniFileName: WideString;
     procedure SetItems(const Value: TStatisticItems);
-    procedure ParseNames(const Names: string; Strings: TTntStrings);
-    function ValidItem(Item: TStatisticItem; const StatName: string): Boolean;
+    procedure ParseNames(const Names: WideString; Strings: TTntStrings);
+    function ValidItem(Item: TStatisticItem; const StatName: WideString): Boolean;
 
     property Logger: ILogFile read FLogger;
     property Items: TStatisticItems read FItems write SetItems;
   protected
-    procedure Add(const StatisticName: string);
-    procedure IncItem(const StatisticName: string); overload;
-    procedure IncItem(const StatisticName: string; Count: Integer); overload;
+    procedure Add(const StatisticName: WideString);
+    procedure IncItem(const StatisticName: WideString); overload;
+    procedure IncItem(const StatisticName: WideString; Count: Integer); overload;
   public
     constructor Create(ALogger: ILogFile); virtual;
     destructor Destroy; override;
 
     procedure Assign(Source: TOposStatistics);
-    procedure IniLoad(const DeviceName: string); virtual;
-    procedure IniSave(const DeviceName: string); virtual;
+    procedure IniLoad(const DeviceName: WideString); virtual;
+    procedure IniSave(const DeviceName: WideString); virtual;
     procedure Reset(const StatisticsBuffer: WideString); virtual;
     procedure Update(const StatisticsBuffer: WideString); virtual;
     procedure Retrieve(var StatisticsBuffer: WideString); virtual;
@@ -53,14 +53,14 @@ type
     procedure CommunicationError;
     procedure ReportHoursPowered(Count: Integer);
 
-    property DeviceCategory: string read FDeviceCategory write FDeviceCategory;
-    property UnifiedPOSVersion: string read FUnifiedPOSVersion write FUnifiedPOSVersion;
-    property ManufacturerName: string read FManufacturerName write FManufacturerName;
-    property ModelName: string read FModelName write FModelName;
-    property SerialNumber: string read FSerialNumber write FSerialNumber;
-    property FirmwareRevision: string read FFirmwareRevision write FFirmwareRevision;
-    property InterfaceName: string read FInterfaceName write FInterfaceName;
-    property InstallationDate: string read FInstallationDate write FInstallationDate;
+    property DeviceCategory: WideString read FDeviceCategory write FDeviceCategory;
+    property UnifiedPOSVersion: WideString read FUnifiedPOSVersion write FUnifiedPOSVersion;
+    property ManufacturerName: WideString read FManufacturerName write FManufacturerName;
+    property ModelName: WideString read FModelName write FModelName;
+    property SerialNumber: WideString read FSerialNumber write FSerialNumber;
+    property FirmwareRevision: WideString read FFirmwareRevision write FFirmwareRevision;
+    property InterfaceName: WideString read FInterfaceName write FInterfaceName;
+    property InstallationDate: WideString read FInstallationDate write FInstallationDate;
   end;
 
 implementation
@@ -88,14 +88,14 @@ begin
   Items.Assign(Value);
 end;
 
-procedure TOposStatistics.Add(const StatisticName: string);
+procedure TOposStatistics.Add(const StatisticName: WideString);
 begin
   Items.Add(StatisticName, stOpos);
 end;
 
-procedure TOposStatistics.ParseNames(const Names: string; Strings: TTntStrings);
+procedure TOposStatistics.ParseNames(const Names: WideString; Strings: TTntStrings);
 var
-  S: string;
+  S: WideString;
   P: Integer;
 begin
   if Names = '' then
@@ -121,7 +121,7 @@ end;
 
 (*******************************************************************************
 
-  This is a comma-separated list of name(s), where an empty string (“”) means ALL
+  This is a comma-separated list of name(s), where an empty WideString (“”) means ALL
   resettable statistics are to be reset, “U_” means all UnifiedPOS defined resettable
   statistics are to be reset, “M_” means all manufacturer defined resettable statistics
   are to be reset, and “actual_name1, actual_name2” (from the XML file definitions)
@@ -159,7 +159,7 @@ end;
   retrieveStatistics
   Method Added in Release 1.8
 
-  This is a comma-separated list of name(s), where an empty string (“”) means ALL
+  This is a comma-separated list of name(s), where an empty WideString (“”) means ALL
   statistics are to be retrieved, “U_” means all UnifiedPOS defined statistics are to
   be retrieved, “M_” means all manufacturer defined statistics are to be retrieved,
   and “actual_name1, actual_name2” (from the XML file definitions) means that the
@@ -222,7 +222,7 @@ end;
 procedure TOposStatistics.Retrieve(var StatisticsBuffer: WideString);
 var
   i, j: Integer;
-  StatName: string;
+  StatName: WideString;
   StatNames: TTntStrings;
   Item: TStatisticItem;
   Statistics: TOposStatistics;
@@ -251,7 +251,7 @@ begin
 end;
 
 function TOposStatistics.ValidItem(Item: TStatisticItem;
-  const StatName: string): Boolean;
+  const StatName: WideString): Boolean;
 begin
   // All
   if StatName = '' then
@@ -289,9 +289,9 @@ procedure TOposStatistics.Update(const StatisticsBuffer: WideString);
 var
   i, j: Integer;
   P: Integer;
-  StatPair: string;
-  StatName: string;
-  StatValue: string;
+  StatPair: WideString;
+  StatName: WideString;
+  StatValue: WideString;
   Strings: TTntStrings;
   Item: TStatisticItem;
 begin
@@ -316,12 +316,12 @@ begin
   end;
 end;
 
-procedure TOposStatistics.IncItem(const StatisticName: string);
+procedure TOposStatistics.IncItem(const StatisticName: WideString);
 begin
   IncItem(StatisticName, 1);
 end;
 
-procedure TOposStatistics.IncItem(const StatisticName: string;
+procedure TOposStatistics.IncItem(const StatisticName: WideString;
   Count: Integer);
 var
   Item: TStatisticItem;
@@ -359,7 +359,7 @@ end;
 
 *******************************************************************************)
 
-function TOposStatistics.SaveToXml: string;
+function TOposStatistics.SaveToXml: WideString;
 
   procedure AddCRLF(node: IXMLDOMElement);
   begin
@@ -372,7 +372,7 @@ function TOposStatistics.SaveToXml: string;
       StringOfChar(Chr(VK_TAB), Count)));
   end;
 
-  function addNode(node: IXMLDOMElement; const nodeName: string;
+  function addNode(node: IXMLDOMElement; const nodeName: WideString;
     Level: Integer): IXMLDOMElement;
   begin
     AddTabs(node, Level);
@@ -381,14 +381,14 @@ function TOposStatistics.SaveToXml: string;
     AddCRLF(node);
   end;
 
-  procedure addNodeText(node: IXMLDOMElement; const nodeName, nodeText: string;
+  procedure addNodeText(node: IXMLDOMElement; const nodeName, nodeText: WideString;
     Level: Integer);
   begin
     addNode(node, nodeName, Level).text := nodeText;
   end;
 
   procedure addAttribute(node: IXMLDOMElement;
-    const attName, attText: string);
+    const attName, attText: WideString);
   var
     att: IXMLDOMAttribute;
   begin
@@ -483,16 +483,16 @@ begin
   IncItem(OPOS_STAT_HoursPoweredCount, Count);
 end;
 
-function TOposStatistics.GetIniFileName: string;
+function TOposStatistics.GetIniFileName: WideString;
 begin
   Result := IncludeTrailingBackSlash(ExtractFilePath(FileUtils.GetModuleFileName)) +
     'OposStatistics.ini'
 end;
 
-procedure TOposStatistics.IniLoad(const DeviceName: string);
+procedure TOposStatistics.IniLoad(const DeviceName: WideString);
 var
   i: Integer;
-  ItemText: string;
+  ItemText: WideString;
   IniFile: TTntIniFile;
   Item: TStatisticItem;
 begin
@@ -519,7 +519,7 @@ begin
   end;
 end;
 
-procedure TOposStatistics.IniSave(const DeviceName: string);
+procedure TOposStatistics.IniSave(const DeviceName: WideString);
 var
   i: Integer;
   IniFile: TTntIniFile;

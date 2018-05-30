@@ -14,18 +14,18 @@ type
 
   TPrinterProtocol1 = class(TInterfacedObject, IPrinterConnection)
   private
-    FOutput: string;                    // Received data
+    FOutput: AnsiString;                    // Received data
     FLogger: ILogFile;
     FPort: IPrinterPort;
 
     procedure Purge;
-    procedure Write(const Data: string);
+    procedure Write(const Data: AnsiString);
     procedure SetCmdTimeout(Value: DWORD);
-    procedure AddData(const Data: string);
+    procedure AddData(const Data: AnsiString);
     procedure ReadAnswer(WaitNAK: Boolean);
     function ReadChar(var C: Char): Boolean;
-    procedure SendCommand(const Data: string);
-    function Read(Count: DWORD; var Value: string): Boolean;
+    procedure SendCommand(const Data: AnsiString);
+    function Read(Count: DWORD; var Value: AnsiString): Boolean;
     function ReadAnswerData(var CRCError: Boolean): Boolean;
     function ReadControlChar(var C: Char): Boolean;
 
@@ -46,7 +46,7 @@ type
     procedure CloseReceipt;
     procedure OpenReceipt(Password: Integer);
     procedure ClaimDevice(PortNumber, Timeout: Integer);
-    function Send(Timeout: Integer; const Data: string): string;
+    function Send(Timeout: Integer; const Data: AnsiString): AnsiString;
     procedure OpenPort(PortNumber, BaudRate, ByteTimeout: Integer);
   end;
 
@@ -54,8 +54,8 @@ type
 
   TPrinterFrame = class
   public
-    class function GetCRC(const Data: string): Byte;
-    class function Encode(const Data: string): string;
+    class function GetCRC(const Data: AnsiString): Byte;
+    class function Encode(const Data: AnsiString): AnsiString;
   end;
 
 implementation
@@ -85,7 +85,7 @@ begin
   inherited Destroy;
 end;
 
-procedure TPrinterProtocol1.AddData(const Data: string);
+procedure TPrinterProtocol1.AddData(const Data: AnsiString);
 begin
   FOutput := FOutput + Data;
 end;
@@ -120,13 +120,13 @@ begin
     Logger.Debug('<- ');
 end;
 
-procedure TPrinterProtocol1.Write(const Data: string);
+procedure TPrinterProtocol1.Write(const Data: AnsiString);
 begin
   Logger.WriteTxData(Data);
   Port.Write(Data);
 end;
 
-function TPrinterProtocol1.Read(Count: DWORD; var Value: string): Boolean;
+function TPrinterProtocol1.Read(Count: DWORD; var Value: AnsiString): Boolean;
 begin
   Result := True;
   Value := Port.Read(Count);
@@ -141,7 +141,7 @@ function TPrinterProtocol1.ReadAnswerData(var CRCError: Boolean): Boolean;
 var
   RxChar: Char;
   DataLen: Byte;
-  RxData: string;
+  RxData: AnsiString;
 begin
   FOutput := '';
   Result := False;
@@ -229,7 +229,7 @@ end;
 
 { Send command }
 
-procedure TPrinterProtocol1.SendCommand(const Data: string);
+procedure TPrinterProtocol1.SendCommand(const Data: AnsiString);
 var
   RxChar: char;
   CmdCount: Integer;
@@ -257,7 +257,7 @@ begin
   until False;
 end;
 
-function TPrinterProtocol1.Send(Timeout: Integer; const Data: string): string;
+function TPrinterProtocol1.Send(Timeout: Integer; const Data: AnsiString): AnsiString;
 var
   CRCError: Boolean;
 begin
@@ -326,7 +326,7 @@ end;
 
 { TPrinterFrame }
 
-class function TPrinterFrame.Encode(const Data: string): string;
+class function TPrinterFrame.Encode(const Data: AnsiString): AnsiString;
 const
   STX = #2;
 var
@@ -337,7 +337,7 @@ begin
   Result := STX + Result + Chr(GetCRC(Result));
 end;
 
-class function TPrinterFrame.GetCRC(const Data: string): Byte;
+class function TPrinterFrame.GetCRC(const Data: AnsiString): Byte;
 var
   i: Integer;
 begin

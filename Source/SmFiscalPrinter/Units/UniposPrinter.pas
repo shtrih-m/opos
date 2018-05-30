@@ -25,9 +25,9 @@ type
 
     procedure CheckTextFile;
     procedure ThreadProc(Sender: TObject);
-    procedure PrintReceipt(const Text: string);
+    procedure PrintReceipt(const Text: WideString);
     property Parameters: TMalinaParams read GetParameters;
-    function FindTextFile(var FileName: string): Boolean;
+    function FindTextFile(var FileName: WideString): Boolean;
     property Logger: ILogFile read GetLogger;
   public
     constructor Create(APrinter: IFiscalPrinterInternal);
@@ -73,8 +73,8 @@ end;
 
 procedure TUniposPrinter.CheckTextFile;
 var
-  Text: string;
-  FileName: string;
+  Text: WideString;
+  FileName: WideString;
 begin
   try
     if FindTextFile(FileName) then
@@ -91,9 +91,9 @@ begin
   end;
 end;
 
-function TUniposPrinter.FindTextFile(var FileName: string): Boolean;
+function TUniposPrinter.FindTextFile(var FileName: WideString): Boolean;
 var
-  Mask: string;
+  Mask: WideString;
   F: TSearchRec;
 begin
   Mask := WideIncludeTrailingPathDelimiter(Parameters.UniposFilesPath) + '*.*';
@@ -105,7 +105,7 @@ begin
   end;
 end;
 
-procedure TUniposPrinter.PrintReceipt(const Text: string);
+procedure TUniposPrinter.PrintReceipt(const Text: WideString);
 var
   Data: TTextRec;
 begin

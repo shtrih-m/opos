@@ -25,7 +25,7 @@ implementation
 
 procedure TfmFptrFiscalStorage.btnReadParamsClick(Sender: TObject);
 
-  procedure Add(ParamID: Integer; const P: string; const Name: string);
+  procedure Add(ParamID: Integer; const P: WideString; const Name: WideString);
   var
     pData: Integer;
     pString: WideString;

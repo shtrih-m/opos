@@ -22,8 +22,8 @@ type
 
   TTextReceiptRec = record
     NewChequeFlag: Boolean;
-    NewChequeText: string;
-    NewChequeText1: string;
+    NewChequeText: WideString;
+    NewChequeText1: WideString;
   end;
 
   { TUniposTextReceipt }
@@ -40,7 +40,7 @@ type
 
   TTextBlockRec = record
     SecondsOfDay: Integer;
-    Text: string;
+    Text: WideString;
   end;
 
   { TReceiptFlagsRec }
@@ -78,7 +78,7 @@ type
 implementation
 
 const
-  BoolToStr: array [Boolean] of string = ('0', '1');
+  BoolToStr: array [Boolean] of WideString = ('0', '1');
 
 { TUniposReader }
 
@@ -145,7 +145,7 @@ end;
 
 function TUniposReader.ReadPrintReport: TPrintReportRec;
 var
-  S: string;
+  S: WideString;
   Reg: TTntRegistry;
 begin
   Logger.Debug('TUniposReader.ReadPrintReport');
@@ -174,7 +174,7 @@ end;
 
 procedure TUniposReader.WritePrintReport(const Data: TPrintReportRec);
 var
-  S: string;
+  S: WideString;
   Reg: TTntRegistry;
 begin
   Logger.Debug('TUniposReader.WritePrintReport');
@@ -207,7 +207,7 @@ end;
 
 function TUniposReader.ReadTextReceipt: TTextReceiptRec;
 var
-  S: string;
+  S: WideString;
   Reg: TTntRegistry;
 begin
   Result.NewChequeFlag := False;
@@ -279,9 +279,9 @@ end;
 
 function TUniposReader.ReadHeaderBlock: TTextBlockRec;
 var
-  Text: string;
+  Text: WideString;
   Reg: TTntRegistry;
-  Seconds: string;
+  Seconds: WideString;
 begin
   Logger.Debug('TUniposReader.ReadHeaderBlock');
 
@@ -312,8 +312,8 @@ end;
 
 function TUniposReader.ReadTrailerBlock: TTextBlockRec;
 var
-  Text: string;
-  Seconds: string;
+  Text: WideString;
+  Seconds: WideString;
   Reg: TTntRegistry;
 begin
   Logger.Debug('TUniposReader.ReadTrailerBlock');
@@ -386,8 +386,8 @@ end;
 
 function TUniposReader.ReadReceiptFlags: TReceiptFlagsRec;
 var
-  Enabled: string;
-  Seconds: string;
+  Enabled: WideString;
+  Seconds: WideString;
   Reg: TTntRegistry;
 begin
   Logger.Debug('TAntiFroudFilter.ReadReceiptFlags');

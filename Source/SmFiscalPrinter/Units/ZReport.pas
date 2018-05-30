@@ -29,8 +29,8 @@ type
 
     procedure Read;
     procedure Clear;
-    procedure SaveToXml(const FileName: string);
-    procedure SaveToCsv(const FileName: string);
+    procedure SaveToXml(const FileName: WideString);
+    procedure SaveToCsv(const FileName: WideString);
 
     property OperRegCount: Integer read FOperRegCount;
     property CashRegCount: Integer read FCashRegCount;
@@ -104,10 +104,10 @@ begin
   FCashRegCount := 266;
 end;
 
-procedure TZReport.SaveToCsv(const FileName: string);
+procedure TZReport.SaveToCsv(const FileName: WideString);
 var
   i: Integer;
-  Line: string;
+  Line: WideString;
   Lines: TTntStrings;
 begin
   if FileExists(FileName) then
@@ -134,7 +134,7 @@ begin
   end;
 end;
 
-procedure TZReport.SaveToXml(const FileName: string);
+procedure TZReport.SaveToXml(const FileName: WideString);
 var
   i: Integer;
   Node: IXMLNode;

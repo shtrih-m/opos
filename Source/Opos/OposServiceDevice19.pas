@@ -19,8 +19,8 @@ type
     FState: Integer;
     FOpened: Boolean;
     FClaimed: Boolean;
-    FDeviceName: string;
-    FDeviceClass: string;
+    FDeviceName: WideString;
+    FDeviceClass: WideString;
     FOposEvents: IOposEvents;
     FAutoDisable: Boolean;
     FSemaphore: TOposSemaphore;
@@ -29,7 +29,7 @@ type
     FCapStatisticsReporting: Boolean;
     FCapUpdateFirmware: Boolean;
     FCapUpdateStatistics: Boolean;
-    FCheckHealthText: string;
+    FCheckHealthText: WideString;
     FDataCount: Integer;
     FDataEventEnabled: Boolean;
     FDeviceEnabled: Boolean;
@@ -38,16 +38,16 @@ type
     FOutputID: Integer;
     FPowerNotify: Integer;
     FPowerState: Integer;
-    FServiceObjectDescription: string;
+    FServiceObjectDescription: WideString;
     FServiceObjectVersion: Integer;
-    FPhysicalDeviceDescription: string;
-    FPhysicalDeviceName: string;
+    FPhysicalDeviceDescription: WideString;
+    FPhysicalDeviceName: WideString;
     FOpenResult: Integer;
     FBinaryConversion: Integer;
     FResultCode: Integer;
-    FErrorString: string;
+    FErrorString: WideString;
     FResultCodeExtended: Integer;
-    FLongDeviceName: string;
+    FLongDeviceName: WideString;
     FErrorEventEnabled: Boolean;
     FLogger: ILogFile;
 
@@ -65,7 +65,7 @@ type
     constructor Create(ALogger: ILogFile);
     destructor Destroy; override;
 
-    procedure Open(const ADeviceClass, ADeviceName: string;
+    procedure Open(const ADeviceClass, ADeviceName: WideString;
       const AOposEvents: IOposEvents);
     procedure Close;
     procedure ClaimDevice(Timeout: Integer);
@@ -80,23 +80,23 @@ type
 
     procedure FireEvent(Event: TOposEvent);
     procedure StatusUpdateEvent(Data: Integer);
-    function ConvertBinary(const Data: string): string;
+    function ConvertBinary(const Data: WideString): WideString;
     function ClearResult: Integer;
     function SetResultCode(Value: Integer): Integer;
     function HandleException(const OPOSError: TOPOSError): Integer;
 
     property Opened: Boolean read FOpened;
     property Claimed: Boolean read FClaimed;
-    property DeviceName: string read FDeviceName;
-    property DeviceClass: string read FDeviceClass;
+    property DeviceName: WideString read FDeviceName;
+    property DeviceClass: WideString read FDeviceClass;
     property AutoDisable: Boolean read FAutoDisable;
-    property LongDeviceName: string read FLongDeviceName;
+    property LongDeviceName: WideString read FLongDeviceName;
     property CapCompareFirmwareVersion: Boolean read FCapCompareFirmwareVersion;
     property CapPowerReporting: Integer read FCapPowerReporting;
     property CapStatisticsReporting: Boolean read FCapStatisticsReporting;
     property CapUpdateFirmware: Boolean read FCapUpdateFirmware;
     property CapUpdateStatistics: Boolean read FCapUpdateStatistics;
-    property CheckHealthText: string read FCheckHealthText write FCheckHealthText;
+    property CheckHealthText: WideString read FCheckHealthText write FCheckHealthText;
     property DataCount: Integer read FDataCount;
     property DataEventEnabled: Boolean read FDataEventEnabled write FDataEventEnabled;
     property DeviceEnabled: Boolean read FDeviceEnabled write SetDeviceEnabled;
@@ -105,14 +105,14 @@ type
     property PowerNotify: Integer read FPowerNotify write FPowerNotify;
     property PowerState: Integer read FPowerState write SetPowerState;
     property State: Integer read FState;
-    property ServiceObjectDescription: string read FServiceObjectDescription write FServiceObjectDescription;
+    property ServiceObjectDescription: WideString read FServiceObjectDescription write FServiceObjectDescription;
     property ServiceObjectVersion: Integer read FServiceObjectVersion write FServiceObjectVersion;
-    property PhysicalDeviceDescription: string read FPhysicalDeviceDescription write FPhysicalDeviceDescription;
-    property PhysicalDeviceName: string read FPhysicalDeviceName write FPhysicalDeviceName;
+    property PhysicalDeviceDescription: WideString read FPhysicalDeviceDescription write FPhysicalDeviceDescription;
+    property PhysicalDeviceName: WideString read FPhysicalDeviceName write FPhysicalDeviceName;
     property OpenResult: Integer read FOpenResult write FOpenResult;
     property BinaryConversion: Integer read FBinaryConversion write FBinaryConversion;
     property ResultCode: Integer read FResultCode;
-    property ErrorString: string read FErrorString;
+    property ErrorString: WideString read FErrorString;
     property ResultCodeExtended: Integer read FResultCodeExtended;
     property ErrorEventEnabled: Boolean read FErrorEventEnabled write FErrorEventEnabled;
   end;
@@ -158,7 +158,7 @@ begin
   inherited Destroy;
 end;
 
-procedure TOposServiceDevice19.Open(const ADeviceClass, ADeviceName: string;
+procedure TOposServiceDevice19.Open(const ADeviceClass, ADeviceName: WideString;
   const AOposEvents: IOposEvents);
 begin
   Logger.Debug('TOposServiceDevice19.Open', [ADeviceClass, ADeviceName]);
@@ -385,16 +385,16 @@ begin
   end;
 end;
 
-function TOposServiceDevice19.ConvertBinary(const Data: string): string;
+function TOposServiceDevice19.ConvertBinary(const Data: WideString): WideString;
 
   // First character = 0x30 + bits 7-4 of the data byte.
   // Second character = 0x30 + bits 3-0 of the data byte.
 
-  function NibbleConversion(const Data: string): string;
+  function NibbleConversion(const Data: WideString): WideString;
   var
     C: Char;
-    Item: string;
-    Text: string;
+    Item: WideString;
+    Text: WideString;
   begin
     Result := '';
     Text := Data;
@@ -407,10 +407,10 @@ function TOposServiceDevice19.ConvertBinary(const Data: string): string;
     until False;
   end;
 
-  function DecimalConversion(const Data: string): string;
+  function DecimalConversion(const Data: WideString): WideString;
   var
-    Item: string;
-    Text: string;
+    Item: WideString;
+    Text: WideString;
   begin
     Result := '';
     Text := Data;
@@ -451,7 +451,7 @@ end;
 
 function TOposServiceDevice19.HandleException(const OPOSError: TOPOSError): Integer;
 var
-  Line: string;
+  Line: WideString;
 begin
   FErrorString := OPOSError.ErrorString;
   FResultCode := OPOSError.ResultCode;

@@ -11,13 +11,13 @@ type
 
   TOPOSDate = class
   private
-    FAsString: string;
+    FAsString: WideString;
     function GetAsDate: TDateTime;
     procedure SetAsDate(const Value: TDateTime);
-    procedure SetAsString(const Value: string);
+    procedure SetAsString(const Value: WideString);
   public
     property AsDate: TDateTime read GetAsDate write SetAsDate;
-    property AsString: string read FAsString write SetAsString;
+    property AsString: WideString read FAsString write SetAsString;
   end;
 
 implementation
@@ -46,7 +46,7 @@ begin
   FAsString := FormatDateTime('ddmmyyyyhhnn', Value);
 end;
 
-procedure TOPOSDate.SetAsString(const Value: string);
+procedure TOPOSDate.SetAsString(const Value: WideString);
 begin
   FAsString := Value;
 end;

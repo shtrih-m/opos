@@ -17,8 +17,8 @@ type
   IParamsReader = interface
     procedure Load(const DeviceName: WideString);
     procedure Save(const DeviceName: WideString);
-    procedure WriteText(const Section, Ident, Value: String);
-    procedure WriteString(const Section, Ident, Value: String);
+    procedure WriteText(const Section, Ident, Value: WideString);
+    procedure WriteString(const Section, Ident, Value: WideString);
     procedure WriteBool(const Section, Ident: WideString; Value: Boolean);
     procedure WriteInteger(const Section, Ident: WideString; Value: Longint);
     function ReadText(const Section, Ident, Default: WideString): WideString;
@@ -34,8 +34,8 @@ type
   public
     procedure Load(const DeviceName: WideString);
     procedure Save(const DeviceName: WideString);
-    procedure WriteText(const Section, Ident, Value: String);
-    procedure WriteString(const Section, Ident, Value: String);
+    procedure WriteText(const Section, Ident, Value: WideString);
+    procedure WriteString(const Section, Ident, Value: WideString);
     procedure WriteBool(const Section, Ident: WideString; Value: Boolean);
     procedure WriteInteger(const Section, Ident: WideString; Value: Longint);
     function ReadText(const Section, Ident, Default: WideString): WideString;

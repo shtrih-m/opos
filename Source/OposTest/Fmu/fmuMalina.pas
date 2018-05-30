@@ -29,7 +29,7 @@ type
   private
     procedure PrintSalesReceipt;
     procedure PrintRefundReceipt;
-    procedure AddLine(const S: string);
+    procedure AddLine(const S: WideString);
     procedure Check(AResultCode: Integer);
     procedure SaveMalinaOperation;
   end;
@@ -43,7 +43,7 @@ implementation
 
 { TfmMalina }
 
-procedure TfmMalina.AddLine(const S: string);
+procedure TfmMalina.AddLine(const S: WideString);
 begin
   Memo.Lines.Add(S);
 end;

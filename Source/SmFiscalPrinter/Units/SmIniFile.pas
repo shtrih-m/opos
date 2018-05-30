@@ -15,8 +15,8 @@ type
 
   TSmIniFile = class(TTntIniFile)
   public
-    procedure WriteText(const Section, Ident, Value: String);
-    function ReadText(const Section, Ident, Default: string): string;
+    procedure WriteText(const Section, Ident, Value: WideString);
+    function ReadText(const Section, Ident, Default: WideString): WideString;
   end;
 
 implementation
@@ -24,12 +24,12 @@ implementation
 { TSmIniFile }
 
 function TSmIniFile.ReadText(const Section, Ident,
-  Default: string): string;
+  Default: WideString): WideString;
 begin
   Result := HexToStr(ReadString(Section, Ident, Default));
 end;
 
-procedure TSmIniFile.WriteText(const Section, Ident, Value: String);
+procedure TSmIniFile.WriteText(const Section, Ident, Value: WideString);
 begin
   WriteString(Section, Ident, StrToHexText(Value));
 end;

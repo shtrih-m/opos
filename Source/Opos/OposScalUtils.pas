@@ -8,13 +8,13 @@ uses
   // Opos
   OposScal, OposScalhi, OposUtils;
 
-function GetScalePropertyName(const ID: Integer): string;
-function GetResultCodeExtendedText(Value: Integer): string;
-function GetScaleStatusUpdateEventText(Value: Integer): string;
+function GetScalePropertyName(const ID: Integer): WideString;
+function GetResultCodeExtendedText(Value: Integer): WideString;
+function GetScaleStatusUpdateEventText(Value: Integer): WideString;
 
 implementation
 
-function GetScalePropertyName(const ID: Integer): string;
+function GetScalePropertyName(const ID: Integer): WideString;
 begin
   case ID of
     PIDXScal_MaximumWeight        : Result := 'PIDXScal_MaximumWeight';
@@ -35,7 +35,7 @@ begin
   end;
 end;
 
-function GetResultCodeExtendedText(Value: Integer): string;
+function GetResultCodeExtendedText(Value: Integer): WideString;
 begin
   case Value of
     OPOS_ESCAL_OVERWEIGHT  : Result := 'OPOS_ESCAL_OVERWEIGHT';
@@ -46,7 +46,7 @@ begin
   end;
 end;
 
-function GetScaleStatusUpdateEventText(Value: Integer): string;
+function GetScaleStatusUpdateEventText(Value: Integer): WideString;
 begin
   case Value of
     // OPOS SCALE

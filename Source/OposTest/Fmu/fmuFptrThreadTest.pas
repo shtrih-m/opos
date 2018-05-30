@@ -42,8 +42,8 @@ type
     FErrorCount: Integer;
     FDrawerTestCount: Integer;
     FPrinterTestCount: Integer;
-    FPrinterDevice: string;
-    FDrawerDevice: string;
+    FPrinterDevice: WideString;
+    FDrawerDevice: WideString;
     FStopOnError: Boolean;
     FThread1: TNotifyThread;
     FThread2: TNotifyThread;
@@ -56,7 +56,7 @@ type
     procedure ThreadProc1(Sender: TObject);
     procedure ThreadProc2(Sender: TObject);
     procedure ThreadTerminated(Sender: TObject);
-    procedure AddMessage(const S: string);
+    procedure AddMessage(const S: WideString);
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -88,7 +88,7 @@ begin
   inherited Destroy;
 end;
 
-procedure TfmFptrThreadTest.AddMessage(const S: string);
+procedure TfmFptrThreadTest.AddMessage(const S: WideString);
 begin
   FLock.Enter;
   try

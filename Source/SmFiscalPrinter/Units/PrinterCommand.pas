@@ -147,7 +147,7 @@ type
     Table: Byte;        // in, Table (1 bytes)
     Row: WORD;          // in, Row (2 bytes)
     Field: Byte;        // in, Field (1 bytes)
-    FieldValue: string; // in, Value (X bytes) up to 40 bytes
+    FieldValue: WideString; // in, Value (X bytes) up to 40 bytes
 
     function GetCode: Byte; override;
     procedure Encode(Data: TBinStream); override;
@@ -162,7 +162,7 @@ type
     Table: Byte;        // in, Table (1 bytes)
     Row: WORD;          // in, Row (2 bytes)
     Field: Byte;        // in, Field (1 bytes)
-    FieldValue: string; // out, Value (X bytes) up to 40 bytes
+    FieldValue: WideString; // out, Value (X bytes) up to 40 bytes
 
     function GetCode: Byte; override;
     procedure Encode(Data: TBinStream); override;
@@ -264,7 +264,7 @@ end;
 
 procedure TLongStatusCommand.Decode(Data: TBinStream);
 var
-  FiscalID: string;
+  FiscalID: WideString;
 begin
   Status.OperatorNumber := Data.ReadByte;
   Status.FirmwareVersionHi := Data.ReadChar;

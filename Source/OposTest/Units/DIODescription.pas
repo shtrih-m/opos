@@ -1,4 +1,3 @@
-
 unit DIODescription;
 
 interface
@@ -13,8 +12,8 @@ uses
 type
   TDirectIODescription = record
     Command: Integer;
-    Description: string;
-    DescriptionEx: string;
+    Description: WideString;
+    DescriptionEx: WideString;
   end;
 
 const

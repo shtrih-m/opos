@@ -66,7 +66,7 @@ by TRegExpr's users (see Gratitude below).
      Gratitudes
 ---------------------------------------------------------------
   Guido Muehlwitz
-    found and fixed ugly bug in big string processing
+    found and fixed ugly bug in big AnsiString processing
   Stephan Klimek
     testing in CPPB and suggesting/implementing many features
   Steve Mudford
@@ -100,14 +100,14 @@ Actually, I am writing non-VCL aplications (with web-based
 interfaces), so I don't need VCL's TRegExpr for myself.
 Will it be really usefull ?
 
--=- working with pascal-style string.
+-=- working with pascal-style AnsiString.
 Now pascal-strings converted into PChar, so
-you can't find r.e. in strings with #0 -chars.
+you can't find r.e. in AnsiStrings with #0 -chars.
 (suggested by Pavel O).
 
 -=- put precalculated lengths into EXACTLY[CI] !
 
--=- fInputString as string (suggested by Ralf Junker)
+-=- fInputString as AnsiString (suggested by Ralf Junker)
 
 -=- Add regstart optimization for case-insensitive mode ?
  Or complitely remove because FirstCharSet is faster ?
@@ -202,7 +202,7 @@ Legend:
 
  v. 0.937 2000.06.12
  -=- (-) Bug in optimization engine (since v.0.934). In some cases
-     TRegExpr didn't catch right strings.
+     TRegExpr didn't catch right AnsiStrings.
      Thanks to Matthias Fichtner
 
  v. 0.936 2000.04.22
@@ -300,7 +300,7 @@ Legend:
      version works slightly different and if you used
      MatchCount in your programms you have to rethink
      it ! (see comments to this property)
- -=- (+) add InputString property - stores input string
+ -=- (+) add InputString property - stores input AnsiString
      from last Exec call. You may directly assign values
      to this property for using in ExecPos method.
  -=- (+) add ExecPos method - for working with assigned
@@ -313,7 +313,7 @@ Legend:
      Note: ExecPos without parameter works only in
      Delphi 4 or higher.
  -=- (+) add ExecNext method - simple and fast (!) way to finding
-     multiple occurences of r.e. in big input string.
+     multiple occurences of r.e. in big input AnsiString.
  -=- (^) Offset parameter removed from Exec method, if you
      used it in your programs, please replace all
         Exec (AString, AOffset)
@@ -322,8 +322,8 @@ Legend:
      Sorry for any inconvenients, but old design
      (see v.0.81) was too ugly :(
      In addition, multiple Exec calls with same input
-     string produce fool overhead because each Exec
-     reallocate input string buffer.
+     AnsiString produce fool overhead because each Exec
+     reallocate input AnsiString buffer.
  -=- (^) optimized implementation of Substitution,
      Replace and Split methods
  -=- (-) fixed minor bug - if r.e. compilation raise error
@@ -341,7 +341,7 @@ Legend:
      and by +1 if MatchLen = 0
      Thanks to Jon Smith and George Tasker for bugreports.
  -=- (-) While playing with null-matchs I discovered, that
-     null-match at tail of input string is never found.
+     null-match at tail of input AnsiString is never found.
      Well, I fixed this, but I am not sure this is safe
      (MatchPos[0]=length(AInputString)+1, MatchLen = 0).
      Any suggetions are very appreciated.
@@ -377,7 +377,7 @@ Legend:
      (Thanks to Jon Buckheit)
 
  v. 0.4 1999.07.20
- -=- Fixed bug with parsing of strings longer then 255 bytes
+ -=- Fixed bug with parsing of AnsiStrings longer then 255 bytes
      (thanks to Guido Muehlwitz)
  -=- Fixed bug in RegMatch - mathes only first occurence of r.e.
      (thanks to Stephan Klimek)
@@ -450,7 +450,7 @@ type
  REChar = WideChar;
  {$ELSE}
  PRegExprChar = PChar;
- RegExprString = string;
+ RegExprString = AnsiString;
  REChar = Char;
  {$ENDIF}
  TREOp = REChar; // internal p-code type //###0.933
@@ -530,8 +530,8 @@ type
     // simple cases.
     regstart : REChar; // char that must begin a match; '\0' if none obvious
     reganch : REChar; // is the match anchored (at beginning-of-line only)?
-    regmust : PRegExprChar; // string (pointer into program) that match must include, or nil
-    regmlen : integer; // length of regmust string
+    regmust : PRegExprChar; // AnsiString (pointer into program) that match must include, or nil
+    regmlen : integer; // length of regmust AnsiString
     // Regstart and reganch permit very fast decisions on suitable starting points
     // for a match, cutting down the work a lot.  Regmust permits fast rejection
     // of lines that cannot possibly match.  The regmust tests are costly enough
@@ -546,8 +546,8 @@ type
 
     // work variables for Exec's routins - save stack in recursion}
     reginput : PRegExprChar; // String-input pointer.
-    fInputStart : PRegExprChar; // Pointer to first char of input string.
-    fInputEnd : PRegExprChar; // Pointer to char AFTER last char of input string
+    fInputStart : PRegExprChar; // Pointer to first char of input AnsiString.
+    fInputEnd : PRegExprChar; // Pointer to char AFTER last char of input AnsiString
 
     // work variables for compiler's routines
     regparse : PRegExprChar;  // Input-scan pointer.
@@ -569,14 +569,14 @@ type
     // have one of the subtle syntax dependencies:  an individual BRANCH (as
     // opposed to a collection of them) is never concatenated with anything
     // because of operator precedence.)  The operand of some types of node is
-    // a literal string; for others, it is a node leading into a sub-FSM.  In
+    // a literal AnsiString; for others, it is a node leading into a sub-FSM.  In
     // particular, the operand of a BRANCH node is the first node of the branch.
     // (NB this is *not* a tree structure:  the tail of the branch connects
     // to the thing following the set of BRANCHes.)  The opcodes are:
     programm : PRegExprChar; // Unwarranted chumminess with compiler.
 
     fExpression : PRegExprChar; // source of compiled r.e.
-    fInputString : PRegExprChar; // input string
+    fInputString : PRegExprChar; // input AnsiString
 
     fLastError : integer; // see Error, LastError
 
@@ -609,7 +609,7 @@ type
     function GetModifierStr : RegExprString;
     class function ParseModifiersStr (const AModifiers : RegExprString;
       var AModifiersInt : integer) : boolean; //###0.941 class function now
-    // Parse AModifiers string and return true and set AModifiersInt
+    // Parse AModifiers AnsiString and return true and set AModifiersInt
     // if it's in format 'ismxrg-ismxrg'.
     procedure SetModifierStr (const AModifiers : RegExprString);
 
@@ -740,9 +740,9 @@ type
     // , initialized from RegExprModifierG
 
     property ModifierM : boolean index 5 read GetModifier write SetModifier;
-    // Treat string as multiple lines. That is, change `^' and `$' from
-    // matching at only the very start or end of the string to the start
-    // or end of any line anywhere within the string.
+    // Treat AnsiString as multiple lines. That is, change `^' and `$' from
+    // matching at only the very start or end of the AnsiString to the start
+    // or end of any line anywhere within the AnsiString.
     // , initialized from RegExprModifierM
 
     property ModifierX : boolean index 6 read GetModifier write SetModifier;
@@ -750,7 +750,7 @@ type
     // see description in the help. Initialized from RegExprModifierX
 
     function Exec (const AInputString : RegExprString) : boolean;
-    // match a programm against a string AInputString
+    // match a programm against a AnsiString AInputString
     // !!! Exec store AInputString into InputString property
 
     function ExecNext : boolean;
@@ -767,7 +767,7 @@ type
     // (AOffset=1 - first char of InputString)
 
     property InputString : RegExprString read GetInputString write SetInputString;
-    // returns current input string (from last Exec call or last assign
+    // returns current input AnsiString (from last Exec call or last assign
     // to this property).
     // Any assignment to this property clear Match* properties !
 
@@ -807,23 +807,23 @@ type
 
     property MatchPos [Idx : integer] : integer read GetMatchPos;
     // pos of entrance subexpr. #Idx into tested in last Exec*
-    // string. First subexpr. have Idx=1, last - MatchCount,
+    // AnsiString. First subexpr. have Idx=1, last - MatchCount,
     // whole r.e. have Idx=0.
     // Returns -1 if in r.e. no such subexpr. or this subexpr.
-    // not found in input string.
+    // not found in input AnsiString.
 
     property MatchLen [Idx : integer] : integer read GetMatchLen;
     // len of entrance subexpr. #Idx r.e. into tested in last Exec*
-    // string. First subexpr. have Idx=1, last - MatchCount,
+    // AnsiString. First subexpr. have Idx=1, last - MatchCount,
     // whole r.e. have Idx=0.
     // Returns -1 if in r.e. no such subexpr. or this subexpr.
-    // not found in input string.
-    // Remember - MatchLen may be 0 (if r.e. match empty string) !
+    // not found in input AnsiString.
+    // Remember - MatchLen may be 0 (if r.e. match empty AnsiString) !
 
     property Match [Idx : integer] : RegExprString read GetMatch;
     // == copy (InputString, MatchPos [Idx], MatchLen [Idx])
     // Returns '' if in r.e. no such subexpr. or this subexpr.
-    // not found in input string.
+    // not found in input AnsiString.
 
     function LastError : integer;
     // Returns ID of last error, 0 if no errors (unusable if
@@ -881,7 +881,7 @@ const
   // defaul for InvertCase property
 
 function ExecRegExpr (const ARegExpr, AInputStr : RegExprString) : boolean;
-// true if string AInputString match regular expression ARegExpr
+// true if AnsiString AInputString match regular expression ARegExpr
 // ! will raise exeption if syntax errors in ARegExpr
 
 procedure SplitRegExpr (const ARegExpr, AInputStr : RegExprString; APieces : TStrings);
@@ -896,7 +896,7 @@ function QuoteRegExprMetaChars (const AStr : RegExprString) : RegExprString;
 // This function usefull for r.e. autogeneration from
 // user input
 
-function RegExprSubExpressions (const ARegExpr : string;
+function RegExprSubExpressions (const ARegExpr : AnsiString;
  ASubExprs : TStrings; AExtendedSyntax : boolean{$IFDEF D4_}= False{$ENDIF}) : integer;
 // Makes list of subexpressions found in ARegExpr r.e.
 // In ASubExps every item represent subexpression,
@@ -1078,7 +1078,7 @@ function QuoteRegExprMetaChars (const AStr : RegExprString) : RegExprString;
  end; { of function QuoteRegExprMetaChars
 --------------------------------------------------------------}
 
-function RegExprSubExpressions (const ARegExpr : string;
+function RegExprSubExpressions (const ARegExpr : AnsiString;
  ASubExprs : TStrings; AExtendedSyntax : boolean{$IFDEF D4_}= False{$ENDIF}) : integer;
  var
   Len, SubExprLen : integer;
@@ -1203,12 +1203,12 @@ const
  BOL         = TREOp (1);  // -    Match '' at beginning of line
  EOL         = TREOp (2);  // -    Match '' at end of line
  ANY         = TREOp (3);  // -    Match any one character
- ANYOF       = TREOp (4);  // Str  Match any character in string Str
- ANYBUT      = TREOp (5);  // Str  Match any char. not in string Str
+ ANYOF       = TREOp (4);  // Str  Match any character in AnsiString Str
+ ANYBUT      = TREOp (5);  // Str  Match any char. not in AnsiString Str
  BRANCH      = TREOp (6);  // Node Match this alternative, or the next
  BACK        = TREOp (7);  // -    Jump backward (Next < 0)
- EXACTLY     = TREOp (8);  // Str  Match string Str
- NOTHING     = TREOp (9);  // -    Match empty string
+ EXACTLY     = TREOp (8);  // Str  Match AnsiString Str
+ NOTHING     = TREOp (9);  // -    Match empty AnsiString
  STAR        = TREOp (10); // Node Match this (simple) thing 0 or more times
  PLUS        = TREOp (11); // Node Match this (simple) thing 1 or more times
  ANYDIGIT    = TREOp (12); // -    Match any digit (equiv [0-9])
@@ -1220,9 +1220,9 @@ const
  BRACES      = TREOp (18); // Node,Min,Max Match this (simple) thing from Min to Max times.
                            //      Min and Max are TREBracesArg
  COMMENT     = TREOp (19); // -    Comment ;)
- EXACTLYCI   = TREOp (20); // Str  Match string Str case insensitive
- ANYOFCI     = TREOp (21); // Str  Match any character in string Str, case insensitive
- ANYBUTCI    = TREOp (22); // Str  Match any char. not in string Str, case insensitive
+ EXACTLYCI   = TREOp (20); // Str  Match AnsiString Str case insensitive
+ ANYOFCI     = TREOp (21); // Str  Match any character in AnsiString Str, case insensitive
+ ANYBUTCI    = TREOp (22); // Str  Match any char. not in AnsiString Str, case insensitive
  LOOPENTRY   = TREOp (23); // Node Start of loop (Node - LOOP for this loop)
  LOOP        = TREOp (24); // Node,Min,Max,LoopEntryJmp - back jump for LOOPENTRY.
                            //      Min and Max are TREBracesArg
@@ -1784,7 +1784,7 @@ function strcspn (s1 : PRegExprChar; s2 : PRegExprChar) : integer;
 
 const
 // Flags to be passed up and down.
- HASWIDTH =   01; // Known never to match nil string.
+ HASWIDTH =   01; // Known never to match nil AnsiString.
  SIMPLE   =   02; // Simple enough to be STAR/PLUS/BRACES operand.
  SPSTART  =   04; // Starts with * or +.
  WORST    =   0;  // Worst case.
@@ -1901,8 +1901,8 @@ function TRegExpr.CompileRegExpr (exp : PRegExprChar) : boolean;
            then inc (reganch);
 
     // If there's something expensive in the r.e., find the longest
-    // literal string that must appear and make it the regmust.  Resolve
-    // ties in favor of later strings, since the regstart check works
+    // literal AnsiString that must appear and make it the regmust.  Resolve
+    // ties in favor of later AnsiStrings, since the regstart check works
     // with the beginning of the r.e. and avoiding duplication
     // strengthens checking.  Not a strong reason, but sufficient in the
     // absence of others.
@@ -3628,12 +3628,12 @@ function TRegExpr.ExecPrim (AOffset: integer) : boolean;
    end;
   // Check that the start position is not longer than the line
   // If so then exit with nothing found
-  if AOffset > (InputLen + 1) // for matching empty string after last char.
+  if AOffset > (InputLen + 1) // for matching empty AnsiString after last char.
    then EXIT;
 
   StartPtr := fInputString + AOffset - 1;
 
-  // If there is a 'must appear' string, look for it.
+  // If there is a 'must appear' AnsiString, look for it.
   if regmust <> nil then begin
     s := StartPtr;
     REPEAT
@@ -3652,7 +3652,7 @@ function TRegExpr.ExecPrim (AOffset: integer) : boolean;
   fInputStart := fInputString;
 
   // Pointer to end of input stream - for
-  // pascal-style string processing (may include #0)
+  // pascal-style AnsiString processing (may include #0)
   fInputEnd := fInputString + InputLen;
 
   {$IFDEF ComplexBraces}
@@ -3712,7 +3712,7 @@ function TRegExpr.ExecNext : boolean;
 //  if MatchLen [0] = 0
   Offset := endp [0] - fInputString + 1; //###0.929
   if endp [0] = startp [0] //###0.929
-   then inc (Offset); // prevent infinite looping if empty string match r.e.
+   then inc (Offset); // prevent infinite looping if empty AnsiString match r.e.
   Result := ExecPrim (Offset);
  end; { of function TRegExpr.ExecNext
 --------------------------------------------------------------}
@@ -3744,7 +3744,7 @@ procedure TRegExpr.SetInputString (const AInputString : RegExprString);
     endp [i] := nil;
    end;
 
-  // need reallocation of input string buffer ?
+  // need reallocation of input AnsiString buffer ?
   Len := length (AInputString);
   if Assigned (fInputString) and (Length (fInputString) <> Len) then begin
     FreeMem (fInputString);
@@ -3754,7 +3754,7 @@ procedure TRegExpr.SetInputString (const AInputString : RegExprString);
   if not Assigned (fInputString)
    then GetMem (fInputString, (Len + 1) * SizeOf (REChar));
 
-  // copy input string into buffer
+  // copy input AnsiString into buffer
   {$IFDEF UniCode}
   StrPCopy (fInputString, Copy (AInputString, 1, Len)); //###0.927
   {$ELSE}
@@ -3762,7 +3762,7 @@ procedure TRegExpr.SetInputString (const AInputString : RegExprString);
   {$ENDIF}
 
   {
-  fInputString : string;
+  fInputString : AnsiString;
   fInputStart, fInputEnd : PRegExprChar;
 
   SetInputString:
@@ -3867,7 +3867,7 @@ function TRegExpr.Substitute (const ATemplate : RegExprString) : RegExprString;
    APtr := p;
   end;
  begin
-  // Check programm and input string
+  // Check programm and input AnsiString
   if not IsProgrammOk
    then EXIT;
   if not Assigned (fInputString) then begin
@@ -4053,7 +4053,7 @@ function TRegExpr.Dump : RegExprString;
      inc (s, REOpSz + RENextOffSz);
      if (op = ANYOF) or (op = ANYOFCI) or (op = ANYBUT) or (op = ANYBUTCI)
         or (op = EXACTLY) or (op = EXACTLYCI) then begin
-         // Literal string, where present.
+         // Literal AnsiString, where present.
          while s^ <> #0 do begin
            Result := Result + s^;
            inc (s);

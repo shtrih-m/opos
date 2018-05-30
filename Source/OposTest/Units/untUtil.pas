@@ -8,8 +8,8 @@ uses
   // Tnt
   TntStdCtrls, TntRegistry;
 
-procedure SaveFormParams(Form: TForm; const RegKey: string);
-procedure LoadFormParams(Form: TForm; const RegKey: string);
+procedure SaveFormParams(Form: TForm; const RegKey: WideString);
+procedure LoadFormParams(Form: TForm; const RegKey: WideString);
 procedure EnableControlButtons(WinControl: TWinControl; Value: Boolean; var AButton: TTntButton);
 
 implementation
@@ -42,11 +42,11 @@ begin
   end;
 end;
 
-procedure LoadControlParams(const Path: string; Control: TWinControl; Reg: TTntRegistry);
+procedure LoadControlParams(const Path: WideString; Control: TWinControl; Reg: TTntRegistry);
 var
   i: Integer;
   Item: TControl;
-  ValueName: string;
+  ValueName: WideString;
 begin
   for i := 0 to Control.ControlCount-1 do
   begin
@@ -89,12 +89,12 @@ begin
   end;
 end;
 
-procedure SaveControlParams(const Path: string; Control: TWinControl; Reg: TTntRegistry);
+procedure SaveControlParams(const Path: WideString; Control: TWinControl; Reg: TTntRegistry);
 var
   i: Integer;
   EditItem: TTntEdit;
   Item: TComponent;
-  ValueName: string;
+  ValueName: WideString;
 begin
   for i := 0 to Control.ControlCount-1 do
   begin
@@ -126,7 +126,7 @@ begin
 end;
 
 
-procedure LoadFormParams(Form: TForm; const RegKey: string);
+procedure LoadFormParams(Form: TForm; const RegKey: WideString);
 var
   Reg: TTntRegistry;
 begin
@@ -144,7 +144,7 @@ begin
   end;
 end;
 
-procedure SaveFormParams(Form: TForm; const RegKey: string);
+procedure SaveFormParams(Form: TForm; const RegKey: WideString);
 var
   Reg: TTntRegistry;
 begin

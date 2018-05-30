@@ -37,7 +37,7 @@ implementation
 
 procedure TfmFptrReceipt.btnBeginFisclReceiptClick(Sender: TObject);
 var
-  AdditionalHeader: string;
+  AdditionalHeader: WideString;
 begin
   EnableButtons(False);
   try
@@ -57,7 +57,7 @@ end;
 
 procedure TfmFptrReceipt.btnEndFiscalReceiptClick(Sender: TObject);
 var
-  AdditionalTrailer: string;
+  AdditionalTrailer: WideString;
 begin
   EnableButtons(False);
   try

@@ -10,7 +10,7 @@ type
     procedure ClosePort;
     procedure ReleaseDevice;
     procedure ClaimDevice(PortNumber, Timeout: Integer);
-    function Send(Timeout: Integer; const Data: string): string;
+    function Send(Timeout: Integer; const Data: AnsiString): AnsiString;
     procedure OpenPort(PortNumber, BaudRate, ByteTimeout: Integer);
   end;
 

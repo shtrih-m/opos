@@ -34,8 +34,8 @@ type
     procedure Load(const FileName: WideString);
   end;
 
-procedure LoadModels(AModels: TPrinterModels; const FileName: string; Logger: ILogFile);
-procedure SaveModels(AModels: TPrinterModels; const FileName: string; Logger: ILogFile);
+procedure LoadModels(AModels: TPrinterModels; const FileName: WideString; Logger: ILogFile);
+procedure SaveModels(AModels: TPrinterModels; const FileName: WideString; Logger: ILogFile);
 
 implementation
 
@@ -53,7 +53,7 @@ begin
   Result := AnsiCompareText(S1, S2) = 0;
 end;
 
-procedure LoadModels(AModels: TPrinterModels; const FileName: string; Logger: ILogFile);
+procedure LoadModels(AModels: TPrinterModels; const FileName: WideString; Logger: ILogFile);
 var
   Reader: TXmlModelReader;
 begin
@@ -67,7 +67,7 @@ begin
   Reader.Free;
 end;
 
-procedure SaveModels(AModels: TPrinterModels; const FileName: string; Logger: ILogFile);
+procedure SaveModels(AModels: TPrinterModels; const FileName: WideString; Logger: ILogFile);
 var
   Writer: TXmlModelReader;
 begin

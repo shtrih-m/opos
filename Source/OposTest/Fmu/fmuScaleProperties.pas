@@ -20,20 +20,20 @@ type
     procedure btnRefreshClick(Sender: TObject);
   private
     procedure UpdateForm;
-    function GetPropVal(const PropertyName: WideString): string;
+    function GetPropVal(const PropertyName: WideString): WideString;
   end;
 
 implementation
 
 {$R *.DFM}
 
-function BoolToStr(Value: Boolean): string;
+function BoolToStr(Value: Boolean): WideString;
 begin
   if Value then Result := '[X]'
   else Result := '[ ]';
 end;
 
-function TfmScaleProperties.GetPropVal(const PropertyName: WideString): string;
+function TfmScaleProperties.GetPropVal(const PropertyName: WideString): WideString;
 var
   Value: Variant;
   Intf: IDispatch;
@@ -60,7 +60,7 @@ end;
 
 procedure TfmScaleProperties.UpdateForm;
 var
-  S: string;
+  S: WideString;
   i: Integer;
   TypeAttr: PTypeAttr;
   Dispatch: IDispatch;

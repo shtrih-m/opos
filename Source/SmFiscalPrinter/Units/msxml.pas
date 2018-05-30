@@ -1744,7 +1744,7 @@ type
 // *********************************************************************//
   CoDOMDocument = class
     class function Create: IXMLDOMDocument;
-    class function CreateRemote(const MachineName: string): IXMLDOMDocument;
+    class function CreateRemote(const MachineName: AnsiString): IXMLDOMDocument;
   end;
 
 // *********************************************************************//
@@ -1756,7 +1756,7 @@ type
 // *********************************************************************//
   CoDOMFreeThreadedDocument = class
     class function Create: IXMLDOMDocument;
-    class function CreateRemote(const MachineName: string): IXMLDOMDocument;
+    class function CreateRemote(const MachineName: AnsiString): IXMLDOMDocument;
   end;
 
 // *********************************************************************//
@@ -1768,7 +1768,7 @@ type
 // *********************************************************************//
   CoXMLHTTPRequest = class
     class function Create: IXMLHttpRequest;
-    class function CreateRemote(const MachineName: string): IXMLHttpRequest;
+    class function CreateRemote(const MachineName: AnsiString): IXMLHttpRequest;
   end;
 
 // *********************************************************************//
@@ -1780,7 +1780,7 @@ type
 // *********************************************************************//
   CoXMLDSOControl = class
     class function Create: IXMLDSOControl;
-    class function CreateRemote(const MachineName: string): IXMLDSOControl;
+    class function CreateRemote(const MachineName: AnsiString): IXMLDSOControl;
   end;
 
 // *********************************************************************//
@@ -1792,7 +1792,7 @@ type
 // *********************************************************************//
   CoXMLDocument = class
     class function Create: IXMLDocument2;
-    class function CreateRemote(const MachineName: string): IXMLDocument2;
+    class function CreateRemote(const MachineName: AnsiString): IXMLDocument2;
   end;
 
 implementation
@@ -1804,7 +1804,7 @@ begin
   Result := CreateComObject(CLASS_DOMDocument) as IXMLDOMDocument;
 end;
 
-class function CoDOMDocument.CreateRemote(const MachineName: string): IXMLDOMDocument;
+class function CoDOMDocument.CreateRemote(const MachineName: AnsiString): IXMLDOMDocument;
 begin
   Result := CreateRemoteComObject(MachineName, CLASS_DOMDocument) as IXMLDOMDocument;
 end;
@@ -1814,7 +1814,7 @@ begin
   Result := CreateComObject(CLASS_DOMFreeThreadedDocument) as IXMLDOMDocument;
 end;
 
-class function CoDOMFreeThreadedDocument.CreateRemote(const MachineName: string): IXMLDOMDocument;
+class function CoDOMFreeThreadedDocument.CreateRemote(const MachineName: AnsiString): IXMLDOMDocument;
 begin
   Result := CreateRemoteComObject(MachineName, CLASS_DOMFreeThreadedDocument) as IXMLDOMDocument;
 end;
@@ -1824,7 +1824,7 @@ begin
   Result := CreateComObject(CLASS_XMLHTTPRequest) as IXMLHttpRequest;
 end;
 
-class function CoXMLHTTPRequest.CreateRemote(const MachineName: string): IXMLHttpRequest;
+class function CoXMLHTTPRequest.CreateRemote(const MachineName: AnsiString): IXMLHttpRequest;
 begin
   Result := CreateRemoteComObject(MachineName, CLASS_XMLHTTPRequest) as IXMLHttpRequest;
 end;
@@ -1834,7 +1834,7 @@ begin
   Result := CreateComObject(CLASS_XMLDSOControl) as IXMLDSOControl;
 end;
 
-class function CoXMLDSOControl.CreateRemote(const MachineName: string): IXMLDSOControl;
+class function CoXMLDSOControl.CreateRemote(const MachineName: AnsiString): IXMLDSOControl;
 begin
   Result := CreateRemoteComObject(MachineName, CLASS_XMLDSOControl) as IXMLDSOControl;
 end;
@@ -1844,7 +1844,7 @@ begin
   Result := CreateComObject(CLASS_XMLDocument) as IXMLDocument2;
 end;
 
-class function CoXMLDocument.CreateRemote(const MachineName: string): IXMLDocument2;
+class function CoXMLDocument.CreateRemote(const MachineName: AnsiString): IXMLDocument2;
 begin
   Result := CreateRemoteComObject(MachineName, CLASS_XMLDocument) as IXMLDocument2;
 end;

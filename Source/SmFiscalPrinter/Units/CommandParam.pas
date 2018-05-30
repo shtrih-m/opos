@@ -47,14 +47,14 @@ type
     FRowNumber: Integer;
     FFieldNumber: Integer;
 
-    function GetAsXml: string;
+    function GetAsXml: WideString;
     function GetCount: Integer;
-    procedure SetAsXml(const Xml: string);
+    procedure SetAsXml(const Xml: WideString);
     procedure InsertItem(AItem: TCommandParam);
     procedure RemoveItem(AItem: TCommandParam);
     function GetItem(Index: Integer): TCommandParam;
-    function GetAsText: string;
-    procedure SetAsText(const Value: string);
+    function GetAsText: WideString;
+    procedure SetAsText(const Value: WideString);
     procedure ReadItem(Item: TCommandParam; Data: TBinStream);
     procedure WriteItem(Item: TCommandParam; Data: TBinStream);
   public
@@ -64,16 +64,16 @@ type
     procedure Clear;
     procedure ClearValue;
     function Add: TCommandParam;
-    function GetText(Index: Integer): string;
+    function GetText(Index: Integer): WideString;
     procedure Read(Stream: TBinStream);
     procedure Write(Stream: TBinStream);
-    function FindItem(const Name: string): TCommandParam;
-    function ItemByName(const Name: string): TCommandParam;
+    function FindItem(const Name: WideString): TCommandParam;
+    function ItemByName(const Name: WideString): TCommandParam;
     function ItemByType(ParamType: Integer): TCommandParam;
 
     property Count: Integer read GetCount;
-    property AsXml: string read GetAsXml write SetAsXml;
-    property AsText: string read GetAsText write SetAsText;
+    property AsXml: WideString read GetAsXml write SetAsXml;
+    property AsText: WideString read GetAsText write SetAsText;
     property Items[Index: Integer]: TCommandParam read GetItem; default;
 
     property Password: Integer read FPassword;
@@ -88,14 +88,14 @@ type
 
   TCommandParam = class
   private
-    FText: string;
-    FName: string;
+    FText: WideString;
+    FName: WideString;
     FOwner: TCommandParams;
     FSize: Integer;
     FParamType: Integer;
     FMinValue: Integer;
     FMaxValue: Integer;
-    FValue: string;
+    FValue: WideString;
 
     procedure SetOwner(AOwner: TCommandParams);
   public
@@ -103,10 +103,10 @@ type
     destructor Destroy; override;
     function IsLastItem: Boolean;
 
-    property Text: string read FText write FText;
-    property Name: string read FName write FName;
+    property Text: WideString read FText write FText;
+    property Name: WideString read FName write FName;
     property Size: Integer read FSize write FSize;
-    property Value: string read FValue write FValue;
+    property Value: WideString read FValue write FValue;
     property MinValue: Integer read FMinValue write FMinValue;
     property MaxValue: Integer read FMaxValue write FMaxValue;
     property ParamType: Integer read FParamType write FParamType;
@@ -135,7 +135,7 @@ begin
   end;
 end;
 
-function StrToHex(const S: string): string;
+function StrToHex(const S: WideString): WideString;
 var
   i: Integer;
 begin
@@ -193,7 +193,7 @@ begin
   Result := TCommandParam.Create(Self);
 end;
 
-function TCommandParams.FindItem(const Name: string): TCommandParam;
+function TCommandParams.FindItem(const Name: WideString): TCommandParam;
 var
   i: Integer;
 begin
@@ -205,7 +205,7 @@ begin
   Result := nil;
 end;
 
-function TCommandParams.ItemByName(const Name: string): TCommandParam;
+function TCommandParams.ItemByName(const Name: WideString): TCommandParam;
 begin
   Result := FindItem(Name);
   if Result = nil then
@@ -224,7 +224,7 @@ begin
   Result := nil;
 end;
 
-function TCommandParams.GetAsXml: string;
+function TCommandParams.GetAsXml: WideString;
 var
   i: Integer;
   Node: TXmlItem;
@@ -247,14 +247,14 @@ begin
   end;
 end;
 
-procedure TCommandParams.SetAsXml(const Xml: string);
+procedure TCommandParams.SetAsXml(const Xml: WideString);
 var
   i: Integer;
   Node: TXmlItem;
   Root: TXmlItem;
   Parser: TXmlParser;
-  ParamName: string;
-  ParamValue: string;
+  ParamName: WideString;
+  ParamValue: WideString;
   Param: TCommandParam;
 begin
   Parser := TXmlParser.Create;
@@ -291,12 +291,12 @@ end;
 
 procedure TCommandParams.ReadItem(Item: TCommandParam; Data: TBinStream);
 
-  function PrinterDateToStr(Date: TPrinterDate): string;
+  function PrinterDateToStr(Date: TPrinterDate): WideString;
   begin
     Result := Tnt_WideFormat('%.2d.%.2d.%.2d', [Date.Day, Date.Month, Date.Year]);
   end;
 
-  function PrinterTimeToStr(Value: TPrinterTime): string;
+  function PrinterTimeToStr(Value: TPrinterTime): WideString;
   begin
     Result := Tnt_WideFormat('%.2d:%.2d:%.2d', [Value.Hour, Value.Min, Value.Sec]);
   end;
@@ -311,7 +311,7 @@ procedure TCommandParams.ReadItem(Item: TCommandParam; Data: TBinStream);
   end;
 
 var
-  S: string;
+  S: WideString;
 begin
   case Item.ParamType of
     PARAM_TYPE_INT: Item.Value := IntToStr(Data.ReadInt(Item.Size));
@@ -397,14 +397,14 @@ end;
 
 procedure TCommandParams.WriteItem(Item: TCommandParam; Data: TBinStream);
 
-  function StrToPrinterDate(const Value: string): TPrinterDate;
+  function StrToPrinterDate(const Value: WideString): TPrinterDate;
   begin
     Result.Day := StrToInt(GetStringK(Value, 1, ['.']));
     Result.Month := StrToInt(GetStringK(Value, 2, ['.']));
     Result.Year := StrToInt(GetStringK(Value, 3, ['.']));
   end;
 
-  function StrToPrinterTime(const Value: string): TPrinterTime;
+  function StrToPrinterTime(const Value: WideString): TPrinterTime;
   begin
     Result.Hour := StrToInt(GetStringK(Value, 1, [':']));
     Result.Min := StrToInt(GetStringK(Value, 2, [':']));
@@ -412,7 +412,7 @@ procedure TCommandParams.WriteItem(Item: TCommandParam; Data: TBinStream);
   end;
 
 var
-  S: string;
+  S: WideString;
   I: Integer;
 begin
   case Item.ParamType of
@@ -480,7 +480,7 @@ begin
     WriteItem(Items[i], Stream);
 end;
 
-function TCommandParams.GetText(Index: Integer): string;
+function TCommandParams.GetText(Index: Integer): WideString;
 var
   i: Integer;
 begin
@@ -492,7 +492,7 @@ begin
   end;
 end;
 
-function TCommandParams.GetAsText: string;
+function TCommandParams.GetAsText: WideString;
 var
   i: Integer;
 begin
@@ -504,7 +504,7 @@ begin
   end;
 end;
 
-procedure TCommandParams.SetAsText(const Value: string);
+procedure TCommandParams.SetAsText(const Value: WideString);
 var
   i: Integer;
 begin

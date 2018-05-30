@@ -18,9 +18,9 @@ type
   private
     procedure CheckStatus(Printer: IFiscalPrinterDevice);
   public
-    class function DecodeDateLine(Line: string): string;
-    function ReadEJSesssionDate(Printer: IFiscalPrinterDevice; SesssionNumber: Word): string;
-    function ReadEJSesssionResult(Printer: IFiscalPrinterDevice; SesssionNumber: Word): string;
+    class function DecodeDateLine(Line: WideString): WideString;
+    function ReadEJSesssionDate(Printer: IFiscalPrinterDevice; SesssionNumber: Word): WideString;
+    function ReadEJSesssionResult(Printer: IFiscalPrinterDevice; SesssionNumber: Word): WideString;
   end;
 
 implementation
@@ -36,10 +36,10 @@ begin
     Printer.Check(Printer.EJReportStop);
 end;
 
-class function TElectronicJournal.DecodeDateLine(Line: string): string;
+class function TElectronicJournal.DecodeDateLine(Line: WideString): WideString;
 var
   R: TRegExpr;
-  S: string;
+  S: WideString;
   OposDate: TOposDate;
 begin
   Result := '';
@@ -73,9 +73,9 @@ end;
 
 function TElectronicJournal.ReadEJSesssionDate(
   Printer: IFiscalPrinterDevice;
-  SesssionNumber: Word): string;
+  SesssionNumber: Word): WideString;
 var
-  Line: string;
+  Line: WideString;
   AResult: Integer;
   LineCount: Integer;
 const
@@ -111,9 +111,9 @@ end;
 
 function TElectronicJournal.ReadEJSesssionResult(
   Printer: IFiscalPrinterDevice;
-  SesssionNumber: Word): string;
+  SesssionNumber: Word): WideString;
 var
-  Line: string;
+  Line: WideString;
   AResult: Integer;
 begin
   Result := '';

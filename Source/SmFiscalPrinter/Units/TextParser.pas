@@ -35,28 +35,28 @@ type
   public
     constructor Create(AOwner: TParserFields);
     destructor Destroy; override;
-    function Parse(const C: char): Boolean; virtual; abstract;
+    function Parse(const C: Char): Boolean; virtual; abstract;
   end;
 
   { TIntegerParserField }
 
   TIntegerParserField = class(TParserField)
   private
-    FText: string;
     FValue: Integer;
+    FText: AnsiString;
   public
-    function Parse(const C: char): Boolean; override;
+    function Parse(const C: Char): Boolean; override;
 
-    property Text: string read FText;
+    property Text: AnsiString read FText;
     property Value: Integer read FValue;
   end;
 
   TTextParserField = class(TParserField)
   private
-    FText: string;
+    FText: AnsiString;
   public
-    function Parse(const C: char): Boolean; override;
-    property Text: string read FText;
+    function Parse(const C: Char): Boolean; override;
+    property Text: AnsiString read FText;
   end;
 
   { TChars }
@@ -71,7 +71,7 @@ type
     FValues: TChars;
   public
     constructor Create(AOwner: TParserFields; AValues: TChars);
-    function Parse(const C: char): Boolean; override;
+    function Parse(const C: Char): Boolean; override;
 
     property Value: Char read FValue;
     property Values: TChars read FValues write FValues;
@@ -86,7 +86,7 @@ type
     constructor Create;
     destructor Destroy; override;
 
-    procedure Parse(const Text: string);
+    procedure Parse(const Text: AnsiString);
     procedure AddField(Field: TParserField);
     property Fields: TParserFields read FFields;
   end;
@@ -160,9 +160,9 @@ end;
 
 { TIntegerParserField }
 
-function TIntegerParserField.Parse(const C: char): Boolean;
+function TIntegerParserField.Parse(const C: Char): Boolean;
 begin
-  Result := C in ['0'..'9'];
+  Result := Char(C) in ['0'..'9'];
   if Result then
   begin
     FText := FText + C;
@@ -172,7 +172,7 @@ end;
 
 { TTextParserField }
 
-function TTextParserField.Parse(const C: char): Boolean;
+function TTextParserField.Parse(const C: Char): Boolean;
 begin
   Result := True;
   FText := FText + C;
@@ -186,9 +186,9 @@ begin
   FValues := AValues;
 end;
 
-function TCharParserField.Parse(const C: char): Boolean;
+function TCharParserField.Parse(const C: Char): Boolean;
 begin
-  Result := C in FValues;
+  Result := Char(C) in FValues;
   if Result then
     FValue := C;
 end;
@@ -212,7 +212,7 @@ begin
   FFields.InsertItem(Field);
 end;
 
-procedure TTextParser.Parse(const Text: string);
+procedure TTextParser.Parse(const Text: AnsiString);
 var
   i, Index: Integer;
 begin

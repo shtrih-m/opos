@@ -16,15 +16,15 @@ type
   private
     FLines: TTntStrings;
     FCaptionLen: Integer;
-    function GetText: string;
+    function GetText: WideString;
   public
     constructor Create(CaptionLen: Integer);
     destructor Destroy; override;
 
     procedure Clear;
-    procedure Add(const Caption: string; Value: Variant);
+    procedure Add(const Caption: WideString; Value: Variant);
 
-    property Text: string read GetText;
+    property Text: WideString read GetText;
     property Lines: TTntStrings read FLines;
   end;
 
@@ -50,12 +50,12 @@ begin
   FLines.Clear;
 end;
 
-function TTextReport.GetText: string;
+function TTextReport.GetText: WideString;
 begin
   Result := FLines.Text;
 end;
 
-procedure TTextReport.Add(const Caption: string; Value: Variant);
+procedure TTextReport.Add(const Caption: WideString; Value: Variant);
 begin
   Lines.Add(Format('%-*s : %s', [FCaptionLen, Caption, VarToStr(Value)]));
 end;

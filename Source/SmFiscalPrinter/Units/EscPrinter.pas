@@ -50,18 +50,18 @@ type
 
   TStringStream = class
   private
-    FData: string;
+    FData: AnsiString;
     FPosition: Integer;
     procedure CheckEOF;
   public
     function EOF: Boolean;
     function ReadByte: Byte;
     function ReadChar: Char;
-    procedure Write(const AData: string);
-    function ReadData(EndFlag: Char): string;
-    function ReadString(Len: Integer): string;
+    procedure Write(const AData: AnsiString);
+    function ReadData(EndFlag: Char): AnsiString;
+    function ReadString(Len: Integer): AnsiString;
 
-    property Data: string read FData;
+    property Data: AnsiString read FData;
     property Position: Integer read FPosition;
   end;
 
@@ -69,7 +69,7 @@ type
 
   TEscBarcode = class
   private
-    FData: string;
+    FData: AnsiString;
     FHeight: Integer;
     FFontType: Integer;
     FLineWidth: Integer;
@@ -87,7 +87,7 @@ type
     constructor Create(APrinter: ISharedPrinter);
     procedure Print;
 
-    property Data: string read FData write FData;
+    property Data: AnsiString read FData write FData;
     property Printer: ISharedPrinter read FPrinter;
     property Height: Integer read FHeight write SetHeight;
     property FontType: Integer read FFontType write SetFontType;
@@ -124,7 +124,7 @@ type
 
 implementation
 
-procedure RaiseError(const Msg: string);
+procedure RaiseError(const Msg: AnsiString);
 begin
   raise EscPrinterError.Create(Msg);
 end;
@@ -134,12 +134,12 @@ begin
   raiseError(_('Команда не поддерживается'));
 end;
 
-function ValidLength(const Data: string; MinLength: Integer): Boolean;
+function ValidLength(const Data: AnsiString; MinLength: Integer): Boolean;
 begin
 	Result := Length(Data) >= MinLength;
 end;
 
-procedure CheckLength(const Data: string; MinLength: Integer);
+procedure CheckLength(const Data: AnsiString; MinLength: Integer);
 begin
 	if not ValidLength(Data, MinLength) then
     raiseError(_('Неверная длина команды'));
@@ -186,7 +186,7 @@ end;
 procedure TEscPrinter.Decode1B;
 var
   Code2: Integer;
-  FileName: string;
+  FileName: AnsiString;
 begin
   if FStream.EOF then Exit;
   Code2 := FStream.ReadByte;
@@ -357,7 +357,7 @@ begin
     raiseException('TStringStream.CheckEOF');
 end;
 
-function TStringStream.ReadData(EndFlag: Char): string;
+function TStringStream.ReadData(EndFlag: Char): AnsiString;
 var
   C: Char;
 begin
@@ -384,13 +384,13 @@ begin
   Inc(FPosition);
 end;
 
-procedure TStringStream.Write(const AData: string);
+procedure TStringStream.Write(const AData: AnsiString);
 begin
   FData := AData;
   FPosition := 1;
 end;
 
-function TStringStream.ReadString(Len: Integer): string;
+function TStringStream.ReadString(Len: Integer): AnsiString;
 begin
   CheckEOF;
   Result := '';

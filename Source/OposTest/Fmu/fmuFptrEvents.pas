@@ -26,14 +26,14 @@ type
       ResultCodeExtended: Integer; ErrorLocus: Integer; var pErrorResponse: Integer);
     procedure OutputCompleteEvent(Sender: TObject; OutputID: Integer);
     procedure StatusUpdateEvent(Sender: TObject; Data: Integer);
-    procedure Addline(const S: string);
+    procedure Addline(const S: WideString);
   end;
 
 implementation
 
 {$R *.DFM}
 
-function GetTimeStamp: string;
+function GetTimeStamp: WideString;
 var
   Year, Month, Day: Word;
   Hour, Min, Sec, MSec: Word;
@@ -52,7 +52,7 @@ end;
 
 // IOPOSFiscalPrinterEvents
 
-procedure TfmFptrEvents.Addline(const S: string);
+procedure TfmFptrEvents.Addline(const S: WideString);
 begin
   memEvents.Lines.Add(S);
 end;
@@ -68,7 +68,7 @@ end;
 procedure TfmFptrEvents.DirectIOEvent(Sender: TObject; EventNumber: Integer;
   var pData: Integer; var pString: WideString);
 var
-  S: string;
+  S: WideString;
 begin
   S := Tnt_WideFormat('%s DirectIOEvent(%d, %d, %s)', [GetTimeStamp, EventNumber, pData, pString]);
   AddLine(S);
@@ -77,7 +77,7 @@ end;
 procedure TfmFptrEvents.ErrorEvent(Sender: TObject; ResultCode,
   ResultCodeExtended, ErrorLocus: Integer; var pErrorResponse: Integer);
 var
-  S: string;
+  S: WideString;
 begin
   S := Tnt_WideFormat('%s ErrorEvent: %s, %s, %s, %s)', [
     GetTimeStamp,
@@ -91,7 +91,7 @@ end;
 procedure TfmFptrEvents.OutputCompleteEvent(Sender: TObject;
   OutputID: Integer);
 var
-  S: string;
+  S: WideString;
 begin
   S := Tnt_WideFormat('%s OutputCompleteEvent(%d)', [GetTimeStamp, OutputID]);
   AddLine(S);
@@ -99,7 +99,7 @@ end;
 
 procedure TfmFptrEvents.StatusUpdateEvent(Sender: TObject; Data: Integer);
 var
-  S: string;
+  S: WideString;
 begin
   S := Tnt_WideFormat('%s StatusUpdateEvent(%s)', [
     GetTimeStamp, GetStatusUpdateEventText(Data)]);

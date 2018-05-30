@@ -17,13 +17,13 @@ type
     FClaimed: Boolean;
 
     procedure Close;
-    procedure Open(const AName: string);
+    procedure Open(const AName: WideString);
     function WaitFor(Timeout: Integer): Integer;
   public
     destructor Destroy; override;
 
     procedure Release;
-    procedure Claim(const Name: string; Timeout: Integer);
+    procedure Claim(const Name: WideString; Timeout: Integer);
   end;
 
 implementation
@@ -49,16 +49,16 @@ begin
   end;
 end;
 
-procedure TOposSemaphore.Open(const AName: string);
+procedure TOposSemaphore.Open(const AName: WideString);
 begin
   if FHandle = 0 then
   begin
-    FHandle := CreateSemaphore(nil, 1, 1, PChar(AName));
+    FHandle := CreateSemaphoreW(nil, 1, 1, PWideChar(AName));
     if FHandle = 0 then
     begin
       if GetLastError = ERROR_ALREADY_EXISTS then
       begin
-        FHandle := OpenSemaphore(SEMAPHORE_MODIFY_STATE, False, PChar(AName));
+        FHandle := OpenSemaphoreW(SEMAPHORE_MODIFY_STATE, False, PWideChar(AName));
         if FHandle = 0 then
           RaiseLastOsError;
       end;
@@ -80,7 +80,7 @@ begin
   end;
 end;
 
-procedure TOposSemaphore.Claim(const Name: string; Timeout: Integer);
+procedure TOposSemaphore.Claim(const Name: WideString; Timeout: Integer);
 begin
   if FClaimed then Exit;
 

@@ -22,19 +22,19 @@ type
     function GetItem(Index: Integer): TCommandDef;
     procedure InsertItem(AItem: TCommandDef);
     procedure RemoveItem(AItem: TCommandDef);
-    procedure DoSaveToFile(const FileName: string);
-    procedure DoLoadFromFile(const FileName: string);
+    procedure DoSaveToFile(const FileName: WideString);
+    procedure DoLoadFromFile(const FileName: WideString);
   public
     constructor Create(ALogger: ILogFile);
     destructor Destroy; override;
 
     procedure Clear;
     function Add: TCommandDef; overload;
-    procedure SaveToFile(const FileName: string); virtual;
-    procedure LoadFromFile(const FileName: string); virtual;
+    procedure SaveToFile(const FileName: WideString); virtual;
+    procedure LoadFromFile(const FileName: WideString); virtual;
     function ItemByCode(Code: Integer): TCommandDef;
-    function Add(Code: Integer; const Name: string): TCommandDef; overload;
-    function AddParam(Params: TCommandParams; const ParamName: string;
+    function Add(Code: Integer; const Name: WideString): TCommandDef; overload;
+    function AddParam(Params: TCommandParams; const ParamName: WideString;
       ParamSize: Integer; ParamType: Integer): TCommandParam;
 
     property Logger: ILogFile read FLogger;
@@ -47,8 +47,8 @@ type
   TCommandDef = class
   private
     FCode: Integer;
-    FText: string;
-    FName: string;
+    FText: WideString;
+    FName: WideString;
     FOwner: TCommandDefs;
     FInParams: TCommandParams;
     FOutParams: TCommandParams;
@@ -67,8 +67,8 @@ type
     property InParams: TCommandParams read FInParams;
     property OutParams: TCommandParams read FOutParams;
 
-    property Text: string read FText write FText;
-    property Name: string read FName write FName;
+    property Text: WideString read FText write FText;
+    property Name: WideString read FName write FName;
     property Code: Integer read FCode write FCode;
   end;
 
@@ -122,14 +122,14 @@ begin
   Result := TCommandDef.Create(Self);
 end;
 
-function TCommandDefs.Add(Code: Integer; const Name: string): TCommandDef;
+function TCommandDefs.Add(Code: Integer; const Name: WideString): TCommandDef;
 begin
   Result := Add;
   Result.Code := Code;
   Result.Name := Name;
 end;
 
-function TCommandDefs.AddParam(Params: TCommandParams; const ParamName: string;
+function TCommandDefs.AddParam(Params: TCommandParams; const ParamName: WideString;
   ParamSize: Integer; ParamType: Integer): TCommandParam;
 begin
   Result := Params.Add;
@@ -151,7 +151,7 @@ begin
   raiseException(_('Неверный код команды'));
 end;
 
-procedure TCommandDefs.DoLoadFromFile(const FileName: string);
+procedure TCommandDefs.DoLoadFromFile(const FileName: WideString);
 var
   i: Integer;
   Parser: TXmlParser;
@@ -180,7 +180,7 @@ begin
   end;
 end;
 
-procedure TCommandDefs.DoSaveToFile(const FileName: string);
+procedure TCommandDefs.DoSaveToFile(const FileName: WideString);
 var
   i: Integer;
   Item: TXmlItem;
@@ -201,7 +201,7 @@ begin
   end;
 end;
 
-procedure TCommandDefs.SaveToFile(const FileName: string);
+procedure TCommandDefs.SaveToFile(const FileName: WideString);
 begin
   try
     DoSaveToFile(FileName);
@@ -211,7 +211,7 @@ begin
   end;
 end;
 
-procedure TCommandDefs.LoadFromFile(const FileName: string);
+procedure TCommandDefs.LoadFromFile(const FileName: WideString);
 begin
   try
     DoLoadFromFile(FileName);
