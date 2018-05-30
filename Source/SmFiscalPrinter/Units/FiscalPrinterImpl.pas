@@ -125,8 +125,7 @@ type
     function GetDayNumber(const ParamValue, ParamName: WideString): Integer;
     function ReadCashRegister(ID: Byte): Int64;
     function CreateReceipt(FiscalReceiptType: Integer): TCustomReceipt;
-    function CreateSalesReceipt: TCustomReceipt;
-    function CreateRefundReceipt: TCustomReceipt;
+    function CreateSalesReceipt(RecType: Integer): TCustomReceipt;
     function CreateCorrectionReceipt(RecType: Integer): TCustomReceipt;
     function CreateCorrectionReceipt2(RecType: Integer): TCustomReceipt;
     function GetEventInterface(FDispatch: IDispatch): IOposEvents;
@@ -2115,10 +2114,10 @@ begin
     FPTR_RT_GENERIC,
     FPTR_RT_SERVICE,
     FPTR_RT_SIMPLE_INVOICE:
-      Result := CreateSalesReceipt;
+      Result := CreateSalesReceipt(RecTypeSale);
 
     FPTR_RT_REFUND:
-      Result := CreateRefundReceipt;
+      Result := CreateSalesReceipt(RecTypeRetSale);
 
     FPTR_RT_CORRECTION_SALE:
       Result := CreateCorrectionReceipt(1);
@@ -2130,8 +2129,19 @@ begin
       Result := CreateCorrectionReceipt2(1);
 
     FPTR_RT_CORRECTION2_BUY:
-      Result := CreateCorrectionReceipt2(1);
+      Result := CreateCorrectionReceipt2(3);
 
+    FPTR_RT_SALES_SALE:
+      Result := CreateSalesReceipt(RecTypeSale);
+
+    FPTR_RT_SALES_RETSALE:
+      Result := CreateSalesReceipt(RecTypeRetSale);
+
+    FPTR_RT_SALES_BUY:
+      Result := CreateSalesReceipt(RecTypeBuy);
+
+    FPTR_RT_SALES_RETBUY:
+      Result := CreateSalesReceipt(RecTypeRetBuy);
   else
     Result := nil;
     InvalidPropertyValue('FiscalReceiptType', IntToStr(FiscalReceiptType));
@@ -2159,7 +2169,7 @@ begin
   end;
 end;
 
-function TFiscalPrinterImpl.CreateSalesReceipt: TCustomReceipt;
+function TFiscalPrinterImpl.CreateSalesReceipt(RecType: Integer): TCustomReceipt;
 var
   Context: TReceiptContext;
 begin
@@ -2170,54 +2180,25 @@ begin
   case Parameters.ReceiptType of
     ReceiptTypeNormal:
     begin
-      Result := CreateNormalSalesReceipt(RecTypeSale);
+      Result := CreateNormalSalesReceipt(RecType);
     end;
     ReceiptTypeSingleSale:
     begin
-      Result := TTextReceipt.CreateReceipt(Context, RecTypeSale);
+      Result := TTextReceipt.CreateReceipt(Context, RecType);
     end;
     ReceiptTypeGlobus:
     begin
-      Result := TGlobusReceipt.CreateReceipt(Context, RecTypeSale);
+      Result := TGlobusReceipt.CreateReceipt(Context, RecType);
     end;
     ReceiptTypeGlobus2:
     begin
-      Result := TGlobusTextReceipt.CreateReceipt(Context, RecTypeSale);
+      Result := TGlobusTextReceipt.CreateReceipt(Context, RecType);
     end;
   else
-    Result := CreateNormalSalesReceipt(RecTypeSale);
+    Result := CreateNormalSalesReceipt(RecType);
   end;
 end;
 
-
-function TFiscalPrinterImpl.CreateRefundReceipt: TCustomReceipt;
-var
-  Context: TReceiptContext;
-begin
-  Context.State := FPrinterState;
-  Context.Printer := FReceiptPrinter;
-  Context.FiscalReceiptStation := FFiscalReceiptStation;
-  case Parameters.ReceiptType of
-    ReceiptTypeNormal:
-    begin
-      Result := CreateNormalSalesReceipt(RecTypeRetSale);
-    end;
-    ReceiptTypeGlobus:
-    begin
-      Result := TGlobusReceipt.CreateReceipt(Context, RecTypeRetSale);
-    end;
-    ReceiptTypeSingleSale:
-    begin
-      Result := TTextReceipt.CreateReceipt(Context, RecTypeRetSale);
-    end;
-    ReceiptTypeGlobus2:
-    begin
-      Result := TGlobusTextReceipt.CreateReceipt(Context, RecTypeRetSale);
-    end;
-  else
-    Result := CreateNormalSalesReceipt(RecTypeRetSale);
-  end;
-end;
 
 function TFiscalPrinterImpl.CreateCorrectionReceipt(RecType: Integer): TCustomReceipt;
 var

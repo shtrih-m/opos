@@ -387,6 +387,16 @@ const
 
   FPTR_RT_CORRECTION2_SALE              =  104;
   FPTR_RT_CORRECTION2_BUY               =  105;
+  FPTR_RT_CORRECTION2_RETSALE           =  106;
+  FPTR_RT_CORRECTION2_RETBUY            =  107;
+
+  /////////////////////////////////////////////////////////////////////////////
+  // FPTR_RT_SALES receipt type
+
+  FPTR_RT_SALES_SALE                    =  108;
+  FPTR_RT_SALES_RETSALE                 =  109;
+  FPTR_RT_SALES_BUY                     =  110;
+  FPTR_RT_SALES_RETBUY                  =  111;
 
 implementation
 

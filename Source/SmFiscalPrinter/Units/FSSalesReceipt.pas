@@ -976,6 +976,20 @@ begin
 end;
 
 procedure TFSSalesReceipt.PrintFSSale(Item: TFSSaleItem);
+
+  function RecTypeToOperation(RecType: Integer): Integer;
+  begin
+    case RecType of
+      RecTypeSale       : Result := 1;
+      RecTypeRetSale    : Result := 2;
+      RecTypeBuy        : Result := 3;
+      RecTypeRetBuy     : Result := 4;
+    else
+      Result := 1;
+    end;
+  end;
+
+
 var
   FSSale2: TFSSale2;
   FSRegistration: TFSSale;
@@ -1004,7 +1018,7 @@ begin
   begin
     if Device.CapFSCloseReceipt2 then
     begin
-      FSSale2.RecType := FRecType + 1;
+      FSSale2.RecType := REcTypeToOperation(FRecType);
       FSSale2.Quantity := Abs(FSRegistration.Quantity);
       FSSale2.Price := Item.PriceWithDiscount;
       FSSale2.Total := StrToInt64Def(FSRegistration.Parameter1, $FFFFFFFFFF);

@@ -4626,9 +4626,27 @@ end;
 procedure TReceiptTest21.Execute;
 begin
   Check(FiscalPrinter.ResetPrinter());
-  FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
+  FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES_SALE;
   FiscalPrinter.BeginFiscalReceipt(True);
-  FiscalPrinter.PrintRecItemRefund('ְָ-95', 100, 2551, 4, 39.2, '');
+  FiscalPrinter.PrintRecItem('Item 1', 100, 1000, 1, 100, 'רע');
+  FiscalPrinter.PrintRecTotal(100, 100, '0');
+  FiscalPrinter.EndFiscalReceipt(True);
+
+  FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES_RETSALE;
+  FiscalPrinter.BeginFiscalReceipt(True);
+  FiscalPrinter.PrintRecItem('Item 1', 100, 1000, 1, 100, 'רע');
+  FiscalPrinter.PrintRecTotal(100, 100, '0');
+  FiscalPrinter.EndFiscalReceipt(True);
+
+  FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES_BUY;
+  FiscalPrinter.BeginFiscalReceipt(True);
+  FiscalPrinter.PrintRecItem('Item 1', 100, 1000, 1, 100, 'רע');
+  FiscalPrinter.PrintRecTotal(100, 100, '0');
+  FiscalPrinter.EndFiscalReceipt(True);
+
+  FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES_RETBUY;
+  FiscalPrinter.BeginFiscalReceipt(True);
+  FiscalPrinter.PrintRecItem('Item 1', 100, 1000, 1, 100, 'רע');
   FiscalPrinter.PrintRecTotal(100, 100, '0');
   FiscalPrinter.EndFiscalReceipt(True);
 end;
