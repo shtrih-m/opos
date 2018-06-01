@@ -9,7 +9,7 @@ uses
   TntRegistry, TntClasses, TntSysUtils,
   // This
   Oposhi, PrinterTypes, LogFile, FileUtils, StringUtils, TextMap, RegUtils,
-  WException, gnugettext;
+  WException, gnugettext, DriverError;
 
 const
   /////////////////////////////////////////////////////////////////////////////
@@ -161,7 +161,6 @@ implementation
 
 const
   FiscalPrinterProgID = 'OposShtrih.FiscalPrinter';
-  MsgKeyOpenError = 'Error opening registry key: %s';
 
 { TMalinaParams }
 
@@ -507,7 +506,7 @@ begin
     Reg.RootKey := HKEY_LOCAL_MACHINE;
     KeyName := GetSysKeyName(DeviceName);
     if not Reg.OpenKey(KeyName, True) then
-      raiseExceptionFmt(MsgKeyOpenError, [KeyName]);
+      raiseOpenKeyError(KeyName);
 
     Reg.WriteString('', FiscalPrinterProgID);
     // Malina

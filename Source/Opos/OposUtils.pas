@@ -5,8 +5,10 @@ interface
 uses
   // VCL
   Classes, SysUtils,
+  // OPOS
+  Opos, Oposhi, OposException,
   // This
-  Opos, Oposhi, OposException;
+  GNUGetText;
 
 type
   { TOposDate }
@@ -33,64 +35,6 @@ function PowerNotifyToStr(Value: Integer): WideString;
 
 const
   CRLF = #13#10;
-
-  S_OPOS_OR_ALREADYOPEN = 'Управляющий объект уже открыт';
-  S_OPOS_OR_REGBADNAME = 'В реестре нет ключа для этого имени устройства';
-  S_OPOS_OR_REGPROGID =
-    'Невозможно прочитать значение по умолчанию для ключа устройства, или' + CRLF +
-    'невозможно преобразовать Prog ID в Class ID';
-  S_OPOS_OR_CREATE =
-    'Невозможно создать сервисный объект, или ' + CRLF +
-    'невозможно получить у него интерфейс IDispatch';
-  S_OPOS_OR_BADIF =
-    'Сервисный объект не поддерживает один или несколько методов, ' + CRLF +
-    'необходимых для номера релиза';
-  S_OPOS_OR_FAILEDOPEN =
-    'Сервисный объект вернул ошибку при открытии, ' + CRLF +
-    'но более подробная информация об ошибке отсутствует';
-  S_OPOS_OR_BADVERSION =
-    'Старшая версия сервисного объекта не 1';
-  S_OPOS_ORS_NOPORT =
-    'Доступ к порту требуется при открытии, но порт недоступен или неверно задан';
-  S_OPOS_ORS_NOTSUPPORTED =
-    'Сервисный объект не поддерживает устройство';
-  S_OPOS_ORS_CONFIG =
-    'Неверная конфигурация';
-  S_OPOS_ORS_SPECIFIC =
-    'Ошибки больше этого значения относятся к сервисному объекту';
-
-  S_UNKNOWN_CODE = 'Неизвестный код';
-
-(*
-  S_OPOS_OR_ALREADYOPEN = 'Control Object already open';
-  S_OPOS_OR_REGBADNAME =
-    'The registry does not contain a key for the specified device name';
-  S_OPOS_OR_REGPROGID =
-    'Could not read the device name key''s default value, or' + CRLF +
-    'could not convert this Prog ID to a valid Class ID';
-  S_OPOS_OR_CREATE =
-    'Could not create a service object instance, or ' + CRLF +
-    'could not get its IDispatch interface';
-  S_OPOS_OR_BADIF =
-    'The service object does not support one or more of the' + CRLF +
-    'method required by its release';
-  S_OPOS_OR_FAILEDOPEN =
-    'The service object returned a failure status from its' + CRLF +
-    'open call, but doesn''t have a more specific failure code';
-  S_OPOS_OR_BADVERSION =
-    'The service object major version number is not 1';
-  S_OPOS_ORS_NOPORT =
-    'Port access required at open, but configured port' + CRLF +
-    'is invalid or inaccessible';
-  S_OPOS_ORS_NOTSUPPORTED =
-    'Service Object does not support the specified device';
-  S_OPOS_ORS_CONFIG =
-    'Configuration information error';
-  S_OPOS_ORS_SPECIFIC =
-    'Errors greater than this value are SO-specific';
-
-  S_UNKNOWN_CODE = 'Unknown code';
-*)
 
 implementation
 
@@ -218,19 +162,40 @@ end;
 function GetOpenResultText(Value: Integer): WideString;
 begin
   case Value of
-    OPOS_OR_ALREADYOPEN   : Result := S_OPOS_OR_ALREADYOPEN;
-    OPOS_OR_REGBADNAME    : Result := S_OPOS_OR_REGBADNAME;
-    OPOS_OR_REGPROGID     : Result := S_OPOS_OR_REGPROGID;
-    OPOS_OR_CREATE        : Result := S_OPOS_OR_CREATE;
-    OPOS_OR_BADIF         : Result := S_OPOS_OR_BADIF;
-    OPOS_OR_FAILEDOPEN    : Result := S_OPOS_OR_FAILEDOPEN;
-    OPOS_OR_BADVERSION    : Result := S_OPOS_OR_BADVERSION;
-    OPOS_ORS_NOPORT       : Result := S_OPOS_ORS_NOPORT;
-    OPOS_ORS_NOTSUPPORTED : Result := S_OPOS_ORS_NOTSUPPORTED;
-    OPOS_ORS_CONFIG       : Result := S_OPOS_ORS_CONFIG;
-    OPOS_ORS_SPECIFIC     : Result := S_OPOS_ORS_SPECIFIC;
+    OPOS_OR_ALREADYOPEN   : Result :=
+      _('Control Object already open');
+
+    OPOS_OR_REGBADNAME    : Result :=
+      _('The registry does not contain a key for the specified device name');
+
+    OPOS_OR_REGPROGID     : Result :=
+      _('Could not read the device name key''s default value, or could not convert this Prog ID to a valid Class ID');
+
+    OPOS_OR_CREATE        : Result :=
+      _('Could not create a service object instance, or could not get its IDispatch interface');
+
+    OPOS_OR_BADIF         : Result :=
+    _('The service object does not support one or more of the method required by its release');
+
+    OPOS_OR_FAILEDOPEN    : Result :=
+      _('The service object returned a failure status from its open call, but doesn''t have a more specific failure code');
+
+    OPOS_OR_BADVERSION    : Result :=
+      _('The service object major version number is not 1');
+
+    OPOS_ORS_NOPORT       : Result :=
+      _('Port access required at open, but configured port is invalid or inaccessible');
+
+    OPOS_ORS_NOTSUPPORTED : Result :=
+      _('Service Object does not support the specified device');
+
+    OPOS_ORS_CONFIG       : Result :=
+      _('Configuration information error');
+
+    OPOS_ORS_SPECIFIC     : Result :=
+      _('Errors greater than this value are SO-specific');
   else
-    Result := S_UNKNOWN_CODE;
+    Result := _('Unknown code');
   end;
 end;
 

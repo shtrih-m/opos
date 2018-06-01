@@ -6,10 +6,10 @@ uses
   // VCL
   Windows, SysUtils, Classes, Registry,
   // Tnt
-  TntClasses, TntStdCtrls, TntRegistry,
+  TntClasses, TntStdCtrls, TntRegistry, TntSysUtils, 
   // This
   PrinterParameters, FileUtils, LogFile, SmIniFile, Oposhi, WException,
-  TntSysUtils, gnugettext;
+  gnugettext, DriverError;
 
 type
   { TPrinterParametersReg }
@@ -52,7 +52,6 @@ implementation
 const
   REG_KEY_VATCODES  = 'VatCodes';
   REG_KEY_PAYTYPES  = 'PaymentTypes';
-  MsgKeyOpenError   = 'Error opening registry key: %s';
 
 function ReadEncodingReg(const DeviceName: WideString; Logger: ILogFile): Integer;
 var
@@ -541,7 +540,7 @@ begin
     Reg.RootKey := HKEY_LOCAL_MACHINE;
     KeyName := GetSysKeyName(DeviceName);
     if not Reg.OpenKey(KeyName, True) then
-      raiseExceptionFmt(MsgKeyOpenError, [KeyName]);
+      raiseOpenKeyError(KeyName);
 
     Reg.WriteString('', FiscalPrinterProgID);
     Reg.WriteInteger('ComNumber', Parameters.PortNumber);

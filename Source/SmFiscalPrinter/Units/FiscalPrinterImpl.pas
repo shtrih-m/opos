@@ -1888,7 +1888,7 @@ begin
     Data.Station := Printer.Station;
     Data.Font := Parameters.HeaderFont;
     Data.Alignment := taLeft;
-    Data.Wrap := Parameters.WrapText;
+    Data.Wrap := False;
     Device.PrintText(Data);
   end;
   Printer.CutPaper;
@@ -1898,7 +1898,7 @@ begin
     Data.Station := Printer.Station;
     Data.Font := Parameters.HeaderFont;
     Data.Alignment := taLeft;
-    Data.Wrap := Parameters.WrapText;
+    Data.Wrap := False;
     Device.PrintText(Data);
   end;
   Parameters.HeaderPrinted := True;
@@ -1973,7 +1973,7 @@ begin
       Data.Station := Printer.Station;
       Data.Font := Parameters.HeaderFont;
       Data.Alignment := taLeft;
-      Data.Wrap := Parameters.WrapText;
+      Data.Wrap := False;
       Device.PrintText(Data);
     end;
   end;
@@ -2008,6 +2008,7 @@ var
 const
   HeaderFontHeight = 22;
 begin
+
   if Parameters.LogoPosition = LogoBeforeHeader then
   begin
     if Parameters.LogoSize <= (Device.GetModel.NumHeaderLines * HeaderFontHeight) then
@@ -2022,7 +2023,7 @@ begin
         Data.Station := PRINTER_STATION_REC;
         Data.Font := Parameters.HeaderFont;
         Data.Alignment := taLeft;
-        Data.Wrap := Parameters.WrapText;
+        Data.Wrap := False;
         Device.PrintText(Data);
       end;
 
@@ -2033,7 +2034,7 @@ begin
         Data.Station := PRINTER_STATION_REC;
         Data.Font := Parameters.HeaderFont;
         Data.Alignment := taLeft;
-        Data.Wrap := Parameters.WrapText;
+        Data.Wrap := False;
         Device.PrintText(Data);
       end;
 
@@ -2048,7 +2049,7 @@ begin
         Data.Station := PRINTER_STATION_REC;
         Data.Font := Parameters.HeaderFont;
         Data.Alignment := taLeft;
-        Data.Wrap := Parameters.WrapText;
+        Data.Wrap := False;
         Device.PrintText(Data);
       end;
       Printer.CutPaper;

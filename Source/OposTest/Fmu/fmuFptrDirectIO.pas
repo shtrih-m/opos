@@ -55,7 +55,7 @@ begin
     if Command = DIO_CUSTOM_COMMAND then
       Command := StrToInt(edtCustomCommand.Text);
     pString := edtInString.Text;
-    pData := StrToInt(edtData.Text);
+    pData := StrToIntDef(edtData.Text, 0);
     Result := FiscalPrinter.DirectIO(Command, pData, pString);
     if Result = OPOS_SUCCESS then
     begin

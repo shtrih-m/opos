@@ -1,6 +1,6 @@
 object fmFptrReceipt: TfmFptrReceipt
-  Left = 434
-  Top = 220
+  Left = 940
+  Top = 196
   AutoScroll = False
   Caption = 'Fiscal Receipt'
   ClientHeight = 270

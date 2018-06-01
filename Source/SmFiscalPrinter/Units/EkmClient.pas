@@ -10,7 +10,7 @@ uses
   // Indy
   IdTcpClient, IdGlobal,
   // This
-  LogFile, StringUtils, DriverError;
+  LogFile, StringUtils, DriverError, GNUGetText;
 
 const
   /////////////////////////////////////////////////////////////////////////////
@@ -31,14 +31,6 @@ const
   E_KMSRV_UNSUPPORTED_VERSION = 204; // Сервер ЭКМ, неподдерживаемая версия
   E_SALE_NOT_ENABLED          = 205; // Продажа запрещена
   E_TAG_NOT_FOUND             = 206; // Не найден обязательный тег
-
-
-const
-  SEKMSRV_GENERIC_ERROR       = 'Общая ошибка';
-  SEKMSRV_NOT_IMPLEMENTED     = 'Не реализовано';
-  SEKMSRV_UNSUPPORTED_TYPE    = 'Неподдерживаемый тип';
-  SEKMSRV_UNSUPPORTED_VERSION = 'Неподдерживаемая версия';
-  SEKMSRV_UNKNOWN_ERROR       = 'Неизвестная ошибка';
 
 type
   { TEkmServerRequest }
@@ -163,16 +155,24 @@ begin
     begin
       case Response.Status of
         EKMSRV_GENERIC_ERROR:
-          raiseError(E_KMSRV_GENERIC_ERROR, Tnt_WideFormat('%s %s', ['EKMSRV:' + SEKMSRV_GENERIC_ERROR]));
+          raiseError(E_KMSRV_GENERIC_ERROR, Tnt_WideFormat('%s %s', [
+          'EKMSRV:' + _('General error')]));
+
         EKMSRV_NOT_IMPLEMENTED:
-          raiseError(E_KMSRV_NOT_IMPLEMENTED, Tnt_WideFormat('%s %s', ['EKMSRV: ' + SEKMSRV_NOT_IMPLEMENTED]));
+          raiseError(E_KMSRV_NOT_IMPLEMENTED, Tnt_WideFormat('%s %s', [
+          'EKMSRV: ' + _('Not implemented')]));
+
         EKMSRV_UNSUPPORTED_TYPE:
-          raiseError(E_KMSRV_UNSUPPORTED_TYPE, Tnt_WideFormat('%s %s', ['EKMSRV: ' + SEKMSRV_UNSUPPORTED_TYPE]));
+          raiseError(E_KMSRV_UNSUPPORTED_TYPE, Tnt_WideFormat('%s %s', [
+            'EKMSRV: ' + _('Unsupported type')]));
+
         EKMSRV_UNSUPPORTED_VERSION:
-          raiseError(E_KMSRV_UNSUPPORTED_VERSION, Tnt_WideFormat('%s %s', ['EKMSRV: ' + SEKMSRV_UNSUPPORTED_VERSION]))
+          raiseError(E_KMSRV_UNSUPPORTED_VERSION, Tnt_WideFormat('%s %s', [
+          'EKMSRV: ' + _('Unsupported version')]))
+
       else
-        raiseError(E_UNKNOWN, Tnt_WideFormat('EKMSRV: %d, %d', [Response.Status,
-          SEKMSRV_UNKNOWN_ERROR]));
+        raiseError(E_UNKNOWN, Tnt_WideFormat('EKMSRV: %d, %d', [
+          Response.Status, _('Unknown error')]));
       end;
     end;
 

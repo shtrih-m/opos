@@ -36,19 +36,11 @@ implementation
 {$R *.DFM}
 
 procedure TfmFptrReceipt.btnBeginFisclReceiptClick(Sender: TObject);
-var
-  AdditionalHeader: WideString;
 begin
   EnableButtons(False);
   try
     FiscalPrinter.FiscalReceiptStation := cbFiscalReceiptStation.ItemIndex + 1;
     FiscalPrinter.FiscalReceiptType := cbFiscalReceiptType.ItemIndex + 1;
-
-    AdditionalHeader :=
-      '****  AdditionalHeader Line 1  ****' + #13#10 +
-      '****  AdditionalHeader Line 2  ****';
-
-    FiscalPrinter.AdditionalHeader := AdditionalHeader;
     FiscalPrinter.BeginFiscalReceipt(chbPrintHeader.Checked);
   finally
     EnableButtons(True);

@@ -183,6 +183,10 @@ begin
   begin
     Result := AmountToStr(Item.PriceDiscount/100);
   end;
+  if AnsiCompareText(FieldData.Name, 'DISCOUNTSUM') = 0 then
+  begin
+    Result := AmountToStr(Item.Discounts.GetTotal/100);
+  end;
   if AnsiCompareText(FieldData.Name, 'TOTAL') = 0 then
   begin
     Result := AmountToStr(Item.Total/100);
