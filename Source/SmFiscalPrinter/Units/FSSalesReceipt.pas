@@ -254,6 +254,8 @@ begin
   FLastItem.PostLine := Printer.Printer.PostLine;
   Printer.Printer.PreLine := '';
   Printer.Printer.PostLine := '';
+  Parameters.Barcode := '';
+  Parameters.MarkType := 0;
   FHasReceiptItems := True;
 end;
 

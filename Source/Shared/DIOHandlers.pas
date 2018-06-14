@@ -1887,7 +1887,8 @@ begin
     DriverParameterAmount11: pString := IntToStr(Printer.Parameters.Amount11);
     DriverParameterAmount12: pString := IntToStr(Printer.Parameters.Amount12);
     DriverParameterTaxType: pString := IntToStr(Printer.Parameters.TaxType);
-
+    DriverParameterMessage: pString := _(pString);
+    DriverParameterErrorMessage: pString := GetErrorText(StrToInt(pString), True);
   end;
 end;
 

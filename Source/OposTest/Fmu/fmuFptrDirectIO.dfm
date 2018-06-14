@@ -56,7 +56,7 @@ object fmFptrDirectIO: TfmFptrDirectIO
   end
   object lblDescription: TTntLabel
     Left = 8
-    Top = 184
+    Top = 152
     Width = 56
     Height = 13
     Caption = 'Description:'
@@ -99,13 +99,10 @@ object fmFptrDirectIO: TfmFptrDirectIO
   end
   object memInfo: TTntMemo
     Left = 8
-    Top = 208
+    Top = 176
     Width = 379
-    Height = 59
+    Height = 91
     Anchors = [akLeft, akTop, akRight, akBottom]
-    BevelInner = bvNone
-    BevelOuter = bvNone
-    BorderStyle = bsNone
     Color = clBtnFace
     Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText
@@ -113,7 +110,9 @@ object fmFptrDirectIO: TfmFptrDirectIO
     Font.Name = 'Courier New'
     Font.Style = []
     ParentFont = False
+    ScrollBars = ssVertical
     TabOrder = 6
+    WordWrap = False
   end
   object cbCommand: TTntComboBox
     Left = 72

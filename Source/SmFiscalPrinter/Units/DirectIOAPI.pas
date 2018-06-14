@@ -329,6 +329,8 @@ const
   DriverParameterAmount11                 = 93;
   DriverParameterAmount12                 = 94;
   DriverParameterTaxType                  = 95;
+  DriverParameterMessage                  = 96;
+  DriverParameterErrorMessage             = 97;
 
   /////////////////////////////////////////////////////////////////////////////
   // Separator type
@@ -359,6 +361,8 @@ const
   DIO_FS_PARAMETER_OFD_ONLINE     = 8; // OFD connection established
   DIO_FS_PARAMETER_TICKET_HEX     = 9; // FDO ticket data in hex format
   DIO_FS_PARAMETER_TICKET_STR     = 10; // FDO ticket data in text format
+  DIO_FS_PARAMETER_LAST_DOC_NUM2  = 11; // Document number
+  DIO_FS_PARAMETER_LAST_DOC_MAC2  = 12; // Document message authentication code (MAC)
 
 
   /////////////////////////////////////////////////////////////////////////////

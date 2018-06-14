@@ -461,9 +461,12 @@ type
     function CheckItemBarcode(const Barcode: WideString): Integer;
     function FSSendTLVOperation(const Data: WideString): Integer;
     function SendItemBarcode(const Barcode: WideString; MarkType: Integer): Integer;
-    function GetFSCloseReceiptResult2: TFSCloseReceiptResult2;
     function FSStartCorrectionReceipt: Integer;
+    function GetLastDocNumber: Int64;
+    function GetLastMacValue: Int64;
 
+    property LastMacValue: Int64 read GetLastMacValue;
+    property LastDocNumber: Int64 read GetLastDocNumber;
     property IsOnline: Boolean read GetIsOnline;
     property Model: TPrinterModelRec read GetModel;
     property ResultText: WideString read GetResultText;

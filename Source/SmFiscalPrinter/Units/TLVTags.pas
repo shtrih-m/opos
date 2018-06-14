@@ -712,6 +712,8 @@ begin
 end;
 
 function TTLVTag.ValueToBin(const Data: AnsiString): AnsiString;
+var
+  S: AnsiString;
 begin
   case TagType of
     ttByte: Result := Int2ValueTLV(Tag, 2) +
@@ -734,6 +736,12 @@ begin
 
     ttUnixTime: Result := Int2ValueTLV(Tag, 2) +
       Int2ValueTLV(4, 2) + UnixTime2ValueTLV(StrToDateTime(Data));
+
+    ttByteArray:
+    begin
+      S := HexToStr(Data);
+      Result := Int2ValueTLV(Tag, 2) + Int2ValueTLV(System.Length(S), 2) + S;
+    end;
 
     ttString:
     begin

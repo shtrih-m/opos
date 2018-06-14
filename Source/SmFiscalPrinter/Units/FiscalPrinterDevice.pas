@@ -81,7 +81,8 @@ type
     FCapFooterFlag: Boolean;
     FFooterFlag: Boolean;
     FCapEnablePrint: Boolean;
-    FFSCloseReceiptResult2: TFSCloseReceiptResult2;
+    FLastMacValue: Int64;
+    FLastDocNumber: Int64;
 
     procedure PrintLineFont(const Data: TTextRec);
     procedure SetPrinterStatus(Value: TPrinterStatus);
@@ -194,9 +195,10 @@ type
     function LoadBarcodeData(const Barcode: WideString): Integer;
     function SendItemBarcode(const Barcode: WideString;
       MarkType: Integer): Integer;
-    function GetFSCloseReceiptResult2: TFSCloseReceiptResult2;
     function IsFSDocumentOpened: Boolean;
     function FSCancelDocument: Integer;
+    function GetLastDocNumber: Int64;
+    function GetLastMacValue: Int64;
   protected
     function GetMaxGraphicsWidthInBytes: Integer;
   public
@@ -469,7 +471,8 @@ type
     property CapDiscount: Boolean read GetCapDiscount;
     property CapSubtotalRound: Boolean read GetCapSubtotalRound;
     property CapFSCloseReceipt2: Boolean read GetCapFSCloseReceipt2;
-    property FSCloseReceiptResult2: TFSCloseReceiptResult2 read GetFSCloseReceiptResult2;
+    property LastMacValue: Int64 read GetLastMacValue;
+    property LastDocNumber: Int64 read GetLastDocNumber;
   end;
 
   { EDisabledException }
@@ -730,10 +733,6 @@ begin
   FFilter := TFiscalPrinterFilter.Create(Parameters.Logger);
   FAmountDecimalPlaces := 2;
   FCapReceiptDiscount2 := True;
-  FFSCloseReceiptResult2.Change := 0;
-  FFSCloseReceiptResult2.DocNumber := 0;
-  FFSCloseReceiptResult2.MacValue := 0;
-
   LoadModels;
 end;
 
@@ -2738,10 +2737,19 @@ end;
 ******************************************************************************)
 
 procedure TFiscalPrinterDevice.PrintZReport;
+var
+  FSState: TFSState;
 begin
   Execute(#$41 + IntToBin(GetSysPassword, 4));
   FFilter.PrintZReport;
   try
+    // Update document number
+    if CapFiscalStorage then
+    begin
+      Check(FSReadState(FSState));
+      Check(FSReadDocMac(FLastMacValue));
+      FLastDocNumber := FSState.DocNumber;
+    end;
     PrintCommStatus;
   except
     on E: Exception do
@@ -8188,7 +8196,9 @@ begin
     R.Change := BinToInt(Answer, 1, 5);
     R.DocNumber := BinToInt(Answer, 6, 4);
     R.MacValue := BinToInt(Answer, 10, 4);
-    FFSCloseReceiptResult2 := R;
+
+    FLastDocNumber := R.DocNumber;
+    FLastMacValue := R.MacValue;
   end;
 end;
 
@@ -8695,11 +8705,6 @@ begin
   Result := ExecuteData(Command, Answer);
 end;
 
-function TFiscalPrinterDevice.GetFSCloseReceiptResult2: TFSCloseReceiptResult2;
-begin
-  Result := FFSCloseReceiptResult2;
-end;
-
 (*
 Начать формирование чека коррекции
 Код команды FF35h . Длина сообщения: 6 байт.
@@ -8717,5 +8722,14 @@ begin
   Result := ExecuteData(Command, Answer);
 end;
 
+function TFiscalPrinterDevice.GetLastDocNumber: Int64;
+begin
+  Result := FLastDocNumber;
+end;
+
+function TFiscalPrinterDevice.GetLastMacValue: Int64;
+begin
+  Result := FLastMacValue;
+end;
 
 end.

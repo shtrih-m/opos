@@ -7,12 +7,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2018-05-15 19:59\n"
-"PO-Revision-Date: 2018-05-28 13:06+0300\n"
+"PO-Revision-Date: 2018-06-13 22:48+0300\n"
 "Last-Translator: Vitaly Kravtsov <kravtsov@shtrih-m.ru>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 2.0.8\n"
 "Language-Team: \n"
 "Language: ru\n"
 
@@ -307,6 +307,7 @@ msgid "ФР и ПК"
 msgstr "ФР и ПК"
 
 #: Units/CachedSalesReceipt.pas:244 Units/PrinterCommand.pas:178
+#: ../Opos/OposException.pas:80
 msgid "Invalid parameter value"
 msgstr "Неверное значение параметра"
 
@@ -317,8 +318,7 @@ msgid "Неверный код типа оплаты"
 msgstr "Неверный код типа оплаты"
 
 #: Units/CashDrawerParameters.pas:102 Units/CashDrawerParameters.pas:130
-#: Units/PrinterParametersReg.pas:757
-#: Units/PrinterParametersRegIBT.pas:774
+#: Units/PrinterParametersReg.pas:757 Units/PrinterParametersRegIBT.pas:774
 msgid "Registry key open error"
 msgstr "Ошибка открытия ключа реестра"
 
@@ -349,12 +349,8 @@ msgid "Таблица"
 msgstr "Таблица"
 
 #: Units/CsvPrinterTableFormat.pas:200
-msgid ""
-"Номер таблицы,Ряд,Поле,Размер поля,Тип поля,Мин. значение, Макс."
-"значение, Название,Значение"
-msgstr ""
-"Номер таблицы,Ряд,Поле,Размер поля,Тип поля,Мин. значение, Макс."
-"значение, Название,Значение"
+msgid "Номер таблицы,Ряд,Поле,Размер поля,Тип поля,Мин. значение, Макс.значение, Название,Значение"
+msgstr "Номер таблицы,Ряд,Поле,Размер поля,Тип поля,Мин. значение, Макс.значение, Название,Значение"
 
 #: Units/CustomReceipt.pas:160
 msgid "Receipt method is not supported"
@@ -778,9 +774,7 @@ msgstr "Неверный индекс формата файла"
 
 #: Units/PrinterTypes.pas:1312
 msgid "FS: Unknown command or invalid format"
-msgstr ""
-"ФН: Неизвестная команда, неверный формат посылки или неизвестные "
-"параметры"
+msgstr "ФН: Неизвестная команда, неверный формат посылки или неизвестные параметры"
 
 #: Units/PrinterTypes.pas:1313
 msgid "FS: Incorrect status"
@@ -859,12 +853,8 @@ msgid "FS: CRC error"
 msgstr "ФН: Ошибка CRC"
 
 #: Units/PrinterTypes.pas:1341
-msgid ""
-"ФН: Неизвестная команда, неверный формат посылки или неизвестные "
-"параметры"
-msgstr ""
-"ФН: Неизвестная команда, неверный формат посылки или неизвестные "
-"параметры"
+msgid "ФН: Неизвестная команда, неверный формат посылки или неизвестные параметры"
+msgstr "ФН: Неизвестная команда, неверный формат посылки или неизвестные параметры"
 
 #: Units/PrinterTypes.pas:1342
 msgid "ФН: Неверное состояние ФН"
@@ -3773,3 +3763,95 @@ msgstr ""
 #: SmFiscalPrinter.rc:32
 msgid "MAINICON.ico"
 msgstr ""
+
+#: ../Opos/OposException.pas:86
+msgid "Invalid property value"
+msgstr "Неверное значение свойства"
+
+#: ../Opos/OposFptrUtils.pas:38
+msgid "Receipt station is empty"
+msgstr "Нет чековой ленты"
+
+#: ../Opos/OposFptrUtils.pas:43
+msgid "Journal station is empty"
+msgstr "Нет контрольной ленты"
+
+#: ../Opos/OposFptrUtils.pas:48
+msgid "Cover is opened"
+msgstr "Крышка корпуса открыта"
+
+#: ../Opos/OposFptrUtils.pas:193
+msgid "Invalid day"
+msgstr "Неверное значение дня"
+
+#: ../Opos/OposFptrUtils.pas:196
+msgid "Invalid month"
+msgstr "Неверное значение месяца"
+
+#: ../Opos/OposFptrUtils.pas:199
+msgid "Invalid year"
+msgstr "Неверное значение года"
+
+#: ../Opos/OposFptrUtils.pas:202
+msgid "Invalid hour"
+msgstr "Неверное значение часа"
+
+#: ../Opos/OposFptrUtils.pas:205
+msgid "Invalid minutes"
+msgstr "Неверное значение минут"
+
+#: ../Opos/OposServiceDevice19.pas:302
+msgid "Device is disabled"
+msgstr "Устройство отключено"
+
+#: ../Opos/OposServiceDevice19.pas:431
+msgid "Invalid BinaryConversion property value"
+msgstr "Неверное значение свойства BinaryConversion"
+
+#: ../Opos/OposUtils.pas:166
+msgid "Control Object already open"
+msgstr "Control Object уже открыт"
+
+#: ../Opos/OposUtils.pas:169
+msgid "The registry does not contain a key for the specified device name"
+msgstr "В реестре нет ключа для указанного имени устройства"
+
+#: ../Opos/OposUtils.pas:172
+msgid "Could not read the device name key's default value, or could not convert this Prog ID to a valid Class ID"
+msgstr ""
+
+#: ../Opos/OposUtils.pas:175
+msgid "Could not create a service object instance, or could not get its IDispatch interface"
+msgstr ""
+
+#: ../Opos/OposUtils.pas:178
+msgid "The service object does not support one or more of the method required by its release"
+msgstr ""
+
+#: ../Opos/OposUtils.pas:181
+msgid "The service object returned a failure status from its open call, but doesn't have a more specific failure code"
+msgstr ""
+
+#: ../Opos/OposUtils.pas:184
+msgid "The service object major version number is not 1"
+msgstr ""
+
+#: ../Opos/OposUtils.pas:187
+msgid "Port access required at open, but configured port is invalid or inaccessible"
+msgstr ""
+
+#: ../Opos/OposUtils.pas:190
+msgid "Service Object does not support the specified device"
+msgstr ""
+
+#: ../Opos/OposUtils.pas:193
+msgid "Configuration information error"
+msgstr ""
+
+#: ../Opos/OposUtils.pas:196
+msgid "Errors greater than this value are SO-specific"
+msgstr ""
+
+#: ../Opos/OposUtils.pas:198
+msgid "Unknown code"
+msgstr "Неизвестный код"

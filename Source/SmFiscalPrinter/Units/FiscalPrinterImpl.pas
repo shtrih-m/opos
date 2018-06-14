@@ -4615,6 +4615,8 @@ var
   Ticket: TFSTicket;
   FSState: TFSState;
   OposDate: TOposDate;
+  LastMacValue: Int64;
+  LastDocNumber: Int64;
   ExpireDate: TPrinterDate;
   FSCommStatus: TFSCommStatus;
   FSFiscalResult: TFSFiscalResult;
@@ -4628,12 +4630,12 @@ begin
 
     DIO_FS_PARAMETER_LAST_DOC_NUM:
     begin
-      Result := IntToStr(Device.GetFSCloseReceiptResult2.DocNumber);
+      Result := IntToStr(Device.LastDocNumber);
     end;
 
     DIO_FS_PARAMETER_LAST_DOC_MAC:
     begin
-      Result := IntToStr(Device.GetFSCloseReceiptResult2.MacValue);
+      Result := IntToStr(Device.LastMacValue);
     end;
 
     DIO_FS_PARAMETER_QUEUE_SIZE:
@@ -4687,6 +4689,27 @@ begin
       Ticket.Number := StrToInt(pString);
       Device.Check(Device.FSReadTicket(Ticket));
       Result := TicketToStr(Ticket);
+    end;
+
+    DIO_FS_PARAMETER_LAST_DOC_NUM2:
+    begin
+      LastDocNumber := 0;
+      if Device.CapFiscalStorage then
+      begin
+        Device.Check(Device.FSReadState(FSState));
+        LastDocNumber := FSState.DocNumber;
+      end;
+      Result := IntToStr(LastDocNumber);
+    end;
+
+    DIO_FS_PARAMETER_LAST_DOC_MAC2:
+    begin
+      LastMacValue := 0;
+      if Device.CapFiscalStorage then
+      begin
+        Device.Check(Device.FSReadDocMac(LastMacValue));
+      end;
+      Result := IntToStr(LastMacValue);
     end;
   else
     raiseException(_('Invalid pData parameter value'));

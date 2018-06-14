@@ -20,7 +20,7 @@ const
   CRLF = #13#10;
   DIO_CUSTOM_COMMAND = $FFFF;
 
-  DIODescriptions: array[1..41] of TDirectIODescription = (
+  DIODescriptions: array[1..43] of TDirectIODescription = (
     (Command: DIO_COMMAND_PRINTER_XML;
      Description: 'XML command';
      DescriptionEx:  'Data: Printer command code' + #13#10 +
@@ -122,6 +122,214 @@ const
      Description: 'Read last error code';
      DescriptionEx: 'Data: error code;' + CRLF +
                     'String: error text';),
+
+    (Command: DIO_GET_DRIVER_PARAMETER;
+     Description: 'Read driver parameter';
+     DescriptionEx:
+      'Data: parameter ID;' + CRLF +
+      'DriverParameterStorage                  = 0' + CRLF +
+      'DriverParameterBaudRate                 = 1' + CRLF +
+      'DriverParameterPortNumber               = 2' + CRLF +
+      'DriverParameterFontNumber               = 3' + CRLF +
+      'DriverParameterSysPassword              = 4' + CRLF +
+      'DriverParameterUsrPassword              = 5' + CRLF +
+      'DriverParameterByteTimeout              = 6' + CRLF +
+      'DriverParameterStatusInterval           = 7' + CRLF +
+      'DriverParameterSubtotalText             = 8' + CRLF +
+      'DriverParameterCloseRecText             = 9' + CRLF +
+      'DriverParameterVoidRecText              = 10' + CRLF +
+      'DriverParameterPollInterval             = 11' + CRLF +
+      'DriverParameterMaxRetryCount            = 12' + CRLF +
+      'DriverParameterDeviceByteTimeout        = 13' + CRLF +
+      'DriverParameterSearchByPortEnabled      = 14' + CRLF +
+      'DriverParameterSearchByBaudRateEnabled  = 15' + CRLF +
+      'DriverParameterPropertyUpdateMode       = 16' + CRLF +
+      'DriverParameterCutType                  = 17' + CRLF +
+      'DriverParameterLogMaxCount              = 18' + CRLF +
+      'DriverParameterPayTypes                 = 19' + CRLF +
+      'DriverParameterEncoding                 = 20' + CRLF +
+      'DriverParameterRemoteHost               = 21' + CRLF +
+      'DriverParameterRemotePort               = 22' + CRLF +
+      'DriverParameterHeaderType               = 23' + CRLF +
+      'DriverParameterHeaderFont               = 24' + CRLF +
+      'DriverParameterTrailerFont              = 25' + CRLF +
+      'DriverParameterTrainModeText            = 26' + CRLF +
+      'DriverParameterLogoPosition             = 27' + CRLF +
+      'DriverParameterTrainSaleText            = 28' + CRLF +
+      'DriverParameterTrainPay2Text            = 29' + CRLF +
+      'DriverParameterTrainPay3Text            = 30' + CRLF +
+      'DriverParameterTrainPay4Text            = 31' + CRLF +
+      'DriverParameterStatusCommand            = 32' + CRLF +
+      'DriverParameterTrainTotalText           = 33' + CRLF +
+      'DriverParameterConnectionType           = 34' + CRLF +
+      'DriverParameterLogFileEnabled           = 35' + CRLF +
+      'DriverParameterNumHeaderLines           = 36' + CRLF +
+      'DriverParameterTrainChangeText          = 37' + CRLF +
+      'DriverParameterTrainStornoText          = 38' + CRLF +
+      'DriverParameterTrainCashInText          = 39' + CRLF +
+      'DriverParameterNumTrailerLines          = 40' + CRLF +
+      'DriverParameterTrainCashOutText         = 41' + CRLF +
+      'DriverParameterTrainVoidRecText         = 42' + CRLF +
+      'DriverParameterTrainCashPayText         = 43' + CRLF +
+      'DriverParameterBarLinePrintDelay        = 44' + CRLF +
+      'DriverParameterCompatLevel              = 45' + CRLF +
+      'DriverParameterHeader                   = 46' + CRLF +
+      'DriverParameterTrailer                  = 47' + CRLF +
+      'DriverParameterLogoSize                 = 48' + CRLF +
+      'DriverParameterLogoCenter               = 49' + CRLF +
+      'DriverParameterDepartment               = 50' + CRLF +
+      'DriverParameterLogoEnabled              = 51' + CRLF +
+      'DriverParameterHeaderPrinted            = 52' + CRLF +
+      'DriverParameterReceiptType              = 53' + CRLF +
+      'DriverParameterZeroReceiptType          = 54' + CRLF +
+      'DriverParameterZeroReceiptNumber        = 55' + CRLF +
+      'DriverParameterCCOType                  = 56' + CRLF +
+      'DriverParameterTableEditEnabled         = 57' + CRLF +
+      'DriverParameterXmlZReportEnabled        = 58' + CRLF +
+      'DriverParameterCsvZReportEnabled        = 59' + CRLF +
+      'DriverParameterXmlZReportFileName       = 60' + CRLF +
+      'DriverParameterCsvZReportFileName       = 61' + CRLF +
+      'DriverParameterVoidReceiptOnMaxItems    = 62' + CRLF +
+      'DriverParameterMaxReceiptItems          = 63' + CRLF +
+      'DriverParameterJournalPrintHeader       = 64' + CRLF +
+      'DriverParameterJournalPrintTrailer      = 65' + CRLF +
+      'DriverParameterCacheReceiptNumber       = 66' + CRLF +
+      'DriverParameterBarLineByteMode          = 67' + CRLF +
+      'DriverParameterLogFilePath              = 68' + CRLF +
+      'DriverParameterParam1                   = 70' + CRLF +
+      'DriverParameterParam2                   = 71' + CRLF +
+      'DriverParameterParam3                   = 72' + CRLF +
+      'DriverParameterParam4                   = 73' + CRLF +
+      'DriverParameterParam5                   = 74' + CRLF +
+      'DriverParameterParam6                   = 75' + CRLF +
+      'DriverParameterParam7                   = 76' + CRLF +
+      'DriverParameterParam8                   = 77' + CRLF +
+      'DriverParameterParam9                   = 78' + CRLF +
+      'DriverParameterParam10                  = 79' + CRLF +
+      'DriverParameterBarcode                  = 80' + CRLF +
+      'DriverParameterMarkType                 = 81' + CRLF +
+      'DriverParameterCorrectionType           = 82' + CRLF +
+      'DriverParameterCalculationSign          = 83' + CRLF +
+      'DriverParameterAmount2                  = 84' + CRLF +
+      'DriverParameterAmount3                  = 85' + CRLF +
+      'DriverParameterAmount4                  = 86' + CRLF +
+      'DriverParameterAmount5                  = 87' + CRLF +
+      'DriverParameterAmount6                  = 88' + CRLF +
+      'DriverParameterAmount7                  = 89' + CRLF +
+      'DriverParameterAmount8                  = 90' + CRLF +
+      'DriverParameterAmount9                  = 91' + CRLF +
+      'DriverParameterAmount10                 = 92' + CRLF +
+      'DriverParameterAmount11                 = 93' + CRLF +
+      'DriverParameterAmount12                 = 94' + CRLF +
+      'DriverParameterTaxType                  = 95' + CRLF +
+      'DriverParameterMessage                  = 96' + CRLF +
+      'DriverParameterErrorMessage             = 97' + CRLF +
+      'String: parameter value';),
+
+    (Command: DIO_SET_DRIVER_PARAMETER;
+     Description: 'Read driver parameter';
+     DescriptionEx:
+      'Data: parameter ID;' + CRLF +
+      'DriverParameterStorage                  = 0' + CRLF +
+      'DriverParameterBaudRate                 = 1' + CRLF +
+      'DriverParameterPortNumber               = 2' + CRLF +
+      'DriverParameterFontNumber               = 3' + CRLF +
+      'DriverParameterSysPassword              = 4' + CRLF +
+      'DriverParameterUsrPassword              = 5' + CRLF +
+      'DriverParameterByteTimeout              = 6' + CRLF +
+      'DriverParameterStatusInterval           = 7' + CRLF +
+      'DriverParameterSubtotalText             = 8' + CRLF +
+      'DriverParameterCloseRecText             = 9' + CRLF +
+      'DriverParameterVoidRecText              = 10' + CRLF +
+      'DriverParameterPollInterval             = 11' + CRLF +
+      'DriverParameterMaxRetryCount            = 12' + CRLF +
+      'DriverParameterDeviceByteTimeout        = 13' + CRLF +
+      'DriverParameterSearchByPortEnabled      = 14' + CRLF +
+      'DriverParameterSearchByBaudRateEnabled  = 15' + CRLF +
+      'DriverParameterPropertyUpdateMode       = 16' + CRLF +
+      'DriverParameterCutType                  = 17' + CRLF +
+      'DriverParameterLogMaxCount              = 18' + CRLF +
+      'DriverParameterPayTypes                 = 19' + CRLF +
+      'DriverParameterEncoding                 = 20' + CRLF +
+      'DriverParameterRemoteHost               = 21' + CRLF +
+      'DriverParameterRemotePort               = 22' + CRLF +
+      'DriverParameterHeaderType               = 23' + CRLF +
+      'DriverParameterHeaderFont               = 24' + CRLF +
+      'DriverParameterTrailerFont              = 25' + CRLF +
+      'DriverParameterTrainModeText            = 26' + CRLF +
+      'DriverParameterLogoPosition             = 27' + CRLF +
+      'DriverParameterTrainSaleText            = 28' + CRLF +
+      'DriverParameterTrainPay2Text            = 29' + CRLF +
+      'DriverParameterTrainPay3Text            = 30' + CRLF +
+      'DriverParameterTrainPay4Text            = 31' + CRLF +
+      'DriverParameterStatusCommand            = 32' + CRLF +
+      'DriverParameterTrainTotalText           = 33' + CRLF +
+      'DriverParameterConnectionType           = 34' + CRLF +
+      'DriverParameterLogFileEnabled           = 35' + CRLF +
+      'DriverParameterNumHeaderLines           = 36' + CRLF +
+      'DriverParameterTrainChangeText          = 37' + CRLF +
+      'DriverParameterTrainStornoText          = 38' + CRLF +
+      'DriverParameterTrainCashInText          = 39' + CRLF +
+      'DriverParameterNumTrailerLines          = 40' + CRLF +
+      'DriverParameterTrainCashOutText         = 41' + CRLF +
+      'DriverParameterTrainVoidRecText         = 42' + CRLF +
+      'DriverParameterTrainCashPayText         = 43' + CRLF +
+      'DriverParameterBarLinePrintDelay        = 44' + CRLF +
+      'DriverParameterCompatLevel              = 45' + CRLF +
+      'DriverParameterHeader                   = 46' + CRLF +
+      'DriverParameterTrailer                  = 47' + CRLF +
+      'DriverParameterLogoSize                 = 48' + CRLF +
+      'DriverParameterLogoCenter               = 49' + CRLF +
+      'DriverParameterDepartment               = 50' + CRLF +
+      'DriverParameterLogoEnabled              = 51' + CRLF +
+      'DriverParameterHeaderPrinted            = 52' + CRLF +
+      'DriverParameterReceiptType              = 53' + CRLF +
+      'DriverParameterZeroReceiptType          = 54' + CRLF +
+      'DriverParameterZeroReceiptNumber        = 55' + CRLF +
+      'DriverParameterCCOType                  = 56' + CRLF +
+      'DriverParameterTableEditEnabled         = 57' + CRLF +
+      'DriverParameterXmlZReportEnabled        = 58' + CRLF +
+      'DriverParameterCsvZReportEnabled        = 59' + CRLF +
+      'DriverParameterXmlZReportFileName       = 60' + CRLF +
+      'DriverParameterCsvZReportFileName       = 61' + CRLF +
+      'DriverParameterVoidReceiptOnMaxItems    = 62' + CRLF +
+      'DriverParameterMaxReceiptItems          = 63' + CRLF +
+      'DriverParameterJournalPrintHeader       = 64' + CRLF +
+      'DriverParameterJournalPrintTrailer      = 65' + CRLF +
+      'DriverParameterCacheReceiptNumber       = 66' + CRLF +
+      'DriverParameterBarLineByteMode          = 67' + CRLF +
+      'DriverParameterLogFilePath              = 68' + CRLF +
+      'DriverParameterParam1                   = 70' + CRLF +
+      'DriverParameterParam2                   = 71' + CRLF +
+      'DriverParameterParam3                   = 72' + CRLF +
+      'DriverParameterParam4                   = 73' + CRLF +
+      'DriverParameterParam5                   = 74' + CRLF +
+      'DriverParameterParam6                   = 75' + CRLF +
+      'DriverParameterParam7                   = 76' + CRLF +
+      'DriverParameterParam8                   = 77' + CRLF +
+      'DriverParameterParam9                   = 78' + CRLF +
+      'DriverParameterParam10                  = 79' + CRLF +
+      'DriverParameterBarcode                  = 80' + CRLF +
+      'DriverParameterMarkType                 = 81' + CRLF +
+      'DriverParameterCorrectionType           = 82' + CRLF +
+      'DriverParameterCalculationSign          = 83' + CRLF +
+      'DriverParameterAmount2                  = 84' + CRLF +
+      'DriverParameterAmount3                  = 85' + CRLF +
+      'DriverParameterAmount4                  = 86' + CRLF +
+      'DriverParameterAmount5                  = 87' + CRLF +
+      'DriverParameterAmount6                  = 88' + CRLF +
+      'DriverParameterAmount7                  = 89' + CRLF +
+      'DriverParameterAmount8                  = 90' + CRLF +
+      'DriverParameterAmount9                  = 91' + CRLF +
+      'DriverParameterAmount10                 = 92' + CRLF +
+      'DriverParameterAmount11                 = 93' + CRLF +
+      'DriverParameterAmount12                 = 94' + CRLF +
+      'DriverParameterTaxType                  = 95' + CRLF +
+      'DriverParameterMessage                  = 96' + CRLF +
+      'DriverParameterErrorMessage             = 97' + CRLF +
+      'String: parameter value';),
+
+
 
     (Command: DIO_READ_FM_TOTALS;
      Description: 'Read fiscal memory totals';
