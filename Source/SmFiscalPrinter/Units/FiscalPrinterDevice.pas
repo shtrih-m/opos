@@ -1321,9 +1321,12 @@ begin
     except
       on E: Exception do
       begin
+        Logger.Error(E.Message);
+
         SetIsOnline(False);
         if not CanRepeatCommand(Command.Code) then Break;
-        if (i = (Parameters.MaxRetryCount-1)) then raise;
+        if (i = (Parameters.MaxRetryCount-1)) then
+          raise ECommunicationError.Create(_('Нет связи'));
       end;
     end;
     if Parameters.MaxRetryCount > 0 then

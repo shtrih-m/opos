@@ -255,7 +255,6 @@ begin
   Printer.Printer.PreLine := '';
   Printer.Printer.PostLine := '';
   Parameters.Barcode := '';
-  Parameters.MarkType := 0;
   FHasReceiptItems := True;
 end;
 
