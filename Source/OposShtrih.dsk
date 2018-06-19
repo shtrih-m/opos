@@ -1,26 +1,23 @@
 [Closed Files]
-File_0=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterTypes.pas',0,1,353,1,376,0,0
-File_1=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterDevice.pas',0,1,5076,1,5096,0,0
-File_2=SourceModule,'C:\projects\OPOSShtrih\Source\OposTest\Fmu\fmuFptrReceipt.pas',0,1,38,5,43,1,0
-File_3=SourceModule,'C:\projects\OPOSShtrih\Source\OposTest\Units\PrinterTest.pas',0,1,1029,47,1039,0,0
-File_4=SourceModule,'C:\projects\OPOSShtrih\Source\OposTest\Fmu\fmuFptrAddHeaderTrailer.pas',0,1,37,27,45,0,0
-File_5=SourceModule,'C:\projects\OPOSShtrih\Source\OposTest\Units\OPOSDate.pas',0,1,22,45,27,0,0
-File_6=SourceModule,'C:\projects\OPOSShtrih\Source\OposTest\Fmu\fmuFptrFiscalReports.pas',0,1,81,103,89,1,1
-File_7=SourceModule,'C:\projects\OPOSShtrih\Source\OposTest\Fmu\fmuFptrDirectIO.pas',0,1,1,1,1,1,0
-File_8=SourceModule,'C:\projects\OPOSShtrih\Source\SmFptrSrv\Units\oleMain.pas',0,124,1,201,11,0,0
+File_0=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\ReceiptItem.pas',0,1,1,1,1,0,0
+File_1=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\ReceiptTemplate.pas',0,1,1,36,4,0,0
+File_2=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterImpl.pas',0,1,853,18,866,0,0
+File_3=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\PrinterParameters.pas',0,1,1,26,30,0,0
+File_4=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\DirectIOAPI.pas',0,1,1,1,1,0,0
+File_5=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FSSalesReceipt.pas',0,1,1,1,1,0,0
+File_6=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterTypes.pas',0,1,353,1,376,0,0
+File_7=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterDevice.pas',0,1,5076,1,5096,0,0
+File_8=SourceModule,'C:\projects\OPOSShtrih\Source\OposTest\Fmu\fmuFptrReceipt.pas',0,1,38,5,43,1,0
+File_9=SourceModule,'C:\projects\OPOSShtrih\Source\OposTest\Units\PrinterTest.pas',0,1,1029,47,1039,0,0
 
 [Modules]
-Module0=C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterImpl.pas
+Module0=C:\projects\OPOSShtrih\Source\SmFptrSrv\SmFptrSrv.dpr
 Count=1
 EditWindowCount=1
 TypeLibWindowCount=3
 
-[C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterImpl.pas]
-ModuleType=SourceModule
-FormState=0
-FormOnTop=0
-
 [C:\projects\OPOSShtrih\Source\SmFptrSrv\SmFptrSrv.dpr]
+ModuleType=SourceModule
 FormState=0
 FormOnTop=0
 
@@ -100,17 +97,15 @@ CodeExplorer=CodeExplorer@EditWindow0
 MessageView=MessageView@EditWindow0
 Create=1
 Visible=1
-State=2
-Left=324
-Top=138
-Width=1302
-Height=682
-MaxLeft=-8
-MaxTop=106
-MaxWidth=1936
-MaxHeight=952
-ClientWidth=1920
-ClientHeight=914
+State=0
+Left=440
+Top=317
+Width=868
+Height=646
+MaxLeft=-1
+MaxTop=-1
+ClientWidth=852
+ClientHeight=608
 LeftPanelSize=0
 LeftPanelClients=CodeExplorer@EditWindow0
 LeftPanelData=00000400010000000C000000436F64654578706C6F7265720000000000000000000000000000000000FFFFFFFF
@@ -120,10 +115,10 @@ BottomPanelClients=MessageView@EditWindow0
 BottomPanelData=00000400010000000B0000004D657373616765566965770000000000000000000000000000000000FFFFFFFF
 
 [View0]
-Module=C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterImpl.pas
-CursorX=86
-CursorY=1885
-TopLine=1874
+Module=C:\projects\OPOSShtrih\Source\SmFptrSrv\SmFptrSrv.dpr
+CursorX=59
+CursorY=12
+TopLine=1
 LeftCol=1
 
 [TypeLibEditWindow0]
@@ -196,14 +191,9 @@ LRDockWidth=320
 Dockable=1
 
 [Breakpoints]
-Count=7
+Count=2
 Breakpoint0='C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\CustomReceipt.pas',160,'',0,1,'',1,0,0,'',1,'','',''
 Breakpoint1='C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\MalinaPlugin.pas',194,'',0,1,'',1,0,0,'',1,'','',''
-Breakpoint2='C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterImpl.pas',2026,'',0,1,'',1,0,0,'',1,'','',''
-Breakpoint3='C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterImpl.pas',2037,'',0,1,'',1,0,0,'',1,'','',''
-Breakpoint4='C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterImpl.pas',2052,'',0,1,'',1,0,0,'',1,'','',''
-Breakpoint5='C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterImpl.pas',2066,'',0,1,'',1,0,0,'',1,'','',''
-Breakpoint6='C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterImpl.pas',2011,'',0,1,'',1,0,0,'',1,'','',''
 
 [AddressBreakpoints]
 Count=0
@@ -461,7 +451,7 @@ Create=1
 Visible=0
 State=0
 Left=-128
-Top=-6
+Top=-13
 Width=140
 Height=305
 MaxLeft=-1
@@ -477,7 +467,7 @@ Create=1
 Visible=0
 State=0
 Left=-134
-Top=-705
+Top=-676
 Width=443
 Height=85
 MaxLeft=-1

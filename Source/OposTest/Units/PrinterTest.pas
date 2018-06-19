@@ -4596,18 +4596,19 @@ end;
 procedure TReceiptTest20.Execute;
 begin
   Check(FiscalPrinter.ResetPrinter());
-  FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
+  FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES_SALE;
   FiscalPrinter.BeginFiscalReceipt(True);
 
-  FiscalPrinter.PostLine := 'PostLine 1';
-  FiscalPrinter.PrintRecItem('1:63326  етчуп HEINZ томатный 1000г', 209, 1000, 1, 209, 'шт');
-  FiscalPrinter.PostLine := 'PostLine 2';
-  FiscalPrinter.PrintRecItem('2:3305976 ѕакет ѕ≈–≈ –≈—“ќ  майка 65х40см', 6.49, 1000, 1, 6.49, 'шт');
-  FiscalPrinter.PostLine := 'PostLine 3';
-  FiscalPrinter.PrintRecItem('3:3148276 ¬иноград черный фасованный 500г', 41.9, 1000, 1, 41.9, 'шт');
-  FiscalPrinter.PrintRecSubtotal(257.39);
-  FiscalPrinter.PrintRecSubtotalAdjustment(1, 'ќ –”√Ћ≈Ќ»≈', 0.39);
-  FiscalPrinter.PrintRecTotal(0, 300, '0');
+  FiscalPrinter.PreLine := 'PrintRecItem.PreLine';
+  FiscalPrinter.PostLine := 'PrintRecItem.PostLine';
+  FiscalPrinter.PrintRecItem('Item 1', 100, 1000, 1, 100, 'шт');
+
+  FiscalPrinter.PreLine := 'PrintRecTotal.PreLine';
+  FiscalPrinter.PostLine := 'PrintRecTotal.PostLine';
+  FiscalPrinter.PrintRecTotal(100, 100, '0');
+
+  FiscalPrinter.PreLine := 'EndFiscalReceipt.PreLine';
+  FiscalPrinter.PostLine := 'EndFiscalReceipt.PostLine';
   FiscalPrinter.EndFiscalReceipt(True);
 end;
 
@@ -4629,24 +4630,32 @@ begin
   FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES_SALE;
   FiscalPrinter.BeginFiscalReceipt(True);
   FiscalPrinter.PrintRecItem('Item 1', 100, 1000, 1, 100, 'шт');
+  FiscalPrinter.PreLine := 'FiscalPrinter.PreLine';
+  FiscalPrinter.PostLine := 'FiscalPrinter.PostLine';
   FiscalPrinter.PrintRecTotal(100, 100, '0');
   FiscalPrinter.EndFiscalReceipt(True);
 
   FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES_RETSALE;
   FiscalPrinter.BeginFiscalReceipt(True);
   FiscalPrinter.PrintRecItem('Item 1', 100, 1000, 1, 100, 'шт');
+  FiscalPrinter.PreLine := 'FiscalPrinter.PreLine';
+  FiscalPrinter.PostLine := 'FiscalPrinter.PostLine';
   FiscalPrinter.PrintRecTotal(100, 100, '0');
   FiscalPrinter.EndFiscalReceipt(True);
 
   FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES_BUY;
   FiscalPrinter.BeginFiscalReceipt(True);
   FiscalPrinter.PrintRecItem('Item 1', 100, 1000, 1, 100, 'шт');
+  FiscalPrinter.PreLine := 'FiscalPrinter.PreLine';
+  FiscalPrinter.PostLine := 'FiscalPrinter.PostLine';
   FiscalPrinter.PrintRecTotal(100, 100, '0');
   FiscalPrinter.EndFiscalReceipt(True);
 
   FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES_RETBUY;
   FiscalPrinter.BeginFiscalReceipt(True);
   FiscalPrinter.PrintRecItem('Item 1', 100, 1000, 1, 100, 'шт');
+  FiscalPrinter.PreLine := 'FiscalPrinter.PreLine';
+  FiscalPrinter.PostLine := 'FiscalPrinter.PostLine';
   FiscalPrinter.PrintRecTotal(100, 100, '0');
   FiscalPrinter.EndFiscalReceipt(True);
 end;

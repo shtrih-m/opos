@@ -400,8 +400,8 @@ var
 begin
   CheckPrice(Price);
   CheckQuantity(Quantity);
-
   CheckPrice(UnitPrice);
+
   Operation.Quantity := GetDoubleQuantity(Quantity);
   if UnitPrice = 0 then
   begin
@@ -726,7 +726,6 @@ begin
     if ReceiptItem is TFSSaleItem then
     begin
       Item := ReceiptItem as TFSSaleItem;
-
       ParsedPreLine := ParsePrice(Item.PreLine, Price, Quantity);
       if not ParsedPreLine then
       begin
@@ -760,6 +759,7 @@ begin
   CheckAmount(Total);
   CheckAmount(Payment);
   CheckTotal(Total);
+  PrintPreLine;
 
   // Check payment code
   PayCode := Printer.GetPayCode(Description);
@@ -805,6 +805,7 @@ begin
       State.SetState(FPTR_PS_FISCAL_RECEIPT_TOTAL);
     end;
   end;
+  PrintPostLine;
 end;
 
 procedure TFSSalesReceipt.CheckRececiptState;
@@ -1553,13 +1554,9 @@ begin
   end;
 
 
-  if Printer.Printer.PreLine <> '' then
-    AddTextItem(Printer.Printer.PreLine, Station);
+  PrintPreLine;
   AddTextItem(Text, Station);
-  if Printer.Printer.PostLine <> '' then
-    AddTextItem(Printer.Printer.PostLine, Station);
-  Printer.Printer.PreLine := '';
-  Printer.Printer.PostLine := '';
+  PrintPostLine;
 end;
 
 procedure TFSSalesReceipt.AddTextItem(const Text: WideString; Station: Integer);
@@ -1579,12 +1576,20 @@ end;
 
 procedure TFSSalesReceipt.PrintPostLine;
 begin
-  Printer.PrintPostLine;
+  if Printer.Printer.PostLine <> '' then
+  begin
+    AddTextItem(Printer.Printer.PostLine, PRINTER_STATION_REC);
+    Printer.Printer.PostLine := '';
+  end;
 end;
 
 procedure TFSSalesReceipt.PrintPreLine;
 begin
-  Printer.PrintPreLine;
+  if Printer.Printer.PreLine <> '' then
+  begin
+    AddTextItem(Printer.Printer.PreLine, PRINTER_STATION_REC);
+    Printer.Printer.PreLine := '';
+  end;
 end;
 
 procedure TFSSalesReceipt.SetAdjustmentAmount(Amount: Integer);
