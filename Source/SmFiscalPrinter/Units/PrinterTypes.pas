@@ -1722,7 +1722,7 @@ begin
     $78: Result := _('Slip configuration');
     $79: Result := _('Standard slip configuration');
     $7A: Result := _('Fill slip buffer with nonfiscal information');
-    $7B: Result := _('Clear slip buffer WideString');
+    $7B: Result := _('Clear slip buffer line');
     $7C: Result := _('Clear slip buffer');
     $7D: Result := _('Print slip');
     $7E: Result := _('Common slip configuration');

@@ -16,15 +16,15 @@ implementation
 
 procedure SetTranslationLanguage;
 begin
-  bindtextdomain('SharpDrv', IncludeTrailingBackslash(ExtractFilePath(GetDllFileName)) + 'locale');
-  textdomain('SharpDrv');
+  bindtextdomain('SmFiscalPrinter', IncludeTrailingBackslash(ExtractFilePath(GetDllFileName)) + 'locale');
+  textdomain('SmFiscalPrinter');
   UseLanguage(GetLanguage);
 end;
 
 procedure SetCustomTranslationLanguage(const Language: WideString);
 begin
-  bindtextdomain('SharpDrv', IncludeTrailingBackslash(ExtractFilePath(GetDllFileName)) + 'locale');
-  textdomain('SharpDrv');
+  bindtextdomain('SmFiscalPrinter', IncludeTrailingBackslash(ExtractFilePath(GetDllFileName)) + 'locale');
+  textdomain('SmFiscalPrinter');
   UseLanguage(Language);
 end;
 

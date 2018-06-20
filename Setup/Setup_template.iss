@@ -28,7 +28,8 @@ Name: "source"; Description: "Samples and source code";
 ; Version history
 Source: "History.txt"; DestDir: "{app}"; Flags: ignoreversion; components: main;
 ; Localization params
-Source: "Setup\locales\SmFiscalPrinter.mo"; DestDir: "{app}\locale\en\LC_MESSAGES\"; Flags: 32bit; Components: main
+Source: "Setup\locales\SmFiscalPrinter.mo"; DestDir: "{app}\Bin\locale\en\LC_MESSAGES\"; Flags: 32bit; Components: main
+Source: "Setup\locales\SmFiscalPrinter.mo"; DestDir: "{app}\Bin\locale\ru\LC_MESSAGES\"; Flags: 32bit; Components: main
 Source: "Setup\Locales\ru\locale.ini"; DestDir: "{userappdata}\SHTRIH-M\OposShtrih"; DestName: "locale.ini"; Flags: 32bit; Components: main; 
 ; Logo files
 Source: "Setup\Logo\*.*"; DestDir: "{app}\Bin\Logo"; Flags: ignoreversion; components: main;

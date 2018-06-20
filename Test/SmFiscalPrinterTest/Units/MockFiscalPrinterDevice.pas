@@ -304,6 +304,8 @@ type
     function SendItemBarcode(const Barcode: WideString; MarkType: Integer): Integer;
     function GetFSCloseReceiptResult2: TFSCloseReceiptResult2;
     function FSStartCorrectionReceipt: Integer;
+    function GetLastDocNumber: Int64;
+    function GetLastMacValue: Int64;
 
     property Status: TPrinterStatus read FStatus write FStatus;
     property Parameters: TPrinterParameters read GetParameters;
@@ -1767,6 +1769,16 @@ begin
 end;
 
 function TMockFiscalPrinterDevice.FSStartCorrectionReceipt: Integer;
+begin
+  Result := 0;
+end;
+
+function TMockFiscalPrinterDevice.GetLastDocNumber: Int64;
+begin
+  Result := 0;
+end;
+
+function TMockFiscalPrinterDevice.GetLastMacValue: Int64;
 begin
   Result := 0;
 end;

@@ -64,16 +64,16 @@ begin
     CheckEquals(Item.Text, Text, 'Item.Text');
 
     Item.Text := 'ajdshgjasghd86876234';
-    Text := Template.getText('%-TITLE%', Item);
-    CheckEquals('ajdshgjasghd86876234                      ', Text, 'Item.Text');
+    Text := Template.getText('%TITLE%', Item);
+    CheckEquals('ajdshgjasghd86876234', Text, 'Item.Text');
 
     Item.Text := 'ajdshgjasghd86876234';
-    Text := Template.getText('%-lTITLE%', Item);
-    CheckEquals('ajdshgjasghd86876234                      ', Text, 'Item.Text');
+    Text := Template.getText('%lTITLE%', Item);
+    CheckEquals('ajdshgjasghd86876234', Text, 'Item.Text');
 
     Item.Text := 'ajdshgjasghd86876234';
-    Text := Template.getText('%-30lTITLE%', Item);
-    CheckEquals('ajdshgjasghd86876234                      ', Text, 'Item.Text');
+    Text := Template.getText('%30lTITLE%', Item);
+    CheckEquals('ajdshgjasghd86876234          ', Text, 'Item.Text');
 
     Item.Pos := 234;
     Text := Template.getText('%POS%', Item);
@@ -141,18 +141,20 @@ begin
 
 
     Item.Pos := 1;
-    Item.UnitPrice := 12345;
-    Item.Quantity := 123.456;
-    Item.Price := 12345;
+    Item.UnitPrice := 100;
+    Item.Quantity := 5;
+    Item.Price := 100;
     Item.Department := 2;
     Item.Tax := 3;
-    Item.PriceWithDiscount := 12300;
+    Item.PriceWithDiscount := 100;
     Item.Text := 'Receipt item 2';
     Item.UpdatePrice;
-    Text := '    %6lPRICE% %5lDISCOUNT% %6lSUM% * %6QUAN%=%TOTAL_TAX%';
+    Text := '%42lTITLE%'#13#10 +
+      '               %8PRICE% X %5QUAN% %=10TOTAL_TAX%';
     Text := Template.getText(Text, Item);
-    //CheckEquals('    123.45 123.4 0.00   * 123.45=15117.19_Â', Text, 'Item.Text'); !!!
-
+    CheckEquals(
+      'Receipt item 2                            '#$D#$A +
+      '                   1.00 X 5.000    =5.00_Â', Text, 'Item.Text');
 
     Item.Pos := 1;
     Item.UnitPrice := 12345;
@@ -165,12 +167,17 @@ begin
     Item.Data.Discount := 0;
     Text := '%51lTITLE%'#13#10'%10QUAN% X %8lPRICE% %=10TOTAL%';
     Text := Template.getText(Text, Item);
-    CheckEquals('Receipt item 2                                     '#$D#$A + 
+    CheckEquals('Receipt item 2                                     '#$D#$A +
       '   123.456 X 123.45    =15240.64', Text, 'Item.Text');
   finally
     Item.Free;
   end;
 end;
+
+(*
+                   1.00 X 5.000    =5.00_Â
+                   1.00 X 5.000       =5.00_Â
+*)
 
 procedure TReceiptTemplateTest.CheckParseField;
 var

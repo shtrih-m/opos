@@ -22,7 +22,6 @@ type
     Prefix: WideString;
     Length: Integer;
     Alignment: TFieldAlignment;
-    IsSpacer: Boolean;
   end;
 
   { TReceiptTemplate }
@@ -32,7 +31,7 @@ type
     FTemplate: WideString;
     FPrintWidth: Integer;
     function GetFieldValue(const Field, Prefix: WideString;
-      const Item: TFSSaleItem; var IsSpacer: Boolean): WideString;
+      const Item: TFSSaleItem): WideString;
   public
     constructor Create(APrintWidth: Integer);
 
@@ -63,14 +62,10 @@ type
 var
   C: WideChar;
   i: Integer;
-  Line: WideString;
   Field: WideString;
   Prefix: WideString;
-  Count: Integer;
-  IsSpacer: Boolean;
   State: TParserState;
 begin
-  Line := '';
   Field := '';
   Prefix := '';
   Result := '';
@@ -85,12 +80,7 @@ begin
         case State of
           stField:
           begin
-            Result := Result + GetFieldValue(Field, Prefix, Item, IsSpacer);
-            if IsSpacer then
-            begin
-              Line := Result;
-              Result := '';
-            end;
+            Result := Result + GetFieldValue(Field, Prefix, Item);
             State := stChar;
           end;
           stESC:
@@ -107,7 +97,7 @@ begin
     else
       if State = stField then
       begin
-        if (Field = '')and (C <> '-')and(not IsWideCharAlphaNumeric(C)) then
+        if (Field = '')and(not IsWideCharAlphaNumeric(C)) then
         begin
           Prefix := Prefix + C;
         end else
@@ -120,11 +110,6 @@ begin
         Result := Result + FormatLine[i];
       end;
     end;
-  end;
-  if Line <> '' then
-  begin
-    Count := FPrintWidth - ((Length(Line) + Length(Result)) mod FPrintWidth);
-    Result := Line + StringOfChar(' ', Count) + Result;
   end;
 end;
 
@@ -141,7 +126,7 @@ end;
 
 
 function TReceiptTemplate.GetFieldValue(const Field, Prefix: WideString;
-  const Item: TFSSaleItem; var IsSpacer: Boolean): WideString;
+  const Item: TFSSaleItem): WideString;
 var
   L: Integer;
   TaxLetter: WideString;
@@ -149,7 +134,6 @@ var
 begin
   Result := '';
   FieldData := ParseField(Field);
-  IsSpacer := FieldData.IsSpacer;
 
   if AnsiCompareText(FieldData.Name, 'TITLE') = 0 then
   begin
@@ -239,7 +223,6 @@ var
 begin
   Result.Name := '';
   Result.Length := 0;
-  Result.IsSpacer := False;
   Result.Alignment := faRight;
 
   Text := '';
@@ -255,10 +238,6 @@ begin
           State := stLength;
         end;
         Text := Text + C;
-      end;
-      '-':
-      begin
-        Result.IsSpacer := True;
       end;
       'c', 'l':
       begin
