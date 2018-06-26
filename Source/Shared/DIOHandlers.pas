@@ -669,6 +669,32 @@ type
     property Device: IFiscalPrinterDevice read GetDevice;
   end;
 
+  { TDIOWriteTlvHex }
+
+  TDIOWriteTlvHex = class(TDIOHandler)
+  private
+    FPrinter: TFiscalPrinterImpl;
+  public
+    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
+      APrinter: TFiscalPrinterImpl);
+
+    procedure DirectIO(var pData: Integer; var pString: WideString); override;
+    property Printer: TFiscalPrinterImpl read FPrinter;
+  end;
+
+  { TDIOWriteTlvOperation }
+
+  TDIOWriteTlvOperation = class(TDIOHandler)
+  private
+    FPrinter: TFiscalPrinterImpl;
+  public
+    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
+      APrinter: TFiscalPrinterImpl);
+
+    procedure DirectIO(var pData: Integer; var pString: WideString); override;
+    property Printer: TFiscalPrinterImpl read FPrinter;
+  end;
+
   { TDIOWriteStringTag }
 
   TDIOWriteStringTag = class(TDIOHandler)
@@ -1103,6 +1129,8 @@ begin
     Barcode.Parameter1 := GetInteger(pString, 6, ValueDelimiters);
     Barcode.Parameter2 := GetInteger(pString, 7, ValueDelimiters);
     Barcode.Parameter3 := GetInteger(pString, 8, ValueDelimiters);
+    Barcode.Parameter4 := GetInteger(pString, 9, ValueDelimiters);
+    Barcode.Parameter5 := GetInteger(pString, 10, ValueDelimiters);
   end;
   Printer.PrintBarcode(Barcode);
 end;
@@ -2704,6 +2732,36 @@ procedure TDIOStartCorrection.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
   FPrinter.Device.Check(FPrinter.Device.FSStartCorrectionReceipt);
+end;
+
+{ TDIOWriteTlvOperation }
+
+constructor TDIOWriteTlvOperation.CreateCommand(AOwner: TDIOHandlers;
+  ACommand: Integer; APrinter: TFiscalPrinterImpl);
+begin
+  inherited Create(AOwner, ACommand);
+  FPrinter := APrinter;
+end;
+
+procedure TDIOWriteTlvOperation.DirectIO(var pData: Integer;
+  var pString: WideString);
+begin
+  Printer.FSWriteTlvOperation(HexToStr(pString));
+end;
+
+{ TDIOWriteTlvHex }
+
+constructor TDIOWriteTlvHex.CreateCommand(AOwner: TDIOHandlers;
+  ACommand: Integer; APrinter: TFiscalPrinterImpl);
+begin
+  inherited Create(AOwner, ACommand);
+  FPrinter := APrinter;
+end;
+
+procedure TDIOWriteTlvHex.DirectIO(var pData: Integer;
+  var pString: WideString);
+begin
+  Printer.FSWriteTlv(HexToStr(pString));
 end;
 
 end.

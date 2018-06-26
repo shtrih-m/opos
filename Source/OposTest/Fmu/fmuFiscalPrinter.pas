@@ -191,8 +191,8 @@ begin
   AddPage(TfmFptrFroudReceipt);
   {$ENDIF}
   AddPage(TfmFptrTest);
-  AddPage(TfmFptrThreadTest);
-  AddPage(TfmFptrTest2);
+  //AddPage(TfmFptrThreadTest);
+  //AddPage(TfmFptrTest2);
 end;
 
 procedure TfmFiscalPrinter.UpdatePages(ListBox: TTntListBox; Pages: TPages);

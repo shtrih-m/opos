@@ -20,7 +20,7 @@ const
   CRLF = #13#10;
   DIO_CUSTOM_COMMAND = $FFFF;
 
-  DIODescriptions: array[1..43] of TDirectIODescription = (
+  DIODescriptions: array[1..46] of TDirectIODescription = (
     (Command: DIO_COMMAND_PRINTER_XML;
      Description: 'XML command';
      DescriptionEx:  'Data: Printer command code' + #13#10 +
@@ -58,8 +58,110 @@ const
 
     (Command: DIO_PRINT_BARCODE;
      Description: 'Print barcode';
-     DescriptionEx: 'Data: Barcode type:(0 - EAN 13; 1 - CODE 128A; 2 - CODE 128B; 3 - CODE 128C)' + #13#10 +
-                    'String: Barcode data'),
+     DescriptionEx: 'Data: Barcode type:' + CRLF +
+      'DIO_BARCODE_EAN13_INT         = 0' + CRLF +
+      'DIO_BARCODE_CODE128A          = 1' + CRLF +
+      'DIO_BARCODE_CODE128B          = 2' + CRLF +
+      'DIO_BARCODE_CODE128C          = 3' + CRLF +
+      'DIO_BARCODE_CODE39            = 4' + CRLF +
+      'DIO_BARCODE_CODE25INTERLEAVED = 5' + CRLF +
+      'DIO_BARCODE_CODE25INDUSTRIAL  = 6' + CRLF +
+      'DIO_BARCODE_CODE25MATRIX      = 7' + CRLF +
+      'DIO_BARCODE_CODE39EXTENDED    = 8' + CRLF +
+      'DIO_BARCODE_CODE93            = 9' + CRLF +
+      'DIO_BARCODE_CODE93EXTENDED    = 10' + CRLF +
+      'DIO_BARCODE_MSI               = 11' + CRLF +
+      'DIO_BARCODE_POSTNET           = 12' + CRLF +
+      'DIO_BARCODE_CODABAR           = 13' + CRLF +
+      'DIO_BARCODE_EAN8              = 14' + CRLF +
+      'DIO_BARCODE_EAN13             = 15' + CRLF +
+      'DIO_BARCODE_UPC_A             = 16' + CRLF +
+      'DIO_BARCODE_UPC_E0            = 17' + CRLF +
+      'DIO_BARCODE_UPC_E1            = 18' + CRLF +
+      'DIO_BARCODE_UPC_S2            = 19' + CRLF +
+      'DIO_BARCODE_UPC_S5            = 20' + CRLF +
+      'DIO_BARCODE_EAN128A           = 21' + CRLF +
+      'DIO_BARCODE_EAN128B           = 22' + CRLF +
+      'DIO_BARCODE_EAN128C           = 23' + CRLF +
+      'DIO_BARCODE_CODE11            = 24' + CRLF +
+      'DIO_BARCODE_C25IATA           = 25' + CRLF +
+      'DIO_BARCODE_C25LOGIC          = 26' + CRLF +
+      'DIO_BARCODE_DPLEIT            = 27' + CRLF +
+      'DIO_BARCODE_DPIDENT           = 28' + CRLF +
+      'DIO_BARCODE_CODE16K           = 29' + CRLF +
+      'DIO_BARCODE_CODE49            = 30' + CRLF +
+      'DIO_BARCODE_FLAT              = 31' + CRLF +
+      'DIO_BARCODE_RSS14             = 32' + CRLF +
+      'DIO_BARCODE_RSS_LTD           = 33' + CRLF +
+      'DIO_BARCODE_RSS_EXP           = 34' + CRLF +
+      'DIO_BARCODE_TELEPEN           = 35' + CRLF +
+      'DIO_BARCODE_FIM               = 36' + CRLF +
+      'DIO_BARCODE_LOGMARS           = 37' + CRLF +
+      'DIO_BARCODE_PHARMA            = 38' + CRLF +
+      'DIO_BARCODE_PZN               = 39' + CRLF +
+      'DIO_BARCODE_PHARMA_TWO        = 40' + CRLF +
+      'DIO_BARCODE_PDF417            = 41' + CRLF +
+      'DIO_BARCODE_PDF417TRUNC       = 42' + CRLF +
+      'DIO_BARCODE_MAXICODE          = 43' + CRLF +
+      'DIO_BARCODE_QRCODE            = 44' + CRLF +
+      'DIO_BARCODE_AUSPOST           = 45' + CRLF +
+      'DIO_BARCODE_AUSREPLY          = 46' + CRLF +
+      'DIO_BARCODE_AUSROUTE          = 47' + CRLF +
+      'DIO_BARCODE_AUSREDIRECT       = 48' + CRLF +
+      'DIO_BARCODE_ISBNX             = 49' + CRLF +
+      'DIO_BARCODE_RM4SCC            = 50' + CRLF +
+      'DIO_BARCODE_DATAMATRIX        = 51' + CRLF +
+      'DIO_BARCODE_EAN14             = 52' + CRLF +
+      'DIO_BARCODE_CODABLOCKF        = 53' + CRLF +
+      'DIO_BARCODE_NVE18             = 54' + CRLF +
+      'DIO_BARCODE_JAPANPOST         = 55' + CRLF +
+      'DIO_BARCODE_KOREAPOST         = 56' + CRLF +
+      'DIO_BARCODE_RSS14STACK        = 57' + CRLF +
+      'DIO_BARCODE_RSS14STACK_OMNI   = 58' + CRLF +
+      'DIO_BARCODE_RSS_EXPSTACK      = 59' + CRLF +
+      'DIO_BARCODE_PLANET            = 60' + CRLF +
+      'DIO_BARCODE_MICROPDF417       = 61' + CRLF +
+      'DIO_BARCODE_ONECODE           = 62' + CRLF +
+      'DIO_BARCODE_PLESSEY           = 63' + CRLF +
+      'DIO_BARCODE_TELEPEN_NUM       = 64' + CRLF +
+      'DIO_BARCODE_ITF14             = 65' + CRLF +
+      'DIO_BARCODE_KIX               = 66' + CRLF +
+      'DIO_BARCODE_AZTEC             = 67' + CRLF +
+      'DIO_BARCODE_DAFT              = 68' + CRLF +
+      'DIO_BARCODE_MICROQR           = 69' + CRLF +
+      'DIO_BARCODE_HIBC_128          = 70' + CRLF +
+      'DIO_BARCODE_HIBC_39           = 71' + CRLF +
+      'DIO_BARCODE_HIBC_DM           = 72' + CRLF +
+      'DIO_BARCODE_HIBC_QR           = 73' + CRLF +
+      'DIO_BARCODE_HIBC_PDF          = 74' + CRLF +
+      'DIO_BARCODE_HIBC_MICPDF       = 75' + CRLF +
+      'DIO_BARCODE_HIBC_BLOCKF       = 76' + CRLF +
+      'DIO_BARCODE_HIBC_AZTEC        = 77' + CRLF +
+      'DIO_BARCODE_AZRUNE            = 78' + CRLF +
+      'DIO_BARCODE_CODE32            = 79' + CRLF +
+      'DIO_BARCODE_EANX_CC           = 80' + CRLF +
+      'DIO_BARCODE_EAN128_CC         = 81' + CRLF +
+      'DIO_BARCODE_RSS14_CC          = 82' + CRLF +
+      'DIO_BARCODE_RSS_LTD_CC        = 83' + CRLF +
+      'DIO_BARCODE_RSS_EXP_CC        = 84' + CRLF +
+      'DIO_BARCODE_UPCA_CC           = 85' + CRLF +
+      'DIO_BARCODE_UPCE_CC           = 86' + CRLF +
+      'DIO_BARCODE_RSS14STACK_CC     = 87' + CRLF +
+      'DIO_BARCODE_RSS14_OMNI_CC     = 88' + CRLF +
+      'DIO_BARCODE_RSS_EXPSTACK_CC   = 89' + CRLF +
+      'DIO_BARCODE_CHANNEL           = 90' + CRLF +
+      'DIO_BARCODE_CODEONE           = 91' + CRLF +
+      'DIO_BARCODE_GRIDMATRIX        = 92' + CRLF +
+      'DIO_BARCODE_QRCODE2           = 93' + CRLF +
+      'DIO_BARCODE_QRCODE3           = 94' + CRLF +
+      'DIO_BARCODE_QRCODE4           = 95' + CRLF +
+      'DIO_BARCODE_DEVICE_PDF417     = 96' + CRLF +
+      'DIO_BARCODE_DEVICE_DATAMATRIX = 97' + CRLF +
+      'DIO_BARCODE_DEVICE_AZTEC      = 98' + CRLF +
+      'DIO_BARCODE_DEVICE_QR         = 99' + CRLF +
+      'DIO_BARCODE_DEVICE_EGAIS      = 100' + CRLF +
+      'String: Barcode;Text;Height;ModuleWidth;Alignment;Parameter1;Parameter2;Parameter3;Parameter4;Parameter5'),
+
 
     (Command: DIO_COMMAND_PRINTER_STR;
      Description: 'String command';
@@ -498,8 +600,27 @@ const
      Description: 'Start correction receipt';
      DescriptionEx:
        'Data: not used' + CRLF +
-       'String: not used';)
+       'String: not used';),
+
+    (Command: DIO_START_CORRECTION;
+     Description: 'Start correction receipt';
+     DescriptionEx:
+       'Data: not used' + CRLF +
+       'String: not used';),
+
+    (Command: DIO_WRITE_FS_TLV_HEX;
+     Description: 'Write TLV data';
+     DescriptionEx:
+       'Data: not used' + CRLF +
+       'String: TLV data in HEX format';),
+
+    (Command: DIO_WRITE_FS_TLV_OP_HEX;
+     Description: 'Write TLV data for operation';
+     DescriptionEx:
+       'Data: not used' + CRLF +
+       'String: TLV data in HEX format';)
   );
+
 
 function GetDIODescription(ADIOCommand: Integer): TDirectIODescription;
 

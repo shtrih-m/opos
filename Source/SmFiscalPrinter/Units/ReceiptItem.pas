@@ -156,6 +156,14 @@ type
     procedure Assign(Item: TReceiptItem); override;
   end;
 
+  { TTLVOperationReceiptItem }
+
+  TTLVOperationReceiptItem = class(TReceiptItem)
+  public
+    Data: WideString;
+    procedure Assign(Item: TReceiptItem); override;
+  end;
+
 implementation
 
 { TReceiptItems }
@@ -469,6 +477,19 @@ begin
   if Item is TTLVReceiptItem then
   begin
     Src := Item as TTLVReceiptItem;
+    Data := Src.Data;
+  end;
+end;
+
+{ TTLVOperationReceiptItem }
+
+procedure TTLVOperationReceiptItem.Assign(Item: TReceiptItem);
+var
+  Src: TTLVOperationReceiptItem;
+begin
+  if Item is TTLVOperationReceiptItem then
+  begin
+    Src := Item as TTLVOperationReceiptItem;
     Data := Src.Data;
   end;
 end;

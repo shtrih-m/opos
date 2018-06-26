@@ -113,6 +113,7 @@ begin
   AddTest(TReceiptTest20);
   AddTest(TReceiptTest21);
   AddTest(TCorrectionReceipt2Test);
+  AddTest(T6DigitsQuantityTest);
 
   cbTest.ItemIndex := 0;
 end;

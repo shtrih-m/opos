@@ -103,7 +103,7 @@ var
 begin
   Result := 0;
   if GetSubString(Data, S, Index, Delimiters) then
-    Result := StrToInt(S);
+    Result := StrToIntDef(S, 0);
 end;
 
 function QuantityToStr(Value: Double): AnsiString;

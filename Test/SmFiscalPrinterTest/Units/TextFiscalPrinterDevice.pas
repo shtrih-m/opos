@@ -300,7 +300,7 @@ type
     procedure PrintFSDocument(Number: Integer);
     function FSStartOpenDay: Integer;
     function CheckItemBarcode(const Barcode: WideString): Integer;
-    function FSSendTLVOperation(const Data: WideString): Integer;
+    function FSWriteTLVOperation(const Data: WideString): Integer;
     function SendItemBarcode(const Barcode: WideString; MarkType: Integer): Integer;
     function GetFSCloseReceiptResult2: TFSCloseReceiptResult2;
     function FSStartCorrectionReceipt: Integer;
@@ -1752,7 +1752,7 @@ begin
   Result := 0;
 end;
 
-function TTextFiscalPrinterDevice.FSSendTLVOperation(
+function TTextFiscalPrinterDevice.FSWriteTLVOperation(
   const Data: WideString): Integer;
 begin
   Result := 0;

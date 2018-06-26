@@ -808,6 +808,14 @@ type
     function GetDisplayText: WideString; override;
   end;
 
+  { T6DigitsQuantityTest }
+
+  T6DigitsQuantityTest = class(TDriverTest)
+  public
+    procedure Execute; override;
+    function GetDisplayText: WideString; override;
+  end;
+
 implementation
 
 const
@@ -3428,21 +3436,66 @@ end;
 
 function TTestReceipt5.GetDisplayText: WideString;
 begin
-  Result := 'Barcode test receipt';
+  Result := 'Barcode test receipt 1';
 end;
+
+// 'Barcode;Text;Height;ModuleWidth;Alignment;Parameter1;Parameter2;Parameter3;Parameter4;Parameter5'),
 
 procedure TTestReceipt5.Execute;
 var
   pData: Integer;
+  Line: WideString;
   pString: WideString;
+  ResultCode: Integer;
+const
+  Separator = '------------------------------------------';
 begin
-  pData := 0;
-  pString := '299935000000';
-  Check(FiscalPrinter.DirectIO(7, pData, pString));
+  // DIO_BARCODE_DEVICE_PDF417
+  FiscalPrinter.PrintNormal(FPTR_S_RECEIPT, Separator);
+  FiscalPrinter.PrintNormal(FPTR_S_RECEIPT, 'DIO_BARCODE_DEVICE_PDF417');
+  pData := DIO_BARCODE_DEVICE_PDF417;
+  pString := '299935000000;;10;3;0;0;0;3;0;2;';
+  ResultCode := FiscalPrinter.DirectIO(DIO_PRINT_BARCODE, pData, pString);
+  Line := Format('Result: %d, %s', [ResultCode, FiscalPrinter.ErrorString]);
+  FiscalPrinter.PrintNormal(FPTR_S_RECEIPT, Line);
 
-  pData := 1;
-  pString := #$0D#$0A'Получи скидку 15% на всю продукцию ПРОСТОКВАШИНО с 23 июня по 29 июня';
-  Check(FiscalPrinter.DirectIO(9, pData, pString));
+
+  // DIO_BARCODE_DEVICE_DATAMATRIX
+  FiscalPrinter.PrintNormal(FPTR_S_RECEIPT, Separator);
+  FiscalPrinter.PrintNormal(FPTR_S_RECEIPT, 'DIO_BARCODE_DEVICE_DATAMATRIX');
+  pData := DIO_BARCODE_DEVICE_DATAMATRIX;
+  pString := '299935000000;;10;3;0;0;0;3;0;2;';
+  ResultCode := FiscalPrinter.DirectIO(DIO_PRINT_BARCODE, pData, pString);
+  Line := Format('Result: %d, %s', [ResultCode, FiscalPrinter.ErrorString]);
+  FiscalPrinter.PrintNormal(FPTR_S_RECEIPT, Line);
+
+  // DIO_BARCODE_DEVICE_AZTEC
+  FiscalPrinter.PrintNormal(FPTR_S_RECEIPT, Separator);
+  FiscalPrinter.PrintNormal(FPTR_S_RECEIPT, 'DIO_BARCODE_DEVICE_AZTEC');
+  pData := DIO_BARCODE_DEVICE_AZTEC;
+  pString := '299935000000;;10;3;0;0;0;3;0;2;';
+  ResultCode := FiscalPrinter.DirectIO(DIO_PRINT_BARCODE, pData, pString);
+  Line := Format('Result: %d, %s', [ResultCode, FiscalPrinter.ErrorString]);
+  FiscalPrinter.PrintNormal(FPTR_S_RECEIPT, Line);
+
+  // DIO_BARCODE_DEVICE_QR
+  FiscalPrinter.PrintNormal(FPTR_S_RECEIPT, Separator);
+  FiscalPrinter.PrintNormal(FPTR_S_RECEIPT, 'DIO_BARCODE_DEVICE_QR');
+  pData := DIO_BARCODE_DEVICE_QR;
+  pString := '299935000000;;10;3;0;0;0;3;0;2;';
+  ResultCode := FiscalPrinter.DirectIO(DIO_PRINT_BARCODE, pData, pString);
+  Line := Format('Result: %d, %s', [ResultCode, FiscalPrinter.ErrorString]);
+  FiscalPrinter.PrintNormal(FPTR_S_RECEIPT, Line);
+
+
+  // DIO_BARCODE_DEVICE_EGAIS
+  FiscalPrinter.PrintNormal(FPTR_S_RECEIPT, Separator);
+  FiscalPrinter.PrintNormal(FPTR_S_RECEIPT, 'DIO_BARCODE_DEVICE_EGAIS');
+  pData := DIO_BARCODE_DEVICE_EGAIS;
+  pString := '299935000000;;10;3;0;0;0;3;0;2;';
+  ResultCode := FiscalPrinter.DirectIO(DIO_PRINT_BARCODE, pData, pString);
+  Line := Format('Result: %d, %s', [ResultCode, FiscalPrinter.ErrorString]);
+  FiscalPrinter.PrintNormal(FPTR_S_RECEIPT, Line);
 end;
 
 { TTestReceipt6 }
@@ -4705,6 +4758,23 @@ end;
 function TCorrectionReceipt2Test.GetDisplayText: WideString;
 begin
   Result := 'Correction receipt 2 test';
+end;
+
+{ T6DigitsQuantityTest }
+
+procedure T6DigitsQuantityTest.Execute;
+begin
+  Check(FiscalPrinter.ResetPrinter());
+  FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
+  Check(FiscalPrinter.BeginFiscalReceipt(True));
+  Check(FiscalPrinter.PrintRecItem('Item 1', 100, 1234567, 0, 100, ''));
+  Check(FiscalPrinter.PrintRecTotal(200, 200, '0'));
+  Check(FiscalPrinter.EndFiscalReceipt(True));
+end;
+
+function T6DigitsQuantityTest.GetDisplayText: WideString;
+begin
+  Result := '6 digits quantity test';
 end;
 
 end.

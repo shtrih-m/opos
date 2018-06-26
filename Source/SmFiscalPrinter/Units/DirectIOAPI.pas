@@ -86,6 +86,13 @@ const
   DIO_OPEN_DAY                  = 59; // open day
   DIO_CHECK_MARKING             = 60; // check marking
   DIO_START_CORRECTION          = 61; // start correction receipt
+  DIO_WRITE_FS_TLV_HEX          = 62; // Write fiscal storage tag
+  DIO_WRITE_FS_TLV_OP_HEX       = 63; // Write TLV operation
+
+  // Read document from fiscal storage device
+  DIO_READ_FS_DOCUMENT            = 96;
+  // Print document from fiscal storage device
+  DIO_PRINT_FS_DOCUMENT           = 97;
 
 
   DIO_PRINT_TEXT2                = 1000;  // print text
@@ -216,13 +223,17 @@ const
   DIO_BARCODE_QRCODE3             = 94;
   // Компактный вид QR кода, печатается быстро средствами ФР, перепечатываться будет
   DIO_BARCODE_QRCODE4             = 95;
-  // Read document from fiscal storage device
-  DIO_READ_FS_DOCUMENT            = 96;
-  // Print document from fiscal storage device
-  DIO_PRINT_FS_DOCUMENT           = 97;
+
+  // Barcodes prints with command DEh
+  DIO_BARCODE_DEVICE_PDF417       = 96;
+  DIO_BARCODE_DEVICE_DATAMATRIX   = 97;
+  DIO_BARCODE_DEVICE_AZTEC        = 98;
+  DIO_BARCODE_DEVICE_QR           = 99;
+  DIO_BARCODE_DEVICE_EGAIS        = 100;
+  
 
   DIO_BARCODE_MIN = 0;
-  DIO_BARCODE_MAX = 95;
+  DIO_BARCODE_MAX = 100;
 
   /////////////////////////////////////////////////////////////////////////////
   // BarcodeAlignment values

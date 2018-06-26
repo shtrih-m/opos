@@ -138,8 +138,8 @@ begin
     on E: Exception do
     begin
       Inc(FErrorCount);
-      AddMessage('ERROR: ' + E.Message);
       if FStopOnError then raise;
+      AddMessage('ERROR: ' + E.Message);
     end;
   end;
 end;

@@ -459,7 +459,7 @@ type
     procedure PrintFSDocument(Number: Integer);
     function FSStartOpenDay: Integer;
     function CheckItemBarcode(const Barcode: WideString): Integer;
-    function FSSendTLVOperation(const Data: WideString): Integer;
+    function FSWriteTLVOperation(const Data: WideString): Integer;
     function SendItemBarcode(const Barcode: WideString; MarkType: Integer): Integer;
     function FSStartCorrectionReceipt: Integer;
     function GetLastDocNumber: Int64;

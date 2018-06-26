@@ -446,7 +446,7 @@ type
     function IsCapBarcode2D: Boolean;
     function IsCapEnablePrint: Boolean;
     function ReadCashReg(ID: Integer; var R: TCashRegisterRec): Integer;
-    function FSSendTLVOperation(const Data: WideString): Integer;
+    function FSWriteTLVOperation(const Data: WideString): Integer;
     function FSStartCorrectionReceipt: Integer;
 
     property IsOnline: Boolean read GetIsOnline;
@@ -492,6 +492,19 @@ const
 
 
 implementation
+
+// 0	По левому краю
+// 1	По центру
+// 2	По правому краю
+function IntToAlignment(Alignment: Integer): Integer;
+begin
+  Result := 1;
+  case Alignment of
+    BARCODE_ALIGNMENT_CENTER: Result := 1;
+    BARCODE_ALIGNMENT_LEFT: Result := 0;
+    BARCODE_ALIGNMENT_RIGHT: Result := 2;
+  end;
+end;
 
 { Получение таймаута выполнения команды }
 function GetCommandTimeout(Command: Word): Integer;
@@ -5578,15 +5591,10 @@ begin
 end;
 
 procedure TFiscalPrinterDevice.PrintBarcode2(const Barcode: TBarcodeRec);
-var
-  Line: AnsiString;
-  TickCount: Integer;
-  ABarcode: TBarcodeRec;
-begin
-  ABarcode := Barcode;
-  Logger.Debug('PrintBarcode2');
-  TickCount := GetTickCount;
-  if ABarcode.BarcodeType = DIO_BARCODE_EAN13_INT then
+
+  procedure PrintBarcodeEAN13(ABarcode: TBarcodeRec);
+  var
+    Line: AnsiString;
   begin
     ABarcode.Height := 80;
     ABarcode.Data := Copy(ABarcode.Data, 1, 12);
@@ -5597,31 +5605,87 @@ begin
     WaitForPrinting;
     Line := AlignLine(ABarcode.Data, GetPrintWidth, taCenter);
     PrintStringFont(PRINTER_STATION_REC, Parameters.FontNumber, Line);
+  end;
+
+  function PrintBarcode2D_2(Barcode: TBarcodeRec): Integer;
+  var
+    Barcode2D: TBarcode2D;
+  begin
+    Barcode.Data := Barcode.Data + #0;
+    Result := LoadBarcodeData(Barcode.Data);
+    if Result <> 0 then Exit;
+
+    Barcode2D.BarcodeType := Barcode.BarcodeType;
+    Barcode2D.DataLength := Length(Barcode.Data);
+    Barcode2D.BlockNumber := 0;
+    Barcode2D.Parameter1 := Barcode.Parameter1;
+    Barcode2D.Parameter2 := Barcode.Parameter2;
+    Barcode2D.Parameter3 := Barcode.Parameter3;
+    Barcode2D.Parameter4 := Barcode.Parameter4;
+    Barcode2D.Parameter5 := Barcode.Parameter5;
+    Barcode2D.Alignment := IntToAlignment(Barcode.Alignment);
+    Result := PrintBarcode2D(Barcode2D);
+  end;
+
+  function IntTo2DBarcodeType(BarcodeType: Integer): Integer;
+  begin
+    case BarcodeType of
+      DIO_BARCODE_DEVICE_PDF417     : Result := 0;
+      DIO_BARCODE_DEVICE_DATAMATRIX : Result := 1;
+      DIO_BARCODE_DEVICE_AZTEC      : Result := 2;
+      DIO_BARCODE_DEVICE_QR         : Result := 3;
+      DIO_BARCODE_DEVICE_EGAIS      : Result := $83;
+    else
+      raise Exception.Create('Invalid barcode type');
+    end;
+  end;
+
+var
+  TickCount: Integer;
+  ABarcode: TBarcodeRec;
+begin
+  ABarcode := Barcode;
+  Logger.Debug('PrintBarcode2');
+  TickCount := GetTickCount;
+
+  if not FCapBarcode2D then
+  begin
+    if ABarcode.BarcodeType = DIO_BARCODE_QRCODE3 then
+    begin
+      PrintQRCode3(ABarcode);
+    end else
+    begin
+      PrintBarcodeZInt(ABarcode);
+    end;
   end else
   begin
-    if (ABarcode.BarcodeType in [
-      DIO_BARCODE_QRCODE, DIO_BARCODE_QRCODE2, DIO_BARCODE_QRCODE4])and FCapBarcode2D then
-    begin
-      if (ABarcode.BarcodeType in [DIO_BARCODE_QRCODE2, DIO_BARCODE_QRCODE4]) then
+    case ABarcode.BarcodeType of
+      DIO_BARCODE_EAN13_INT: PrintBarcodeEAN13(ABarcode);
+      DIO_BARCODE_QRCODE:
+        Check(PrintQRCode2D(ABarcode));
+
+      DIO_BARCODE_QRCODE2,
+      DIO_BARCODE_QRCODE4:
       begin
         ABarcode.Data := ABarcode.Data + ' ' + ABarcode.Text;
         ABarcode.Text := '';
+        Check(PrintQRCode2D(ABarcode))
       end;
-      Check(PrintQRCode2D(ABarcode))
-    end else
-    begin
-      if ABarcode.BarcodeType = DIO_BARCODE_QRCODE3 then
+      DIO_BARCODE_DEVICE_PDF417,
+      DIO_BARCODE_DEVICE_DATAMATRIX,
+      DIO_BARCODE_DEVICE_AZTEC,
+      DIO_BARCODE_DEVICE_QR,
+      DIO_BARCODE_DEVICE_EGAIS:
       begin
-        PrintQRCode3(ABarcode);
-      end else
-      begin
-        PrintBarcodeZInt(ABarcode);
+        ABarcode.BarcodeType := IntTo2DBarcodeType(ABarcode.BarcodeType);
+        Check(PrintBarcode2D_2(ABarcode));
       end;
+    else
+      PrintBarcodeZInt(ABarcode);
     end;
   end;
   Logger.Debug('PrintBarcode2.OK');
   Logger.Debug(Format('Barcode printed in %d ms', [Integer(GetTickCount) - TickCount]));
-
   WaitForPrinting;
 end;
 
@@ -5646,20 +5710,6 @@ begin
 end;
 
 function TFiscalPrinterDevice.PrintQRCode2D(Barcode: TBarcodeRec): Integer;
-
-  // 0	По левому краю
-  // 1	По центру
-  // 2	По правому краю
-  function IntToAlignment(Alignment: Integer): Integer;
-  begin
-    Result := 1;
-    case Alignment of
-      BARCODE_ALIGNMENT_CENTER: Result := 1;
-      BARCODE_ALIGNMENT_LEFT: Result := 0;
-      BARCODE_ALIGNMENT_RIGHT: Result := 2;
-    end;
-  end;
-
 var
   Barcode2D: TBarcode2D;
 begin
@@ -8693,10 +8743,10 @@ begin
   else
     raiseException(_('Invalid MarkType value'));
   end;
-  Result := FSSendTLVOperation(Data);
+  Result := FSWriteTLVOperation(Data);
 end;
 
-function TFiscalPrinterDevice.FSSendTLVOperation(const Data: WideString): Integer;
+function TFiscalPrinterDevice.FSWriteTLVOperation(const Data: WideString): Integer;
 var
   Command: AnsiString;
   Answer: AnsiString;

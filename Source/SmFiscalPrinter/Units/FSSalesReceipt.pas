@@ -151,6 +151,7 @@ type
     procedure PrintText(const Data: TTextRec); override;
     procedure PrintBarcode(const Barcode: TBarcodeRec); override;
     procedure FSWriteTLV(const TLVData: WideString); override;
+    procedure FSWriteTLVOperation(const TLVData: WideString); override;
     procedure WriteFPParameter(ParamId: Integer; const Value: WideString); override;
     procedure PrintAdditionalHeader(const AdditionalHeader: WideString); override;
 
@@ -974,6 +975,10 @@ begin
     begin
       Device.FsWriteTLV((ReceiptItem as TTLVReceiptItem).Data);
     end;
+    if ReceiptItem is TTLVOperationReceiptItem then
+    begin
+      Device.FsWriteTLVOperation((ReceiptItem as TTLVOperationReceiptItem).Data);
+    end;
   end;
 end;
 
@@ -1628,6 +1633,15 @@ begin
   Item := TTLVReceiptItem.Create(FReceiptItems);
   Item.Data := TLVData;
 end;
+
+procedure TFSSalesReceipt.FSWriteTLVOperation(const TLVData: WideString);
+var
+  Item: TTLVOperationReceiptItem;
+begin
+  Item := TTLVOperationReceiptItem.Create(FReceiptItems);
+  Item.Data := TLVData;
+end;
+
 
 function TFSSalesReceipt.GetDevice: IFiscalPrinterDevice;
 begin

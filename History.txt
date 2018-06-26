@@ -6,6 +6,22 @@
 
 *******************************************************************
 
+  OposShtrih_1.13_498.exe
+  26 июня 2018 21:25
+  
+  [+] Добавлены типы штрихкодов для печати двумерных штрихкодов:
+	  DIO_BARCODE_DEVICE_PDF417       = 96;
+	  DIO_BARCODE_DEVICE_DATAMATRIX   = 97;
+	  DIO_BARCODE_DEVICE_AZTEC        = 98;
+	  DIO_BARCODE_DEVICE_QR           = 99;
+	  DIO_BARCODE_DEVICE_EGAIS        = 100;
+  
+  [+] Добавлена команда directIO для записи данных TLV, привязанных к операции
+      DIO_WRITE_FS_TLV_OPERATION    = 62; // Write TLV operation
+
+  
+*******************************************************************
+
   OposShtrih_1.13_497.exe
   20 июня 2018 21:25
   

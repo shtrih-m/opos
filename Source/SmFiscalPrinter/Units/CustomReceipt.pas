@@ -138,6 +138,7 @@ type
     procedure PrintText(const Data: TTextRec); virtual;
     procedure PrintBarcode(const Barcode: TBarcodeRec); virtual;
     procedure FSWriteTLV(const TLVData: WideString); virtual;
+    procedure FSWriteTLVOperation(const TLVData: WideString); virtual;
     function GetMalinaParams: TMalinaParams;
     procedure WriteFPParameter(ParamId: Integer; const Value: WideString); virtual;
     procedure PrintAdditionalHeader(const AdditionalHeader: WideString); virtual;
@@ -485,6 +486,10 @@ begin
   Device.Check(Device.FSWriteTLV(TLVData));
 end;
 
+procedure TCustomReceipt.FSWriteTLVOperation(const TLVData: WideString);
+begin
+  Device.Check(Device.FSWriteTLVOperation(TLVData));
+end;
 
 function TCustomReceipt.GetParameters: TPrinterParameters;
 begin

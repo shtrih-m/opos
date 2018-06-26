@@ -963,6 +963,8 @@ type
     Parameter1: Byte;
     Parameter2: Byte;
     Parameter3: Byte;
+    Parameter4: Byte;
+    Parameter5: Byte;
   end;
 
   { TDrawScale }

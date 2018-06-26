@@ -461,6 +461,7 @@ type
     function DecodeString(const Text: WideString): WideString;
     procedure DisableNextHeader;
     procedure FSWriteTLV(const TLVData: WideString);
+    procedure FSWriteTlvOperation(const TLVData: WideString);
     procedure WriteCustomerAddress(const Value: WideString);
     procedure FSWriteTag(TagID: Integer; const Data: WideString);
     procedure SetPrinter(APrinter: ISharedPrinter);
@@ -679,6 +680,8 @@ begin
   TDIOOpenDay.CreateCommand(FDIOHandlers, DIO_OPEN_DAY, Self);
   TDIOCheckMarking.CreateCommand(FDIOHandlers, DIO_CHECK_MARKING, Self);
   TDIOStartCorrection.CreateCommand(FDIOHandlers, DIO_START_CORRECTION, Self);
+  TDIOWriteTlvHex.CreateCommand(FDIOHandlers, DIO_WRITE_FS_TLV_HEX, Self);
+  TDIOWriteTlvOperation.CreateCommand(FDIOHandlers, DIO_WRITE_FS_TLV_OP_HEX, Self);
 end;
 
 procedure TFiscalPrinterImpl.CreateDIOHandlers1;
@@ -749,6 +752,8 @@ begin
   TDIOOpenDay.CreateCommand(FDIOHandlers, DIO_OPEN_DAY, Self);
   TDIOCheckMarking.CreateCommand(FDIOHandlers, DIO_CHECK_MARKING, Self);
   TDIOStartCorrection.CreateCommand(FDIOHandlers, DIO_START_CORRECTION, Self);
+  TDIOWriteTlvHex.CreateCommand(FDIOHandlers, DIO_WRITE_FS_TLV_HEX, Self);
+  TDIOWriteTlvOperation.CreateCommand(FDIOHandlers, DIO_WRITE_FS_TLV_OP_HEX, Self);
 end;
 
 procedure TFiscalPrinterImpl.CreateDIOHandlers2;
@@ -820,6 +825,8 @@ begin
   TDIOOpenDay.CreateCommand(FDIOHandlers, DIO_OPEN_DAY, Self);
   TDIOCheckMarking.CreateCommand(FDIOHandlers, DIO_CHECK_MARKING, Self);
   TDIOStartCorrection.CreateCommand(FDIOHandlers, DIO_START_CORRECTION, Self);
+  TDIOWriteTlvHex.CreateCommand(FDIOHandlers, DIO_WRITE_FS_TLV_HEX, Self);
+  TDIOWriteTlvOperation.CreateCommand(FDIOHandlers, DIO_WRITE_FS_TLV_OP_HEX, Self);
 end;
 
 procedure TFiscalPrinterImpl.SetPrinter(APrinter: ISharedPrinter);
@@ -4514,6 +4521,12 @@ procedure TFiscalPrinterImpl.FSWriteTLV(const TLVData: WideString);
 begin
   Receipt.FSWriteTLV(TLVData);
 end;
+
+procedure TFiscalPrinterImpl.FSWriteTlvOperation(const TLVData: WideString);
+begin
+  Receipt.FSWriteTlvOperation(TLVData);
+end;
+
 
 function TFiscalPrinterImpl.GetParameters: TPrinterParameters;
 begin
