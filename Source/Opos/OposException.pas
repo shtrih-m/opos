@@ -77,7 +77,7 @@ implementation
 procedure InvalidParameterValue(const ParamName, ParamValue: WideString);
 begin
   RaiseOposException(OPOS_E_ILLEGAL, Tnt_WideFormat('%s, %s=''%s''',
-    [_('Invalid parameter value'), ParamName]));
+    [_('Invalid parameter value'), ParamName, ParamValue]));
 end;
 
 procedure InvalidPropertyValue(const PropName, PropValue: WideString);
