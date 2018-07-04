@@ -306,6 +306,10 @@ type
     function FSStartCorrectionReceipt: Integer;
     function GetLastDocNumber: Int64;
     function GetLastMacValue: Int64;
+    function FSReadLastDocNum: Int64;
+    function FSReadLastDocNum2: Int64;
+    function FSReadLastMacValue: Int64;
+    function FSReadLastMacValue2: Int64;
 
     property RecStation: TStrings read FRecStation;
     property JrnStation: TStrings read FJrnStation;
@@ -1781,6 +1785,26 @@ begin
 end;
 
 function TTextFiscalPrinterDevice.GetLastMacValue: Int64;
+begin
+  Result := 0;
+end;
+
+function TTextFiscalPrinterDevice.FSReadLastDocNum2: Int64;
+begin
+  Result := 0;
+end;
+
+function TTextFiscalPrinterDevice.FSReadLastDocNum: Int64;
+begin
+  Result := 0;
+end;
+
+function TTextFiscalPrinterDevice.FSReadLastMacValue: Int64;
+begin
+  Result := 0;
+end;
+
+function TTextFiscalPrinterDevice.FSReadLastMacValue2: Int64;
 begin
   Result := 0;
 end;

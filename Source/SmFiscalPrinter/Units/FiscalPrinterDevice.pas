@@ -448,6 +448,10 @@ type
     function ReadCashReg(ID: Integer; var R: TCashRegisterRec): Integer;
     function FSWriteTLVOperation(const Data: WideString): Integer;
     function FSStartCorrectionReceipt: Integer;
+    function FSReadLastDocNum: Int64;
+    function FSReadLastDocNum2: Int64;
+    function FSReadLastMacValue: Int64;
+    function FSReadLastMacValue2: Int64;
 
     property IsOnline: Boolean read GetIsOnline;
     property Tables: TPrinterTables read FTables;
@@ -8783,6 +8787,44 @@ end;
 function TFiscalPrinterDevice.GetLastMacValue: Int64;
 begin
   Result := FLastMacValue;
+end;
+
+function TFiscalPrinterDevice.FSReadLastDocNum2: Int64;
+var
+  FSState: TFSState;
+begin
+  Result := 0;
+  if CapFiscalStorage then
+  begin
+    Check(FSReadState(FSState));
+    Result := FSState.DocNumber;
+  end;
+end;
+
+function TFiscalPrinterDevice.FSReadLastDocNum: Int64;
+begin
+  if FLastDocNumber = 0 then
+    FLastDocNumber := FSReadLastDocNum2;
+  Result := FLastDocNumber;
+end;
+
+function TFiscalPrinterDevice.FSReadLastMacValue: Int64;
+begin
+  if FLastMacValue = 0 then
+    FLastMacValue := FSReadLastMacValue2;
+  Result := FLastMacValue;
+end;
+
+function TFiscalPrinterDevice.FSReadLastMacValue2: Int64;
+var
+  LastMacValue: Int64;
+begin
+  LastMacValue := 0;
+  if CapFiscalStorage then
+  begin
+    Check(FSReadDocMac(LastMacValue));
+  end;
+  Result := LastMacValue;
 end;
 
 end.

@@ -464,6 +464,10 @@ type
     function FSStartCorrectionReceipt: Integer;
     function GetLastDocNumber: Int64;
     function GetLastMacValue: Int64;
+    function FSReadLastDocNum: Int64;
+    function FSReadLastDocNum2: Int64;
+    function FSReadLastMacValue: Int64;
+    function FSReadLastMacValue2: Int64;
 
     property LastMacValue: Int64 read GetLastMacValue;
     property LastDocNumber: Int64 read GetLastDocNumber;
