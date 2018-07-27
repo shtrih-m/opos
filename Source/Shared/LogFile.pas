@@ -35,25 +35,27 @@ type
     procedure LogParam(const ParamName: AnsiString; const ParamValue: Variant);
     procedure GetFileNames(const Mask: AnsiString; FileNames: TTntStrings);
 
-    function GetSeparator: AnsiString;
-    function GetMaxCount: Integer;
     function GetEnabled: Boolean;
+    function GetMaxCount: Integer;
     function GetFilePath: AnsiString;
-    function GetDeviceName: AnsiString;
     function GetFileName: AnsiString;
-
-    procedure SetEnabled(Value: Boolean);
-    procedure SetFilePath(const Value: AnsiString);
-    procedure SetSeparator(const Value: AnsiString);
-    procedure SetMaxCount(const Value: Integer);
-    procedure SetDeviceName(const Value: AnsiString);
+    function GetSeparator: AnsiString;
+    function GetDeviceName: AnsiString;
     function GetTimeStampEnabled: Boolean;
-    procedure SetTimeStampEnabled(const Value: Boolean);
+
     procedure CloseFile;
     procedure CheckFilesMaxCount;
+    procedure SetEnabled(Value: Boolean);
+    procedure SetMaxCount(const Value: Integer);
+    procedure SetFileName(const Value: AnsiString);
+    procedure SetFilePath(const Value: AnsiString);
+    procedure SetSeparator(const Value: AnsiString);
+    procedure SetDeviceName(const Value: AnsiString);
+    procedure SetTimeStampEnabled(const Value: Boolean);
 
     property Enabled: Boolean read GetEnabled write SetEnabled;
     property FilePath: AnsiString read GetFilePath write SetFilePath;
+    property FileName: AnsiString read GetFileName write SetFileName;
     property MaxCount: Integer read GetMaxCount write SetMaxCount;
     property Separator: AnsiString read GetSeparator write SetSeparator;
     property DeviceName: AnsiString read GetDeviceName write SetDeviceName;
@@ -75,33 +77,36 @@ type
     FDeviceName: AnsiString;
     FTimeStampEnabled: Boolean;
 
+    function GetOpened: Boolean;
+    function GetEnabled: Boolean;
+    function GetMaxCount: Integer;
+    function GetFilePath: AnsiString;
+    function GetFileName: AnsiString;
+    function GetSeparator: AnsiString;
+    function GetDeviceName: AnsiString;
+    function GetTimeStampEnabled: Boolean;
+    function GetDefaultFileName: AnsiString;
+
     procedure OpenFile;
     procedure CloseFile;
     procedure SetDefaults;
     procedure CheckFilesMaxCount;
-    function GetOpened: Boolean;
-    function GetFileName: AnsiString;
+    procedure SetEnabled(Value: Boolean);
     procedure Write(const Data: AnsiString);
     procedure AddLine(const Data: AnsiString);
+    procedure SetMaxCount(const Value: Integer);
+    procedure SetFilePath(const Value: AnsiString);
     procedure SetFileName(const Value: AnsiString);
+    procedure SetSeparator(const Value: AnsiString);
+    procedure SetDeviceName(const Value: AnsiString);
+    procedure SetTimeStampEnabled(const Value: Boolean);
+    procedure GetFileNames(const Mask: AnsiString; FileNames: TTntStrings);
+
+    class function VariantToStr(V: Variant): AnsiString;
+    class function ParamsToStr(const Params: array of const): AnsiString;
+    class function VarArrayToStr(const AVarArray: TVariantArray): AnsiString;
 
     property Opened: Boolean read GetOpened;
-    class function ParamsToStr(const Params: array of const): AnsiString;
-    class function VariantToStr(V: Variant): AnsiString;
-    class function VarArrayToStr(const AVarArray: TVariantArray): AnsiString;
-    procedure GetFileNames(const Mask: AnsiString; FileNames: TTntStrings);
-    function GetSeparator: AnsiString;
-    procedure SetSeparator(const Value: AnsiString);
-    function GetMaxCount: Integer;
-    procedure SetMaxCount(const Value: Integer);
-    function GetEnabled: Boolean;
-    procedure SetEnabled(Value: Boolean);
-    function GetFilePath: AnsiString;
-    procedure SetFilePath(const Value: AnsiString);
-    function GetDeviceName: AnsiString;
-    procedure SetDeviceName(const Value: AnsiString);
-    function GetTimeStampEnabled: Boolean;
-    procedure SetTimeStampEnabled(const Value: Boolean);
   public
     constructor Create;
     destructor Destroy; override;
@@ -130,7 +135,7 @@ type
 
     property Enabled: Boolean read GetEnabled write SetEnabled;
     property FilePath: AnsiString read GetFilePath write SetFilePath;
-    property FileName: AnsiString read FFileName write SetFileName;
+    property FileName: AnsiString read GetFileName write SetFileName;
     property MaxCount: Integer read GetMaxCount write SetMaxCount;
     property Separator: AnsiString read GetSeparator write SetSeparator;
     property DeviceName: AnsiString read GetDeviceName write SetDeviceName;
@@ -283,10 +288,15 @@ begin
   //FLock.Leave;
 end;
 
-function TLogFile.GetFileName: AnsiString;
+function TLogFile.GetDefaultFileName: AnsiString;
 begin
   Result := IncludeTrailingBackSlash(FilePath) + DeviceName + '_' +
     FormatDateTime('yyyy.mm.dd', Date) + '.log';
+end;
+
+function TLogFile.GetFileName: AnsiString;
+begin
+  Result := FFileName;
 end;
 
 procedure TLogFile.SetDefaults;

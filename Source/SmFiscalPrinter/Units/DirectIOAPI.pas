@@ -313,6 +313,7 @@ const
   DriverParameterCacheReceiptNumber       = 66;
   DriverParameterBarLineByteMode          = 67;
   DriverParameterLogFilePath              = 68;
+  DriverParameterLogFileName              = 69;
 
   DriverParameterParam1                   = 70;
   DriverParameterParam2                   = 71;

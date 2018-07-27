@@ -12,7 +12,7 @@ BRCC = $(ROOT)\bin\brcc32.exe $**
 PROJECTS = OposConfig.exe OposTest.exe SmFiscalPrinter.dll SmScale.dll \
   OposConfigTest.exe OposConfigTestLib.dll SmFiscalPrinterTest.exe \
   SmFiscalPrinterTestLib.dll OposTestTest.exe OposTestTestLib.dll SmScaleTest.exe \
-  SmScaleTestLib.dll SmFptrSrv.exe
+  SmScaleTestLib.dll SmFptrSrv.exe AcceptanceTest.exe
 #------------------------------------------------------------------------------
 default: $(PROJECTS)
 #------------------------------------------------------------------------------
@@ -54,6 +54,9 @@ SmScaleTest.exe: ..\Test\SmScaleTest\SmScaleTest.dpr
   $(DCC)
 
 SmScaleTestLib.dll: ..\Test\SmScaleTest\SmScaleTestLib.dpr
+  $(DCC)
+
+AcceptanceTest.exe: ..\Test\AcceptanceTest\AcceptanceTest.dpr
   $(DCC)
 
 

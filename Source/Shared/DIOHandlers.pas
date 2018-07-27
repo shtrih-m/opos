@@ -1888,6 +1888,7 @@ begin
     DriverParameterCacheReceiptNumber: pString := BoolToStr(Printer.Parameters.CacheReceiptNumber);
     DriverParameterBarLineByteMode: pString := IntToStr(Printer.Parameters.BarLineByteMode);
     DriverParameterLogFilePath: pString := Printer.Parameters.LogFilePath;
+    DriverParameterLogFileName: pString := Logger.FileName;
 
     DriverParameterParam1: pString := Printer.Parameters.Parameter1;
     DriverParameterParam2: pString := Printer.Parameters.Parameter2;

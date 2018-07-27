@@ -1,6 +1,6 @@
 object fmCashGeneral: TfmCashGeneral
-  Left = 489
-  Top = 119
+  Left = 858
+  Top = 305
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'General'

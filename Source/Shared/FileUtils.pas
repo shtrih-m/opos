@@ -16,6 +16,7 @@ function GetLongFileName(const FileName: WideString): WideString;
 function GetSystemPath: WideString;
 function CLSIDToFileName(const CLSID: TGUID): WideString;
 procedure DeleteFiles(const FileMask: WideString);
+procedure GetFileNames(const Mask: WideString; FileNames: TTntStrings);
 
 implementation
 

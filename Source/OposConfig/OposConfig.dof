@@ -136,16 +136,23 @@ ProductVersion=1.13
 Comments=http://www.shtrih-m.ru
 [Excluded Packages]
 C:\Program Files (x86)\Borland\Delphi7\Projects\Bpl\PngComponentsD7.bpl=Png components
+[HistoryLists\hlDebugSourcePath]
+Count=1
+Item0=C:\Components\DUnit\src\
 [HistoryLists\hlUnitAliases]
 Count=1
 Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;
 [HistoryLists\hlSearchPath]
-Count=1
-Item0=$(DELPHI)\Lib\Debug
+Count=2
+Item0=$(DELPHI)\Lib\Debug;C:\COMPON~1\JVCL\jcl\lib\d7\debug;C:\COMPON~1\jcl\lib\d7\debug
+Item1=$(DELPHI)\Lib\Debug
 [HistoryLists\hlUnitOutputDirectory]
 Count=2
 Item0=DCU
 Item1=..\lib\D7
+[HistoryLists\hlOutputDirectorry]
+Count=1
+Item0=Bin
 [HistoryLists\hlBPLOutput]
 Count=3
 Item0=$(DELPHI)\Bin\
