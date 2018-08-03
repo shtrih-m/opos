@@ -304,7 +304,7 @@ begin
   MaxCount := 10;
   Enabled := False;
   FilePath := IncludeTrailingBackSlash(ExtractFilePath(GetModuleFileName)) + 'Logs';
-  FileName := GetFileName;
+  FileName := GetDefaultFileName;
   FTimeStampEnabled := True;
 end;
 
@@ -327,8 +327,8 @@ begin
         end;
       end;
 
-      FileName := GetFileName;
-      FHandle := CreateFile(PChar(GetFileName), GENERIC_READ or GENERIC_WRITE,
+      FileName := GetDefaultFileName;
+      FHandle := CreateFile(PChar(FileName), GENERIC_READ or GENERIC_WRITE,
         FILE_SHARE_READ, nil, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
 
       if Opened then
@@ -448,7 +448,7 @@ begin
     if not Enabled then Exit;
     S := Data;
 
-    if GetFileName <> FFileName then
+    if GetDefaultFileName <> FFileName then
     begin
       CloseFile;
     end;

@@ -10,7 +10,7 @@ uses
   // DUnit
   TestFramework,
   // Tnt
-  TntClasses, TntSysUtils, 
+  TntClasses, TntSysUtils,
   // This
   Opos, OposFptrUtils, OposFiscalPrinter_1_11_Lib_TLB, DirectIOAPI,
   SMFiscalPrinter, FileUtils, SmFiscalPrinterLib_TLB;
@@ -20,13 +20,15 @@ type
 
   TFiscalPrinterTest = class(TTestCase)
   private
+    FDeviceName: string;
     FDriver: TSMFiscalPrinter;
 
+    procedure DeleteLogFiles;
+    procedure RunScript(const Text: string);
     procedure ExecuteScript(const FileName: WideString);
     procedure ExecuteLogFile(const FileName: WideString);
     procedure ReadLogCommands(const FileName: WideString; Commands: TTntStrings);
-    procedure RunScript(const Text: string);
-    procedure DeleteLogFiles;
+
     function GetLogFileName: string;
   protected
     procedure Setup; override;
@@ -72,22 +74,11 @@ end;
 
 procedure TFiscalPrinterTest.DeleteLogFiles;
 var
-  Path: string;
-  FileNames: TTntStringList;
+  FileMask: WideString;
 begin
-  Path := CLSIDToFileName(CLASS_FiscalPrinter);
-  Path := WideIncludeTrailingPathDelimiter(ExtractFilePath(Path)) + 'Logs';
-
-  FileNames := TTntStringList.Create;
-  try
-    GetFileNames(FileMask, FileNames);
-    if FileNames.Count > 0 then
-    begin
-      Result := FileNames[0];
-    end;
-  finally
-    FileNames.Free;
-  end;
+  FileMask := WideIncludeTrailingPathDelimiter(ExtractFilePath(
+    CLSIDToFileName(CLASS_FiscalPrinter))) + 'Logs\*.log';
+  DeleteFiles(FileMask);
 end;
 
 procedure TFiscalPrinterTest.ReadLogCommands(const FileName: WideString;
@@ -135,6 +126,7 @@ begin
     Lines.Free;
   end;
 end;
+
 (*
 procedure TFiscalPrinterTest.RunScript(const Text: string);
 var
@@ -183,16 +175,37 @@ procedure TFiscalPrinterTest.ExecuteScript(const FileName: WideString);
     Result := '';
     P := Pos(CommandTag, Line);
     if (P <> 0)and((Pos('=', Line) = 0)or(Pos('OpenService', Line) <> 0))and
-      (Pos('GetProperty', Line) = 0)and (Pos(': OK', Line) = 0) then
+      (Pos(': OK', Line) = 0) then
     begin
-      Result := '  Driver.' + Copy(Line, P + Length(CommandTag), Length(Line)) + ';';
+      Result := 'Driver.' + Copy(Line, P + Length(CommandTag), Length(Line)) + ';';
     end;
     if (Copy(Result, Length(Result)-2, 3) = '=0;') then
       Result := StringReplace(Result, '=0', '', []);
 
+    P := Pos('OpenService', Result);
+    if P <> 0 then
+    begin
+      FDeviceName := Copy(Result, P + 30, Length(Result));
+      FDeviceName := Copy(FDeviceName, 1, Length(FDeviceName)-3);
+    end;
+
     Result := StringReplace(Result, '#$0D#$0A', ' + CRLF +', []);
     Result := StringReplace(Result, 'OpenService', 'Open', []);
     Result := StringReplace(Result, '''FiscalPrinter'', ', '', []);
+    if Pos('GetPropertyNumber', Result) <> 0 then
+    begin
+      Result := StringReplace(Result, 'GetPropertyNumber(''PIDX_', '', []);
+      Result := StringReplace(Result, 'GetPropertyNumber(''PIDXFptr_', '', []);
+      Result := StringReplace(Result, ''')', '', []);
+      Result := 'Value := ' + Result;
+    end;
+    if Pos('GetPropertyString', Result) <> 0 then
+    begin
+      Result := StringReplace(Result, 'GetPropertyString(''PIDX_', '', []);
+      Result := StringReplace(Result, 'GetPropertyString(''PIDXFptr_', '', []);
+      Result := StringReplace(Result, ''')', '', []);
+      Result := 'Value := ' + Result;
+    end;
     if Pos('SetPropertyNumber', Result) <> 0 then
     begin
       Result := StringReplace(Result, 'SetPropertyNumber(''PIDX_', '', []);
@@ -207,6 +220,8 @@ procedure TFiscalPrinterTest.ExecuteScript(const FileName: WideString);
       Result := StringReplace(Result, ''', ', ' := ', []);
       Result := StringReplace(Result, ')', '', []);
     end;
+    if Result <> '' then
+      Result := '  ' + Result;
   end;
 
 var
@@ -229,7 +244,7 @@ begin
         Commands.Add(Command);
       end;
     end;
-    Commands.SaveToFile(FileName + '_Commands');
+    Commands.SaveToFile(ChangeFileExt(FileName, '.cmd'));
 
 
     Lines.Clear;
@@ -241,14 +256,17 @@ begin
     Lines.Add('const');
     Lines.Add('  CRLF = #13#10;');
     Lines.Add('var');
+    Lines.Add('  Value: Variant;');
     Lines.Add('  Driver: OleVariant;');
     Lines.Add('begin');
     Lines.Add('  Driver := CreateOleObject(''OPOS.FiscalPrinter'');');
     Lines.AddStrings(Commands);
+    Lines.Add('  Driver.Close();');
+    Lines.Add('  Driver := nil;');
     Lines.Add('end;');
     Lines.Add('end.');
 
-    Lines.SaveToFile(FileName + '_Script');
+    Lines.SaveToFile(ChangeFileExt(FileName, '.scr'));
 
     RunScript(Lines.Text);
   finally
@@ -259,12 +277,20 @@ end;
 
 function TFiscalPrinterTest.GetLogFileName: string;
 var
-  Path: string;
+  pData: Integer;
+  pString: WideString;
+  Driver: TOPOSFiscalPrinter;
 begin
-  Path := CLSIDToFileName(CLASS_FiscalPrinter);
-  Path := WideIncludeTrailingPathDelimiter(ExtractFilePath(Path)) + 'Logs\';
-  Result := IncludeTrailingBackSlash(FilePath) + DeviceName + '_' +
-    FormatDateTime('yyyy.mm.dd', Date) + '.log';
+  Driver := TOPOSFiscalPrinter.Create(nil);
+  try
+    Driver.Open(FDeviceName);
+    pData := DriverParameterLogFileName;
+    Driver.DirectIO(DIO_GET_DRIVER_PARAMETER, pData, pString);
+    Driver.Close;
+    Result := pString;
+  finally
+    Driver.Free;
+  end;
 end;
 
 procedure TFiscalPrinterTest.ExecuteLogFile(const FileName: WideString);
@@ -279,10 +305,8 @@ begin
     ExecuteScript(FileName);
 
     ReadLogCommands(GetLogFileName, Commands2);
-
-
-    WriteFileData(FileName + '_TxCommands1', Commands1.Text);
-    WriteFileData(FileName + '_TxCommands2', Commands2.Text);
+    WriteFileData(ChangeFileExt(FileName, '.tx1'), Commands1.Text);
+    WriteFileData(ChangeFileExt(FileName, '.tx2'), Commands2.Text);
     CheckEquals(Commands1.Text, Commands2.Text, 'Commands1.Text <> Commands2.Text')
   finally
     Commands1.Free;
@@ -290,21 +314,7 @@ begin
   end;
 end;
 
-
-    (*
-    for i := 0 to Commands.Count-1 do
-    begin
-      if (Pos('Open(', Commands[i]) <> 0) then
-      begin
-        Commands.Insert(i+2, Format('  Driver.DirectIO(30, 68, ''%s'');', [GetModulePath + 'Logs']));
-        Commands.Insert(i+1, '  Driver.DirectIO(30, 35, 1);');
-        Break;
-      end;
-    end;
-    *)
-
 initialization
   RegisterTest('', TFiscalPrinterTest.Suite);
-
 
 end.

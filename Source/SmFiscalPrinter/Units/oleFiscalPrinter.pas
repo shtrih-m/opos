@@ -473,6 +473,7 @@ begin
   Logger.Debug('ToleFiscalPrinter.CloseService');
   Result := Driver.CloseService;
   Logger.Debug('ToleFiscalPrinter.CloseService', Result);
+  Logger.CloseFile;
   Unlock;
 end;
 
