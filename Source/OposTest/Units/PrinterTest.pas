@@ -4741,18 +4741,6 @@ begin
   Check(FiscalPrinter.SetParameter(DriverParameterTaxType, 0));
   Check(FiscalPrinter.PrintRecTotal(1000, 1000, '0'));
   Check(FiscalPrinter.EndFiscalReceipt(True));
-(*
-  // Buy
-  FiscalPrinter.FiscalReceiptStation := FPTR_RS_RECEIPT;
-  FiscalPrinter.FiscalReceiptType := FPTR_RT_CORRECTION2_BUY;
-  Check(FiscalPrinter.BeginFiscalReceipt(False));
-  Check(FiscalPrinter.DirectIO2(40, 1177, '77'));
-  Check(FiscalPrinter.DirectIO2(40, 1178, '11.05.2018'));
-  Check(FiscalPrinter.DirectIO2(40, 1179, '99'));
-  Check(FiscalPrinter.PrintRecCash(100));
-  Check(FiscalPrinter.PrintRecTotal(100, 100, '0'));
-  Check(FiscalPrinter.EndFiscalReceipt(True));
-*)
 end;
 
 function TCorrectionReceipt2Test.GetDisplayText: WideString;
@@ -4766,6 +4754,7 @@ procedure T6DigitsQuantityTest.Execute;
 begin
   Check(FiscalPrinter.ResetPrinter());
   FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
+
   Check(FiscalPrinter.BeginFiscalReceipt(True));
   Check(FiscalPrinter.PrintRecItem('Item 1', 100, 1234567, 0, 100, ''));
   Check(FiscalPrinter.PrintRecTotal(200, 200, '0'));

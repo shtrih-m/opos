@@ -39,6 +39,7 @@ type
     destructor Destroy; override;
 
     procedure Connect;
+    procedure Disconnect;
     function GetPort: TSerialPort;
     function WaitForPrinting: TPrinterStatus;
     function GetPrinterFlags(Flags: Word): TPrinterFlags;
@@ -1343,6 +1344,11 @@ begin
 end;
 
 procedure TTextFiscalPrinterDevice.Connect;
+begin
+
+end;
+
+procedure TTextFiscalPrinterDevice.Disconnect;
 begin
 
 end;

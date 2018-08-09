@@ -207,6 +207,7 @@ type
     procedure Unlock;
 
     procedure Connect;
+    procedure Disconnect;
     procedure OpenDay;
     procedure LoadModels;
     procedure SaveModels;

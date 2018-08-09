@@ -854,6 +854,7 @@ function TFiscalPrinterImpl.DoOpen(
   const pDispatch: IDispatch): Integer;
 begin
   try
+    FInitPrinter := False;
     SetPrinter(SharedPrinter.GetPrinter(DeviceName));
 
     FFilter := TEscFilter.Create(GetPrinter);

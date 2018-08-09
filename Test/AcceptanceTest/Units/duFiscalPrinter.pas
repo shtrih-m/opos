@@ -70,6 +70,7 @@ begin
   finally
     FileNames.Free;
   end;
+  DeleteLogFiles;
 end;
 
 procedure TFiscalPrinterTest.DeleteLogFiles;
@@ -105,14 +106,36 @@ procedure TFiscalPrinterTest.ReadLogCommands(const FileName: WideString;
   end;
 
 var
-  i: Integer;
+  i, j: Integer;
   Line: WideString;
   Command: WideString;
   Lines: TTntStrings;
+  StartCount: Integer;
 begin
   Lines := TTntStringList.Create;
   try
     Lines.LoadFromFile(FileName);
+
+    // Look only last driver start
+    StartCount := 0;
+    for i := Lines.Count-1 downto 0 do
+    begin
+      Line := Lines[i];
+      if Pos('TOposServiceDevice19.Open', Line) <> 0 then
+      begin
+        Inc(StartCount);
+      end;
+      if StartCount = 2 then
+      begin
+        for j := 0 to i-1 do
+        begin
+          Lines.Delete(0);
+        end;
+        Break;
+      end;
+    end;
+
+
     for i := 0 to Lines.Count-1 do
     begin
       Line := Lines[i];
@@ -191,6 +214,7 @@ procedure TFiscalPrinterTest.ExecuteScript(const FileName: WideString);
 
     Result := StringReplace(Result, '#$0D#$0A', ' + CRLF +', []);
     Result := StringReplace(Result, 'OpenService', 'Open', []);
+    Result := StringReplace(Result, 'CloseService', 'Close', []);
     Result := StringReplace(Result, '''FiscalPrinter'', ', '', []);
     if Pos('GetPropertyNumber', Result) <> 0 then
     begin
@@ -244,7 +268,7 @@ begin
         Commands.Add(Command);
       end;
     end;
-    Commands.SaveToFile(ChangeFileExt(FileName, '.cmd'));
+    //Commands.SaveToFile(ChangeFileExt(FileName, '.cmd'));
 
 
     Lines.Clear;
@@ -266,7 +290,7 @@ begin
     Lines.Add('end;');
     Lines.Add('end.');
 
-    Lines.SaveToFile(ChangeFileExt(FileName, '.scr'));
+    //Lines.SaveToFile(ChangeFileExt(FileName, '.scr'));
 
     RunScript(Lines.Text);
   finally
@@ -305,8 +329,11 @@ begin
     ExecuteScript(FileName);
 
     ReadLogCommands(GetLogFileName, Commands2);
-    WriteFileData(ChangeFileExt(FileName, '.tx1'), Commands1.Text);
-    WriteFileData(ChangeFileExt(FileName, '.tx2'), Commands2.Text);
+    if Commands1.Text <> Commands2.Text then
+    begin
+      WriteFileData(ChangeFileExt(FileName, '.tx1'), Commands1.Text);
+      WriteFileData(ChangeFileExt(FileName, '.tx2'), Commands2.Text);
+    end;
     CheckEquals(Commands1.Text, Commands2.Text, 'Commands1.Text <> Commands2.Text')
   finally
     Commands1.Free;

@@ -123,6 +123,7 @@ type
     procedure ProgressEvent(Progress: Integer);
     function Is2DBarcode(Symbology: Integer): Boolean;
     procedure Connect;
+    procedure Disconnect;
     function WaitForPrinting: TPrinterStatus;
     function ReadPrinterStatus: TPrinterStatus;
     procedure AlignBitmap(Bitmap: TBitmap; const Barcode: TBarcodeRec;
@@ -6551,13 +6552,38 @@ begin
   end;
 end;
 
+procedure TFiscalPrinterDevice.Disconnect;
+begin
+  Tables.Clear;
+  Fields.Clear;
+  FValidDeviceMetrics := False;
+  FCapFSCloseReceipt2 := False;
+  FCapSubtotalRound := False;
+  FCapDiscount := False;
+  FCapBarLine := False;
+  FCapScaleGraphics := False;
+  FCapBarcode2D := False;
+  FCapGraphics1 := False;
+  FCapGraphics2 := False;
+  FCapGraphics512 := False;
+  FCapFiscalStorage := False;
+  FCapOpenReceipt := False;
+  FCapReceiptDiscount2 := False;
+  FCapFontInfo := False;
+  FIsFiscalized := False;
+  FCapParameters2 := False;
+  FIsOnline := False;
+  FCapFooterFlag := False;
+  FFooterFlag := False;
+  FCapEnablePrint := False;
+end;
+
 procedure TFiscalPrinterDevice.Connect;
 var
   i: Integer;
   Table: TPrinterTableRec;
 begin
   GetPrinterModel;
-
   FCapParameters2 := ReadParameters2(FParameters2) = 0;
   if FCapParameters2 then
   begin

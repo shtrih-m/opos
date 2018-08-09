@@ -466,6 +466,7 @@ begin
   if Opened then Exit;
 
   try
+    FConnected := False;
     LoadParams(DeviceName);
     if Parameters.ReceiptReportEnabled then
     begin
@@ -777,6 +778,7 @@ procedure TSharedPrinter.Disconnect;
 begin
   Lock;
   try
+    Device.Disconnect;
     Dec(FConnectCount);
     if FConnected and (FConnectCount = 0) then
     begin
