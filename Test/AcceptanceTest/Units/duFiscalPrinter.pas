@@ -30,6 +30,8 @@ type
     procedure ReadLogCommands(const FileName: WideString; Commands: TTntStrings);
 
     function GetLogFileName: string;
+    function GetDeviceName: WideString;
+    procedure OpenFiscalDay(const DeviceName: WideString);
   protected
     procedure Setup; override;
     procedure TearDown; override;
@@ -52,6 +54,24 @@ begin
   FDriver.Free;
 end;
 
+procedure TFiscalPrinterTest.OpenFiscalDay(const DeviceName: WideString);
+var
+  pData: Integer;
+  pString: WideString;
+  Driver: TOPOSFiscalPrinter;
+begin
+  Driver := TOPOSFiscalPrinter.Create(nil);
+  try
+    Driver.Open(DeviceName);
+    Driver.ClaimDevice(0);
+    Driver.DeviceEnabled := True;
+    Driver.DirectIO(DIO_OPEN_DAY, pData, pString);
+    Driver.Close;
+  finally
+    Driver.Free;
+  end;
+end;
+
 procedure TFiscalPrinterTest.ExecuteLogFiles;
 var
   i: Integer;
@@ -59,6 +79,9 @@ var
   FileNames: TTntStrings;
 begin
   DeleteLogFiles;
+  OpenFiscalDay(GetDeviceName);
+  DeleteLogFiles;
+
   FileNames := TTntStringList.Create;
   try
     FileMask := GetModulePath + 'Logs\*.Log';
@@ -314,6 +337,41 @@ begin
     Result := pString;
   finally
     Driver.Free;
+  end;
+end;
+
+function TFiscalPrinterTest.GetDeviceName: WideString;
+var
+  i, j, P: Integer;
+  Line: WideString;
+  Lines: TTntStrings;
+  FileNames: TTntStrings;
+  FileMask: WideString;
+begin
+  Result := '';
+  Lines := TTntStringList.Create;
+  FileNames := TTntStringList.Create;
+  try
+    FileMask := GetModulePath + 'Logs\*.Log';
+    GetFileNames(FileMask, FileNames);
+    for i := 0 to FileNames.Count-1 do
+    begin
+      Lines.LoadFromFile(FileNames[i]);
+      for j := 0 to Lines.Count-1 do
+      begin
+        Line := Lines[j];
+        P := Pos('OpenService', Line);
+        if P <> 0 then
+        begin
+          Result := Copy(Line, P + 30, Length(Line));
+          Result := Copy(Result, 1, Length(Result)-4);
+          Exit;
+        end;
+      end;
+    end;
+  finally
+    Lines.Free;
+    FileNames.Free;
   end;
 end;
 

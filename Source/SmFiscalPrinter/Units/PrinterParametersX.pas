@@ -11,6 +11,7 @@ uses
   PrinterParametersIni;
 
 function ReadEncoding(const DeviceName: WideString; Logger: ILogFile): Integer;
+
 procedure LoadParameters(Item: TPrinterParameters; const DeviceName: WideString;
   Logger: ILogFile);
 
