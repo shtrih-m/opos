@@ -20,7 +20,7 @@ type
     lblEkmServerPort: TTntLabel;
     seEkmServerTimeout: TSpinEdit;
     lblEkmServerTimeout: TTntLabel;
-    chkFSMarkCheckEnabled: TTntCheckBox;
+    chkCheckItemCodeEnabled: TTntCheckBox;
   public
     procedure UpdatePage; override;
     procedure UpdateObject; override;
@@ -41,7 +41,7 @@ begin
   seEkmServerPort.Value := Parameters.EkmServerPort;
   seEkmServerTimeout.Value := Parameters.EkmServerTimeout;
   chkEkmServerEnabled.Checked := Parameters.EkmServerEnabled;
-  chkFSMarkCheckEnabled.Checked := Parameters.FSMarkCheckEnabled;
+  chkCheckItemCodeEnabled.Checked := Parameters.CheckItemCodeEnabled;
 end;
 
 procedure TfmMarkChecker.UpdateObject;
@@ -50,7 +50,7 @@ begin
   Parameters.EkmServerPort := seEkmServerPort.Value;
   Parameters.EkmServerTimeout := seEkmServerTimeout.Value;
   Parameters.EkmServerEnabled := chkEkmServerEnabled.Checked;
-  Parameters.FSMarkCheckEnabled := chkFSMarkCheckEnabled.Checked;
+  Parameters.CheckItemCodeEnabled := chkCheckItemCodeEnabled.Checked;
 end;
 
 end.

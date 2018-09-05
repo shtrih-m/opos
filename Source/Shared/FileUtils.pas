@@ -17,6 +17,7 @@ function GetSystemPath: WideString;
 function CLSIDToFileName(const CLSID: TGUID): WideString;
 procedure DeleteFiles(const FileMask: WideString);
 procedure GetFileNames(const Mask: WideString; FileNames: TTntStrings);
+procedure GetDirNames(const Mask: WideString; DirNames: TTntStrings);
 
 implementation
 
@@ -150,6 +151,27 @@ begin
   FindClose(F);
 end;
 
+procedure GetDirNames(const Mask: WideString; DirNames: TTntStrings);
+var
+  F: TSearchRec;
+  Result: Integer;
+  FileName: WideString;
+  DirName: WideString;
+begin
+  Result := FindFirst(Mask, faDirectory, F);
+  while Result = 0 do
+  begin
+    DirName := F.FindData.cFileName;
+    if (DirName <> '.') and (DirName <> '..')and((F.Attr and FILE_ATTRIBUTE_DIRECTORY) <> 0) then
+    begin
+      FileName := ExtractFilePath(Mask) + DirName;
+      DirNames.Add(FileName);
+    end;
+    Result := FindNext(F);
+  end;
+  FindClose(F);
+end;
+
 procedure DeleteFiles(const FileMask: WideString);
 var
   FileNames: TTntStringList;
@@ -166,7 +188,5 @@ begin
     FileNames.Free;
   end;
 end;
-
-
 
 end.

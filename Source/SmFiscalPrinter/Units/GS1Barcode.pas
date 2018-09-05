@@ -97,8 +97,7 @@ const
     (id: '18'; min: 6; max: 6), // ?
     (id: '19'; min: 6; max: 6), // ?
     (id: '20'; min: 2; max: 2), // Internal product variant
-    //(id: '21'; min: 1; max: 20), // Serial number (FNC1) !!!
-    (id: '21'; min: 7; max: 7), // Serial number (FNC1)
+    (id: '21'; min: 1; max: 20), // Serial number (FNC1)
     (id: '22'; min: 1; max: 20), // Consumer product variant (FNC1)
     (id: '240'; min: 1; max: 30), // Additional item identification (FNC1)
     (id: '241'; min: 1; max: 30), // Customer part number

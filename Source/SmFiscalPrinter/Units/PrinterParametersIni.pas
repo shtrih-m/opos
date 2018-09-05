@@ -333,7 +333,9 @@ begin
       FParameters.EkmServerPort := IniFile.ReadInteger(Section, 'EkmServerPort', DefEkmServerPort);
       FParameters.EkmServerTimeout := IniFile.ReadInteger(Section, 'EkmServerTimeout', DefEkmServerTimeout);
       FParameters.EkmServerEnabled := IniFile.ReadBool(Section, 'EkmServerEnabled', DefEkmServerEnabled);
-      FParameters.FSMarkCheckEnabled := IniFile.ReadBool(Section, 'FSMarkCheckEnabled', DefFSMarkCheckEnabled);
+      FParameters.CheckItemCodeEnabled := IniFile.ReadBool(Section, 'CheckItemCodeEnabled', DefCheckItemCodeEnabled);
+      FParameters.NewItemStatus := IniFile.ReadInteger(Section, 'NewItemStatus', DefNewItemStatus);
+      FParameters.ItemCheckMode := IniFile.ReadInteger(Section, 'ItemCheckMode', DefItemCheckMode);
     end;
     // VatCodes
     Section := GetSectionName(DeviceName) + '_VatCodes';
@@ -491,7 +493,9 @@ begin
     IniFile.WriteInteger(Section, 'EkmServerPort', FParameters.EkmServerPort);
     IniFile.WriteInteger(Section, 'EkmServerTimeout', FParameters.EkmServerTimeout);
     IniFile.WriteBool(Section, 'EkmServerEnabled', FParameters.EkmServerEnabled);
-    IniFile.WriteBool(Section, 'FSMarkCheckEnabled', FParameters.FSMarkCheckEnabled);
+    IniFile.WriteBool(Section, 'CheckItemCodeEnabled', FParameters.CheckItemCodeEnabled);
+    IniFile.WriteInteger(Section, 'NewItemStatus', FParameters.NewItemStatus);
+    IniFile.WriteInteger(Section, 'ItemCheckMode', FParameters.ItemCheckMode);
 
     // PayTypes
     Section := GetSectionName(DeviceName) + '_PaymentTypes';

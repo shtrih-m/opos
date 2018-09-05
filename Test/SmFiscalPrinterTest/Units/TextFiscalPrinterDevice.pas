@@ -300,7 +300,7 @@ type
     function ReadFSDocument(Number: Integer): WideString;
     procedure PrintFSDocument(Number: Integer);
     function FSStartOpenDay: Integer;
-    function CheckItemBarcode(const Barcode: WideString): Integer;
+    function CheckItemCode(const Barcode: WideString): Integer;
     function FSWriteTLVOperation(const Data: WideString): Integer;
     function SendItemBarcode(const Barcode: WideString; MarkType: Integer): Integer;
     function GetFSCloseReceiptResult2: TFSCloseReceiptResult2;
@@ -311,6 +311,10 @@ type
     function FSReadLastDocNum2: Int64;
     function FSReadLastMacValue: Int64;
     function FSReadLastMacValue2: Int64;
+    function FSCheckItemCode(const P: TFSCheckItemCode;
+      var R: TFSCheckItemResult): Integer;
+    function FSAcceptItemCode(Action: Integer): Integer;
+    function FSBindItemCode(CodeLen: Integer; var R: TFSCheckItemResult): Integer;
 
     property RecStation: TStrings read FRecStation;
     property JrnStation: TStrings read FJrnStation;
@@ -1756,12 +1760,6 @@ begin
   Result := 0;
 end;
 
-function TTextFiscalPrinterDevice.CheckItemBarcode(
-  const Barcode: WideString): Integer;
-begin
-  Result := 0;
-end;
-
 function TTextFiscalPrinterDevice.FSWriteTLVOperation(
   const Data: WideString): Integer;
 begin
@@ -1811,6 +1809,30 @@ begin
 end;
 
 function TTextFiscalPrinterDevice.FSReadLastMacValue2: Int64;
+begin
+  Result := 0;
+end;
+
+function TTextFiscalPrinterDevice.CheckItemCode(
+  const Barcode: WideString): Integer;
+begin
+  Result := 0;
+end;
+
+function TTextFiscalPrinterDevice.FSAcceptItemCode(
+  Action: Integer): Integer;
+begin
+  Result := 0;
+end;
+
+function TTextFiscalPrinterDevice.FSBindItemCode(CodeLen: Integer;
+  var R: TFSCheckItemResult): Integer;
+begin
+  Result := 0;
+end;
+
+function TTextFiscalPrinterDevice.FSCheckItemCode(
+  const P: TFSCheckItemCode; var R: TFSCheckItemResult): Integer;
 begin
   Result := 0;
 end;

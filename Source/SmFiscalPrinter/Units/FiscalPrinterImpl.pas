@@ -678,7 +678,7 @@ begin
   TDIOPrintCorrection2.CreateCommand(FDIOHandlers, DIO_PRINT_CORRECTION2, Self);
   TDIOStartOpenDay.CreateCommand(FDIOHandlers, DIO_START_OPEN_DAY, Self);
   TDIOOpenDay.CreateCommand(FDIOHandlers, DIO_OPEN_DAY, Self);
-  TDIOCheckMarking.CreateCommand(FDIOHandlers, DIO_CHECK_MARKING, Self);
+  TDIOCheckItemCode.CreateCommand(FDIOHandlers, DIO_CHECK_ITEM_CODE, Self);
   TDIOStartCorrection.CreateCommand(FDIOHandlers, DIO_START_CORRECTION, Self);
   TDIOWriteTlvHex.CreateCommand(FDIOHandlers, DIO_WRITE_FS_TLV_HEX, Self);
   TDIOWriteTlvOperation.CreateCommand(FDIOHandlers, DIO_WRITE_FS_TLV_OP_HEX, Self);
@@ -750,7 +750,7 @@ begin
   TDIOPrintCorrection2.CreateCommand(FDIOHandlers, DIO_PRINT_CORRECTION2, Self);
   TDIOStartOpenDay.CreateCommand(FDIOHandlers, DIO_START_OPEN_DAY, Self);
   TDIOOpenDay.CreateCommand(FDIOHandlers, DIO_OPEN_DAY, Self);
-  TDIOCheckMarking.CreateCommand(FDIOHandlers, DIO_CHECK_MARKING, Self);
+  TDIOCheckItemCode.CreateCommand(FDIOHandlers, DIO_CHECK_ITEM_CODE, Self);
   TDIOStartCorrection.CreateCommand(FDIOHandlers, DIO_START_CORRECTION, Self);
   TDIOWriteTlvHex.CreateCommand(FDIOHandlers, DIO_WRITE_FS_TLV_HEX, Self);
   TDIOWriteTlvOperation.CreateCommand(FDIOHandlers, DIO_WRITE_FS_TLV_OP_HEX, Self);
@@ -823,7 +823,7 @@ begin
   TDIOPrintCorrection2.CreateCommand(FDIOHandlers, DIO_PRINT_CORRECTION2, Self);
   TDIOStartOpenDay.CreateCommand(FDIOHandlers, DIO_START_OPEN_DAY, Self);
   TDIOOpenDay.CreateCommand(FDIOHandlers, DIO_OPEN_DAY, Self);
-  TDIOCheckMarking.CreateCommand(FDIOHandlers, DIO_CHECK_MARKING, Self);
+  TDIOCheckItemCode.CreateCommand(FDIOHandlers, DIO_CHECK_ITEM_CODE, Self);
   TDIOStartCorrection.CreateCommand(FDIOHandlers, DIO_START_CORRECTION, Self);
   TDIOWriteTlvHex.CreateCommand(FDIOHandlers, DIO_WRITE_FS_TLV_HEX, Self);
   TDIOWriteTlvOperation.CreateCommand(FDIOHandlers, DIO_WRITE_FS_TLV_OP_HEX, Self);

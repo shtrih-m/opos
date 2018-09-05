@@ -84,7 +84,7 @@ const
   DIO_PRINT_CORRECTION2         = 57; // print correction receipt 2
   DIO_START_OPEN_DAY            = 58; // start open day
   DIO_OPEN_DAY                  = 59; // open day
-  DIO_CHECK_MARKING             = 60; // check marking
+  DIO_CHECK_ITEM_CODE           = 60; // check marking
   DIO_START_CORRECTION          = 61; // start correction receipt
   DIO_WRITE_FS_TLV_HEX          = 62; // Write fiscal storage tag
   DIO_WRITE_FS_TLV_OP_HEX       = 63; // Write TLV operation

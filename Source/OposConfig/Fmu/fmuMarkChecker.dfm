@@ -73,7 +73,7 @@ object fmMarkChecker: TfmMarkChecker
     TabOrder = 4
     Value = 1
   end
-  object chkFSMarkCheckEnabled: TTntCheckBox
+  object chkCheckItemCodeEnabled: TTntCheckBox
     Left = 8
     Top = 8
     Width = 417

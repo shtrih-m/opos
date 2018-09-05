@@ -356,7 +356,9 @@ const
   DefEkmServerPort = 2003;
   DefEkmServerTimeout = 5;
   DefEkmServerEnabled = False;
-  DefFSMarkCheckEnabled = False;
+  DefCheckItemCodeEnabled = False;
+  DefNewItemStatus = SMFP_ITEM_STATUS_RETAILED;
+  DefItemCheckMode = SMFP_CHECK_MODE_FULL;
 
 type
   { TPrinterParameters }
@@ -526,7 +528,9 @@ type
     EkmServerPort: Integer;
     EkmServerTimeout: Integer;
     EkmServerEnabled: Boolean;
-    FSMarkCheckEnabled: Boolean;
+    CheckItemCodeEnabled: Boolean;
+    NewItemStatus: Integer;
+    ItemCheckMode: Integer;
 
     CorrectionType: Byte; // Тип коррекции :1 байт
     CalculationSign: Int64; // Признак расчета:1байт
@@ -867,7 +871,10 @@ begin
   EkmServerPort := DefEkmServerPort;
   EkmServerTimeout := DefEkmServerTimeout;
   EkmServerEnabled := DefEkmServerEnabled;
-  FSMarkCheckEnabled := DefFSMarkCheckEnabled;
+  CheckItemCodeEnabled := DefCheckItemCodeEnabled;
+
+  NewItemStatus := SMFP_ITEM_STATUS_RETAILED;
+  ItemCheckMode := SMFP_CHECK_MODE_FULL;
 end;
 
 procedure TPrinterParameters.LogText(const Caption, Text: WideString);
@@ -1002,8 +1009,9 @@ begin
   Logger.Debug('EkmServerPort: ' + IntToStr(EkmServerPort));
   Logger.Debug('EkmServerTimeout: ' + IntToStr(EkmServerTimeout));
   Logger.Debug('EkmServerEnabled: ' + BoolToStr(EkmServerEnabled));
-  Logger.Debug('FSMarkCheckEnabled: ' + BoolToStr(FSMarkCheckEnabled));
-
+  Logger.Debug('CheckItemCodeEnabled: ' + BoolToStr(CheckItemCodeEnabled));
+  Logger.Debug('NewItemStatus: ' + IntToStr(NewItemStatus));
+  Logger.Debug('ItemCheckMode: ' + IntToStr(ItemCheckMode));
 
   for i := 0 to PayTypes.Count-1 do
   begin

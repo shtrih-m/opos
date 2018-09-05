@@ -2115,7 +2115,7 @@ var
 begin
   pData := 0;
   pString := Barcode;
-  Result := Driver.DirectIO(DIO_CHECK_MARKING, pData, pString);
+  Result := Driver.DirectIO(DIO_CHECK_ITEM_CODE, pData, pString);
 end;
 
 end.

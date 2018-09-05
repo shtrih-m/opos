@@ -4647,21 +4647,21 @@ end;
 { TReceiptTest20 }
 
 procedure TReceiptTest20.Execute;
+const
+  Barcode1 = '018123456789123421000000000005M'#$1D'2401234'#$1D'100123456789ABCDEF1234'#$1D'17170911911129'#$1D'92uZoDVpzZRuXoSs79Q54WhebeXNJa1oZ9kTyi09N4vW5E31B7vM3uwo17FIx9fd2T5g9tbVxhR1Wlmt9r3ivSvg==';
+  Barcode2 = '000000462000685gk=IYQAQC5pN/f';
 begin
   Check(FiscalPrinter.ResetPrinter());
   FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES_SALE;
   FiscalPrinter.BeginFiscalReceipt(True);
 
-  FiscalPrinter.PreLine := 'PrintRecItem.PreLine';
-  FiscalPrinter.PostLine := 'PrintRecItem.PostLine';
+  FiscalPrinter.SetParameter(DriverParameterBarcode, Barcode1);
   FiscalPrinter.PrintRecItem('Item 1', 100, 1000, 1, 100, 'רע');
 
-  FiscalPrinter.PreLine := 'PrintRecTotal.PreLine';
-  FiscalPrinter.PostLine := 'PrintRecTotal.PostLine';
-  FiscalPrinter.PrintRecTotal(100, 100, '0');
+  FiscalPrinter.SetParameter(DriverParameterBarcode, Barcode2);
+  FiscalPrinter.PrintRecItem('Item 2', 100, 1000, 1, 100, 'רע');
 
-  FiscalPrinter.PreLine := 'EndFiscalReceipt.PreLine';
-  FiscalPrinter.PostLine := 'EndFiscalReceipt.PostLine';
+  FiscalPrinter.PrintRecTotal(200, 200, '0');
   FiscalPrinter.EndFiscalReceipt(True);
 end;
 

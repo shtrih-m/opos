@@ -192,14 +192,16 @@ type
     function FSStartOpenDay: Integer;
     function IsMobilePrinter: Boolean;
     procedure EkmCheckBarcode(const Barcode: TGS1Barcode);
-    function CheckItemBarcode(const Barcode: WideString): Integer;
-    function LoadBarcodeData(const Barcode: WideString): Integer;
+    function CheckItemCode(const Barcode: WideString): Integer;
+    function LoadBarcodeData(BlockType: Integer; const Barcode: WideString): Integer;
     function SendItemBarcode(const Barcode: WideString;
       MarkType: Integer): Integer;
     function IsFSDocumentOpened: Boolean;
     function FSCancelDocument: Integer;
     function GetLastDocNumber: Int64;
     function GetLastMacValue: Int64;
+    function IsCorrectItemCode(const P: TFSCheckItemResult): Boolean;
+    procedure CheckCorrectItemCode(const P: TFSCheckItemResult);
   protected
     function GetMaxGraphicsWidthInBytes: Integer;
   public
@@ -453,6 +455,10 @@ type
     function FSReadLastDocNum2: Int64;
     function FSReadLastMacValue: Int64;
     function FSReadLastMacValue2: Int64;
+    function FSCheckItemCode(const P: TFSCheckItemCode;
+      var R: TFSCheckItemResult): Integer;
+    function FSAcceptItemCode(Action: Integer): Integer;
+    function FSBindItemCode(CodeLen: Integer; var R: TFSCheckItemResult): Integer;
 
     property IsOnline: Boolean read GetIsOnline;
     property Tables: TPrinterTables read FTables;
@@ -5617,7 +5623,7 @@ procedure TFiscalPrinterDevice.PrintBarcode2(const Barcode: TBarcodeRec);
     Barcode2D: TBarcode2D;
   begin
     Barcode.Data := Barcode.Data + #0;
-    Result := LoadBarcodeData(Barcode.Data);
+    Result := LoadBarcodeData(0, Barcode.Data);
     if Result <> 0 then Exit;
 
     Barcode2D.BarcodeType := Barcode.BarcodeType;
@@ -5694,7 +5700,8 @@ begin
   WaitForPrinting;
 end;
 
-function TFiscalPrinterDevice.LoadBarcodeData(const Barcode: WideString): Integer;
+function TFiscalPrinterDevice.LoadBarcodeData(BlockType: Integer;
+  const Barcode: WideString): Integer;
 const
   DATA_BLOCK_SIZE = 64;
 var
@@ -5706,7 +5713,7 @@ begin
   Count := (Length(Barcode) + DATA_BLOCK_SIZE -1) div DATA_BLOCK_SIZE;
   for i := 0 to Count-1 do
   begin
-    Block.BlockType := 0;
+    Block.BlockType := BlockType;
     Block.BlockNumber := i;
     Block.BlockData := Copy(Barcode, 1 + i * DATA_BLOCK_SIZE, DATA_BLOCK_SIZE);
     Result := LoadBarcode2D(Block);
@@ -5719,7 +5726,7 @@ var
   Barcode2D: TBarcode2D;
 begin
   Barcode.Data := Barcode.Data + #0;
-  Result := LoadBarcodeData(Barcode.Data);
+  Result := LoadBarcodeData(0, Barcode.Data);
   if Result <> 0 then Exit;
 
   case Barcode.BarcodeType of
@@ -7065,6 +7072,7 @@ function TFiscalPrinterDevice.FSSale2(const P: TFSSale2): Integer;
 var
   Answer: AnsiString;
   Command: AnsiString;
+  CheckItemResult: TFSCheckItemResult;
 begin
   Command := #$FF#$46 + IntToBin(GetUsrPassword, 4) +
     Chr(Abs(P.RecType)) +
@@ -7082,6 +7090,10 @@ begin
   if Result = 0 then
   begin
     Result := SendItemBarcode(P.ItemBarcode, P.MarkType);
+    if (Parameters.checkItemCodeEnabled) then
+    begin
+      Result := FSBindItemCode(Length(P.ItemBarcode), CheckItemResult);
+    end;
   end;
 end;
 
@@ -8693,37 +8705,85 @@ begin
   end;
 end;
 
-function TFiscalPrinterDevice.CheckItemBarcode(const Barcode: WideString): Integer;
+function TFiscalPrinterDevice.CheckItemCode(const Barcode: WideString): Integer;
 var
+  Action: Integer;
   Data: AnsiString;
-  Answer: AnsiString;
-  Command: AnsiString;
   GS1Barcode: TGS1Barcode;
+  CheckItemCode: TFSCheckItemCode;
+  CheckItemResult: TFSCheckItemResult;
 begin
   Result := 0;
+  if Barcode = '' then Exit;
 
-  if Parameters.EkmServerEnabled or Parameters.FSMarkCheckEnabled then
+  if Parameters.EkmServerEnabled then
   begin
     Data := GS1DecodeBraces(Barcode);
     Data := GS1FilterTockens(Data);
     GS1Barcode := DecodeGS1(Data);
-  end;
-
-  if Parameters.EkmServerEnabled then
-  begin
     EkmCheckBarcode(GS1Barcode);
   end;
 
-  if Parameters.FSMarkCheckEnabled then
+  if Parameters.CheckItemCodeEnabled then
   begin
-    Result := LoadBarcodeData(Data);
+    Result := LoadBarcodeData(1, Barcode);
     if Result = 0 then
     begin
-      Command := #$FF#$61 + IntToBin(FSysPassword, 4) + IntToBin(Length(Data), 2);
-      Result := ExecuteData(Command, Answer);
+      CheckItemCode.ItemStatus := Parameters.NewItemStatus;
+      CheckItemCode.CodeLength := Length(Barcode);
+      CheckItemCode.CheckMode := Parameters.ItemCheckMode;
+      Result := FSCheckItemCode(CheckItemCode, CheckItemResult);
+      if Result = 0 then
+      begin
+        Action := 0;
+        if IsCorrectItemCode(CheckItemResult) then
+          Action := 1;
+        Result := FSAcceptItemCode(Action);
+        CheckCorrectItemCode(CheckItemResult);
+      end;
     end;
   end;
 end;
+
+procedure TFiscalPrinterDevice.CheckCorrectItemCode(const P: TFSCheckItemResult);
+begin
+  if P.LocalCheckResult = SMFP_LOCAL_CHECK_FAILED then
+    raise Exception.Create(_('Barcode is not valid'));
+
+  if (P.ProcessingCode = 0) then
+  begin
+    if P.SellPermission <> SMFP_SELL_PERMISSION_OK then
+      raise Exception.Create(_('Item is forbidden to sold'));
+
+    if P.ServerResult <> SMFP_SERVER_RESULT_OK then
+      raise Exception.Create(getServerResultCodeText(P.ServerResult));
+  end;
+end;
+
+function TFiscalPrinterDevice.IsCorrectItemCode(const P: TFSCheckItemResult): Boolean;
+begin
+  if P.LocalCheckResult = SMFP_LOCAL_CHECK_FAILED then
+  begin
+    Result := False;
+    Exit;
+  end;
+
+  if (P.ProcessingCode = 0) then
+  begin
+    if P.SellPermission <> SMFP_SELL_PERMISSION_OK then
+    begin
+      Result := False;
+      Exit;
+    end;
+    if P.ServerResult <> SMFP_SERVER_RESULT_OK then
+    begin
+      Result := False;
+      Exit;
+    end;
+  end;
+  Result := True;
+end;
+
 
 (*
 Данные в массиве представлены в виде строки, в которой:
@@ -8851,6 +8911,157 @@ begin
     Check(FSReadDocMac(LastMacValue));
   end;
   Result := LastMacValue;
+end;
+
+
+(*
+Проверка  маркированного товара FF61H
+Код команды FF61h. Длина сообщения: 9 байт.
+Пароль оператора: 4 байта
+
+Новый статус товара: 1 байт
+1 - "Сформирован".Не выдан регистратору.
+2 - "Готов". Выдан регистратору, но не применен.
+3 - "Выдан". КМ выдан ТС для нанесения. Применение не подтверждено.
+4 - "Выпущен". КМ нанесен на товар или упаковку, правильность нанесения кода подтверждена, маркированный товар произведен.
+5 - "Не использован". КМ не был выдан ТС к моменту закрытия заказа.
+6 - "Упакован". Товар или упаковка с данным КМ находится в составе логистической единицы.
+7 - "Распакован". Маркированный объект находится в обороте или в употреблении в виде товарной единицы.
+8 - Выбыл по определенным, известным участникам обращения товара, причинам на этапе производства (например, отобран, как опытный образец для испытаний), оптового или розничного оборота (уничтожен безвозвратно в составе логистической единицы, похищенной, испорченной в совокупности со всем содержимым и т.п.).
+9 - "Выбыл через розничную сеть".
+10 - "В состоянии выбытия" (мерный товар).
+11 - "Утерян".
+12 - "Оборот приостановлен".
+13 - "Оборот запрещен".
+14 - "Потреблен".
+15 - "Дублирован".
+Длина кода маркировки: 1 байт
+Режим проверки: 1 байт
+0 - полная проверка.
+1 - только онлайн проверка.
+2 - только локальная проверка.
+В первую очередь всегда надо пытаться проводить полную проверку. Полная проверка состоит из 2-х этапов, локальная проверка и онлайн проверка. Если локальная проверка дала отрицательный результат, то ККТ прекращает проверку и сообщает об этом управляющему ПО. Далее в зависимости от режима контроля и пожеланий покупателя можно для данного КМ произвести онлайн проверку.
+Если локальная проверка выполнена успешно то ККТ (в режиме передачи данных) автоматически произведет онлайн проверку.
+Для ККТ в автономном режиме онлайн проверка не производится.
+Управляющее ПО исходя из результатов проверки КМ, режима выбытия для данного товара и пожеланий покупателя должно принимать решение о регистрации или отказе в регистрации данного предмета расчета.
+Режим "только локальная проверка" нужен на переходный период, пока не определены правила по онлайн проверке.
+
+(данные должны быть загружены командой 0xDD)
+Ответ: FF61h	    Длина сообщения: 8 байт.
+Код ошибки: 1 байт
+Результат локальной проверки кода маркировки: 1 байт
+0 - проверка не проводилась, (для симметричной криптографической системы).
+1 - код маркировки проверен, достоверный.
+2 - код маркировки проверен, недостоверный.
+3 - проверка не проводилась, (криптографическая система асимметричная, но в ФН-М нет ключа с идентификатором КПКИЗ.ид)
+Код обработки пакета: 1 байт.
+поля ниже имеют смысл, если в этом поле 0, в противном случае должны игнорироваться
+Разрешение на продажу товара от ИСМ: 1 байт.
+0 - товар разрешен к продаже
+1 - товар запрещен к продаже
+Статус КМ: 1 байт (см. выше)
+Код ошибки от сервера КМ: 1 байт
+0 - Статус успешно изменен
+1 - КИЗ отсутствует в базе Серверы СКЗКМ или КИЗ отсутствует в базе ИСМ
+2 - Не корректен формат КИЗ
+3 - Криптографическая проверка КПКИЗ дала отрицательный результат
+4 - КИЗ имеет в базе Серверы СКЗКМ статус не совместимый с запрашиваемым изменением. Например, запрошено изменение статуса "Выбыл в розничной сети" в то время, как товар уже был продан. Иными словами, запрашивается запрещенное изменение статуса кода маркировки
+5 - В списке вложения обнаружены ошибки
+Статус проверок сервера : 1 байт
+0 - все хорошо.
+Любое другое значение - все плохо.
+Тип символики: 1 байт
+0 - ассиметричная
+1 - симметричная
+2 - табачная
+
+*)
+
+function TFiscalPrinterDevice.FSCheckItemCode(const P: TFSCheckItemCode; var R: TFSCheckItemResult): Integer;
+var
+  Answer: AnsiString;
+  Command: AnsiString;
+begin
+  Command := #$FF#$61 + IntToBin(FSysPassword, 4) +
+    Chr(P.ItemStatus) + Chr(P.CodeLength) + Chr(P.CheckMode);
+  Result := ExecuteData(Command, Answer);
+  if Result = 0 then
+  begin
+    CheckMinLength(Answer, 7);
+    R.LocalCheckResult := Ord(Answer[1]);
+    R.ProcessingCode := Ord(Answer[2]);
+    R.SellPermission := Ord(Answer[3]);
+    R.KMStatus := Ord(Answer[4]);
+    R.ServerResult := Ord(Answer[5]);
+    R.ServerStatus := Ord(Answer[6]);
+    R.SymbolicType := Ord(Answer[7]);
+  end;
+end;
+
+
+(*
+Принять или отвергнуть введенный код маркировки FF69H
+Код команды FF69h. Длина сообщения: 7 байт.
+Пароль оператора: 4 байта
+Решение : 1 байт. 0 - отвергнуть, 1 - принять.
+Команду необходимо подавать после проверки каждого КМ.
+Ответ: FF69h	    Длина сообщения: 1 байт.
+Код ошибки: 1 байт
+*)
+
+
+function TFiscalPrinterDevice.FSAcceptItemCode(Action: Integer): Integer;
+var
+  Answer: AnsiString;
+  Command: AnsiString;
+begin
+  Command := #$FF#$69 + IntToBin(FUsrPassword, 4) + Chr(Action);
+  Result := ExecuteData(Command, Answer);
+end;
+
+(******************************************************************************
+  Привязка  маркированного товара к позиции FF67H
+
+  Код команды FF67h. Длина сообщения: 7 байт.
+  Пароль оператора: 4 байта
+  Длина кода маркировки: 1 байт
+  (данные должны быть загружены командой 0xDD)
+  ККТ проверяет был ли данный КМ проверен ранее. Если был то КМ включается в
+  состав предмета, независимо от результата проверки. Если КМ ранее не проверялся,
+  то будет возвращена ошибка и КМ не будет привязан к предмету расчета.
+  Данная команда должна вызываться после привязки всех тегов к предмету расчета.
+
+  Ответ: FF67h	    Длина сообщения: 8 байт.
+  Код ошибки: 1 байт
+  Результат локальной проверки кода маркировки: 1 байт
+  Код обработки пакета : 1 байт.
+  Разрешение на продажу товара от ИСМ : 1 байт.
+  Статус КМ: 1 байт.
+  Код ошибки от сервера КМ: 1 байт
+  Статус проверок сервера : 1 байт
+  Тип символики: 1 байт
+
+******************************************************************************)
+
+function TFiscalPrinterDevice.FSBindItemCode(CodeLen: Integer;
+  var R: TFSCheckItemResult): Integer;
+var
+  Answer: AnsiString;
+  Command: AnsiString;
+begin
+  Command := #$FF#$67 + IntToBin(FUsrPassword, 4) + Chr(CodeLen);
+  Result := ExecuteData(Command, Answer);
+  if Result = 0 then
+  begin
+    CheckMinLength(Answer, 7);
+    R.LocalCheckResult := Ord(Answer[1]);
+    R.ProcessingCode := Ord(Answer[2]);
+    R.SellPermission := Ord(Answer[3]);
+    R.KMStatus := Ord(Answer[4]);
+    R.ServerResult := Ord(Answer[5]);
+    R.ServerStatus := Ord(Answer[6]);
+    R.SymbolicType := Ord(Answer[7]);
+  end;
 end;
 
 end.

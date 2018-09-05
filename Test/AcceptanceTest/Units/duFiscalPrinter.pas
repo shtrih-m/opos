@@ -32,6 +32,7 @@ type
     function GetLogFileName: string;
     function GetDeviceName: WideString;
     procedure OpenFiscalDay(const DeviceName: WideString);
+    procedure ExecuteLogFileDir(const DirName: WideString);
   protected
     procedure Setup; override;
     procedure TearDown; override;
@@ -72,19 +73,27 @@ begin
   end;
 end;
 
-procedure TFiscalPrinterTest.ExecuteLogFiles;
+procedure TFiscalPrinterTest.ExecuteLogFileDir(const DirName: WideString);
 var
   i: Integer;
   FileMask: WideString;
   FileNames: TTntStrings;
+  SrcFileName: WideString;
+  DstFileName: WideString;
+const
+  IniFileName = 'FiscalPrinter.ini';
 begin
-  DeleteLogFiles;
-  OpenFiscalDay(GetDeviceName);
-  DeleteLogFiles;
-
   FileNames := TTntStringList.Create;
   try
-    FileMask := GetModulePath + 'Logs\*.Log';
+    SrcFileName := IncludeTrailingPathDelimiter(DirName) + IniFileName;
+    DstFileName := WideIncludeTrailingPathDelimiter(ExtractFilePath(
+      CLSIDToFileName(CLASS_FiscalPrinter))) + IniFileName;
+    if FileExists(SrcFileName) then
+    begin
+      CopyFileW(PWideChar(SrcFileName), PWideChar(DstFileName), True);
+    end;
+
+    FileMask := IncludeTrailingPathDelimiter(DirName) + '*.log';
     GetFileNames(FileMask, FileNames);
     for i := 0 to FileNames.Count-1 do
     begin
@@ -92,6 +101,31 @@ begin
     end;
   finally
     FileNames.Free;
+  end;
+end;
+
+procedure TFiscalPrinterTest.ExecuteLogFiles;
+var
+  i: Integer;
+  DirMask: WideString;
+  DirNames: TTntStrings;
+begin
+  DeleteLogFiles;
+  OpenFiscalDay(GetDeviceName);
+  DeleteLogFiles;
+
+  DirNames := TTntStringList.Create;
+  try
+    DirMask := GetModulePath + 'Logs\*';
+    GetDirNames(DirMask, DirNames);
+
+    ExecuteLogFileDir(GetModulePath + 'Logs');
+    for i := 0 to DirNames.Count-1 do
+    begin
+      ExecuteLogFileDir(DirNames[i]);
+    end;
+  finally
+    DirNames.Free;
   end;
   DeleteLogFiles;
 end;

@@ -1208,6 +1208,87 @@ type
     TLVData: WideString;
   end;
 
+  { TFSCheckItemCode }
+
+  TFSCheckItemCode = record
+    ItemStatus: Byte; // Новый статус товара: 1 байт
+    CodeLength: Byte; // Длина кода маркировки: 1 байт
+    CheckMode: Byte;  // Режим проверки: 1 байт
+  end;
+
+  { TFSCheckItemResult }
+
+  TFSCheckItemResult = record
+    LocalCheckResult: Byte; // Результат локальной проверки кода маркировки: 1 байт
+    ProcessingCode: Byte; // Код обработки пакета: 1 байт.
+    SellPermission: Byte; // Разрешение на продажу товара от ИСМ: 1 байт.
+    KMStatus: Byte; // Статус КМ: 1 байт (см. выше)
+    ServerResult: Byte; // Код ошибки от сервера КМ: 1 байт
+    ServerStatus: Byte; // Статус проверок сервера : 1 байт
+    SymbolicType: Byte; // Тип символики: 1 байт
+  end;
+
+const
+  ///////////////////////////////////////////////////////////////////////////////
+  // ItemStatus constants
+
+  SMFP_ITEM_STATUS_FORMED      = 1; // 1 - "Сформирован".Не выдан регистратору.
+  SMFP_ITEM_STATUS_READY       = 2; // 2 - "Готов". Выдан регистратору, но не применен.
+  SMFP_ITEM_STATUS_ISSUED      = 3; // 3 - "Выдан". КМ выдан ТС для нанесения. Применение не подтверждено.
+  SMFP_ITEM_STATUS_RELEASED    = 4; // 4 - "Выпущен". КМ нанесен на товар или упаковку, правильность нанесения кода подтверждена, маркированный товар произведен.
+  SMFP_ITEM_STATUS_NOTUSED     = 5; // 5 - "Не использован". КМ не был выдан ТС к моменту закрытия заказа.
+  SMFP_ITEM_STATUS_PACKED      = 6; // 6 - "Упакован". Товар или упаковка с данным КМ находится в составе логистической единицы.
+  SMFP_ITEM_STATUS_UNPACKED    = 7; // 7 - "Распакован". Маркированный объект находится в обороте или в употреблении в виде товарной единицы.
+  SMFP_ITEM_STATUS_DROPPED_OUT = 8; // 8 - Выбыл по определенным, известным участникам обращения товара, причинам на этапе производства (например, отобран, как опытный образец для испытаний), оптового или розничного оборота (уничтожен безвозвратно в составе логистической единицы, похищенной, испорченной в совокупности со всем содержимым и т.п.).
+  SMFP_ITEM_STATUS_RETAILED    = 9; // 9 - "Выбыл через розничную сеть".
+  SMFP_ITEM_STATUS_RETAILING   = 10; // 10 - "В состоянии выбытия" (мерный товар).
+  SMFP_ITEM_STATUS_LOST        = 11; // 11 - "Утерян".
+  SMFP_ITEM_STATUS_STOPPED     = 12; // 12 - "Оборот приостановлен".
+  SMFP_ITEM_STATUS_DISABLED    = 13; // 13 - "Оборот запрещен".
+  SMFP_ITEM_STATUS_SOLD        = 14; // 14 - "Потреблен".
+  SMFP_ITEM_STATUS_DUPLICATED  = 15; // 15 - "Дублирован".
+
+  ///////////////////////////////////////////////////////////////////////////////
+  // CheckMode constants
+
+  SMFP_CHECK_MODE_FULL    = 0; // 0 - полная проверка.
+  SMFP_CHECK_MODE_ONLINE  = 1; // 1 - только онлайн проверка.
+  SMFP_CHECK_MODE_LOCAL   = 2; // 2 - только локальная проверка.
+
+  ///////////////////////////////////////////////////////////////////////////////
+  // LocalCheckResult constants
+  // Результат локальной проверки кода маркировки: 1 байт
+
+  SMFP_LOCAL_CHECK_SCS      = 0; // 0 - проверка не проводилась, (для симметричной криптографической системы).
+  SMFP_LOCAL_CHECK_OK       = 1; // 1 - код маркировки проверен, достоверный.
+  SMFP_LOCAL_CHECK_FAILED   = 2; // 2 - код маркировки проверен, недостоверный.
+  SMFP_LOCAL_CHECK_ACS      = 3; // 3 - проверка не проводилась, (криптографическая система асимметричная, но в ФН-М нет ключа с идентификатором КПКИЗ.ид)
+
+  ///////////////////////////////////////////////////////////////////////////////
+  // SellPermission constants
+  // Разрешение на продажу товара от ИСМ: 1 байт.
+
+  SMFP_SELL_PERMISSION_OK      = 0; // 0 - товар разрешен к продаже
+  SMFP_SELL_PERMISSION_DENIED  = 1; // 1 - товар запрещен к продаже
+
+  ///////////////////////////////////////////////////////////////////////////////
+  // ServerResult constants
+  // Код ошибки от сервера КМ: 1 байт
+
+  SMFP_SERVER_RESULT_OK         = 0; // 0 - Статус успешно изменен
+  SMFP_SERVER_RESULT_NODATA     = 1; // 1 - КИЗ отсутствует в базе Серверы СКЗКМ или КИЗ отсутствует в базе ИСМ
+  SMFP_SERVER_RESULT_BADFORMAT  = 2; // 2 - Не корректен формат КИЗ
+  SMFP_SERVER_RESULT_FAILED     = 3; // 3 - Криптографическая проверка КПКИЗ дала отрицательный результат
+  SMFP_SERVER_RESULT_STATUS     = 4; // 4 - КИЗ имеет в базе Серверы СКЗКМ статус не совместимый с запрашиваемым изменением. Например, запрошено изменение статуса "Выбыл в розничной сети" в то время, как товар уже был продан. Иными словами, запрашивается запрещенное изменение статуса кода маркировки
+  SMFP_SERVER_RESULT_ATTACHMENT = 5; // 5 - В списке вложения обнаружены ошибки
+
+  ///////////////////////////////////////////////////////////////////////////////
+  // SymbolicType constants
+  // Тип символики: 1 байт
+  SMFP_SYMBOLIC_ASYMMETRIC  = 0; // 0 - ассиметричная
+  SMFP_SYMBOLIC_SYMMETRIC   = 1; // 1 - симметричная
+  SMFP_SYMBOLIC_TOBACCO     = 2; // 2 - табачная
+
 
 function GetCommandName(Command: Integer): WideString;
 function GetModeDescription(Value: Integer): WideString;
@@ -1240,6 +1321,7 @@ function PrinterTimeToStr(Time: TPrinterTime): WideString;
 function PrinterTimeToStr2(Time: TPrinterTime): WideString;
 function PrinterDateToStr(Date: TPrinterDate): WideString;
 function IsEqual(const I1, I2: TPrinterStatus): Boolean;
+function getServerResultCodeText(ServerCode: Integer): WideString;
 
 implementation
 
@@ -2459,6 +2541,28 @@ begin
     (I1.AdvancedMode = I2.AdvancedMode) and
     (I1.Flags.Value = I2.Flags.Value) and
     (I1.OperatorNumber = I2.OperatorNumber);
+end;
+
+function getServerResultCodeText(ServerCode: Integer): WideString;
+begin
+  case ServerCode of
+    SMFP_SERVER_RESULT_NODATA:
+      Result := _('КИЗ отсутствует в базе Серверы СКЗКМ или КИЗ отсутствует в базе ИСМ');
+
+    SMFP_SERVER_RESULT_BADFORMAT:
+      Result := _('Не корректен формат КИЗ');
+
+    SMFP_SERVER_RESULT_FAILED:
+      Result := _('Криптографическая проверка КПКИЗ дала отрицательный результат');
+
+    SMFP_SERVER_RESULT_STATUS:
+      Result := _('КИЗ имеет в базе Серверы СКЗКМ статус не совместимый с запрашиваемым');
+
+    SMFP_SERVER_RESULT_ATTACHMENT:
+      Result := _('В списке вложения обнаружены ошибки');
+  else
+    Result := _('Неизвестный код ошибки');
+  end;
 end;
 
 end.

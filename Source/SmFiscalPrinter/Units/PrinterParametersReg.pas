@@ -484,8 +484,14 @@ begin
         FParameters.EkmServerTimeout := Reg.ReadInteger('EkmServerTimeout');
       if Reg.ValueExists('EkmServerEnabled') then
         FParameters.EkmServerEnabled := Reg.ReadBool('EkmServerEnabled');
-      if Reg.ValueExists('FSMarkCheckEnabled') then
-        FParameters.FSMarkCheckEnabled := Reg.ReadBool('FSMarkCheckEnabled');
+      if Reg.ValueExists('CheckItemCodeEnabled') then
+        FParameters.CheckItemCodeEnabled := Reg.ReadBool('CheckItemCodeEnabled');
+
+      if Reg.ValueExists('NewItemStatus') then
+        FParameters.NewItemStatus := Reg.ReadInteger('NewItemStatus');
+
+      if Reg.ValueExists('ItemCheckMode') then
+        FParameters.ItemCheckMode := Reg.ReadInteger('ItemCheckMode');
 
       // VatCodes
       if Reg.OpenKey(REG_KEY_VATCODES, False) then
@@ -649,7 +655,9 @@ begin
     Reg.WriteInteger('EkmServerPort', FParameters.EkmServerPort);
     Reg.WriteInteger('EkmServerTimeout', FParameters.EkmServerTimeout);
     Reg.WriteBool('EkmServerEnabled', FParameters.EkmServerEnabled);
-    Reg.WriteBool('FSMarkCheckEnabled', FParameters.FSMarkCheckEnabled);
+    Reg.WriteBool('CheckItemCodeEnabled', FParameters.CheckItemCodeEnabled);
+    Reg.WriteInteger('NewItemStatus', FParameters.NewItemStatus);
+    Reg.WriteInteger('ItemCheckMode', FParameters.ItemCheckMode);
 
     // VatCodes
     Reg.DeleteKey(REG_KEY_VATCODES);

@@ -909,9 +909,9 @@ type
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
-  { TDIOCheckMarking }
+  { TDIOCheckItemCode }
 
-  TDIOCheckMarking = class(TDIOHandler)
+  TDIOCheckItemCode = class(TDIOHandler)
   private
     FPrinter: TFiscalPrinterImpl;
   public
@@ -2705,19 +2705,19 @@ begin
   FPrinter.OpenFiscalDay;
 end;
 
-{ TDIOCheckMarking }
+{ TDIOCheckItemCode }
 
-constructor TDIOCheckMarking.CreateCommand(AOwner: TDIOHandlers;
+constructor TDIOCheckItemCode.CreateCommand(AOwner: TDIOHandlers;
   ACommand: Integer; APrinter: TFiscalPrinterImpl);
 begin
   inherited Create(AOwner, ACommand);
   FPrinter := APrinter;
 end;
 
-procedure TDIOCheckMarking.DirectIO(var pData: Integer;
+procedure TDIOCheckItemCode.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
-  FPrinter.Device.Check(FPrinter.Device.CheckItemBarcode(pString));
+  FPrinter.Device.Check(FPrinter.Device.CheckItemCode(pString));
 end;
 
 { TDIOStartCorrection }

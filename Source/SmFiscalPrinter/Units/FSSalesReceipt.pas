@@ -244,15 +244,12 @@ procedure TFSSalesReceipt.AddSale(P: TFSSale);
 begin
   P.ItemBarcode := Parameters.Barcode;
   P.MarkType := Parameters.MarkType;
-  if Parameters.Barcode <> '' then
-  begin
-    Device.Check(Device.CheckItemBarcode(Parameters.Barcode));
-  end;
 
   FLastItem := TFSSaleItem.Create(FReceiptItems);
   FLastItem.Data := P;
   FLastItem.PreLine := Printer.Printer.PreLine;
   FLastItem.PostLine := Printer.Printer.PostLine;
+
   Printer.Printer.PreLine := '';
   Printer.Printer.PostLine := '';
   Parameters.Barcode := '';
@@ -1025,6 +1022,8 @@ begin
   begin
     if Device.CapFSCloseReceipt2 then
     begin
+      Device.Check(Device.CheckItemCode(Item.Data.ItemBarcode));
+
       FSSale2.RecType := REcTypeToOperation(FRecType);
       FSSale2.Quantity := Abs(FSRegistration.Quantity);
       FSSale2.Price := Item.PriceWithDiscount;

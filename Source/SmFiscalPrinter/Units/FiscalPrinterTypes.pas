@@ -459,7 +459,7 @@ type
     function ReadFSDocument(Number: Integer): WideString;
     procedure PrintFSDocument(Number: Integer);
     function FSStartOpenDay: Integer;
-    function CheckItemBarcode(const Barcode: WideString): Integer;
+    function CheckItemCode(const Barcode: WideString): Integer;
     function FSWriteTLVOperation(const Data: WideString): Integer;
     function SendItemBarcode(const Barcode: WideString; MarkType: Integer): Integer;
     function FSStartCorrectionReceipt: Integer;
@@ -469,6 +469,10 @@ type
     function FSReadLastDocNum2: Int64;
     function FSReadLastMacValue: Int64;
     function FSReadLastMacValue2: Int64;
+    function FSCheckItemCode(const P: TFSCheckItemCode;
+      var R: TFSCheckItemResult): Integer;
+    function FSAcceptItemCode(Action: Integer): Integer;
+    function FSBindItemCode(CodeLen: Integer; var R: TFSCheckItemResult): Integer;
 
     property LastMacValue: Int64 read GetLastMacValue;
     property LastDocNumber: Int64 read GetLastDocNumber;
