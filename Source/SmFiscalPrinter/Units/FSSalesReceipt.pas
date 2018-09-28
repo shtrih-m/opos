@@ -916,7 +916,7 @@ begin
     if ReceiptItem is TFSSaleItem then
     begin
       FSSaleItem := ReceiptItem as TFSSaleItem;
-      FSSaleItem.UpdatePrice;
+      FSSaleItem.UpdatePrice(Parameters.DiscountMode);
       SplittedItem := FSSaleItem.SplittedItem;
       if SplittedItem <> nil then
       begin
@@ -1333,6 +1333,7 @@ var
 begin
   DiscountAmount := Abs(FDiscounts.GetTotal);
   if DiscountAmount = 0 then Exit;
+  if Parameters.DiscountMode = DiscountModeNone then Exit;
 
   if (Device.CapSubtotalRound) and (DiscountAmount < 100) then
   begin

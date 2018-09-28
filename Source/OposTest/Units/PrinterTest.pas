@@ -16,7 +16,7 @@ const
     '**** AdditionalTrailer Line1 ****' + #13#10 +
     '**** AdditionalTrailer Line2 ****';
 
-  AdditionalHeader =
+  AdditionalHeader =      
     '****  AdditionalHeader Line 1  ****' + #13#10 +
     '****  AdditionalHeader Line 2  ****';
 
@@ -4477,8 +4477,8 @@ begin
   Check(FiscalPrinter.PrintRecItem('27* 3255414  Ë‚Ë 1Í„                      ', 0, 1350, 1, 119, 'Í„'));
   Check(FiscalPrinter.PrintRecItemAdjustment(1, '', 93.29, 0));
 
-  Check(FiscalPrinter.PrintRecSubtotal(3404));
-  Check(FiscalPrinter.PrintRecTotal(0, 3404, '1'));
+  Check(FiscalPrinter.PrintRecSubtotal(0));
+  Check(FiscalPrinter.PrintRecTotal(0, 100000, '0'));
   Check(FiscalPrinter.EndFiscalReceipt(True));
 end;
 

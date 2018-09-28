@@ -12,6 +12,12 @@ uses
 
 const
   /////////////////////////////////////////////////////////////////////////////
+  // DiscountMode constants
+
+  DiscountModeChangePrice = 0; // Discount change price
+  DiscountModeNone        = 1; // Discount does not change price
+
+  /////////////////////////////////////////////////////////////////////////////
   // PrintRecMessageMode
 
   PrintRecMessageModeNormal = 0;
@@ -359,6 +365,7 @@ const
   DefCheckItemCodeEnabled = False;
   DefNewItemStatus = SMFP_ITEM_STATUS_RETAILED;
   DefItemCheckMode = SMFP_CHECK_MODE_FULL;
+  DefDiscountMode = DiscountModeChangePrice;
 
 type
   { TPrinterParameters }
@@ -444,6 +451,7 @@ type
     FCapRecNearEndSensorMode: Integer;
     FQuantityDecimalPlaces: Integer;
     FDocumentBlockSize: Integer;
+    FDiscountMode: Byte;
 
     procedure LogText(const Caption, Text: WideString);
     procedure SetLogoPosition(const Value: Integer);
@@ -475,6 +483,7 @@ type
     procedure SetMaxRetryCount(const Value: Integer);
     procedure SetQuantityDecimalPlaces(const Value: Integer);
     procedure SetDocumentBlockSize(const Value: Integer);
+    procedure SetDiscountMode(const Value: Byte);
   public
     XReport: Integer;
     FSBarcodeEnabled: Boolean;
@@ -640,7 +649,8 @@ type
     property CapRecNearEndSensorMode: Integer read FCapRecNearEndSensorMode write FCapRecNearEndSensorMode;
     property Logger: ILogFile read FLogger;
     property QuantityDecimalPlaces: Integer read FQuantityDecimalPlaces write SetQuantityDecimalPlaces;
-    property DocumentBlockSize: Integer read FDocumentBlockSize write SetDocumentBlockSize; 
+    property DocumentBlockSize: Integer read FDocumentBlockSize write SetDocumentBlockSize;
+    property DiscountMode: Byte read FDiscountMode write SetDiscountMode;
   end;
 
 const
@@ -875,6 +885,7 @@ begin
 
   NewItemStatus := SMFP_ITEM_STATUS_RETAILED;
   ItemCheckMode := SMFP_CHECK_MODE_FULL;
+  DiscountMode := DiscountModeChangePrice;
 end;
 
 procedure TPrinterParameters.LogText(const Caption, Text: WideString);
@@ -1012,6 +1023,7 @@ begin
   Logger.Debug('CheckItemCodeEnabled: ' + BoolToStr(CheckItemCodeEnabled));
   Logger.Debug('NewItemStatus: ' + IntToStr(NewItemStatus));
   Logger.Debug('ItemCheckMode: ' + IntToStr(ItemCheckMode));
+  Logger.Debug('DiscountMode: ' + IntToStr(DiscountMode));
 
   for i := 0 to PayTypes.Count-1 do
   begin
@@ -1232,6 +1244,12 @@ procedure TPrinterParameters.SetDocumentBlockSize(const Value: Integer);
 begin
   if (Value >= MinDocumentBlockSize)and(Value <= MaxDocumentBlockSize) then
     FDocumentBlockSize := Value;
+end;
+
+procedure TPrinterParameters.SetDiscountMode(const Value: Byte);
+begin
+  if Value in [0..1] then
+    FDiscountMode := Value;
 end;
 
 end.

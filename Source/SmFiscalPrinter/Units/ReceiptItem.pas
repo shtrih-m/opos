@@ -6,7 +6,7 @@ Uses
   // VCL
   Classes,
   // This
-  PrinterTypes, TextItem, MathUtils;
+  PrinterTypes, TextItem, MathUtils, PrinterParameters;
 
 type
   TReceiptItem = class;
@@ -102,6 +102,7 @@ type
     FSplittedItem: TFSSaleItem;
     FDiscounts: TReceiptItems;
     FPriceWithDiscount: Int64;
+
     function GetPriceDiscount: Int64;
     function calcPriceWithDiscount: Int64;
   public
@@ -118,7 +119,7 @@ type
     function GetTotal: Int64; override;
     function GetDiscounts: TReceiptItems;
 
-    procedure UpdatePrice;
+    procedure UpdatePrice(DiscountMode: Integer);
     procedure Assign(Item: TReceiptItem); override;
 
     property Total: Int64 read GetTotal;
@@ -332,7 +333,7 @@ begin
   Result := Trunc(Abs(getTotal() / quantity));
 end;
 
-procedure TFSSaleItem.UpdatePrice;
+procedure TFSSaleItem.UpdatePrice(DiscountMode: Integer);
 var
   i: Integer;
   total: Int64;
@@ -349,9 +350,16 @@ begin
   AQuantity := Round(Quantity * 1000);
   FUnitPrice := Price;
   FPriceWithDiscount := Price;
+  if DiscountMode = DiscountModeNone then
+  begin
+    FUnitPrice := Price;
+    FPriceWithDiscount := Price;
+    FPriceUpdated := True;
+    Exit;
+  end;
+
   if Discounts.GetTotal = 0 then
   begin
-    FPriceWithDiscount := Price;
     FPriceUpdated := True;
     Exit;
   end;
@@ -364,6 +372,7 @@ begin
   end;
 
   FPriceWithDiscount := calcPriceWithDiscount();
+
   amount := getTotal2;
   total := getTotal();
   total2 := getTotal2();

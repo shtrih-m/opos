@@ -524,6 +524,9 @@ begin
       if Reg.ValueExists('ItemCheckMode') then
         FParameters.ItemCheckMode := Reg.ReadInteger('ItemCheckMode');
 
+      if Reg.ValueExists('DiscountMode') then
+        FParameters.DiscountMode := Reg.ReadInteger('DiscountMode');
+
       // VatCodes
       if Reg.OpenKey(REG_KEY_VATCODES, False) then
       begin
@@ -688,6 +691,7 @@ begin
     Reg.WriteBool('CheckItemCodeEnabled', FParameters.CheckItemCodeEnabled);
     Reg.WriteInteger('NewItemStatus', FParameters.NewItemStatus);
     Reg.WriteInteger('ItemCheckMode', FParameters.ItemCheckMode);
+    Reg.WriteInteger('DiscountMode', FParameters.DiscountMode);
 
     // VatCodes
     Reg.DeleteKey(REG_KEY_VATCODES);

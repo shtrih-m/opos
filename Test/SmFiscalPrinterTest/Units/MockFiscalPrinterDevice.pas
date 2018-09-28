@@ -1804,17 +1804,17 @@ end;
 
 function TMockFiscalPrinterDevice.FSReadLastDocNum: Int64;
 begin
-  Result := 0;
+  Result := FSCloseReceiptResult2.DocNumber;
 end;
 
 function TMockFiscalPrinterDevice.FSReadLastMacValue: Int64;
 begin
-  Result := 0;
+  Result := FSCloseReceiptResult2.MacValue;
 end;
 
 function TMockFiscalPrinterDevice.FSReadLastMacValue2: Int64;
 begin
-  Result := 0;
+  Result := FSCloseReceiptResult2.MacValue;
 end;
 
 function TMockFiscalPrinterDevice.FSAcceptItemCode(

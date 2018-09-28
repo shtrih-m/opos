@@ -99,6 +99,13 @@ object fmFptrReceipt: TfmFptrReceipt
       Height = 13
       Caption = 'PrintRecMessage mode:'
     end
+    object lblDiscountMode: TTntLabel
+      Left = 8
+      Top = 280
+      Width = 74
+      Height = 13
+      Caption = 'Discount mode:'
+    end
     object cbCutType: TTntComboBox
       Left = 136
       Top = 40
@@ -198,7 +205,7 @@ object fmFptrReceipt: TfmFptrReceipt
     end
     object chbCacheReceiptNumber: TTntCheckBox
       Left = 8
-      Top = 296
+      Top = 320
       Width = 201
       Height = 17
       Caption = 'Cache receipt number'
@@ -226,7 +233,7 @@ object fmFptrReceipt: TfmFptrReceipt
     end
     object chbZReceiptBeforeZReport: TTntCheckBox
       Left = 8
-      Top = 320
+      Top = 344
       Width = 214
       Height = 17
       Caption = 'Zero receipt before Z report (day closed)'
@@ -234,7 +241,7 @@ object fmFptrReceipt: TfmFptrReceipt
     end
     object chbOpenReceiptEnabled: TTntCheckBox
       Left = 8
-      Top = 344
+      Top = 368
       Width = 214
       Height = 17
       Caption = 'Open receipt in beginFiscalReceipt'
@@ -265,6 +272,19 @@ object fmFptrReceipt: TfmFptrReceipt
       Items.Strings = (
         '1. Normal - after receipt ending'
         '2. Before receipt ending')
+    end
+    object cbDiscountMode: TTntComboBox
+      Left = 136
+      Top = 280
+      Width = 337
+      Height = 21
+      Style = csDropDownList
+      Anchors = [akLeft, akTop, akRight]
+      ItemHeight = 13
+      TabOrder = 14
+      Items.Strings = (
+        '0 - Discount has effect on price and amount'
+        '1 - Discount has no effect ')
     end
   end
 end

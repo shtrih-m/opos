@@ -336,6 +336,7 @@ begin
       FParameters.CheckItemCodeEnabled := IniFile.ReadBool(Section, 'CheckItemCodeEnabled', DefCheckItemCodeEnabled);
       FParameters.NewItemStatus := IniFile.ReadInteger(Section, 'NewItemStatus', DefNewItemStatus);
       FParameters.ItemCheckMode := IniFile.ReadInteger(Section, 'ItemCheckMode', DefItemCheckMode);
+      FParameters.DiscountMode := IniFile.ReadInteger(Section, 'DiscountMode', DefDiscountMode);
     end;
     // VatCodes
     Section := GetSectionName(DeviceName) + '_VatCodes';
@@ -496,6 +497,7 @@ begin
     IniFile.WriteBool(Section, 'CheckItemCodeEnabled', FParameters.CheckItemCodeEnabled);
     IniFile.WriteInteger(Section, 'NewItemStatus', FParameters.NewItemStatus);
     IniFile.WriteInteger(Section, 'ItemCheckMode', FParameters.ItemCheckMode);
+    IniFile.WriteInteger(Section, 'DiscountMode', FParameters.DiscountMode);
 
     // PayTypes
     Section := GetSectionName(DeviceName) + '_PaymentTypes';
