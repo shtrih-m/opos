@@ -8812,21 +8812,18 @@ begin
     2:
     begin // Меха
       Serial := Copy(GS1Barcode.Serial, 1, 24);
-      Serial := Serial + StringOfChar(' ', 24 - Length(Serial));
       Data := ReverseString(IntToBin(2, 2)) + GTIN + Serial;
       Data := TTLVTag.Int2ValueTLV(1162, 2) + TTLVTag.Int2ValueTLV(Length(Data), 2) + Data;
     end;
     3:
     begin // Лекарственные препараты
       Serial := Copy(GS1Barcode.Serial, 1, 24);
-      Serial := Serial + StringOfChar(' ', 24 - Length(Serial));
       Data := ReverseString(IntToBin(3, 2)) + GTIN + Serial;
       Data := TTLVTag.Int2ValueTLV(1162, 2) + TTLVTag.Int2ValueTLV(Length(Data), 2) + Data;
     end;
     5:
     begin // Табачные изделия
       Serial := Copy(GS1Barcode.Serial, 1, 24);
-      Serial := Serial + StringOfChar(' ', 24 - Length(Serial));
       Data := ReverseString(IntToBin(5, 2)) + GTIN + Serial;
       Data := TTLVTag.Int2ValueTLV(1162, 2) + TTLVTag.Int2ValueTLV(Length(Data), 2) + Data;
     end;
