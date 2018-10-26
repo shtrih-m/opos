@@ -1289,6 +1289,33 @@ const
   SMFP_SYMBOLIC_SYMMETRIC   = 1; // 1 - симметричная
   SMFP_SYMBOLIC_TOBACCO     = 2; // 2 - табачная
 
+  /////////////////////////////////////////////////////////////////////////////
+  // Признак способа расчета (тег 1214)
+
+  PaymentTypeDeposit          = 1;  // 1 Предоплата 100%
+  PaymentTypePartialDeposit   = 2;  // 2 Частичная предоплата
+  PaymentTypeAdvance          = 3;  // 3 Аванс
+  PaymentTypeCash             = 4;  // 4 Полный расчет
+  PaymentTypeCashCredit       = 5;  // 5. Частичный расчет и кредит
+  PaymentTypeCredit           = 6;  // 6. Передача в кредит
+  PaymentTypePayCredit        = 7;  // 7. Оплата кредита
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Признак предмета расчета (тег 1212)
+
+  PaymentItemNormal           = 1; // 1. Товар
+  PaymentItemExcise           = 2; // 2. Подакцизный товар
+  PaymentItemJob              = 3; // 3. Работа
+  PaymentItemService          = 4; // 4. Услуга
+  PaymentItemBet              = 5; // 5. Ставка азартной игры
+  PaymentItemGamePrize        = 6; // 6. Выигрыш азартной игры
+  PaymentItemLotteryBill      = 7; // 7. Лотерейный билет
+  PaymentItemLotteryPrize     = 8; // 8. Выигрыш лотереи
+  PaymentItemIntellect        = 9; // 9. Предоставление РИД
+  PaymentItemPayment          = 10; // 10. Платеж
+  PaymentItemComposite        = 11; // 11. Составной предмет расчета
+  PaymentItemOther            = 12; // 12. Иной предмет расчета
+
 
 function GetCommandName(Command: Integer): WideString;
 function GetModeDescription(Value: Integer): WideString;

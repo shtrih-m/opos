@@ -1032,8 +1032,8 @@ begin
       FSSale2.Department := FSRegistration.Department;
       FSSale2.Tax := GetTax(FSRegistration.Text, FSRegistration.Tax);
       FSSale2.Text := Operation.Text;
-      FSSale2.PaymentType := StrToInt64Def(FSRegistration.Parameter3, 1);
-      FSSale2.PaymentItem := StrToInt64Def(FSRegistration.Parameter4, 1);
+      FSSale2.PaymentType := StrToInt64Def(FSRegistration.Parameter3, PaymentTypeCash);
+      FSSale2.PaymentItem := StrToInt64Def(FSRegistration.Parameter4, PaymentItemNormal);
       FSSale2.ItemBarcode := FSRegistration.ItemBarcode;
       FSSale2.MarkType := FSRegistration.MarkType;
       Device.Check(Device.FSSale2(FSSale2));
