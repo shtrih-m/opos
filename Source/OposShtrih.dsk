@@ -1,14 +1,14 @@
 [Closed Files]
-File_0=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FSSalesReceipt.pas',0,1,1013,85,1034,0,0
-File_1=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\PrinterTypes.pas',0,1,1279,40,1293,0,0
-File_2=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterDevice.pas',0,1,7070,39,7071,0,0
-File_3=SourceModule,'C:\projects\OPOSShtrih\Source\Shared\DIOHandlers.pas',0,1,1990,28,2009,0,0
-File_4=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\SharedPrinter.pas',0,1,221,1,235,0,0
-File_5=SourceModule,'C:\projects\OPOSShtrih\Source\Shared\DriverError.pas',0,1,28,1,42,0,0
-File_6=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterImpl.pas',0,1,1,1,1,0,0
-File_7=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\TLVTags.pas',0,1,336,10,346,0,0
-File_8=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\DirectIOAPI.pas',0,1,1,1,1,0,0
-File_9=SourceModule,'C:\projects\OPOSShtrih\Source\OposTest\Units\PrinterTest.pas',0,1,4412,31,4432,0,0
+File_0=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\PrinterProtocol2.pas',0,1,323,37,342,0,0
+File_1=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FSSalesReceipt.pas',0,1,1008,10,1031,0,0
+File_2=SourceModule,'C:\projects\OPOSShtrih\Source\Shared\DIOHandlers.pas',0,1,2366,15,2369,0,0
+File_3=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\DirectIOAPI.pas',0,1,48,63,69,0,0
+File_4=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterImpl.pas',0,1,4497,78,4512,0,0
+File_5=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\PrinterTypes.pas',0,1,168,29,190,0,0
+File_6=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterDevice.pas',0,1,7070,39,7071,0,0
+File_7=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\SharedPrinter.pas',0,1,221,1,235,0,0
+File_8=SourceModule,'C:\projects\OPOSShtrih\Source\Shared\DriverError.pas',0,1,28,1,42,0,0
+File_9=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\TLVTags.pas',0,1,336,10,346,0,0
 
 [Modules]
 Count=0
@@ -228,16 +228,16 @@ Visible=1
 State=0
 Left=7
 Top=110
-Width=237
+Width=484
 Height=831
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=221
+ClientWidth=468
 ClientHeight=797
 TBDockHeight=681
 LRDockWidth=291
 Dockable=1
-SplitPos=149
+SplitPos=153
 ArrangeBy=Name
 SelectedItem=
 ExpandedItems=Anchors,Attributes,BorderIcons,Constraints,Font,Font.Style,Greeting,Options,ProviderFlags,TestModeInfo,Title,Title.Font,VisibleButtons

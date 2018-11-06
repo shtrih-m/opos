@@ -718,9 +718,19 @@ begin
   TDIOReadCashRegister.CreateCommand(FDIOHandlers, DIO_READ_CASH_REG, Self);
   TDIOReadOperatingRegister.CreateCommand(FDIOHandlers, DIO_READ_OPER_REG, Self);
   TDIOWaitForPrint.CreateCommand(FDIOHandlers, DIO_WAIT_FOR_PRINT, Self);
+  TDIOPrintHeader.CreateCommand(FDIOHandlers, DIO_PRINT_HEADER, Self);
+  TDIOPrintTrailer.CreateCommand(FDIOHandlers, DIO_PRINT_TRAILER, Self);
+  TDIOZReport.CreateCommand(FDIOHandlers, DIO_PRINT_ZREPORT, Self);
+  TDIOZReportXML.CreateCommand(FDIOHandlers, DIO_PRINT_ZREPORT_XML, Self);
+  TDIOZReportCSV.CreateCommand(FDIOHandlers, DIO_PRINT_ZREPORT_CSV, Self);
+  TDIOGetLastError.CreateCommand(FDIOHandlers, DIO_GET_LAST_ERROR, Self);
+  TDIOGetPrinterStation.CreateCommand(FDIOHandlers, DIO_GET_PRINTER_STATION, Self);
+  TDIOSetPrinterStation.CreateCommand(FDIOHandlers, DIO_SET_PRINTER_STATION, Self);
+  TDIOGetDriverParameter.CreateCommand(FDIOHandlers, DIO_GET_DRIVER_PARAMETER, Self);
+  TDIOSetDriverParameter.CreateCommand(FDIOHandlers, DIO_SET_DRIVER_PARAMETER, Self);
+  TDIOPrintSeparator.CreateCommand(FDIOHandlers, DIO_PRINT_SEPARATOR, Self);
   TDIOPrintText.CreateCommand(FDIOHandlers, DIO_PRINT_TEXT2, Self);
-  TDIOStrCommand2.CreateCommand(FDIOHandlers, DIO_COMMAND_PRINTER_STR2,
-    FCommandDefs, Self);
+  TDIOStrCommand2.CreateCommand(FDIOHandlers, DIO_COMMAND_PRINTER_STR2, FCommandDefs, Self);
   TDIOReadEJActivation.CreateCommand(FDIOHandlers, DIO_READ_EJ_ACTIVATION, Self);
   TDIOReadFMTotals.CreateCommand(FDIOHandlers, DIO_READ_FM_TOTALS, Self);
   TDIOReadGrandTotals.CreateCommand(FDIOHandlers, DIO_READ_GRAND_TOTALS, Self);
@@ -791,9 +801,19 @@ begin
   TDIOReadCashRegister.CreateCommand(FDIOHandlers, DIO_READ_CASH_REG, Self);
   TDIOReadOperatingRegister.CreateCommand(FDIOHandlers, DIO_READ_OPER_REG, Self);
   TDIOWaitForPrint.CreateCommand(FDIOHandlers, DIO_WAIT_FOR_PRINT, Self);
+  TDIOPrintHeader.CreateCommand(FDIOHandlers, DIO_PRINT_HEADER, Self);
+  TDIOPrintTrailer.CreateCommand(FDIOHandlers, DIO_PRINT_TRAILER, Self);
+  TDIOZReport.CreateCommand(FDIOHandlers, DIO_PRINT_ZREPORT, Self);
+  TDIOZReportXML.CreateCommand(FDIOHandlers, DIO_PRINT_ZREPORT_XML, Self);
+  TDIOZReportCSV.CreateCommand(FDIOHandlers, DIO_PRINT_ZREPORT_CSV, Self);
+  TDIOGetLastError.CreateCommand(FDIOHandlers, DIO_GET_LAST_ERROR, Self);
+  TDIOGetPrinterStation.CreateCommand(FDIOHandlers, DIO_GET_PRINTER_STATION, Self);
+  TDIOSetPrinterStation.CreateCommand(FDIOHandlers, DIO_SET_PRINTER_STATION, Self);
+  TDIOGetDriverParameter.CreateCommand(FDIOHandlers, DIO_GET_DRIVER_PARAMETER, Self);
+  TDIOSetDriverParameter.CreateCommand(FDIOHandlers, DIO_SET_DRIVER_PARAMETER, Self);
+  TDIOPrintSeparator.CreateCommand(FDIOHandlers, DIO_PRINT_SEPARATOR, Self);
   TDIOPrintText.CreateCommand(FDIOHandlers, DIO_PRINT_TEXT2, Self);
-  TDIOStrCommand2.CreateCommand(FDIOHandlers, DIO_COMMAND_PRINTER_STR2,
-    FCommandDefs, Self);
+  TDIOStrCommand2.CreateCommand(FDIOHandlers, DIO_COMMAND_PRINTER_STR2, FCommandDefs, Self);
   TDIOReadEJActivation.CreateCommand(FDIOHandlers, DIO_READ_EJ_ACTIVATION, Self);
   TDIOReadFMTotals.CreateCommand(FDIOHandlers, DIO_READ_FM_TOTALS, Self);
   TDIOReadGrandTotals.CreateCommand(FDIOHandlers, DIO_READ_GRAND_TOTALS, Self);
