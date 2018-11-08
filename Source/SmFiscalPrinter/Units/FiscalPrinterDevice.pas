@@ -757,6 +757,7 @@ begin
   FFilter := TFiscalPrinterFilter.Create(Parameters.Logger);
   FAmountDecimalPlaces := 2;
   FCapReceiptDiscount2 := True;
+  FCapGraphics1 := True;
   LoadModels;
 end;
 
@@ -4326,7 +4327,10 @@ begin
     Stream.WriteString(GetLine(Data, 40, 40));
     Result := ExecuteStream(Stream);
     if Result = ERROR_COMMAND_NOT_SUPPORTED then
+    begin
+      FCapGraphics1 := False;
       FModelData.CapGraphics := False;
+    end;
   finally
     Stream.Free;
   end;
@@ -4452,7 +4456,10 @@ begin
     Stream.WriteString(GetLine(Data, 40, 40));
     Result := ExecuteStream(Stream);
     if Result = ERROR_COMMAND_NOT_SUPPORTED then
+    begin
+      FCapGraphics2 := False;
       FModelData.CapGraphicsEx := False;
+    end;
   finally
     Stream.Free;
   end;
@@ -4490,6 +4497,10 @@ begin
     end;
     Stream.WriteString(Data);
     Result := ExecuteStream(Stream);
+    if Result = ERROR_COMMAND_NOT_SUPPORTED then
+    begin
+      FCapBarLine := False;
+    end;
   finally
     Stream.Free;
   end;
@@ -6567,11 +6578,11 @@ begin
   FCapFSCloseReceipt2 := False;
   FCapSubtotalRound := False;
   FCapDiscount := False;
-  FCapBarLine := False;
+  FCapBarLine := True;
   FCapScaleGraphics := False;
   FCapBarcode2D := False;
-  FCapGraphics1 := False;
-  FCapGraphics2 := False;
+  FCapGraphics1 := True;
+  FCapGraphics2 := True;
   FCapGraphics512 := False;
   FCapFiscalStorage := False;
   FCapOpenReceipt := False;
@@ -6616,10 +6627,7 @@ begin
   FCapFooterFlag := FCapParameters2 and FParameters2.Flags.CapFlagsGraphicsEx;
 
   ReadLongStatus;
-  FCapBarLine := TestCommand($C5);
   FCapBarcode2D := TestCommand($DE);
-  FCapGraphics1 := TestCommand($C0);
-  FCapGraphics2 := TestCommand($C4);
   FCapFiscalStorage := ReadCapFiscalStorage;
   FCapOpenReceipt := FCapFiscalStorage or TestCommand($8D);
 
