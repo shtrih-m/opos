@@ -59,7 +59,7 @@ uses
   CashDrawerDevice in '..\..\Source\OposConfig\Units\CashDrawerDevice.pas',
   FiscalPrinterDevice in '..\..\Source\OposConfig\Units\FiscalPrinterDevice.pas',
   ScaleDevice in '..\..\Source\OposConfig\Units\ScaleDevice.pas',
-  fmuFptrLog in '..\..\Source\OposConfig\Fmu\fmuFptrLog.pas' {fmFptrLog},
+  fmuFptrDirectIO in '..\..\Source\OposConfig\Fmu\fmuFptrDirectIO.pas' {fmFptrDirectIO},
   fmuFptrText in '..\..\Source\OposConfig\Fmu\fmuFptrText.pas' {fmFptrText},
   MalinaParams in '..\..\Source\SmFiscalPrinter\Units\MalinaParams.pas',
   TextMap in '..\..\Source\SmFiscalPrinter\Units\TextMap.pas',
@@ -90,7 +90,8 @@ uses
   fmuMarkChecker in '..\..\Source\OposConfig\Fmu\fmuMarkChecker.pas' {fmMarkChecker},
   WException in '..\..\Source\Shared\WException.pas',
   TntIniFiles in '..\..\Source\Shared\TntIniFiles.pas',
-  DriverError in '..\..\Source\Shared\DriverError.pas';
+  DriverError in '..\..\Source\Shared\DriverError.pas',
+  fmuFptrLog in '..\..\Source\OposConfig\Fmu\fmuFptrLog.pas' {fmFptrLog};
 
 {$R *.RES}
 

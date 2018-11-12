@@ -55,7 +55,7 @@ uses
   FiscalPrinterDevice in 'Units\FiscalPrinterDevice.pas',
   CashDrawerDevice in 'Units\CashDrawerDevice.pas',
   ScaleDevice in 'Units\ScaleDevice.pas',
-  fmuFptrLog in 'Fmu\fmuFptrLog.pas' {fmFptrLog},
+  fmuFptrDirectIO in 'Fmu\fmuFptrDirectIO.pas' {fmFptrDirectIO},
   fmuFptrText in 'Fmu\fmuFptrText.pas' {fmFptrText},
   MalinaReceipt in 'Units\MalinaReceipt.pas',
   fmuCashInProcessing in 'Fmu\fmuCashInProcessing.pas' {fmCashInProcessing},
@@ -83,7 +83,8 @@ uses
   fmuFptrConnection in 'Fmu\fmuFptrConnection.pas' {fmFptrConnection},
   fmuMarkChecker in 'Fmu\fmuMarkChecker.pas' {fmMarkChecker},
   WException in '..\Shared\WException.pas',
-  TntIniFiles in '..\Shared\TntIniFiles.pas';
+  TntIniFiles in '..\Shared\TntIniFiles.pas',
+  fmuFptrLog in 'Fmu\fmuFptrLog.pas' {fmFptrLog};
 
 {$R *.RES}
 {$R WindowsXP.RES}

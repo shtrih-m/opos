@@ -61,7 +61,7 @@ uses
   fmuFptrConnection, fmuFptrReceipt, fmuFptrHeader, fmuFptrTrailer, fmuFptrText,
   fmuFptrLog, fmuFptrLogo, fmuFptrPayType, fmuFptrVatCode, fmuFptrBarcode,
   fmuXReport, fmuZReport, fmuMiscParams, fmuFiscalStorage, fmuFptrTables,
-  fmuReceiptFormat, fmuMarkChecker, 
+  fmuReceiptFormat, fmuMarkChecker, fmuFptrDirectIO, 
   {$IFDEF MALINA}
   fmuFptrMalina,
   fmuFptrUnipos,
@@ -128,6 +128,7 @@ begin
     {$ENDIF}
     //
     AddPage(fm, TfmFptrConnection);
+    AddPage(fm, TfmFptrDirectIO);
     AddPage(fm, TfmFptrReceipt);
     AddPage(fm, TfmFptrTables);
     AddPage(fm, TfmFptrHeader);

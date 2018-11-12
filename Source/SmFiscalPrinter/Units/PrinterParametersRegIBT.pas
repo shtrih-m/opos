@@ -527,6 +527,9 @@ begin
       if Reg.ValueExists('DiscountMode') then
         FParameters.DiscountMode := Reg.ReadInteger('DiscountMode');
 
+      if Reg.ValueExists('IgnoreDirectIOErrors') then
+        FParameters.IgnoreDirectIOErrors := Reg.ReadBool('IgnoreDirectIOErrors');
+
       // VatCodes
       if Reg.OpenKey(REG_KEY_VATCODES, False) then
       begin
@@ -692,6 +695,7 @@ begin
     Reg.WriteInteger('NewItemStatus', FParameters.NewItemStatus);
     Reg.WriteInteger('ItemCheckMode', FParameters.ItemCheckMode);
     Reg.WriteInteger('DiscountMode', FParameters.DiscountMode);
+    Reg.WriteBool('IgnoreDirectIOErrors', FParameters.IgnoreDirectIOErrors);
 
     // VatCodes
     Reg.DeleteKey(REG_KEY_VATCODES);

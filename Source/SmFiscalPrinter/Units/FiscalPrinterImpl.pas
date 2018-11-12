@@ -2518,6 +2518,8 @@ begin
     on E: Exception do
       Result := HandleException(E);
   end;
+  if Parameters.IgnoreDirectIOErrors then
+    Result := ClearResult;
 end;
 
 function TFiscalPrinterImpl.EndFiscalDocument: Integer;
