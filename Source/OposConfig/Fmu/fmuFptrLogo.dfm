@@ -1,6 +1,6 @@
 object fmFptrLogo: TfmFptrLogo
-  Left = 451
-  Top = 147
+  Left = 751
+  Top = 283
   AutoScroll = False
   BorderIcons = [biSystemMenu]
   Caption = 'Logo'
@@ -140,6 +140,16 @@ object fmFptrLogo: TfmFptrLogo
       Height = 17
       Caption = 'Logo reload enabled'
       TabOrder = 0
+    end
+    object btnClearLogo: TTntButton
+      Left = 368
+      Top = 200
+      Width = 91
+      Height = 25
+      Anchors = [akTop, akRight]
+      Caption = 'Clear logo'
+      TabOrder = 8
+      OnClick = btnClearLogoClick
     end
   end
   object OpenPictureDialog: TOpenPictureDialog

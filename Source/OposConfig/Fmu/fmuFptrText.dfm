@@ -156,4 +156,12 @@ object fmFptrText: TfmFptrText
       'Dashed line'
       'Solid line')
   end
+  object chbTrimItemText: TTntCheckBox
+    Left = 16
+    Top = 280
+    Width = 185
+    Height = 17
+    Caption = 'Trim item text'
+    TabOrder = 5
+  end
 end

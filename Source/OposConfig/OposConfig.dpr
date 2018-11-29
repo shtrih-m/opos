@@ -84,15 +84,25 @@ uses
   fmuMarkChecker in 'Fmu\fmuMarkChecker.pas' {fmMarkChecker},
   WException in '..\Shared\WException.pas',
   TntIniFiles in '..\Shared\TntIniFiles.pas',
-  fmuFptrLog in 'Fmu\fmuFptrLog.pas' {fmFptrLog};
+  fmuFptrLog in 'Fmu\fmuFptrLog.pas' {fmFptrLog},
+  PrinterModel in '..\SmFiscalPrinter\Units\PrinterModel.pas',
+  TableParameter in '..\SmFiscalPrinter\Units\TableParameter.pas',
+  ParameterValue in '..\SmFiscalPrinter\Units\ParameterValue.pas',
+  DriverTypes in '..\SmFiscalPrinter\Units\DriverTypes.pas',
+  PrinterTable in '..\SmFiscalPrinter\Units\PrinterTable.pas',
+  XmlModelReader in '..\SmFiscalPrinter\Units\XmlModelReader.pas',
+  XmlUtils in '..\SmFiscalPrinter\Units\XmlUtils.pas',
+  DefaultModel in '..\SmFiscalPrinter\Units\DefaultModel.pas';
 
 {$R *.RES}
 {$R WindowsXP.RES}
 
 begin
+(*
   bindtextdomain('OposTst', IncludeTrailingPathDelimiter(ExtractFilePath(GetDllFileName)) + 'locale');
   textdomain('OposTst');
   UseLanguage(GetLanguage);
+*)  
 
   Application.Initialize;
   Application.CreateForm(TfmMain, fmMain);

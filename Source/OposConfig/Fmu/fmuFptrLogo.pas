@@ -31,11 +31,13 @@ type
     chbLogoCenter: TTntCheckBox;
     ProgressBar: TProgressBar;
     chbLogoReloadEnabled: TTntCheckBox;
+    btnClearLogo: TTntButton;
     procedure PageChange(Sender: TObject);
     procedure btnOpenClick(Sender: TObject);
     procedure btnLoadClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnPrintLogoClick(Sender: TObject);
+    procedure btnClearLogoClick(Sender: TObject);
   private
     procedure UpdateLogoSize;
   public
@@ -171,6 +173,32 @@ end;
 procedure TfmFptrLogo.PageChange(Sender: TObject);
 begin
   Modified;
+end;
+
+procedure TfmFptrLogo.btnClearLogoClick(Sender: TObject);
+var
+  pData: Integer;
+  pWideString: WideString;
+  Driver: OleVariant;
+begin
+  EnableButtons(False);
+  try
+    Driver := CreateOleObject('OPOS.FiscalPrinter');
+    try
+      Check(Driver, Driver.Open(DeviceName));
+      Check(Driver, Driver.ClaimDevice(0));
+      Driver.DeviceEnabled := True;
+      Check(Driver, Driver.ResultCode);
+
+      pData := 0;
+      pWideString := '';
+      Check(Driver, Driver.DirectIO(DIO_CLEAR_LOGO, pData, pWideString));
+    finally
+      Driver.Close;
+    end;
+  finally
+    EnableButtons(True);
+  end;
 end;
 
 end.

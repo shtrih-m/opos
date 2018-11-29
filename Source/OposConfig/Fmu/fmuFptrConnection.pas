@@ -5,12 +5,12 @@ interface
 uses
   // VCL
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls,
+  Dialogs, StdCtrls, ComCtrls, Spin,
   // Tnt
   TntStdCtrls,
   // This
-  untUtil, PrinterParameters, FptrTypes, ComCtrls, Spin,
-  FiscalPrinterDevice;
+  untUtil, PrinterParameters, FptrTypes, PrinterModel, XmlModelReader,
+  FiscalPrinterDevice, FileUtils, PrinterTypes, DriverTypes;
 
 type
   { TfmFptrConnection }
@@ -53,10 +53,18 @@ type
     lblStatusTimeout: TTntLabel;
     lblEventsType: TTntLabel;
     cbCCOType: TTntComboBox;
+    lblModel: TTntLabel;
+    cbModel: TTntComboBox;
     procedure FormCreate(Sender: TObject);
+  private
+    FModels: TPrinterModels;
+    procedure UpdateModels;
   public
     procedure UpdatePage; override;
     procedure UpdateObject; override;
+  public
+    constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
   end;
 
 var
@@ -68,8 +76,58 @@ implementation
 
 { TfmFptrConnection }
 
-procedure TfmFptrConnection.UpdatePage;
+constructor TfmFptrConnection.Create(AOwner: TComponent);
 begin
+  inherited Create(AOwner);
+  FModels := TPrinterModels.Create;
+end;
+
+destructor TfmFptrConnection.Destroy;
+begin
+  FModels.Free;
+  inherited Destroy;
+end;
+
+procedure TfmFptrConnection.UpdateModels;
+var
+  i: Integer;
+  FileName: WideString;
+  Model: TPrinterModel;
+  Reader: TXmlModelReader;
+  ModelData: TPrinterModelRec;
+begin
+  cbModel.Items.BeginUpdate;
+  Reader := TXmlModelReader.Create(FModels);
+  try
+    cbModel.Items.Clear;
+    FileName := GetModulePath + ModelsFileName;
+    Reader.Load(FileName);
+
+    ModelData.ID := -1;
+    ModelData.Name := 'Autoselect';
+    Model := TPrinterModel.Create(nil, ModelData);
+    FModels.Insert(0, Model);
+
+    for i := 0 to FModels.Count-1 do
+    begin
+      Model := FModels[i];
+      cbModel.Items.Add(Model.Data.Name);
+    end;
+  except
+    on E: Exception do
+    begin
+      Logger.Error('TFiscalPrinterDevice.LoadModels', E);
+    end;
+  end;
+  Reader.Free;
+  cbModel.Items.EndUpdate;
+end;
+
+procedure TfmFptrConnection.UpdatePage;
+var
+  Index: Integer;
+begin
+  UpdateModels;
   cbConnectionType.ItemIndex := Parameters.ConnectionType;
   cbPrinterProtocol.ItemIndex := Parameters.PrinterProtocol;
   edtRemoteHost.Text := Parameters.RemoteHost;
@@ -88,6 +146,9 @@ begin
   seSysPassword.Value := Parameters.SysPassword;
   cbStorage.ItemIndex := Parameters.Storage;
   seStatusTimeout.Value := Parameters.StatusTimeout;
+  Index := FModels.IndexById(Parameters.ModelId);
+  if Index = -1 then Index := 0;
+  cbModel.ItemIndex := Index;
 end;
 
 procedure TfmFptrConnection.UpdateObject;
@@ -110,6 +171,8 @@ begin
   Parameters.SysPassword := seSysPassword.Value;
   Parameters.Storage := cbStorage.ItemIndex;
   Parameters.StatusTimeout := seStatusTimeout.Value;
+
+  Parameters.ModelId := FModels[cbModel.ItemIndex].Data.ID;
 end;
 
 procedure TfmFptrConnection.FormCreate(Sender: TObject);

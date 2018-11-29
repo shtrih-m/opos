@@ -90,6 +90,19 @@ type
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
+  { TDIOClearLogo }
+
+  TDIOClearLogo = class(TDIOHandler)
+  private
+    FPrinter: TFiscalPrinterImpl;
+    property Printer: TFiscalPrinterImpl read FPrinter;
+  public
+    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
+      APrinter: TFiscalPrinterImpl);
+
+    procedure DirectIO(var pData: Integer; var pString: WideString); override;
+  end;
+
   { TDIOLogoDlg }
 
   TDIOLogoDlg = class(TDIOHandler)
@@ -1918,6 +1931,7 @@ begin
     DriverParameterTaxType: pString := IntToStr(Printer.Parameters.TaxType);
     DriverParameterMessage: pString := _(pString);
     DriverParameterErrorMessage: pString := GetErrorText(StrToInt(pString), True);
+    DriverParameterDiscountMode: pString := IntToStr(Printer.Parameters.DiscountMode);
   end;
 end;
 
@@ -2030,6 +2044,7 @@ begin
     DriverParameterAmount11: Parameters.Amount11 := StrToInt(pString);
     DriverParameterAmount12: Parameters.Amount12 := StrToInt(pString);
     DriverParameterTaxType: Parameters.TaxType := StrToInt(pString);
+    DriverParameterDiscountMode: Parameters.DiscountMode := StrToInt(pString);
   end;
 end;
 
@@ -2763,6 +2778,21 @@ procedure TDIOWriteTlvHex.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
   Printer.FSWriteTlv(HexToStr(pString));
+end;
+
+{ TDIOClearLogo }
+
+constructor TDIOClearLogo.CreateCommand(AOwner: TDIOHandlers;
+  ACommand: Integer; APrinter: TFiscalPrinterImpl);
+begin
+  inherited Create(AOwner, ACommand);
+  FPrinter := APrinter;
+end;
+
+procedure TDIOClearLogo.DirectIO(var pData: Integer;
+  var pString: WideString);
+begin
+  Printer.Printer.ClearLogo;
 end;
 
 end.

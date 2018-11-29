@@ -8,10 +8,9 @@ uses
   // Tnt
   TntSysUtils,
   // This
-  Opos, OposFptrUtils,
-  PrinterEncoding, PrinterParameters, PrinterParametersX, DirectIOAPI,
-  OposFiscalPrinter_1_12_Lib_TLB, OposFiscalPrinter_1_13_Lib_TLB, StringUtils,
-  LogFile, WException;
+  Opos, OposFptrUtils, PrinterEncoding, PrinterParameters, PrinterParametersX,
+  DirectIOAPI, OposFiscalPrinter_1_12_Lib_TLB, OposFiscalPrinter_1_13_Lib_TLB,
+  StringUtils, LogFile, WException;
 
 type
   { TBarcodeRec }
@@ -32,7 +31,6 @@ type
     FLogger: ILogFile;
     FEncoding: Integer;
     FDriver: TOPOSFiscalPrinter;
-
     function GetDriver: TOPOSFiscalPrinter;
   public
     property Logger: ILogFile read FLogger;
@@ -50,10 +48,8 @@ type
     procedure Check(AResultCode: Integer);
     // IOPOSFiscalPrinter_1_6
     procedure SODataDummy(Status: Integer); safecall;
-    procedure SODirectIO(EventNumber: Integer; var pData: Integer;
-      var pString: WideString); safecall;
-    procedure SOError(ResultCode: Integer; ResultCodeExtended: Integer;
-      ErrorLocus: Integer; var pErrorResponse: Integer); safecall;
+    procedure SODirectIO(EventNumber: Integer; var pData: Integer; var pString: WideString); safecall;
+    procedure SOError(ResultCode: Integer; ResultCodeExtended: Integer; ErrorLocus: Integer; var pErrorResponse: Integer); safecall;
     procedure SOOutputComplete(OutputID: Integer); safecall;
     procedure SOStatusUpdate(Data: Integer); safecall;
     function SOProcessID: Integer; safecall;
@@ -196,20 +192,16 @@ type
     function PrintNormal(Station, Font: Integer; const Data: WideString): Integer; overload; safecall;
     function PrintPeriodicTotalsReport(const Date1: WideString; const Date2: WideString): Integer; safecall;
     function PrintPowerLossReport: Integer; safecall;
-    function PrintRecItem(const Description: WideString; Price: Currency; Quantity: Integer;
-                          VatInfo: Integer; UnitPrice: Currency; const UnitName: WideString): Integer; safecall;
-    function PrintRecItemAdjustment(AdjustmentType: Integer; const Description: WideString;
-                                    Amount: Currency; VatInfo: Integer): Integer; safecall;
+    function PrintRecItem(const Description: WideString; Price: Currency; Quantity: Integer; VatInfo: Integer; UnitPrice: Currency; const UnitName: WideString): Integer; safecall;
+    function PrintRecItemAdjustment(AdjustmentType: Integer; const Description: WideString; Amount: Currency; VatInfo: Integer): Integer; safecall;
     function PrintRecMessage(const Message: WideString): Integer; safecall;
     function PrintRecNotPaid(const Description: WideString; Amount: Currency): Integer; safecall;
     function PrintRecRefund(const Description: WideString; Amount: Currency; VatInfo: Integer): Integer; safecall;
     function PrintRecSubtotal(Amount: Currency): Integer; safecall;
-    function PrintRecSubtotalAdjustment(AdjustmentType: Integer; const Description: WideString; 
-                                        Amount: Currency): Integer; safecall;
+    function PrintRecSubtotalAdjustment(AdjustmentType: Integer; const Description: WideString; Amount: Currency): Integer; safecall;
     function PrintRecTotal(Total: Currency; Payment: Currency; const Description: WideString): Integer; safecall;
     function PrintRecVoid(const Description: WideString): Integer; safecall;
-    function PrintRecVoidItem(const Description: WideString; Amount: Currency; Quantity: Integer; 
-                              AdjustmentType: Integer; Adjustment: Currency; VatInfo: Integer): Integer; safecall;
+    function PrintRecVoidItem(const Description: WideString; Amount: Currency; Quantity: Integer; AdjustmentType: Integer; Adjustment: Currency; VatInfo: Integer): Integer; safecall;
     function PrintReport(ReportType: Integer; const StartNum: WideString; const EndNum: WideString): Integer; safecall;
     function PrintXReport: Integer; safecall;
     function PrintZReport: Integer; safecall;
@@ -258,13 +250,9 @@ type
     function Get_TotalizerType: Integer; safecall;
     procedure Set_TotalizerType(pTotalizerType: Integer); safecall;
     function PrintRecCash(Amount: Currency): Integer; safecall;
-    function PrintRecItemFuel(const Description: WideString; Price: Currency; Quantity: Integer;
-                              VatInfo: Integer; UnitPrice: Currency; const UnitName: WideString;
-                              SpecialTax: Currency; const SpecialTaxName: WideString): Integer; safecall;
-    function PrintRecItemFuelVoid(const Description: WideString; Price: Currency; VatInfo: Integer;
-                                  SpecialTax: Currency): Integer; safecall;
-    function PrintRecPackageAdjustment(AdjustmentType: Integer; const Description: WideString;
-                                       const VatAdjustment: WideString): Integer; safecall;
+    function PrintRecItemFuel(const Description: WideString; Price: Currency; Quantity: Integer; VatInfo: Integer; UnitPrice: Currency; const UnitName: WideString; SpecialTax: Currency; const SpecialTaxName: WideString): Integer; safecall;
+    function PrintRecItemFuelVoid(const Description: WideString; Price: Currency; VatInfo: Integer; SpecialTax: Currency): Integer; safecall;
+    function PrintRecPackageAdjustment(AdjustmentType: Integer; const Description: WideString; const VatAdjustment: WideString): Integer; safecall;
     function PrintRecPackageAdjustVoid(AdjustmentType: Integer; const VatAdjustment: WideString): Integer; safecall;
     function PrintRecRefundVoid(const Description: WideString; Amount: Currency; VatInfo: Integer): Integer; safecall;
     function PrintRecSubtotalAdjustVoid(AdjustmentType: Integer; Amount: Currency): Integer; safecall;
@@ -288,7 +276,6 @@ type
     function PrintFSDocument(Number: Integer): Integer;
     function ReadFSDocument(Number: Integer; var S: WideString): Integer;
     function CheckItemBarcode(const Barcode: WideString): Integer;
-
     property OpenResult: Integer read Get_OpenResult;
     property BinaryConversion: Integer read Get_BinaryConversion write Set_BinaryConversion;
     property CapPowerReporting: Integer read Get_CapPowerReporting;
@@ -427,45 +414,28 @@ type
   public
     // IOPOSFiscalPrinter_1_11
     function Get_CapPositiveSubtotalAdjustment: WordBool; safecall;
-
-    function PrintRecItemAdjustmentVoid(AdjustmentType: Integer;
-      const Description: WideString; Amount: Currency;
-      VatInfo: Integer): Integer; safecall;
-
-    function PrintRecItemVoid(const Description: WideString;
-      Price: Currency; Quantity: Integer; VatInfo: Integer;
-      UnitPrice: Currency; const UnitName: WideString): Integer; safecall;
-
+    function PrintRecItemAdjustmentVoid(AdjustmentType: Integer; const Description: WideString; Amount: Currency; VatInfo: Integer): Integer; safecall;
+    function PrintRecItemVoid(const Description: WideString; Price: Currency; Quantity: Integer; VatInfo: Integer; UnitPrice: Currency; const UnitName: WideString): Integer; safecall;
     property CapPositiveSubtotalAdjustment: WordBool read Get_CapPositiveSubtotalAdjustment;
   public
     // IOPOSFiscalPrinter_1_12
-    function PrintRecItemRefund(const Description: WideString;
-      Amount: Currency; Quantity: Integer;
-      VatInfo: Integer; UnitAmount: Currency;
-      const UnitName: WideString): Integer; safecall;
-
-    function PrintRecItemRefundVoid(const Description: WideString; Amount: Currency;
-      Quantity: Integer; VatInfo: Integer; UnitAmount: Currency;
-      const UnitName: WideString): Integer; safecall;
+    function PrintRecItemRefund(const Description: WideString; Amount: Currency; Quantity: Integer; VatInfo: Integer; UnitAmount: Currency; const UnitName: WideString): Integer; safecall;
+    function PrintRecItemRefundVoid(const Description: WideString; Amount: Currency; Quantity: Integer; VatInfo: Integer; UnitAmount: Currency; const UnitName: WideString): Integer; safecall;
   public
     function LoadLogo(const FileName: WideString): Integer; safecall;
     function PrintLogo: Integer; safecall;
     function PrintSeparator(Height: Integer): Integer; overload; safecall;
     function PrintSeparator(Height, SeparatorType: Integer): Integer; overload; safecall;
-    function CommandStr(Code: Integer; const InParams: WideString;
-      var OutParams: WideString): Integer;
-    function CommandStr2(Code: Integer; const InParams: WideString;
-      var OutParams: WideString): Integer;
+    function CommandStr(Code: Integer; const InParams: WideString; var OutParams: WideString): Integer;
+    function CommandStr2(Code: Integer; const InParams: WideString; var OutParams: WideString): Integer;
     function ReadCashRegister(RegisterNumber: Integer): Int64;
     procedure DisableNextHeader;
-
     function FSWriteTLV(const Data: WideString): Integer;
     function FSWriteTag(TagID: Integer; const Data: WideString): Integer;
     function WriteCustomerAddress(const Address: WideString): Integer;
     function PrintText(const Text: WideString; Font: Integer): Integer;
     function ReadTable(Table, Row, Field: Integer; var Value: WideString): Integer;
     function FSPrintCalcReport: Integer;
-
     property FontNumber: Integer read Get_FontNumber write Set_FontNumber;
   end;
 
@@ -477,8 +447,10 @@ implementation
 
 function BoolToStr(Value: Boolean): WideString;
 begin
-  if Value then Result := '1'
-  else Result := '0';
+  if Value then
+    Result := '1'
+  else
+    Result := '0';
 end;
 
 function StrToBool(const Value: WideString): Boolean;
@@ -544,8 +516,7 @@ begin
   Driver.SODataDummy(Status);
 end;
 
-procedure TSMFiscalPrinter.SODirectIO(EventNumber: Integer;
-  var pData: Integer; var pString: WideString);
+procedure TSMFiscalPrinter.SODirectIO(EventNumber: Integer; var pData: Integer; var pString: WideString);
 begin
   pString := EncodeString(pString);
   Driver.SODirectIO(EventNumber, pData, pString);
@@ -702,16 +673,14 @@ begin
   Result := Driver.Close;
 end;
 
-function TSMFiscalPrinter.DirectIO(Command: Integer; var pData: Integer;
-  var pString: WideString): Integer;
+function TSMFiscalPrinter.DirectIO(Command: Integer; var pData: Integer; var pString: WideString): Integer;
 begin
   pString := EncodeString(pString);
   Result := Driver.DirectIO(Command, pData, pString);
   pString := DecodeString(pString);
 end;
 
-function TSMFiscalPrinter.DirectIO2(Command: Integer; const pData: Integer;
-  const pString: WideString): Integer;
+function TSMFiscalPrinter.DirectIO2(Command: Integer; const pData: Integer; const pString: WideString): Integer;
 var
   pData2: Integer;
   pString2: WideString;
@@ -1142,8 +1111,7 @@ begin
   Result := Driver.BeginFiscalReceipt(PrintHeader);
 end;
 
-function TSMFiscalPrinter.BeginFixedOutput(Station: Integer;
-  DocumentType: Integer): Integer;
+function TSMFiscalPrinter.BeginFixedOutput(Station: Integer; DocumentType: Integer): Integer;
 begin
   Result := Driver.BeginFixedOutput(Station, DocumentType);
 end;
@@ -1218,8 +1186,7 @@ begin
   Result := Driver.EndTraining;
 end;
 
-function TSMFiscalPrinter.GetData(DataItem: Integer; out OptArgs: Integer;
-  out Data: WideString): Integer;
+function TSMFiscalPrinter.GetData(DataItem: Integer; out OptArgs: Integer; out Data: WideString): Integer;
 begin
   Result := Driver.GetData(DataItem, OptArgs, Data);
   Data := DecodeString(Data);
@@ -1231,15 +1198,13 @@ begin
   Date := DecodeString(Date);
 end;
 
-function TSMFiscalPrinter.GetTotalizer(VatID: Integer; OptArgs: Integer;
-  out Data: WideString): Integer;
+function TSMFiscalPrinter.GetTotalizer(VatID: Integer; OptArgs: Integer; out Data: WideString): Integer;
 begin
   Result := Driver.GetTotalizer(VatID, OptArgs, Data);
   Data := DecodeString(Data);
 end;
 
-function TSMFiscalPrinter.GetVatEntry(VatID: Integer; OptArgs: Integer;
-  out VatRate: Integer): Integer;
+function TSMFiscalPrinter.GetVatEntry(VatID: Integer; OptArgs: Integer; out VatRate: Integer): Integer;
 begin
   Result := Driver.GetVatEntry(VatID, OptArgs, VatRate);
 end;
@@ -1249,36 +1214,30 @@ begin
   Result := Driver.PrintDuplicateReceipt;
 end;
 
-function TSMFiscalPrinter.PrintFiscalDocumentLine(
-  const DocumentLine: WideString): Integer;
+function TSMFiscalPrinter.PrintFiscalDocumentLine(const DocumentLine: WideString): Integer;
 begin
   Result := Driver.PrintFiscalDocumentLine(EncodeString(DocumentLine));
 end;
 
-function TSMFiscalPrinter.PrintFixedOutput(DocumentType: Integer;
-  LineNumber: Integer; const Data: WideString): Integer;
+function TSMFiscalPrinter.PrintFixedOutput(DocumentType: Integer; LineNumber: Integer; const Data: WideString): Integer;
 begin
   Result := Driver.PrintFixedOutput(DocumentType, LineNumber, EncodeString(Data));
 end;
 
-function TSMFiscalPrinter.PrintNormal(Station: Integer;
-  const Data: WideString): Integer;
+function TSMFiscalPrinter.PrintNormal(Station: Integer; const Data: WideString): Integer;
 begin
   Result := Driver.PrintNormal(Station, EncodeString(Data));
 end;
 
-function TSMFiscalPrinter.PrintNormal(Station, Font: Integer;
-  const Data: WideString): Integer;
+function TSMFiscalPrinter.PrintNormal(Station, Font: Integer; const Data: WideString): Integer;
 begin
   Set_FontNumber(Font);
   Result := Driver.PrintNormal(Station, EncodeString(Data));
 end;
 
-function TSMFiscalPrinter.PrintPeriodicTotalsReport(const Date1: WideString;
-  const Date2: WideString): Integer;
+function TSMFiscalPrinter.PrintPeriodicTotalsReport(const Date1: WideString; const Date2: WideString): Integer;
 begin
-  Result := Driver.PrintPeriodicTotalsReport(EncodeString(Date1),
-    EncodeString(Date2));
+  Result := Driver.PrintPeriodicTotalsReport(EncodeString(Date1), EncodeString(Date2));
 end;
 
 function TSMFiscalPrinter.PrintPowerLossReport: Integer;
@@ -1291,14 +1250,12 @@ begin
   Result := Driver.PrintRecMessage(EncodeString(Message));
 end;
 
-function TSMFiscalPrinter.PrintRecNotPaid(const Description: WideString;
-  Amount: Currency): Integer;
+function TSMFiscalPrinter.PrintRecNotPaid(const Description: WideString; Amount: Currency): Integer;
 begin
   Result := Driver.PrintRecNotPaid(EncodeString(Description), Amount);
 end;
 
-function TSMFiscalPrinter.PrintRecRefund(const Description: WideString;
-  Amount: Currency; VatInfo: Integer): Integer;
+function TSMFiscalPrinter.PrintRecRefund(const Description: WideString; Amount: Currency; VatInfo: Integer): Integer;
 begin
   Result := Driver.PrintRecRefund(EncodeString(Description), Amount, VatInfo);
 end;
@@ -1308,8 +1265,7 @@ begin
   Result := Driver.PrintRecSubtotal(Amount);
 end;
 
-function TSMFiscalPrinter.PrintRecTotal(Total: Currency; Payment: Currency;
-  const Description: WideString): Integer;
+function TSMFiscalPrinter.PrintRecTotal(Total: Currency; Payment: Currency; const Description: WideString): Integer;
 begin
   Result := Driver.PrintRecTotal(Total, Payment, EncodeString(Description));
 end;
@@ -1319,8 +1275,7 @@ begin
   Result := Driver.PrintRecVoid(EncodeString(Description));
 end;
 
-function TSMFiscalPrinter.PrintReport(ReportType: Integer;
-  const StartNum: WideString; const EndNum: WideString): Integer;
+function TSMFiscalPrinter.PrintReport(ReportType: Integer; const StartNum: WideString; const EndNum: WideString): Integer;
 begin
   Result := Driver.PrintReport(ReportType, EncodeString(StartNum), EncodeString(EndNum));
 end;
@@ -1345,15 +1300,12 @@ begin
   Result := Driver.SetDate(EncodeString(Date));
 end;
 
-function TSMFiscalPrinter.SetHeaderLine(LineNumber: Integer;
-  const Text: WideString; DoubleWidth: WordBool): Integer;
+function TSMFiscalPrinter.SetHeaderLine(LineNumber: Integer; const Text: WideString; DoubleWidth: WordBool): Integer;
 begin
   Result := Driver.SetHeaderLine(LineNumber, EncodeString(Text), DoubleWidth);
 end;
 
-function TSMFiscalPrinter.SetPOSID(
-  const POSID: WideString;
-  const CashierID: WideString): Integer;
+function TSMFiscalPrinter.SetPOSID(const POSID: WideString; const CashierID: WideString): Integer;
 begin
   Result := Driver.SetPOSID(EncodeString(POSID), EncodeString(CashierID));
 end;
@@ -1363,8 +1315,7 @@ begin
   Result := Driver.SetStoreFiscalID(EncodeString(ID));
 end;
 
-function TSMFiscalPrinter.SetTrailerLine(LineNumber: Integer;
-  const Text: WideString; DoubleWidth: WordBool): Integer;
+function TSMFiscalPrinter.SetTrailerLine(LineNumber: Integer; const Text: WideString; DoubleWidth: WordBool): Integer;
 begin
   Result := Driver.SetTrailerLine(LineNumber, EncodeString(Text), DoubleWidth);
 end;
@@ -1374,14 +1325,12 @@ begin
   Result := Driver.SetVatTable;
 end;
 
-function TSMFiscalPrinter.SetVatValue(VatID: Integer;
-  const VatValue: WideString): Integer;
+function TSMFiscalPrinter.SetVatValue(VatID: Integer; const VatValue: WideString): Integer;
 begin
   Result := Driver.SetVatValue(VatID, EncodeString(VatValue));
 end;
 
-function TSMFiscalPrinter.VerifyItem(const ItemName: WideString;
-  VatID: Integer): Integer;
+function TSMFiscalPrinter.VerifyItem(const ItemName: WideString; VatID: Integer): Integer;
 begin
   Result := Driver.VerifyItem(EncodeString(ItemName), VatID);
 end;
@@ -1566,21 +1515,17 @@ begin
   Result := Driver.PrintRecCash(Amount);
 end;
 
-function TSMFiscalPrinter.PrintRecPackageAdjustVoid(AdjustmentType: Integer;
-  const VatAdjustment: WideString): Integer;
+function TSMFiscalPrinter.PrintRecPackageAdjustVoid(AdjustmentType: Integer; const VatAdjustment: WideString): Integer;
 begin
-  Result := Driver.PrintRecPackageAdjustVoid(AdjustmentType,
-    EncodeString(VatAdjustment));
+  Result := Driver.PrintRecPackageAdjustVoid(AdjustmentType, EncodeString(VatAdjustment));
 end;
 
-function TSMFiscalPrinter.PrintRecRefundVoid(const Description: WideString;
-  Amount: Currency; VatInfo: Integer): Integer;
+function TSMFiscalPrinter.PrintRecRefundVoid(const Description: WideString; Amount: Currency; VatInfo: Integer): Integer;
 begin
   Result := Driver.PrintRecRefundVoid(EncodeString(Description), Amount, VatInfo);
 end;
 
-function TSMFiscalPrinter.PrintRecSubtotalAdjustVoid(AdjustmentType: Integer;
-  Amount: Currency): Integer;
+function TSMFiscalPrinter.PrintRecSubtotalAdjustVoid(AdjustmentType: Integer; Amount: Currency): Integer;
 begin
   Result := Driver.PrintRecSubtotalAdjustVoid(AdjustmentType, Amount);
 end;
@@ -1636,8 +1581,7 @@ begin
   Result := Driver.CapUpdateFirmware;
 end;
 
-function TSMFiscalPrinter.CompareFirmwareVersion(
-  const FirmwareFileName: WideString; out pResult: Integer): Integer;
+function TSMFiscalPrinter.CompareFirmwareVersion(const FirmwareFileName: WideString; out pResult: Integer): Integer;
 begin
   Result := Driver.CompareFirmwareVersion(EncodeString(FirmwareFileName), pResult);
 end;
@@ -1654,100 +1598,62 @@ begin
   Result := Driver.CapPositiveSubtotalAdjustment;
 end;
 
-function TSMFiscalPrinter.PrintRecItem(const Description: WideString;
-  Price: Currency; Quantity, VatInfo: Integer; UnitPrice: Currency;
-  const UnitName: WideString): Integer;
+function TSMFiscalPrinter.PrintRecItem(const Description: WideString; Price: Currency; Quantity, VatInfo: Integer; UnitPrice: Currency; const UnitName: WideString): Integer;
 begin
-  Result := Driver.PrintRecItem(EncodeString(Description), Price, Quantity,
-    VatInfo, UnitPrice, EncodeString(UnitName));
+  Result := Driver.PrintRecItem(EncodeString(Description), Price, Quantity, VatInfo, UnitPrice, EncodeString(UnitName));
 end;
 
-function TSMFiscalPrinter.PrintRecItemAdjustment(AdjustmentType: Integer;
-  const Description: WideString; Amount: Currency;
-  VatInfo: Integer): Integer;
+function TSMFiscalPrinter.PrintRecItemAdjustment(AdjustmentType: Integer; const Description: WideString; Amount: Currency; VatInfo: Integer): Integer;
 begin
-  Result := Driver.PrintRecItemAdjustment(AdjustmentType,
-    EncodeString(Description), Amount, VatInfo);
+  Result := Driver.PrintRecItemAdjustment(AdjustmentType, EncodeString(Description), Amount, VatInfo);
 end;
 
-function TSMFiscalPrinter.PrintRecItemAdjustmentVoid(
-  AdjustmentType: Integer; const Description: WideString; Amount: Currency;
-  VatInfo: Integer): Integer;
+function TSMFiscalPrinter.PrintRecItemAdjustmentVoid(AdjustmentType: Integer; const Description: WideString; Amount: Currency; VatInfo: Integer): Integer;
 begin
-  Result := Driver.PrintRecItemAdjustmentVoid(AdjustmentType,
-    EncodeString(Description), Amount, VatInfo);
+  Result := Driver.PrintRecItemAdjustmentVoid(AdjustmentType, EncodeString(Description), Amount, VatInfo);
 end;
 
-function TSMFiscalPrinter.PrintRecItemFuel(const Description: WideString;
-  Price: Currency; Quantity, VatInfo: Integer; UnitPrice: Currency;
-  const UnitName: WideString; SpecialTax: Currency;
-  const SpecialTaxName: WideString): Integer;
+function TSMFiscalPrinter.PrintRecItemFuel(const Description: WideString; Price: Currency; Quantity, VatInfo: Integer; UnitPrice: Currency; const UnitName: WideString; SpecialTax: Currency; const SpecialTaxName: WideString): Integer;
 begin
-  Result := Driver.PrintRecItemFuel(EncodeString(Description), Price, Quantity,
-    VatInfo, UnitPrice, EncodeString(UnitName), SpecialTax,
-    EncodeString(SpecialTaxName));
+  Result := Driver.PrintRecItemFuel(EncodeString(Description), Price, Quantity, VatInfo, UnitPrice, EncodeString(UnitName), SpecialTax, EncodeString(SpecialTaxName));
 end;
 
-function TSMFiscalPrinter.PrintRecItemFuelVoid(
-  const Description: WideString; Price: Currency; VatInfo: Integer;
-  SpecialTax: Currency): Integer;
+function TSMFiscalPrinter.PrintRecItemFuelVoid(const Description: WideString; Price: Currency; VatInfo: Integer; SpecialTax: Currency): Integer;
 begin
-  Result := Driver.PrintRecItemFuelVoid(EncodeString(Description), Price,
-    VatInfo, SpecialTax);
+  Result := Driver.PrintRecItemFuelVoid(EncodeString(Description), Price, VatInfo, SpecialTax);
 end;
 
-function TSMFiscalPrinter.PrintRecItemRefund(
-  const Description: WideString; Amount: Currency; Quantity,
-  VatInfo: Integer; UnitAmount: Currency;
-  const UnitName: WideString): Integer;
+function TSMFiscalPrinter.PrintRecItemRefund(const Description: WideString; Amount: Currency; Quantity, VatInfo: Integer; UnitAmount: Currency; const UnitName: WideString): Integer;
 begin
-  Result := Driver.PrintRecItemRefund(EncodeString(Description), Amount, Quantity,
-    VatInfo, UnitAmount, EncodeString(UnitName));
+  Result := Driver.PrintRecItemRefund(EncodeString(Description), Amount, Quantity, VatInfo, UnitAmount, EncodeString(UnitName));
 end;
 
-function TSMFiscalPrinter.PrintRecItemRefundVoid(
-  const Description: WideString; Amount: Currency; Quantity,
-  VatInfo: Integer; UnitAmount: Currency;
-  const UnitName: WideString): Integer;
+function TSMFiscalPrinter.PrintRecItemRefundVoid(const Description: WideString; Amount: Currency; Quantity, VatInfo: Integer; UnitAmount: Currency; const UnitName: WideString): Integer;
 begin
-  Result := Driver.PrintRecItemRefundVoid(EncodeString(Description), Amount,
-    Quantity, VatInfo, UnitAmount, EncodeString(UnitName));
+  Result := Driver.PrintRecItemRefundVoid(EncodeString(Description), Amount, Quantity, VatInfo, UnitAmount, EncodeString(UnitName));
 end;
 
-function TSMFiscalPrinter.PrintRecItemVoid(const Description: WideString;
-  Price: Currency; Quantity, VatInfo: Integer; UnitPrice: Currency;
-  const UnitName: WideString): Integer;
+function TSMFiscalPrinter.PrintRecItemVoid(const Description: WideString; Price: Currency; Quantity, VatInfo: Integer; UnitPrice: Currency; const UnitName: WideString): Integer;
 begin
-  Result := Driver.PrintRecItemVoid(EncodeString(Description), Price, Quantity,
-    VatInfo, UnitPrice, EncodeString(UnitName));
+  Result := Driver.PrintRecItemVoid(EncodeString(Description), Price, Quantity, VatInfo, UnitPrice, EncodeString(UnitName));
 end;
 
-function TSMFiscalPrinter.PrintRecPackageAdjustment(
-  AdjustmentType: Integer; const Description,
-  VatAdjustment: WideString): Integer;
+function TSMFiscalPrinter.PrintRecPackageAdjustment(AdjustmentType: Integer; const Description, VatAdjustment: WideString): Integer;
 begin
-  Result := Driver.PrintRecPackageAdjustment(AdjustmentType,
-    EncodeString(Description), EncodeString(VatAdjustment));
+  Result := Driver.PrintRecPackageAdjustment(AdjustmentType, EncodeString(Description), EncodeString(VatAdjustment));
 end;
 
-function TSMFiscalPrinter.PrintRecSubtotalAdjustment(
-  AdjustmentType: Integer; const Description: WideString;
-  Amount: Currency): Integer;
+function TSMFiscalPrinter.PrintRecSubtotalAdjustment(AdjustmentType: Integer; const Description: WideString; Amount: Currency): Integer;
 begin
-  Result := Driver.PrintRecSubtotalAdjustment(AdjustmentType,
-    EncodeString(Description), Amount);
+  Result := Driver.PrintRecSubtotalAdjustment(AdjustmentType, EncodeString(Description), Amount);
 end;
 
-function TSMFiscalPrinter.PrintRecVoidItem(const Description: WideString;
-  Amount: Currency; Quantity, AdjustmentType: Integer;
-  Adjustment: Currency; VatInfo: Integer): Integer;
+function TSMFiscalPrinter.PrintRecVoidItem(const Description: WideString; Amount: Currency; Quantity, AdjustmentType: Integer; Adjustment: Currency; VatInfo: Integer): Integer;
 begin
-  Result := Driver.PrintRecVoidItem(EncodeString(Description), Amount,
-    Quantity, AdjustmentType, Adjustment, VatInfo);
+  Result := Driver.PrintRecVoidItem(EncodeString(Description), Amount, Quantity, AdjustmentType, Adjustment, VatInfo);
 end;
 
-procedure TSMFiscalPrinter.SOError(ResultCode, ResultCodeExtended,
-  ErrorLocus: Integer; var pErrorResponse: Integer);
+procedure TSMFiscalPrinter.SOError(ResultCode, ResultCodeExtended, ErrorLocus: Integer; var pErrorResponse: Integer);
 begin
   Driver.SOError(ResultCode, ResultCodeExtended, ErrorLocus, pErrorResponse);
 end;
@@ -1856,8 +1762,7 @@ begin
   end;
 end;
 
-function TSMFiscalPrinter.CommandStr(Code: Integer; const InParams: WideString;
-  var OutParams: WideString): Integer;
+function TSMFiscalPrinter.CommandStr(Code: Integer; const InParams: WideString; var OutParams: WideString): Integer;
 var
   P: Integer;
   ResultCode: WideString;
@@ -1871,14 +1776,13 @@ begin
   ResultCode := Params;
   if P <> 0 then
   begin
-    OutParams := Copy(Params, P+1, Length(Params));
-    ResultCode := Copy(Params, 1, P-1);
+    OutParams := Copy(Params, P + 1, Length(Params));
+    ResultCode := Copy(Params, 1, P - 1);
   end;
   Result := StrToInt(ResultCode);
 end;
 
-function TSMFiscalPrinter.CommandStr2(Code: Integer; const InParams: WideString;
-  var OutParams: WideString): Integer;
+function TSMFiscalPrinter.CommandStr2(Code: Integer; const InParams: WideString; var OutParams: WideString): Integer;
 var
   Params: WideString;
 begin
@@ -1933,12 +1837,7 @@ var
   pString: WideString;
 begin
   pData := Barcode.BarcodeType;
-  pString := Tnt_WideFormat('%s;%s;%d;%d;%d;', [
-    Barcode.Data,
-    Barcode.Text,
-    Barcode.Height,
-    Barcode.ModuleWidth,
-    Barcode.Alignment]);
+  pString := Tnt_WideFormat('%s;%s;%d;%d;%d;', [Barcode.Data, Barcode.Text, Barcode.Height, Barcode.ModuleWidth, Barcode.Alignment]);
   Result := Driver.DirectIO(DIO_PRINT_BARCODE, pData, pString);
 end;
 
@@ -1948,12 +1847,7 @@ var
   pString: WideString;
 begin
   pData := Barcode.BarcodeType;
-  pString := Tnt_WideFormat('%s;%s;%d;%d;%d;', [
-    StrToHexText(Barcode.Data),
-    Barcode.Text,
-    Barcode.Height,
-    Barcode.ModuleWidth,
-    Barcode.Alignment]);
+  pString := Tnt_WideFormat('%s;%s;%d;%d;%d;', [StrToHexText(Barcode.Data), Barcode.Text, Barcode.Height, Barcode.ModuleWidth, Barcode.Alignment]);
   Result := Driver.DirectIO(DIO_PRINT_BARCODE_HEX, pData, pString);
 end;
 
@@ -1963,12 +1857,7 @@ var
   pString: WideString;
 begin
   pData := Barcode.BarcodeType;
-  pString := Tnt_WideFormat('%s;%s;%d;%d;%d;', [
-    StrToHexText(Barcode.Data),
-    StrToHexText(Barcode.Text),
-    Barcode.Height,
-    Barcode.ModuleWidth,
-    Barcode.Alignment]);
+  pString := Tnt_WideFormat('%s;%s;%d;%d;%d;', [StrToHexText(Barcode.Data), StrToHexText(Barcode.Text), Barcode.Height, Barcode.ModuleWidth, Barcode.Alignment]);
   Result := Driver.DirectIO(DIO_PRINT_BARCODE_HEX2, pData, pString);
 end;
 
@@ -2002,8 +1891,7 @@ begin
   Driver.DirectIO(DIO_DISABLE_NEXT_HEADER, pData, pString);
 end;
 
-function TSMFiscalPrinter.FSWriteTag(TagID: Integer;
-  const Data: WideString): Integer;
+function TSMFiscalPrinter.FSWriteTag(TagID: Integer; const Data: WideString): Integer;
 var
   pData: Integer;
   pString: WideString;
@@ -2023,8 +1911,7 @@ begin
   Result := Driver.DirectIO(DIO_WRITE_FS_TLV_DATA, pData, pString);
 end;
 
-function TSMFiscalPrinter.WriteCustomerAddress(
-  const Address: WideString): Integer;
+function TSMFiscalPrinter.WriteCustomerAddress(const Address: WideString): Integer;
 var
   pData: Integer;
   pString: WideString;
@@ -2034,8 +1921,7 @@ begin
   Result := Driver.DirectIO(DIO_WRITE_FS_CUSTOMER_ADDRESS, pData, pString);
 end;
 
-function TSMFiscalPrinter.ReadTable(Table, Row, Field: Integer;
-  var Value: WideString): Integer;
+function TSMFiscalPrinter.ReadTable(Table, Row, Field: Integer; var Value: WideString): Integer;
 var
   pData: Integer;
 begin
@@ -2076,8 +1962,7 @@ begin
   Ticket := pString;
 end;
 
-function TSMFiscalPrinter.WriteFPParameter(ParamId: Integer;
-  const Value: WideString): Integer;
+function TSMFiscalPrinter.WriteFPParameter(ParamId: Integer; const Value: WideString): Integer;
 var
   pData: Integer;
   pString: WideString;
@@ -2119,3 +2004,4 @@ begin
 end;
 
 end.
+

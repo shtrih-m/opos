@@ -620,6 +620,7 @@ begin
   TDIOCheckEndDay.CreateCommand(FDIOHandlers, DIO_CHECK_END_DAY, Self);
   TDIOLoadLogo.CreateCommand(FDIOHandlers, DIO_LOAD_LOGO, Self);
   TDIOPrintLogo.CreateCommand(FDIOHandlers, DIO_PRINT_LOGO, Self);
+  TDIOClearLogo.CreateCommand(FDIOHandlers, DIO_CLEAR_LOGO, Self);
   TDIOLogoDlg.CreateCommand(FDIOHandlers, DIO_LOGO_DLG, Self);
   TDIOBarcode.CreateCommand(FDIOHandlers, DIO_PRINT_BARCODE, Self);
   TDIOBarcodeHex.CreateCommand(FDIOHandlers, DIO_PRINT_BARCODE_HEX, Self);
@@ -701,6 +702,7 @@ begin
 
   TDIOLoadLogo.CreateCommand(FDIOHandlers, DIO_LOAD_LOGO, Self);
   TDIOPrintLogo.CreateCommand(FDIOHandlers, DIO_PRINT_LOGO, Self);
+  TDIOClearLogo.CreateCommand(FDIOHandlers, DIO_CLEAR_LOGO, Self);
   TDIOLogoDlg.CreateCommand(FDIOHandlers, DIO_LOGO_DLG, Self);
   TDIOBarcode.CreateCommand(FDIOHandlers, DIO_PRINT_BARCODE, Self);
   TDIOBarcodeHex.CreateCommand(FDIOHandlers, DIO_PRINT_BARCODE_HEX, Self);
@@ -785,6 +787,7 @@ begin
 
   TDIOLoadLogo.CreateCommand(FDIOHandlers, DIO_LOAD_LOGO, Self);
   TDIOPrintLogo.CreateCommand(FDIOHandlers, DIO_PRINT_LOGO, Self);
+  TDIOClearLogo.CreateCommand(FDIOHandlers, DIO_CLEAR_LOGO, Self);
   TDIOLogoDlg.CreateCommand(FDIOHandlers, DIO_LOGO_DLG, Self);
   TDIOBarcodeHex.CreateCommand(FDIOHandlers, DIO_PRINT_BARCODE_HEX, Self);
   TDIOStrCommand.CreateCommand(FDIOHandlers, DIO_COMMAND_PRINTER_STR,

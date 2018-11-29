@@ -21,6 +21,13 @@ object fmFptrConnection: TfmFptrConnection
     Height = 13
     Caption = 'Parameters storage:'
   end
+  object lblModel: TTntLabel
+    Left = 264
+    Top = 267
+    Width = 32
+    Height = 13
+    Caption = 'Model:'
+  end
   object gbConenctionParams: TTntGroupBox
     Left = 8
     Top = 8
@@ -213,7 +220,7 @@ object fmFptrConnection: TfmFptrConnection
   end
   object gbPassword: TTntGroupBox
     Left = 264
-    Top = 224
+    Top = 184
     Width = 225
     Height = 73
     Caption = 'Passwords'
@@ -270,12 +277,12 @@ object fmFptrConnection: TfmFptrConnection
     Left = 264
     Top = 8
     Width = 225
-    Height = 209
+    Height = 169
     Caption = 'Polling'
     TabOrder = 3
     DesignSize = (
       225
-      209)
+      169)
     object lblPropertyUpdateMode: TTntLabel
       Left = 8
       Top = 32
@@ -368,5 +375,14 @@ object fmFptrConnection: TfmFptrConnection
         'NCR CCO'
         'NONE')
     end
+  end
+  object cbModel: TTntComboBox
+    Left = 320
+    Top = 264
+    Width = 169
+    Height = 21
+    Style = csDropDownList
+    ItemHeight = 13
+    TabOrder = 4
   end
 end

@@ -93,6 +93,7 @@ type
     procedure SetPreLine(const Value: WideString);
     function PrintBarLine(Height: Word; Data: WideString): Integer;
     procedure PrintLogo;
+    procedure ClearLogo;
     procedure PrintSeparator(SeparatorType, SeparatorHeight: Integer);
     function GetNumHeaderLines: Integer;
     function GetNumTrailerLines: Integer;
@@ -488,6 +489,11 @@ begin
 end;
 
 procedure TMockSharedPrinter.PrintLogo;
+begin
+
+end;
+
+procedure TMockSharedPrinter.ClearLogo;
 begin
 
 end;

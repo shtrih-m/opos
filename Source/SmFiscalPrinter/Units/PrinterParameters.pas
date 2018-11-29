@@ -367,6 +367,8 @@ const
   DefItemCheckMode = SMFP_CHECK_MODE_FULL;
   DefDiscountMode = DiscountModeChangePrice;
   DefIgnoreDirectIOErrors = False;
+  DefModelId = -1;
+  DefTrimItemText = False;
 
 type
   { TPrinterParameters }
@@ -558,6 +560,8 @@ type
     Amount12: Int64; // Сумма расчёта по расч. ставке 10/110:5 байт
     TaxType: Byte; // Применяемая система налогообложения:1байт
     IgnoreDirectIOErrors: Boolean;
+    ModelId: Integer;
+    TrimItemText: Boolean;
  public
     constructor Create(ALogger: ILogFile);
     destructor Destroy; override;
@@ -889,6 +893,8 @@ begin
   ItemCheckMode := SMFP_CHECK_MODE_FULL;
   DiscountMode := DiscountModeChangePrice;
   IgnoreDirectIOErrors := DefIgnoreDirectIOErrors;
+  ModelId := DefModelId;
+  TrimItemText := DefTrimItemText;
 end;
 
 procedure TPrinterParameters.LogText(const Caption, Text: WideString);

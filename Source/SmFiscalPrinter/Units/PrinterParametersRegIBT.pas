@@ -25,39 +25,31 @@ type
     procedure SaveSysParameters(const DeviceName: WideString);
     procedure SaveUsrParameters(const DeviceName: WideString);
     class function GetUsrKeyName(const DeviceName: WideString): WideString;
-
     property Parameters: TPrinterParameters read FParameters;
     class function GetSysKeyName(const DeviceName: WideString): WideString;
   public
     constructor Create(AParameters: TPrinterParameters; ALogger: ILogFile);
-
     procedure Load(const DeviceName: WideString);
     procedure Save(const DeviceName: WideString);
     property Logger: ILogFile read FLogger;
   end;
 
-function ReadEncodingRegIBT(const DeviceName: WideString;
-  Logger: ILogFile): Integer;
+function ReadEncodingRegIBT(const DeviceName: WideString; Logger: ILogFile): Integer;
 
-procedure LoadParametersRegIBT(Item: TPrinterParameters;
-  const DeviceName: WideString; Logger: ILogFile);
+procedure LoadParametersRegIBT(Item: TPrinterParameters; const DeviceName: WideString; Logger: ILogFile);
 
-procedure SaveParametersRegIBT(Item: TPrinterParameters;
-  const DeviceName: WideString; Logger: ILogFile);
+procedure SaveParametersRegIBT(Item: TPrinterParameters; const DeviceName: WideString; Logger: ILogFile);
 
-procedure SaveUsrParametersRegIBT(Item: TPrinterParameters;
-  const DeviceName: WideString; Logger: ILogFile);
+procedure SaveUsrParametersRegIBT(Item: TPrinterParameters; const DeviceName: WideString; Logger: ILogFile);
 
 implementation
 
 const
-  REG_KEY_VATCODES    = 'VatCodes';
-  REG_KEY_PAYTYPES    = 'PaymentTypes';
-  REGSTR_KEY_IBT      = 'SOFTWARE\POSITIVE\POSITIVE32\Terminal';
+  REG_KEY_VATCODES = 'VatCodes';
+  REG_KEY_PAYTYPES = 'PaymentTypes';
+  REGSTR_KEY_IBT = 'SOFTWARE\POSITIVE\POSITIVE32\Terminal';
 
-
-function ReadEncodingRegIBT(const DeviceName: WideString;
-  Logger: ILogFile): Integer;
+function ReadEncodingRegIBT(const DeviceName: WideString; Logger: ILogFile): Integer;
 var
   P: TPrinterParameters;
 begin
@@ -70,8 +62,7 @@ begin
   end;
 end;
 
-procedure LoadParametersRegIBT(Item: TPrinterParameters;
-  const DeviceName: WideString; Logger: ILogFile);
+procedure LoadParametersRegIBT(Item: TPrinterParameters; const DeviceName: WideString; Logger: ILogFile);
 var
   Reader: TPrinterParametersRegIBT;
 begin
@@ -83,8 +74,7 @@ begin
   end;
 end;
 
-procedure SaveParametersRegIBT(Item: TPrinterParameters;
-  const DeviceName: WideString; Logger: ILogFile);
+procedure SaveParametersRegIBT(Item: TPrinterParameters; const DeviceName: WideString; Logger: ILogFile);
 var
   Writer: TPrinterParametersRegIBT;
 begin
@@ -96,8 +86,7 @@ begin
   end;
 end;
 
-procedure SaveUsrParametersRegIBT(Item: TPrinterParameters;
-  const DeviceName: WideString; Logger: ILogFile);
+procedure SaveUsrParametersRegIBT(Item: TPrinterParameters; const DeviceName: WideString; Logger: ILogFile);
 var
   Writer: TPrinterParametersRegIBT;
 begin
@@ -111,8 +100,7 @@ end;
 
 { TPrinterParametersRegIBT }
 
-constructor TPrinterParametersRegIBT.Create(AParameters: TPrinterParameters;
-  ALogger: ILogFile);
+constructor TPrinterParametersRegIBT.Create(AParameters: TPrinterParameters; ALogger: ILogFile);
 begin
   inherited Create;
   FParameters := AParameters;
@@ -530,6 +518,12 @@ begin
       if Reg.ValueExists('IgnoreDirectIOErrors') then
         FParameters.IgnoreDirectIOErrors := Reg.ReadBool('IgnoreDirectIOErrors');
 
+      if Reg.ValueExists('ModelId') then
+        FParameters.ModelId := Reg.ReadInteger('ModelId');
+
+      if Reg.ValueExists('TrimItemText') then
+        FParameters.TrimItemText := Reg.ReadBool('TrimItemText');
+
       // VatCodes
       if Reg.OpenKey(REG_KEY_VATCODES, False) then
       begin
@@ -537,7 +531,7 @@ begin
         Names := TTntStringList.Create;
         try
           Reg.GetValueNames(Names);
-          for i := 0 to Names.Count-1 do
+          for i := 0 to Names.Count - 1 do
           begin
             AppVatCode := StrToInt(Names[i]);
             FptrVatCode := Reg.ReadInteger(Names[i]);
@@ -554,7 +548,7 @@ begin
         Names := TTntStringList.Create;
         try
           Reg.GetValueNames(Names);
-          for i := 0 to Names.Count-1 do
+          for i := 0 to Names.Count - 1 do
           begin
             PayTypeText := Names[i];
             PayTypeCode := Reg.ReadInteger(PayTypeText);
@@ -696,22 +690,23 @@ begin
     Reg.WriteInteger('ItemCheckMode', FParameters.ItemCheckMode);
     Reg.WriteInteger('DiscountMode', FParameters.DiscountMode);
     Reg.WriteBool('IgnoreDirectIOErrors', FParameters.IgnoreDirectIOErrors);
+    Reg.WriteInteger('ModelId', FParameters.ModelId);
+    Reg.WriteBool('TrimItemText', FParameters.TrimItemText);
 
     // VatCodes
     Reg.DeleteKey(REG_KEY_VATCODES);
     if Reg.OpenKey(REG_KEY_VATCODES, True) then
     begin
-      for i := 0 to Parameters.VatCodes.Count-1 do
+      for i := 0 to Parameters.VatCodes.Count - 1 do
       begin
-        Reg.WriteInteger(IntToStr(Parameters.VatCodes[i].AppVatCode),
-          Parameters.VatCodes[i].FptrVatCode);
+        Reg.WriteInteger(IntToStr(Parameters.VatCodes[i].AppVatCode), Parameters.VatCodes[i].FptrVatCode);
       end;
     end;
     // PayTypes
     Reg.DeleteKey(REG_KEY_PAYTYPES);
     if Reg.OpenKey(REG_KEY_PAYTYPES, True) then
     begin
-      for i := 0 to Parameters.PayTypes.Count-1 do
+      for i := 0 to Parameters.PayTypes.Count - 1 do
       begin
         Reg.WriteInteger(Parameters.PayTypes[i].Text, Parameters.PayTypes[i].Code);
       end;
@@ -786,7 +781,8 @@ begin
       Reg.WriteString('LogoFileName', Parameters.LogoFileName);
       Reg.WriteInteger('Department', Parameters.Department);
       Reg.WriteInteger('ZeroReceiptNumber', Parameters.ZeroReceiptNumber);
-    end else
+    end
+    else
     begin
       raiseException(_('Registry key open error'));
     end;
@@ -796,3 +792,4 @@ begin
 end;
 
 end.
+

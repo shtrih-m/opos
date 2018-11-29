@@ -11,6 +11,7 @@ uses
 
 type
   TFptrPage = class;
+
   TFptrPageClass = class of TFptrPage;
 
   { TFiscalPrinterDevice }
@@ -19,18 +20,15 @@ type
   private
     FContext: TDriverContext;
     procedure AddPage(Pages: TfmPages; PageClass: TFptrPageClass);
-
     function GetLogger: ILogFile;
     function GetParameters: TPrinterParameters;
     function GetMalinaParams: TMalinaParams;
   public
     constructor CreateDevice(AOwner: TOposDevices);
     destructor Destroy; override;
-
     procedure SetDefaults; override;
     procedure SaveParams; override;
     procedure ShowDialog; override;
-
     property Logger: ILogFile read GetLogger;
     property Parameters: TPrinterParameters read GetParameters;
     property MalinaParams: TMalinaParams read GetMalinaParams;
@@ -63,15 +61,8 @@ uses
   fmuXReport, fmuZReport, fmuMiscParams, fmuFiscalStorage, fmuFptrTables,
   fmuReceiptFormat, fmuMarkChecker, fmuFptrDirectIO, 
   {$IFDEF MALINA}
-  fmuFptrMalina,
-  fmuFptrUnipos,
-  fmuFptrFuel,
-  fmuFptrReplace,
-  fmuCashInProcessing,
-  fmuFptrPawnTicket,
-  fmuRosneftDiscountCard,
-  fmuRosneftAddText,
-  fmuFptrRetalix,
+  fmuFptrMalina, fmuFptrUnipos, fmuFptrFuel, fmuFptrReplace, fmuCashInProcessing,
+  fmuFptrPawnTicket, fmuRosneftDiscountCard, fmuRosneftAddText, fmuFptrRetalix,
   {$ENDIF}
   fmuFptrJournal;
 
@@ -206,3 +197,4 @@ begin
 end;
 
 end.
+

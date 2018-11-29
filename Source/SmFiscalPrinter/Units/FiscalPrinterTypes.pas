@@ -757,6 +757,7 @@ type
     procedure SetPostLine(const Value: WideString);
     procedure SetPreLine(const Value: WideString);
     procedure PrintLogo;
+    procedure ClearLogo;
     function GetNumHeaderLines: Integer;
     function GetNumTrailerLines: Integer;
     function GetDeviceMetrics: TDeviceMetrics;

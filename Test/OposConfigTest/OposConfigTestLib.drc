@@ -8,21 +8,39 @@
   resources were bound to the produced executable.
 */
 
-#define pnglang_EPNGZLIBErrorText 65200
-#define pnglang_EPNGInvalidPaletteText 65201
-#define pnglang_EPNGInvalidFileHeaderText 65202
-#define pnglang_EPNGIHDRNotFirstText 65203
-#define pnglang_EPNGSizeExceedsText 65204
-#define pnglang_EPNGUnknownPalEntryText 65205
-#define pnglang_EPNGUnknownCriticalChunkText 65206
-#define pnglang_EPNGUnknownCompressionText 65207
-#define pnglang_EPNGUnknownInterlaceText 65208
-#define pnglang_EPNGCannotAssignChunkText 65209
-#define pnglang_EPNGUnexpectedEndText 65210
-#define pnglang_EPNGNoImageDataText 65211
-#define pnglang_EPNGCannotChangeSizeText 65212
-#define pnglang_EPNGOutMemoryText 65213
-#define pnglang_EPNGHeaderNotPresentText 65214
+#define pnglang_EPNGHeaderNotPresentText 65168
+#define pnglang_EPNGInvalidIHDRText 65184
+#define pnglang_EPNGMissingMultipleIDATText 65185
+#define pnglang_EPNGZLIBErrorText 65186
+#define pnglang_EPNGInvalidPaletteText 65187
+#define pnglang_EPNGInvalidFileHeaderText 65188
+#define pnglang_EPNGIHDRNotFirstText 65189
+#define pnglang_EPNGSizeExceedsText 65190
+#define pnglang_EPNGUnknownPalEntryText 65191
+#define pnglang_EPNGUnknownCriticalChunkText 65192
+#define pnglang_EPNGUnknownCompressionText 65193
+#define pnglang_EPNGUnknownInterlaceText 65194
+#define pnglang_EPNGCannotAssignChunkText 65195
+#define pnglang_EPNGUnexpectedEndText 65196
+#define pnglang_EPNGNoImageDataText 65197
+#define pnglang_EPNGCannotChangeSizeText 65198
+#define pnglang_EPNGOutMemoryText 65199
+#define XMLConst_SNoAttributes 65200
+#define XMLConst_SInvalidNodeType 65201
+#define XMLConst_SMismatchedRegItems 65202
+#define XMLConst_SNotSingleTextNode 65203
+#define XMLConst_SNoDOMParseOptions 65204
+#define XMLConst_SNodeReadOnly 65205
+#define XMLConst_SNoRefresh 65206
+#define XMLConst_SMissingFileName 65207
+#define XMLConst_SLine 65208
+#define SynEditStrConst_SYNS_ScrollInfoFmt 65209
+#define SynEditStrConst_SYNS_ScrollInfoFmtTop 65210
+#define SynEditStrConst_SYNS_EDuplicateShortcut 65211
+#define SynEditStrConst_SYNS_FriendlyLangUnknown 65212
+#define SynEditTextBuffer_SListIndexOutOfBounds 65213
+#define SynEditTextBuffer_SInvalidCapacity 65214
+#define pnglang_EPngInvalidCRCText 65215
 #define ComConst_SAutomationWarning 65216
 #define ComConst_SNoCloseActiveServer1 65217
 #define ComConst_SNoCloseActiveServer2 65218
@@ -30,15 +48,15 @@
 #define TntSystem_SBufferOverflow 65220
 #define TntSystem_SInvalidUTF7 65221
 #define OleConst_sNoRunningObject 65222
-#define SynEditStrConst_SYNS_ScrollInfoFmt 65223
-#define SynEditStrConst_SYNS_ScrollInfoFmtTop 65224
-#define SynEditStrConst_SYNS_EDuplicateShortcut 65225
-#define SynEditStrConst_SYNS_FriendlyLangUnknown 65226
-#define SynEditTextBuffer_SListIndexOutOfBounds 65227
-#define SynEditTextBuffer_SInvalidCapacity 65228
-#define pnglang_EPngInvalidCRCText 65229
-#define pnglang_EPNGInvalidIHDRText 65230
-#define pnglang_EPNGMissingMultipleIDATText 65231
+#define XMLConst_SDuplicateRegistration 65223
+#define XMLConst_SNoMatchingDOMVendor 65224
+#define XMLConst_SNoDOMNodeEx 65225
+#define XMLConst_SDOMNotSupported 65226
+#define XMLConst_SNodeExpected 65227
+#define XMLConst_SMSDOMNotInstalled 65228
+#define XMLConst_SNotActive 65229
+#define XMLConst_SNodeNotFound 65230
+#define XMLConst_SMissingNode 65231
 #define ComStrs_sTabFailDelete 65232
 #define ComStrs_sTabFailRetrieve 65233
 #define ComStrs_sTabFailGetObject 65234
@@ -345,6 +363,9 @@
 #define SysConst_SDiskFull 65535
 STRINGTABLE
 BEGIN
+	pnglang_EPNGHeaderNotPresentText,	"This operation is not valid because the current image contains no valid header."
+	pnglang_EPNGInvalidIHDRText,	"The \"Portable Network Graphics\" image could not be loaded because one of its main piece of data (ihdr) might be corrupted"
+	pnglang_EPNGMissingMultipleIDATText,	"This \"Portable Network Graphics\" image is invalid because it has missing image parts."
 	pnglang_EPNGZLIBErrorText,	"Could not decompress the image because it contains invalid compressed data.\r\n Description: "
 	pnglang_EPNGInvalidPaletteText,	"The \"Portable Network Graphics\" image contains an invalid palette."
 	pnglang_EPNGInvalidFileHeaderText,	"The file being readed is not a valid \"Portable Network Graphics\" image because it contains an invalid header. This file may be corruped, try obtaining it again."
@@ -359,14 +380,15 @@ BEGIN
 	pnglang_EPNGNoImageDataText,	"This \"Portable Network Graphics\" image contains no data."
 	pnglang_EPNGCannotChangeSizeText,	"The \"Portable Network Graphics\" image can not be resize by changing width and height properties. Try assigning the image from a bitmap."
 	pnglang_EPNGOutMemoryText,	"Some operation could not be performed because the system is out of resources. Close some windows and try again."
-	pnglang_EPNGHeaderNotPresentText,	"This operation is not valid because the current image contains no valid header."
-	ComConst_SAutomationWarning,	"COM Server Warning"
-	ComConst_SNoCloseActiveServer1,	"There are still active COM objects in this application.  One or more clients may have references to these objects, so manually closing "
-	ComConst_SNoCloseActiveServer2,	"this application may cause those client application(s) to fail.\r\n\r\nAre you sure you want to close this application?"
-	TntFormatStrUtils_SInvalidFormatSpecifier,	"Invalid Format Specifier: %s"
-	TntSystem_SBufferOverflow,	"Buffer overflow"
-	TntSystem_SInvalidUTF7,	"Invalid UTF7"
-	OleConst_sNoRunningObject,	"Unable to retrieve a pointer to a running object registered with OLE for %s/%s"
+	XMLConst_SNoAttributes,	"Attributes are not supported on this node type"
+	XMLConst_SInvalidNodeType,	"Invalid node type"
+	XMLConst_SMismatchedRegItems,	"Mismatched paramaters to RegisterChildNodes"
+	XMLConst_SNotSingleTextNode,	"Element does not contain a single text node"
+	XMLConst_SNoDOMParseOptions,	"DOM Implementation does not support IDOMParseOptions"
+	XMLConst_SNodeReadOnly,	"Node is readonly"
+	XMLConst_SNoRefresh,	"Refresh is only supported if the FileName or XML properties are set"
+	XMLConst_SMissingFileName,	"FileName cannot be blank"
+	XMLConst_SLine,	"Line"
 	SynEditStrConst_SYNS_ScrollInfoFmt,	"%d - %d"
 	SynEditStrConst_SYNS_ScrollInfoFmtTop,	"Top Line: %d"
 	SynEditStrConst_SYNS_EDuplicateShortcut,	"Shortcut already exists"
@@ -374,8 +396,22 @@ BEGIN
 	SynEditTextBuffer_SListIndexOutOfBounds,	"Invalid stringlist index %d"
 	SynEditTextBuffer_SInvalidCapacity,	"Stringlist capacity cannot be smaller than count"
 	pnglang_EPngInvalidCRCText,	"This \"Portable Network Graphics\" image is not valid because it contains invalid pieces of data (crc error)"
-	pnglang_EPNGInvalidIHDRText,	"The \"Portable Network Graphics\" image could not be loaded because one of its main piece of data (ihdr) might be corrupted"
-	pnglang_EPNGMissingMultipleIDATText,	"This \"Portable Network Graphics\" image is invalid because it has missing image parts."
+	ComConst_SAutomationWarning,	"COM Server Warning"
+	ComConst_SNoCloseActiveServer1,	"There are still active COM objects in this application.  One or more clients may have references to these objects, so manually closing "
+	ComConst_SNoCloseActiveServer2,	"this application may cause those client application(s) to fail.\r\n\r\nAre you sure you want to close this application?"
+	TntFormatStrUtils_SInvalidFormatSpecifier,	"Invalid Format Specifier: %s"
+	TntSystem_SBufferOverflow,	"Buffer overflow"
+	TntSystem_SInvalidUTF7,	"Invalid UTF7"
+	OleConst_sNoRunningObject,	"Unable to retrieve a pointer to a running object registered with OLE for %s/%s"
+	XMLConst_SDuplicateRegistration,	"\"%s\" DOMImplementation already registered"
+	XMLConst_SNoMatchingDOMVendor,	"No matching DOM Vendor: \"%s\""
+	XMLConst_SNoDOMNodeEx,	"Selected DOM Vendor does not support this property or method"
+	XMLConst_SDOMNotSupported,	"Property or Method \"%s\" is not supported by DOM Vendor \"%s\""
+	XMLConst_SNodeExpected,	"Node cannot be null"
+	XMLConst_SMSDOMNotInstalled,	"Microsoft MSXML is not installed"
+	XMLConst_SNotActive,	"No active document"
+	XMLConst_SNodeNotFound,	"Node \"%s\" not found"
+	XMLConst_SMissingNode,	"IDOMNode required"
 	ComStrs_sTabFailDelete,	"Failed to delete tab at index %d"
 	ComStrs_sTabFailRetrieve,	"Failed to retrieve tab at index %d"
 	ComStrs_sTabFailGetObject,	"Failed to get object at index %d"

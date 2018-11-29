@@ -499,6 +499,12 @@ begin
       if Reg.ValueExists('IgnoreDirectIOErrors') then
         FParameters.IgnoreDirectIOErrors := Reg.ReadBool('IgnoreDirectIOErrors');
 
+      if Reg.ValueExists('ModelId') then
+        FParameters.ModelId := Reg.ReadInteger('ModelId');
+
+      if Reg.ValueExists('TrimItemText') then
+        FParameters.TrimItemText := Reg.ReadBool('TrimItemText');
+
       // VatCodes
       if Reg.OpenKey(REG_KEY_VATCODES, False) then
       begin
@@ -666,6 +672,8 @@ begin
     Reg.WriteInteger('ItemCheckMode', FParameters.ItemCheckMode);
     Reg.WriteInteger('DiscountMode', FParameters.DiscountMode);
     Reg.WriteBool('IgnoreDirectIOErrors', FParameters.IgnoreDirectIOErrors);
+    Reg.WriteInteger('ModelId', FParameters.ModelId);
+    Reg.WriteBool('TrimItemText', FParameters.TrimItemText);
 
     // VatCodes
     Reg.DeleteKey(REG_KEY_VATCODES);

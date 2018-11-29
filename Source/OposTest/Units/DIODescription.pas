@@ -326,6 +326,7 @@ const
       'DriverParameterTaxType                  = 95' + CRLF +
       'DriverParameterMessage                  = 96' + CRLF +
       'DriverParameterErrorMessage             = 97' + CRLF +
+      'DriverParameterDiscountMode             = 98' + CRLF +
       'String: parameter value';),
 
     (Command: DIO_SET_DRIVER_PARAMETER;
@@ -429,6 +430,7 @@ const
       'DriverParameterTaxType                  = 95' + CRLF +
       'DriverParameterMessage                  = 96' + CRLF +
       'DriverParameterErrorMessage             = 97' + CRLF +
+      'DriverParameterDiscountMode             = 98' + CRLF +
       'String: parameter value';),
 
 

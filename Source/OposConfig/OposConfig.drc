@@ -8,26 +8,44 @@
   resources were bound to the produced executable.
 */
 
-#define pnglang_EPNGNoImageDataText 65184
-#define pnglang_EPNGCannotChangeSizeText 65185
-#define pnglang_EPNGOutMemoryText 65186
-#define pnglang_EPNGHeaderNotPresentText 65187
-#define SynEditTextBuffer_SListIndexOutOfBounds 65200
-#define SynEditTextBuffer_SInvalidCapacity 65201
-#define pnglang_EPngInvalidCRCText 65202
-#define pnglang_EPNGInvalidIHDRText 65203
-#define pnglang_EPNGMissingMultipleIDATText 65204
-#define pnglang_EPNGZLIBErrorText 65205
-#define pnglang_EPNGInvalidPaletteText 65206
-#define pnglang_EPNGInvalidFileHeaderText 65207
-#define pnglang_EPNGIHDRNotFirstText 65208
-#define pnglang_EPNGSizeExceedsText 65209
-#define pnglang_EPNGUnknownPalEntryText 65210
-#define pnglang_EPNGUnknownCriticalChunkText 65211
-#define pnglang_EPNGUnknownCompressionText 65212
-#define pnglang_EPNGUnknownInterlaceText 65213
-#define pnglang_EPNGCannotAssignChunkText 65214
-#define pnglang_EPNGUnexpectedEndText 65215
+#define pnglang_EPNGCannotAssignChunkText 65168
+#define pnglang_EPNGUnexpectedEndText 65169
+#define pnglang_EPNGNoImageDataText 65170
+#define pnglang_EPNGCannotChangeSizeText 65171
+#define pnglang_EPNGOutMemoryText 65172
+#define pnglang_EPNGHeaderNotPresentText 65173
+#define SynEditStrConst_SYNS_EDuplicateShortcut 65184
+#define SynEditStrConst_SYNS_FriendlyLangUnknown 65185
+#define SynEditTextBuffer_SListIndexOutOfBounds 65186
+#define SynEditTextBuffer_SInvalidCapacity 65187
+#define pnglang_EPngInvalidCRCText 65188
+#define pnglang_EPNGInvalidIHDRText 65189
+#define pnglang_EPNGMissingMultipleIDATText 65190
+#define pnglang_EPNGZLIBErrorText 65191
+#define pnglang_EPNGInvalidPaletteText 65192
+#define pnglang_EPNGInvalidFileHeaderText 65193
+#define pnglang_EPNGIHDRNotFirstText 65194
+#define pnglang_EPNGSizeExceedsText 65195
+#define pnglang_EPNGUnknownPalEntryText 65196
+#define pnglang_EPNGUnknownCriticalChunkText 65197
+#define pnglang_EPNGUnknownCompressionText 65198
+#define pnglang_EPNGUnknownInterlaceText 65199
+#define XMLConst_SNodeExpected 65200
+#define XMLConst_SMSDOMNotInstalled 65201
+#define XMLConst_SNotActive 65202
+#define XMLConst_SNodeNotFound 65203
+#define XMLConst_SMissingNode 65204
+#define XMLConst_SNoAttributes 65205
+#define XMLConst_SInvalidNodeType 65206
+#define XMLConst_SMismatchedRegItems 65207
+#define XMLConst_SNotSingleTextNode 65208
+#define XMLConst_SNoDOMParseOptions 65209
+#define XMLConst_SNodeReadOnly 65210
+#define XMLConst_SNoRefresh 65211
+#define XMLConst_SMissingFileName 65212
+#define XMLConst_SLine 65213
+#define SynEditStrConst_SYNS_ScrollInfoFmt 65214
+#define SynEditStrConst_SYNS_ScrollInfoFmtTop 65215
 #define ComConst_SDCOMNotInstalled 65216
 #define ComConst_SAutomationWarning 65217
 #define ComConst_SNoCloseActiveServer1 65218
@@ -40,10 +58,10 @@
 #define OleConst_SInvalidLicense 65225
 #define OleConst_SNotLicensed 65226
 #define OleConst_sNoRunningObject 65227
-#define SynEditStrConst_SYNS_ScrollInfoFmt 65228
-#define SynEditStrConst_SYNS_ScrollInfoFmtTop 65229
-#define SynEditStrConst_SYNS_EDuplicateShortcut 65230
-#define SynEditStrConst_SYNS_FriendlyLangUnknown 65231
+#define XMLConst_SDuplicateRegistration 65228
+#define XMLConst_SNoMatchingDOMVendor 65229
+#define XMLConst_SNoDOMNodeEx 65230
+#define XMLConst_SDOMNotSupported 65231
 #define ComStrs_sTabFailClear 65232
 #define ComStrs_sTabFailDelete 65233
 #define ComStrs_sTabFailRetrieve 65234
@@ -350,10 +368,14 @@
 #define SysConst_SDiskFull 65535
 STRINGTABLE
 BEGIN
+	pnglang_EPNGCannotAssignChunkText,	"The chunks must be compatible to be assigned."
+	pnglang_EPNGUnexpectedEndText,	"This \"Portable Network Graphics\" image is invalid because the decoder found an unexpected end of the file."
 	pnglang_EPNGNoImageDataText,	"This \"Portable Network Graphics\" image contains no data."
 	pnglang_EPNGCannotChangeSizeText,	"The \"Portable Network Graphics\" image can not be resize by changing width and height properties. Try assigning the image from a bitmap."
 	pnglang_EPNGOutMemoryText,	"Some operation could not be performed because the system is out of resources. Close some windows and try again."
 	pnglang_EPNGHeaderNotPresentText,	"This operation is not valid because the current image contains no valid header."
+	SynEditStrConst_SYNS_EDuplicateShortcut,	"Shortcut already exists"
+	SynEditStrConst_SYNS_FriendlyLangUnknown,	"<Unknown>"
 	SynEditTextBuffer_SListIndexOutOfBounds,	"Invalid stringlist index %d"
 	SynEditTextBuffer_SInvalidCapacity,	"Stringlist capacity cannot be smaller than count"
 	pnglang_EPngInvalidCRCText,	"This \"Portable Network Graphics\" image is not valid because it contains invalid pieces of data (crc error)"
@@ -368,8 +390,22 @@ BEGIN
 	pnglang_EPNGUnknownCriticalChunkText,	"This \"Portable Network Graphics\" image contains an unknown critical part which could not be decoded."
 	pnglang_EPNGUnknownCompressionText,	"This \"Portable Network Graphics\" image is encoded with an unknown compression scheme which could not be decoded."
 	pnglang_EPNGUnknownInterlaceText,	"This \"Portable Network Graphics\" image uses an unknown interlace scheme which could not be decoded."
-	pnglang_EPNGCannotAssignChunkText,	"The chunks must be compatible to be assigned."
-	pnglang_EPNGUnexpectedEndText,	"This \"Portable Network Graphics\" image is invalid because the decoder found an unexpected end of the file."
+	XMLConst_SNodeExpected,	"Node cannot be null"
+	XMLConst_SMSDOMNotInstalled,	"Microsoft MSXML is not installed"
+	XMLConst_SNotActive,	"No active document"
+	XMLConst_SNodeNotFound,	"Node \"%s\" not found"
+	XMLConst_SMissingNode,	"IDOMNode required"
+	XMLConst_SNoAttributes,	"Attributes are not supported on this node type"
+	XMLConst_SInvalidNodeType,	"Invalid node type"
+	XMLConst_SMismatchedRegItems,	"Mismatched paramaters to RegisterChildNodes"
+	XMLConst_SNotSingleTextNode,	"Element does not contain a single text node"
+	XMLConst_SNoDOMParseOptions,	"DOM Implementation does not support IDOMParseOptions"
+	XMLConst_SNodeReadOnly,	"Node is readonly"
+	XMLConst_SNoRefresh,	"Refresh is only supported if the FileName or XML properties are set"
+	XMLConst_SMissingFileName,	"FileName cannot be blank"
+	XMLConst_SLine,	"Line"
+	SynEditStrConst_SYNS_ScrollInfoFmt,	"%d - %d"
+	SynEditStrConst_SYNS_ScrollInfoFmtTop,	"Top Line: %d"
 	ComConst_SDCOMNotInstalled,	"DCOM not installed"
 	ComConst_SAutomationWarning,	"COM Server Warning"
 	ComConst_SNoCloseActiveServer1,	"There are still active COM objects in this application.  One or more clients may have references to these objects, so manually closing "
@@ -382,10 +418,10 @@ BEGIN
 	OleConst_SInvalidLicense,	"License information for %s is invalid"
 	OleConst_SNotLicensed,	"License information for %s not found. You cannot use this control in design mode"
 	OleConst_sNoRunningObject,	"Unable to retrieve a pointer to a running object registered with OLE for %s/%s"
-	SynEditStrConst_SYNS_ScrollInfoFmt,	"%d - %d"
-	SynEditStrConst_SYNS_ScrollInfoFmtTop,	"Top Line: %d"
-	SynEditStrConst_SYNS_EDuplicateShortcut,	"Shortcut already exists"
-	SynEditStrConst_SYNS_FriendlyLangUnknown,	"<Unknown>"
+	XMLConst_SDuplicateRegistration,	"\"%s\" DOMImplementation already registered"
+	XMLConst_SNoMatchingDOMVendor,	"No matching DOM Vendor: \"%s\""
+	XMLConst_SNoDOMNodeEx,	"Selected DOM Vendor does not support this property or method"
+	XMLConst_SDOMNotSupported,	"Property or Method \"%s\" is not supported by DOM Vendor \"%s\""
 	ComStrs_sTabFailClear,	"Failed to clear tab control"
 	ComStrs_sTabFailDelete,	"Failed to delete tab at index %d"
 	ComStrs_sTabFailRetrieve,	"Failed to retrieve tab at index %d"

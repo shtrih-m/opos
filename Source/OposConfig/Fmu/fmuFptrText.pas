@@ -30,6 +30,7 @@ type
     chbRFShowTaxLetters: TTntCheckBox;
     cbRFSeparatorLine: TTntComboBox;
     lblRFSeparatorLine: TTntLabel;
+    chbTrimItemText: TTntCheckBox;
     procedure PageChange(Sender: TObject);
   public
     procedure UpdatePage; override;
@@ -52,6 +53,7 @@ begin
   seRFAmountLength.Value := Parameters.RFAmountLength;
   chbRFShowTaxLetters.Checked := Parameters.RFShowTaxLetters;
   cbRFSeparatorLine.ItemIndex := Parameters.RFSeparatorLine;
+  chbTrimItemText.Checked := Parameters.TrimItemText;
 end;
 
 procedure TfmFptrText.UpdateObject;
@@ -64,6 +66,7 @@ begin
   Parameters.RFAmountLength := seRFAmountLength.Value;
   Parameters.RFShowTaxLetters := chbRFShowTaxLetters.Checked;
   Parameters.RFSeparatorLine := cbRFSeparatorLine.ItemIndex;
+  Parameters.TrimItemText := chbTrimItemText.Checked;
 end;
 
 procedure TfmFptrText.PageChange(Sender: TObject);

@@ -25,6 +25,8 @@ type
 
     procedure Clear;
     procedure RemoveItem(AItem: TPrinterModel);
+    procedure Insert(Index: Integer; AItem: TPrinterModel);
+    function IndexById(AID: Integer): Integer;
     function ItemByID(AID: Integer): TPrinterModel;
     function Add(AData: TPrinterModelRec): TPrinterModel;
 
@@ -114,6 +116,22 @@ begin
     if Result.Data.ID = AID then Exit;
   end;
   Result := nil;
+end;
+
+function TPrinterModels.IndexById(AID: Integer): Integer;
+var
+  Model: TPrinterModel;
+begin
+  Result := -1;
+  Model := ItemByID(AID);
+  if Model <> nil then
+    Result := FList.IndexOf(Model);
+end;
+
+procedure TPrinterModels.Insert(Index: Integer; AItem: TPrinterModel);
+begin
+  FList.Insert(Index, AItem);
+  AItem.FOwner := Self;
 end;
 
 { TPrinterModel }

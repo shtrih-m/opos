@@ -996,6 +996,12 @@ function TFiscalPrinterDevice.GetText(const Text: WideString;
   MinLength: Integer): WideString;
 begin
   Result := Text;
+  if not Parameters.TrimItemText then
+  begin
+    Result := Copy(Result, 1, 200);
+    Exit;
+  end;
+
   if not FCapFiscalStorage then
     Result := Copy(Result, 1, GetPrintWidth);
 
@@ -5026,12 +5032,17 @@ function TFiscalPrinterDevice.SelectModel: TPrinterModel;
 var
   ModelID: Integer;
 begin
-  ModelID := GetDeviceMetrics.Model;
+  ModelID := Parameters.ModelID;
   Result := FModels.ItemByID(ModelID);
   if Result = nil then
   begin
-    ModelID := DefaultModelID;
+    ModelID := GetDeviceMetrics.Model;
     Result := FModels.ItemByID(ModelID);
+    if Result = nil then
+    begin
+      ModelID := DefaultModelID;
+      Result := FModels.ItemByID(ModelID);
+    end;
   end;
 
   if Result = nil then

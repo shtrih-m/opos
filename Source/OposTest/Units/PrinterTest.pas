@@ -816,6 +816,22 @@ type
     function GetDisplayText: WideString; override;
   end;
 
+  { TDiscountModeTest }
+
+  TDiscountModeTest = class(TDriverTest)
+  public
+    procedure Execute; override;
+    function GetDisplayText: WideString; override;
+  end;
+
+  { TLongItemTextTest }
+
+  TLongItemTextTest = class(TDriverTest)
+  public
+    procedure Execute; override;
+    function GetDisplayText: WideString; override;
+  end;
+
 implementation
 
 const
@@ -4764,6 +4780,60 @@ end;
 function T6DigitsQuantityTest.GetDisplayText: WideString;
 begin
   Result := '6 digits quantity test';
+end;
+
+{ TDiscountModeTest }
+
+procedure TDiscountModeTest.Execute;
+begin
+  Check(FiscalPrinter.ResetPrinter());
+  Check(FiscalPrinter.SetParameter(DriverParameterDiscountMode, DiscountModeNone));
+
+  FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
+  Check(FiscalPrinter.BeginFiscalReceipt(True));
+  Check(FiscalPrinter.PrintRecItem('1:1861 Напиток SPRITE 2.0л', 5, 1000, 1, 0, 'шт'));
+  Check(FiscalPrinter.PrintRecItemAdjustment(1, '', 5, 1));
+  Check(FiscalPrinter.PrintRecItem('2*1862 Напиток FANTA 2.0л', 500, 1000, 1, 0.98, 'шт'));
+  Check(FiscalPrinter.PrintRecItemAdjustment(1, '', 499.02, 1));
+  Check(FiscalPrinter.PrintRecItem('3:1862 Напиток FANTA 2.0л', 500, 1000, 1, 4.89, 'шт'));
+  Check(FiscalPrinter.PrintRecItemAdjustment(1, '', 495.11, 1));
+  Check(FiscalPrinter.PrintRecItem('4:3757 Бананы 1кг', 0.5, 1, 1, 0, 'кг'));
+  Check(FiscalPrinter.PrintRecItemAdjustment(1, '', 0.5, 1));
+  Check(FiscalPrinter.PrintRecItem('5:1488 Карамель МОСКОВСКАЯ 1кг', 0.01, 1, 1, 0, 'кг'));
+  Check(FiscalPrinter.PrintRecItemAdjustment(1, '', 0.01, 1));
+  Check(FiscalPrinter.PrintRecItem('6:261 Перец оранжевый сладкий 1кг', 0.03, 1, 2, 0, 'кг'));
+  Check(FiscalPrinter.PrintRecItemAdjustment(1, '', 0.03, 1));
+  Check(FiscalPrinter.PrintRecItem('7:200 Груши АНЖУ 1кг', 0.15, 1, 1, 0, 'кг'));
+  Check(FiscalPrinter.PrintRecItemAdjustment(1, '', 0.15, 1));
+  Check(FiscalPrinter.PrintRecItem('8:1488 Карамель МОСКОВСКАЯ 1кг', 15.92, 1234, 1, 0, 'кг'));
+  Check(FiscalPrinter.PrintRecItemAdjustment(1, '', 15.92, 1));
+  Check(FiscalPrinter.PrintRecItem('9:911 СПм Корейка б/к свиная 1кг', 654.26, 2345, 2, 0, 'кг'));
+  Check(FiscalPrinter.PrintRecItemAdjustment(1, '', 654.26, 1));
+  Check(FiscalPrinter.PrintRecTotal(100000, 100000, ''));
+  Check(FiscalPrinter.EndFiscalReceipt(True));
+end;
+
+function TDiscountModeTest.GetDisplayText: WideString;
+begin
+  Result := 'Discount mode test';
+end;
+
+{ TLongItemTextTest }
+
+procedure TLongItemTextTest.Execute;
+begin
+  Check(FiscalPrinter.ResetPrinter());
+
+  FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
+  Check(FiscalPrinter.BeginFiscalReceipt(True));
+  Check(FiscalPrinter.PrintRecItem(StringOfChar('1', 200), 1, 1000, 1, 0, ''));
+  Check(FiscalPrinter.PrintRecTotal(100000, 100000, ''));
+  Check(FiscalPrinter.EndFiscalReceipt(True));
+end;
+
+function TLongItemTextTest.GetDisplayText: WideString;
+begin
+  Result := 'Long item text test';
 end;
 
 end.

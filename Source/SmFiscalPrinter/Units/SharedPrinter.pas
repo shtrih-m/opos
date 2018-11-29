@@ -163,6 +163,7 @@ type
     function GetFont: Integer;
     procedure SetStation(Value: Integer);
     procedure PrintLogo;
+    procedure ClearLogo;
     procedure PrintSeparator(SeparatorType, SeparatorHeight: Integer);
     procedure UpdateParams;
     function GetEJActivation: TEJActivation;
@@ -305,6 +306,7 @@ begin
     FFilter := nil;
   end;
   SetPollEnabled(False);
+  FPollEnabled := False;
   FDeviceThread.Free;
   FLock.Free;
   FHeader.Free;
@@ -1199,6 +1201,13 @@ end;
 procedure TSharedPrinter.SetPreLine(const Value: WideString);
 begin
   FPreLine := Value;
+end;
+
+procedure TSharedPrinter.ClearLogo;
+begin
+  Parameters.LogoSize := 0;
+  Parameters.IsLogoLoaded := False;
+  SaveParameters;
 end;
 
 procedure TSharedPrinter.PrintLogo;

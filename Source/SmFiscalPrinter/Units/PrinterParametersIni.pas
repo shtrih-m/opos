@@ -338,6 +338,8 @@ begin
       FParameters.ItemCheckMode := IniFile.ReadInteger(Section, 'ItemCheckMode', DefItemCheckMode);
       FParameters.DiscountMode := IniFile.ReadInteger(Section, 'DiscountMode', DefDiscountMode);
       FParameters.IgnoreDirectIOErrors := IniFile.ReadBool(Section, 'IgnoreDirectIOErrors', DefIgnoreDirectIOErrors);
+      FParameters.ModelId := IniFile.ReadInteger(Section, 'ModelId', DefModelId);
+      FParameters.TrimItemText := IniFile.ReadBool(Section, 'TrimItemText', DefTrimItemText);
     end;
     // VatCodes
     Section := GetSectionName(DeviceName) + '_VatCodes';
@@ -500,6 +502,8 @@ begin
     IniFile.WriteInteger(Section, 'ItemCheckMode', FParameters.ItemCheckMode);
     IniFile.WriteInteger(Section, 'DiscountMode', FParameters.DiscountMode);
     IniFile.WriteBool(Section, 'IgnoreDirectIOErrors', FParameters.IgnoreDirectIOErrors);
+    IniFile.WriteInteger(Section, 'ModelId', FParameters.ModelId);
+    IniFile.WriteBool(Section, 'TrimItemText', FParameters.TrimItemText);
 
     // PayTypes
     Section := GetSectionName(DeviceName) + '_PaymentTypes';

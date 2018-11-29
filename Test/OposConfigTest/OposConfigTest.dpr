@@ -91,7 +91,10 @@ uses
   WException in '..\..\Source\Shared\WException.pas',
   TntIniFiles in '..\..\Source\Shared\TntIniFiles.pas',
   DriverError in '..\..\Source\Shared\DriverError.pas',
-  fmuFptrLog in '..\..\Source\OposConfig\Fmu\fmuFptrLog.pas' {fmFptrLog};
+  fmuFptrLog in '..\..\Source\OposConfig\Fmu\fmuFptrLog.pas' {fmFptrLog},
+  XmlModelReader in '..\..\Source\SmFiscalPrinter\Units\XmlModelReader.pas',
+  XmlUtils in '..\..\Source\SmFiscalPrinter\Units\XmlUtils.pas',
+  DefaultModel in '..\..\Source\SmFiscalPrinter\Units\DefaultModel.pas';
 
 {$R *.RES}
 

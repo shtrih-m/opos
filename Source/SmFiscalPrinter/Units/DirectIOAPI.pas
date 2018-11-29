@@ -88,6 +88,8 @@ const
   DIO_START_CORRECTION          = 61; // start correction receipt
   DIO_WRITE_FS_TLV_HEX          = 62; // Write fiscal storage tag
   DIO_WRITE_FS_TLV_OP_HEX       = 63; // Write TLV operation
+  DIO_CLEAR_LOGO                = 64; // Clear Logo
+
 
   // Read document from fiscal storage device
   DIO_READ_FS_DOCUMENT            = 96;
@@ -343,6 +345,7 @@ const
   DriverParameterTaxType                  = 95;
   DriverParameterMessage                  = 96;
   DriverParameterErrorMessage             = 97;
+  DriverParameterDiscountMode             = 98;
 
   /////////////////////////////////////////////////////////////////////////////
   // Separator type
