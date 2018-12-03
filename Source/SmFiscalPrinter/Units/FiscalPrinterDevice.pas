@@ -999,12 +999,11 @@ begin
   if not Parameters.TrimItemText then
   begin
     Result := Copy(Result, 1, 200);
-    Exit;
+  end else
+  begin
+    if not FCapFiscalStorage then
+      Result := Copy(Result, 1, GetPrintWidth);
   end;
-
-  if not FCapFiscalStorage then
-    Result := Copy(Result, 1, GetPrintWidth);
-
   if Length(Result) < MinLength then
     Result := Result + StringOfChar(#0, MinLength - Length(Result));
 end;
