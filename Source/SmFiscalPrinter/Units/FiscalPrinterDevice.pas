@@ -423,6 +423,7 @@ type
     function FSReadExpireDate(var Date: TPrinterDate): Integer;
     function FSReadFiscalResult(var R: TFSFiscalResult): Integer;
     function FSWriteTag(TagID: Integer; const Data: WideString): Integer;
+    function FSWriteTagOperation(TagID: Integer; const Data: WideString): Integer;
 
     function ReadSysOperatorNumber: Integer;
     function ReadUsrOperatorNumber: Integer;
@@ -7763,6 +7764,11 @@ end;
 function TFiscalPrinterDevice.FSWriteTag(TagID: Integer; const Data: WideString): Integer;
 begin
   Result := FSWriteTLV(TagToStr(TagID, Data));
+end;
+
+function TFiscalPrinterDevice.FSWriteTagOperation(TagID: Integer; const Data: WideString): Integer;
+begin
+  Result := FSWriteTLVOperation(TagToStr(TagID, Data));
 end;
 
 function TFiscalPrinterDevice.ReadFPParameter(ParamId: Integer): WideString;

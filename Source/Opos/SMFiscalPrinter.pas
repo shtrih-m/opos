@@ -432,6 +432,7 @@ type
     procedure DisableNextHeader;
     function FSWriteTLV(const Data: WideString): Integer;
     function FSWriteTag(TagID: Integer; const Data: WideString): Integer;
+    function FSWriteTagOperation(TagID: Integer; const Data: WideString): Integer;
     function WriteCustomerAddress(const Address: WideString): Integer;
     function PrintText(const Text: WideString; Font: Integer): Integer;
     function ReadTable(Table, Row, Field: Integer; var Value: WideString): Integer;
@@ -1899,6 +1900,16 @@ begin
   pData := TagID;
   pString := Data;
   Result := Driver.DirectIO(DIO_WRITE_FS_STRING_TAG, pData, pString);
+end;
+
+function TSMFiscalPrinter.FSWriteTagOperation(TagID: Integer; const Data: WideString): Integer;
+var
+  pData: Integer;
+  pString: WideString;
+begin
+  pData := TagID;
+  pString := Data;
+  Result := Driver.DirectIO(DIO_WRITE_FS_STRING_TAG_OP, pData, pString);
 end;
 
 function TSMFiscalPrinter.FSWriteTLV(const Data: WideString): Integer;

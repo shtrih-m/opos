@@ -6,6 +6,17 @@
 
 *******************************************************************
 
+  OposShtrih_1.13_509.exe
+  6 декабря 2018 12:00
+  
+  [+] Добавлена команда directIO для записи тега, привязанного к операции
+      DIO_WRITE_FS_STRING_TAG_OP = 65; // Write string tag bound to operation
+  
+*******************************************************************
+
+  DIO_WRITE_FS_STRING_TAG_OP    = 65; // Write string tag bound to operation
+
+
   OposShtrih_1.13_508.exe
   3 декабря 2018 13:10
   

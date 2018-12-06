@@ -946,6 +946,23 @@ type
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
+  { TDIOWriteStringTagOp }
+
+  TDIOWriteStringTagOp = class(TDIOHandler)
+  private
+    FPrinter: TFiscalPrinterImpl;
+    function GetDevice: IFiscalPrinterDevice;
+  public
+    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
+      APrinter: TFiscalPrinterImpl);
+
+    procedure DirectIO(var pData: Integer; var pString: WideString); override;
+
+    property Printer: TFiscalPrinterImpl read FPrinter;
+    property Device: IFiscalPrinterDevice read GetDevice;
+  end;
+
+
 implementation
 
 function BoolToStr(Value: Boolean): WideString;
@@ -2794,5 +2811,26 @@ procedure TDIOClearLogo.DirectIO(var pData: Integer;
 begin
   Printer.Printer.ClearLogo;
 end;
+
+{ TDIOWriteStringTagOp }
+
+constructor TDIOWriteStringTagOp.CreateCommand(AOwner: TDIOHandlers;
+  ACommand: Integer; APrinter: TFiscalPrinterImpl);
+begin
+  inherited Create(AOwner, ACommand);
+  FPrinter := APrinter;
+end;
+
+function TDIOWriteStringTagOp.GetDevice: IFiscalPrinterDevice;
+begin
+  Result := FPrinter.Device;
+end;
+
+procedure TDIOWriteStringTagOp.DirectIO(var pData: Integer;
+  var pString: WideString);
+begin
+  Printer.FSWriteTagOperation(pData, pString);
+end;
+
 
 end.

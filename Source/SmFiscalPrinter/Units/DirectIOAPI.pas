@@ -89,6 +89,7 @@ const
   DIO_WRITE_FS_TLV_HEX          = 62; // Write fiscal storage tag
   DIO_WRITE_FS_TLV_OP_HEX       = 63; // Write TLV operation
   DIO_CLEAR_LOGO                = 64; // Clear Logo
+  DIO_WRITE_FS_STRING_TAG_OP    = 65; // Write string tag bound to operation
 
 
   // Read document from fiscal storage device

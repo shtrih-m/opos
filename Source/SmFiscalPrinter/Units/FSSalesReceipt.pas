@@ -1649,7 +1649,6 @@ begin
   Item.Data := TLVData;
 end;
 
-
 function TFSSalesReceipt.GetDevice: IFiscalPrinterDevice;
 begin
   Result := Printer.Printer.Device;
