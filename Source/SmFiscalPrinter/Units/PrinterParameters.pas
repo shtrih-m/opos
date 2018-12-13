@@ -12,6 +12,13 @@ uses
 
 const
   /////////////////////////////////////////////////////////////////////////////
+  // ItemTextMode constants
+
+  ItemTextModeNone  = 0; // Item text not changed
+  ItemTextModeTrim  = 1; // Trim item text on print width
+  ItemTextModePrint = 2; // Print item text with text lines
+
+  /////////////////////////////////////////////////////////////////////////////
   // DiscountMode constants
 
   DiscountModeChangePrice = 0; // Discount change price
@@ -368,7 +375,9 @@ const
   DefDiscountMode = DiscountModeChangePrice;
   DefIgnoreDirectIOErrors = False;
   DefModelId = -1;
-  DefTrimItemText = False;
+  DefItemTextMode = ItemTextModeNone;
+  DefCorrectCashlessAmount = false;
+
 
 type
   { TPrinterParameters }
@@ -561,7 +570,8 @@ type
     TaxType: Byte; // ѕримен€ема€ система налогообложени€:1байт
     IgnoreDirectIOErrors: Boolean;
     ModelId: Integer;
-    TrimItemText: Boolean;
+    ItemTextMode: Integer;
+    CorrectCashlessAmount: Boolean;
  public
     constructor Create(ALogger: ILogFile);
     destructor Destroy; override;
@@ -723,6 +733,17 @@ const
     'VOID CHARGE');
 
 implementation
+
+function GetItemTextMode(Value: Integer): string;
+begin
+  case Value of
+    ItemTextModeNone: Result := 'ItemTextModeNone';
+    ItemTextModeTrim: Result := 'ItemTextModeTrim';
+    ItemTextModePrint: Result := 'ItemTextModePrint';
+  else
+    Result := 'Unknown';
+  end;
+end;
 
 { TPrinterParameters }
 
@@ -894,7 +915,8 @@ begin
   DiscountMode := DiscountModeChangePrice;
   IgnoreDirectIOErrors := DefIgnoreDirectIOErrors;
   ModelId := DefModelId;
-  TrimItemText := DefTrimItemText;
+  ItemTextMode := DefItemTextMode;
+  CorrectCashlessAmount := DefCorrectCashlessAmount;
 end;
 
 procedure TPrinterParameters.LogText(const Caption, Text: WideString);
@@ -1034,6 +1056,8 @@ begin
   Logger.Debug('ItemCheckMode: ' + IntToStr(ItemCheckMode));
   Logger.Debug('DiscountMode: ' + IntToStr(DiscountMode));
   Logger.Debug('IgnoreDirectIOErrors: ' + BoolToStr(IgnoreDirectIOErrors));
+  Logger.Debug(Format('ItemTextMode: %d, %s', [ItemTextMode, GetItemTextMode(ItemTextMode)]));
+  Logger.Debug('CorrectCashlessAmount: ' + BoolToStr(CorrectCashlessAmount));
 
   for i := 0 to PayTypes.Count-1 do
   begin

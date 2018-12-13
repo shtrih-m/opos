@@ -10,20 +10,9 @@ Uses
   // This
   WException, ByteUtils, StringUtils, gnugettext;
 
-const
-  ttByte = $00000000;
-  ttUint16 = $00000001;
-  ttUInt32 = $00000002;
-  ttVLN = $00000003;
-  ttFVLN = $00000004;
-  ttBitMask = $00000005;
-  ttUnixTime = $00000006;
-  ttString = $00000007;
-  ttSTLV = $00000008;
-  ttByteArray = $00000009;
-
 type
-  TTagType = TOleEnum;
+  TTagType = (ttByte, ttUint16, ttUInt32, ttVLN, ttFVLN, ttBitMask,
+    ttUnixTime, ttString, ttSTLV, ttByteArray);
   TTLVTag = class;
 
   { TTLVTags }
@@ -56,8 +45,8 @@ type
     FOwner: TTLVTags;
     FTag: Integer;
     FLength: Integer;
-    FDescription: AnsiString;
     FTagType: TTagType;
+    FDescription: AnsiString;
     FShortDescription: AnsiString;
     FFixedLength: Boolean;
 
@@ -67,7 +56,7 @@ type
     destructor Destroy; override;
 
     function GetStrValue(AData: AnsiString): AnsiString;
-    class function Format(t: Integer; v: Variant): AnsiString;
+    class function Format(t: TTagType; v: Variant): AnsiString;
     class function Int2ValueTLV(aValue: Int64; aSizeInBytes: Integer): AnsiString;
     class function VLN2ValueTLV(aValue: Int64): AnsiString;
     class function VLN2ValueTLVLen(aValue: Int64; ALen: Integer): AnsiString;
@@ -697,7 +686,7 @@ begin
   Result := StringOfChar(#0, SizeInBytes - System.Length(Result)) + Result;
 end;
 
-class function TTLVTag.Format(t: Integer; v: Variant): AnsiString;
+class function TTLVTag.Format(t: TTagType; v: Variant): AnsiString;
 begin
   case t of
     ttByte      : Result := Int2ValueTLV(v, 1);

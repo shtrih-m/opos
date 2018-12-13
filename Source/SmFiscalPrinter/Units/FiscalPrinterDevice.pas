@@ -83,6 +83,8 @@ type
     FCapEnablePrint: Boolean;
     FLastMacValue: Int64;
     FLastDocNumber: Int64;
+    FSTLVTag: TTLV;
+    FSTLVStarted: Boolean;
 
     procedure PrintLineFont(const Data: TTextRec);
     procedure SetPrinterStatus(Value: TPrinterStatus);
@@ -140,9 +142,9 @@ type
     function ReadEJDocumentText(MACNumber: Integer): WideString;
     function ReadEJDocument(MACNumber: Integer; var Line: WideString): Integer;
     function ParseEJDocument(const Text: WideString): TEJDocument;
-    function FSSale(const P: TFSSale): Integer;
-    function FSSale2(const P: TFSSale2): Integer;
-    function FSStorno(const P: TFSSale): Integer;
+    function FSSale(P: TFSSale): Integer;
+    function FSSale2(P: TFSSale2): Integer;
+    function FSStorno(P: TFSSale): Integer;
     function ProcessLine(const Line: WideString): Boolean;
     function FSReadStatus(var R: TFSStatus): Integer;
     function FSFindDocument(DocNumber: Integer; var R: TFSDocument): Integer;
@@ -202,6 +204,12 @@ type
     function GetLastMacValue: Int64;
     function IsCorrectItemCode(const P: TFSCheckItemResult): Boolean;
     procedure CheckCorrectItemCode(const P: TFSCheckItemResult);
+    function PrintItemText(const S: WideString): WideString;
+    function STLVGetHex: string;
+    procedure STLVWrite;
+    procedure STLVWriteOp;
+    procedure STLVBegin(TagID: Integer);
+    procedure STLVAddTag(TagID: Integer; TagValue: string);
   protected
     function GetMaxGraphicsWidthInBytes: Integer;
   public
@@ -423,7 +431,6 @@ type
     function FSReadExpireDate(var Date: TPrinterDate): Integer;
     function FSReadFiscalResult(var R: TFSFiscalResult): Integer;
     function FSWriteTag(TagID: Integer; const Data: WideString): Integer;
-    function FSWriteTagOperation(TagID: Integer; const Data: WideString): Integer;
 
     function ReadSysOperatorNumber: Integer;
     function ReadUsrOperatorNumber: Integer;
@@ -748,6 +755,7 @@ end;
 constructor TFiscalPrinterDevice.Create;
 begin
   inherited Create;
+  FSTLVTag := TTLV.Create(nil);
   FContext := TDriverContext.Create;
   FLogger := TClassLogger.Create('TFiscalPrinterDevice', FContext.Logger);
   FLock := TCriticalSection.Create;
@@ -773,6 +781,7 @@ begin
   FStatistics.Free;
   FFilter.Free;
   FContext.Free;
+  FSTLVTag.Free;
   inherited Destroy;
 end;
 
@@ -997,13 +1006,13 @@ function TFiscalPrinterDevice.GetText(const Text: WideString;
   MinLength: Integer): WideString;
 begin
   Result := Text;
-  if not Parameters.TrimItemText then
-  begin
-    Result := Copy(Result, 1, 200);
-  end else
+  if Parameters.ItemTextMode = ItemTextModeTrim then
   begin
     if not FCapFiscalStorage then
       Result := Copy(Result, 1, GetPrintWidth);
+  end else
+  begin
+    Result := Copy(Result, 1, 200);
   end;
   if Length(Result) < MinLength then
     Result := Result + StringOfChar(#0, MinLength - Length(Result));
@@ -3668,10 +3677,36 @@ begin
   end;
 end;
 
+function TFiscalPrinterDevice.PrintItemText(const S: WideString): WideString;
+var
+  i: Integer;
+  Line: AnsiString;
+  Lines: TTntStrings;
+begin
+  Result := S;
+  if Parameters.ItemTextMode <> ItemTextModePrint then exit;
+
+  Lines := TTntStringList.Create;
+  try
+    SplitText(S, 1, Lines);
+    if Lines.Count = 1 then Exit;
+
+    for i := 0 to Lines.Count-2 do
+    begin
+      Line := Lines[i];
+      PrintStringFont(PRINTER_STATION_REC, 1, Line)
+    end;
+    Result := Lines[Lines.Count-1];
+  finally
+    Lines.Free;
+  end;
+end;
+
 function TFiscalPrinterDevice.Sale(Operation: TPriceReg): Integer;
 var
   Stream: TBinStream;
 begin
+  Operation.Text := PrintItemText(Operation.Text);
   UpdateDepartment(Operation);
   Stream := TBinStream.Create;
   try
@@ -7045,11 +7080,12 @@ end;
   Код ошибки: 1 байт
 ******************************************************************************)
 
-function TFiscalPrinterDevice.FSSale(const P: TFSSale): Integer;
+function TFiscalPrinterDevice.FSSale(P: TFSSale): Integer;
 var
   Answer: AnsiString;
   Command: AnsiString;
 begin
+  P.Text := PrintItemText(P.Text);
   Command := #$FF#$0D + IntToBin(GetUsrPassword, 4) +
     Chr(Abs(P.RecType)) +
     IntToBin(Abs(Round(P.Quantity * 1000)), 5) +
@@ -7087,12 +7123,13 @@ end;
 
 *)
 
-function TFiscalPrinterDevice.FSSale2(const P: TFSSale2): Integer;
+function TFiscalPrinterDevice.FSSale2(P: TFSSale2): Integer;
 var
   Answer: AnsiString;
   Command: AnsiString;
   CheckItemResult: TFSCheckItemResult;
 begin
+  P.Text := PrintItemText(P.Text);
   Command := #$FF#$46 + IntToBin(GetUsrPassword, 4) +
     Chr(Abs(P.RecType)) +
     IntToBin(Abs(Round(P.Quantity * 1000000)), 6) +
@@ -7116,11 +7153,12 @@ begin
   end;
 end;
 
-function TFiscalPrinterDevice.FSStorno(const P: TFSSale): Integer;
+function TFiscalPrinterDevice.FSStorno(P: TFSSale): Integer;
 var
   Answer: AnsiString;
   Command: AnsiString;
 begin
+  P.Text := PrintItemText(P.Text);
   Command := #$FF#$0E + IntToBin(GetUsrPassword, 4) +
     Chr(Abs(P.RecType)) +
     IntToBin(Abs(Round(P.Quantity * 1000)), 5) +
@@ -7764,11 +7802,6 @@ end;
 function TFiscalPrinterDevice.FSWriteTag(TagID: Integer; const Data: WideString): Integer;
 begin
   Result := FSWriteTLV(TagToStr(TagID, Data));
-end;
-
-function TFiscalPrinterDevice.FSWriteTagOperation(TagID: Integer; const Data: WideString): Integer;
-begin
-  Result := FSWriteTLVOperation(TagToStr(TagID, Data));
 end;
 
 function TFiscalPrinterDevice.ReadFPParameter(ParamId: Integer): WideString;
@@ -9083,6 +9116,36 @@ begin
     R.ServerStatus := Ord(Answer[6]);
     R.SymbolicType := Ord(Answer[7]);
   end;
+end;
+
+procedure TFiscalPrinterDevice.STLVBegin(TagID: Integer);
+begin
+  FSTLVTag.Items.Clear;
+  FSTLVTag.Tag := TagId;
+  FSTLVStarted := True;
+end;
+
+procedure TFiscalPrinterDevice.STLVAddTag(TagID: Integer;
+  TagValue: string);
+begin
+  if not FSTLVStarted then
+    raise Exception.Create('Call STLVBegin first');
+  FSTLVTag.Items.Add(TagID).Data := TagToStr(TagID, TagValue);
+end;
+
+function TFiscalPrinterDevice.STLVGetHex: string;
+begin
+  Result := StrToHexText(FSTLVTag.Items.GetRawData);
+end;
+
+procedure TFiscalPrinterDevice.STLVWrite;
+begin
+  Check(FSWriteTLV(FSTLVTag.RawData));
+end;
+
+procedure TFiscalPrinterDevice.STLVWriteOp;
+begin
+  Check(FSWriteTLVOperation(FSTLVTag.RawData));
 end;
 
 end.

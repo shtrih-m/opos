@@ -559,7 +559,7 @@ begin
   Subtotal := Printer.GetSubtotal;
   PayAmount := Printer.CurrencyToInt(Payment);
   FPayments[PayCode] := FPayments[PayCode] + PayAmount;
-  if GetPaymentTotal > Subtotal then
+  if Parameters.CorrectCashlessAmount and (GetPaymentTotal > Subtotal) then
   begin
     DiffAmount := Abs(GetPaymentTotal - Subtotal);
     if FPayments[0] < DiffAmount then

@@ -43,11 +43,10 @@ type
 
   TTLV = class
   private
+    FTag: Word;
     FOwner: TTLVList;
     FData: AnsiString;
     FItems: TTLVList;
-    FLen: Word;
-    FTag: Word;
     procedure SetOwner(AOwner: TTLVList);
     function GetRawData: AnsiString;
   public
@@ -57,7 +56,6 @@ type
     property Data: AnsiString read FData write FData;
     property RawData: AnsiString read GetRawData;
     property Tag: Word read FTag write FTag;
-    property Len: Word read FLen write FLen;
   end;
 
 function TagToStr(TagID: Integer; const Data: AnsiString): AnsiString;
@@ -240,17 +238,17 @@ begin
 end;
 
 function TTLV.GetRawData: AnsiString;
+var
+  Len: Integer;
 begin
   if FData = '' then
   begin
     Result := FItems.GetRawData;
-    FLen := Length(Result);
+    Len := Length(Result);
     Result := TTLVTag.Int2ValueTLV(Tag, 2) + TTLVTag.Int2ValueTLV(Len, 2) + Result;
-  end
-  else
+  end else
   begin
-    FLen := Length(Data);
-    Result := TTLVTag.Int2ValueTLV(Tag, 2) + TTLVTag.Int2ValueTLV(Len, 2) + Data;
+    Result := Data;
   end;
 end;
 

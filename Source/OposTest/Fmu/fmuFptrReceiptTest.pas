@@ -116,6 +116,8 @@ begin
   AddTest(T6DigitsQuantityTest);
   AddTest(TDiscountModeTest);
   AddTest(TLongItemTextTest);
+  AddTest(TWriteTagTest);
+  AddTest(TWriteSTLVTest);
 
   cbTest.ItemIndex := 0;
 end;

@@ -962,6 +962,70 @@ type
     property Device: IFiscalPrinterDevice read GetDevice;
   end;
 
+  { TDIOSTLVBegin }
+
+  TDIOSTLVBegin = class(TDIOHandler)
+  private
+    FPrinter: TFiscalPrinterImpl;
+  public
+    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
+      APrinter: TFiscalPrinterImpl);
+
+    procedure DirectIO(var pData: Integer; var pString: WideString); override;
+    property Printer: TFiscalPrinterImpl read FPrinter;
+  end;
+
+  { TDIOSTLVAddTag }
+
+  TDIOSTLVAddTag = class(TDIOHandler)
+  private
+    FPrinter: TFiscalPrinterImpl;
+  public
+    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
+      APrinter: TFiscalPrinterImpl);
+
+    procedure DirectIO(var pData: Integer; var pString: WideString); override;
+    property Printer: TFiscalPrinterImpl read FPrinter;
+  end;
+
+  { TDIOSTLVWrite }
+
+  TDIOSTLVWrite = class(TDIOHandler)
+  private
+    FPrinter: TFiscalPrinterImpl;
+  public
+    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
+      APrinter: TFiscalPrinterImpl);
+
+    procedure DirectIO(var pData: Integer; var pString: WideString); override;
+    property Printer: TFiscalPrinterImpl read FPrinter;
+  end;
+
+  { TDIOSTLVWriteOp }
+
+  TDIOSTLVWriteOp = class(TDIOHandler)
+  private
+    FPrinter: TFiscalPrinterImpl;
+  public
+    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
+      APrinter: TFiscalPrinterImpl);
+
+    procedure DirectIO(var pData: Integer; var pString: WideString); override;
+    property Printer: TFiscalPrinterImpl read FPrinter;
+  end;
+
+  { TDIOSTLVGetHex }
+
+  TDIOSTLVGetHex = class(TDIOHandler)
+  private
+    FPrinter: TFiscalPrinterImpl;
+  public
+    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
+      APrinter: TFiscalPrinterImpl);
+
+    procedure DirectIO(var pData: Integer; var pString: WideString); override;
+    property Printer: TFiscalPrinterImpl read FPrinter;
+  end;
 
 implementation
 
@@ -2832,5 +2896,81 @@ begin
   Printer.FSWriteTagOperation(pData, pString);
 end;
 
+
+{ TDIOSTLVBegin }
+
+constructor TDIOSTLVBegin.CreateCommand(AOwner: TDIOHandlers;
+  ACommand: Integer; APrinter: TFiscalPrinterImpl);
+begin
+  inherited Create(AOwner, ACommand);
+  FPrinter := APrinter;
+end;
+
+procedure TDIOSTLVBegin.DirectIO(var pData: Integer;
+  var pString: WideString);
+begin
+  Printer.Device.STLVBegin(pData);
+end;
+
+{ TDIOSTLVAddTag }
+
+constructor TDIOSTLVAddTag.CreateCommand(AOwner: TDIOHandlers;
+  ACommand: Integer; APrinter: TFiscalPrinterImpl);
+begin
+  inherited Create(AOwner, ACommand);
+  FPrinter := APrinter;
+end;
+
+procedure TDIOSTLVAddTag.DirectIO(var pData: Integer;
+  var pString: WideString);
+begin
+  Printer.Device.STLVAddTag(pData, pString);
+end;
+
+{ TDIOSTLVGetHex }
+
+constructor TDIOSTLVGetHex.CreateCommand(AOwner: TDIOHandlers;
+  ACommand: Integer; APrinter: TFiscalPrinterImpl);
+begin
+  inherited Create(AOwner, ACommand);
+  FPrinter := APrinter;
+end;
+
+procedure TDIOSTLVGetHex.DirectIO(var pData: Integer;
+  var pString: WideString);
+begin
+  pString := Printer.Device.STLVGetHex;
+end;
+
+{ TDIOSTLVWrite }
+
+constructor TDIOSTLVWrite.CreateCommand(AOwner: TDIOHandlers;
+  ACommand: Integer; APrinter: TFiscalPrinterImpl);
+begin
+  inherited Create(AOwner, ACommand);
+  FPrinter := APrinter;
+end;
+
+procedure TDIOSTLVWrite.DirectIO(var pData: Integer;
+  var pString: WideString);
+begin
+  Printer.Device.STLVWrite;
+end;
+
+
+{ TDIOSTLVWriteOp }
+
+constructor TDIOSTLVWriteOp.CreateCommand(AOwner: TDIOHandlers;
+  ACommand: Integer; APrinter: TFiscalPrinterImpl);
+begin
+  inherited Create(AOwner, ACommand);
+  FPrinter := APrinter;
+end;
+
+procedure TDIOSTLVWriteOp.DirectIO(var pData: Integer;
+  var pString: WideString);
+begin
+  Printer.Device.STLVWriteOp;
+end;
 
 end.

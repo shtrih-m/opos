@@ -243,8 +243,8 @@ type
 
     function FSReadState(var R: TFSState): Integer;
     function FSWriteTLV(const TLVData: AnsiString): Integer;
-    function FSSale(const P: TFSSale): Integer;
-    function FSStorno(const P: TFSSale): Integer;
+    function FSSale(P: TFSSale): Integer;
+    function FSStorno(P: TFSSale): Integer;
     function FSReadStatus(var R: TFSStatus): Integer;
     function FSReadBlock(const P: TFSBlockRequest; var Block: AnsiString): Integer;
     function FSStartWrite(DataSize: Word; var BlockSize: Byte): Integer;
@@ -285,7 +285,7 @@ type
     function ReadLoaderVersion(var Version: WideString): Integer;
     function ReceiptClose2(const P: TFSCloseReceiptParams2;
       var R: TFSCloseReceiptResult2): Integer;
-    function FSSale2(const P: TFSSale2): Integer;
+    function FSSale2(P: TFSSale2): Integer;
     function GetCapFSCloseReceipt2: Boolean;
     procedure CancelReceipt;
     function FSFiscalization(const P: TFSFiscalization; var R: TFDDocument): Integer;
@@ -315,6 +315,11 @@ type
       var R: TFSCheckItemResult): Integer;
     function FSAcceptItemCode(Action: Integer): Integer;
     function FSBindItemCode(CodeLen: Integer; var R: TFSCheckItemResult): Integer;
+    procedure STLVBegin(TagID: Integer);
+    procedure STLVAddTag(TagID: Integer; TagValue: string);
+    function STLVGetHex: string;
+    procedure STLVWrite;
+    procedure STLVWriteOp;
 
     property Status: TPrinterStatus read FStatus write FStatus;
     property Parameters: TPrinterParameters read GetParameters;
@@ -1396,8 +1401,7 @@ begin
   Result := FStatus;
 end;
 
-function TMockFiscalPrinterDevice.FSSale(
-  const P: TFSSale): Integer;
+function TMockFiscalPrinterDevice.FSSale(P: TFSSale): Integer;
 var
   P1: PFSSale;
 begin
@@ -1407,7 +1411,7 @@ begin
   AddCall('FSSale').WithParams([Integer(P1)]).Returns(0);
 end;
 
-function TMockFiscalPrinterDevice.FSSale2(const P: TFSSale2): Integer;
+function TMockFiscalPrinterDevice.FSSale2(P: TFSSale2): Integer;
 var
   P1: TFSSale2Object;
 begin
@@ -1417,8 +1421,7 @@ begin
   AddCall('FSSale2').WithParams([Integer(P1)]).Returns(0);
 end;
 
-function TMockFiscalPrinterDevice.FSStorno(
-  const P: TFSSale): Integer;
+function TMockFiscalPrinterDevice.FSStorno(P: TFSSale): Integer;
 begin
   Result := 0;
 end;
@@ -1833,6 +1836,32 @@ function TMockFiscalPrinterDevice.FSCheckItemCode(
   const P: TFSCheckItemCode; var R: TFSCheckItemResult): Integer;
 begin
   Result := 0;
+end;
+
+procedure TMockFiscalPrinterDevice.STLVAddTag(TagID: Integer;
+  TagValue: string);
+begin
+
+end;
+
+procedure TMockFiscalPrinterDevice.STLVBegin(TagID: Integer);
+begin
+
+end;
+
+function TMockFiscalPrinterDevice.STLVGetHex: string;
+begin
+
+end;
+
+procedure TMockFiscalPrinterDevice.STLVWrite;
+begin
+
+end;
+
+procedure TMockFiscalPrinterDevice.STLVWriteOp;
+begin
+
 end;
 
 end.

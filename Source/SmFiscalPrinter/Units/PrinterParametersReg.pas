@@ -503,7 +503,10 @@ begin
         FParameters.ModelId := Reg.ReadInteger('ModelId');
 
       if Reg.ValueExists('TrimItemText') then
-        FParameters.TrimItemText := Reg.ReadBool('TrimItemText');
+        FParameters.ItemTextMode := Reg.ReadInteger('ItemTextMode');
+
+      if Reg.ValueExists('CorrectCashlessAmount') then
+        FParameters.CorrectCashlessAmount := Reg.ReadBool('CorrectCashlessAmount');
 
       // VatCodes
       if Reg.OpenKey(REG_KEY_VATCODES, False) then
@@ -673,7 +676,8 @@ begin
     Reg.WriteInteger('DiscountMode', FParameters.DiscountMode);
     Reg.WriteBool('IgnoreDirectIOErrors', FParameters.IgnoreDirectIOErrors);
     Reg.WriteInteger('ModelId', FParameters.ModelId);
-    Reg.WriteBool('TrimItemText', FParameters.TrimItemText);
+    Reg.WriteInteger('ItemTextMode', FParameters.ItemTextMode);
+    Reg.WriteBool('CorrectCashlessAmount', FParameters.CorrectCashlessAmount);
 
     // VatCodes
     Reg.DeleteKey(REG_KEY_VATCODES);

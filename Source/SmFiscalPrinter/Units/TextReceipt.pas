@@ -495,7 +495,7 @@ begin
   // Check payment code
   PayCode := Printer.GetPayCode(Description);
   PayAmount := Printer.CurrencyToInt(Payment);
-  if IsCashlessPayCode(PayCode) and ((PayAmount + GetPayment) > FTotal) then
+  if Parameters.CorrectCashlessAmount and IsCashlessPayCode(PayCode) and ((PayAmount + GetPayment) > FTotal) then
     PayAmount := FTotal - GetPayment;
 
   FPayments[PayCode] := FPayments[PayCode] + PayAmount;

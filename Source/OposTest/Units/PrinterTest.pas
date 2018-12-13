@@ -6,7 +6,7 @@ uses
   // VCL
   Windows, Forms, Classes, SysUtils, Math,
   // Tnt
-  TntSysUtils, TntStdCtrls, TntRegistry, TntClasses, 
+  TntSysUtils, TntStdCtrls, TntRegistry, TntClasses,
   // This
   DriverTest, Opos, OposUtils, OposFiscalPrinter, OPOSDate, OposFptr,
   StringUtils, DirectIOAPI, FileUtils, PrinterParameters, SMFiscalPrinter;
@@ -827,6 +827,22 @@ type
   { TLongItemTextTest }
 
   TLongItemTextTest = class(TDriverTest)
+  public
+    procedure Execute; override;
+    function GetDisplayText: WideString; override;
+  end;
+
+  { TWriteTagTest }
+
+  TWriteTagTest = class(TDriverTest)
+  public
+    procedure Execute; override;
+    function GetDisplayText: WideString; override;
+  end;
+
+  { TWriteSTLVTest }
+
+  TWriteSTLVTest = class(TDriverTest)
   public
     procedure Execute; override;
     function GetDisplayText: WideString; override;
@@ -4834,6 +4850,48 @@ end;
 function TLongItemTextTest.GetDisplayText: WideString;
 begin
   Result := 'Long item text test';
+end;
+
+{ TWriteTagTest }
+
+procedure TWriteTagTest.Execute;
+begin
+  Check(FiscalPrinter.ResetPrinter());
+  FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
+  Check(FiscalPrinter.BeginFiscalReceipt(True));
+  Check(FiscalPrinter.FSWriteTag(1171, '+79191234567'));
+  //Check(FiscalPrinter.DirectIO(65, 1226, '641300178119')); !!!
+
+  Check(FiscalPrinter.PrintRecItem(StringOfChar('1', 200), 1, 1000, 1, 0, ''));
+  Check(FiscalPrinter.PrintRecTotal(100000, 100000, ''));
+  Check(FiscalPrinter.EndFiscalReceipt(True));
+end;
+
+function TWriteTagTest.GetDisplayText: WideString;
+begin
+  Result := 'Write tag test';
+end;
+
+{ TWriteSTLVTest }
+
+procedure TWriteSTLVTest.Execute;
+begin
+  Check(FiscalPrinter.ResetPrinter());
+  FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
+  Check(FiscalPrinter.BeginFiscalReceipt(True));
+  Check(FiscalPrinter.PrintRecItem(StringOfChar('1', 200), 1, 1000, 1, 0, ''));
+
+  Check(FiscalPrinter.STLVBegin(1059));
+  Check(FiscalPrinter.STLVAddTag(1226, '641300178119'));
+  Check(FiscalPrinter.STLVWriteOp);
+
+  Check(FiscalPrinter.PrintRecTotal(100000, 100000, ''));
+  Check(FiscalPrinter.EndFiscalReceipt(True));
+end;
+
+function TWriteSTLVTest.GetDisplayText: WideString;
+begin
+  Result := 'Write TLV test';
 end;
 
 end.

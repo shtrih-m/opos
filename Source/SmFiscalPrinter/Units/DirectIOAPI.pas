@@ -91,6 +91,12 @@ const
   DIO_CLEAR_LOGO                = 64; // Clear Logo
   DIO_WRITE_FS_STRING_TAG_OP    = 65; // Write string tag bound to operation
 
+  DIO_STLV_BEGIN                = 66; // Clear TLV
+  DIO_STLV_ADD_TAG              = 67; // Add tag value
+  DIO_STLV_GET_HEX              = 68; // Get TLV value
+  DIO_STLV_WRITE                = 69; // Write tag value
+  DIO_STLV_WRITE_OP             = 70; // Write tag value to operation
+
 
   // Read document from fiscal storage device
   DIO_READ_FS_DOCUMENT            = 96;

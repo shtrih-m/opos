@@ -37,6 +37,13 @@ object fmFptrText: TfmFptrText
     Height = 13
     Caption = 'Separator line:'
   end
+  object TntLabel1: TTntLabel
+    Left = 16
+    Top = 280
+    Width = 72
+    Height = 13
+    Caption = 'Item text mode:'
+  end
   object gbTextParameters: TTntGroupBox
     Left = 8
     Top = 8
@@ -156,12 +163,17 @@ object fmFptrText: TfmFptrText
       'Dashed line'
       'Solid line')
   end
-  object chbTrimItemText: TTntCheckBox
-    Left = 16
+  object cbItemTextMode: TTntComboBox
+    Left = 136
     Top = 280
-    Width = 185
-    Height = 17
-    Caption = 'Trim item text'
+    Width = 201
+    Height = 21
+    Style = csDropDownList
+    ItemHeight = 13
     TabOrder = 5
+    Items.Strings = (
+      'None'
+      'Trim in print width'
+      'Print with text lines')
   end
 end

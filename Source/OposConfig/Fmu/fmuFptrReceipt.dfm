@@ -286,5 +286,15 @@ object fmFptrReceipt: TfmFptrReceipt
         '0 - Discount has effect on price and amount'
         '1 - Discount has no effect ')
     end
+    object chbCorrectCashlessAmount: TTntCheckBox
+      Left = 8
+      Top = 392
+      Width = 465
+      Height = 17
+      Caption = 
+        'Correct cashless amount (Cashless amount must be equal to receip' +
+        't subtotal)'
+      TabOrder = 15
+    end
   end
 end

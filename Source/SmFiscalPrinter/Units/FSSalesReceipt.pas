@@ -771,7 +771,7 @@ begin
   PayCode := Printer.GetPayCode(Description);
   Subtotal := GetTotal;
   PayAmount := Printer.CurrencyToInt(Payment);
-  if IsCashlessPayCode(PayCode) and ((PayAmount + GetPaymentTotal) > Subtotal) then
+  if Parameters.CorrectCashlessAmount and (IsCashlessPayCode(PayCode) and ((PayAmount + GetPaymentTotal) > Subtotal)) then
     PayAmount := Subtotal - GetPaymentTotal;
 
   FPayments[PayCode] := FPayments[PayCode] + PayAmount;
@@ -1648,6 +1648,7 @@ begin
   Item := TTLVOperationReceiptItem.Create(FReceiptItems);
   Item.Data := TLVData;
 end;
+
 
 function TFSSalesReceipt.GetDevice: IFiscalPrinterDevice;
 begin

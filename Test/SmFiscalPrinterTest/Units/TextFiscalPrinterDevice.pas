@@ -246,10 +246,10 @@ type
 
     function FSReadState(var R: TFSState): Integer;
     function FSWriteTLV(const TLVData: AnsiString): Integer;
-    function FSSale(const P: TFSSale): Integer;
-    function FSSale2(const P: TFSSale2): Integer;
+    function FSSale(P: TFSSale): Integer;
+    function FSSale2(P: TFSSale2): Integer;
     function GetCapFSCloseReceipt2: Boolean;
-    function FSStorno(const P: TFSSale): Integer;
+    function FSStorno(P: TFSSale): Integer;
     function FSReadStatus(var R: TFSStatus): Integer;
     function FSReadBlock(const P: TFSBlockRequest; var Block: AnsiString): Integer;
     function FSStartWrite(DataSize: Word; var BlockSize: Byte): Integer;
@@ -315,6 +315,11 @@ type
       var R: TFSCheckItemResult): Integer;
     function FSAcceptItemCode(Action: Integer): Integer;
     function FSBindItemCode(CodeLen: Integer; var R: TFSCheckItemResult): Integer;
+    procedure STLVBegin(TagID: Integer);
+    procedure STLVAddTag(TagID: Integer; TagValue: string);
+    function STLVGetHex: string;
+    procedure STLVWrite;
+    procedure STLVWriteOp;
 
     property RecStation: TStrings read FRecStation;
     property JrnStation: TStrings read FJrnStation;
@@ -1398,15 +1403,13 @@ begin
 
 end;
 
-function TTextFiscalPrinterDevice.FSSale(
-  const P: TFSSale): Integer;
+function TTextFiscalPrinterDevice.FSSale(P: TFSSale): Integer;
 begin
   Result := 0;
 
 end;
 
-function TTextFiscalPrinterDevice.FSStorno(
-  const P: TFSSale): Integer;
+function TTextFiscalPrinterDevice.FSStorno(P: TFSSale): Integer;
 begin
   Result := 0;
 end;
@@ -1650,10 +1653,9 @@ begin
   Result := 0;
 end;
 
-function TTextFiscalPrinterDevice.FSSale2(const P: TFSSale2): Integer;
+function TTextFiscalPrinterDevice.FSSale2(P: TFSSale2): Integer;
 begin
   Result := 0;
-
 end;
 
 function TTextFiscalPrinterDevice.GetCapFSCloseReceipt2: Boolean;
@@ -1835,6 +1837,32 @@ function TTextFiscalPrinterDevice.FSCheckItemCode(
   const P: TFSCheckItemCode; var R: TFSCheckItemResult): Integer;
 begin
   Result := 0;
+end;
+
+procedure TTextFiscalPrinterDevice.STLVAddTag(TagID: Integer;
+  TagValue: string);
+begin
+
+end;
+
+procedure TTextFiscalPrinterDevice.STLVBegin(TagID: Integer);
+begin
+
+end;
+
+function TTextFiscalPrinterDevice.STLVGetHex: string;
+begin
+
+end;
+
+procedure TTextFiscalPrinterDevice.STLVWrite;
+begin
+
+end;
+
+procedure TTextFiscalPrinterDevice.STLVWriteOp;
+begin
+
 end;
 
 end.

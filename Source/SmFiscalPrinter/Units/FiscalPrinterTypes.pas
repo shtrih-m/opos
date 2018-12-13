@@ -402,9 +402,9 @@ type
 
     function FSReadState(var R: TFSState): Integer;
     function FSWriteTLV(const TLVData: AnsiString): Integer;
-    function FSSale(const P: TFSSale): Integer;
-    function FSSale2(const P: TFSSale2): Integer;
-    function FSStorno(const P: TFSSale): Integer;
+    function FSSale(P: TFSSale): Integer;
+    function FSSale2(P: TFSSale2): Integer;
+    function FSStorno(P: TFSSale): Integer;
     function FSReadStatus(var R: TFSStatus): Integer;
     function FSReadBlock(const P: TFSBlockRequest; var Block: AnsiString): Integer;
     function FSStartWrite(DataSize: Word; var BlockSize: Byte): Integer;
@@ -473,6 +473,11 @@ type
       var R: TFSCheckItemResult): Integer;
     function FSAcceptItemCode(Action: Integer): Integer;
     function FSBindItemCode(CodeLen: Integer; var R: TFSCheckItemResult): Integer;
+    procedure STLVBegin(TagID: Integer);
+    procedure STLVAddTag(TagID: Integer; TagValue: string);
+    function STLVGetHex: string;
+    procedure STLVWrite;
+    procedure STLVWriteOp;
 
     property LastMacValue: Int64 read GetLastMacValue;
     property LastDocNumber: Int64 read GetLastDocNumber;

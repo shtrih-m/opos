@@ -685,6 +685,11 @@ begin
   TDIOWriteTlvHex.CreateCommand(FDIOHandlers, DIO_WRITE_FS_TLV_HEX, Self);
   TDIOWriteTlvOperation.CreateCommand(FDIOHandlers, DIO_WRITE_FS_TLV_OP_HEX, Self);
   TDIOWriteStringTagOp.CreateCommand(FDIOHandlers, DIO_WRITE_FS_STRING_TAG_OP, Self);
+  TDIOSTLVBegin.CreateCommand(FDIOHandlers, DIO_STLV_BEGIN, Self);
+  TDIOSTLVAddTag.CreateCommand(FDIOHandlers, DIO_STLV_ADD_TAG, Self);
+  TDIOSTLVWrite.CreateCommand(FDIOHandlers, DIO_STLV_WRITE, Self);
+  TDIOSTLVWriteOp.CreateCommand(FDIOHandlers, DIO_STLV_WRITE_OP, Self);
+  TDIOSTLVGetHex.CreateCommand(FDIOHandlers, DIO_STLV_GET_HEX, Self);
 end;
 
 procedure TFiscalPrinterImpl.CreateDIOHandlers1;
@@ -769,6 +774,12 @@ begin
   TDIOWriteTlvHex.CreateCommand(FDIOHandlers, DIO_WRITE_FS_TLV_HEX, Self);
   TDIOWriteTlvOperation.CreateCommand(FDIOHandlers, DIO_WRITE_FS_TLV_OP_HEX, Self);
   TDIOWriteStringTagOp.CreateCommand(FDIOHandlers, DIO_WRITE_FS_STRING_TAG_OP, Self);
+  TDIOSTLVBegin.CreateCommand(FDIOHandlers, DIO_STLV_BEGIN, Self);
+  TDIOSTLVAddTag.CreateCommand(FDIOHandlers, DIO_STLV_ADD_TAG, Self);
+  TDIOSTLVWrite.CreateCommand(FDIOHandlers, DIO_STLV_WRITE, Self);
+  TDIOSTLVWriteOp.CreateCommand(FDIOHandlers, DIO_STLV_WRITE_OP, Self);
+  TDIOSTLVWriteOp.CreateCommand(FDIOHandlers, DIO_STLV_WRITE_OP, Self);
+  TDIOSTLVGetHex.CreateCommand(FDIOHandlers, DIO_STLV_GET_HEX, Self);
 end;
 
 procedure TFiscalPrinterImpl.CreateDIOHandlers2;
@@ -854,6 +865,10 @@ begin
   TDIOWriteTlvHex.CreateCommand(FDIOHandlers, DIO_WRITE_FS_TLV_HEX, Self);
   TDIOWriteTlvOperation.CreateCommand(FDIOHandlers, DIO_WRITE_FS_TLV_OP_HEX, Self);
   TDIOWriteStringTagOp.CreateCommand(FDIOHandlers, DIO_WRITE_FS_STRING_TAG_OP, Self);
+  TDIOSTLVBegin.CreateCommand(FDIOHandlers, DIO_STLV_BEGIN, Self);
+  TDIOSTLVAddTag.CreateCommand(FDIOHandlers, DIO_STLV_ADD_TAG, Self);
+  TDIOSTLVWrite.CreateCommand(FDIOHandlers, DIO_STLV_WRITE, Self);
+  TDIOSTLVGetHex.CreateCommand(FDIOHandlers, DIO_STLV_GET_HEX, Self);
 end;
 
 procedure TFiscalPrinterImpl.SetPrinter(APrinter: ISharedPrinter);
@@ -4547,7 +4562,8 @@ begin
   FSWriteTLV(TagToStr(TagID, Data));
 end;
 
-procedure TFiscalPrinterImpl.FSWriteTagOperation(TagID: Integer; const Data: WideString);
+procedure TFiscalPrinterImpl.FSWriteTagOperation(TagID: Integer;
+  const Data: WideString);
 begin
   FSWriteTLVOperation(TagToStr(TagID, Data));
 end;
@@ -4561,6 +4577,7 @@ procedure TFiscalPrinterImpl.FSWriteTlvOperation(const TLVData: WideString);
 begin
   Receipt.FSWriteTlvOperation(TLVData);
 end;
+
 
 function TFiscalPrinterImpl.GetParameters: TPrinterParameters;
 begin
@@ -4749,7 +4766,6 @@ begin
     raiseException(_('Invalid pData parameter value'));
   end;
 end;
-
 
 end.
 

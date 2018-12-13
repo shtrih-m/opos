@@ -568,7 +568,7 @@ begin
     raiseOposException(OPOS_E_ILLEGAL, _('Неверный код типа оплаты'));
 
   PayAmount := Printer.CurrencyToInt(Payment);
-  if IsCashlessPayCode(PayCode) and ((PayAmount + GetPayment) > FTotal) then
+  if Parameters.CorrectCashlessAmount and IsCashlessPayCode(PayCode) and ((PayAmount + GetPayment) > FTotal) then
     PayAmount := FTotal - GetPayment;
 
   FPayments[PayCode] := FPayments[PayCode] + PayAmount;

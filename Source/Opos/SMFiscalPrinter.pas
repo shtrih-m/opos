@@ -437,6 +437,12 @@ type
     function PrintText(const Text: WideString; Font: Integer): Integer;
     function ReadTable(Table, Row, Field: Integer; var Value: WideString): Integer;
     function FSPrintCalcReport: Integer;
+    function STLVBegin(TagNumber: Integer): Integer;
+    function STLVAddTag(TagNumber: Integer; const TagValue: string): Integer;
+    function STLVWrite: Integer;
+    function STLVWriteOp: Integer;
+    function STLVGetHex: string;
+
     property FontNumber: Integer read Get_FontNumber write Set_FontNumber;
   end;
 
@@ -2012,6 +2018,58 @@ begin
   pData := 0;
   pString := Barcode;
   Result := Driver.DirectIO(DIO_CHECK_ITEM_CODE, pData, pString);
+end;
+
+function TSMFiscalPrinter.STLVBegin(TagNumber: Integer): Integer;
+var
+  pData: Integer;
+  pString: WideString;
+begin
+  pData := TagNumber;
+  pString := '';
+  Result := Driver.DirectIO(DIO_STLV_BEGIN, pData, pString);
+end;
+
+function TSMFiscalPrinter.STLVAddTag(TagNumber: Integer;
+  const TagValue: string): Integer;
+var
+  pData: Integer;
+  pString: WideString;
+begin
+  pData := TagNumber;
+  pString := TagValue;
+  Result := Driver.DirectIO(DIO_STLV_ADD_TAG, pData, pString);
+end;
+
+function TSMFiscalPrinter.STLVWrite: Integer;
+var
+  pData: Integer;
+  pString: WideString;
+begin
+  pData := 0;
+  pString := '';
+  Result := Driver.DirectIO(DIO_STLV_WRITE, pData, pString);
+end;
+
+function TSMFiscalPrinter.STLVWriteOp: Integer;
+var
+  pData: Integer;
+  pString: WideString;
+begin
+  pData := 0;
+  pString := '';
+  Result := Driver.DirectIO(DIO_STLV_WRITE_OP, pData, pString);
+end;
+
+function TSMFiscalPrinter.STLVGetHex: string;
+var
+  pData: Integer;
+  pString: WideString;
+begin
+  pData := 0;
+  pString := '';
+  Check(Driver.DirectIO(DIO_STLV_GET_HEX, pData, pString));
+  Result := pString;
 end;
 
 end.
