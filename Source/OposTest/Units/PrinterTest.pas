@@ -848,6 +848,22 @@ type
     function GetDisplayText: WideString; override;
   end;
 
+  { TReceiptTest22 }
+
+  TReceiptTest22 = class(TDriverTest)
+  public
+    procedure Execute; override;
+    function GetDisplayText: WideString; override;
+  end;
+
+  { TReceiptTest23 }
+
+  TReceiptTest23 = class(TDriverTest)
+  public
+    procedure Execute; override;
+    function GetDisplayText: WideString; override;
+  end;
+
 implementation
 
 const
@@ -4892,6 +4908,62 @@ end;
 function TWriteSTLVTest.GetDisplayText: WideString;
 begin
   Result := 'Write TLV test';
+end;
+
+{ TReceiptTest22 }
+
+procedure TReceiptTest22.Execute;
+begin
+  Check(FiscalPrinter.ResetPrinter());
+  FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
+  Check(FiscalPrinter.BeginFiscalReceipt(True));
+  //Check(FiscalPrinter.DirectIO(30, 73, '1'));
+  Check(FiscalPrinter.PrintRecItem('ТРК 7:Аи-92-К5', 8600, 56210, 4, 153, 'л'));
+  Check(FiscalPrinter.PrintRecTotal(8600, 8600, '1'));
+  Check(FiscalPrinter.PrintRecMessage('Visa              №                '));
+  Check(FiscalPrinter.PrintRecMessage('Оператор: ts'));
+  Check(FiscalPrinter.PrintRecMessage('Транз.:       1676 '));
+  Check(FiscalPrinter.EndFiscalReceipt(False));
+end;
+
+function TReceiptTest22.GetDisplayText: WideString;
+begin
+  Result := 'Receipt test 22';
+end;
+
+{ TReceiptTest23 }
+
+procedure TReceiptTest23.Execute;
+begin
+  FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
+  Check(FiscalPrinter.BeginFiscalReceipt(True));
+  Check(FiscalPrinter.PrintRecItem('1:3757 Бананы 1кг', 0.01, 1, 1, 10, 'кг'));
+
+  Check(FiscalPrinter.FSWriteTagOperation(1222, '5'));
+  Check(FiscalPrinter.FSWriteTagOperation(1226, '641300178119'));
+
+
+  Check(FiscalPrinter.STLVBegin(1224));
+  Check(FiscalPrinter.STLVAddTag(1225, 'ООО "ТПМ групп"'));
+  Check(FiscalPrinter.STLVAddTag(1171, '8-926-123-45-67'));
+  Check(FiscalPrinter.STLVWriteOp);
+
+
+  Check(FiscalPrinter.PrintRecItem('2:148 Сыр ПОСАД 30% 1кг ', 0, 1, 3, 0, 'кг'));
+  Check(FiscalPrinter.PrintRecItem('3:1488 Карамель МОСКОВСКАЯ 1кг', 0, 1, 1, 2.9, 'кг'));
+  Check(FiscalPrinter.PrintRecItem('4:3757 Бананы 1кг', 0.03, 3, 1, 10, 'кг'));
+  Check(FiscalPrinter.PrintRecItem('5:902 СПм Антрек.из внут/верх.зад.1кг', 0.06, 7, 2, 8.58, 'кг'));
+  Check(FiscalPrinter.PrintRecItem('6:448 Кумкват 1кг ', 0.02, 11, 3, 1.82, 'кг'));
+  Check(FiscalPrinter.PrintRecItem('7:888 СПм Внутр.и верх.задняя 1кг', 0.27, 157, 2, 1.72, 'кг'));
+  Check(FiscalPrinter.PrintRecSubtotal(0.39));
+  Check(FiscalPrinter.PrintRecSubtotalAdjustment(1, 'ОКРУГЛЕНИЕ', 0.38));
+  Check(FiscalPrinter.PrintRecTotal(0, 0.01, '0'));
+  FiscalPrinter.EndFiscalReceipt(True);
+end;
+
+function TReceiptTest23.GetDisplayText: WideString;
+begin
+  Result := 'Receipt test 23';
 end;
 
 end.

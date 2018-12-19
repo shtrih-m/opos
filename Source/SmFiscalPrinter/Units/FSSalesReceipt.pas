@@ -971,6 +971,7 @@ begin
       Device.PrintBarcode2((ReceiptItem as TBarcodeReceiptItem).Data);
     end;
   end;
+
   // Write tags after all items
   for i := 0 to FReceiptItems.Count-1 do
   begin
@@ -978,10 +979,6 @@ begin
     if ReceiptItem is TTLVReceiptItem then
     begin
       Device.FsWriteTLV((ReceiptItem as TTLVReceiptItem).Data);
-    end;
-    if ReceiptItem is TTLVOperationReceiptItem then
-    begin
-      Device.FsWriteTLVOperation((ReceiptItem as TTLVOperationReceiptItem).Data);
     end;
   end;
 end;
@@ -1002,9 +999,11 @@ procedure TFSSalesReceipt.PrintFSSale(Item: TFSSaleItem);
 
 
 var
+  i: Integer;
   FSSale2: TFSSale2;
-  FSRegistration: TFSSale;
   Operation: TPriceReg;
+  FSRegistration: TFSSale;
+  ReceiptItem: TReceiptItem;
 begin
   if Item.PreLine <> '' then
     PrintText2(Item.PreLine);
@@ -1054,6 +1053,15 @@ begin
   end else
   begin
     Printer.Storno(Operation);
+  end;
+  // Tags bounded to operation
+  for i := 0 to Item.Tags.Count-1 do
+  begin
+    ReceiptItem := Item.Tags[i];
+    if ReceiptItem is TTLVOperationReceiptItem then
+    begin
+      Device.FsWriteTLVOperation((ReceiptItem as TTLVOperationReceiptItem).Data);
+    end;
   end;
 
   if Parameters.RecPrintType = RecPrintTypeDriver then
@@ -1645,10 +1653,12 @@ procedure TFSSalesReceipt.FSWriteTLVOperation(const TLVData: WideString);
 var
   Item: TTLVOperationReceiptItem;
 begin
-  Item := TTLVOperationReceiptItem.Create(FReceiptItems);
+  if FLastItem = nil then
+    raiseException(_('Не задан последний элемент чека'));
+
+  Item := TTLVOperationReceiptItem.Create(FLastItem.Tags);
   Item.Data := TLVData;
 end;
-
 
 function TFSSalesReceipt.GetDevice: IFiscalPrinterDevice;
 begin

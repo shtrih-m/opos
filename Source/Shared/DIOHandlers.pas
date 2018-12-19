@@ -2954,7 +2954,7 @@ end;
 procedure TDIOSTLVWrite.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
-  Printer.Device.STLVWrite;
+  Printer.FSWriteTLV(HexToStr(Printer.Device.STLVGetHex));
 end;
 
 
@@ -2970,7 +2970,7 @@ end;
 procedure TDIOSTLVWriteOp.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
-  Printer.Device.STLVWriteOp;
+  Printer.FSWriteTLVOperation(HexToStr(Printer.Device.STLVGetHex));
 end;
 
 end.

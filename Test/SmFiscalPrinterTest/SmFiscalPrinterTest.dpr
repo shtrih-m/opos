@@ -212,13 +212,14 @@ uses
   EkmClient in '..\..\Source\SmFiscalPrinter\Units\EkmClient.pas',
   duGS1Barcode in 'Units\duGS1Barcode.pas',
   RegressTests in 'Units\RegressTests.pas',
-  duBitUtils in 'Units\duBitUtils.pas',
+  duTLV in 'Units\duTLV.pas',
   WException in '..\..\Source\Shared\WException.pas',
   CorrectionReceipt in '..\..\Source\SmFiscalPrinter\Units\CorrectionReceipt.pas',
   TntIniFiles in '..\..\Source\Shared\TntIniFiles.pas',
   BaseForm in '..\..\Source\Shared\BaseForm.pas',
   TranslationUtil in '..\..\Source\SmFiscalPrinter\Units\TranslationUtil.pas',
-  LangUtils in '..\..\Source\Shared\LangUtils.pas';
+  LangUtils in '..\..\Source\Shared\LangUtils.pas',
+  duBitUtils in 'Units\duBitUtils.pas';
 
 {$R *.RES}
 {$R ..\..\Source\SmFiscalPrinter\SmFiscalPrinter.TLB}

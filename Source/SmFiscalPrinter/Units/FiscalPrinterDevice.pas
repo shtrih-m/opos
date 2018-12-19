@@ -205,11 +205,6 @@ type
     function IsCorrectItemCode(const P: TFSCheckItemResult): Boolean;
     procedure CheckCorrectItemCode(const P: TFSCheckItemResult);
     function PrintItemText(const S: WideString): WideString;
-    function STLVGetHex: string;
-    procedure STLVWrite;
-    procedure STLVWriteOp;
-    procedure STLVBegin(TagID: Integer);
-    procedure STLVAddTag(TagID: Integer; TagValue: string);
   protected
     function GetMaxGraphicsWidthInBytes: Integer;
   public
@@ -467,6 +462,11 @@ type
       var R: TFSCheckItemResult): Integer;
     function FSAcceptItemCode(Action: Integer): Integer;
     function FSBindItemCode(CodeLen: Integer; var R: TFSCheckItemResult): Integer;
+    procedure STLVWrite;
+    procedure STLVWriteOp;
+    function STLVGetHex: string;
+    procedure STLVBegin(TagID: Integer);
+    procedure STLVAddTag(TagID: Integer; TagValue: string);
 
     property IsOnline: Boolean read GetIsOnline;
     property Tables: TPrinterTables read FTables;
@@ -9135,7 +9135,7 @@ end;
 
 function TFiscalPrinterDevice.STLVGetHex: string;
 begin
-  Result := StrToHexText(FSTLVTag.Items.GetRawData);
+  Result := StrToHexText(FSTLVTag.RawData);
 end;
 
 procedure TFiscalPrinterDevice.STLVWrite;

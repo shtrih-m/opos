@@ -118,6 +118,8 @@ begin
   AddTest(TLongItemTextTest);
   AddTest(TWriteTagTest);
   AddTest(TWriteSTLVTest);
+  AddTest(TReceiptTest22);
+  AddTest(TReceiptTest23);
 
   cbTest.ItemIndex := 0;
 end;

@@ -98,6 +98,7 @@ type
 
   TFSSaleItem = class(TReceiptItem)
   private
+    FTags: TReceiptItems;
     FPriceUpdated: Boolean;
     FSplittedItem: TFSSaleItem;
     FDiscounts: TReceiptItems;
@@ -105,6 +106,7 @@ type
 
     function GetPriceDiscount: Int64;
     function calcPriceWithDiscount: Int64;
+    function GetTags: TReceiptItems;
   public
     destructor Destroy; override;
   public
@@ -124,6 +126,7 @@ type
 
     property Total: Int64 read GetTotal;
     property Total2: Int64 read GetTotal2;
+    property Tags: TReceiptItems read GetTags;
     property PriceDiscount: Int64 read GetPriceDiscount;
     property Discounts: TReceiptItems read GetDiscounts;
     property SplittedItem: TFSSaleItem read FSplittedItem;
@@ -275,8 +278,16 @@ end;
 
 destructor TFSSaleItem.Destroy;
 begin
+  FTags.Free;
   FDiscounts.Free;
   inherited Destroy;
+end;
+
+function TFSSaleItem.GetTags: TReceiptItems;
+begin
+  if FTags = nil then
+    FTags := TReceiptItems.Create;
+  Result := FTags;
 end;
 
 function TFSSaleItem.GetAmount: int64;
