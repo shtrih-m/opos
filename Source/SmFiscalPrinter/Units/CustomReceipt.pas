@@ -481,16 +481,6 @@ begin
   Device.PrintBarcode2(Barcode);
 end;
 
-procedure TCustomReceipt.FSWriteTLV(const TLVData: WideString);
-begin
-  Device.Check(Device.FSWriteTLV(TLVData));
-end;
-
-procedure TCustomReceipt.FSWriteTLVOperation(const TLVData: WideString);
-begin
-  Device.Check(Device.FSWriteTLVOperation(TLVData));
-end;
-
 function TCustomReceipt.GetParameters: TPrinterParameters;
 begin
   Result := Printer.Printer.Parameters;
@@ -521,6 +511,14 @@ end;
 procedure TCustomReceipt.EndFiscalReceipt2;
 begin
 
+end;
+
+procedure TCustomReceipt.FSWriteTLV(const TLVData: WideString);
+begin
+end;
+
+procedure TCustomReceipt.FSWriteTLVOperation(const TLVData: WideString);
+begin
 end;
 
 end.

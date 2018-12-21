@@ -449,7 +449,7 @@ end;
 
 procedure TSharedPrinter.Close;
 begin
-  Logger.Error('TSharedPrinter.Close.0');
+  Logger.Error('TSharedPrinter.Close');
   try
     FOpened := False;
     FConnection := nil;
@@ -460,7 +460,7 @@ begin
       Logger.Error('TSharedPrinter.Close: ', E);
     end;
   end;
-  Logger.Error('TSharedPrinter.Close.1');
+  Logger.Error('TSharedPrinter.Close: OK');
 end;
 
 procedure TSharedPrinter.Open(const DeviceName: WideString);
