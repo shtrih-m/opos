@@ -243,6 +243,7 @@ type
 
     function FSReadState(var R: TFSState): Integer;
     function FSWriteTLV(const TLVData: AnsiString): Integer;
+    procedure FSWriteTLV2(const TLVData: AnsiString);
     function FSSale(P: TFSSale): Integer;
     function FSStorno(P: TFSSale): Integer;
     function FSReadStatus(var R: TFSStatus): Integer;
@@ -1860,6 +1861,11 @@ begin
 end;
 
 procedure TMockFiscalPrinterDevice.STLVWriteOp;
+begin
+
+end;
+
+procedure TMockFiscalPrinterDevice.FSWriteTLV2(const TLVData: AnsiString);
 begin
 
 end;

@@ -292,7 +292,9 @@ end;
 
 function TFSSaleItem.GetAmount: int64;
 begin
-  Result := Abs(Round2(Price * Quantity));
+  Result := Data.Amount;
+  if Result = 0 then
+    Result := Abs(Round2(Price * Quantity));
 end;
 
 function TFSSaleItem.GetTotal: Int64;

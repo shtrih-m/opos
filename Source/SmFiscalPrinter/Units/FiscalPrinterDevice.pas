@@ -419,6 +419,7 @@ type
     procedure PrintImageScale(const FileName: WideString; StartLine, Scale: Integer);
     procedure PrintTextFont(Station: Integer; Font: Integer; const Text: WideString);
     procedure LoadTables(const Path: WideString);
+    procedure FSWriteTLV2(const TLVData: AnsiString);
 
     function FSWriteTLV(const TLVData: AnsiString): Integer;
     function FSPrintCalcReport(var R: TFSCalcReport): Integer;
@@ -7039,6 +7040,7 @@ var
   Answer: AnsiString;
   Command: AnsiString;
 begin
+
   Command := #$FF#$0C + IntToBin(GetSysPassword, 4) + Copy(TLVData, 1, 250);
   Result := ExecuteData(Command, Answer);
 end;
@@ -9146,6 +9148,11 @@ end;
 procedure TFiscalPrinterDevice.STLVWriteOp;
 begin
   Check(FSWriteTLVOperation(FSTLVTag.RawData));
+end;
+
+procedure TFiscalPrinterDevice.FSWriteTLV2(const TLVData: AnsiString);
+begin
+  Check(FSWriteTLV(TLVData));
 end;
 
 end.

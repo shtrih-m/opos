@@ -410,12 +410,14 @@ begin
   if UnitPrice = 0 then
   begin
     // If no price - use single quanity cost
-    if Price <> 0  then Operation.Quantity := 1;
+    if Price <> 0 then Operation.Quantity := 1;
     Operation.Price := Printer.CurrencyToInt(Price);
+    Operation.Amount := Printer.CurrencyToInt(Price * Operation.Quantity);
   end else
   begin
     if Quantity = 0 then Operation.Quantity := 1;
     Operation.Price := Printer.CurrencyToInt(UnitPrice);
+    Operation.Amount := Printer.CurrencyToInt(Price);
   end;
   Operation.Tax := VatInfo;
   Operation.Text := Description;
@@ -538,6 +540,8 @@ begin
 
   Operation.Quantity := 1;
   Operation.Price := Printer.CurrencyToInt(Amount);
+  Operation.Amount := Operation.Price;
+
   Operation.Tax := VatInfo;
   Operation.Text := Description;
   Operation.Department := Parameters.Department;
@@ -565,6 +569,7 @@ begin
 
   Operation.Quantity := -1;
   Operation.Price := Printer.CurrencyToInt(Amount);
+  Operation.Amount := Operation.Price;
   Operation.Tax := VatInfo;
   Operation.Text := Description;
   Operation.Department := Parameters.Department;
@@ -978,7 +983,7 @@ begin
     ReceiptItem := ReceiptItems[i];
     if ReceiptItem is TTLVReceiptItem then
     begin
-      Device.FsWriteTLV((ReceiptItem as TTLVReceiptItem).Data);
+      Device.FsWriteTLV2((ReceiptItem as TTLVReceiptItem).Data);
     end;
   end;
 end;
@@ -1033,7 +1038,11 @@ begin
       FSSale2.RecType := REcTypeToOperation(FRecType);
       FSSale2.Quantity := Abs(FSRegistration.Quantity);
       FSSale2.Price := Item.PriceWithDiscount;
-      FSSale2.Total := StrToInt64Def(FSRegistration.Parameter1, $FFFFFFFFFF);
+      if FSRegistration.Parameter1 <> '' then
+        FSSale2.Total := StrToInt64Def(FSRegistration.Parameter1, $FFFFFFFFFF)
+      else
+        FSSale2.Total := FSRegistration.Amount;
+
       FSSale2.TaxAmount := StrToInt64Def(FSRegistration.Parameter2, $FFFFFFFFFF);
       FSSale2.Department := FSRegistration.Department;
       FSSale2.Tax := GetTax(FSRegistration.Text, FSRegistration.Tax);
@@ -1244,7 +1253,6 @@ begin
         CloseParams2.TaxSystem := StrToInt64Def(Parameters.Parameter7, 0);
         CloseParams2.Text := Parameters.CloseRecText;
         Device.Check(Device.ReceiptClose2(CloseParams2, CloseResult2));
-
       end else
       begin
         CloseParams.CashAmount := FPayments[0];
@@ -1389,6 +1397,7 @@ begin
 
   Operation.RecType := FRecType;
   Operation.Price := Printer.CurrencyToInt(Amount);
+  Operation.Amount := Operation.Price;
   Operation.Quantity := -Abs(GetDoubleQuantity(Quantity));
   Operation.Department := Parameters.Department;
   Operation.Tax := VatInfo;
@@ -1422,13 +1431,14 @@ begin
     // If no price - use single quantity cost
     Operation.Quantity := 1;
     Operation.Price := Printer.CurrencyToInt(Price);
+    Operation.Amount := Printer.CurrencyToInt(Price * Operation.Quantity);
   end else
   begin
     if Quantity = 0 then Quantity := 1;
     Operation.Quantity := GetDoubleQuantity(Quantity);
     Operation.Price := Printer.CurrencyToInt(UnitPrice);
+    Operation.Amount := Printer.CurrencyToInt(Price);
   end;
-
   Operation.Quantity := -Abs(Operation.Quantity);
   Operation.Tax := VatInfo;
   Operation.Text := Description;
@@ -1468,10 +1478,12 @@ begin
     // If no price - use single quantity cost
     if UnitAmount <> 0 then Operation.Quantity := 1;
     Operation.Price := Printer.CurrencyToInt(Amount);
+    Operation.Amount := Printer.CurrencyToInt(Amount * Operation.Quantity);
   end else
   begin
     if Operation.Quantity = 0 then Operation.Quantity := 1;
     Operation.Price := Printer.CurrencyToInt(UnitAmount);
+    Operation.Amount := Printer.CurrencyToInt(Amount);
   end;
   Operation.Tax := VatInfo;
   Operation.Text := ADescription;
@@ -1505,13 +1517,14 @@ begin
     // If no price - use single quantity cost
     Operation.Quantity := 1;
     Operation.Price := Printer.CurrencyToInt(Amount);
+    Operation.Amount := Printer.CurrencyToInt(Amount * Operation.Quantity);
   end else
   begin
     if Quantity = 0 then Quantity := 1;
     Operation.Quantity := GetDoubleQuantity(Quantity);
     Operation.Price := Printer.CurrencyToInt(UnitAmount);
+    Operation.Amount := Printer.CurrencyToInt(Amount);
   end;
-
   Operation.Quantity := -Abs(Operation.Quantity);
   Operation.Tax := VatInfo;
   Operation.Text := ADescription;

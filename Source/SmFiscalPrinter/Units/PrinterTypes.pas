@@ -684,6 +684,7 @@ type
     RecType: Integer;
     Quantity: Double;           // Quantity (5 bytes)
     Price: Int64;               // Price (5 bytes)
+    Amount: Int64;              // Amount (5 bytes)
     Department: Byte;           // Department (1 byte) 0…16
     Tax: Byte;                  // Tax 1 (1 byte) '0' - no tax, '1'…'4' - tax group
     Charge: Int64;

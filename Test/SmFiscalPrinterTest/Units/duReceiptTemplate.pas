@@ -142,11 +142,14 @@ begin
 
 
     Item.Pos := 1;
+    Item.Data.Amount := 500;
     Item.UnitPrice := 100;
     Item.Quantity := 5;
     Item.Price := 100;
     Item.Department := 2;
     Item.Tax := 3;
+    Item.Discount := 0;
+    Item.Charge := 0;
     Item.PriceWithDiscount := 100;
     Item.Text := 'Receipt item 2';
     Item.UpdatePrice(DiscountModeChangePrice);
@@ -158,6 +161,7 @@ begin
       '                   1.00 X 5.000    =5.00_Â', Text, 'Item.Text');
 
     Item.Pos := 1;
+    Item.Data.Amount := 1524064;
     Item.UnitPrice := 12345;
     Item.Quantity := 123.456;
     Item.Price := 12345;
@@ -264,11 +268,14 @@ begin
 
 
     Item.Pos := 1;
+    Item.Data.Amount := 500;
     Item.UnitPrice := 100;
     Item.Quantity := 5;
     Item.Price := 100;
     Item.Department := 2;
     Item.Tax := 3;
+    Item.Discount := 0;
+    Item.Charge := 0;
     Item.PriceWithDiscount := 100;
     Item.Text := 'Receipt item 2';
     Item.UpdatePrice(DiscountModeNone);
@@ -288,6 +295,9 @@ begin
     Item.PriceWithDiscount := 12345;
     Item.Text := 'Receipt item 2';
     Item.Data.Discount := 0;
+    Item.Discount := 0;
+    Item.Charge := 0;
+    Item.Data.Amount := 1524064;
     Text := '%51lTITLE%'#13#10'%10QUAN% X %8lPRICE% %=10TOTAL%';
     Text := Template.getText(Text, Item);
     CheckEquals('Receipt item 2                                     '#$D#$A +

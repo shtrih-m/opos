@@ -515,10 +515,12 @@ end;
 
 procedure TCustomReceipt.FSWriteTLV(const TLVData: WideString);
 begin
+  Device.FSWriteTLV2(TLVData);
 end;
 
 procedure TCustomReceipt.FSWriteTLVOperation(const TLVData: WideString);
 begin
+  Device.FSWriteTLV2(TLVData);
 end;
 
 end.

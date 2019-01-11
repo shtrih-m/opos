@@ -4917,9 +4917,8 @@ begin
   Check(FiscalPrinter.ResetPrinter());
   FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
   Check(FiscalPrinter.BeginFiscalReceipt(True));
-  //Check(FiscalPrinter.DirectIO(30, 73, '1'));
-  Check(FiscalPrinter.PrintRecItem('ТРК 7:Аи-92-К5', 8600, 56210, 4, 153, 'л'));
-  Check(FiscalPrinter.PrintRecTotal(8600, 8600, '1'));
+  Check(FiscalPrinter.PrintRecItem('ТРК 7:Аи-92-К5', 1500, 9804, 4, 153, 'л'));
+  Check(FiscalPrinter.PrintRecTotal(1500, 1500, '1'));
   Check(FiscalPrinter.PrintRecMessage('Visa              №                '));
   Check(FiscalPrinter.PrintRecMessage('Оператор: ts'));
   Check(FiscalPrinter.PrintRecMessage('Транз.:       1676 '));

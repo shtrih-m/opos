@@ -2442,7 +2442,7 @@ end;
 procedure TDIOWriteTlvData.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
-  Printer.FSWriteTlv(pString);
+  Device.FSWriteTlv2(pString);
 end;
 
 { TDIOWriteStringTag }
@@ -2858,7 +2858,7 @@ end;
 procedure TDIOWriteTlvHex.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
-  Printer.FSWriteTlv(HexToStr(pString));
+  FPrinter.Device.FSWriteTlv2(HexToStr(pString));
 end;
 
 { TDIOClearLogo }
@@ -2954,7 +2954,7 @@ end;
 procedure TDIOSTLVWrite.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
-  Printer.FSWriteTLV(HexToStr(Printer.Device.STLVGetHex));
+  Printer.Device.FSWriteTLV2(HexToStr(Printer.Device.STLVGetHex));
 end;
 
 

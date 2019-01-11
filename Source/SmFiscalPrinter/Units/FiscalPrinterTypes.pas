@@ -394,6 +394,7 @@ type
     procedure PrintImage(const FileName: WideString; StartLine: Integer);
     procedure PrintImageScale(const FileName: WideString; StartLine, Scale: Integer);
     procedure PrintTextFont(Station: Integer; Font: Integer; const Text: WideString);
+    procedure FSWriteTLV2(const TLVData: AnsiString);
     function ReadEJDocumentText(MACNumber: Integer): WideString;
     function ReadEJDocument(MACNumber: Integer; var Line: WideString): Integer;
     function ParseEJDocument(const Text: WideString): TEJDocument;

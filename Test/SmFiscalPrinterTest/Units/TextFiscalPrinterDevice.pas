@@ -246,6 +246,7 @@ type
 
     function FSReadState(var R: TFSState): Integer;
     function FSWriteTLV(const TLVData: AnsiString): Integer;
+    procedure FSWriteTLV2(const TLVData: AnsiString);
     function FSSale(P: TFSSale): Integer;
     function FSSale2(P: TFSSale2): Integer;
     function GetCapFSCloseReceipt2: Boolean;
@@ -1861,6 +1862,11 @@ begin
 end;
 
 procedure TTextFiscalPrinterDevice.STLVWriteOp;
+begin
+
+end;
+
+procedure TTextFiscalPrinterDevice.FSWriteTLV2(const TLVData: AnsiString);
 begin
 
 end;

@@ -126,9 +126,15 @@ end;
 
 procedure TRegressTests.CheckRefundReceipt;
 var
+  pData: Integer;
+  pString: WideString;
   Method: TMockMethod;
   FSSale: TFSSale2Object;
 begin
+  pData := DriverParameterParam3;
+  pString := '1';
+  Driver.DirectIO(DIO_SET_DRIVER_PARAMETER, pData, pString);
+
   CheckResult(Driver.Open('FiscalPrinter', DeviceName, nil));
   CheckResult(Driver.Claim(0));
   Driver.SetPropertyNumber(PIDX_DeviceEnabled, 1);
@@ -147,12 +153,12 @@ begin
   CheckEquals(3920, FSSale.Data.Price, 'FSSale.Data.Price');
   CheckEquals(2.551, FSSale.Data.Quantity, 0.001, 'FSSale.Data.Quantity');
   CheckEquals(2, FSSale.Data.RecType, 'FSSale.Data.RecType');
-  CheckEquals($FFFFFFFFFF, FSSale.Data.Total, 'FSSale.Data.Total');
+  CheckEquals(10000, FSSale.Data.Total, 'FSSale.Data.Total');
   CheckEquals($FFFFFFFFFF, FSSale.Data.TaxAmount, 'FSSale.Data.TaxAmount');
   CheckEquals(1, FSSale.Data.Department, 'FSSale.Data.Department');
   CheckEquals(4, FSSale.Data.Tax, 'FSSale.Data.Tax');
   CheckEquals('', FSSale.Data.UnitName, 'FSSale.Data.UnitName');
-  CheckEquals(1, FSSale.Data.PaymentType, 'FSSale.Data.PaymentType');
+  CheckEquals(4, FSSale.Data.PaymentType, 'FSSale.Data.PaymentType');
   CheckEquals(1, FSSale.Data.PaymentItem, 'FSSale.Data.PaymentItem');
   CheckEquals('', FSSale.Data.ItemBarcode, 'FSSale.Data.ItemBarcode');
 

@@ -66,7 +66,6 @@ type
     function IsDayOpened(Mode: Integer): Boolean;
     function FSSale(const P: TFSSale): Integer;
     function FSStorno(const P: TFSSale): Integer;
-    function FSWriteTLV(const TLVData: WideString): Integer;
     function GetPrinter: ISharedPrinter;
     function GetTaxTotals(Amount: Int64): TTaxTotals;
 
@@ -121,7 +120,6 @@ type
     function IsDayOpened(Mode: Integer): Boolean;
     function FSSale(const P: TFSSale): Integer;
     function FSStorno(const P: TFSSale): Integer;
-    function FSWriteTLV(const TLVData: WideString): Integer;
     procedure PrintText2(const Text: WideString; Station, Font: Integer;
       Alignment: TTextAlignment);
 
@@ -340,11 +338,6 @@ end;
 function TReceiptPrinter.FSStorno(const P: TFSSale): Integer;
 begin
   Result := Device.FSStorno(P);
-end;
-
-function TReceiptPrinter.FSWriteTLV(const TLVData: WideString): Integer;
-begin
-  Result := Device.FSWriteTLV(TLVData);
 end;
 
 function TReceiptPrinter.GetPrinter: ISharedPrinter;
