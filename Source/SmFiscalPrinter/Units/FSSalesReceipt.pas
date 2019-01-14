@@ -1211,6 +1211,7 @@ begin
 
       PrintReceiptItems;
       PrintDiscounts;
+      Device.WriteTLVItems;
 
       BeforeCloseReceipt;
       if AdditionalText <> '' then

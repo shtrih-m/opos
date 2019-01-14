@@ -479,6 +479,8 @@ type
     function STLVGetHex: string;
     procedure STLVWrite;
     procedure STLVWriteOp;
+    procedure ResetPrinter;
+    procedure WriteTLVItems;
 
     property LastMacValue: Int64 read GetLastMacValue;
     property LastDocNumber: Int64 read GetLastDocNumber;

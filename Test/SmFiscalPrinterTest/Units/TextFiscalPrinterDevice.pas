@@ -321,6 +321,8 @@ type
     function STLVGetHex: string;
     procedure STLVWrite;
     procedure STLVWriteOp;
+    procedure ResetPrinter;
+    procedure WriteTLVItems;
 
     property RecStation: TStrings read FRecStation;
     property JrnStation: TStrings read FJrnStation;
@@ -1867,6 +1869,16 @@ begin
 end;
 
 procedure TTextFiscalPrinterDevice.FSWriteTLV2(const TLVData: AnsiString);
+begin
+
+end;
+
+procedure TTextFiscalPrinterDevice.ResetPrinter;
+begin
+
+end;
+
+procedure TTextFiscalPrinterDevice.WriteTLVItems;
 begin
 
 end;

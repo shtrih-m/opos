@@ -1766,7 +1766,7 @@ begin
   FAdditionalTrailer := '';
   FOposDevice.PhysicalDeviceName := FPTR_DEVICE_DESCRIPTION;
   FOposDevice.PhysicalDeviceDescription := FPTR_DEVICE_DESCRIPTION;
-  FOposDevice.ServiceObjectDescription := 'OPOS Fiscal Printer Service. SHTRIH-M, 2015';
+  FOposDevice.ServiceObjectDescription := 'OPOS Fiscal Printer Service. SHTRIH-M, 2019';
   FPredefinedPaymentLines := '0,1,2,3';
   FReservedWord := '';
   FChangeDue := '';
@@ -2129,6 +2129,7 @@ begin
     CheckState(FPTR_PS_MONITOR);
 
     CheckEndDay;
+    Device.ResetPrinter;
 
     SetPrinterState(FPTR_PS_FISCAL_DOCUMENT);
     Result := ClearResult;
@@ -2583,6 +2584,7 @@ begin
     Receipt.EndFiscalReceipt;
     Filters.AfterCloseReceipt;
     PrintDocumentEnd;
+    Device.ResetPrinter;
 
     FReceipt.Free;
     FReceipt := CreateNullReceipt;
@@ -3774,6 +3776,7 @@ begin
   try
     CheckEnabled;
     CancelReceipt;
+    Device.ResetPrinter;
     SetPrinterState(FPTR_PS_MONITOR);
     FAfterCloseItems.Clear;
     FReceiptItems := 0;

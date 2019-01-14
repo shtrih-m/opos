@@ -460,7 +460,7 @@ procedure TFiscalPrinterTest.CheckServiceObjectDescription;
 begin
   OpenDevice;
   CheckEquals(
-    'OPOS Fiscal Printer Service. SHTRIH-M, 2015',
+    'OPOS Fiscal Printer Service. SHTRIH-M, 2019',
     Driver.GetPropertyString(PIDX_ServiceObjectDescription));
 end;
 

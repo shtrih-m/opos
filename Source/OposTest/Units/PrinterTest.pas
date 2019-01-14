@@ -864,6 +864,22 @@ type
     function GetDisplayText: WideString; override;
   end;
 
+  { TReceiptTest24 }
+
+  TReceiptTest24 = class(TDriverTest)
+  public
+    procedure Execute; override;
+    function GetDisplayText: WideString; override;
+  end;
+
+  { TReceiptTest25 }
+
+  TReceiptTest25 = class(TDriverTest)
+  public
+    procedure Execute; override;
+    function GetDisplayText: WideString; override;
+  end;
+
 implementation
 
 const
@@ -4384,14 +4400,8 @@ begin
   Check(FiscalPrinter.BeginFiscalReceipt(True));
   FiscalPrinter.PreLine := 'ТРК 3:                      Трз179';
   Check(FiscalPrinter.PrintRecItemRefund('АИ-92', 485, 15290, 4, 31.72, ''));
-  Check(FiscalPrinter.PrintRecItemRefund('1П 205/60 Р15 MICHELIN', 1129, 1000, 4, 1129, ''));
-  Check(FiscalPrinter.PrintRecItemRefund('Газета Из Рук в Руки', 1, 1000, 4, 1, ''));
-  Check(FiscalPrinter.PrintRecItemRefund('Тосол  5л TATNEFT', 160, 1000, 4, 160, ''));
-  Check(FiscalPrinter.PrintRecItemRefund('Антифриз FELIX CARBOX G12 ТС-40 кр.5кг', 160, 1000, 4, 160, ''));
-  Check(FiscalPrinter.PrintRecItemRefund('Сигареты Ява Золотая Современная', 101, 1000, 4, 101, ''));
   Check(FiscalPrinter.PrintRecSubtotalAdjustment(1, 'Округление', 0.02));
   Check(FiscalPrinter.PrintRecTotal(2035.98, 2035.98, '0'));
-  Check(FiscalPrinter.PrintRecMessage('Скидка ЛНР            =-258.00'));
   Check(FiscalPrinter.PrintRecMessage('Транз.:      39728 '));
   Check(FiscalPrinter.PrintRecMessage('Транз. продажи: 39727 (2035.98 руб)'));
   Check(FiscalPrinter.EndFiscalReceipt(False));
@@ -4963,6 +4973,72 @@ end;
 function TReceiptTest23.GetDisplayText: WideString;
 begin
   Result := 'Receipt test 23';
+end;
+
+{ TReceiptTest24 }
+
+procedure TReceiptTest24.Execute;
+var
+  pData: Integer;
+  pString: WideString;
+begin
+  Check(FiscalPrinter.ResetPrinter);
+
+  pData := 1203;
+  pString := '505303696069';
+  Check(FiscalPrinter.DirectIO(DIO_WRITE_FS_STRING_TAG, pData, pString));
+
+  Check(FiscalPrinter.PrintZReport);
+
+
+  pData := 1203;
+  pString := '505303696069';
+  Check(FiscalPrinter.DirectIO(DIO_WRITE_FS_STRING_TAG, pData, pString));
+
+  pData := 0;
+  pString := '';
+  Check(FiscalPrinter.DirectIO(DIO_OPEN_DAY, pData, pString));
+end;
+
+function TReceiptTest24.GetDisplayText: WideString;
+begin
+  Result := 'Receipt test 24';
+end;
+
+{ TReceiptTest25 }
+
+procedure TReceiptTest25.Execute;
+begin
+  Check(FiscalPrinter.ResetPrinter);
+  // 100% prepaid
+  FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
+  Check(FiscalPrinter.BeginFiscalReceipt(True));
+  FiscalPrinter.SetIntParameter(DriverParameterParam3, 1);
+  FiscalPrinter.SetIntParameter(DriverParameterParam4, 10);
+  Check(FiscalPrinter.PrintRecItem('Item 1', 1200, 48980, 1, 24.50, 'кг'));
+  Check(FiscalPrinter.PrintRecTotal(1200, 1200, '0'));
+  Check(FiscalPrinter.EndFiscalReceipt(False));
+  // Refund
+  FiscalPrinter.FiscalReceiptType := FPTR_RT_REFUND;
+  Check(FiscalPrinter.BeginFiscalReceipt(True));
+  FiscalPrinter.SetIntParameter(DriverParameterParam3, 1);
+  FiscalPrinter.SetIntParameter(DriverParameterParam4, 10);
+  Check(FiscalPrinter.PrintRecItem('Item 1', 141.11, 5760, 1, 24.50, 'кг'));
+  Check(FiscalPrinter.PrintRecTotal(141.11, 141.11, '0'));
+  Check(FiscalPrinter.EndFiscalReceipt(False));
+  // Sale
+  FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
+  Check(FiscalPrinter.BeginFiscalReceipt(True));
+  FiscalPrinter.SetIntParameter(DriverParameterParam3, 1);
+  FiscalPrinter.SetIntParameter(DriverParameterParam4, 4);
+  Check(FiscalPrinter.PrintRecItem('Item 1', 1058.89, 43220, 1, 24.50, 'кг'));
+  Check(FiscalPrinter.PrintRecTotal(1058.89, 1058.89, '0'));
+  Check(FiscalPrinter.EndFiscalReceipt(False));
+end;
+
+function TReceiptTest25.GetDisplayText: WideString;
+begin
+  Result := 'Receipt test 25';
 end;
 
 end.

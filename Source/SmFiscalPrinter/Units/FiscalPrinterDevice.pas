@@ -85,6 +85,8 @@ type
     FLastDocNumber: Int64;
     FSTLVTag: TTLV;
     FSTLVStarted: Boolean;
+    FTLVItems: TStrings;
+
 
     procedure PrintLineFont(const Data: TTextRec);
     procedure SetPrinterStatus(Value: TPrinterStatus);
@@ -205,6 +207,7 @@ type
     function IsCorrectItemCode(const P: TFSCheckItemResult): Boolean;
     procedure CheckCorrectItemCode(const P: TFSCheckItemResult);
     function PrintItemText(const S: WideString): WideString;
+    procedure WriteTLVItems;
   protected
     function GetMaxGraphicsWidthInBytes: Integer;
   public
@@ -468,6 +471,8 @@ type
     function STLVGetHex: string;
     procedure STLVBegin(TagID: Integer);
     procedure STLVAddTag(TagID: Integer; TagValue: string);
+    procedure ResetPrinter;
+    function BeginZReport: Integer;
 
     property IsOnline: Boolean read GetIsOnline;
     property Tables: TPrinterTables read FTables;
@@ -756,6 +761,7 @@ end;
 constructor TFiscalPrinterDevice.Create;
 begin
   inherited Create;
+  FTLVItems := TStringList.Create;
   FSTLVTag := TTLV.Create(nil);
   FContext := TDriverContext.Create;
   FLogger := TClassLogger.Create('TFiscalPrinterDevice', FContext.Logger);
@@ -783,6 +789,7 @@ begin
   FFilter.Free;
   FContext.Free;
   FSTLVTag.Free;
+  FTLVItems.Free;
   inherited Destroy;
 end;
 
@@ -1995,6 +2002,12 @@ begin
     Status := WaitForPrinting;
     if not IsDayOpened(Status.Mode) then
     begin
+      if FTLVItems.Count > 0 then
+      begin
+        Check(FSStartOpenDay);
+        WriteTLVItems;
+      end;
+
       OpenDay;
       WaitForPrinting;
       Result := True;
@@ -2769,6 +2782,23 @@ begin
 end;
 
 (******************************************************************************
+Начать закрытие смены FF42H
+
+Код команды FF42h. Длина сообщения: 6 байт.
+  Пароль системного администратора: 4 байта
+Ответ: FF42h Длина сообщения: 1 байт.
+  Код ошибки: 1 байт
+
+******************************************************************************)
+
+function TFiscalPrinterDevice.BeginZReport: Integer;
+var
+  Answer: string;
+begin
+  Result := ExecuteData(#$FF#$42 + IntToBin(GetSysPassword, 4), Answer);
+end;
+
+(******************************************************************************
 
   Print Z-Report
 
@@ -2784,6 +2814,15 @@ procedure TFiscalPrinterDevice.PrintZReport;
 var
   FSState: TFSState;
 begin
+  if CapFiscalStorage then
+  begin
+    if FTLVItems.Count > 0 then
+    begin
+      Check(BeginZReport);
+      WriteTLVItems;
+    end;
+  end;
+
   Execute(#$41 + IntToBin(GetSysPassword, 4));
   FFilter.PrintZReport;
   try
@@ -7040,7 +7079,6 @@ var
   Answer: AnsiString;
   Command: AnsiString;
 begin
-
   Command := #$FF#$0C + IntToBin(GetSysPassword, 4) + Copy(TLVData, 1, 250);
   Result := ExecuteData(Command, Answer);
 end;
@@ -9150,9 +9188,25 @@ begin
   Check(FSWriteTLVOperation(FSTLVTag.RawData));
 end;
 
+procedure TFiscalPrinterDevice.WriteTLVItems;
+var
+  i: Integer;
+begin
+  for i := 0 to FTLVItems.Count-1 do
+  begin
+    Check(FSWriteTLV(FTLVItems[i]));
+  end;
+  FTLVItems.Clear;
+end;
+
 procedure TFiscalPrinterDevice.FSWriteTLV2(const TLVData: AnsiString);
 begin
-  Check(FSWriteTLV(TLVData));
+  FTLVItems.Add(TLVData);
+end;
+
+procedure TFiscalPrinterDevice.ResetPrinter;
+begin
+  FTLVItems.Clear;
 end;
 
 end.

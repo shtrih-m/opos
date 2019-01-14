@@ -120,6 +120,8 @@ begin
   AddTest(TWriteSTLVTest);
   AddTest(TReceiptTest22);
   AddTest(TReceiptTest23);
+  AddTest(TReceiptTest24);
+  AddTest(TReceiptTest25);
 
   cbTest.ItemIndex := 0;
 end;
