@@ -201,10 +201,12 @@ begin
   CheckPrice(UnitPrice);
   PrintPreLine;
 
+  Operation.Quantity := Quantity;
   if UnitPrice = 0 then
   begin
     // If no price - use single quanity cost
-    Operation.Quantity := 1000;
+    if Parameters.SingleQuantityOnZeroUnitPrice then
+      Operation.Quantity := 1000;
     Operation.Price := Printer.CurrencyToInt(Price);
   end else
   begin
@@ -696,10 +698,12 @@ begin
   CheckQuantity(Quantity);
   CheckPrice(UnitPrice);
 
+  Operation.Quantity := Quantity;
   if UnitPrice = 0 then
   begin
     // If no price - use single quantity cost
-    Operation.Quantity := 1000;
+    if Parameters.SingleQuantityOnZeroUnitPrice then
+      Operation.Quantity := 1000;
     Operation.Price := Printer.CurrencyToInt(Price);
   end else
   begin

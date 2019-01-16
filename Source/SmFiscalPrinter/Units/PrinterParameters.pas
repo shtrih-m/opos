@@ -572,7 +572,8 @@ type
     ModelId: Integer;
     ItemTextMode: Integer;
     CorrectCashlessAmount: Boolean;
- public
+    SingleQuantityOnZeroUnitPrice: Boolean;
+  public
     constructor Create(ALogger: ILogFile);
     destructor Destroy; override;
 
@@ -917,6 +918,7 @@ begin
   ModelId := DefModelId;
   ItemTextMode := DefItemTextMode;
   CorrectCashlessAmount := DefCorrectCashlessAmount;
+  SingleQuantityOnZeroUnitPrice := True;
 end;
 
 procedure TPrinterParameters.LogText(const Caption, Text: WideString);
@@ -1058,6 +1060,8 @@ begin
   Logger.Debug('IgnoreDirectIOErrors: ' + BoolToStr(IgnoreDirectIOErrors));
   Logger.Debug(Format('ItemTextMode: %d, %s', [ItemTextMode, GetItemTextMode(ItemTextMode)]));
   Logger.Debug('CorrectCashlessAmount: ' + BoolToStr(CorrectCashlessAmount));
+  Logger.Debug('SingleQuantityOnZeroUnitPrice: ' + BoolToStr(SingleQuantityOnZeroUnitPrice));
+
 
   for i := 0 to PayTypes.Count-1 do
   begin

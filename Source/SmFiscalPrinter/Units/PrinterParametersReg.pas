@@ -508,6 +508,9 @@ begin
       if Reg.ValueExists('CorrectCashlessAmount') then
         FParameters.CorrectCashlessAmount := Reg.ReadBool('CorrectCashlessAmount');
 
+      if Reg.ValueExists('SingleQuantityOnZeroUnitPrice') then
+        FParameters.SingleQuantityOnZeroUnitPrice := Reg.ReadBool('SingleQuantityOnZeroUnitPrice');
+
       // VatCodes
       if Reg.OpenKey(REG_KEY_VATCODES, False) then
       begin
@@ -678,6 +681,7 @@ begin
     Reg.WriteInteger('ModelId', FParameters.ModelId);
     Reg.WriteInteger('ItemTextMode', FParameters.ItemTextMode);
     Reg.WriteBool('CorrectCashlessAmount', FParameters.CorrectCashlessAmount);
+    Reg.WriteBool('SingleQuantityOnZeroUnitPrice', FParameters.SingleQuantityOnZeroUnitPrice);
 
     // VatCodes
     Reg.DeleteKey(REG_KEY_VATCODES);

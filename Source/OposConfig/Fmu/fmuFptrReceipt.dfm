@@ -17,11 +17,11 @@ object fmFptrReceipt: TfmFptrReceipt
     Left = 8
     Top = 8
     Width = 481
-    Height = 417
+    Height = 441
     TabOrder = 0
     DesignSize = (
       481
-      417)
+      441)
     object lblDefaultDepartment: TTntLabel
       Left = 8
       Top = 16
@@ -295,6 +295,14 @@ object fmFptrReceipt: TfmFptrReceipt
         'Correct cashless amount (Cashless amount must be equal to receip' +
         't subtotal)'
       TabOrder = 15
+    end
+    object chbSingleQuantityOnZeroUnitPrice: TCheckBox
+      Left = 8
+      Top = 416
+      Width = 385
+      Height = 17
+      Caption = 'Use single quantity, when UnitPrice parameter is zero'
+      TabOrder = 16
     end
   end
 end

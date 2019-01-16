@@ -215,14 +215,15 @@ begin
   CheckQuantity(Quantity);
   CheckPrice(UnitPrice);
 
+  ItemQuantity := Quantity/1000;
   if UnitPrice = 0 then
   begin
     // If no price - use single quanity cost
-    ItemQuantity := 1;
+    if Parameters.SingleQuantityOnZeroUnitPrice then
+      ItemQuantity := 1;
     ItemPrice := Price;
   end else
   begin
-    ItemQuantity := Quantity/1000;
     if Quantity = 0 then
       ItemQuantity := 1;
     ItemPrice := UnitPrice;
@@ -803,10 +804,12 @@ begin
   CheckQuantity(Quantity);
   CheckPrice(UnitPrice);
 
+  ItemQuantity := Quantity/1000;
   if UnitPrice = 0 then
   begin
     ItemPrice := Price;
-    ItemQuantity := 1;
+    if Parameters.SingleQuantityOnZeroUnitPrice then
+      ItemQuantity := 1;
   end else
   begin
     if Quantity = 0 then Quantity := 1000;

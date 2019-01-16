@@ -880,6 +880,14 @@ type
     function GetDisplayText: WideString; override;
   end;
 
+  { TReceiptTest26 }
+
+  TReceiptTest26 = class(TDriverTest)
+  public
+    procedure Execute; override;
+    function GetDisplayText: WideString; override;
+  end;
+
 implementation
 
 const
@@ -5039,6 +5047,24 @@ end;
 function TReceiptTest25.GetDisplayText: WideString;
 begin
   Result := 'Receipt test 25';
+end;
+
+{ TReceiptTest26 }
+
+procedure TReceiptTest26.Execute;
+begin
+  Check(FiscalPrinter.ResetPrinter);
+  // 100% prepaid
+  FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
+  Check(FiscalPrinter.BeginFiscalReceipt(True));
+  Check(FiscalPrinter.PrintRecItem('Item 1', 0, 48980, 1, 0, 'Í„'));
+  Check(FiscalPrinter.PrintRecTotal(1200, 1200, '0'));
+  Check(FiscalPrinter.EndFiscalReceipt(False));
+end;
+
+function TReceiptTest26.GetDisplayText: WideString;
+begin
+  Result := 'Receipt test 26';
 end;
 
 end.

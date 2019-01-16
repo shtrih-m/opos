@@ -1427,10 +1427,13 @@ begin
   CheckQuantity(Quantity);
   CheckPrice(UnitPrice);
 
+  Operation.Quantity := GetDoubleQuantity(Quantity);
   if UnitPrice = 0 then
   begin
     // If no price - use single quantity cost
-    Operation.Quantity := 1;
+    if Parameters.SingleQuantityOnZeroUnitPrice then
+      Operation.Quantity := 1;
+
     Operation.Price := Printer.CurrencyToInt(Price);
     Operation.Amount := Printer.CurrencyToInt(Price * Operation.Quantity);
   end else
