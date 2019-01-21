@@ -9194,7 +9194,7 @@ var
 begin
   for i := 0 to FTLVItems.Count-1 do
   begin
-    Check(FSWriteTLV(FTLVItems[i]));
+    FSWriteTLV(FTLVItems[i]);
   end;
   FTLVItems.Clear;
 end;
