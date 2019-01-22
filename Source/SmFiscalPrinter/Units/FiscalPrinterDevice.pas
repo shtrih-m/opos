@@ -6763,7 +6763,11 @@ function TFiscalPrinterDevice.ReadCapFiscalStorage: Boolean;
 var
   R: TFSState;
 begin
-  Result := FSReadState(R) = 0;
+  try
+    Result := FSReadState(R) = 0;
+  except
+    Result := False;
+  end;
 end;
 
 function TFiscalPrinterDevice.IsSupported(ResultCode: Integer): Boolean;
