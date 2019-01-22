@@ -2219,6 +2219,7 @@ begin
   Result := ExecuteData(Command, Data);
   if Result = 0 then
   begin
+    CheckMinLength(Data, 3);
     R.Operator := Ord(Data[1]);
     R.Value := BinToInt(Data, 2, 2);
   end;
@@ -7255,6 +7256,7 @@ begin
   Result := ExecuteData(Command, Answer);
   if Result = 0 then
   begin
+    CheckMinLength(Answer, 30);
     R.State := BinToInt(Answer, 1, 1);
     R.Document := BinToInt(Answer, 2, 1);
     R.DocReceived := BinToInt(Answer, 3, 1);
@@ -7459,6 +7461,7 @@ begin
   Result := ExecuteData(Command, Answer);
   if Result = 0 then
   begin
+    CheckMinLength(Answer, 3);
     R.DocType := Ord(Answer[1]);
     R.TicketReceived := Ord(Answer[2]) = 1;
     R.TlvData := Copy(Answer, 3, Length(Answer));
@@ -7783,6 +7786,7 @@ begin
   Result := ExecuteData(Command, Answer);
   if Result = 0 then
   begin
+    CheckMinLength(Answer, 47);
     R.Date := BinToPrinterDateTime2(Answer);
     R.TaxID := TrimRight(Copy(Answer, 6, 12));
     R.EcrRegNum := TrimRight(Copy(Answer, 18, 20));
