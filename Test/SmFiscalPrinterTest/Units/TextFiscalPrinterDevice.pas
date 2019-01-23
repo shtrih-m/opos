@@ -323,6 +323,7 @@ type
     procedure STLVWriteOp;
     procedure ResetPrinter;
     procedure WriteTLVItems;
+    function GetDocPrintMode: Integer;
 
     property RecStation: TStrings read FRecStation;
     property JrnStation: TStrings read FJrnStation;
@@ -1881,6 +1882,11 @@ end;
 procedure TTextFiscalPrinterDevice.WriteTLVItems;
 begin
 
+end;
+
+function TTextFiscalPrinterDevice.GetDocPrintMode: Integer;
+begin
+  Result := 0;
 end;
 
 end.

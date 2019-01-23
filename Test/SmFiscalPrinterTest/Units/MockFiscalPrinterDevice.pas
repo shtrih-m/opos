@@ -323,6 +323,7 @@ type
     procedure STLVWriteOp;
     procedure ResetPrinter;
     procedure WriteTLVItems;
+    function GetDocPrintMode: Integer;
 
     property Status: TPrinterStatus read FStatus write FStatus;
     property Parameters: TPrinterParameters read GetParameters;
@@ -1880,6 +1881,11 @@ end;
 procedure TMockFiscalPrinterDevice.WriteTLVItems;
 begin
 
+end;
+
+function TMockFiscalPrinterDevice.GetDocPrintMode: Integer;
+begin
+  Result := 0;
 end;
 
 end.

@@ -44,6 +44,7 @@ type
     FCapReceiptDiscount2: Boolean;
     FCapFontInfo: Boolean;
     FDiscountMode: Integer;
+    FDocPrintMode: Integer;
     FIsFiscalized: Boolean;
     FCapParameters2: Boolean;
     FParameters2: TPrinterParameters2;
@@ -208,6 +209,7 @@ type
     procedure CheckCorrectItemCode(const P: TFSCheckItemResult);
     function PrintItemText(const S: WideString): WideString;
     procedure WriteTLVItems;
+    function ReadDocPrintMode: Integer;
   protected
     function GetMaxGraphicsWidthInBytes: Integer;
   public
@@ -473,6 +475,7 @@ type
     procedure STLVAddTag(TagID: Integer; TagValue: string);
     procedure ResetPrinter;
     function BeginZReport: Integer;
+    function GetDocPrintMode: Integer;
 
     property IsOnline: Boolean read GetIsOnline;
     property Tables: TPrinterTables read FTables;
@@ -4687,6 +4690,13 @@ begin
   begin
     Data := GetFieldValue(FieldInfo, FieldValue);
     Result := DoWriteTable(Table, Row, Field, Data);
+    if Result = 0 then
+    begin
+      if (Table = 17)and(Row = 1)and(Field=7) then
+      begin
+        FDocPrintMode := StrToInt(FieldValue);
+      end;
+    end;
   end else
   begin
     Logger.Error(Format('%s, "%s"', [_('Invalid field value'), FieldValue]));
@@ -6737,6 +6747,7 @@ begin
   if FCapFiscalStorage then
   begin
     FDiscountMode := ReadDiscountMode;
+    FDocPrintMode := ReadDocPrintMode;
   end;
   FCapEnablePrint := GetDeviceMetrics.Model <> 19;
   FCapSubtotalRound := FCapFiscalStorage and ((GetDeviceMetrics.Model = 19) or (DiscountMode = 2));
@@ -7982,6 +7993,24 @@ begin
   end;
 end;
 
+function TFiscalPrinterDevice.ReadDocPrintMode: Integer;
+var
+  R: TPrinterTableRec;
+begin
+  Result := 0;
+  try
+    if ReadTableStructure(17, R) = 0 then
+    begin
+      Result := ReadTableInt(17, 1, 7);
+    end;
+  except
+    on E: Exception do
+    begin
+      Result := 0;
+    end;
+  end;
+end;
+
 function TFiscalPrinterDevice.GetDiscountMode: Integer;
 begin
   Result := FDiscountMode;
@@ -8156,11 +8185,11 @@ end;
 Сумма по чеку предоплатой:5 байт
 Сумма по чеку постоплатой:5 байт
 Сумма по чеку встречным представлением:5 байт
-Сумма НДС 18%:5 байт
+Сумма НДС 20%:5 байт
 Сумма НДС 10%:5 байт
 Сумма расчёта по ставке 0%:5 байт
 Сумма расчёта по чеку без НДС:5 байт
-Сумма расчёта по расч. ставке 18/118:5 байт
+Сумма расчёта по расч. ставке 20/120:5 байт
 Сумма расчёта по расч. ставке 10/110:5 байт
 Применяемая система налогообложения:1байт
 *)
@@ -8335,7 +8364,7 @@ end;
 Сумма типа оплаты 15 (5 байт) (постоплата)
 Сумма типа оплаты 16 (5 байт) (встречное представление)
 Округление до рубля в копейках (1 байт)
-Налог 1 (5 байт) (НДС 18%)
+Налог 1 (5 байт) (НДС 20%)
 Налог 2 (5 байт) (НДС 10%)
 Оборот по налогу 3 (5 байт) (НДС 0%)
 Оборот по налогу 4 (5 байт) (Без НДС)
@@ -9215,6 +9244,13 @@ end;
 procedure TFiscalPrinterDevice.ResetPrinter;
 begin
   FTLVItems.Clear;
+  if FDocPrintMode = 1 then
+    FDocPrintMode := 0;
+end;
+
+function TFiscalPrinterDevice.GetDocPrintMode: Integer;
+begin
+  Result := FDocPrintMode;
 end;
 
 end.

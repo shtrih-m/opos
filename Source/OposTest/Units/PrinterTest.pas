@@ -5054,6 +5054,8 @@ end;
 procedure TReceiptTest26.Execute;
 begin
   Check(FiscalPrinter.ResetPrinter);
+
+  FiscalPrinter.WriteFPParameter(DIO_FPTR_PARAMETER_ENABLE_PRINT, '1');
   // 100% prepaid
   FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
   Check(FiscalPrinter.BeginFiscalReceipt(True));

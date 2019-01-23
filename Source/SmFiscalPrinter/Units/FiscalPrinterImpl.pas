@@ -85,6 +85,7 @@ type
     procedure PrintReceiptItems(Items: TReceiptItems);
     procedure PrintDocumentEnd;
     procedure PrintRecMessages;
+    procedure PrintFiscalEnd;
   public
     procedure ReadHeader;
     procedure CheckEndDay;
@@ -1295,7 +1296,7 @@ begin
   if Device.IsRecOpened then
   begin
     Device.CancelReceipt;
-    PrintNonFiscalEnd;
+    PrintFiscalEnd;
   end else
   begin
     if (FPrinterState.State = FPTR_PS_FISCAL_RECEIPT) then
@@ -1306,11 +1307,11 @@ begin
       Data.Alignment := taLeft;
       Data.Wrap := Parameters.WrapText;
       Device.PrintText(Data);
-      PrintNonFiscalEnd;
+      PrintFiscalEnd;
     end;
     if (FPrinterState.State = FPTR_PS_NONFISCAL) then
     begin
-      PrintNonFiscalEnd;
+      PrintFiscalEnd;
     end;
   end;
 end;
@@ -1974,6 +1975,12 @@ begin
   FDocumentNumber := Device.ReadLongStatus.DocumentNumber;
 end;
 
+procedure TFiscalPrinterImpl.PrintFiscalEnd;
+begin
+  if Device.GetDocPrintMode = 0 then
+    PrintNonFiscalEnd;
+end;
+
 procedure TFiscalPrinterImpl.PrintNonFiscalEndPrinter;
 begin
   WaitForPrinting;
@@ -1987,7 +1994,6 @@ begin
     FHeaderEnabled := True;
     Exit;
   end;
-
   PrintTrailer;
   PrintHeader;
 end;
@@ -2060,7 +2066,6 @@ var
 const
   HeaderFontHeight = 22;
 begin
-
   if Parameters.LogoPosition = LogoBeforeHeader then
   begin
     if Parameters.LogoSize <= (Device.GetModel.NumHeaderLines * HeaderFontHeight) then
@@ -4285,7 +4290,7 @@ begin
   begin
     Device.PrintText(PRINTER_STATION_REC, Parameters.VoidRecText);
   end;
-  PrintNonFiscalEnd;
+  PrintFiscalEnd;
 end;
 
 
@@ -4635,7 +4640,7 @@ begin
       if Parameters.PrintRecMessageMode = PrintRecMessageModeNormal then
         PrintRecMessages;
 
-      PrintNonFiscalEnd;
+      PrintFiscalEnd;
       Receipt.AfterEndFiscalReceipt;
       Filters.AfterPrintReceipt;
     except

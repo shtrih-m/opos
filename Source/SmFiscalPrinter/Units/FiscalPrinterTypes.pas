@@ -9,9 +9,9 @@ uses
   OposUtils,
   // This
   PrinterTypes, BinStream, PrinterCommand, SerialPort, DeviceTables,
-  PrinterConnection, DriverTypes, FiscalPrinterStatistics,
-  FixedStrings, NotifyLink, PrinterParameters, MalinaParams,
-  DriverContext, TntSysUtils, StringUtils;
+  PrinterConnection, DriverTypes, FiscalPrinterStatistics, FixedStrings,
+  NotifyLink, PrinterParameters, MalinaParams, DriverContext, TntSysUtils,
+  StringUtils;
 
 type
   { TFSDocument1 }
@@ -180,7 +180,7 @@ type
   { IFiscalPrinterFilter }
 
   IFiscalPrinterFilter = interface
-  ['{8A91E3B4-B81A-4E22-B665-83F651BFE8E6}']
+    ['{8A91E3B4-B81A-4E22-B665-83F651BFE8E6}']
     procedure BeforeCashIn;
     procedure BeforeCashOut;
     procedure BeforeCloseReceipt;
@@ -205,7 +205,6 @@ type
   IFiscalPrinterDevice = interface
     procedure Lock;
     procedure Unlock;
-
     procedure Connect;
     procedure Disconnect;
     procedure OpenDay;
@@ -257,9 +256,7 @@ type
     procedure EJTotalsReportNumber(const Parameters: TNumberReport);
     procedure SetOnCommand(Value: TCommandEvent);
     procedure SetBeforeCommand(Value: TCommandEvent);
-
     procedure PrintJournal(DayNumber: Integer);
-
     function GetResultCode: Integer;
     function GetResultText: WideString;
     function StartDump(DeviceCode: Integer): Integer;
@@ -320,10 +317,8 @@ type
     function RetSale(Operation: TPriceReg): Integer;
     function RetBuy(Operation: TPriceReg): Integer;
     function Storno(Operation: TPriceReg): Integer;
-    function ReceiptClose(const P: TCloseReceiptParams;
-      var R: TCloseReceiptResult): Integer;
-    function ReceiptClose2(const P: TFSCloseReceiptParams2;
-      var R: TFSCloseReceiptResult2): Integer;
+    function ReceiptClose(const P: TCloseReceiptParams; var R: TCloseReceiptResult): Integer;
+    function ReceiptClose2(const P: TFSCloseReceiptParams2; var R: TFSCloseReceiptResult2): Integer;
     function ReceiptDiscount(Operation: TAmountOperation): Integer;
     function ReceiptDiscount2(Operation: TReceiptDiscount2): Integer;
     function ReceiptCharge(Operation: TAmountOperation): Integer;
@@ -365,7 +360,6 @@ type
     function CapShortEcrStatus: Boolean;
     function CapPrintStringFont: Boolean;
     function CenterLine(const Line: WideString): WideString;
-
     procedure ClosePort;
     procedure ReleaseDevice;
     procedure Close;
@@ -400,7 +394,6 @@ type
     function ParseEJDocument(const Text: WideString): TEJDocument;
     function WaitForPrinting: TPrinterStatus;
     function ReadPrinterStatus: TPrinterStatus;
-
     function FSReadState(var R: TFSState): Integer;
     function FSWriteTLV(const TLVData: AnsiString): Integer;
     function FSSale(P: TFSSale): Integer;
@@ -421,7 +414,6 @@ type
     function FSWriteTag(TagID: Integer; const Data: WideString): Integer;
     function WriteCustomerAddress(const Value: WideString): Integer;
     function FSReadTotals(var R: TFMTotals): Integer;
-
     function GetErrorText(Code: Integer): WideString;
     function GetCapFiscalStorage: Boolean;
     function GetCapOpenReceipt: Boolean;
@@ -470,8 +462,7 @@ type
     function FSReadLastDocNum2: Int64;
     function FSReadLastMacValue: Int64;
     function FSReadLastMacValue2: Int64;
-    function FSCheckItemCode(const P: TFSCheckItemCode;
-      var R: TFSCheckItemResult): Integer;
+    function FSCheckItemCode(const P: TFSCheckItemCode; var R: TFSCheckItemResult): Integer;
     function FSAcceptItemCode(Action: Integer): Integer;
     function FSBindItemCode(CodeLen: Integer; var R: TFSCheckItemResult): Integer;
     procedure STLVBegin(TagID: Integer);
@@ -481,6 +472,7 @@ type
     procedure STLVWriteOp;
     procedure ResetPrinter;
     procedure WriteTLVItems;
+    function GetDocPrintMode: Integer;
 
     property LastMacValue: Int64 read GetLastMacValue;
     property LastDocNumber: Int64 read GetLastDocNumber;
@@ -510,7 +502,6 @@ type
   { IFiscalPrinterDevice2 }
 
   IFiscalPrinterDevice2 = interface
-
     function StartDump(Password, DeviceCode: Integer; var BlockCount: Integer): Integer;
 
 (*
@@ -682,13 +673,12 @@ type
   { IFiscalPrinterInternal }
 
   IFiscalPrinterInternal = interface
-  ['{17C01750-13B6-410B-BE0A-92CC9B5FB602}']
+    ['{17C01750-13B6-410B-BE0A-92CC9B5FB602}']
     procedure Connect;
     procedure PrintNonFiscalEnd;
     function GetDevice: IFiscalPrinterDevice;
     function GetPrinterSemaphoreName: WideString;
     procedure PrintTextFont(Station, Font: Integer; const Text: WideString);
-
     property Device: IFiscalPrinterDevice read GetDevice;
   end;
 
@@ -696,12 +686,10 @@ type
 
   ISharedPrinter = interface
     ['{91F29940-3969-474C-B6E5-6237FE2FC34C}']
-
     procedure Close;
     procedure Open(const DeviceName: WideString);
     procedure ReleaseDevice;
     procedure ClaimDevice(Timeout: Integer);
-
     procedure Connect;
     procedure CutPaper;
     procedure Disconnect;
@@ -716,12 +704,9 @@ type
     procedure PrintLine(Stations: Integer; const Line: WideString);
     procedure PrintLines(const Line1, Line2: WideString);
     procedure PrintRecText(const Text: WideString);
-
     procedure PrintText(const Text: WideString); overload;
     procedure PrintText(Station: Integer; const Text: WideString); overload;
-    procedure PrintText(const Text: WideString; Station: Integer;
-      Font: Integer; Alignment: TTextAlignment); overload;
-
+    procedure PrintText(const Text: WideString; Station: Integer; Font: Integer; Alignment: TTextAlignment); overload;
     procedure Check(Value: Integer);
     function FormatBoldLines(const Line1, Line2: WideString): WideString;
     procedure PrintBoldString(Flags: Byte; const Text: WideString);
@@ -746,7 +731,6 @@ type
     procedure PrintImageScale(const FileName: WideString; Scale: Integer);
     procedure SetOnProgress(const Value: TProgressEvent);
     procedure PrintSeparator(SeparatorType, SeparatorHeight: Integer);
-
     function GetHeader: TFixedStrings;
     function GetTrailer: TFixedStrings;
     function GetDeviceName: WideString;
@@ -777,7 +761,6 @@ type
     function IsDecimalPoint: Boolean;
     function CurrencyToStr(Value: Currency): WideString;
     procedure UpdateParams;
-
     procedure ReleasePrinter;
     procedure ClaimPrinter(Timeout: Integer);
     function GetPrinterSemaphoreName: WideString;
@@ -788,7 +771,6 @@ type
     function GetParameters: TPrinterParameters;
     procedure StartPing;
     procedure StopPing;
-
     property Header: TFixedStrings read GetHeader;
     property Trailer: TFixedStrings read GetTrailer;
     property PrintWidth: Integer read GetPrintWidth;
@@ -820,15 +802,14 @@ type
   { IFptrService }
 
   IFptrService = interface
-  ['{1CA47524-F229-45A5-AC8E-ECF60CAA20B2}']
+    ['{1CA47524-F229-45A5-AC8E-ECF60CAA20B2}']
     function Get_OpenResult: Integer; safecall;
     function COFreezeEvents(Freeze: WordBool): Integer; safecall;
     function GetPropertyNumber(PropIndex: Integer): Integer; safecall;
     procedure SetPropertyNumber(PropIndex: Integer; Number: Integer); safecall;
     function GetPropertyString(PropIndex: Integer): WideString; safecall;
     procedure SetPropertyString(PropIndex: Integer; const Text: WideString); safecall;
-    function OpenService(const DeviceClass: WideString; const DeviceName: WideString;
-                         const pDispatch: IDispatch): Integer; safecall;
+    function OpenService(const DeviceClass: WideString; const DeviceName: WideString; const pDispatch: IDispatch): Integer; safecall;
     function CloseService: Integer; safecall;
     function CheckHealth(Level: Integer): Integer; safecall;
     function ClaimDevice(Timeout: Integer): Integer; safecall;
@@ -862,20 +843,16 @@ type
     function PrintNormal(Station: Integer; const Data: WideString): Integer; safecall;
     function PrintPeriodicTotalsReport(const Date1: WideString; const Date2: WideString): Integer; safecall;
     function PrintPowerLossReport: Integer; safecall;
-    function PrintRecItem(const Description: WideString; Price: Currency; Quantity: Integer; 
-                          VatInfo: Integer; UnitPrice: Currency; const UnitName: WideString): Integer; safecall;
-    function PrintRecItemAdjustment(AdjustmentType: Integer; const Description: WideString; 
-                                    Amount: Currency; VatInfo: Integer): Integer; safecall;
+    function PrintRecItem(const Description: WideString; Price: Currency; Quantity: Integer; VatInfo: Integer; UnitPrice: Currency; const UnitName: WideString): Integer; safecall;
+    function PrintRecItemAdjustment(AdjustmentType: Integer; const Description: WideString; Amount: Currency; VatInfo: Integer): Integer; safecall;
     function PrintRecMessage(const Message: WideString): Integer; safecall;
     function PrintRecNotPaid(const Description: WideString; Amount: Currency): Integer; safecall;
     function PrintRecRefund(const Description: WideString; Amount: Currency; VatInfo: Integer): Integer; safecall;
     function PrintRecSubtotal(Amount: Currency): Integer; safecall;
-    function PrintRecSubtotalAdjustment(AdjustmentType: Integer; const Description: WideString;
-                                        Amount: Currency): Integer; safecall;
+    function PrintRecSubtotalAdjustment(AdjustmentType: Integer; const Description: WideString; Amount: Currency): Integer; safecall;
     function PrintRecTotal(Total: Currency; Payment: Currency; const Description: WideString): Integer; safecall;
     function PrintRecVoid(const Description: WideString): Integer; safecall;
-    function PrintRecVoidItem(const Description: WideString; Amount: Currency; Quantity: Integer; 
-                              AdjustmentType: Integer; Adjustment: Currency; VatInfo: Integer): Integer; safecall;
+    function PrintRecVoidItem(const Description: WideString; Amount: Currency; Quantity: Integer; AdjustmentType: Integer; Adjustment: Currency; VatInfo: Integer): Integer; safecall;
     function PrintReport(ReportType: Integer; const StartNum: WideString; const EndNum: WideString): Integer; safecall;
     function PrintXReport: Integer; safecall;
     function PrintZReport: Integer; safecall;
@@ -889,21 +866,16 @@ type
     function SetVatValue(VatID: Integer; const VatValue: WideString): Integer; safecall;
     function VerifyItem(const ItemName: WideString; VatID: Integer): Integer; safecall;
     function PrintRecCash(Amount: Currency): Integer; safecall;
-    function PrintRecItemFuel(const Description: WideString; Price: Currency; Quantity: Integer;
-                              VatInfo: Integer; UnitPrice: Currency; const UnitName: WideString;
-                              SpecialTax: Currency; const SpecialTaxName: WideString): Integer; safecall;
-    function PrintRecItemFuelVoid(const Description: WideString; Price: Currency; VatInfo: Integer;
-                                  SpecialTax: Currency): Integer; safecall;
-    function PrintRecPackageAdjustment(AdjustmentType: Integer; const Description: WideString;
-                                       const VatAdjustment: WideString): Integer; safecall;
+    function PrintRecItemFuel(const Description: WideString; Price: Currency; Quantity: Integer; VatInfo: Integer; UnitPrice: Currency; const UnitName: WideString; SpecialTax: Currency; const SpecialTaxName: WideString): Integer; safecall;
+    function PrintRecItemFuelVoid(const Description: WideString; Price: Currency; VatInfo: Integer; SpecialTax: Currency): Integer; safecall;
+    function PrintRecPackageAdjustment(AdjustmentType: Integer; const Description: WideString; const VatAdjustment: WideString): Integer; safecall;
     function PrintRecPackageAdjustVoid(AdjustmentType: Integer; const VatAdjustment: WideString): Integer; safecall;
     function PrintRecRefundVoid(const Description: WideString; Amount: Currency; VatInfo: Integer): Integer; safecall;
     function PrintRecSubtotalAdjustVoid(AdjustmentType: Integer; Amount: Currency): Integer; safecall;
     function PrintRecTaxID(const TaxID: WideString): Integer; safecall;
     function SetCurrency(NewCurrency: Integer): Integer; safecall;
     function GetOpenResult: Integer; safecall;
-    function Open(const DeviceClass: WideString; const DeviceName: WideString;
-                  const pDispatch: IDispatch): Integer; safecall;
+    function Open(const DeviceClass: WideString; const DeviceName: WideString; const pDispatch: IDispatch): Integer; safecall;
     function Close: Integer; safecall;
     function Claim(Timeout: Integer): Integer; safecall;
     function Release1: Integer; safecall;
@@ -912,15 +884,10 @@ type
     function UpdateStatistics(const StatisticsBuffer: WideString): Integer; safecall;
     function CompareFirmwareVersion(const FirmwareFileName: WideString; out pResult: Integer): Integer; safecall;
     function UpdateFirmware(const FirmwareFileName: WideString): Integer; safecall;
-    function PrintRecItemAdjustmentVoid(AdjustmentType: Integer; const Description: WideString;
-                                        Amount: Currency; VatInfo: Integer): Integer; safecall;
-    function PrintRecItemVoid(const Description: WideString; Price: Currency; Quantity: Integer;
-                              VatInfo: Integer; UnitPrice: Currency; const UnitName: WideString): Integer; safecall;
-    function PrintRecItemRefund(const Description: WideString; Amount: Currency; Quantity: Integer;
-                                VatInfo: Integer; UnitAmount: Currency; const UnitName: WideString): Integer; safecall;
-    function PrintRecItemRefundVoid(const Description: WideString; Amount: Currency;
-                                    Quantity: Integer; VatInfo: Integer; UnitAmount: Currency;
-                                    const UnitName: WideString): Integer; safecall;
+    function PrintRecItemAdjustmentVoid(AdjustmentType: Integer; const Description: WideString; Amount: Currency; VatInfo: Integer): Integer; safecall;
+    function PrintRecItemVoid(const Description: WideString; Price: Currency; Quantity: Integer; VatInfo: Integer; UnitPrice: Currency; const UnitName: WideString): Integer; safecall;
+    function PrintRecItemRefund(const Description: WideString; Amount: Currency; Quantity: Integer; VatInfo: Integer; UnitAmount: Currency; const UnitName: WideString): Integer; safecall;
+    function PrintRecItemRefundVoid(const Description: WideString; Amount: Currency; Quantity: Integer; VatInfo: Integer; UnitAmount: Currency; const UnitName: WideString): Integer; safecall;
     property OpenResult: Integer read Get_OpenResult;
     // Extended
     procedure CancelReceipt;
@@ -931,9 +898,13 @@ type
   end;
 
 function TicketToStr(const Ticket: TFSTicket): string;
+
 function PrinterDateToOposDate(Date: TPrinterDate): TOposDate;
+
 function OposDateToPrinterDate(Date: TOposDate): TPrinterDate;
+
 function PrinterDateTimeToOposDate(Date: TPrinterDateTime): TOposDate; overload;
+
 function PrinterDateTimeToOposDate(Date: TPrinterDate; Time: TPrinterTime): TOposDate; overload;
 
 implementation
@@ -956,8 +927,7 @@ begin
   Result.Min := Date.Min;
 end;
 
-function PrinterDateTimeToOposDate(Date: TPrinterDate;
-  Time: TPrinterTime): TOposDate;
+function PrinterDateTimeToOposDate(Date: TPrinterDate; Time: TPrinterTime): TOposDate;
 begin
   Result.Day := Date.Day;
   Result.Month := Date.Month;
@@ -975,11 +945,8 @@ end;
 
 function TicketToStr(const Ticket: TFSTicket): string;
 begin
-  Result := Tnt_WideFormat('%s;%s;%s;%s', [
-    PrinterDateTimeToStr3(Ticket.Date),
-    StrToHexText(Ticket.DocumentMac),
-    IntToStr(Ticket.DocumentNum),
-    StrToHexText(Ticket.Data)]);
+  Result := Tnt_WideFormat('%s;%s;%s;%s', [PrinterDateTimeToStr3(Ticket.Date), StrToHexText(Ticket.DocumentMac), IntToStr(Ticket.DocumentNum), StrToHexText(Ticket.Data)]);
 end;
 
 end.
+

@@ -561,7 +561,7 @@ type
     Amount4: Int64; // Сумма по чеку предоплатой:5 байт
     Amount5: Int64; // Сумма по чеку постоплатой:5 байт
     Amount6: Int64; // Сумма по чеку встречным представлением:5 байт
-    Amount7: Int64; // Сумма НДС 18%:5 байт
+    Amount7: Int64; // Сумма НДС 20%:5 байт
     Amount8: Int64; // Сумма НДС 10%:5 байт
     Amount9: Int64; // Сумма расчёта по ставке 0%:5 байт
     Amount10: Int64; // Сумма расчёта по чеку без НДС:5 байт
@@ -893,7 +893,7 @@ begin
   VatCodes.Clear;
   VatCodes.Add(1, 3); // 1, Налог 0%
   VatCodes.Add(2, 2); // 2, Налог 10%
-  VatCodes.Add(4, 1); // 4, Налог 18%
+  VatCodes.Add(4, 1); // 4, Налог 20%
 
   HandleErrorCode := DefHandleErrorCode;
   FSServiceEnabled := False;
