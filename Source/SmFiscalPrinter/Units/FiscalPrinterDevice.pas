@@ -8391,7 +8391,12 @@ function TFiscalPrinterDevice.ReceiptClose2(
 var
   Command: AnsiString;
   Answer: AnsiString;
+const
+  SInvalidDiscountValue =  'Invalid discount value, %d. Valid discount value is [0..99].';
 begin
+  if not ((P.Discount) in [0..99]) then
+    RaiseIllegalError(Format(SInvalidDiscountValue, [P.Discount]));
+
   Command := #$FF#$45 + IntToBin(GetUsrPassword, 4) +
     IntToBin(P.Payments[0], 5) +
     IntToBin(P.Payments[1], 5) +

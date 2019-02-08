@@ -853,6 +853,7 @@ var
 begin
   FOpened := False;
   FIsVoided := False;
+  FDiscounts.Clear;
   FReceiptItems.Clear;
   FPrintEnabled := True;
   FLastItem := nil;
