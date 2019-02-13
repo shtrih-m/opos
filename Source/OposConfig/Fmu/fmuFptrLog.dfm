@@ -4,8 +4,8 @@ object fmFptrLog: TfmFptrLog
   AutoScroll = False
   BorderIcons = [biSystemMenu]
   Caption = 'Log'
-  ClientHeight = 173
-  ClientWidth = 384
+  ClientHeight = 191
+  ClientWidth = 482
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -15,20 +15,20 @@ object fmFptrLog: TfmFptrLog
   OldCreateOrder = False
   Position = poScreenCenter
   DesignSize = (
-    384
-    173)
+    482
+    191)
   PixelsPerInch = 96
   TextHeight = 13
   object gbLogParameters: TTntGroupBox
     Left = 8
     Top = 8
-    Width = 369
+    Width = 467
     Height = 161
     Anchors = [akLeft, akTop, akRight]
     Caption = 'Log parameters'
     TabOrder = 0
     DesignSize = (
-      369
+      467
       161)
     object lblMaxLogFileCount: TTntLabel
       Left = 32
@@ -43,6 +43,13 @@ object fmFptrLog: TfmFptrLog
       Width = 61
       Height = 13
       Caption = 'Log file path:'
+    end
+    object Label1: TLabel
+      Left = 280
+      Top = 104
+      Width = 124
+      Height = 13
+      Caption = '0 - unlimited log files count'
     end
     object chbLogEnabled: TTntCheckBox
       Left = 8
@@ -66,7 +73,7 @@ object fmFptrLog: TfmFptrLog
     object edtLogFilePath: TTntEdit
       Left = 152
       Top = 56
-      Width = 209
+      Width = 307
       Height = 21
       Anchors = [akLeft, akTop, akRight]
       TabOrder = 1

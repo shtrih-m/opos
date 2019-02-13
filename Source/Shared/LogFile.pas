@@ -310,7 +310,7 @@ end;
 
 procedure TLogFile.SetDefaults;
 begin
-  MaxCount := 10;
+  MaxCount := 0;
   Enabled := False;
   FilePath := IncludeTrailingBackSlash(ExtractFilePath(GetModuleFileName)) + 'Logs';
   FileName := GetDefaultFileName;
@@ -395,6 +395,7 @@ var
   FileMask: AnsiString;
   FileNames: TTntStringList;
 begin
+  if MaxCount = 0 then Exit;
   FileNames := TTntStringList.Create;
   try
     FileMask := IncludeTrailingBackSlash(FilePath) + Tnt_WideFormat('*%s*.log', [DeviceName]);
