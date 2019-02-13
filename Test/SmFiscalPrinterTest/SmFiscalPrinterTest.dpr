@@ -219,7 +219,8 @@ uses
   BaseForm in '..\..\Source\Shared\BaseForm.pas',
   TranslationUtil in '..\..\Source\SmFiscalPrinter\Units\TranslationUtil.pas',
   LangUtils in '..\..\Source\Shared\LangUtils.pas',
-  duBitUtils in 'Units\duBitUtils.pas';
+  duBitUtils in 'Units\duBitUtils.pas',
+  duLogFile in 'Units\duLogFile.pas';
 
 {$R *.RES}
 {$R ..\..\Source\SmFiscalPrinter\SmFiscalPrinter.TLB}

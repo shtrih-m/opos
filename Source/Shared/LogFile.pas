@@ -10,6 +10,10 @@ uses
   // This
   WException, TntSysUtils;
 
+const
+  MAX_FILES_COUNT     = 10;
+  MAX_FILE_SIZE_IN_KB = 4194240;
+
 type
   TVariantArray = array of Variant;
 
@@ -18,6 +22,7 @@ type
   ILogFile = interface
     procedure Lock;
     procedure Unlock;
+    procedure Write(const Data: AnsiString);
     procedure Info(const Data: AnsiString); overload;
     procedure Debug(const Data: AnsiString); overload;
     procedure Trace(const Data: AnsiString); overload;
@@ -35,6 +40,7 @@ type
     procedure LogParam(const ParamName: AnsiString; const ParamValue: Variant);
     procedure GetFileNames(const Mask: AnsiString; FileNames: TTntStrings);
 
+    function GetFileSize: Int64;
     function GetEnabled: Boolean;
     function GetMaxCount: Integer;
     function GetFilePath: AnsiString;
@@ -53,6 +59,7 @@ type
     procedure SetDeviceName(const Value: AnsiString);
     procedure SetTimeStampEnabled(const Value: Boolean);
 
+    property FileSize: Int64 read GetFileSize;
     property Enabled: Boolean read GetEnabled write SetEnabled;
     property FilePath: AnsiString read GetFilePath write SetFilePath;
     property FileName: AnsiString read GetFileName write SetFileName;
@@ -107,6 +114,7 @@ type
     class function VarArrayToStr(const AVarArray: TVariantArray): AnsiString;
 
     property Opened: Boolean read GetOpened;
+    function GetFileSize: Int64;
   public
     constructor Create;
     destructor Destroy; override;
@@ -133,6 +141,7 @@ type
     procedure WriteRxData(Data: AnsiString);
     procedure WriteTxData(Data: AnsiString);
 
+    property FileSize: Int64 read GetFileSize;
     property Enabled: Boolean read GetEnabled write SetEnabled;
     property FilePath: AnsiString read GetFilePath write SetFilePath;
     property FileName: AnsiString read GetFileName write SetFileName;
@@ -439,8 +448,10 @@ end;
 
 procedure TLogFile.Write(const Data: AnsiString);
 var
+  i: Integer;
   S: AnsiString;
   Count: DWORD;
+  NewFileName: AnsiString;
 begin
   ODS(Data);
   Lock;
@@ -455,7 +466,25 @@ begin
     OpenFile;
     if Opened then
     begin
-      WriteFile(FHandle, S[1], Length(S), Count, nil);
+      if (GetFileSize() div 1024) > MAX_FILE_SIZE_IN_KB then
+      begin
+        CloseFile;
+        for i := 0 to MAX_FILES_COUNT-1 do
+        begin
+          NewFileName := ChangeFileExt(FFileName, Format('_%d.log', [i]));
+          if not FileExists(NewFileName) then
+          begin
+            RenameFile(FFileName, NewFileName);
+            Break;
+          end;
+        end;
+        OpenFile;
+      end;
+
+      if not WriteFile(FHandle, S[1], Length(S), Count, nil) then
+      begin
+        CloseFile;
+      end;
     end;
   finally
     Unlock;
@@ -695,6 +724,18 @@ end;
 procedure TLogFile.SetTimeStampEnabled(const Value: Boolean);
 begin
   FTimeStampEnabled := Value;
+end;
+
+function TLogFile.GetFileSize: Int64;
+var
+  FileSizeHigh: DWORD;
+begin
+  Result := 0;
+  if Opened then
+  begin
+    Result := Windows.GetFileSize(FHandle, @FileSizeHigh);
+    Result := Result + (FileSizeHigh * $100000000);
+  end;
 end;
 
 end.

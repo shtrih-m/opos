@@ -328,7 +328,7 @@ const
   DefHeaderPrinted = False;
   DefXmlZReportEnabled = False;
   DefCsvZReportEnabled = False;
-  DefLogMaxCount = 10;
+  DefLogMaxCount = 30;
   DefVoidReceiptOnMaxItems = False;
   DefMaxReceiptItems = 100;
   DefJournalPrintHeader = True;

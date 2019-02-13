@@ -7,6 +7,8 @@ uses
   Windows, SysUtils, Classes,
   // DUnit
   TestFramework,
+  // Tnt
+  TntClasses,
   // This
   LogFile, FileUtils;
 
@@ -14,6 +16,8 @@ type
   { TLogFileTest }
 
   TLogFileTest = class(TTestCase)
+  public
+    procedure CheckMaxSize;
   published
     procedure CheckMaxCount;
     procedure CheckDeleteFile;
@@ -22,6 +26,33 @@ type
 implementation
 
 { TLogFileTest }
+
+procedure TLogFileTest.CheckMaxSize;
+var
+  Data: AnsiString;
+  Logger: ILogFile;
+  FilesPath: string;
+  FileNames: TTntStringList;
+begin
+  FileNames := TTntStringList.Create;
+  try
+    Logger := TLogFile.Create;
+    Logger.MaxCount := 1;
+    Logger.Enabled := True;
+    Logger.FilePath := GetModulePath + 'Logs';
+    Logger.DeviceName := 'Device1';
+
+    FilesPath := GetModulePath + 'Logs\';
+    DeleteFiles(FilesPath + '*.log');
+    Data := StringOfChar(#0, 4096);
+    repeat
+      Logger.Write(Data);
+      if ((Logger.FileSize div 1024) > (MAX_FILE_SIZE_IN_KB * 2)) then Break;
+    until False;
+  finally
+    FileNames.Free;
+  end;
+end;
 
 procedure TLogFileTest.CheckDeleteFile;
 var
@@ -95,9 +126,9 @@ procedure TLogFileTest.CheckMaxCount;
 var
   Logger: ILogFile;
   FilesPath: string;
-  FileNames: TStringList;
+  FileNames: TTntStringList;
 begin
-  FileNames := TStringList.Create;
+  FileNames := TTntStringList.Create;
   try
     Logger := TLogFile.Create;
     Logger.MaxCount := 3;
