@@ -290,7 +290,7 @@ const
   DefStatusInterval = 100;
   DefSearchByPortEnabled = False;
   DefSearchByBaudRateEnabled = True;
-  DefLogFileEnabled = False;
+  DefLogFileEnabled = True;
   DefCutType = CutTypePartial;
   DefLogoPosition = LogoAfterHeader;
   DefNumHeaderLines = 6;
@@ -328,7 +328,7 @@ const
   DefHeaderPrinted = False;
   DefXmlZReportEnabled = False;
   DefCsvZReportEnabled = False;
-  DefLogMaxCount = 0;
+  DefLogMaxCount = 10;
   DefVoidReceiptOnMaxItems = False;
   DefMaxReceiptItems = 100;
   DefJournalPrintHeader = True;
