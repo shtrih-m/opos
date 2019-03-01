@@ -418,7 +418,7 @@ type
     function GetCapFiscalStorage: Boolean;
     function GetCapOpenReceipt: Boolean;
     function OpenFiscalDay: Boolean;
-    function GetCapReceiptDiscount2: Boolean;
+    function GetCapReceiptDiscount: Boolean;
     function ReadSysOperatorNumber: Integer;
     function ReadUsrOperatorNumber: Integer;
     function GetTaxInfo(Tax: Integer): TTaxInfo;
@@ -487,7 +487,7 @@ type
     property Tables: TDeviceTables read GetTables write SetTables;
     property Statistics: TFiscalPrinterStatistics read GetStatistics;
     property AmountDecimalPlaces: Integer read GetAmountDecimalPlaces write SetAmountDecimalPlaces;
-    property CapReceiptDiscount2: Boolean read GetCapReceiptDiscount2;
+    property CapReceiptDiscount: Boolean read GetCapReceiptDiscount;
     property Context: TDriverContext read GetContext;
     property CapOpenReceipt: Boolean read GetCapOpenReceipt;
     property CapDiscount: Boolean read GetCapDiscount;

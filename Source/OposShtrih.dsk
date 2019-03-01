@@ -1,22 +1,26 @@
 [Closed Files]
-File_0=SourceModule,'C:\projects\OPOSShtrih\Source\Shared\LogFile.pas',0,1,30,25,45,0,0
-File_1=SourceModule,'C:\projects\OPOSShtrih\Source\OposConfig\Fmu\fmuFptrLog.pas',0,1,1,27,12,1,0
-File_2=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\PrinterParametersIni.pas',0,1,255,86,267,0,0
-File_3=SourceModule,'C:\projects\OPOSShtrih\Test\SmFiscalPrinterTest\Units\duLogFile.pas',0,1,1,68,7,0,0
-File_4=SourceModule,'C:\projects\OPOSShtrih\Test\SmFiscalPrinterTest\Units\duFiscalPrinter.pas',0,1,1755,47,1775,0,0
-File_5=SourceModule,'C:\projects\OPOSShtrih\Source\Shared\DIOHandlers.pas',0,1,2036,44,2050,0,0
-File_6=SourceModule,'c:\program files (x86)\borland\delphi7\source\rtl\Win\Windows.pas',0,1,1,1,1,0,0
-File_7=SourceModule,'C:\Program Files (x86)\Borland\Delphi7\Source\ToolsAPI\ToolsAPI.pas',0,1,1543,14,1549,0,0
-File_8=SourceModule,'C:\Program Files (x86)\Borland\Delphi7\Source\Rtl\Sys\SysUtils.pas',0,1,1175,2,1175,0,0
+File_0=SourceModule,'C:\projects\OPOSShtrih\Source\OposTest\Units\PrinterTest.pas',0,1,4603,36,4620,0,0
+File_1=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\DirectIOAPI.pas',0,1,315,1,338,0,0
+File_2=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\PrinterParameters.pas',0,1,313,40,323,0,0
+File_3=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\PrinterParametersReg.pas',0,1,228,20,240,0,0
+File_4=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\PrinterParametersRegIBT.pas',0,1,250,38,258,0,0
+File_5=SourceModule,'C:\projects\OPOSShtrih\Source\Shared\LogFile.pas',0,1,30,25,45,0,0
+File_6=SourceModule,'C:\projects\OPOSShtrih\Source\OposConfig\Fmu\fmuFptrLog.pas',0,1,1,27,12,1,0
+File_7=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\PrinterParametersIni.pas',0,1,255,86,267,0,0
+File_8=SourceModule,'C:\projects\OPOSShtrih\Test\SmFiscalPrinterTest\Units\duLogFile.pas',0,1,1,68,7,0,0
 
 [Modules]
-Module0=C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\PrinterParameters.pas
+Module0=C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterDevice.pas
 Count=1
 EditWindowCount=1
 TypeLibWindowCount=3
 
-[C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\PrinterParameters.pas]
+[C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterDevice.pas]
 ModuleType=SourceModule
+FormState=0
+FormOnTop=0
+
+[C:\projects\OPOSShtrih\Test\AcceptanceTest\AcceptanceTest.dpr]
 FormState=0
 FormOnTop=0
 
@@ -92,10 +96,6 @@ FormOnTop=0
 FormState=0
 FormOnTop=0
 
-[C:\projects\OPOSShtrih\Test\AcceptanceTest\AcceptanceTest.dpr]
-FormState=0
-FormOnTop=0
-
 [EditWindow0]
 ViewCount=1
 CurrentView=0
@@ -104,15 +104,17 @@ CodeExplorer=CodeExplorer@EditWindow0
 MessageView=MessageView@EditWindow0
 Create=1
 Visible=1
-State=0
+State=2
 Left=501
 Top=138
 Width=1302
 Height=682
-MaxLeft=-1
-MaxTop=-1
-ClientWidth=1286
-ClientHeight=644
+MaxLeft=-8
+MaxTop=106
+MaxWidth=1936
+MaxHeight=952
+ClientWidth=1920
+ClientHeight=914
 LeftPanelSize=0
 LeftPanelClients=CodeExplorer@EditWindow0
 LeftPanelData=00000400010000000C000000436F64654578706C6F7265720000000000000000000000000000000000FFFFFFFF
@@ -122,10 +124,10 @@ BottomPanelClients=MessageView@EditWindow0
 BottomPanelData=00000400010000000B0000004D657373616765566965770000000000000000000000000000000000FFFFFFFF
 
 [View0]
-Module=C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\PrinterParameters.pas
-CursorX=17
-CursorY=331
-TopLine=316
+Module=C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterDevice.pas
+CursorX=30
+CursorY=8419
+TopLine=8402
 LeftCol=1
 
 [TypeLibEditWindow0]
@@ -205,8 +207,8 @@ Left=92
 Top=16
 Width=1828
 Height=122
-MaxLeft=-1
-MaxTop=-1
+MaxLeft=-8
+MaxTop=-8
 MaxWidth=1936
 MaxHeight=122
 ClientWidth=1920
@@ -260,7 +262,7 @@ ClientHeight=60
 
 [PropertyInspector]
 Create=1
-Visible=1
+Visible=0
 State=0
 Left=7
 Top=110

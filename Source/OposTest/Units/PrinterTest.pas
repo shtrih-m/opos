@@ -4618,11 +4618,9 @@ begin
   FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
   Check(FiscalPrinter.BeginFiscalReceipt(True));
 
-(*
-  pString := '3';
+  pString := '5';
   pData := DriverParameterMarkType;
   Check(FiscalPrinter.DirectIO(DIO_SET_DRIVER_PARAMETER, pData, pString));
-*)
 
   pData := DriverParameterBarcode;
   pString :=

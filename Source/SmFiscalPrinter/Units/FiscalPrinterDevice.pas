@@ -41,7 +41,7 @@ type
     FCapGraphics512: Boolean;
     FCapFiscalStorage: Boolean;
     FCapOpenReceipt: Boolean;
-    FCapReceiptDiscount2: Boolean;
+    FCapReceiptDiscount: Boolean;
     FCapFontInfo: Boolean;
     FDiscountMode: Integer;
     FDocPrintMode: Integer;
@@ -165,7 +165,7 @@ type
     function OpenFiscalDay: Boolean;
     function GetCapFiscalStorage: Boolean;
     function GetCapOpenReceipt: Boolean;
-    function GetCapReceiptDiscount2: Boolean;
+    function GetCapReceiptDiscount: Boolean;
     procedure PrintCommStatus;
     procedure WriteFPParameter(ParamId: Integer; const Value: WideString);
     function GetDiscountMode: Integer;
@@ -486,7 +486,7 @@ type
     property Connection: IPrinterConnection read FConnection;
     property CapFiscalStorage: Boolean read GetCapFiscalStorage;
     property DiscountMode: Integer read GetDiscountMode;
-    property CapReceiptDiscount2: Boolean read GetCapReceiptDiscount2;
+    property CapReceiptDiscount: Boolean read GetCapReceiptDiscount;
     property PrinterModel: TPrinterModel read GetPrinterModel;
     property Statistics: TFiscalPrinterStatistics read GetStatistics;
     property OnProgress: TProgressEvent read FOnProgress write FOnProgress;
@@ -775,7 +775,7 @@ begin
   FStatistics := TFiscalPrinterStatistics.Create(Parameters.Logger);
   FFilter := TFiscalPrinterFilter.Create(Parameters.Logger);
   FAmountDecimalPlaces := 2;
-  FCapReceiptDiscount2 := True;
+  FCapReceiptDiscount := True;
   FCapGraphics1 := True;
   LoadModels;
 end;
@@ -826,9 +826,9 @@ begin
   Result := FContext.MalinaParams;
 end;
 
-function TFiscalPrinterDevice.GetCapReceiptDiscount2: Boolean;
+function TFiscalPrinterDevice.GetCapReceiptDiscount: Boolean;
 begin
-  Result := FCapReceiptDiscount2;
+  Result := FCapReceiptDiscount;
 end;
 
 procedure TFiscalPrinterDevice.AddFilter(AFilter: IFiscalPrinterFilter);
@@ -4072,7 +4072,7 @@ begin
     IntToBin(Operation.Tax, 1) +
     GetText(Operation.Text, 40);
   Result := ExecuteData(Command, Answer);
-  FCapReceiptDiscount2 := IsSupported(Result);
+  FCapReceiptDiscount := IsSupported(Result);
 end;
 
 (******************************************************************************
@@ -4110,7 +4110,7 @@ begin
     Stream.WriteString(GetText(Operation.Text, 40));
     Result := ExecuteStream(Stream);
     if Result = 0 then
-      FFilter.ReceiptDiscount(Operation);
+      FFilter.ReceiptCharge(Operation);
   finally
     Stream.Free;
   end;
@@ -6683,7 +6683,7 @@ begin
   FCapGraphics512 := False;
   FCapFiscalStorage := False;
   FCapOpenReceipt := False;
-  FCapReceiptDiscount2 := False;
+  FCapReceiptDiscount := False;
   FCapFontInfo := False;
   FIsFiscalized := False;
   FCapParameters2 := False;
@@ -6750,10 +6750,10 @@ begin
     FDocPrintMode := ReadDocPrintMode;
   end;
   FCapEnablePrint := GetDeviceMetrics.Model <> 19;
-  FCapSubtotalRound := FCapFiscalStorage and ((GetDeviceMetrics.Model = 19) or (DiscountMode = 2));
   FCapFSCloseReceipt2 := FCapFiscalStorage and TestCommand($FF45);
-  FCapDiscount := FCapFiscalStorage and (FDiscountMode = 0) and (GetDeviceMetrics.Model <> 19);
   FIsFiscalized := FCapFiscalStorage or (FLongStatus.RegistrationNumber <> 0);
+  FCapDiscount := not FCapFiscalStorage;
+  FCapSubtotalRound := FCapFiscalStorage;
 end;
 
 // Is fiscal printer firmware 2 (Semenov)

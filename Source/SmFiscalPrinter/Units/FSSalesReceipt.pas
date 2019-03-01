@@ -55,7 +55,6 @@ type
     function IsLoyaltyCard(const Text: WideString): Boolean;
     procedure PrintDiscounts;
     function GetTax(const ItemName: WideString; Tax: Integer): Integer;
-    function GetCapReceiptDiscount2: Boolean;
     procedure PrintText2(const Text: WideString);
     procedure PrintFSSale(Item: TFSSaleItem);
     procedure AddTextItem(const Text: WideString; Station: Integer);
@@ -1291,11 +1290,6 @@ begin
   Result := ExecRegExpr(GetMalinaParams.RosneftCardMask, Text);
 end;
 
-function TFSSalesReceipt.GetCapReceiptDiscount2: Boolean;
-begin
-  Result := Device.CapReceiptDiscount2;
-end;
-
 procedure TFSSalesReceipt.PrintDiscounts;
 var
   i: Integer;
@@ -1319,7 +1313,7 @@ var
   ResultCode: Integer;
   Discount2: TReceiptDiscount2;
 begin
-  if GetCapReceiptDiscount2 then
+  if Device.CapReceiptDiscount then
   begin
     Discount2.Discount := 0;
     Discount2.Charge := 0;

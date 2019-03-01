@@ -28,7 +28,7 @@ type
 
     FPort: TSerialPort;
     function GetCapFiscalStorage: Boolean;
-    function GetCapReceiptDiscount2: Boolean;
+    function GetCapReceiptDiscount: Boolean;
     function GetParameters: TPrinterParameters;
     function GetCapSubtotalRound: Boolean;
   public
@@ -333,7 +333,7 @@ type
     property CapFiscalStorage: Boolean read GetCapFiscalStorage;
     property Model: TPrinterModelRec read GetModel write FModel;
     property Tables: TDeviceTables read GetTables write SetTables;
-    property CapReceiptDiscount2: Boolean read GetCapReceiptDiscount2;
+    property CapReceiptDiscount: Boolean read GetCapReceiptDiscount;
     property LongStatus: TLongPrinterStatus read FLongStatus write FLongStatus;
     property ShortStatus: TShortPrinterStatus read FShortStatus write FShortStatus;
     property DeviceMetrics: TDeviceMetrics read FDeviceMetrics write FDeviceMetrics;
@@ -1479,7 +1479,7 @@ begin
   Result := 0;
 end;
 
-function TTextFiscalPrinterDevice.GetCapReceiptDiscount2: Boolean;
+function TTextFiscalPrinterDevice.GetCapReceiptDiscount: Boolean;
 begin
   Result := False;
 end;

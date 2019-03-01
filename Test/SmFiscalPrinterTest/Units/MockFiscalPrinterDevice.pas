@@ -27,7 +27,7 @@ type
 
     function GetLogger: ILogFile;
     function GetCapFiscalStorage: Boolean;
-    function GetCapReceiptDiscount2: Boolean;
+    function GetCapReceiptDiscount: Boolean;
     function GetParameters: TPrinterParameters;
     function GetCapSubtotalRound: Boolean;
     function GetPrinterStatus: TPrinterStatus;
@@ -333,7 +333,7 @@ type
     property LongStatus: TLongPrinterStatus read FLongStatus write FLongStatus;
     property ShortStatus: TShortPrinterStatus read FShortStatus write FShortStatus;
     property DeviceMetrics: TDeviceMetrics read FDeviceMetrics write FDeviceMetrics;
-    property CapReceiptDiscount2: Boolean read GetCapReceiptDiscount2;
+    property CapReceiptDiscount: Boolean read GetCapReceiptDiscount;
     property Logger: ILogFile read GetLogger;
     property CapSubtotalRound: Boolean read GetCapSubtotalRound;
   end;
@@ -1493,7 +1493,7 @@ begin
   Result := 0;
 end;
 
-function TMockFiscalPrinterDevice.GetCapReceiptDiscount2: Boolean;
+function TMockFiscalPrinterDevice.GetCapReceiptDiscount: Boolean;
 begin
   Result := False;
 end;
