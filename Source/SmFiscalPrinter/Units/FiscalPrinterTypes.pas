@@ -945,7 +945,11 @@ end;
 
 function TicketToStr(const Ticket: TFSTicket): string;
 begin
-  Result := Tnt_WideFormat('%s;%s;%s;%s', [PrinterDateTimeToStr3(Ticket.Date), StrToHexText(Ticket.DocumentMac), IntToStr(Ticket.DocumentNum), StrToHexText(Ticket.Data)]);
+  Result := Tnt_WideFormat('%s;%s;%s;%s', [
+    PrinterDateTimeToStr3(Ticket.Date),
+    StrToHexText(Ticket.DocumentMac),
+    IntToStr(Ticket.DocumentNum),
+    StrToHexText(Ticket.Data)]);
 end;
 
 end.

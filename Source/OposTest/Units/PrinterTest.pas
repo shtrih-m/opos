@@ -4835,7 +4835,6 @@ end;
 procedure TDiscountModeTest.Execute;
 begin
   Check(FiscalPrinter.ResetPrinter());
-  Check(FiscalPrinter.SetParameter(DriverParameterDiscountMode, DiscountModeNone));
 
   FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
   Check(FiscalPrinter.BeginFiscalReceipt(True));
@@ -5050,16 +5049,52 @@ end;
 { TReceiptTest26 }
 
 procedure TReceiptTest26.Execute;
+var
+  DeviceName: WideString;
 begin
   Check(FiscalPrinter.ResetPrinter);
-
-  FiscalPrinter.WriteFPParameter(DIO_FPTR_PARAMETER_ENABLE_PRINT, '1');
-  // 100% prepaid
   FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
   Check(FiscalPrinter.BeginFiscalReceipt(True));
-  Check(FiscalPrinter.PrintRecItem('Item 1', 0, 48980, 1, 0, 'кг'));
-  Check(FiscalPrinter.PrintRecTotal(1200, 1200, '0'));
-  Check(FiscalPrinter.EndFiscalReceipt(False));
+  Check(FiscalPrinter.GetData2(3, 0, ''));
+  Check(FiscalPrinter.GetData2(7, 0, ''));
+  Check(FiscalPrinter.GetData2(9, 0, ''));
+  DeviceName := FiscalPrinter.DeviceName;
+  Check(FiscalPrinter.DirectIO2(18, 193, ''));
+  Check(FiscalPrinter.DirectIO2(18, 197, '15500'));
+  Check(FiscalPrinter.DirectIO2(18, 201, '96190'));
+  Check(FiscalPrinter.DirectIO2(18, 205, '0'));
+  Check(FiscalPrinter.DirectIO2(41, 2, '                                                                                                                                                                                                                                                              '));
+  Check(FiscalPrinter.DirectIO2(41, 1, '                                                                                                                                                                                                                                                              '));
+  FiscalPrinter.PrinterState;
+  Check(FiscalPrinter.GetData2(3, 0, ''));
+  Check(FiscalPrinter.DirectIO2(9, 5, '                   КАССОВЫЙ ЧЕК                    '));
+  Check(FiscalPrinter.DirectIO2(9, 5, 'Касса:5                                    Док:5944'));
+  Check(FiscalPrinter.DirectIO2(30, 72, '4'));
+  Check(FiscalPrinter.DirectIO2(30, 73, '1'));
+  Check(FiscalPrinter.PrintRecItem('1:3661449 Напиток JACOBS 3в1 15г', 33.8, 2000, 1, 16.9, 'шт'));
+  Check(FiscalPrinter.DirectIO2(30, 72, '4'));
+  Check(FiscalPrinter.DirectIO2(30, 73, '1'));
+  Check(FiscalPrinter.PrintRecItem('2*2144975 Вафли МАДАМ НУАР 145г', 29.9, 1000, 1, 29.9, 'шт'));
+  Check(FiscalPrinter.DirectIO2(30, 72, '4'));
+  Check(FiscalPrinter.DirectIO2(30, 73, '1'));
+  Check(FiscalPrinter.PrintRecItem('3*3635413 Биопродукт АКТИВИА 130г', 29.9, 1000, 2, 29.9, 'шт'));
+  Check(FiscalPrinter.DirectIO2(30, 72, '4'));
+  Check(FiscalPrinter.DirectIO2(30, 73, '1'));
+  Check(FiscalPrinter.PrintRecItem('4*3327913 Биопродукт твор.АКТИВИА 130г', 29.9, 1000, 2, 29.9, 'шт'));
+  Check(FiscalPrinter.GetData2(1, 0, ''));
+  Check(FiscalPrinter.PrintRecSubtotal(123.5));
+  Check(FiscalPrinter.PrintRecSubtotalAdjustment(1, 'ОКРУГЛЕНИЕ', 0.5));
+  Check(FiscalPrinter.PrintRecTotal(0, 123, '0'));
+  FiscalPrinter.PrinterState;
+  Check(FiscalPrinter.DirectIO2(9, 5, '* - товар участвует в акции.                       '));
+  Check(FiscalPrinter.DirectIO2(9, 5, '---------------------------------------------------'));
+  Check(FiscalPrinter.DirectIO2(9, 5, 'Карта Клуба:                           7789****2535'));
+  Check(FiscalPrinter.DirectIO2(9, 5, 'Начислено баллов:                                12'));
+  Check(FiscalPrinter.DirectIO2(9, 5, 'Остаток баллов:                                 515'));
+  Check(FiscalPrinter.DirectIO2(9, 5, '---------------------------------------------------'));
+  Check(FiscalPrinter.DirectIO2(40, 1203, '621302598317'));
+  Check(FiscalPrinter.DirectIO2(40, 1008, ''));
+  Check(FiscalPrinter.EndFiscalReceipt(True));
 end;
 
 function TReceiptTest26.GetDisplayText: WideString;

@@ -493,9 +493,6 @@ begin
       if Reg.ValueExists('ItemCheckMode') then
         FParameters.ItemCheckMode := Reg.ReadInteger('ItemCheckMode');
 
-      if Reg.ValueExists('DiscountMode') then
-        FParameters.DiscountMode := Reg.ReadInteger('DiscountMode');
-
       if Reg.ValueExists('IgnoreDirectIOErrors') then
         FParameters.IgnoreDirectIOErrors := Reg.ReadBool('IgnoreDirectIOErrors');
 
@@ -676,7 +673,6 @@ begin
     Reg.WriteBool('CheckItemCodeEnabled', FParameters.CheckItemCodeEnabled);
     Reg.WriteInteger('NewItemStatus', FParameters.NewItemStatus);
     Reg.WriteInteger('ItemCheckMode', FParameters.ItemCheckMode);
-    Reg.WriteInteger('DiscountMode', FParameters.DiscountMode);
     Reg.WriteBool('IgnoreDirectIOErrors', FParameters.IgnoreDirectIOErrors);
     Reg.WriteInteger('ModelId', FParameters.ModelId);
     Reg.WriteInteger('ItemTextMode', FParameters.ItemTextMode);

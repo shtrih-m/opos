@@ -298,11 +298,9 @@ begin
   begin
     ItemAmount := Round2(GetLastItem.Quantity * GetLastItem.Price);
     DiscountAmount := GetLastItem.Discount + Abs(Discount.Amount);
-    if Parameters.DiscountMode <> DiscountModeNone then
-    begin
-      if DiscountAmount > (ItemAmount + GetLastItem.Charge) then
-        raiseException(_('Сумма скидки больше суммы позиции'));
-    end;
+    if DiscountAmount > (ItemAmount + GetLastItem.Charge) then
+      raiseException(_('Сумма скидки больше суммы позиции'));
+
     GetLastItem.Discount := GetLastItem.Discount + Abs(Discount.Amount);
   end else
   begin
@@ -370,8 +368,6 @@ end;
 
 procedure TFSSalesReceipt.CheckAdjAmount(AdjustmentType: Integer; Amount: Currency);
 begin
-  if Parameters.DiscountMode = DiscountModeNone then Exit;
-
   case AdjustmentType of
 
     FPTR_AT_AMOUNT_DISCOUNT,
@@ -625,8 +621,6 @@ end;
 function TFSSalesReceipt.GetTotal: Int64;
 begin
   Result := FReceiptItems.GetTotal - FDiscounts.GetTotal;
-  if Parameters.DiscountMode = DiscountModeNone then
-    Result := FReceiptItems.GetTotal;
 end;
 
 function TFSSalesReceipt.GetAdjustmentAmount(
@@ -928,7 +922,7 @@ begin
     if ReceiptItem is TFSSaleItem then
     begin
       FSSaleItem := ReceiptItem as TFSSaleItem;
-      FSSaleItem.UpdatePrice(Parameters.DiscountMode);
+      FSSaleItem.UpdatePrice;
       SplittedItem := FSSaleItem.SplittedItem;
       if SplittedItem <> nil then
       begin
@@ -1352,7 +1346,6 @@ var
 begin
   DiscountAmount := Abs(FDiscounts.GetTotal);
   if DiscountAmount = 0 then Exit;
-  if Parameters.DiscountMode = DiscountModeNone then Exit;
 
   if (Device.CapSubtotalRound) and (DiscountAmount < 100) then
   begin

@@ -19,12 +19,6 @@ const
   ItemTextModePrint = 2; // Print item text with text lines
 
   /////////////////////////////////////////////////////////////////////////////
-  // DiscountMode constants
-
-  DiscountModeChangePrice = 0; // Discount change price
-  DiscountModeNone        = 1; // Discount does not change price
-
-  /////////////////////////////////////////////////////////////////////////////
   // PrintRecMessageMode
 
   PrintRecMessageModeNormal = 0;
@@ -372,7 +366,6 @@ const
   DefCheckItemCodeEnabled = False;
   DefNewItemStatus = SMFP_ITEM_STATUS_RETAILED;
   DefItemCheckMode = SMFP_CHECK_MODE_FULL;
-  DefDiscountMode = DiscountModeChangePrice;
   DefIgnoreDirectIOErrors = False;
   DefModelId = -1;
   DefItemTextMode = ItemTextModeNone;
@@ -463,7 +456,6 @@ type
     FCapRecNearEndSensorMode: Integer;
     FQuantityDecimalPlaces: Integer;
     FDocumentBlockSize: Integer;
-    FDiscountMode: Byte;
 
     procedure LogText(const Caption, Text: WideString);
     procedure SetLogoPosition(const Value: Integer);
@@ -495,7 +487,6 @@ type
     procedure SetMaxRetryCount(const Value: Integer);
     procedure SetQuantityDecimalPlaces(const Value: Integer);
     procedure SetDocumentBlockSize(const Value: Integer);
-    procedure SetDiscountMode(const Value: Byte);
   public
     XReport: Integer;
     FSBarcodeEnabled: Boolean;
@@ -667,7 +658,6 @@ type
     property Logger: ILogFile read FLogger;
     property QuantityDecimalPlaces: Integer read FQuantityDecimalPlaces write SetQuantityDecimalPlaces;
     property DocumentBlockSize: Integer read FDocumentBlockSize write SetDocumentBlockSize;
-    property DiscountMode: Byte read FDiscountMode write SetDiscountMode;
   end;
 
 const
@@ -913,7 +903,6 @@ begin
 
   NewItemStatus := SMFP_ITEM_STATUS_RETAILED;
   ItemCheckMode := SMFP_CHECK_MODE_FULL;
-  DiscountMode := DiscountModeChangePrice;
   IgnoreDirectIOErrors := DefIgnoreDirectIOErrors;
   ModelId := DefModelId;
   ItemTextMode := DefItemTextMode;
@@ -1056,7 +1045,6 @@ begin
   Logger.Debug('CheckItemCodeEnabled: ' + BoolToStr(CheckItemCodeEnabled));
   Logger.Debug('NewItemStatus: ' + IntToStr(NewItemStatus));
   Logger.Debug('ItemCheckMode: ' + IntToStr(ItemCheckMode));
-  Logger.Debug('DiscountMode: ' + IntToStr(DiscountMode));
   Logger.Debug('IgnoreDirectIOErrors: ' + BoolToStr(IgnoreDirectIOErrors));
   Logger.Debug(Format('ItemTextMode: %d, %s', [ItemTextMode, GetItemTextMode(ItemTextMode)]));
   Logger.Debug('CorrectCashlessAmount: ' + BoolToStr(CorrectCashlessAmount));
@@ -1282,12 +1270,6 @@ procedure TPrinterParameters.SetDocumentBlockSize(const Value: Integer);
 begin
   if (Value >= MinDocumentBlockSize)and(Value <= MaxDocumentBlockSize) then
     FDocumentBlockSize := Value;
-end;
-
-procedure TPrinterParameters.SetDiscountMode(const Value: Byte);
-begin
-  if Value in [0..1] then
-    FDiscountMode := Value;
 end;
 
 end.

@@ -99,13 +99,6 @@ object fmFptrReceipt: TfmFptrReceipt
       Height = 13
       Caption = 'PrintRecMessage mode:'
     end
-    object lblDiscountMode: TTntLabel
-      Left = 8
-      Top = 280
-      Width = 74
-      Height = 13
-      Caption = 'Discount mode:'
-    end
     object cbCutType: TTntComboBox
       Left = 136
       Top = 40
@@ -273,19 +266,6 @@ object fmFptrReceipt: TfmFptrReceipt
         '1. Normal - after receipt ending'
         '2. Before receipt ending')
     end
-    object cbDiscountMode: TTntComboBox
-      Left = 136
-      Top = 280
-      Width = 337
-      Height = 21
-      Style = csDropDownList
-      Anchors = [akLeft, akTop, akRight]
-      ItemHeight = 13
-      TabOrder = 14
-      Items.Strings = (
-        '0 - Discount has effect on price and amount'
-        '1 - Discount has no effect ')
-    end
     object chbCorrectCashlessAmount: TTntCheckBox
       Left = 8
       Top = 392
@@ -294,7 +274,7 @@ object fmFptrReceipt: TfmFptrReceipt
       Caption = 
         'Correct cashless amount (Cashless amount must be equal to receip' +
         't subtotal)'
-      TabOrder = 15
+      TabOrder = 14
     end
     object chbSingleQuantityOnZeroUnitPrice: TCheckBox
       Left = 8
@@ -302,7 +282,7 @@ object fmFptrReceipt: TfmFptrReceipt
       Width = 385
       Height = 17
       Caption = 'Use single quantity, when UnitPrice parameter is zero'
-      TabOrder = 16
+      TabOrder = 15
     end
   end
 end

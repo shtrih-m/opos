@@ -8741,6 +8741,7 @@ function TFiscalPrinterDevice.ReadFSDocument(Number: Integer): WideString;
   begin
     Parser := TTLVParser.Create;
     try
+      Parser.ShowTagNumbers := True;
       Result := Parser.ParseTLV(TLVData);
     finally
       Parser.Free;

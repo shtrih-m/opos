@@ -336,7 +336,6 @@ begin
       FParameters.CheckItemCodeEnabled := IniFile.ReadBool(Section, 'CheckItemCodeEnabled', DefCheckItemCodeEnabled);
       FParameters.NewItemStatus := IniFile.ReadInteger(Section, 'NewItemStatus', DefNewItemStatus);
       FParameters.ItemCheckMode := IniFile.ReadInteger(Section, 'ItemCheckMode', DefItemCheckMode);
-      FParameters.DiscountMode := IniFile.ReadInteger(Section, 'DiscountMode', DefDiscountMode);
       FParameters.IgnoreDirectIOErrors := IniFile.ReadBool(Section, 'IgnoreDirectIOErrors', DefIgnoreDirectIOErrors);
       FParameters.ModelId := IniFile.ReadInteger(Section, 'ModelId', DefModelId);
       FParameters.ItemTextMode := IniFile.ReadInteger(Section, 'ItemTextMode', DefItemTextMode);
@@ -502,7 +501,6 @@ begin
     IniFile.WriteBool(Section, 'CheckItemCodeEnabled', FParameters.CheckItemCodeEnabled);
     IniFile.WriteInteger(Section, 'NewItemStatus', FParameters.NewItemStatus);
     IniFile.WriteInteger(Section, 'ItemCheckMode', FParameters.ItemCheckMode);
-    IniFile.WriteInteger(Section, 'DiscountMode', FParameters.DiscountMode);
     IniFile.WriteBool(Section, 'IgnoreDirectIOErrors', FParameters.IgnoreDirectIOErrors);
     IniFile.WriteInteger(Section, 'ModelId', FParameters.ModelId);
     IniFile.WriteInteger(Section, 'ItemTextMode', FParameters.ItemTextMode);

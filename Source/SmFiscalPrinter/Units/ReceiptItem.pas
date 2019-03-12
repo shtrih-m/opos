@@ -121,7 +121,7 @@ type
     function GetTotal: Int64; override;
     function GetDiscounts: TReceiptItems;
 
-    procedure UpdatePrice(DiscountMode: Integer);
+    procedure UpdatePrice;
     procedure Assign(Item: TReceiptItem); override;
 
     property Total: Int64 read GetTotal;
@@ -346,7 +346,7 @@ begin
   Result := Trunc(Abs(getTotal() / quantity));
 end;
 
-procedure TFSSaleItem.UpdatePrice(DiscountMode: Integer);
+procedure TFSSaleItem.UpdatePrice;
 var
   i: Integer;
   total: Int64;
@@ -363,13 +363,6 @@ begin
   AQuantity := Round(Quantity * 1000);
   FUnitPrice := Price;
   FPriceWithDiscount := Price;
-  if DiscountMode = DiscountModeNone then
-  begin
-    FUnitPrice := Price;
-    FPriceWithDiscount := Price;
-    FPriceUpdated := True;
-    Exit;
-  end;
 
   if Discounts.GetTotal = 0 then
   begin

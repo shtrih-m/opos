@@ -105,7 +105,7 @@ begin
     CheckEquals('12.00', Text, 'QUAN');
 
     Item.Price := 123456;
-    Item.UpdatePrice(DiscountModeChangePrice);
+    Item.UpdatePrice;
     Text := Template.getText('%SUM%', Item);
     CheckEquals('1234.56', Text, 'SUM');
 
@@ -152,7 +152,7 @@ begin
     Item.Charge := 0;
     Item.PriceWithDiscount := 100;
     Item.Text := 'Receipt item 2';
-    Item.UpdatePrice(DiscountModeChangePrice);
+    Item.UpdatePrice;
     Text := '%42lTITLE%'#13#10 +
       '               %8PRICE% X %5QUAN% %=10TOTAL_TAX%';
     Text := Template.getText(Text, Item);
@@ -231,11 +231,6 @@ begin
     CheckEquals('12.00', Text, 'QUAN');
 
     Item.Price := 123456;
-    Item.UpdatePrice(DiscountModeNone);
-    Text := Template.getText('%SUM%', Item);
-    CheckEquals('1234.56', Text, 'SUM');
-
-    Item.Price := 123456;
     Item.PriceWithDiscount := 0;
     Text := Template.getText('%DISCOUNT%', Item);
     CheckEquals('1234.56', Text, 'DISCOUNT');
@@ -265,26 +260,6 @@ begin
     Item.Text := 'hg345hg34';
     Text := Template.getText('123 %TITLE% sdfd8', Item);
     CheckEquals('123 hg345hg34 sdfd8', Text, 'Item.Text');
-
-
-    Item.Pos := 1;
-    Item.Data.Amount := 500;
-    Item.UnitPrice := 100;
-    Item.Quantity := 5;
-    Item.Price := 100;
-    Item.Department := 2;
-    Item.Tax := 3;
-    Item.Discount := 0;
-    Item.Charge := 0;
-    Item.PriceWithDiscount := 100;
-    Item.Text := 'Receipt item 2';
-    Item.UpdatePrice(DiscountModeNone);
-    Text := '%42lTITLE%'#13#10 +
-      '               %8PRICE% X %5QUAN% %=10TOTAL_TAX%';
-    Text := Template.getText(Text, Item);
-    CheckEquals(
-      'Receipt item 2                            '#$D#$A +
-      '                   1.00 X 5.000    =5.00_Â', Text, 'Item.Text');
 
     Item.Pos := 1;
     Item.UnitPrice := 12345;

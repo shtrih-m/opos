@@ -41,8 +41,6 @@ type
     lblQuantityLength: TTntLabel;
     lblPrintRecMessageMode: TTntLabel;
     cbPrintRecMessageMode: TTntComboBox;
-    lblDiscountMode: TTntLabel;
-    cbDiscountMode: TTntComboBox;
     chbSingleQuantityOnZeroUnitPrice: TCheckBox;
   public
     procedure UpdatePage; override;
@@ -74,7 +72,6 @@ begin
   chbOpenReceiptEnabled.Checked := Parameters.OpenReceiptEnabled;
   cbQuantityDecimalPlaces.ItemIndex := Parameters.QuantityDecimalPlaces;
   cbPrintRecMessageMode.ItemIndex := Parameters.PrintRecMessageMode;
-  cbDiscountMode.ItemIndex := Parameters.DiscountMode;
   chbSingleQuantityOnZeroUnitPrice.Checked := Parameters.SingleQuantityOnZeroUnitPrice;
 end;
 
@@ -94,7 +91,6 @@ begin
   Parameters.OpenReceiptEnabled := chbOpenReceiptEnabled.Checked;
   Parameters.QuantityDecimalPlaces := cbQuantityDecimalPlaces.ItemIndex;
   Parameters.PrintRecMessageMode := cbPrintRecMessageMode.ItemIndex;
-  Parameters.DiscountMode := cbDiscountMode.ItemIndex;
   Parameters.SingleQuantityOnZeroUnitPrice := chbSingleQuantityOnZeroUnitPrice.Checked;
 end;
 

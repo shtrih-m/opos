@@ -2012,7 +2012,7 @@ begin
     DriverParameterTaxType: pString := IntToStr(Printer.Parameters.TaxType);
     DriverParameterMessage: pString := _(pString);
     DriverParameterErrorMessage: pString := GetErrorText(StrToInt(pString), True);
-    DriverParameterDiscountMode: pString := IntToStr(Printer.Parameters.DiscountMode);
+    DriverParameterDiscountMode: pString := '0';
   end;
 end;
 
@@ -2125,7 +2125,7 @@ begin
     DriverParameterAmount11: Parameters.Amount11 := StrToInt(pString);
     DriverParameterAmount12: Parameters.Amount12 := StrToInt(pString);
     DriverParameterTaxType: Parameters.TaxType := StrToInt(pString);
-    DriverParameterDiscountMode: Parameters.DiscountMode := StrToInt(pString);
+    DriverParameterDiscountMode: ;
   end;
 end;
 
