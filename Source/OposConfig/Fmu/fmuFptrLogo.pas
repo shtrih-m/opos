@@ -113,15 +113,14 @@ begin
       pData := 0;
       pWideString := OpenPictureDialog.FileName;
       Check(Driver, Driver.DirectIO(DIO_LOAD_LOGO, pData, pWideString));
-      // update progress
-      LoadParameters(Parameters, Device.DeviceName, Logger  );
-      UpdateLogoSize;
     finally
       Driver.Close;
+      Driver := 0;
     end;
   finally
     EnableButtons(True);
   end;
+  UpdateLogoSize;
 end;
 
 procedure TfmFptrLogo.UpdateLogoSize;
@@ -164,6 +163,7 @@ begin
       Check(Driver, Driver.DirectIO(DIO_PRINT_LOGO, pData, pWideString));
     finally
       Driver.Close;
+      Driver := 0;
     end;
   finally
     EnableButtons(True);
@@ -195,10 +195,12 @@ begin
       Check(Driver, Driver.DirectIO(DIO_CLEAR_LOGO, pData, pWideString));
     finally
       Driver.Close;
+      Driver := 0;
     end;
   finally
     EnableButtons(True);
   end;
+  UpdateLogoSize;
 end;
 
 end.
