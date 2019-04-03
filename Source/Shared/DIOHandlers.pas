@@ -6,7 +6,7 @@ uses
   // VCL
   Classes, SysUtils, Graphics, Extctrls,
   // Tnt
-  TntSysUtils, TntClasses,  
+  TntSysUtils, TntClasses,
   // This
   DIOHandler, DirectIOAPI, PrinterCommand, ShtrihFiscalPrinter,
   FiscalPrinterDevice, CommandDef, CommandParam, XmlParser, BinStream,
@@ -1200,18 +1200,21 @@ procedure TDIOBarcode.DirectIO(var pData: Integer;
   var pString: WideString);
 var
   Barcode: TBarcodeRec;
+  Parameters: TPrinterParameters;
 begin
   if Pos(';', pString) = 0 then
   begin
     Barcode.BarcodeType := pData;
     Barcode.Data := pString;
     Barcode.Text := pString;
-    Barcode.Height := 100;
-    Barcode.ModuleWidth := 2;
-    Barcode.Alignment := BARCODE_ALIGNMENT_CENTER;
-    Barcode.Parameter1 := 0;
-    Barcode.Parameter2 := 0;
-    Barcode.Parameter3 := 0;
+
+    Parameters := Printer.Device.Parameters;
+    Barcode.Height := Parameters.BarcodeHeight;
+    Barcode.ModuleWidth := Parameters.BarcodeModuleWidth;
+    Barcode.Alignment := Parameters.BarcodeAlignment;
+    Barcode.Parameter1 := Parameters.BarcodeParameter1;
+    Barcode.Parameter2 := Parameters.BarcodeParameter2;
+    Barcode.Parameter3 := Parameters.BarcodeParameter3;
   end else
   begin
     Barcode.BarcodeType := pData;
@@ -1242,18 +1245,21 @@ procedure TDIOBarcodeHex.DirectIO(var pData: Integer;
   var pString: WideString);
 var
   Barcode: TBarcodeRec;
+  Parameters: TPrinterParameters;
 begin
   if Pos(';', pString) = 0 then
   begin
     Barcode.BarcodeType := pData;
     Barcode.Data := HexToStr(pString);
     Barcode.Text := pString;
-    Barcode.Height := 100;
-    Barcode.ModuleWidth := 2;
-    Barcode.Alignment := BARCODE_ALIGNMENT_CENTER;
-    Barcode.Parameter1 := 0;
-    Barcode.Parameter2 := 0;
-    Barcode.Parameter3 := 0;
+
+    Parameters := Printer.Device.Parameters;
+    Barcode.Height := Parameters.BarcodeHeight;
+    Barcode.ModuleWidth := Parameters.BarcodeModuleWidth;
+    Barcode.Alignment := Parameters.BarcodeAlignment;
+    Barcode.Parameter1 := Parameters.BarcodeParameter1;
+    Barcode.Parameter2 := Parameters.BarcodeParameter2;
+    Barcode.Parameter3 := Parameters.BarcodeParameter3;
   end else
   begin
     Barcode.BarcodeType := pData;
@@ -1282,18 +1288,21 @@ procedure TDIOBarcodeHex2.DirectIO(var pData: Integer;
   var pString: WideString);
 var
   Barcode: TBarcodeRec;
+  Parameters: TPrinterParameters;
 begin
   if Pos(';', pString) = 0 then
   begin
     Barcode.BarcodeType := pData;
     Barcode.Data := HexToStr(pString);
     Barcode.Text := pString;
-    Barcode.Height := 100;
-    Barcode.ModuleWidth := 2;
-    Barcode.Alignment := BARCODE_ALIGNMENT_CENTER;
-    Barcode.Parameter1 := 0;
-    Barcode.Parameter2 := 0;
-    Barcode.Parameter3 := 0;
+
+    Parameters := Printer.Device.Parameters;
+    Barcode.Height := Parameters.BarcodeHeight;
+    Barcode.ModuleWidth := Parameters.BarcodeModuleWidth;
+    Barcode.Alignment := Parameters.BarcodeAlignment;
+    Barcode.Parameter1 := Parameters.BarcodeParameter1;
+    Barcode.Parameter2 := Parameters.BarcodeParameter2;
+    Barcode.Parameter3 := Parameters.BarcodeParameter3;
   end else
   begin
     Barcode.BarcodeType := pData;

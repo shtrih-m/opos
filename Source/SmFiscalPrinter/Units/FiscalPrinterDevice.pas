@@ -210,6 +210,7 @@ type
     function PrintItemText(const S: WideString): WideString;
     procedure WriteTLVItems;
     function ReadDocPrintMode: Integer;
+    procedure Initialize;
   protected
     function GetMaxGraphicsWidthInBytes: Integer;
   public
@@ -778,6 +779,7 @@ begin
   FCapReceiptDiscount := True;
   FCapGraphics1 := True;
   LoadModels;
+  Initialize;
 end;
 
 destructor TFiscalPrinterDevice.Destroy;
@@ -794,6 +796,37 @@ begin
   FSTLVTag.Free;
   FTLVItems.Free;
   inherited Destroy;
+end;
+
+procedure TFiscalPrinterDevice.Disconnect;
+begin
+  Initialize;
+end;
+
+procedure TFiscalPrinterDevice.Initialize;
+begin
+  Tables.Clear;
+  Fields.Clear;
+  FValidDeviceMetrics := False;
+  FCapFSCloseReceipt2 := False;
+  FCapSubtotalRound := False;
+  FCapDiscount := False;
+  FCapBarLine := True;
+  FCapScaleGraphics := False;
+  FCapBarcode2D := False;
+  FCapGraphics1 := True;
+  FCapGraphics2 := True;
+  FCapGraphics512 := False;
+  FCapFiscalStorage := False;
+  FCapOpenReceipt := False;
+  FCapReceiptDiscount := False;
+  FCapFontInfo := False;
+  FIsFiscalized := False;
+  FCapParameters2 := False;
+  FIsOnline := False;
+  FCapFooterFlag := False;
+  FFooterFlag := False;
+  FCapEnablePrint := False;
 end;
 
 function TFiscalPrinterDevice.GetCapFSCloseReceipt2: Boolean;
@@ -5767,40 +5800,46 @@ begin
   Logger.Debug('PrintBarcode2');
   TickCount := GetTickCount;
 
-  if not FCapBarcode2D then
+  if ABarcode.BarcodeType = DIO_BARCODE_EAN13_INT then
   begin
-    if ABarcode.BarcodeType = DIO_BARCODE_QRCODE3 then
-    begin
-      PrintQRCode3(ABarcode);
-    end else
-    begin
-      PrintBarcodeZInt(ABarcode);
-    end;
+    PrintBarcodeEAN13(ABarcode);
   end else
   begin
-    case ABarcode.BarcodeType of
-      DIO_BARCODE_EAN13_INT: PrintBarcodeEAN13(ABarcode);
-      DIO_BARCODE_QRCODE:
-        Check(PrintQRCode2D(ABarcode));
+    if not FCapBarcode2D then
+    begin
+      if ABarcode.BarcodeType = DIO_BARCODE_QRCODE3 then
+      begin
+        PrintQRCode3(ABarcode);
+      end else
+      begin
+        PrintBarcodeZInt(ABarcode);
+      end;
+    end else
+    begin
+      case ABarcode.BarcodeType of
+        DIO_BARCODE_EAN13_INT: PrintBarcodeEAN13(ABarcode);
+        DIO_BARCODE_QRCODE:
+          Check(PrintQRCode2D(ABarcode));
 
-      DIO_BARCODE_QRCODE2,
-      DIO_BARCODE_QRCODE4:
-      begin
-        ABarcode.Data := ABarcode.Data + ' ' + ABarcode.Text;
-        ABarcode.Text := '';
-        Check(PrintQRCode2D(ABarcode))
+        DIO_BARCODE_QRCODE2,
+        DIO_BARCODE_QRCODE4:
+        begin
+          ABarcode.Data := ABarcode.Data + ' ' + ABarcode.Text;
+          ABarcode.Text := '';
+          Check(PrintQRCode2D(ABarcode))
+        end;
+        DIO_BARCODE_DEVICE_PDF417,
+        DIO_BARCODE_DEVICE_DATAMATRIX,
+        DIO_BARCODE_DEVICE_AZTEC,
+        DIO_BARCODE_DEVICE_QR,
+        DIO_BARCODE_DEVICE_EGAIS:
+        begin
+          ABarcode.BarcodeType := IntTo2DBarcodeType(ABarcode.BarcodeType);
+          Check(PrintBarcode2D_2(ABarcode));
+        end;
+      else
+        PrintBarcodeZInt(ABarcode);
       end;
-      DIO_BARCODE_DEVICE_PDF417,
-      DIO_BARCODE_DEVICE_DATAMATRIX,
-      DIO_BARCODE_DEVICE_AZTEC,
-      DIO_BARCODE_DEVICE_QR,
-      DIO_BARCODE_DEVICE_EGAIS:
-      begin
-        ABarcode.BarcodeType := IntTo2DBarcodeType(ABarcode.BarcodeType);
-        Check(PrintBarcode2D_2(ABarcode));
-      end;
-    else
-      PrintBarcodeZInt(ABarcode);
     end;
   end;
   Logger.Debug('PrintBarcode2.OK');
@@ -6665,32 +6704,6 @@ begin
   finally
     Bitmap.Free;
   end;
-end;
-
-procedure TFiscalPrinterDevice.Disconnect;
-begin
-  Tables.Clear;
-  Fields.Clear;
-  FValidDeviceMetrics := False;
-  FCapFSCloseReceipt2 := False;
-  FCapSubtotalRound := False;
-  FCapDiscount := False;
-  FCapBarLine := True;
-  FCapScaleGraphics := False;
-  FCapBarcode2D := False;
-  FCapGraphics1 := True;
-  FCapGraphics2 := True;
-  FCapGraphics512 := False;
-  FCapFiscalStorage := False;
-  FCapOpenReceipt := False;
-  FCapReceiptDiscount := False;
-  FCapFontInfo := False;
-  FIsFiscalized := False;
-  FCapParameters2 := False;
-  FIsOnline := False;
-  FCapFooterFlag := False;
-  FFooterFlag := False;
-  FCapEnablePrint := False;
 end;
 
 procedure TFiscalPrinterDevice.Connect;
