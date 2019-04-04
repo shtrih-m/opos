@@ -328,7 +328,7 @@ const
   DefJournalPrintHeader = True;
   DefJournalPrintTrailer = True;
   DefCacheReceiptNumber = False;
-  DefBarLineByteMode = BarLineByteModeAuto;
+  DefBarLineByteMode = BarLineByteModeReverse;
   DefPrintRecSubtotal = True;
   DefStatusTimeout = 60;
   DefSetHeaderLineEnabled = True;

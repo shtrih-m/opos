@@ -2,7 +2,7 @@ object fmFptrBarcode: TfmFptrBarcode
   Left = 607
   Top = 124
   Width = 312
-  Height = 502
+  Height = 445
   Caption = 'Barcode'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET

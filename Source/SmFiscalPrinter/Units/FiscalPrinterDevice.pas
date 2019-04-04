@@ -5744,7 +5744,7 @@ end;
 
 procedure TFiscalPrinterDevice.PrintBarcode2(const Barcode: TBarcodeRec);
 
-  procedure PrintBarcodeEAN13(ABarcode: TBarcodeRec);
+  procedure PrintBarcodeEAN13Zint(ABarcode: TBarcodeRec);
   var
     Line: AnsiString;
   begin
@@ -5757,6 +5757,23 @@ procedure TFiscalPrinterDevice.PrintBarcode2(const Barcode: TBarcodeRec);
     WaitForPrinting;
     Line := AlignLine(ABarcode.Data, GetPrintWidth, taCenter);
     PrintStringFont(PRINTER_STATION_REC, Parameters.FontNumber, Line);
+  end;
+
+  procedure PrintBarcodeEAN13Int(ABarcode: TBarcodeRec);
+  begin
+    Check(PrintBarcode(Copy(ABarcode.Data, 1, 12)));
+    WaitForPrinting;
+  end;
+
+  procedure PrintBarcodeEAN13(ABarcode: TBarcodeRec);
+  begin
+    if Length(ABarcode.Data) in [12, 13] then
+    begin
+      PrintBarcodeEAN13Int(ABarcode);
+    end else
+    begin
+      PrintBarcodeEAN13ZInt(ABarcode);
+    end;
   end;
 
   function PrintBarcode2D_2(Barcode: TBarcodeRec): Integer;
