@@ -802,7 +802,6 @@ begin
   begin
     if GetPaymentTotal >= GetTotal then
     begin
-      ParseReceiptItemsLines(FReceiptItems);
       State.SetState(FPTR_PS_FISCAL_RECEIPT_ENDING);
     end else
     begin

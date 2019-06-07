@@ -888,6 +888,14 @@ type
     function GetDisplayText: WideString; override;
   end;
 
+  { TReceiptTest27 }
+
+  TReceiptTest27 = class(TDriverTest)
+  public
+    procedure Execute; override;
+    function GetDisplayText: WideString; override;
+  end;
+
 implementation
 
 const
@@ -5100,6 +5108,34 @@ end;
 function TReceiptTest26.GetDisplayText: WideString;
 begin
   Result := 'Receipt test 26';
+end;
+
+{ TReceiptTest27 }
+
+procedure TReceiptTest27.Execute;
+begin
+(*
+  Check(FiscalPrinter.BeginFiscalReceipt(True));
+  Check(FiscalPrinter.PrintRecItem('Рюкзак Slazenger 20 л, 28,5*15,5*46 см', 999, 1000000, 4, 999, ''));
+  Check(FiscalPrinter.PrintRecItem('Стикер', 0, 5000000, 4, 0, ''));
+  Check(FiscalPrinter.PrintRecTotal(999, 1000, '0'));
+  Check(FiscalPrinter.PrintRecMessage('Акция Slazenger                         =2200,05'));
+  Check(FiscalPrinter.PrintRecMessage('Транз.:     280253 '));
+  Check(FiscalPrinter.EndFiscalReceipt(False));
+*)
+  Check(FiscalPrinter.ResetPrinter);
+  FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
+  Check(FiscalPrinter.BeginFiscalReceipt(True));
+  Check(FiscalPrinter.DirectIO2(30, 73, '1'));
+  Check(FiscalPrinter.PrintRecItem('Рюкзак Slazenger 20 л, 28,5*15,5*46 см', 3199, 1000, 4, 3199, 'шт'));
+  Check(FiscalPrinter.PrintRecTotal(3199, 3199, '0'));
+  Check(FiscalPrinter.PrintRecMessage('Транз.:     280593 '));
+  Check(FiscalPrinter.EndFiscalReceipt(False));
+end;
+
+function TReceiptTest27.GetDisplayText: WideString;
+begin
+  Result := 'Receipt test 27';
 end;
 
 end.

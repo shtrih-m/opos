@@ -42,8 +42,9 @@ type
     procedure SetOwner(AOwner: TReceiptItems);
   public
     constructor Create(AOwner: TReceiptItems);
-    procedure Assign(Items: TReceiptItem); virtual;
     destructor Destroy; override;
+
+    procedure Assign(Items: TReceiptItem); virtual;
     function GetTotal: Int64; virtual;
   end;
 
@@ -104,9 +105,9 @@ type
     FDiscounts: TReceiptItems;
     FPriceWithDiscount: Int64;
 
+    function GetTags: TReceiptItems;
     function GetPriceDiscount: Int64;
     function calcPriceWithDiscount: Int64;
-    function GetTags: TReceiptItems;
   public
     destructor Destroy; override;
   public
