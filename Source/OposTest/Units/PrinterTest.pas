@@ -4637,7 +4637,8 @@ begin
     '+tWG24jDtHwRbPARdskMHHxuHE3h2fGRFX6wtXeQo11QXzLMGWqNcg==';
   Check(FiscalPrinter.DirectIO(DIO_SET_DRIVER_PARAMETER, pData, pString));
 
-  Check(FiscalPrinter.PrintRecItem('Item 1', 101, 3088, 4, 32.7, ''));
+  //Check(FiscalPrinter.PrintRecItem('Item 1', 101, 3088, 4, 32.7, ''));
+  Check(FiscalPrinter.PrintRecItem('Item 1', 101, 1000, 4, 101, ''));
   Check(FiscalPrinter.PrintRecTotal(101, 101, '2'));
   Check(FiscalPrinter.PrintRecMessage('Транз.:      41895 '));
   Check(FiscalPrinter.EndFiscalReceipt(True));
