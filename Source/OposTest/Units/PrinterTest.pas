@@ -5115,15 +5115,6 @@ end;
 
 procedure TReceiptTest27.Execute;
 begin
-(*
-  Check(FiscalPrinter.BeginFiscalReceipt(True));
-  Check(FiscalPrinter.PrintRecItem('Рюкзак Slazenger 20 л, 28,5*15,5*46 см', 999, 1000000, 4, 999, ''));
-  Check(FiscalPrinter.PrintRecItem('Стикер', 0, 5000000, 4, 0, ''));
-  Check(FiscalPrinter.PrintRecTotal(999, 1000, '0'));
-  Check(FiscalPrinter.PrintRecMessage('Акция Slazenger                         =2200,05'));
-  Check(FiscalPrinter.PrintRecMessage('Транз.:     280253 '));
-  Check(FiscalPrinter.EndFiscalReceipt(False));
-*)
   Check(FiscalPrinter.ResetPrinter);
   FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
   Check(FiscalPrinter.BeginFiscalReceipt(True));

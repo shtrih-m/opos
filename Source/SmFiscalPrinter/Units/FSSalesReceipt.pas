@@ -1028,6 +1028,7 @@ begin
     begin
       Device.Check(Device.CheckItemCode(Item.Data.ItemBarcode));
 
+      FSSale2.UnitName := FSRegistration.UnitName;
       FSSale2.RecType := REcTypeToOperation(FRecType);
       FSSale2.Quantity := Abs(FSRegistration.Quantity);
       FSSale2.Price := Item.PriceWithDiscount;

@@ -12,6 +12,13 @@ const
   SStatusWaitTimeout = 'Printer status wait timeout';
 
 const
+  ///////////////////////////////////////////////////////////////////////////
+  // itemMarkType constants
+  MARK_TYPE_FUR       = 2;
+  MARK_TYPE_DRUGS     = 3;
+  MARK_TYPE_TOBACCO   = 5;
+  MARK_TYPE_SHOES     = $1520;
+
   /////////////////////////////////////////////////////////////////////////////
   //
 

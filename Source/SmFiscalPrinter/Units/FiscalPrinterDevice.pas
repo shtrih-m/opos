@@ -7231,10 +7231,15 @@ begin
   Result := ExecuteData(Command, Answer);
   if Result = 0 then
   begin
-    Result := SendItemBarcode(P.ItemBarcode, P.MarkType);
+    SendItemBarcode(P.ItemBarcode, P.MarkType);
     if (Parameters.checkItemCodeEnabled) then
     begin
-      Result := FSBindItemCode(Length(P.ItemBarcode), CheckItemResult);
+      FSBindItemCode(Length(P.ItemBarcode), CheckItemResult);
+    end;
+    // UnitName
+    if P.UnitName <> '' then
+    begin
+      FSWriteTLVOperation(TagToStr(1197, P.UnitName));
     end;
   end;
 end;
@@ -8979,22 +8984,29 @@ begin
 
   GTIN := ReverseString(IntToBin(StrToInt64(GS1Barcode.GTIN), 6));
   case MarkType of
-    2:
+    MARK_TYPE_FUR:
     begin // Меха
       Serial := Copy(GS1Barcode.Serial, 1, 24);
-      Data := ReverseString(IntToBin(2, 2)) + GTIN + Serial;
+      Data := ReverseString(IntToBin(MARK_TYPE_FUR, 2)) + GTIN + Serial;
       Data := TTLVTag.Int2ValueTLV(1162, 2) + TTLVTag.Int2ValueTLV(Length(Data), 2) + Data;
     end;
-    3:
+    MARK_TYPE_DRUGS:
     begin // Лекарственные препараты
       Serial := Copy(GS1Barcode.Serial, 1, 24);
-      Data := ReverseString(IntToBin(3, 2)) + GTIN + Serial;
+      Data := ReverseString(IntToBin(MARK_TYPE_DRUGS, 2)) + GTIN + Serial;
       Data := TTLVTag.Int2ValueTLV(1162, 2) + TTLVTag.Int2ValueTLV(Length(Data), 2) + Data;
     end;
-    5:
+    MARK_TYPE_TOBACCO:
     begin // Табачные изделия
       Serial := Copy(GS1Barcode.Serial, 1, 24);
-      Data := ReverseString(IntToBin(5, 2)) + GTIN + Serial;
+      Data := ReverseString(IntToBin(MARK_TYPE_TOBACCO, 2)) + GTIN + Serial;
+      Data := TTLVTag.Int2ValueTLV(1162, 2) + TTLVTag.Int2ValueTLV(Length(Data), 2) + Data;
+    end;
+    MARK_TYPE_SHOES:
+    begin // Обувь
+      Serial := Copy(GS1Barcode.Serial, 1, 13);
+      Serial := Serial + StringOfChar(' ', 13 - Length(Serial));
+      Data := ReverseString(IntToBin(MARK_TYPE_SHOES, 2)) + GTIN + Serial;
       Data := TTLVTag.Int2ValueTLV(1162, 2) + TTLVTag.Int2ValueTLV(Length(Data), 2) + Data;
     end;
   else
