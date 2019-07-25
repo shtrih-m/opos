@@ -33,9 +33,24 @@ function StrToBool(const Value: AnsiString): Boolean;
 function AmountToStr(Value: Currency): AnsiString;
 function AddTrailingSpaces(const S: AnsiString; Len: Integer): AnsiString;
 function StrToDouble(const S: AnsiString): Double;
+function AlignLines(const Line1, Line2: WideString;
+  LineWidth: Integer): WideString;
 
 
 implementation
+
+function AlignLines(const Line1, Line2: WideString;
+  LineWidth: Integer): WideString;
+var
+  S: WideString;
+begin
+  Result := Copy(Line2, 1, LineWidth);
+  if Length(Result) < LineWidth then
+  begin
+    S := Copy(Line1, 1, LineWidth - Length(Result)-1);
+    Result := S + StringOfChar(' ', LineWidth - Length(Result) - Length(S)) + Result;
+  end;
+end;
 
 function StrToDouble(const S: AnsiString): Double;
 var

@@ -352,7 +352,6 @@ type
     function ExecuteData(const Data: AnsiString; var RxData: AnsiString): Integer;
     function ExecuteCommand(var Command: TCommandRec): Integer;
     function SendCommand(var Command: TCommandRec): Integer;
-    function AlignLines(const Line1, Line2: WideString; LineWidth: Integer): WideString;
     function GetModel: TPrinterModelRec;
     function GetOnCommand: TCommandEvent;
     function GetTables: TDeviceTables;
@@ -642,7 +641,6 @@ type
     function ExecuteData(const Data: string; var RxData: string): Integer;
     function ExecuteCommand(var Command: TCommandRec): Integer;
     function SendCommand(var Command: TCommandRec): Integer;
-    function AlignLines(const Line1, Line2: string; LineWidth: Integer): string;
     function GetModel: TPrinterModelRec;
     function GetOnCommand: TCommandEvent;
     function GetTables: TDeviceTables;

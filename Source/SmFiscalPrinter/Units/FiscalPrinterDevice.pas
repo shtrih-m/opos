@@ -384,8 +384,6 @@ type
     function ExecuteCommand(var Command: TCommandRec): Integer;
 
     function SendCommand(var Command: TCommandRec): Integer;
-    function AlignLines(const Line1, Line2: WideString;
-      LineWidth: Integer): WideString;
     function GetModel: TPrinterModelRec;
     function GetOnCommand: TCommandEvent;
     function GetOnPrinterStatus: TNotifyEvent;
@@ -5059,19 +5057,6 @@ begin
     end;
   finally
     Stream.Free;
-  end;
-end;
-
-function TFiscalPrinterDevice.AlignLines(const Line1, Line2: WideString;
-  LineWidth: Integer): WideString;
-var
-  S: WideString;
-begin
-  Result := Copy(Line2, 1, LineWidth);
-  if Length(Result) < LineWidth then
-  begin
-    S := Copy(Line1, 1, LineWidth - Length(Result)-1);
-    Result := S + StringOfChar(' ', LineWidth - Length(Result) - Length(S)) + Result;
   end;
 end;
 

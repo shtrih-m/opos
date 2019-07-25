@@ -8,7 +8,7 @@ uses
   // Tnt
   TntClasses, TntSysUtils,
   // This
-  ReceiptItem, PrinterParameters, TextParser, StringUtils;
+  ReceiptItem, PrinterParameters, TextParser, StringUtils, GS1Barcode;
 
 type
   { TFieldAlignment }
@@ -65,6 +65,7 @@ var
   Field: WideString;
   Prefix: WideString;
   State: TParserState;
+  FieldValue: WideString;
 begin
   Field := '';
   Prefix := '';
@@ -80,7 +81,11 @@ begin
         case State of
           stField:
           begin
-            Result := Result + GetFieldValue(Field, Prefix, Item);
+            FieldValue := GetFieldValue(Field, Prefix, Item);
+            if (Result <> '')and(FieldValue <> '')and(Field = 'KTN') then
+              Result := Result + CRLF;
+
+            Result := Result + FieldValue;
             State := stChar;
           end;
           stESC:
@@ -129,6 +134,7 @@ function TReceiptTemplate.GetFieldValue(const Field, Prefix: WideString;
   const Item: TFSSaleItem): WideString;
 var
   L: Integer;
+  Barcode: TGS1Barcode;
   TaxLetter: WideString;
   FieldData: TTemplateFieldRec;
 begin
@@ -192,6 +198,15 @@ begin
   begin
     if Item.Data.Quantity = 1 then Result := ' '
     else Result := '*';
+  end;
+  // KTN
+  if AnsiCompareText(FieldData.Name, 'KTN') = 0 then
+  begin
+    if Item.Data.ItemBarcode <> '' then
+    begin
+      Barcode := DecodeGS1(GS1FilterTockens(GS1DecodeBraces(Item.Data.ItemBarcode)));
+      Result := AlignLines(' “Õ:' + Barcode.GTIN, Barcode.Serial, FPrintWidth);
+    end;
   end;
 
   Result := Prefix + Result;
