@@ -8,7 +8,8 @@ uses
   // Tnt
   TntClasses, TntSysUtils,
   // This
-  ReceiptItem, PrinterParameters, TextParser, StringUtils, GS1Barcode;
+  ReceiptItem, PrinterParameters, TextParser, StringUtils, GS1Barcode,
+  PrinterTypes;
 
 type
   { TFieldAlignment }
@@ -134,6 +135,7 @@ function TReceiptTemplate.GetFieldValue(const Field, Prefix: WideString;
   const Item: TFSSaleItem): WideString;
 var
   L: Integer;
+  FieldNumber: Integer;
   Barcode: TGS1Barcode;
   TaxLetter: WideString;
   FieldData: TTemplateFieldRec;
@@ -207,6 +209,13 @@ begin
       Barcode := DecodeGS1(GS1FilterTockens(GS1DecodeBraces(Item.Data.ItemBarcode)));
       Result := AlignLines(' “Õ:' + Barcode.GTIN, Barcode.Serial, FPrintWidth);
     end;
+  end;
+  // FIELD
+  if AnsiCompareText(Copy(FieldData.Name, 1, 5), 'FIELD') = 0 then
+  begin
+    FieldNumber := StrToIntDef(Copy(FieldData.Name, 6, 2), 0);
+    if FieldNumber in [MinReceiptField..MaxReceiptField] then
+      Result := Item.Data.ReceiptField[FieldNumber];
   end;
 
   Result := Prefix + Result;

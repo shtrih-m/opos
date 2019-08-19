@@ -685,6 +685,14 @@ type
     LineNumber: Byte;           // Vertical position of first transaction WideString (1 byte)
   end;
 
+const
+  /////////////////////////////////////////////////////////////////////////////
+  // Custom fields range
+
+  MinReceiptField = 1;
+  MaxReceiptField = 10;
+
+type
   { TFSSale }
 
   TFSSale = record
@@ -706,6 +714,7 @@ type
     UnitName: WideString;
     ItemBarcode: WideString;
     MarkType: Integer;
+    ReceiptField: array [MinReceiptField..MaxReceiptField] of string;
   end;
   PFSSale = ^TFSSale;
 

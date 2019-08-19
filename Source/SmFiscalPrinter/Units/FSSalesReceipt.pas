@@ -38,7 +38,6 @@ type
     procedure RecSubtotalAdjustment(const Description: WideString;
       AdjustmentType: Integer; Amount: Currency);
 
-
     function GetIsCashPayment: Boolean;
     function GetDevice: IFiscalPrinterDevice;
     function IsCashlessPayCode(PayCode: Integer): Boolean;
@@ -240,9 +239,15 @@ begin
 end;
 
 procedure TFSSalesReceipt.AddSale(P: TFSSale);
+var
+  i: Integer;
 begin
   P.ItemBarcode := Parameters.Barcode;
   P.MarkType := Parameters.MarkType;
+  for i := MinReceiptField to MaxReceiptField do
+  begin
+    P.ReceiptField[i] := Parameters.ReceiptField[i];
+  end;
 
   FLastItem := TFSSaleItem.Create(FReceiptItems);
   FLastItem.Data := P;
@@ -253,6 +258,7 @@ begin
   Printer.Printer.PostLine := '';
   Parameters.Barcode := '';
   FHasReceiptItems := True;
+  Parameters.ClearReceiptFields;
 end;
 
 function TFSSalesReceipt.GetLastItem: TFSSaleItem;
@@ -868,6 +874,7 @@ begin
   Parameters.Parameter8 := '';
   Parameters.Parameter9 := '';
   Parameters.Parameter10 := '';
+  Parameters.ClearReceiptFields;
 end;
 
 procedure TFSSalesReceipt.BeginFiscalReceipt(PrintHeader: Boolean);
@@ -1697,4 +1704,3 @@ begin
 end;
 
 end.
-

@@ -102,7 +102,8 @@ const
   DIO_READ_FS_DOCUMENT            = 96;
   // Print document from fiscal storage device
   DIO_PRINT_FS_DOCUMENT           = 97;
-
+  // Set receipt field value for receipt template
+  DIO_SET_RECEIPT_FIELD           = 98;
 
   DIO_PRINT_TEXT2                = 1000;  // print text
 

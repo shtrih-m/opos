@@ -1027,6 +1027,19 @@ type
     property Printer: TFiscalPrinterImpl read FPrinter;
   end;
 
+  { TDIOSetReceiptField }
+
+  TDIOSetReceiptField = class(TDIOHandler)
+  private
+    FPrinter: TFiscalPrinterImpl;
+  public
+    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
+      APrinter: TFiscalPrinterImpl);
+
+    procedure DirectIO(var pData: Integer; var pString: WideString); override;
+    property Printer: TFiscalPrinterImpl read FPrinter;
+  end;
+
 implementation
 
 function BoolToStr(Value: Boolean): WideString;
@@ -2980,6 +2993,21 @@ procedure TDIOSTLVWriteOp.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
   Printer.FSWriteTLVOperation(HexToStr(Printer.Device.STLVGetHex));
+end;
+
+{ TDIOSetReceiptField }
+
+constructor TDIOSetReceiptField.CreateCommand(AOwner: TDIOHandlers;
+  ACommand: Integer; APrinter: TFiscalPrinterImpl);
+begin
+  inherited Create(AOwner, ACommand);
+  FPrinter := APrinter;
+end;
+
+procedure TDIOSetReceiptField.DirectIO(var pData: Integer;
+  var pString: WideString);
+begin
+  Printer.SetReceiptField(pData, pString);
 end;
 
 end.

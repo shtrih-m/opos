@@ -8,7 +8,8 @@ uses
   // Tnt
   TntClasses, TntStdCtrls, TntRegistry,
   // This
-  Oposhi, PrinterTypes, PayType, LogFile, FileUtils, DirectIOAPI, VatCode;
+  WException, Oposhi, PrinterTypes, PayType, LogFile, FileUtils, DirectIOAPI,
+  VatCode;
 
 const
   /////////////////////////////////////////////////////////////////////////////
@@ -564,6 +565,7 @@ type
     ItemTextMode: Integer;
     CorrectCashlessAmount: Boolean;
     SingleQuantityOnZeroUnitPrice: Boolean;
+    ReceiptField: array [MinReceiptField..MaxReceiptField] of string;
   public
     constructor Create(ALogger: ILogFile);
     destructor Destroy; override;
@@ -577,6 +579,8 @@ type
     function GetPrinterMessage(ID: Integer): WideString;
     function GetVatInfo(AppVatCode: Integer): Integer;
     procedure SetPrinterMessage(ID: Integer; const S: WideString);
+    procedure SetReceiptField(FieldNumber: Integer; const FieldValue: WideString);
+    procedure ClearReceiptFields;
   published
     property Storage: Integer read FStorage write FStorage;
     property BaudRate: Integer read FBaudRate write SetBaudRate;
@@ -1270,6 +1274,26 @@ procedure TPrinterParameters.SetDocumentBlockSize(const Value: Integer);
 begin
   if (Value >= MinDocumentBlockSize)and(Value <= MaxDocumentBlockSize) then
     FDocumentBlockSize := Value;
+end;
+
+procedure TPrinterParameters.SetReceiptField(FieldNumber: Integer;
+  const FieldValue: WideString);
+begin
+  if not(FieldNumber in [MinReceiptField..MaxReceiptField]) then
+  begin
+    RaiseException(Format('Invalid FieldNumber value', [FieldNumber]));
+  end;
+  ReceiptField[FieldNumber] := FieldValue;
+end;
+
+procedure TPrinterParameters.ClearReceiptFields;
+var
+  i: Integer;
+begin
+  for i := MinReceiptField to MaxReceiptField do
+  begin
+    ReceiptField[i] := '';
+  end;
 end;
 
 end.

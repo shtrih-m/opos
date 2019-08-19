@@ -154,6 +154,7 @@ type
     function GetAppAmountDecimalPlaces: Integer;
     function GetCapRecNearEnd(Value: Boolean): Boolean;
     function ReadFSParameter(ParamID: Integer; const pString: WideString): WideString;
+    procedure SetReceiptField(FieldNumber: Integer; const FieldValue: WideString);
   private
     // boolean
     FDayOpened: Boolean;
@@ -692,6 +693,7 @@ begin
   TDIOSTLVWrite.CreateCommand(FDIOHandlers, DIO_STLV_WRITE, Self);
   TDIOSTLVWriteOp.CreateCommand(FDIOHandlers, DIO_STLV_WRITE_OP, Self);
   TDIOSTLVGetHex.CreateCommand(FDIOHandlers, DIO_STLV_GET_HEX, Self);
+  TDIOSetReceiptField.CreateCommand(FDIOHandlers, DIO_SET_RECEIPT_FIELD, Self);
 end;
 
 procedure TFiscalPrinterImpl.CreateDIOHandlers1;
@@ -781,6 +783,7 @@ begin
   TDIOSTLVWrite.CreateCommand(FDIOHandlers, DIO_STLV_WRITE, Self);
   TDIOSTLVWriteOp.CreateCommand(FDIOHandlers, DIO_STLV_WRITE_OP, Self);
   TDIOSTLVGetHex.CreateCommand(FDIOHandlers, DIO_STLV_GET_HEX, Self);
+  TDIOSetReceiptField.CreateCommand(FDIOHandlers, DIO_SET_RECEIPT_FIELD, Self);
 end;
 
 procedure TFiscalPrinterImpl.CreateDIOHandlers2;
@@ -872,6 +875,7 @@ begin
   TDIOSTLVWrite.CreateCommand(FDIOHandlers, DIO_STLV_WRITE, Self);
   TDIOSTLVWriteOp.CreateCommand(FDIOHandlers, DIO_STLV_WRITE_OP, Self);
   TDIOSTLVGetHex.CreateCommand(FDIOHandlers, DIO_STLV_GET_HEX, Self);
+  TDIOSetReceiptField.CreateCommand(FDIOHandlers, DIO_SET_RECEIPT_FIELD, Self);
 end;
 
 procedure TFiscalPrinterImpl.SetPrinter(APrinter: ISharedPrinter);
@@ -4774,6 +4778,12 @@ begin
   else
     raiseException(_('Invalid pData parameter value'));
   end;
+end;
+
+procedure TFiscalPrinterImpl.SetReceiptField(FieldNumber: Integer;
+  const FieldValue: WideString);
+begin
+  Parameters.SetReceiptField(FieldNumber, FieldValue);
 end;
 
 end.

@@ -5119,8 +5119,14 @@ begin
   FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
   Check(FiscalPrinter.BeginFiscalReceipt(True));
   Check(FiscalPrinter.DirectIO2(30, 73, '1'));
+
+  FiscalPrinter.DirectIO2(DIO_SET_RECEIPT_FIELD, 1, 'AT4');
+  FiscalPrinter.DirectIO2(DIO_SET_RECEIPT_FIELD, 2, 'AT');
   Check(FiscalPrinter.PrintRecItem('Ðþêçàê Slazenger 20 ë, 28,5*15,5*46 ñì', 3199, 1000, 4, 3199, 'øò'));
-  Check(FiscalPrinter.PrintRecTotal(3199, 3199, '0'));
+
+  Check(FiscalPrinter.PrintRecItem('Ðþêçàê Slazenger 20 ë, 28,5*15,5*46 ñì', 3199, 1000, 4, 3199, 'øò'));
+
+  Check(FiscalPrinter.PrintRecTotal(8000, 8000, '0'));
   Check(FiscalPrinter.PrintRecMessage('Òðàíç.:     280593 '));
   Check(FiscalPrinter.EndFiscalReceipt(False));
 end;
