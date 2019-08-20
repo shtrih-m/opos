@@ -4677,7 +4677,7 @@ function TFiscalPrinterDevice.FieldToStr(FieldInfo: TPrinterFieldRec;
 begin
   case FieldInfo.FieldType of
     PRINTER_FIELD_TYPE_INT: Result := IntToStr(BinToInt(Value, 1, FieldInfo.Size));
-    PRINTER_FIELD_TYPE_STR: Result := Value;
+    PRINTER_FIELD_TYPE_STR: Result := PWideChar(Value);
   else
     raiseException(_('Invalid field type'));
   end;

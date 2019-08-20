@@ -9,7 +9,7 @@ uses
   TntClasses, TntSysUtils,
   // This
   ReceiptItem, PrinterParameters, TextParser, StringUtils, GS1Barcode,
-  PrinterTypes;
+  PrinterTypes, FiscalPrinterTypes;
 
 type
   { TFieldAlignment }
@@ -25,16 +25,23 @@ type
     Alignment: TFieldAlignment;
   end;
 
+  TReceiptTemplateRec = record
+    PrintWidth: Integer;
+    TaxInfo: array [1..6] of TTaxInfo;
+  end;
+
   { TReceiptTemplate }
 
   TReceiptTemplate = class
   private
     FTemplate: WideString;
-    FPrintWidth: Integer;
+    FData: TReceiptTemplateRec;
+
     function GetFieldValue(const Field, Prefix: WideString;
       const Item: TFSSaleItem): WideString;
+    function GetTaxName(Tax: Integer): WideString;
   public
-    constructor Create(APrintWidth: Integer);
+    constructor Create(AData: TReceiptTemplateRec);
 
     function getItemText(const Item: TFSSaleItem): WideString;
     function ParseField(const Field: WideString): TTemplateFieldRec;
@@ -48,10 +55,10 @@ implementation
 
 { TReceiptTemplate }
 
-constructor TReceiptTemplate.Create(APrintWidth: Integer);
+constructor TReceiptTemplate.Create(AData: TReceiptTemplateRec);
 begin
   inherited Create;
-  FPrintWidth := APrintWidth;
+  FData := AData;
 end;
 
 
@@ -130,6 +137,12 @@ begin
   end;
 end;
 
+function TReceiptTemplate.GetTaxName(Tax: Integer): WideString;
+begin
+  Result := '';
+  if Tax in [1..6] then
+    Result := FData.TaxInfo[Tax].Name;
+end;
 
 function TReceiptTemplate.GetFieldValue(const Field, Prefix: WideString;
   const Item: TFSSaleItem): WideString;
@@ -196,6 +209,10 @@ begin
   begin
     Result := GetTaxLetter(Item.Tax);
   end;
+  if AnsiCompareText(FieldData.Name, 'TAX_NAME') = 0 then
+  begin
+    Result := GetTaxName(Item.Tax);
+  end;
   if AnsiCompareText(FieldData.Name, 'MULT_NE_ONE') = 0 then
   begin
     if Item.Data.Quantity = 1 then Result := ' '
@@ -207,7 +224,7 @@ begin
     if Item.Data.ItemBarcode <> '' then
     begin
       Barcode := DecodeGS1(GS1FilterTockens(GS1DecodeBraces(Item.Data.ItemBarcode)));
-      Result := AlignLines(' “Õ:' + Barcode.GTIN, Barcode.Serial, FPrintWidth);
+      Result := AlignLines(' “Õ:' + Barcode.GTIN, Barcode.Serial, FData.PrintWidth);
     end;
   end;
   // FIELD

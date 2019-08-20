@@ -31,8 +31,11 @@ implementation
 { TReceiptTemplateTest }
 
 procedure TReceiptTemplateTest.Setup;
+var
+  Data: TReceiptTemplateRec;
 begin
-  Template := TReceiptTemplate.Create(42);
+  Data.PrintWidth := 42;
+  Template := TReceiptTemplate.Create(Data);
 end;
 
 procedure TReceiptTemplateTest.Teardown;
