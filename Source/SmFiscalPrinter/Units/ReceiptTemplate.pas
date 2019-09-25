@@ -223,7 +223,7 @@ begin
   begin
     if Item.Data.ItemBarcode <> '' then
     begin
-      Barcode := DecodeGS1(GS1FilterTockens(GS1DecodeBraces(Item.Data.ItemBarcode)));
+      Barcode := DecodeGS1(Item.Data.ItemBarcode);
       Result := AlignLines(' “Õ:' + Barcode.GTIN, Barcode.Serial, FData.PrintWidth);
     end;
   end;

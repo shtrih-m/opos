@@ -20,53 +20,73 @@ type
     Serial: AnsiString;
   end;
 
-  { TGS1Tocken }
+  { TGS1Token }
 
-  TGS1Tocken = class(TCollectionItem)
+  TGS1Token = class(TCollectionItem)
   public
     id: AnsiString;
     Data: AnsiString;
   end;
 
-  { TGS1Tockens }
+  { TGS1Tokens }
 
-  TGS1Tockens = class(TCollection)
+  TGS1Tokens = class(TCollection)
   private
-    function GetItem(Index: Integer): TGS1Tocken;
+    function GetItem(Index: Integer): TGS1Token;
   public
-    procedure Decode(const Data: AnsiString);
-    function ItemByID(const ID: AnsiString): TGS1Tocken;
-    property Items[Index: Integer]: TGS1Tocken read GetItem; default;
+    procedure DecodeBraces(const Data: AnsiString);
+    procedure DecodeAI(const Barcode: AnsiString);
+    function ItemByID(const ID: AnsiString): TGS1Token;
+    property Items[Index: Integer]: TGS1Token read GetItem; default;
   end;
 
+function IsValidGS1(const Barcode: AnsiString): Boolean;
 function DecodeGS1(const Barcode: AnsiString): TGS1Barcode;
-function GS1DecodeBraces(const Barcode: AnsiString): AnsiString;
-function GS1EncodeBraces(const Barcode: AnsiString): AnsiString;
-function GS1FilterTockens(const Barcode: AnsiString): AnsiString;
 
 implementation
 
+
+function IsValidGS1(const Barcode: AnsiString): Boolean;
+var
+  Tokens: TGS1Tokens;
+begin
+  Tokens := TGS1Tokens.Create(TGS1Token);
+  try
+    Tokens.DecodeAI(Barcode);
+    Result := (Tokens.ItemByID('01') <> nil)and(Tokens.ItemByID('21') <> nil);
+  finally
+    Tokens.Free;
+  end;
+end;
+
 function DecodeGS1(const Barcode: AnsiString): TGS1Barcode;
 var
-  Tocken: TGS1Tocken;
-  Tockens: TGS1Tockens;
+  Token: TGS1Token;
+  Tokens: TGS1Tokens;
 const
   STagNotFound = 'Тег %s не найден';
 begin
-  Tockens := TGS1Tockens.Create(TGS1Tocken);
+  Tokens := TGS1Tokens.Create(TGS1Token);
   try
-    Tockens.Decode(Barcode);
-    Tocken := Tockens.ItemByID('01');
-    if Tocken = nil then
-      raiseError(E_TAG_NOT_FOUND, Tnt_WideFormat(STagNotFound, ['GTIN(01)']));
-    Result.GTIN := Tocken.Data;
+    Tokens.DecodeAI(Barcode);
+    if (Tokens.ItemByID('01') = nil) or (Tokens.ItemByID('21') = nil) then
+    begin
+      Result.GTIN := Copy(Barcode, 1, 14);
+      Result.Serial := Copy(Barcode, 15, 7);
+    end else
+    begin
+      Token := Tokens.ItemByID('01');
+      if Token = nil then
+        raiseError(E_TAG_NOT_FOUND, Tnt_WideFormat(STagNotFound, ['GTIN(01)']));
+      Result.GTIN := Token.Data;
 
-    Tocken := Tockens.ItemByID('21');
-    if Tocken = nil then
-      raiseError(E_TAG_NOT_FOUND, Tnt_WideFormat(STagNotFound, ['SerialNumber(21)']));
-    Result.Serial := Tocken.Data;
+      Token := Tokens.ItemByID('21');
+      if Token = nil then
+        raiseError(E_TAG_NOT_FOUND, Tnt_WideFormat(STagNotFound, ['SerialNumber(21)']));
+      Result.Serial := Token.Data;
+    end;
   finally
-    Tockens.Free;
+    Tokens.Free;
   end;
 end;
 
@@ -261,32 +281,32 @@ function GS1EncodeBraces(const Barcode: AnsiString): AnsiString;
 var
   i: Integer;
   Item: TAIRec;
-  Tocken: TGS1Tocken;
-  Tockens: TGS1Tockens;
+  Token: TGS1Token;
+  Tokens: TGS1Tokens;
 begin
   Result := '';
-  Tockens := TGS1Tockens.Create(TGS1Tocken);
+  Tokens := TGS1Tokens.Create(TGS1Token);
   try
-    Tockens.Decode(Barcode);
-    for i := 0 to Tockens.Count-1 do
+    Tokens.DecodeBraces(Barcode);
+    for i := 0 to Tokens.Count-1 do
     begin
-      Tocken := Tockens[i];
-      if GetAI(Tocken.id, Item) then
+      Token := Tokens[i];
+      if GetAI(Token.id, Item) then
       begin
-        if i = Tockens.Count-1 then
+        if i = Tokens.Count-1 then
         begin
-          Result := Result + Tocken.id + Tocken.Data
+          Result := Result + Token.id + Token.Data
         end else
         begin
           if Item.min = Item.max then
-            Result := Result + Tocken.id + Tocken.Data
+            Result := Result + Token.id + Token.Data
           else
-            Result := Result + Tocken.id + Tocken.Data + GS;
+            Result := Result + Token.id + Token.Data + GS;
         end;
       end;
     end;
   finally
-    Tockens.Free;
+    Tokens.Free;
   end;
 end;
 
@@ -297,31 +317,31 @@ begin
   Result := (TagId <> '10')and(TagId <> '17');
 end;
 
-function GS1FilterTockens(const Barcode: AnsiString): AnsiString;
+function GS1FilterTokens(const Barcode: AnsiString): AnsiString;
 var
   i: Integer;
-  Tocken: TGS1Tocken;
-  Tockens: TGS1Tockens;
+  Token: TGS1Token;
+  Tokens: TGS1Tokens;
 begin
   Result := Barcode;
-  Tockens := TGS1Tockens.Create(TGS1Tocken);
+  Tokens := TGS1Tokens.Create(TGS1Token);
   try
-    Tockens.Decode(Barcode);
-    if Tockens.Count > 0 then
+    Tokens.DecodeBraces(Barcode);
+    if Tokens.Count > 0 then
     begin
       Result := '';
     end;
 
-    for i := 0 to Tockens.Count-1 do
+    for i := 0 to Tokens.Count-1 do
     begin
-      Tocken := Tockens[i];
-      if ValidGS1TagId(Tocken.id) then
+      Token := Tokens[i];
+      if ValidGS1TagId(Token.id) then
       begin
-        Result := Result + Tnt_WideFormat('(%s)%s', [Tocken.id, Tocken.Data]);
+        Result := Result + Tnt_WideFormat('(%s)%s', [Token.id, Token.Data]);
       end;
     end;
   finally
-    Tockens.Free;
+    Tokens.Free;
   end;
 end;
 
@@ -331,81 +351,63 @@ end;
 -4Hi7uGl
 *)
 
+(*
+1. На пачку наносят обязательные поля из 35 символов:
+
+  GTIN товара (глобальный номер) из 14 цифр, содержащих информацию о товаре и
+  историю его перемещений. Наносится на нижнюю или боковую сторону пачки;
+  индивидуальный код упаковки из 13 символов;
+  проверочный код из 8 цифр.
+
+2. На блок наносят 29 обязательных символов:
+
+  SSCI (серийный код транспортной упаковки) – 18 цифр;
+  код идентификации – 7 символов;
+  проверочный код из 8 цифр.
+
+*)
+
 function GS1DecodeBraces(const Barcode: AnsiString): AnsiString;
 var
-  id: AnsiString;
-  i, j: Integer;
-  value: AnsiString;
-  Item: TAIREc;
+  i: Integer;
+  Token: TGS1Token;
+  Tokens: TGS1Tokens;
 begin
   Result := Barcode;
   if Barcode = '' then Exit;
   if Barcode[1] = '(' then Exit;
-  if Length(Barcode) = 29 then
-  begin
-    Result := '(01)' + Copy(Barcode, 1, 14) +
-      '(21)' + Copy(Barcode, 15, 7) +
-      '(9099)' + Copy(Barcode, 22, Length(Barcode));
-    Exit;
-  end;
 
-  i := 1;
-  id := '';
   Result := '';
-  while i <= Length(Barcode) do
-  begin
-    if Barcode[i] = GS then
+  Tokens := TGS1Tokens.Create(TGS1Token);
+  try
+    Tokens.DecodeAI(Barcode);
+    for i := 0 to Tokens.Count-1 do
     begin
-      id := '';
-    end else
-    begin
-      id := id + Barcode[i];
-      if GetAI(id, Item) then
-      begin
-        if Item.min = Item.max then
-        begin
-          value := Copy(Barcode, i+1, Item.Max);
-          Inc(i, Item.max);
-        end else
-        begin
-          value := Copy(Barcode, i+1, Item.Max);
-          j := Item.Min;
-          while j <= Item.Max+1 do
-          begin
-            if Barcode[i+j] = GS then
-            begin
-              value := Copy(Barcode, i+1, j-1);
-              Break;
-            end;
-            Inc(j);
-          end;
-          Inc(i, j);
-        end;
-        Result := Result + Tnt_WideFormat('(%s)%s', [id, value]);
-        id := '';
-      end;
+      Token := Tokens[i];
+      Result := Result + Tnt_WideFormat('(%s)%s', [Token.ID, Token.Data]);
     end;
-    Inc(i);
+  finally
+    Tokens.Free;
   end;
 end;
 
-{ TGS1Tockens }
+{ TGS1Tokens }
 
 type
   TDecodeState = (dsCode, dsData);
 
-procedure TGS1Tockens.Decode(const Data: AnsiString);
+procedure TGS1Tokens.DecodeBraces(const Data: AnsiString);
 var
   i: Integer;
-  Tocken: TGS1Tocken;
+  Token: TGS1Token;
   State: TDecodeState;
-  TockenID: AnsiString;
-  TockenData: AnsiString;
+  TokenID: AnsiString;
+  TokenData: AnsiString;
 begin
   Clear;
   State := dsCode;
-  TockenData := '';
-  TockenID := '';
+  TokenData := '';
+  TokenID := '';
   for i := 1 to Length(Data) do
   begin
     case State of
@@ -414,13 +416,13 @@ begin
         case Data[i] of
         '(':
         begin
-          TockenID := '';
-          TockenData := '';
+          TokenID := '';
+          TokenData := '';
           State := dsCode;
         end;
         ')': State := dsData;
         else
-          TockenID := TockenID + Data[i];
+          TokenID := TokenID + Data[i];
         end;
       end;
 
@@ -428,34 +430,84 @@ begin
       if (Data[i] = '(')or(i = Length(Data)) then
       begin
         if i = Length(Data) then
-          TockenData := TockenData + Data[i];
+          TokenData := TokenData + Data[i];
 
         State := dsCode;
-        Tocken := TGS1Tocken.Create(Self);
-        Tocken.ID := TockenID;
-        Tocken.Data := TockenData;
-        TockenID := '';
-        TockenData := '';
+        Token := TGS1Token.Create(Self);
+        Token.ID := TokenID;
+        Token.Data := TokenData;
+        TokenID := '';
+        TokenData := '';
       end else
       begin
-        TockenData := TockenData + Data[i];
+        TokenData := TokenData + Data[i];
       end;
     end;
   end;
 end;
 
-function TGS1Tockens.GetItem(Index: Integer): TGS1Tocken;
+procedure TGS1Tokens.DecodeAI(const Barcode: AnsiString);
+var
+  Item: TAIREc;
+  i, j: Integer;
+  Token: TGS1Token;
+  TokenID: AnsiString;
+  TokenData: AnsiString;
 begin
-  Result := inherited Items[Index] as TGS1Tocken;
+  Clear;
+  i := 1;
+  TokenID := '';
+  while i <= Length(Barcode) do
+  begin
+    if Barcode[i] = GS then
+    begin
+      TokenID := '';
+    end else
+    begin
+      TokenID := TokenID + Barcode[i];
+      if GetAI(TokenID, Item) then
+      begin
+        if Item.min = Item.max then
+        begin
+          TokenData := Copy(Barcode, i+1, Item.Max);
+          Inc(i, Item.max);
+        end else
+        begin
+          TokenData := Copy(Barcode, i+1, Item.Max);
+          j := Item.Min;
+          while j <= Item.Max+1 do
+          begin
+            if Barcode[i+j] = GS then
+            begin
+              TokenData := Copy(Barcode, i+1, j-1);
+              Break;
+            end;
+            Inc(j);
+          end;
+          Inc(i, j);
+        end;
+        Token := TGS1Token.Create(Self);
+        Token.ID := TokenID;
+        Token.Data := TokenData;
+        TokenID := '';
+      end;
+    end;
+    Inc(i);
+  end;
 end;
 
-function TGS1Tockens.ItemByID(const ID: AnsiString): TGS1Tocken;
+function TGS1Tokens.GetItem(Index: Integer): TGS1Token;
+begin
+  Result := inherited Items[Index] as TGS1Token;
+end;
+
+function TGS1Tokens.ItemByID(const ID: AnsiString): TGS1Token;
 var
   i: Integer;
 begin
   for i := 0 to Count-1 do
   begin
-    Result := Items[i] as TGS1Tocken;
+    Result := Items[i] as TGS1Token;
     if Result.ID = ID then Exit;
   end;
   Result := nil;

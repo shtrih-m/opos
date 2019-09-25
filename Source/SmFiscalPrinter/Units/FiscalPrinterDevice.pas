@@ -8878,8 +8878,6 @@ begin
 
   if Parameters.EkmServerEnabled then
   begin
-    Data := GS1DecodeBraces(Barcode);
-    Data := GS1FilterTockens(Data);
     GS1Barcode := DecodeGS1(Data);
     EkmCheckBarcode(GS1Barcode);
   end;
@@ -8963,9 +8961,7 @@ var
 begin
   Result := 0;
   if Barcode = '' then Exit;
-  Data := GS1DecodeBraces(Barcode);
-  Data := GS1FilterTockens(Data);
-  GS1Barcode := DecodeGS1(Data);
+  GS1Barcode := DecodeGS1(Barcode);
 
   GTIN := ReverseString(IntToBin(StrToInt64(GS1Barcode.GTIN), 6));
   case MarkType of

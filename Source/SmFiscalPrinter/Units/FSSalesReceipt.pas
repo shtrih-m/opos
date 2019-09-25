@@ -642,8 +642,8 @@ function TFSSalesReceipt.GetAdjustmentAmount(
 begin
   Result := 0;
   case AdjustmentType of
-    FPTR_AT_AMOUNT_DISCOUNT: Result := Round2(Amount*100);
-    FPTR_AT_AMOUNT_SURCHARGE: Result := -Round2(Amount*100);
+    FPTR_AT_AMOUNT_DISCOUNT: Result := Printer.CurrencyToInt(Amount);
+    FPTR_AT_AMOUNT_SURCHARGE: Result := -Printer.CurrencyToInt(Amount);
     FPTR_AT_PERCENTAGE_DISCOUNT: Result := Round2(FReceiptItems.GetTotal * Amount/100);
     FPTR_AT_PERCENTAGE_SURCHARGE: Result := -Round2(FReceiptItems.GetTotal * Amount/100);
   else
@@ -659,13 +659,13 @@ begin
   case AdjustmentType of
     FPTR_AT_AMOUNT_DISCOUNT:
     begin
-      Summ := Round2(Amount*100);
+      Summ := Printer.CurrencyToInt(Amount);
       SubtotalDiscount(Summ, Description);
     end;
 
     FPTR_AT_AMOUNT_SURCHARGE:
     begin
-      Summ := Round2(Amount*100);
+      Summ := Printer.CurrencyToInt(Amount);
       SubtotalDiscount(-Summ, Description);
     end;
 
