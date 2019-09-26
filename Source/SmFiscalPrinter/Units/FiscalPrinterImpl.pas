@@ -1029,6 +1029,7 @@ begin
   Status := Device.ReadLongStatus;
   FDeviceMetrics := Device.GetDeviceMetrics;
   PrinterFlags := DecodePrinterFlags(Status.Flags);
+
   if PrinterFlags.DecimalPosition then
     Device.AmountDecimalPlaces := 2
   else
@@ -2707,8 +2708,6 @@ begin
       FPTR_GD_GRAND_TOTAL:
       begin
         ReceiptTotal := Device.ReadCashRegister(241);
-        if (Device.AmountDecimalPlaces = 0)and(GetAppAmountDecimalPlaces = 2) then
-          ReceiptTotal := ReceiptTotal * 100;
         Data := IntToStr(ReceiptTotal);
       end;
 
@@ -4785,6 +4784,7 @@ procedure TFiscalPrinterImpl.SetReceiptField(FieldNumber: Integer;
 begin
   Parameters.SetReceiptField(FieldNumber, FieldValue);
 end;
+
 
 end.
 

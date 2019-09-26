@@ -5118,15 +5118,9 @@ begin
   Check(FiscalPrinter.ResetPrinter);
   FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
   Check(FiscalPrinter.BeginFiscalReceipt(True));
-  Check(FiscalPrinter.DirectIO2(30, 73, '1'));
-
-  FiscalPrinter.DirectIO2(DIO_SET_RECEIPT_FIELD, 1, 'AT4');
-  FiscalPrinter.DirectIO2(DIO_SET_RECEIPT_FIELD, 2, 'AT');
-  Check(FiscalPrinter.PrintRecItem('Рюкзак Slazenger 20 л, 28,5*15,5*46 см', 3199, 1000, 4, 3199, 'шт'));
-
-  Check(FiscalPrinter.PrintRecItem('Рюкзак Slazenger 20 л, 28,5*15,5*46 см', 3199, 1000, 4, 3199, 'шт'));
-
-  Check(FiscalPrinter.PrintRecTotal(8000, 8000, '0'));
+  Check(FiscalPrinter.PrintRecItem('ТРК 8:Аи-95-К5', 5224, 29851, 4, 175, 'л'));
+  Check(FiscalPrinter.PrintRecSubtotalAdjustment(1, 'Округление по акции', 64));
+  FiscalPrinter.Check(FiscalPrinter.PrintRecTotal(8000, 8000, '0'));
   Check(FiscalPrinter.PrintRecMessage('Транз.:     280593 '));
   Check(FiscalPrinter.EndFiscalReceipt(False));
 end;

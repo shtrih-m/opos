@@ -329,7 +329,7 @@ begin
     end;
     FPTR_AT_PERCENTAGE_DISCOUNT:
     begin
-      Operation.Amount := Abs(Round2(FLastItemSumm*Amount/100));
+      Operation.Amount := PercentDiscount(FLastItemSumm, Amount);
       Operation.Tax1 := VatInfo;
       Operation.Tax2 := 0;
       Operation.Tax3 := 0;
@@ -341,7 +341,7 @@ begin
 
     FPTR_AT_PERCENTAGE_SURCHARGE:
     begin
-      Operation.Amount := Abs(Round2(FLastItemSumm*Amount/100));
+      Operation.Amount := PercentDiscount(FLastItemSumm, Amount);
       Operation.Tax1 := VatInfo;
       Operation.Tax2 := 0;
       Operation.Tax3 := 0;
@@ -507,25 +507,25 @@ begin
 
     FPTR_AT_AMOUNT_DISCOUNT:
     begin
-      Summ := Round2(Amount*100);
+      Summ := Printer.CurrencyToInt(Amount);
       SubtotalDiscount(Summ, Description);
     end;
 
     FPTR_AT_AMOUNT_SURCHARGE:
     begin
-      Summ := Round2(Amount*100);
+      Summ := Printer.CurrencyToInt(Amount);
       SubtotalCharge(Summ, Description);
     end;
 
     FPTR_AT_PERCENTAGE_DISCOUNT:
     begin
-      Summ := Round2(Printer.GetSubtotal* Amount/100);
+      Summ := PercentDiscount(Printer.GetSubtotal, Amount);
       SubtotalDiscount(Summ, Description);
     end;
 
     FPTR_AT_PERCENTAGE_SURCHARGE:
     begin
-      Summ := Round2(Printer.GetSubtotal* Amount/100);
+      Summ := PercentDiscount(Printer.GetSubtotal, Amount);
       SubtotalCharge(Summ, Description);
     end;
   else

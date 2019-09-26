@@ -6,7 +6,8 @@ uses
   // This
   ReceiptPrinter, OposException, PrinterParameters, Opos, OposFptr,
   FiscalPrinterDevice, FiscalPrinterTypes, FiscalPrinterState,
-  PrinterTypes, EscFilter, TextItem, LogFile, MalinaParams, gnugettext;
+  PrinterTypes, EscFilter, TextItem, LogFile, MalinaParams, gnugettext,
+  MathUtils;
 
 type
   { TReceiptContext }
@@ -52,6 +53,7 @@ type
     procedure OpenReceipt(ARecType: Integer); virtual;
     procedure BeginFiscalReceipt(PrintHeader: Boolean); virtual;
     procedure AddRecMessage(const Message: WideString; Station: Integer; ID: Integer);
+    function PercentDiscount(Total: Int64; Percents: Currency): Int64;
 
     procedure PrintPreLine;
     procedure PrintPostLine;
@@ -180,6 +182,12 @@ begin
   FRecMessages.Free;
   inherited Destroy;
 end;
+
+function TCustomReceipt.PercentDiscount(Total: Int64; Percents: Currency): Int64;
+begin
+  Result := Round2(Total * Percents/100);
+end;
+
 
 procedure TCustomReceipt.OpenReceipt(ARecType: Integer);
 begin

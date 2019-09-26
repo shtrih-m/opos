@@ -458,25 +458,25 @@ begin
   case AdjustmentType of
     FPTR_AT_AMOUNT_DISCOUNT:
     begin
-      Summ := Round2(Amount*100);
+      Summ := Printer.CurrencyToInt(Amount);
       SubtotalDiscount(Description, Summ);
     end;
 
     FPTR_AT_AMOUNT_SURCHARGE:
     begin
-      Summ := Round2(Amount*100);
+      Summ := Printer.CurrencyToInt(Amount);
       SubtotalCharge(Description, Summ);
     end;
 
     FPTR_AT_PERCENTAGE_DISCOUNT:
     begin
-      Summ := Round2(FTotal*Amount/100);
+      Summ := PercentDiscount(FTotal, Amount);
       SubtotalDiscount(Description, Summ);
     end;
 
     FPTR_AT_PERCENTAGE_SURCHARGE:
     begin
-      Summ := Round2(FTotal*Amount/100);
+      Summ := PercentDiscount(FTotal, Amount);
       SubtotalCharge(Description, Summ);
     end;
   else
