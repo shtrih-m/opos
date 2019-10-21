@@ -75,6 +75,7 @@ begin
       Result.Serial := Copy(Barcode, 15, 7);
     end else
     begin
+
       Token := Tokens.ItemByID('01');
       if Token = nil then
         raiseError(E_TAG_NOT_FOUND, Tnt_WideFormat(STagNotFound, ['GTIN(01)']));
@@ -251,7 +252,7 @@ const
     (id: '90'; min: 1; max: 30), // Information mutually agreed between trading partners
     (id: '9099'; min: 8; max: 8), // Information mutually agreed between trading partners
     (id: '91'; min: 1; max: 90), // Company internal information
-    (id: '92'; min: 1; max: 90), // Company internal information
+      (id: '92'; min: 1; max: 90), // Company internal information
     (id: '93'; min: 1; max: 90), // Company internal information
     (id: '94'; min: 1; max: 90), // Company internal information
     (id: '95'; min: 1; max: 90), // Company internal information
