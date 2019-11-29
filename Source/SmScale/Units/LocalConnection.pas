@@ -66,6 +66,7 @@ const
 constructor TLocalConnection.Create(ALogger: ILogFile);
 begin
   inherited Create;
+  FLogger := ALogger;
   FPort := TSerialPort.Create(1, ALogger);
   FLock := TCriticalSection.Create;
   MaxCmdCount := 3;
@@ -77,6 +78,7 @@ destructor TLocalConnection.Destroy;
 begin
   FPort.Free;
   FLock.Free;
+  FLogger := nil;
   inherited Destroy;
 end;
 

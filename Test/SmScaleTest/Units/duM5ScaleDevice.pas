@@ -8,13 +8,14 @@ uses
   // 3'd
   TestFramework, PascalMock, Opos,
   // This
-  M5ScaleTypes, M5ScaleDevice, MockScaleConnection, StringUtils;
+  M5ScaleTypes, M5ScaleDevice, MockScaleConnection, StringUtils, LogFile;
 
 type
   { TM5ScaleDeviceTest }
 
   TM5ScaleDeviceTest = class(TTestCase)
   private
+    FLogger: ILogFile;
     Device: IM5ScaleDevice;
     Connection: TMockScaleConnection;
   protected
@@ -73,8 +74,9 @@ const
 
 procedure TM5ScaleDeviceTest.Setup;
 begin
+  FLogger := TLogFile.Create;
   Connection := TMockScaleConnection.Create;
-  Device := TM5ScaleDevice.Create(Connection);
+  Device := TM5ScaleDevice.Create(FLogger, Connection);
   Device.CommandTimeout := Timeout;
   Device.Password := Password;
 end;
@@ -82,6 +84,7 @@ end;
 procedure TM5ScaleDeviceTest.TearDown;
 begin
   Device := nil;
+  FLogger := nil;
   Connection.Free;
 end;
 

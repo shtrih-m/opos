@@ -154,9 +154,6 @@ constructor TOposDevice.Create(ALogger: ILogFile);
 begin
   inherited Create;
   FLogger := ALogger;
-  if ALogger = nil then
-    FLogger := TLogFile.Create;
-
   FEvents := TOposEvents.Create;
   FSemaphore := TOposSemaphore.Create;
   Initialize;

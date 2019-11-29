@@ -113,9 +113,9 @@ RootDir=
 IncludeVerInfo=1
 AutoIncBuild=0
 MajorVer=1
-MinorVer=12
+MinorVer=13
 Release=0
-Build=124
+Build=535
 Debug=0
 PreRelease=0
 Special=0
@@ -126,17 +126,22 @@ CodePage=1252
 [Version Info Keys]
 CompanyName=SHTRIH-M
 FileDescription=Scale service
-FileVersion=1.12.0.124
+FileVersion=1.13.0.535
 InternalName=Scale driver
-LegalCopyright=Copyright © 2012
+LegalCopyright=SHTRIH-M © 2013 
 LegalTrademarks=
 OriginalFilename=SmScale.dll
 ProductName=OPOS drivers
-ProductVersion=1.12
+ProductVersion=1.13
 Comments=http://www.shtrih-m.ru
+[Excluded Packages]
+C:\Program Files (x86)\Borland\Delphi7\Projects\Bpl\PngComponentsD7.bpl=Png components
 [HistoryLists\hlDebugSourcePath]
 Count=1
 Item0=C:\Components\DUnit\src\
+[HistoryLists\hlConditionals]
+Count=1
+Item0=DEBUG
 [HistoryLists\hlUnitAliases]
 Count=1
 Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;

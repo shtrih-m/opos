@@ -133,7 +133,7 @@ begin
   Parameters := TMockScaleParameters.Create(Logger);
   Statistics := TMockscaleStatistics.Create(Logger);
   UIController := TMockUIController.Create;
-  Driver := TScaleDriver.Create(Device, Connection, Commands, Parameters,
+  Driver := TScaleDriver.Create(Logger, Device, Connection, Commands, Parameters,
     Statistics, UIController);
 
   Events := TRCSEvents.Create(Self);

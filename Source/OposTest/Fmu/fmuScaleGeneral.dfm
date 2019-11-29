@@ -1,8 +1,8 @@
 object fmScaleGeneral: TfmScaleGeneral
-  Left = 432
-  Top = 143
-  Width = 399
-  Height = 474
+  Left = 702
+  Top = 244
+  Width = 408
+  Height = 484
   Caption = 'General'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -13,8 +13,8 @@ object fmScaleGeneral: TfmScaleGeneral
   OldCreateOrder = False
   OnCreate = FormCreate
   DesignSize = (
-    383
-    436)
+    392
+    446)
   PixelsPerInch = 96
   TextHeight = 13
   object lblDeviceName: TTntLabel

@@ -83,6 +83,7 @@ type
     function GetErrorText(Code: Integer): string;
   public
     constructor Create(
+      ALogger: ILogFile;
       ADevice: IM5ScaleDevice;
       AConnection: IScaleConnection;
       ACommands: TCommandDefs;
@@ -145,6 +146,7 @@ uses
 { TM5OposDevice }
 
 constructor TM5OposDevice.Create(
+  ALogger: ILogFile;
   ADevice: IM5ScaleDevice;
   AConnection: IScaleConnection;
   ACommands: TCommandDefs;
@@ -152,7 +154,7 @@ constructor TM5OposDevice.Create(
   AStatistics: TScaleStatistics;
   AUIController: IScaleUIController);
 begin
-  inherited Create(nil);
+  inherited Create(ALogger);
   FDevice := ADevice;
   FCommands := ACommands;
   FConnection := AConnection;

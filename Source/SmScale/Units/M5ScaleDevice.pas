@@ -31,7 +31,7 @@ type
 
     property Logger: ILogFile read FLogger;
   public
-    constructor Create(AConnection: IScaleConnection);
+    constructor Create(ALogger: ILogFile; AConnection: IScaleConnection);
     destructor Destroy; override;
 
     function LockKeyboard: Integer;
@@ -98,10 +98,10 @@ implementation
 
 { TM5ScaleDevice }
 
-constructor TM5ScaleDevice.Create(AConnection: IScaleConnection);
+constructor TM5ScaleDevice.Create(ALogger: ILogFile; AConnection: IScaleConnection);
 begin
   inherited Create;
-  FLogger := TLogFile.Create;
+  FLogger := ALogger;
   FConnection := AConnection;
   FLock := TCriticalSection.Create;
 end;

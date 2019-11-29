@@ -80,6 +80,7 @@ end;
 destructor TOposStatistics.Destroy;
 begin
   FItems.Free;
+  FLogger := nil;
   inherited Destroy;
 end;
 

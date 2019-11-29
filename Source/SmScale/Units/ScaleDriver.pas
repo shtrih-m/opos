@@ -18,6 +18,7 @@ type
 
   TScaleDriver = class
   private
+    FLogger: ILogFile;
     FDevice: TM5OposDevice;
     FScaleDevice: IM5ScaleDevice;
     FCommands: TCommandDefs;
@@ -35,6 +36,7 @@ type
   public
     constructor Create; overload;
     constructor Create(
+      ALogger: ILogFile;
       ADevice: IM5ScaleDevice;
       AConnection: IScaleConnection;
       ACommands: TCommandDefs;
@@ -85,6 +87,7 @@ implementation
 { TScaleDriver }
 
 constructor TScaleDriver.Create(
+  ALogger: ILogFile;
   ADevice: IM5ScaleDevice;
   AConnection: IScaleConnection;
   ACommands: TCommandDefs;
@@ -93,11 +96,12 @@ constructor TScaleDriver.Create(
   AUIController: IScaleUIController);
 begin
   inherited Create;
+  FLogger := ALogger;
   FCommands := ACommands;
   FParameters := AParameters;
   FStatistics := AStatistics;
   FScaleDevice := ADevice;
-  FDevice := TM5OposDevice.Create(ADevice, AConnection,
+  FDevice := TM5OposDevice.Create(ALogger, ADevice, AConnection,
     ACommands, AParameters, AStatistics, AUIController);
 end;
 
@@ -107,18 +111,20 @@ var
   UIController: IScaleUIController;
 begin
   inherited Create;
-  Connection := TLocalConnection.Create(Device.Logger);
-  FScaleDevice := TM5ScaleDevice.Create(Connection);
-  FCommands := TCommandDefs.Create(Device.Logger);
-  FParameters := TScaleParameters.Create(Device.Logger);
-  FStatistics := TScaleStatistics.Create(Device.Logger);
+  FLogger := TLogFile.Create;
+  Connection := TLocalConnection.Create(FLogger);
+  FScaleDevice := TM5ScaleDevice.Create(FLogger, Connection);
+  FCommands := TCommandDefs.Create(FLogger);
+  FParameters := TScaleParameters.Create(FLogger);
+  FStatistics := TScaleStatistics.Create(FLogger);
   UIController := TUIController.Create(FScaleDevice);
-  FDevice := TM5OposDevice.Create(FScaleDevice, Connection, FCommands, FParameters,
+  FDevice := TM5OposDevice.Create(FLogger, FScaleDevice, Connection, FCommands, FParameters,
     FStatistics, UIController);
 end;
 
 destructor TScaleDriver.Destroy;
 begin
+  FLogger := nil;
   FDevice.Free;
   FCommands.Free;
   FParameters.Free;

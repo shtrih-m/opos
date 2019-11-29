@@ -1,7 +1,7 @@
 object fmScaleMain: TfmScaleMain
   Left = 325
   Top = 213
-  Width = 383
+  Width = 388
   Height = 312
   Caption = 'Operations'
   Color = clBtnFace
@@ -12,7 +12,7 @@ object fmScaleMain: TfmScaleMain
   Font.Style = []
   OldCreateOrder = False
   DesignSize = (
-    367
+    372
     274)
   PixelsPerInch = 96
   TextHeight = 13
@@ -38,9 +38,9 @@ object fmScaleMain: TfmScaleMain
     Caption = 'Timeout:'
   end
   object btnDisplayText: TTntButton
-    Left = 296
+    Left = 288
     Top = 72
-    Width = 75
+    Width = 81
     Height = 25
     Anchors = [akTop, akRight]
     Caption = 'DisplayText'
@@ -50,16 +50,16 @@ object fmScaleMain: TfmScaleMain
   object edtText: TTntEdit
     Left = 80
     Top = 72
-    Width = 209
+    Width = 201
     Height = 21
     Anchors = [akLeft, akTop, akRight]
     TabOrder = 1
     Text = 'NCR 7874'
   end
   object btnReadWeight: TTntButton
-    Left = 296
+    Left = 288
     Top = 8
-    Width = 75
+    Width = 81
     Height = 25
     Anchors = [akTop, akRight]
     Caption = 'ReadWeight'
@@ -69,7 +69,7 @@ object fmScaleMain: TfmScaleMain
   object edtWeightData: TTntEdit
     Left = 80
     Top = 8
-    Width = 209
+    Width = 201
     Height = 21
     Anchors = [akLeft, akTop, akRight]
     TabOrder = 3
@@ -77,16 +77,16 @@ object fmScaleMain: TfmScaleMain
   object edtTimeout: TTntEdit
     Left = 80
     Top = 40
-    Width = 209
+    Width = 201
     Height = 21
     Anchors = [akLeft, akTop, akRight]
     TabOrder = 4
     Text = '4000'
   end
   object btnZeroScale: TTntButton
-    Left = 296
+    Left = 288
     Top = 40
-    Width = 75
+    Width = 81
     Height = 25
     Anchors = [akTop, akRight]
     Caption = 'ZeroScale'

@@ -2,7 +2,7 @@ object fmScaleProperties: TfmScaleProperties
   Left = 389
   Top = 247
   Width = 383
-  Height = 312
+  Height = 304
   Caption = 'Properties'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -13,12 +13,12 @@ object fmScaleProperties: TfmScaleProperties
   OldCreateOrder = False
   DesignSize = (
     367
-    274)
+    266)
   PixelsPerInch = 96
   TextHeight = 13
   object btnRefresh: TTntButton
-    Left = 296
-    Top = 256
+    Left = 288
+    Top = 232
     Width = 75
     Height = 25
     Anchors = [akRight, akBottom]
@@ -29,8 +29,8 @@ object fmScaleProperties: TfmScaleProperties
   object Memo: TTntMemo
     Left = 8
     Top = 8
-    Width = 361
-    Height = 241
+    Width = 353
+    Height = 217
     Anchors = [akLeft, akTop, akRight, akBottom]
     Font.Charset = RUSSIAN_CHARSET
     Font.Color = clWindowText

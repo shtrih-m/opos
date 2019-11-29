@@ -315,6 +315,7 @@ begin
   FLock.Free;
   FReport.Free;
   FNotification.Free;
+  FLogger := nil;
   inherited Destroy;
 end;
 

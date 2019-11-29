@@ -87,6 +87,7 @@ destructor TCommandDefs.Destroy;
 begin
   Clear;
   FList.Free;
+  FLogger := nil;  
   inherited Destroy;
 end;
 

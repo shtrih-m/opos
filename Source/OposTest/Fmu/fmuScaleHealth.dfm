@@ -1,8 +1,8 @@
 object fmScaleHealth: TfmScaleHealth
   Left = 351
   Top = 300
-  Width = 344
-  Height = 201
+  Width = 348
+  Height = 210
   Caption = 'Check health'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -13,8 +13,8 @@ object fmScaleHealth: TfmScaleHealth
   OldCreateOrder = False
   OnCreate = FormCreate
   DesignSize = (
-    328
-    163)
+    332
+    172)
   PixelsPerInch = 96
   TextHeight = 13
   object lblLevel: TTntLabel
