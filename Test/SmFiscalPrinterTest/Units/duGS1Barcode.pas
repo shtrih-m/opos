@@ -26,7 +26,7 @@ implementation
 
 procedure TGS1BarcodeTest.CheckDecode;
 const
-  Barcode2 = '010700000000000321Ai1iJul' + GS + '291ErTuY7uj';
+  Barcode2 = '010700000000000321Ai1iJul[GS]291ErTuY7uj';
   Barcode3 = '04606203084623+A13gPh-4Hi7uGl';
   Barcode4 = '010405104227920221TB6qQHbmOTZBf'#$1D'2406402'#$1D'91ffd0'#$1D'92DbZgaQm2x0uA5+8/AzMM9hVq6apGvtM3bJzejjpHan2pvK4O+XbYcVgFRR5I4HmCLQvZ74KgKkIhVADd==';
 var

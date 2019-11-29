@@ -34,8 +34,8 @@ type
   private
     function GetItem(Index: Integer): TGS1Token;
   public
+    procedure DecodeAI(Barcode: AnsiString);
     procedure DecodeBraces(const Data: AnsiString);
-    procedure DecodeAI(const Barcode: AnsiString);
     function ItemByID(const ID: AnsiString): TGS1Token;
     property Items[Index: Integer]: TGS1Token read GetItem; default;
   end;
@@ -447,7 +447,7 @@ begin
   end;
 end;
 
-procedure TGS1Tokens.DecodeAI(const Barcode: AnsiString);
+procedure TGS1Tokens.DecodeAI(Barcode: AnsiString);
 var
   Item: TAIREc;
   i, j: Integer;
@@ -456,6 +456,8 @@ var
   TokenData: AnsiString;
 begin
   Clear;
+  Barcode := StringReplace(Barcode, '[GS]', GS, [rfReplaceAll, rfIgnoreCase]);
+
   i := 1;
   TokenID := '';
   while i <= Length(Barcode) do
