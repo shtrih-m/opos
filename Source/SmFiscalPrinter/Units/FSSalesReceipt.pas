@@ -68,6 +68,7 @@ type
     procedure UpdateReceiptItems;
     procedure PrintDiscount(Discount: TAmountOperation);
     function GetDoubleQuantity(Quantity: Int64): Double;
+    procedure SendItemMark(const Barcode: string; MarkType: Integer);
   public
     constructor CreateReceipt(AContext: TReceiptContext; ARecType: Integer);
     destructor Destroy; override;
@@ -1082,6 +1083,14 @@ begin
     end;
   end;
 
+  // UnitName
+  if FSSale2.UnitName <> '' then
+  begin
+    Device.Check(Device.FSWriteTLVOperation(TagToStr(1197, FSSale2.UnitName)));
+  end;
+  // Barcode
+  SendItemMark(FSSale2.ItemBarcode, FSSale2.MarkType);
+
   if Parameters.RecPrintType = RecPrintTypeDriver then
   begin
     printReceiptItemAsText(Item);
@@ -1093,6 +1102,22 @@ begin
 
   if Item.PostLine <> '' then
     PrintText2(Item.PostLine);
+end;
+
+procedure TFSSalesReceipt.SendItemMark(const Barcode: string; MarkType: Integer);
+var
+  rc: TFSBindItemCodeResult;
+begin
+  if Barcode <> '' then
+  begin
+    if Parameters.SendMarkType = SendMarkTypeDriver then
+    begin
+      Device.Check(Device.SendItemBarcode(Barcode, MarkType));
+    end else
+    begin
+      Device.Check(Device.FSBindItemCode(Barcode, rc));
+    end;
+  end;
 end;
 
 procedure TFSSalesReceipt.printReceiptItemAsText(Item: TFSSaleItem);

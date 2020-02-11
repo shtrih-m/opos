@@ -205,8 +205,6 @@ type
     function FSCancelDocument: Integer;
     function GetLastDocNumber: Int64;
     function GetLastMacValue: Int64;
-    function IsCorrectItemCode(const P: TFSCheckItemResult): Boolean;
-    procedure CheckCorrectItemCode(const P: TFSCheckItemResult);
     function PrintItemText(const S: WideString): WideString;
     procedure WriteTLVItems;
     function ReadDocPrintMode: Integer;
@@ -466,7 +464,7 @@ type
     function FSCheckItemCode(const P: TFSCheckItemCode;
       var R: TFSCheckItemResult): Integer;
     function FSAcceptItemCode(Action: Integer): Integer;
-    function FSBindItemCode(CodeLen: Integer; var R: TFSCheckItemResult): Integer;
+    function FSBindItemCode(const Barcode: string; var R: TFSBindItemCodeResult): Integer;
     procedure STLVWrite;
     procedure STLVWriteOp;
     function STLVGetHex: string;
@@ -475,6 +473,8 @@ type
     procedure ResetPrinter;
     function BeginZReport: Integer;
     function GetDocPrintMode: Integer;
+    function IsCorrectItemCode(const P: TFSCheckItemResult): Boolean;
+    procedure CheckCorrectItemCode(const P: TFSCheckItemResult);
 
     property IsOnline: Boolean read GetIsOnline;
     property Tables: TPrinterTables read FTables;
@@ -7198,7 +7198,6 @@ function TFiscalPrinterDevice.FSSale2(P: TFSSale2): Integer;
 var
   Answer: AnsiString;
   Command: AnsiString;
-  CheckItemResult: TFSCheckItemResult;
 begin
   P.Text := PrintItemText(P.Text);
   Command := #$FF#$46 + IntToBin(GetUsrPassword, 4) +
@@ -7214,19 +7213,6 @@ begin
     Copy(P.Text, 1, 128);
 
   Result := ExecuteData(Command, Answer);
-  if Result = 0 then
-  begin
-    SendItemBarcode(P.ItemBarcode, P.MarkType);
-    if (Parameters.checkItemCodeEnabled) then
-    begin
-      FSBindItemCode(Length(P.ItemBarcode), CheckItemResult);
-    end;
-    // UnitName
-    if P.UnitName <> '' then
-    begin
-      FSWriteTLVOperation(TagToStr(1197, P.UnitName));
-    end;
-  end;
 end;
 
 function TFiscalPrinterDevice.FSStorno(P: TFSSale): Integer;
@@ -8867,11 +8853,11 @@ end;
 
 function TFiscalPrinterDevice.CheckItemCode(const Barcode: WideString): Integer;
 var
-  Action: Integer;
   Data: AnsiString;
   GS1Barcode: TGS1Barcode;
-  CheckItemCode: TFSCheckItemCode;
-  CheckItemResult: TFSCheckItemResult;
+  //Action: Integer;
+  //CheckItemCode: TFSCheckItemCode;
+  //CheckItemResult: TFSCheckItemResult;
 begin
   Result := 0;
   if Barcode = '' then Exit;
@@ -8881,7 +8867,7 @@ begin
     GS1Barcode := DecodeGS1(Data);
     EkmCheckBarcode(GS1Barcode);
   end;
-
+  (*
   if Parameters.CheckItemCodeEnabled then
   begin
     Result := LoadBarcodeData(1, Barcode);
@@ -8901,6 +8887,7 @@ begin
       end;
     end;
   end;
+  *)
 end;
 
 procedure TFiscalPrinterDevice.CheckCorrectItemCode(const P: TFSCheckItemResult);
@@ -9180,47 +9167,39 @@ begin
 end;
 
 (******************************************************************************
-  Привязка  маркированного товара к позиции FF67H
 
-  Код команды FF67h. Длина сообщения: 7 байт.
+Привязка  маркированного товара к позиции FF67H
+
+Код команды FF67h. Длина сообщения: 5+N байт.
   Пароль оператора: 4 байта
   Длина кода маркировки: 1 байт
-  (данные должны быть загружены командой 0xDD)
-  ККТ проверяет был ли данный КМ проверен ранее. Если был то КМ включается в
-  состав предмета, независимо от результата проверки. Если КМ ранее не проверялся,
-  то будет возвращена ошибка и КМ не будет привязан к предмету расчета.
+  Данные маркировки N байт
   Данная команда должна вызываться после привязки всех тегов к предмету расчета.
 
-  Ответ: FF67h	    Длина сообщения: 8 байт.
+Ответ: FF67h	    Длина сообщения: 4 байт.
   Код ошибки: 1 байт
-  Результат локальной проверки кода маркировки: 1 байт
-  Код обработки пакета : 1 байт.
-  Разрешение на продажу товара от ИСМ : 1 байт.
-  Статус КМ: 1 байт.
-  Код ошибки от сервера КМ: 1 байт
-  Статус проверок сервера : 1 байт
-  Тип символики: 1 байт
+  первые 2 байта значения реквизита "код товара": 2 байта,
+  Тип Data Matrix:1 байт.
+  0 - КМ 88,
+  1-КМ симметричный,
+  2-КМ Табачный,
+  3-КМ 44.
 
 ******************************************************************************)
 
-function TFiscalPrinterDevice.FSBindItemCode(CodeLen: Integer;
-  var R: TFSCheckItemResult): Integer;
+function TFiscalPrinterDevice.FSBindItemCode(const Barcode: string;
+  var R: TFSBindItemCodeResult): Integer;
 var
   Answer: AnsiString;
   Command: AnsiString;
 begin
-  Command := #$FF#$67 + IntToBin(FUsrPassword, 4) + Chr(CodeLen);
+  Command := #$FF#$67 + IntToBin(FUsrPassword, 4) + Chr(Length(Barcode)) + Barcode;
   Result := ExecuteData(Command, Answer);
   if Result = 0 then
   begin
-    CheckMinLength(Answer, 7);
-    R.LocalCheckResult := Ord(Answer[1]);
-    R.ProcessingCode := Ord(Answer[2]);
-    R.SellPermission := Ord(Answer[3]);
-    R.KMStatus := Ord(Answer[4]);
-    R.ServerResult := Ord(Answer[5]);
-    R.ServerStatus := Ord(Answer[6]);
-    R.SymbolicType := Ord(Answer[7]);
+    CheckMinLength(Answer, 3);
+    R.ItemCode := BinToInt(Answer, 1, 2);
+    R.CodeType := BinToInt(Answer, 3, 1);
   end;
 end;
 

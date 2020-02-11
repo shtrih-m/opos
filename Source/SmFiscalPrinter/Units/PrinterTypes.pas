@@ -1245,6 +1245,13 @@ type
     SymbolicType: Byte; // Тип символики: 1 байт
   end;
 
+  { TFSBindItemCodeResult }
+
+  TFSBindItemCodeResult = record
+    ItemCode: Word;
+    CodeType: Byte;
+  end;
+
 const
   ///////////////////////////////////////////////////////////////////////////////
   // ItemStatus constants
@@ -1967,7 +1974,28 @@ begin
     $FF43: Result := _('FS: Close day');
     $FF44: Result := _('FS: Registration with discount/charge 2');
     $FF45: Result := _('FS: Close receipt extended');
+    $FF46: Result := _('FS: Operation V2');
+    $FF47: Result := _('FS: Extended FFS requisite');
+    $FF48: Result := _('FS: Discount and charge');
+    $FF49: Result := _('FS: Send item mark code');
+    $FF4A: Result := _('FS: Send correction receipt');
     $FF4B: Result := _('FS: Print receipt discount');
+    $FF4C: Result := _('FS: Read fiscalization totals');
+    $FF4D: Result := _('FS: Send TLV structure');
+    $FF4E: Result := _('FS: Write firmware block on SD card');
+    $FF50: Result := _('FS: Online payment');
+    $FF51: Result := _('FS: Read online payment status');
+    $FF52: Result := _('FS: Read online payment parameter');
+    $FF60: Result := _('FS: Read fiscalization parameter');
+    $FF61: Result := _('FS: Check item marking');
+    $FF62: Result := _('FS: Synchronize registers with FS counters');
+    $FF63: Result := _('FS: Read FS free memory');
+    $FF64: Result := _('FS: Write TLV from buffer');
+    $FF65: Result := _('FS: Read random sequence');
+    $FF66: Result := _('FS: Authorize');
+    $FF67: Result := _('FS: Bind marked item');
+    $FF68: Result := _('FS: Read status of AS "SKZM server"');
+    $FF69: Result := _('FS: Accept or reject item marking code');
   else
     Result := _('');
   end;

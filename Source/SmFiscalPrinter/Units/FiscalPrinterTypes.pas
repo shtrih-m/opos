@@ -463,7 +463,7 @@ type
     function FSReadLastMacValue2: Int64;
     function FSCheckItemCode(const P: TFSCheckItemCode; var R: TFSCheckItemResult): Integer;
     function FSAcceptItemCode(Action: Integer): Integer;
-    function FSBindItemCode(CodeLen: Integer; var R: TFSCheckItemResult): Integer;
+    function FSBindItemCode(const Barcode: string; var R: TFSBindItemCodeResult): Integer;
     procedure STLVBegin(TagID: Integer);
     procedure STLVAddTag(TagID: Integer; TagValue: string);
     function STLVGetHex: string;

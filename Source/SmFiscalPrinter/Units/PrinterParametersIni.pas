@@ -341,6 +341,8 @@ begin
       FParameters.ItemTextMode := IniFile.ReadInteger(Section, 'ItemTextMode', DefItemTextMode);
       FParameters.CorrectCashlessAmount := IniFile.ReadBool(Section, 'CorrectCashlessAmount', DefCorrectCashlessAmount);
       FParameters.SingleQuantityOnZeroUnitPrice := IniFile.ReadBool(Section, 'SingleQuantityOnZeroUnitPrice', True);
+      FParameters.SendMarkType := IniFile.ReadInteger(Section, 'SendMarkType', DefSendMarkType);
+
     end;
     // VatCodes
     Section := GetSectionName(DeviceName) + '_VatCodes';
@@ -506,6 +508,7 @@ begin
     IniFile.WriteInteger(Section, 'ItemTextMode', FParameters.ItemTextMode);
     IniFile.WriteBool(Section, 'CorrectCashlessAmount', FParameters.CorrectCashlessAmount);
     IniFile.WriteBool(Section, 'SingleQuantityOnZeroUnitPrice', FParameters.SingleQuantityOnZeroUnitPrice);
+    IniFile.WriteInteger(Section, 'SendMarkType', FParameters.SendMarkType);
 
     // PayTypes
     Section := GetSectionName(DeviceName) + '_PaymentTypes';
