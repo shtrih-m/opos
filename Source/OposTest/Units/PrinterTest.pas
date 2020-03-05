@@ -4637,7 +4637,6 @@ begin
     '+tWG24jDtHwRbPARdskMHHxuHE3h2fGRFX6wtXeQo11QXzLMGWqNcg==';
   Check(FiscalPrinter.DirectIO(DIO_SET_DRIVER_PARAMETER, pData, pString));
 
-  //Check(FiscalPrinter.PrintRecItem('Item 1', 101, 3088, 4, 32.7, ''));
   Check(FiscalPrinter.PrintRecItem('Item 1', 101, 1000, 4, 101, ''));
   Check(FiscalPrinter.PrintRecTotal(101, 101, '2'));
   Check(FiscalPrinter.PrintRecMessage('Транз.:      41895 '));
@@ -5118,8 +5117,8 @@ begin
   Check(FiscalPrinter.ResetPrinter);
   FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
   Check(FiscalPrinter.BeginFiscalReceipt(True));
-  Check(FiscalPrinter.PrintRecItem('ТРК 8:Аи-95-К5', 5224, 29851, 4, 175, 'л'));
-  Check(FiscalPrinter.PrintRecSubtotalAdjustment(1, 'Округление по акции', 64));
+  Check(FiscalPrinter.PrintRecItem('1. Item 1', 33.8, 2000, 1, 16.9, 'шт'));
+  Check(FiscalPrinter.FSWriteTagOperation(1162, StrToHex('DM'#$02'?'#$14'!1u,*8qbAA68')));
   FiscalPrinter.Check(FiscalPrinter.PrintRecTotal(8000, 8000, '0'));
   Check(FiscalPrinter.PrintRecMessage('Транз.:     280593 '));
   Check(FiscalPrinter.EndFiscalReceipt(False));

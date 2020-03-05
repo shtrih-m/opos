@@ -1019,6 +1019,7 @@ var
   FSRegistration: TFSSale;
   ReceiptItem: TReceiptItem;
 begin
+  FillChar(FSSale2, Sizeof(FSSale2), 0);
   if Item.PreLine <> '' then
     PrintText2(Item.PreLine);
 
@@ -1149,13 +1150,20 @@ begin
     Line2 := Tnt_WideFormat('%s X %s = %s', [Line2, AmountToStr(Item.Price/100),
       AmountToStr(Amount/100)]) +  GetTaxLetter(TaxNumber);
   end;
-  if Length(Line1 + Line2) > Device.GetPrintWidth then
+  if Item.Data.ItemBarcode <> '' then
   begin
-    PrintText2(Line1);
+    Printer.Printer.PrintLines(Line1, '[M]');
     Printer.Printer.PrintLines('', Line2);
   end else
   begin
-    Printer.Printer.PrintLines(Line1, Line2);
+    if Length(Line1 + Line2) > Device.GetPrintWidth then
+    begin
+      PrintText2(Line1);
+      Printer.Printer.PrintLines('', Line2);
+    end else
+    begin
+      Printer.Printer.PrintLines(Line1, Line2);
+    end;
   end;
   PrintTotalAndTax(Item);
 end;

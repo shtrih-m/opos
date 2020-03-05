@@ -149,7 +149,6 @@ function TReceiptTemplate.GetFieldValue(const Field, Prefix: WideString;
 var
   L: Integer;
   FieldNumber: Integer;
-  Barcode: TGS1Barcode;
   TaxLetter: WideString;
   FieldData: TTemplateFieldRec;
 begin
@@ -223,8 +222,7 @@ begin
   begin
     if Item.Data.ItemBarcode <> '' then
     begin
-      Barcode := DecodeGS1(Item.Data.ItemBarcode);
-      Result := AlignLines(' “Õ:' + Barcode.GTIN, Barcode.Serial, FData.PrintWidth);
+      Result := '[M]';
     end;
   end;
   // FIELD
