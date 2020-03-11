@@ -1,14 +1,14 @@
 [Closed Files]
-File_0=SourceModule,'C:\projects\OPOSShtrih\Source\Shared\BStrUtil.pas',0,1,1,1,1,0,0
-File_1=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\ReceiptTemplate.pas',0,1,140,2,151,0,0
-File_2=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FSSalesReceipt.pas',0,1,1,1,1,0,0
-File_3=SourceModule,'C:\projects\OPOSShtrih\Source\OposTest\Units\PrinterTest.pas',0,1,4708,15,4730,0,0
-File_4=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterDevice.pas',0,1,9181,44,9191,0,0
-File_5=SourceModule,'C:\projects\OPOSShtrih\Source\Shared\DIOHandlers.pas',0,1,2122,26,2135,0,0
-File_6=SourceModule,'C:\projects\OPOSShtrih\Source\Opos\SMFiscalPrinter.pas',0,1,1,90,18,0,0
-File_7=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\PrinterTypes.pas',0,1,1,1,10,0,0
-File_8=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\oleFiscalPrinter.pas',0,1,504,107,526,0,0
-File_9=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\DirectIOAPI.pas',0,1,68,3,91,0,0
+File_0=SourceModule,'C:\projects\OPOSShtrih\Source\SmFptrSrv\Units\oleMain.pas',0,1,1,1,1,0,0
+File_1=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FSSalesReceipt.pas',0,1,1172,49,1188,0,0
+File_2=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterDevice.pas',0,1,5338,1,5353,0,0
+File_3=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\PrinterParameters.pas',0,1,1239,1,1254,0,0
+File_4=SourceModule,'C:\projects\OPOSShtrih\Source\Shared\DIOHandlers.pas',0,1,2472,16,2484,0,0
+File_5=SourceModule,'C:\projects\OPOSShtrih\Source\OposConfig\Fmu\fmuFptrVatCode.pas',0,1,1,26,11,1,0
+File_6=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\PrinterParametersIni.pas',0,1,329,16,347,0,0
+File_7=SourceModule,'C:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\PrinterTypes.pas',0,1,679,1,705,0,0
+File_8=SourceModule,'C:\projects\OPOSShtrih\Source\OposTest\Units\PrinterTest.pas',0,1,5132,114,5151,0,0
+File_9=SourceModule,'C:\projects\OPOSShtrih\Source\OposTest\Fmu\fmuFptrReceiptTest.pas',0,1,1,32,11,0,0
 
 [Modules]
 Count=0
@@ -155,8 +155,7 @@ LRDockWidth=320
 Dockable=1
 
 [Breakpoints]
-Count=1
-Breakpoint0='C:\projects\OPOSShtrih\Source\Shared\DIOHandlers.pas',2487,'',0,1,'',1,0,0,'',1,'','',''
+Count=0
 
 [AddressBreakpoints]
 Count=0
@@ -178,7 +177,7 @@ ClientHeight=84
 
 [ProjectManager]
 Create=1
-Visible=1
+Visible=0
 State=0
 Left=0
 Top=117
@@ -432,5 +431,5 @@ DockClients=CallStackWindow
 DockSiteData=0000040000000000D20100000000000001DF03000000000000010000000087000000000000000100000002D2010000000000000200000000DF0300000F00000043616C6C537461636B57696E646F770200000000F7010000000000000100000000080100000000000001000000008C010000000000000100000000100200000000000001000000009802000000000000FFFFFFFF
 
 [ActiveProject]
-ActiveProject=10
+ActiveProject=1
 

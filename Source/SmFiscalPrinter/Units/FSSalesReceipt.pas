@@ -60,15 +60,18 @@ type
     procedure ParseReceiptItemsLines(Items: TReceiptItems);
     procedure ParseReceiptItemsLines2(Items: TReceiptItems);
     procedure printReceiptItemAsText(Item: TFSSaleItem);
-    procedure PrintTotalAndTax(const Item: TFSSaleItem);
+    procedure PrintTaxAmount(const Item: TFSSaleItem);
     procedure printReceiptItemTemplate(Item: TFSSaleItem);
+    procedure UpdateReceiptItems;
+    procedure PrintDiscount(Discount: TAmountOperation);
+    procedure SendItemMark(const Barcode: string; MarkType: Integer);
+
+    function GetTaxRate(Tax: Integer): Integer;
+    function GetTaxName(Tax: Integer): WideString;
+    function GetDoubleQuantity(Quantity: Int64): Double;
 
     property Template: TReceiptTemplate read FTemplate;
     property Device: IFiscalPrinterDevice read GetDevice;
-    procedure UpdateReceiptItems;
-    procedure PrintDiscount(Discount: TAmountOperation);
-    function GetDoubleQuantity(Quantity: Int64): Double;
-    procedure SendItemMark(const Barcode: string; MarkType: Integer);
   public
     constructor CreateReceipt(AContext: TReceiptContext; ARecType: Integer);
     destructor Destroy; override;
@@ -220,6 +223,16 @@ begin
   FDiscounts.Free;
   FReceiptItems.Free;
   inherited Destroy;
+end;
+
+function TFSSalesReceipt.GetTaxRate(Tax: Integer): Integer;
+begin
+  Result := Device.ReadTableInt(6, Tax, 1);
+end;
+
+function TFSSalesReceipt.GetTaxName(Tax: Integer): WideString;
+begin
+  Result := Device.ReadTableStr(6, Tax, 2);
 end;
 
 function TFSSalesReceipt.GetTax(const ItemName: WideString; Tax: Integer): Integer;
@@ -429,7 +442,7 @@ begin
     Operation.Price := Printer.CurrencyToInt(UnitPrice);
     Operation.Amount := Printer.CurrencyToInt(Price);
   end;
-  Operation.Tax := VatInfo;
+  Operation.Tax := GetTax(Description, VatInfo);
   Operation.Text := Description;
   Operation.UnitName := UnitName;
   Operation.RecType := FRecType;
@@ -552,7 +565,7 @@ begin
   Operation.Price := Printer.CurrencyToInt(Amount);
   Operation.Amount := Operation.Price;
 
-  Operation.Tax := VatInfo;
+  Operation.Tax := GetTax(Description, VatInfo);
   Operation.Text := Description;
   Operation.Department := Parameters.Department;
   Operation.RecType := FRecType;
@@ -580,7 +593,7 @@ begin
   Operation.Quantity := -1;
   Operation.Price := Printer.CurrencyToInt(Amount);
   Operation.Amount := Operation.Price;
-  Operation.Tax := VatInfo;
+  Operation.Tax := GetTax(Description, VatInfo);
   Operation.Text := Description;
   Operation.Department := Parameters.Department;
   Operation.RecType := FRecType;
@@ -912,17 +925,6 @@ end;
 
 *)
 
-function GetTaxLetter(Tax: Integer): WideString;
-const
-  TaxLetter = '¿¡¬√';
-begin
-  Result := '';
-  if Tax in [1..4] then
-    Result := TaxLetter[Tax];
-  if Result <> '' then
-    Result := '_' + Result;
-end;
-
 procedure TFSSalesReceipt.UpdateReceiptItems;
 var
   i: Integer;
@@ -1027,7 +1029,7 @@ begin
 
   Operation.Price := Item.PriceWithDiscount;
   Operation.Department := FSRegistration.Department;
-  Operation.Tax1 := GetTax(FSRegistration.Text, FSRegistration.Tax);
+  Operation.Tax1 := FSRegistration.Tax;
   Operation.Tax2 := 0;
   Operation.Tax3 := 0;
   Operation.Tax4 := 0;
@@ -1056,7 +1058,7 @@ begin
 
       FSSale2.TaxAmount := StrToInt64Def(FSRegistration.Parameter2, $FFFFFFFFFF);
       FSSale2.Department := FSRegistration.Department;
-      FSSale2.Tax := GetTax(FSRegistration.Text, FSRegistration.Tax);
+      FSSale2.Tax := FSRegistration.Tax;
       FSSale2.Text := Operation.Text;
       FSSale2.PaymentType := StrToInt64Def(FSRegistration.Parameter3, PaymentTypeCash);
       FSSale2.PaymentItem := StrToInt64Def(FSRegistration.Parameter4, PaymentItemNormal);
@@ -1124,7 +1126,7 @@ end;
 procedure TFSSalesReceipt.printReceiptItemAsText(Item: TFSSaleItem);
 var
   Amount: Int64;
-  TaxNumber: Integer;
+  TaxName: WideString;
   Line1, Line2: WideString;
 begin
   if Item.Quantity < 0 then
@@ -1135,21 +1137,23 @@ begin
 
   Line1 := Item.Text;
 
-  TaxNumber := Item.Tax;
-  if TaxNumber = 0 then TaxNumber := 4;
+  TaxName := '';
+  if GetTaxRate(Item.Tax) <> 0 then
+    TaxName := '_' + GetTaxName(Item.Tax);
 
   Amount := Round2(Item.Quantity * Item.Price);
   if ((Item.Quantity = 1) and (not Parameters.PrintSingleQuantity)) then
   begin
-    Line2 := Tnt_WideFormat('= %s', [AmountToStr(Amount/100)]) +  GetTaxLetter(TaxNumber);
+    Line2 := Tnt_WideFormat('= %s', [AmountToStr(Amount/100)]) +  TaxName;
   end else
   begin
     Line2 := QuantityToStr(Item.Quantity);
     if Parameters.PrintUnitName then
       Line2 := Line2 + ' ' + Item.Data.UnitName;
     Line2 := Tnt_WideFormat('%s X %s = %s', [Line2, AmountToStr(Item.Price/100),
-      AmountToStr(Amount/100)]) +  GetTaxLetter(TaxNumber);
+      AmountToStr(Amount/100)]) +  TaxName;
   end;
+
   if Item.Data.ItemBarcode <> '' then
   begin
     Printer.Printer.PrintLines(Line1, '[M]');
@@ -1165,22 +1169,23 @@ begin
       Printer.Printer.PrintLines(Line1, Line2);
     end;
   end;
-  PrintTotalAndTax(Item);
+  PrintTaxAmount(Item);
 end;
 
-procedure TFSSalesReceipt.PrintTotalAndTax(const Item: TFSSaleItem);
+procedure TFSSalesReceipt.PrintTaxAmount(const Item: TFSSaleItem);
 var
-  Tax: Integer;
-  Line: WideString;
   TaxRate: Double;
   TaxAmount: Int64;
+  Line: WideString;
 begin
-  Tax := Item.Tax;
-  if (Tax = 0) then Tax := 4;
-  TaxRate := Device.ReadTableInt(6, Tax, 1)/10000;
-  TaxAmount := Round2(Item.GetTotal * TaxRate / (1 + TaxRate));
-  Line := Device.ReadTableStr(6, Tax, 2);
-  Printer.Printer.PrintLines(Line, AmountToStr(TaxAmount/100));
+  TaxRate := GetTaxRate(Item.Tax)/10000;
+  TaxAmount := Round2(Item.GetTotal);
+  if TaxRate <> 0 then
+  begin
+    TaxAmount := Round2(Item.GetTotal * TaxRate / (1 + TaxRate));
+  end;
+  Line := GetTaxName(Item.Tax);
+  Printer.Printer.PrintLines(Line, '= ' + AmountToStr(TaxAmount/100));
 end;
 
 procedure TFSSalesReceipt.BeforeCloseReceipt;
@@ -1437,7 +1442,7 @@ begin
   Operation.Amount := Operation.Price;
   Operation.Quantity := -Abs(GetDoubleQuantity(Quantity));
   Operation.Department := Parameters.Department;
-  Operation.Tax := VatInfo;
+  Operation.Tax := GetTax(Description, VatInfo);
   Operation.Text := Description;
   Operation.Charge := 0;
   Operation.Discount := 0;
@@ -1480,7 +1485,7 @@ begin
     Operation.Amount := Printer.CurrencyToInt(Price);
   end;
   Operation.Quantity := -Abs(Operation.Quantity);
-  Operation.Tax := VatInfo;
+  Operation.Tax := GetTax(Description, VatInfo);
   Operation.Text := Description;
   Operation.UnitName := UnitName;
   Operation.Department := Parameters.Department;
@@ -1525,7 +1530,7 @@ begin
     Operation.Price := Printer.CurrencyToInt(UnitAmount);
     Operation.Amount := Printer.CurrencyToInt(Amount);
   end;
-  Operation.Tax := VatInfo;
+  Operation.Tax := GetTax(ADescription, VatInfo);
   Operation.Text := ADescription;
   Operation.UnitName := AUnitName;
   Operation.Department := Parameters.Department;
@@ -1566,7 +1571,7 @@ begin
     Operation.Amount := Printer.CurrencyToInt(Amount);
   end;
   Operation.Quantity := -Abs(Operation.Quantity);
-  Operation.Tax := VatInfo;
+  Operation.Tax := GetTax(ADescription, VatInfo);
   Operation.Text := ADescription;
   Operation.UnitName := AUnitName;
   Operation.Department := Parameters.Department;

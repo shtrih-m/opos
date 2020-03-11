@@ -950,6 +950,7 @@ procedure TPrinterParameters.WriteLogParameters;
 var
   i: Integer;
   PayType: TPayType;
+  VatCode: TVatCode;
 begin
   Logger.Debug('TPrinterParameters.WriteLogParameters');
 
@@ -1063,15 +1064,19 @@ begin
   Logger.Debug('CorrectCashlessAmount: ' + BoolToStr(CorrectCashlessAmount));
   Logger.Debug('SingleQuantityOnZeroUnitPrice: ' + BoolToStr(SingleQuantityOnZeroUnitPrice));
   Logger.Debug('SendMarkType: ' + IntToStr(SendMarkType));
-
-
-
+  // PayTypes
   for i := 0 to PayTypes.Count-1 do
   begin
     PayType := PayTypes[i];
     Logger.Debug(Format('PayType %d: %s', [PayType.Code, PayType.Text]));
   end;
-
+  // VatCodes
+  for i := 0 to VatCodes.Count-1 do
+  begin
+    VatCode := VatCodes[i];
+    Logger.Debug(Format('VatCode (App VAT code = %d, Fptr VAT code = %d)', [
+      VatCode.AppVatCode, VatCode.FptrVatCode]));
+  end;
   Logger.Debug(Logger.Separator);
 end;
 
