@@ -108,8 +108,11 @@ type
     function GetTags: TReceiptItems;
     function GetPriceDiscount: Int64;
     function calcPriceWithDiscount: Int64;
+  private
+    function GetTotal2: Int64;
   public
     destructor Destroy; override;
+    property Total2: Int64 read GetTotal2;
   public
     Pos: Integer;
     Data: TFSSale;
@@ -117,7 +120,6 @@ type
     PostLine: WideString;
     FUnitPrice: Int64;
 
-    function GetTotal2: Int64;
     function GetAmount: int64;
     function GetTotal: Int64; override;
     function GetDiscounts: TReceiptItems;
@@ -126,7 +128,6 @@ type
     procedure Assign(Item: TReceiptItem); override;
 
     property Total: Int64 read GetTotal;
-    property Total2: Int64 read GetTotal2;
     property Tags: TReceiptItems read GetTags;
     property PriceDiscount: Int64 read GetPriceDiscount;
     property Discounts: TReceiptItems read GetDiscounts;

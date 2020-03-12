@@ -90,9 +90,6 @@ begin
           stField:
           begin
             FieldValue := GetFieldValue(Field, Prefix, Item);
-            if (Result <> '')and(FieldValue <> '')and(Field = 'KTN') then
-              Result := Result + CRLF;
-
             Result := Result + FieldValue;
             State := stChar;
           end;

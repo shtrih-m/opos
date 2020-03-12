@@ -1054,7 +1054,7 @@ begin
       if FSRegistration.Parameter1 <> '' then
         FSSale2.Total := StrToInt64Def(FSRegistration.Parameter1, $FFFFFFFFFF)
       else
-        FSSale2.Total := FSRegistration.Amount;
+        FSSale2.Total := Item.Total2;
 
       FSSale2.TaxAmount := StrToInt64Def(FSRegistration.Parameter2, $FFFFFFFFFF);
       FSSale2.Department := FSRegistration.Department;
