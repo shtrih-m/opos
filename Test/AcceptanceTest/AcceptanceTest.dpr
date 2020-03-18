@@ -32,7 +32,8 @@ uses
   PrinterParametersIni in '..\..\Source\SmFiscalPrinter\Units\PrinterParametersIni.pas',
   SmFiscalPrinterLib_TLB in '..\..\Source\SmFiscalPrinter\SmFiscalPrinterLib_TLB.pas',
   OposFiscalPrinter_1_12_Lib_TLB in '..\..\Source\Opos\OposFiscalPrinter_1_12_Lib_TLB.pas',
-  OposFiscalPrinter_1_13_Lib_TLB in '..\..\Source\Opos\OposFiscalPrinter_1_13_Lib_TLB.pas';
+  OposFiscalPrinter_1_13_Lib_TLB in '..\..\Source\Opos\OposFiscalPrinter_1_13_Lib_TLB.pas',
+  RegExpr in '..\..\Source\Shared\RegExpr.pas';
 
 {$R *.RES}
 

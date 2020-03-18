@@ -75,7 +75,6 @@ uses
   SettingsParams in '..\..\Source\SmFiscalPrinter\Units\SettingsParams.pas',
   TLV in '..\..\Source\SmFiscalPrinter\Units\TLV.pas',
   fmuFptrPawnTicket in '..\..\Source\OposConfig\Fmu\fmuFptrPawnTicket.pas' {fmFptrPawnTicket},
-  RegExpr in '..\..\Source\SmFiscalPrinter\Units\RegExpr.pas',
   fmuRosneftAddText in '..\..\Source\OposConfig\Fmu\fmuRosneftAddText.pas' {fmRosneftAddText},
   fmuZReport in '..\..\Source\OposConfig\Fmu\fmuZReport.pas' {fmZReport},
   fmuFptrMalina in '..\..\Source\OposConfig\Fmu\fmuFptrMalina.pas' {fmFptrMalina},
@@ -94,7 +93,8 @@ uses
   fmuFptrLog in '..\..\Source\OposConfig\Fmu\fmuFptrLog.pas' {fmFptrLog},
   XmlModelReader in '..\..\Source\SmFiscalPrinter\Units\XmlModelReader.pas',
   XmlUtils in '..\..\Source\SmFiscalPrinter\Units\XmlUtils.pas',
-  DefaultModel in '..\..\Source\SmFiscalPrinter\Units\DefaultModel.pas';
+  DefaultModel in '..\..\Source\SmFiscalPrinter\Units\DefaultModel.pas',
+  RegExpr in '..\..\Source\Shared\RegExpr.pas';
 
 {$R *.RES}
 

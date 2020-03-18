@@ -140,7 +140,8 @@ uses
   fmuFptrDirectIOBarcode in '..\..\Source\OposTest\Fmu\fmuFptrDirectIOBarcode.pas' {fmFptrDirectIOBarcode},
   WException in '..\..\Source\Shared\WException.pas',
   TntIniFiles in '..\..\Source\Shared\TntIniFiles.pas',
-  DriverError in '..\..\Source\Shared\DriverError.pas';
+  DriverError in '..\..\Source\Shared\DriverError.pas',
+  RegExpr in '..\..\Source\Shared\RegExpr.pas';
 
 {$R *.RES}
 

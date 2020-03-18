@@ -71,7 +71,6 @@ uses
   fmuFptrHeader in 'Fmu\fmuFptrHeader.pas' {fmFptrHeader},
   fmuFptrPawnTicket in 'Fmu\fmuFptrPawnTicket.pas' {fmFptrPawnTicket},
   fmuFiscalStorage in 'Fmu\fmuFiscalStorage.pas' {fmFiscalStorage},
-  RegExpr in '..\SmFiscalPrinter\Units\RegExpr.pas',
   fmuRosneftAddText in 'Fmu\fmuRosneftAddText.pas' {fmRosneftAddText},
   fmuZReport in 'Fmu\fmuZReport.pas' {fmZReport},
   fmuFptrMalina in 'Fmu\fmuFptrMalina.pas' {fmFptrMalina},
@@ -92,7 +91,8 @@ uses
   PrinterTable in '..\SmFiscalPrinter\Units\PrinterTable.pas',
   XmlModelReader in '..\SmFiscalPrinter\Units\XmlModelReader.pas',
   XmlUtils in '..\SmFiscalPrinter\Units\XmlUtils.pas',
-  DefaultModel in '..\SmFiscalPrinter\Units\DefaultModel.pas';
+  DefaultModel in '..\SmFiscalPrinter\Units\DefaultModel.pas',
+  RegExpr in '..\Shared\RegExpr.pas';
 
 {$R *.RES}
 {$R WindowsXP.RES}

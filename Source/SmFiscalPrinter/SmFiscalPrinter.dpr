@@ -30,7 +30,6 @@ uses
   fmuLogo in 'Fmu\fmuLogo.pas' {fmLogo},
   untUtil in 'Units\untUtil.pas',
   ElectronicJournal in 'Units\ElectronicJournal.pas',
-  RegExpr in 'Units\RegExpr.pas',
   SharedPrinter in 'Units\SharedPrinter.pas',
   OposCash in '..\Opos\OposCash.pas',
   OposCashhi in '..\Opos\OposCashhi.pas',
@@ -174,7 +173,8 @@ uses
   TntIniFiles in '..\Shared\TntIniFiles.pas',
   TranslationUtil in 'Units\TranslationUtil.pas',
   LangUtils in '..\Shared\LangUtils.pas',
-  BaseForm in '..\Shared\BaseForm.pas';
+  BaseForm in '..\Shared\BaseForm.pas',
+  RegExpr in '..\Shared\RegExpr.pas';
 
 exports
   DllGetClassObject,

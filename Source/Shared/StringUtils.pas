@@ -4,7 +4,7 @@ interface
 
 uses
   // VCL
-  Windows, SysUtils, TntSysUtils;
+  Windows, SysUtils, StrUtils, TntSysUtils, RegExpr;
 
 type
   TSetOfChar = set of char;
@@ -14,6 +14,7 @@ function StrToHexText(const S: AnsiString): AnsiString;
 function HexToStr(const Data: AnsiString): AnsiString;
 function QuantityToStr(Value: Double): AnsiString;
 function IntToBin(Value: Int64; Size: Integer): AnsiString;
+function IntToBinBE(Value: Int64; Size: Integer): AnsiString;
 function BinToInt(const Data: AnsiString; Index, Size: Integer): Int64;
 function BinToInt64(const Data: AnsiString; Index, Size: Integer): Int64;
 function BinToInteger(const Data: AnsiString; Index, Size: Integer): Integer;
@@ -35,6 +36,7 @@ function AddTrailingSpaces(const S: AnsiString; Len: Integer): AnsiString;
 function StrToDouble(const S: AnsiString): Double;
 function AlignLines(const Line1, Line2: WideString;
   LineWidth: Integer): WideString;
+function IsMatch(const Barcode, RegEx: string): Boolean;
 
 
 implementation
@@ -138,6 +140,12 @@ function IntToBin(Value: Int64; Size: Integer): AnsiString;
 begin
   SetLength(Result, Size);
   Move(Value, Result[1], Size);
+end;
+
+// BigEndian version
+function IntToBinBE(Value: Int64; Size: Integer): AnsiString;
+begin
+  Result := ReverseString(IntToBin(Value, Size));
 end;
 
 function BinToInt(const Data: AnsiString; Index, Size: Integer): Int64;
@@ -337,5 +345,21 @@ begin
   Result := Copy(S, 1, Len);
   Result := Result + StringOfChar(' ', Len - Length(Result));
 end;
+
+function IsMatch(const Barcode, RegEx: string): Boolean;
+var
+  R: TRegExpr;
+begin
+  R := TRegExpr.Create;
+  try
+    R.Expression := RegEx;
+    Result := R.Exec(Barcode);
+    if Result then
+      Result := R.MatchPos[0] = 1;
+  finally
+    R.Free;
+  end;
+end;
+
 
 end.

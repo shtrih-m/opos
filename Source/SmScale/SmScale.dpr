@@ -68,7 +68,8 @@ uses
   TextReport in '..\Shared\TextReport.pas',
   PrinterPort in '..\SmFiscalPrinter\Units\PrinterPort.pas',
   WException in '..\Shared\WException.pas',
-  TntIniFiles in '..\Shared\TntIniFiles.pas';
+  TntIniFiles in '..\Shared\TntIniFiles.pas',
+  RegExpr in '..\Shared\RegExpr.pas';
 
 exports
   DllGetClassObject,

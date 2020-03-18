@@ -84,7 +84,8 @@ uses
   TextReport in '..\..\Source\Shared\TextReport.pas',
   PrinterPort in '..\..\Source\SmFiscalPrinter\Units\PrinterPort.pas',
   WException in '..\..\Source\Shared\WException.pas',
-  TntIniFiles in '..\..\Source\Shared\TntIniFiles.pas';
+  TntIniFiles in '..\..\Source\Shared\TntIniFiles.pas',
+  RegExpr in '..\..\Source\Shared\RegExpr.pas';
 
 {$R *.RES}
 

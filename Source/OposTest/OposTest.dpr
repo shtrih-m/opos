@@ -137,7 +137,8 @@ uses
   DriverTest in 'Units\DriverTest.pas',
   fmuFptrDirectIOBarcode in 'Fmu\fmuFptrDirectIOBarcode.pas' {fmFptrDirectIOBarcode},
   WException in '..\Shared\WException.pas',
-  TntIniFiles in '..\Shared\TntIniFiles.pas';
+  TntIniFiles in '..\Shared\TntIniFiles.pas',
+  RegExpr in '..\Shared\RegExpr.pas';
 
 {$R *.RES}
 {$R WindowsXP.RES}

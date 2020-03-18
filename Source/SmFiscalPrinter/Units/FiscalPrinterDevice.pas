@@ -22,7 +22,7 @@ uses
   PrinterParameters, DirectIOAPI, FileUtils,
   PrinterDeviceFilter, TLV, CsvPrinterTableFormat, MalinaParams, DriverContext,
   PrinterFonts, TLVParser, TLVTags, GS1Barcode, EKMClient, WException,
-  TntSysUtils, gnugettext;
+  TntSysUtils, gnugettext, RegExpr;
 
 type
   { TFiscalPrinterDevice }
@@ -475,6 +475,7 @@ type
     function GetDocPrintMode: Integer;
     function IsCorrectItemCode(const P: TFSCheckItemResult): Boolean;
     procedure CheckCorrectItemCode(const P: TFSCheckItemResult);
+    function BarcodeTo1162Value(const Barcode: AnsiString): AnsiString;
 
     property IsOnline: Boolean read GetIsOnline;
     property Tables: TPrinterTables read FTables;
@@ -8930,57 +8931,143 @@ begin
 end;
 
 
-(*
-Данные в массиве представлены в виде строки, в которой:
-первые 2 байта - код справочника;
-последующие 6 байт - код идентификации группы товара;
-последние 24 байта - код идентификации экземпляра товара
-*)
-
-
 function TFiscalPrinterDevice.SendItemBarcode(const Barcode: WideString;
   MarkType: Integer): Integer;
 var
   Data: AnsiString;
-  GTIN: AnsiString;
-  Serial: AnsiString;
-  GS1Barcode: TGS1Barcode;
 begin
-  Result := 0;
-  if Barcode = '' then Exit;
-  GS1Barcode := DecodeGS1(Barcode);
-
-  GTIN := ReverseString(IntToBin(StrToInt64(GS1Barcode.GTIN), 6));
-  case MarkType of
-    MARK_TYPE_FUR:
-    begin // Меха
-      Serial := Copy(GS1Barcode.Serial, 1, 24);
-      Data := ReverseString(IntToBin(MARK_TYPE_FUR, 2)) + GTIN + Serial;
-      Data := TTLVTag.Int2ValueTLV(1162, 2) + TTLVTag.Int2ValueTLV(Length(Data), 2) + Data;
-    end;
-    MARK_TYPE_DRUGS:
-    begin // Лекарственные препараты
-      Serial := Copy(GS1Barcode.Serial, 1, 24);
-      Data := ReverseString(IntToBin(MARK_TYPE_DRUGS, 2)) + GTIN + Serial;
-      Data := TTLVTag.Int2ValueTLV(1162, 2) + TTLVTag.Int2ValueTLV(Length(Data), 2) + Data;
-    end;
-    MARK_TYPE_TOBACCO:
-    begin // Табачные изделия
-      Serial := Copy(GS1Barcode.Serial, 1, 24);
-      Data := ReverseString(IntToBin(MARK_TYPE_TOBACCO, 2)) + GTIN + Serial;
-      Data := TTLVTag.Int2ValueTLV(1162, 2) + TTLVTag.Int2ValueTLV(Length(Data), 2) + Data;
-    end;
-    MARK_TYPE_SHOES:
-    begin // Обувь
-      Serial := Copy(GS1Barcode.Serial, 1, 13);
-      Serial := Serial + StringOfChar(' ', 13 - Length(Serial));
-      Data := ReverseString(IntToBin(MARK_TYPE_SHOES, 2)) + GTIN + Serial;
-      Data := TTLVTag.Int2ValueTLV(1162, 2) + TTLVTag.Int2ValueTLV(Length(Data), 2) + Data;
-    end;
-  else
-    raiseException(_('Invalid MarkType value'));
-  end;
+  Data := BarcodeTo1162Value(Barcode);
+  Data := TTLVTag.Int2ValueTLV(1162, 2) + TTLVTag.Int2ValueTLV(Length(Data), 2) + Data;
   Result := FSWriteTLVOperation(Data);
+end;
+
+function GetEANCrc(const data: string): Integer;
+var
+  i: Integer;
+  len: Integer;
+  sum: Integer;
+begin
+	sum := 0;
+	len := Length(data);
+	for i:=1 to Length(data) do
+	begin
+		if (len mod 2) = 0 then
+			sum := sum + (StrToInt(data[i])*1)
+		else
+			sum := sum + (StrToInt(data[i])*3);
+		dec(len);
+	end;
+  sum := sum mod 10;
+	if sum <> 0 then
+		sum := 10 - sum;
+  Result := sum;
+end;
+
+function CheckEANCRC(const Barcode: AnsiString): Boolean;
+var
+  Crc: Integer;
+begin
+  Result := False;
+  if Length(Barcode) > 1 then
+  begin
+    Crc := GetEANCrc(Copy(Barcode, 1, Length(Barcode)-1));
+    Result := Crc = StrToInt(Barcode[Length(Barcode)]);
+  end;
+end;
+
+function TFiscalPrinterDevice.BarcodeTo1162Value(
+  const Barcode: AnsiString): AnsiString;
+var
+  gtin: AnsiString;
+  serial: AnsiString;
+  Data: AnsiString;
+  Tokens: TGS1Tokens;
+  BarcodeType: Integer;
+begin
+  Data := Barcode;
+  BarcodeType := KTN_UNKNOWN;
+  Tokens := TGS1Tokens.Create(TGS1Token);
+  try
+    Tokens.DecodeAI(Barcode);
+    if Tokens.HasItem('01') and Tokens.HasItem('21') then
+    begin
+      BarcodeType := KTN_DM;
+      gtin := Tokens.ItemByID('01').Data;
+      if Length(gtin) > 24 then
+        gtin := Copy(gtin, 1, 24);
+
+      Data := IntToBinBE(StrToInt64(gtin), 6);
+      serial := Tokens.ItemByID('21').Data;
+      Data := Data + Serial;
+
+      if Tokens.HasItem('8005') then
+      begin
+        Data := Data + Tokens.ItemByID('8005').Data;
+      end;
+    end else
+    begin
+      case Length(Barcode) of
+        8:
+          if IsMatch(Barcode, '\d+') and CheckEANCRC(Barcode) then
+          begin
+            BarcodeType := KTN_EAN8;
+            Data := IntToBinBE(StrToInt64(Barcode), 6);
+          end;
+
+        10:
+          if IsMatch(Barcode, '\d+') then
+          begin
+            BarcodeType := KTN_FUEL;
+            Data := IntToBinBE(StrToInt64(Barcode), 6);
+          end;
+
+        13:
+          if IsMatch(Barcode, '\d+') and CheckEANCrc(Barcode) then
+          begin
+            BarcodeType := KTN_EAN13;
+            Data := IntToBinBE(StrToInt64(Barcode), 6);
+          end;
+
+        14:
+          if IsMatch(Barcode, '\d+') then
+          begin
+            BarcodeType := KTN_ITF14;
+            Data := IntToBinBE(StrToInt64(Barcode), 6);
+          end;
+
+        21:
+          // Проверка на формат 'СС-ЦЦЦЦЦЦ-ССССССССССС'
+          if IsMatch(Barcode, '\w{2}-\d{6}-\w{11}') then
+            BarcodeType := KTN_RF;
+
+        29:
+        begin
+          BarcodeType := KTN_DM;
+          gtin := Copy(Barcode, 1, 14);
+          Data := IntToBinBE(StrToInt64(gtin), 6);
+          Data := Data + Copy(Barcode, 15, 11) + '  ';
+        end;
+
+        68:
+        begin
+          BarcodeType := KTN_EGAIS2;
+          Data := Copy(Barcode, 9, 23);
+        end;
+
+        150:
+        begin
+          BarcodeType := KTN_EGAIS3;
+          Data := Copy(Barcode, 1, 14);
+        end;
+      end;
+    end;
+    if BarcodeType = KTN_UNKNOWN then
+      Data := Copy(Barcode, 1, 30);
+
+  finally
+    Tokens.Free;
+  end;
+  Result := IntToBinBE(BarcodeType, 2) + Data;
 end;
 
 function TFiscalPrinterDevice.FSWriteTLVOperation(const Data: WideString): Integer;

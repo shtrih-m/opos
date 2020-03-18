@@ -27,7 +27,6 @@ uses
   FileUtils in '..\..\Source\Shared\FileUtils.pas',
   Semaphore in '..\..\Source\Opos\Semaphore.pas',
   uZintBarcode in '..\..\Source\SmFiscalPrinter\Units\uZintBarcode.pas',
-  RegExpr in '..\..\Source\SmFiscalPrinter\Units\RegExpr.pas',
   uZintInterface in '..\..\Source\SmFiscalPrinter\Units\uZintInterface.pas',
   PrinterTypes in '..\..\Source\SmFiscalPrinter\Units\PrinterTypes.pas',
   PrinterCommand in '..\..\Source\SmFiscalPrinter\Units\PrinterCommand.pas',
@@ -220,7 +219,8 @@ uses
   TranslationUtil in '..\..\Source\SmFiscalPrinter\Units\TranslationUtil.pas',
   LangUtils in '..\..\Source\Shared\LangUtils.pas',
   duBitUtils in 'Units\duBitUtils.pas',
-  duLogFile in 'Units\duLogFile.pas';
+  duLogFile in 'Units\duLogFile.pas',
+  RegExpr in '..\..\Source\Shared\RegExpr.pas';
 
 {$R *.RES}
 {$R ..\..\Source\SmFiscalPrinter\SmFiscalPrinter.TLB}

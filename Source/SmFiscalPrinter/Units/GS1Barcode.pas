@@ -36,7 +36,10 @@ type
   public
     procedure DecodeAI(Barcode: AnsiString);
     procedure DecodeBraces(const Data: AnsiString);
+    function HasItem(const ID: AnsiString): Boolean;
+    function FindItem(const ID: AnsiString): TGS1Token;
     function ItemByID(const ID: AnsiString): TGS1Token;
+
     property Items[Index: Integer]: TGS1Token read GetItem; default;
   end;
 
@@ -53,7 +56,7 @@ begin
   Tokens := TGS1Tokens.Create(TGS1Token);
   try
     Tokens.DecodeAI(Barcode);
-    Result := (Tokens.ItemByID('01') <> nil)and(Tokens.ItemByID('21') <> nil);
+    Result := Tokens.HasItem('01') and Tokens.HasItem('21');
   finally
     Tokens.Free;
   end;
@@ -69,23 +72,15 @@ begin
   Tokens := TGS1Tokens.Create(TGS1Token);
   try
     Tokens.DecodeAI(Barcode);
-    if (Tokens.ItemByID('01') = nil) or (Tokens.ItemByID('21') = nil) then
-    begin
-      Result.GTIN := Copy(Barcode, 1, 14);
-      Result.Serial := Copy(Barcode, 15, 7);
-    end else
-    begin
+    Token := Tokens.FindItem('01');
+    if Token = nil then
+      raiseError(E_TAG_NOT_FOUND, Tnt_WideFormat(STagNotFound, ['GTIN(01)']));
+    Result.GTIN := Token.Data;
 
-      Token := Tokens.ItemByID('01');
-      if Token = nil then
-        raiseError(E_TAG_NOT_FOUND, Tnt_WideFormat(STagNotFound, ['GTIN(01)']));
-      Result.GTIN := Token.Data;
-
-      Token := Tokens.ItemByID('21');
-      if Token = nil then
-        raiseError(E_TAG_NOT_FOUND, Tnt_WideFormat(STagNotFound, ['SerialNumber(21)']));
-      Result.Serial := Token.Data;
-    end;
+    Token := Tokens.FindItem('21');
+    if Token = nil then
+      raiseError(E_TAG_NOT_FOUND, Tnt_WideFormat(STagNotFound, ['SerialNumber(21)']));
+    Result.Serial := Token.Data;
   finally
     Tokens.Free;
   end;
@@ -504,7 +499,7 @@ begin
   Result := inherited Items[Index] as TGS1Token;
 end;
 
-function TGS1Tokens.ItemByID(const ID: AnsiString): TGS1Token;
+function TGS1Tokens.FindItem(const ID: AnsiString): TGS1Token;
 var
   i: Integer;
 begin
@@ -516,5 +511,17 @@ begin
   Result := nil;
 end;
 
+
+function TGS1Tokens.HasItem(const ID: AnsiString): Boolean;
+begin
+  Result := FindItem(ID) <> nil;
+end;
+
+function TGS1Tokens.ItemByID(const ID: AnsiString): TGS1Token;
+begin
+  Result := FindItem(ID);
+  if Result = nil then
+    raise Exception.CreateFmt('ID %s not found', [ID]);
+end;
 
 end.
