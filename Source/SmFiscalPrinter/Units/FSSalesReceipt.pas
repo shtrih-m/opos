@@ -53,7 +53,6 @@ type
     procedure UpdateDiscounts;
     function IsLoyaltyCard(const Text: WideString): Boolean;
     procedure PrintDiscounts;
-    function GetTax(const ItemName: WideString; Tax: Integer): Integer;
     procedure PrintText2(const Text: WideString);
     procedure PrintFSSale(Item: TFSSaleItem);
     procedure AddTextItem(const Text: WideString; Station: Integer);
@@ -233,26 +232,6 @@ end;
 function TFSSalesReceipt.GetTaxName(Tax: Integer): WideString;
 begin
   Result := Device.ReadTableStr(6, Tax, 2);
-end;
-
-function TFSSalesReceipt.GetTax(const ItemName: WideString; Tax: Integer): Integer;
-begin
-  Result := Tax;
-  {$IFDEF MALINA}
-  if GetMalinaParams.RetalixDBEnabled then
-  begin
-    if FREtalix = nil then
-    begin
-      FRetalix := TRetalix.Create(GetMalinaParams.RetalixDBPath, Device.Context);
-      FRetalix.Open;
-    end;
-    Result := FRetalix.ReadTaxGroup(ItemName);
-    if Result = -1 then
-      Result := Tax;
-  end;
-  {$ENDIF}
-  Result := Parameters.GetVatInfo(Result);
-  if not (Result in [0..6]) then Result := 0;
 end;
 
 procedure TFSSalesReceipt.PrintText2(const Text: WideString);
@@ -442,7 +421,7 @@ begin
     Operation.Price := Printer.CurrencyToInt(UnitPrice);
     Operation.Amount := Printer.CurrencyToInt(Price);
   end;
-  Operation.Tax := GetTax(Description, VatInfo);
+  Operation.Tax := VatInfo;
   Operation.Text := Description;
   Operation.UnitName := UnitName;
   Operation.RecType := FRecType;
@@ -473,7 +452,7 @@ begin
     FPTR_AT_AMOUNT_DISCOUNT:
     begin
       Operation.Amount := Printer.CurrencyToInt(Amount);
-      Operation.Tax1 := GetTax(Description, VatInfo);
+      Operation.Tax1 := VatInfo;
       Operation.Tax2 := 0;
       Operation.Tax3 := 0;
       Operation.Tax4 := 0;
@@ -485,7 +464,7 @@ begin
     FPTR_AT_AMOUNT_SURCHARGE:
     begin
       Operation.Amount := -Printer.CurrencyToInt(Amount);
-      Operation.Tax1 := GetTax(Description, VatInfo);
+      Operation.Tax1 := VatInfo;
       Operation.Tax2 := 0;
       Operation.Tax3 := 0;
       Operation.Tax4 := 0;
@@ -496,7 +475,7 @@ begin
     FPTR_AT_PERCENTAGE_DISCOUNT:
     begin
       Operation.Amount := Round2(GetLastItem.GetAmount * Amount/100);
-      Operation.Tax1 := GetTax(Description, VatInfo);
+      Operation.Tax1 := VatInfo;
       Operation.Tax2 := 0;
       Operation.Tax3 := 0;
       Operation.Tax4 := 0;
@@ -508,7 +487,7 @@ begin
     FPTR_AT_PERCENTAGE_SURCHARGE:
     begin
       Operation.Amount := -Round2(GetLastItem.GetAmount * Amount/100);
-      Operation.Tax1 := GetTax(Description, VatInfo);
+      Operation.Tax1 := VatInfo;
       Operation.Tax2 := 0;
       Operation.Tax3 := 0;
       Operation.Tax4 := 0;
@@ -565,7 +544,7 @@ begin
   Operation.Price := Printer.CurrencyToInt(Amount);
   Operation.Amount := Operation.Price;
 
-  Operation.Tax := GetTax(Description, VatInfo);
+  Operation.Tax := VatInfo;
   Operation.Text := Description;
   Operation.Department := Parameters.Department;
   Operation.RecType := FRecType;
@@ -593,7 +572,7 @@ begin
   Operation.Quantity := -1;
   Operation.Price := Printer.CurrencyToInt(Amount);
   Operation.Amount := Operation.Price;
-  Operation.Tax := GetTax(Description, VatInfo);
+  Operation.Tax := VatInfo;
   Operation.Text := Description;
   Operation.Department := Parameters.Department;
   Operation.RecType := FRecType;
@@ -636,7 +615,7 @@ begin
   Item.PostLine := Printer.Printer.PostLine;
   Item.Data.Amount := Amount;
   Item.Data.Department := Parameters.Department;
-  Item.Data.Tax1 := GetTax(Description, 0);
+  Item.Data.Tax1 := 0;
   Item.Data.Tax2 := 0;
   Item.Data.Tax3 := 0;
   Item.Data.Tax4 := 0;
@@ -1442,7 +1421,7 @@ begin
   Operation.Amount := Operation.Price;
   Operation.Quantity := -Abs(GetDoubleQuantity(Quantity));
   Operation.Department := Parameters.Department;
-  Operation.Tax := GetTax(Description, VatInfo);
+  Operation.Tax := VatInfo;
   Operation.Text := Description;
   Operation.Charge := 0;
   Operation.Discount := 0;
@@ -1485,7 +1464,7 @@ begin
     Operation.Amount := Printer.CurrencyToInt(Price);
   end;
   Operation.Quantity := -Abs(Operation.Quantity);
-  Operation.Tax := GetTax(Description, VatInfo);
+  Operation.Tax := VatInfo;
   Operation.Text := Description;
   Operation.UnitName := UnitName;
   Operation.Department := Parameters.Department;
@@ -1530,7 +1509,7 @@ begin
     Operation.Price := Printer.CurrencyToInt(UnitAmount);
     Operation.Amount := Printer.CurrencyToInt(Amount);
   end;
-  Operation.Tax := GetTax(ADescription, VatInfo);
+  Operation.Tax := VatInfo;
   Operation.Text := ADescription;
   Operation.UnitName := AUnitName;
   Operation.Department := Parameters.Department;
@@ -1571,7 +1550,7 @@ begin
     Operation.Amount := Printer.CurrencyToInt(Amount);
   end;
   Operation.Quantity := -Abs(Operation.Quantity);
-  Operation.Tax := GetTax(ADescription, VatInfo);
+  Operation.Tax := VatInfo;
   Operation.Text := ADescription;
   Operation.UnitName := AUnitName;
   Operation.Department := Parameters.Department;

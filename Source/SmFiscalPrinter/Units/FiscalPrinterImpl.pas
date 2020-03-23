@@ -86,6 +86,7 @@ type
     procedure PrintDocumentEnd;
     procedure PrintRecMessages;
     procedure PrintFiscalEnd;
+    function GetTax(const ItemName: WideString; Tax: Integer): Integer;
   public
     procedure ReadHeader;
     procedure CheckEndDay;
@@ -3256,6 +3257,27 @@ begin
   end;
 end;
 
+function TFiscalPrinterImpl.GetTax(const ItemName: WideString; Tax: Integer): Integer;
+begin
+  Result := Tax;
+  {$IFDEF MALINA}
+  if GetMalinaParams.RetalixDBEnabled then
+  begin
+    if FREtalix = nil then
+    begin
+      FRetalix := TRetalix.Create(GetMalinaParams.RetalixDBPath, Device.Context);
+      FRetalix.Open;
+    end;
+    Result := FRetalix.ReadTaxGroup(ItemName);
+    if Result = -1 then
+      Result := Tax;
+  end;
+  {$ENDIF}
+  Result := Parameters.GetVatInfo(Result);
+  if not (Result in [0..6]) then Result := 0;
+end;
+
+
 function TFiscalPrinterImpl.PrintRecItem(
   const ADescription: WideString; Price: Currency;
   Quantity, VatInfo: Integer; UnitPrice: Currency;
@@ -3289,6 +3311,7 @@ begin
     end;
     *)
 
+    VatInfo := GetTax(Description, VatInfo);
     Filters.PrintRecItemBefore(Description, Price, Quantity, VatInfo,
       UnitPrice, AUnitName);
 
@@ -3326,6 +3349,8 @@ begin
   try
     CheckState(FPTR_PS_FISCAL_RECEIPT);
 
+    VatInfo := GetTax(ADescription, VatInfo);
+
     Receipt.PrintRecItemAdjustment(
       AdjustmentType, ADescription, Amount, VatInfo);
 
@@ -3347,6 +3372,8 @@ function TFiscalPrinterImpl.PrintRecItemFuel(
 begin
   try
     CheckState(FPTR_PS_FISCAL_RECEIPT);
+
+    VatInfo := GetTax(ADescription, VatInfo);
     Receipt.PrintRecItemFuel(ADescription, Price, Quantity, VatInfo,
       UnitPrice, AUnitName, SpecialTax, ASpecialTaxName);
 
@@ -3363,6 +3390,8 @@ function TFiscalPrinterImpl.PrintRecItemFuelVoid(
 begin
   try
     CheckState(FPTR_PS_FISCAL_RECEIPT);
+
+    VatInfo := GetTax(ADescription, VatInfo);
     Receipt.PrintRecItemFuelVoid(ADescription, Price, VatInfo, SpecialTax);
     Result := ClearResult;
   except
@@ -3488,6 +3517,8 @@ function TFiscalPrinterImpl.PrintRecRefund(
 begin
   try
     CheckState(FPTR_PS_FISCAL_RECEIPT);
+    VatInfo := GetTax(Description, VatInfo);
+    
     Filters.PrintRecRefundBefore(Description, Amount, VatInfo);
     Receipt.PrintRecRefund(Description, Amount, VatInfo);
     Filters.PrintRecRefundAfter(Description, Amount, VatInfo);
@@ -3504,6 +3535,7 @@ function TFiscalPrinterImpl.PrintRecRefundVoid(
   Amount: Currency; VatInfo: Integer): Integer;
 begin
   try
+    VatInfo := GetTax(Description, VatInfo);
     Receipt.PrintRecRefundVoid(Description, Amount, VatInfo);
     Result := ClearResult;
   except
@@ -3615,6 +3647,7 @@ function TFiscalPrinterImpl.PrintRecVoidItem(
 begin
   try
     CheckState(FPTR_PS_FISCAL_RECEIPT);
+    VatInfo := GetTax(Description, VatInfo);
     Receipt.PrintRecVoidItem(Description, Amount, Quantity,
       AdjustmentType, Adjustment, VatInfo);
 
@@ -4090,6 +4123,7 @@ function TFiscalPrinterImpl.PrintRecItemAdjustmentVoid(
   VatInfo: Integer): Integer;
 begin
   try
+    VatInfo := GetTax(Description, VatInfo);
     Receipt.PrintRecItemAdjustmentVoid(AdjustmentType, Description,
       Amount, VatInfo);
     Result := ClearResult;
@@ -4106,9 +4140,10 @@ function TFiscalPrinterImpl.PrintRecItemVoid(
   UnitPrice: Currency;
   const UnitName: WideString): Integer;
 var
-  Amount: Currency;  
+  Amount: Currency;
 begin
   try
+    VatInfo := GetTax(Description, VatInfo);
     Amount := Round2(UnitPrice * Quantity/100000)/100;
     if Price <> Amount then
     begin
@@ -4184,6 +4219,7 @@ function TFiscalPrinterImpl.PrintRecItemRefund(
   const UnitName: WideString): Integer;
 begin
   try
+    VatInfo := GetTax(Description, VatInfo);
     Filters.PrintRecItemRefundBefore(Description,
       Amount, Quantity, VatInfo, UnitAmount, UnitName);
     Receipt.PrintRecItemRefund(Description, Amount, Quantity, VatInfo,
@@ -4206,6 +4242,7 @@ function TFiscalPrinterImpl.PrintRecItemRefundVoid(
   const UnitName: WideString): Integer;
 begin
   try
+    VatInfo := GetTax(Description, VatInfo);
     Receipt.PrintRecItemRefundVoid(Description, Amount, Quantity, VatInfo,
       UnitAmount, UnitName);
 
