@@ -2709,6 +2709,8 @@ begin
       FPTR_GD_GRAND_TOTAL:
       begin
         ReceiptTotal := Device.ReadCashRegister(241);
+        if (Device.AmountDecimalPlaces = 0)and(GetAppAmountDecimalPlaces = 2) then
+          ReceiptTotal := ReceiptTotal * 100;
         Data := IntToStr(ReceiptTotal);
       end;
 
@@ -4824,5 +4826,3 @@ end;
 
 
 end.
-
-
