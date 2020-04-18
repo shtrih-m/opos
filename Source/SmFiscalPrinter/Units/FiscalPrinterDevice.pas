@@ -440,6 +440,8 @@ type
     function ReadDiscountMode: Integer;
     function ReadFPParameter(ParamId: Integer): WideString;
     function FSReadTotals(var R: TFMTotals): Integer;
+    function FSReadCorrectionTotals(var R: TFMTotals): Integer;
+    function FSReadTotalsByPayType(RecType: Byte; var R: TFSTotalsByPayType): Integer;
     function ReadFPDayTotals(Flags: Integer): TFMTotals;
     function ReadTotalsByReceiptType(Index: Integer): Int64;
     function FSPrintCorrectionReceipt(var Command: TFSCorrectionReceipt): Integer;
@@ -520,6 +522,12 @@ const
 
 
 implementation
+
+procedure CheckParam(Value, Min, Max: Int64; const ParamName: WideString);
+begin
+  if (Value < Min)or(Value > Max) then
+    raise Exception.Create(Format('%s, %s', [_('Invalid parameter value'), ParamName]));
+end;
 
 // 0	По левому краю
 // 1	По центру
@@ -2213,6 +2221,30 @@ begin
     SMFPTR_CASHREG_GRAND_TOTAL_RETBUY:
     begin
       T := ReadFPTotals(0);
+      Result := T.RetBuy;
+    end;
+
+    SMFPTR_CASHREG_CORRECTION_TOTAL_SALE:
+    begin
+      Check(FSReadCorrectionTotals(T));
+      Result := T.SaleTotal;
+    end;
+
+    SMFPTR_CASHREG_CORRECTION_TOTAL_RETSALE:
+    begin
+      Check(FSReadCorrectionTotals(T));
+      Result := T.RetSale;
+    end;
+
+    SMFPTR_CASHREG_CORRECTION_TOTAL_BUY:
+    begin
+      Check(FSReadCorrectionTotals(T));
+      Result := T.BuyTotal;
+    end;
+
+    SMFPTR_CASHREG_CORRECTION_TOTAL_RETBUY:
+    begin
+      Check(FSReadCorrectionTotals(T));
       Result := T.RetBuy;
     end;
   else
@@ -8050,6 +8082,58 @@ begin
     R.RetBuy := BinToInt2(Answer, 25, 8);
   end;
 end;
+
+function TFiscalPrinterDevice.FSReadCorrectionTotals(var R: TFMTotals): Integer;
+var
+  Command: AnsiString;
+  Answer: AnsiString;
+begin
+  FLogger.Debug('FSReadCorrectionTotals');
+  Command := #$FE#$F4#$05#$00#$00#$00;
+  Result := ExecuteData(Command, Answer);
+  if Result = 0 then
+  begin
+    CheckMinLength(Answer, 32);
+    R.OperatorNumber := 0;
+    R.SaleTotal := BinToInt2(Answer, 1, 8);
+    R.RetSale := BinToInt2(Answer, 9, 8);
+    R.BuyTotal := BinToInt2(Answer, 17, 8);
+    R.RetBuy := BinToInt2(Answer, 25, 8);
+  end;
+end;
+
+(*
+0xF4    Запрос необнуляемых сумм.
+Второй параметр отвечает за тип запрашиваемых сумм
+"	FE F4 00 00 00 00 - возвращает 4 8-ми байтных числа (приход, возврат прихода, расход, возврат расхода). Это НС без деталировки по типам оплаты
+"	FE F4 01 00 00 00 - возвращает 16 8-ми байтных числа (приход). Это НС с деталировкой по 16-ти типам оплаты
+"	FE F4 02 00 00 00 - возвращает 16 8-ми байтных числа (возврат прихода). Это НС с деталировкой по 16-ти типам оплаты
+"	FE F4 03 00 00 00 - возвращает 16 8-ми байтных числа (расход). Это НС с деталировкой по 16-ти типам оплаты
+"	FE F4 04 00 00 00 - возвращает 16 8-ми байтных числа (возврат расхода). Это НС с деталировкой по 16-ти типам оплаты
+"	FE F4 05 00 00 00 - возвращает 4 8-ми байтных числа (коррекция прихода, коррекция возврата прихода, коррекция расхода, коррекция возврата расхода)
+Ответ.  Длина сообщения: 33(129) байт.
+"	Код ошибки (1 байт)
+"	Данные (X байт). X в зависимости от типа запрашиваемых данных.
+
+*)
+
+function TFiscalPrinterDevice.FSReadTotalsByPayType(RecType: Byte;
+  var R: TFSTotalsByPayType): Integer;
+var
+  Command: AnsiString;
+  Answer: AnsiString;
+begin
+  FLogger.Debug(Format('FSReadTotalsByPayType(%d)', [RecType]));
+  CheckParam(RecType, 1, 4, 'RecType');
+  Command := #$FE#$F4 + Chr(RecType) + #$00#$00#$00;
+  Result := ExecuteData(Command, Answer);
+  if Result = 0 then
+  begin
+    CheckMinLength(Answer, 128);
+    Move(Answer[1], R, Sizeof(R));
+  end;
+end;
+
 
 (*
 

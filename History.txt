@@ -6,6 +6,19 @@
 
 *******************************************************************
 
+  OposShtrih_1.13_545.exe
+  18 апреля 2020 23:30
+  
+  [+] Добавлены команды directIO(DIO_READ_CASH_REG) 
+      для необнуляемых сумм коррекции по типам чеков
+
+      SMFPTR_CASHREG_CORRECTION_TOTAL_SALE    = 1010;
+      SMFPTR_CASHREG_CORRECTION_TOTAL_RETSALE = 1011;
+      SMFPTR_CASHREG_CORRECTION_TOTAL_BUY     = 1012;
+      SMFPTR_CASHREG_CORRECTION_TOTAL_RETBUY  = 1013;
+
+*******************************************************************
+
   OposShtrih_1.13_544.exe
   3 апреля 2020 12:30
   

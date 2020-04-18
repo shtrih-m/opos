@@ -912,6 +912,14 @@ type
     function GetDisplayText: WideString; override;
   end;
 
+  { TReceiptTest30 }
+
+  TReceiptTest30 = class(TDriverTest)
+  public
+    procedure Execute; override;
+    function GetDisplayText: WideString; override;
+  end;
+
 implementation
 
 const
@@ -5185,6 +5193,52 @@ end;
 function TReceiptTest29.GetDisplayText: WideString;
 begin
   Result := 'Receipt test 29';
+end;
+
+{ TReceiptTest30 }
+
+procedure TReceiptTest30.Execute;
+var
+  i: Integer;
+  pData: Integer;
+  Separator: string;
+  pString: WideString;
+const
+  CashRegisters: array [0..7] of Integer = (
+    SMFPTR_CASHREG_GRAND_TOTAL_SALE,
+    SMFPTR_CASHREG_GRAND_TOTAL_RETSALE,
+    SMFPTR_CASHREG_GRAND_TOTAL_BUY,
+    SMFPTR_CASHREG_GRAND_TOTAL_RETBUY,
+    SMFPTR_CASHREG_CORRECTION_TOTAL_SALE,
+    SMFPTR_CASHREG_CORRECTION_TOTAL_RETSALE,
+    SMFPTR_CASHREG_CORRECTION_TOTAL_BUY,
+    SMFPTR_CASHREG_CORRECTION_TOTAL_RETBUY);
+  CashRegisterNames: array [0..7] of String = (
+    'SMFPTR_CASHREG_GRAND_TOTAL_SALE',
+    'SMFPTR_CASHREG_GRAND_TOTAL_RETSALE',
+    'SMFPTR_CASHREG_GRAND_TOTAL_BUY',
+    'SMFPTR_CASHREG_GRAND_TOTAL_RETBUY',
+    'SMFPTR_CASHREG_CORRECTION_TOTAL_SALE',
+    'SMFPTR_CASHREG_CORRECTION_TOTAL_RETSALE',
+    'SMFPTR_CASHREG_CORRECTION_TOTAL_BUY',
+    'SMFPTR_CASHREG_CORRECTION_TOTAL_RETBUY');
+begin
+  Separator := StringOfChar('-', 50);
+  AddLine(Separator);
+  Check(FiscalPrinter.ResetPrinter);
+  //
+  for i := Low(CashRegisters) to High(CashRegisters) do
+  begin
+    pData := CashRegisters[i];
+    Check(FiscalPrinter.DirectIO(DIO_READ_CASH_REG, pData, pString));
+    AddLine(Format('%-40s: %s', [CashRegisterNames[i], pString]));
+  end;
+  AddLine(Separator);
+end;
+
+function TReceiptTest30.GetDisplayText: WideString;
+begin
+  Result := 'Receipt grand totals';
 end;
 
 end.

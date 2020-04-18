@@ -583,6 +583,12 @@ type
     RetBuy: Int64;        // Day buy refunds totals sum (6 bytes) in case of FM 2 absense: FFh FFh FFh FFh FFh FFh
   end;
 
+  { TFSTotalsByPayType }
+
+  TFSTotalsByPayType = packed record
+    Totals: array [0..15] of Int64; // Totals amount (8 bytes) by payment types
+  end;
+
   { TFMRecordDate }
 
   TFMRecordDate = packed record
