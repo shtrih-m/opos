@@ -920,6 +920,14 @@ type
     function GetDisplayText: WideString; override;
   end;
 
+  { TReceiptTest31 }
+
+  TReceiptTest31 = class(TDriverTest)
+  public
+    procedure Execute; override;
+    function GetDisplayText: WideString; override;
+  end;
+
 implementation
 
 const
@@ -1143,7 +1151,7 @@ begin
   Check(FiscalPrinter.ResetPrinter);
   // Read receipt number
   ReadRecNumber;
-  
+
   // BeginFiscalReceipt
   AddLine('BeginFiscalReceipt');
   FiscalPrinter.FiscalReceiptStation := FPTR_RS_RECEIPT;
@@ -5239,6 +5247,29 @@ end;
 function TReceiptTest30.GetDisplayText: WideString;
 begin
   Result := 'Receipt grand totals';
+end;
+
+{ TReceiptTest31 }
+
+procedure TReceiptTest31.Execute;
+begin
+  Check(FiscalPrinter.ResetPrinter);
+  FiscalPrinter.FiscalReceiptStation := FPTR_RS_RECEIPT;
+  FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
+  Check(FiscalPrinter.BeginFiscalReceipt(False));
+  Check(FiscalPrinter.DirectIO2(30, 72, '4'));
+  Check(FiscalPrinter.DirectIO2(30, 73, '2'));
+
+  Check(FiscalPrinter.PrintRecItem('2:3026155 —»√¿–≈“€ CHESTERFIELD BLUE 1œ¿◊', 95, 1000, 1, 95, '¯Ú'));
+  Check(FiscalPrinter.DirectIO2(DIO_WRITE_FS_STRING_TAG_OP, 1162, 'DM'#$02'¿æ”.,qqS"WABzU'));
+
+  Check(FiscalPrinter.PrintRecTotal(1000, 1000, ''));
+  Check(FiscalPrinter.EndFiscalReceipt(True));
+end;
+
+function TReceiptTest31.GetDisplayText: WideString;
+begin
+  Result := 'Receipt template test';
 end;
 
 end.

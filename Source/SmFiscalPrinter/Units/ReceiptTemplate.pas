@@ -217,7 +217,7 @@ begin
   // KTN
   if AnsiCompareText(FieldData.Name, 'KTN') = 0 then
   begin
-    if Item.Data.ItemBarcode <> '' then
+    if Item.Data.Tag1162IsSet then
     begin
       Result := '[M]';
     end;

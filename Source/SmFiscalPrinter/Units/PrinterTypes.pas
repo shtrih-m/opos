@@ -742,6 +742,7 @@ type
     ItemBarcode: WideString;
     MarkType: Integer;
     ReceiptField: array [MinReceiptField..MaxReceiptField] of string;
+    Tag1162IsSet: Boolean;
   end;
   PFSSale = ^TFSSale;
 

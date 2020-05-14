@@ -243,6 +243,8 @@ procedure TFSSalesReceipt.AddSale(P: TFSSale);
 var
   i: Integer;
 begin
+  if Parameters.Barcode <> '' then
+    P.Tag1162IsSet := True;
   P.ItemBarcode := Parameters.Barcode;
   P.MarkType := Parameters.MarkType;
   for i := MinReceiptField to MaxReceiptField do
@@ -434,6 +436,7 @@ begin
   Operation.Parameter2 := Parameters.Parameter2;
   Operation.Parameter3 := Parameters.Parameter3;
   Operation.Parameter4 := Parameters.Parameter4;
+  Operation.Tag1162IsSet := False;
   AddSale(Operation);
 end;
 
@@ -1687,6 +1690,13 @@ begin
 end;
 
 procedure TFSSalesReceipt.FSWriteTLVOperation(const TLVData: WideString);
+
+  function Is1162Tag(const TLVData: WideString): Boolean;
+  begin
+    Result := Pos(#$8A#$04, TLVData) = 1;
+  end;
+
+
 var
   Item: TTLVOperationReceiptItem;
 begin
@@ -1695,7 +1705,10 @@ begin
 
   Item := TTLVOperationReceiptItem.Create(FLastItem.Tags);
   Item.Data := TLVData;
+  if Is1162Tag(TLVData) then
+    FLastItem.Data.Tag1162IsSet := True;
 end;
+
 
 function TFSSalesReceipt.GetDevice: IFiscalPrinterDevice;
 begin
