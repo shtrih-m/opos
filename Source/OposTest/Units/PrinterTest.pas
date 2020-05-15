@@ -928,6 +928,14 @@ type
     function GetDisplayText: WideString; override;
   end;
 
+  { TReceiptTest32 }
+
+  TReceiptTest32 = class(TDriverTest)
+  public
+    procedure Execute; override;
+    function GetDisplayText: WideString; override;
+  end;
+
 implementation
 
 const
@@ -5270,6 +5278,29 @@ end;
 function TReceiptTest31.GetDisplayText: WideString;
 begin
   Result := 'Receipt template test';
+end;
+
+{ TReceiptTest32 }
+
+procedure TReceiptTest32.Execute;
+begin
+  Check(FiscalPrinter.ResetPrinter);
+  FiscalPrinter.FiscalReceiptStation := FPTR_RS_RECEIPT;
+  FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
+  Check(FiscalPrinter.BeginFiscalReceipt(False));
+  Check(FiscalPrinter.PrintRecItem('Tax=0', 100, 1000, 0, 100, ''));
+  Check(FiscalPrinter.PrintRecItem('Tax=1', 100, 1000, 1, 100, ''));
+  Check(FiscalPrinter.PrintRecItem('Tax=2', 100, 1000, 2, 100, ''));
+  Check(FiscalPrinter.PrintRecItem('Tax=3', 100, 1000, 3, 100, ''));
+  Check(FiscalPrinter.PrintRecItem('Tax=4', 100, 1000, 4, 100, ''));
+  Check(FiscalPrinter.PrintRecItem('Tax=5', 100, 1000, 5, 100, ''));
+  Check(FiscalPrinter.PrintRecTotal(1000, 1000, ''));
+  Check(FiscalPrinter.EndFiscalReceipt(True));
+end;
+
+function TReceiptTest32.GetDisplayText: WideString;
+begin
+  Result := 'Tax amount test';
 end;
 
 end.

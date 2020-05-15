@@ -9,7 +9,7 @@ uses
   TntClasses, TntSysUtils,
   // This
   ReceiptItem, PrinterParameters, TextParser, StringUtils, GS1Barcode,
-  PrinterTypes, FiscalPrinterTypes;
+  PrinterTypes, FiscalPrinterTypes, MathUtils;
 
 type
   { TFieldAlignment }
@@ -39,6 +39,7 @@ type
 
     function GetFieldValue(const Field, Prefix: WideString;
       const Item: TFSSaleItem): WideString;
+    function GetTaxRate(Tax: Integer): Double;
     function GetTaxName(Tax: Integer): WideString;
   public
     constructor Create(AData: TReceiptTemplateRec);
@@ -134,6 +135,13 @@ begin
   end;
 end;
 
+function TReceiptTemplate.GetTaxRate(Tax: Integer): Double;
+begin
+  Result := 0;
+  if Tax in [1..6] then
+    Result := FData.TaxInfo[Tax].Rate/10000;
+end;
+
 function TReceiptTemplate.GetTaxName(Tax: Integer): WideString;
 begin
   Result := '';
@@ -145,6 +153,7 @@ function TReceiptTemplate.GetFieldValue(const Field, Prefix: WideString;
   const Item: TFSSaleItem): WideString;
 var
   L: Integer;
+  TaxRate: Double;
   FieldNumber: Integer;
   TaxLetter: WideString;
   FieldData: TTemplateFieldRec;
@@ -200,6 +209,11 @@ begin
     begin
       Result := Result + '_' + TaxLetter;
     end;
+  end;
+  if AnsiCompareText(FieldData.Name, 'TAX_AMOUNT') = 0 then
+  begin
+    TaxRate := GetTaxRate(Item.Tax);
+    Result := AmountToStr(Round2(Item.Total * TaxRate/(1 + TaxRate))/100);
   end;
   if AnsiCompareText(FieldData.Name, 'TAX_LETTER') = 0 then
   begin
