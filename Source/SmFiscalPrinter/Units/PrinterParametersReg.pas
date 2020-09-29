@@ -511,6 +511,9 @@ begin
       if Reg.ValueExists('SendMarkType') then
         FParameters.SendMarkType:= Reg.ReadInteger('SendMarkType');
 
+      if Reg.ValueExists('ValidTimeDiffInSecs') then
+        FParameters.ValidTimeDiffInSecs := Reg.ReadInteger('ValidTimeDiffInSecs');
+
       // VatCodes
       if Reg.OpenKey(REG_KEY_VATCODES, False) then
       begin
@@ -682,6 +685,7 @@ begin
     Reg.WriteBool('CorrectCashlessAmount', FParameters.CorrectCashlessAmount);
     Reg.WriteBool('SingleQuantityOnZeroUnitPrice', FParameters.SingleQuantityOnZeroUnitPrice);
     Reg.WriteInteger('SendMarkType', FParameters.SendMarkType);
+    Reg.WriteInteger('ValidTimeDiffInSecs', FParameters.ValidTimeDiffInSecs);
 
     // VatCodes
     Reg.DeleteKey(REG_KEY_VATCODES);

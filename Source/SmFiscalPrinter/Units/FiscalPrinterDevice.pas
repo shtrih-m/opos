@@ -5,13 +5,14 @@ interface
 uses
   // VCL
   Windows, SysUtils, Classes, Variants, SyncObjs, Graphics, Math, StrUtils,
+  DateUtils,
   // 3'd
   // to enable loading this image formats
   JvGIF, JvPCX, PngImage, uZintBarcode, uZintInterface,
   // Tnt
   TntClasses,
   // Opos
-  OposException, OposFptr, OposFptrHi, OposUtils, OposFptrUtils,
+  Opos, OposException, OposFptr, OposFptrHi, OposUtils, OposFptrUtils,
   // This
   PrinterCommand, PrinterTypes, BinStream, StringUtils,
   SerialPort, PrinterTable, LogFile, ByteUtils, FiscalPrinterTypes,
@@ -209,6 +210,9 @@ type
     procedure WriteTLVItems;
     function ReadDocPrintMode: Integer;
     procedure Initialize;
+    procedure CorrectDate;
+    function ReadDocData: WideString;
+    procedure CheckPrinterStatus;
   protected
     function GetMaxGraphicsWidthInBytes: Integer;
   public
@@ -258,7 +262,7 @@ type
     function ReadTableInt(Table, Row, Field: Integer): Integer;
     procedure SetPointPosition(PointPosition: Byte);
     procedure SetTime(const Time: TPrinterTime);
-    procedure SetDate(const Date: TPrinterDate);
+    procedure WriteDate(const Date: TPrinterDate);
     procedure ConfirmDate(const Date: TPrinterDate);
     procedure InitializeTables;
     procedure CutPaper(CutType: Byte);
@@ -522,6 +526,19 @@ const
 
 
 implementation
+
+function TLVToText(const TLVData: AnsiString): AnsiString;
+var
+  Parser: TTLVParser;
+begin
+  Parser := TTLVParser.Create;
+  try
+    Parser.ShowTagNumbers := True;
+    Result := Parser.ParseTLV(TLVData);
+  finally
+    Parser.Free;
+  end;
+end;
 
 procedure CheckParam(Value, Min, Max: Int64; const ParamName: WideString);
 begin
@@ -1471,7 +1488,18 @@ begin
       if Assigned(FBeforeCommand) then
         FBeforeCommand(Self, Command);
 
+      if Command.Code = $8D then
+      begin
+        CheckPrinterStatus;
+      end;
+      if Command.Code = $0E then
+      begin
+        CheckPrinterStatus;
+        CorrectDate;
+      end;
+
       SendCommand(Command);
+
       if Assigned(FOnCommand) then
         FOnCommand(Self, Command);
 
@@ -2468,9 +2496,9 @@ end;
 
 ******************************************************************************)
 
-procedure TFiscalPrinterDevice.SetDate(const Date: TPrinterDate);
+procedure TFiscalPrinterDevice.WriteDate(const Date: TPrinterDate);
 begin
-  FLogger.Debug(Format('SetDate(%s)',
+  FLogger.Debug(Format('WriteDate(%s)',
     [PrinterDateToStr(Date)]));
 
   Execute(#$22 + IntToBin(GetSysPassword, 4) +
@@ -8825,28 +8853,21 @@ begin
 end;
 
 function TFiscalPrinterDevice.ReadFSDocument(Number: Integer): WideString;
-
-  function TLVToText(const TLVData: AnsiString): AnsiString;
-  var
-    Parser: TTLVParser;
-  begin
-    Parser := TTLVParser.Create;
-    try
-      Parser.ShowTagNumbers := True;
-      Result := Parser.ParseTLV(TLVData);
-    finally
-      Parser.Free;
-    end;
-  end;
-
 var
   P: TFSReadDocument;
-  FSDocData: TFSReadDocData;
 begin
   Result := '';
   P.Number := Number;
   P.Password := FSysPassword;
   Check(FSReadDocument(P));
+  Result := ReadDocData;
+end;
+
+function TFiscalPrinterDevice.ReadDocData: WideString;
+var
+  FSDocData: TFSReadDocData;
+begin
+  Result := '';
   FSDocData.Password := FSysPassword;
   while FSReadDocData(FSDocData) = 0 do
   begin
@@ -9431,5 +9452,159 @@ function TFiscalPrinterDevice.GetDocPrintMode: Integer;
 begin
   Result := FDocPrintMode;
 end;
+
+procedure TFiscalPrinterDevice.CorrectDate;
+var
+  PDate: TPrinterDate;
+  TimeDiffInSecs: Int64;
+  PrinterDate: TDateTime;
+  Status: TLongPrinterStatus;
+begin
+  Logger.Debug('CorrectDate');
+  if Parameters.ValidTimeDiffInSecs > 0 then
+  begin
+    Status := ReadLongStatus;
+    PrinterDate := PrinterDateToDate(Status.Date) + PrinterTimeToTime(Status.Time);
+    TimeDiffInSecs := SecondsBetween(Now, PrinterDate);
+    if TimeDiffInSecs > Parameters.ValidTimeDiffInSecs then
+    begin
+      PDate := GetCurrentPrinterDate;
+      WriteDate(PDate);
+      ConfirmDate(PDate);
+      SetTime(GetCurrentPrinterTime);
+    end;
+  end;
+end;
+
+procedure TFiscalPrinterDevice.CheckPrinterStatus;
+
+  function GetStateErrorMessage(const Mode: Integer): WideString;
+  begin
+    Result := Tnt_WideFormat('%s: %d, %s', [_('Невозможно изменить состояние'), Mode, GetModeText(Mode)]);
+  end;
+
+const
+  MaxStateCount = 3;
+var
+  Mode: Byte;
+  TickCount: Integer;
+  PrinterStatus: TPrinterStatus;
+  PrinterDate: TPrinterDate;
+  WaitDateCount: Integer;
+  ModeTechCount: Integer;
+  ModeTestCount: Integer;
+  ModePointCount: Integer;
+  ModeDumpCount: Integer;
+  LockedCount: Integer;
+begin
+  WaitDateCount := 0;
+  ModeTechCount := 0;
+  ModeTestCount := 0;
+  ModePointCount := 0;
+  ModeDumpCount := 0;
+  LockedCount := 0;
+  TickCount := GetTickCount;
+  repeat
+    if Integer(GetTickCount) > (TickCount + Parameters.StatusTimeout*1000) then
+      raiseException(SStatusWaitTimeout);
+
+    PrinterStatus := ReadPrinterStatus;
+    Mode := PrinterStatus.Mode and $0F;
+
+    case Mode of
+      // Dump mode
+      MODE_DUMPMODE:
+      begin
+        ReadDocData;
+        //Device.StopDump;
+
+        Inc(ModeDumpCount);
+        if ModeDumpCount >= MaxStateCount then
+          raiseOposException(OPOS_E_FAILURE, GetStateErrorMessage(Mode));
+      end;
+
+      // Fiscal day opened, 24 hours is not over
+      MODE_24NOTOVER: Exit;
+
+      // Fiscal day opened, 24 hours is over
+      MODE_24OVER: Exit;
+
+      // Fiscal day closed
+      MODE_CLOSED: Exit;
+
+      // ECR blocked by incorrect tax offecer password
+      MODE_LOCKED:
+      begin
+        if StartDump(1) = 0 then
+          StopDump;
+        Inc(LockedCount);
+        if LockedCount >= MaxStateCount then
+          raiseOposException(OPOS_E_FAILURE, GetStateErrorMessage(Mode));
+      end;
+
+      // Waiting for date confirm
+      MODE_WAITDATE:
+      begin
+        ConfirmDate(ReadLongStatus.Date);
+        Inc(WaitDateCount);
+        if WaitDateCount >= MaxStateCount then
+          raiseOposException(OPOS_E_FAILURE, GetStateErrorMessage(Mode));
+      end;
+
+      // Permission to cange decimal point position
+      MODE_POINTPOS:
+      begin
+        SetPointPosition(PRINTER_POINT_POSITION_2);
+        Inc(ModePointCount);
+        if ModePointCount >= MaxStateCount then
+          raiseOposException(OPOS_E_FAILURE, GetStateErrorMessage(Mode));
+      end;
+
+      // Opened document
+      MODE_REC: Exit;
+
+      // Tech reset permission
+      MODE_TECH:
+      begin
+        ResetFiscalMemory;
+        PrinterDate := GetCurrentPrinterDate;
+        WriteDate(PrinterDate);
+        ConfirmDate(PrinterDate);
+        SetTime(GetCurrentPrinterTime);
+
+        Inc(ModeTechCount);
+        if ModeTechCount >= MaxStateCount then
+          raiseOposException(OPOS_E_FAILURE, GetStateErrorMessage(Mode));
+      end;
+      // Test run
+      MODE_TEST:
+      begin
+        StopTest;
+        Inc(ModeTestCount);
+        if ModeTestCount >= MaxStateCount then
+          raiseOposException(OPOS_E_FAILURE, GetStateErrorMessage(Mode));
+      end;
+      // Full fiscal report printing
+      MODE_FULLREPORT:
+      begin
+        Sleep(Parameters.StatusInterval);
+      end;
+      // EJ report printing
+      MODE_EKLZREPORT:
+      begin
+        Sleep(Parameters.StatusInterval);
+      end;
+      // Opened fiscal slip
+      MODE_SLP: Exit;
+      // Slip printing
+      MODE_SLPPRINT: Exit;
+      // Fiscal slip is ready
+      MODE_SLPREADY: Exit;
+    else
+      Break;
+    end;
+  until False;
+end;
+
 
 end.

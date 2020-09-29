@@ -66,7 +66,7 @@ type
     function DoWriteTable(Table, Row, Field: Integer; const FieldValue: WideString): Integer;
     procedure SetPointPosition(PointPosition: Byte);
     procedure SetTime(const Time: TPrinterTime);
-    procedure SetDate(const Date: TPrinterDate);
+    procedure WriteDate(const Date: TPrinterDate);
     procedure ConfirmDate(const Date: TPrinterDate);
     procedure InitializeTables;
     procedure CutPaper(CutType: Byte);
@@ -324,6 +324,9 @@ type
     procedure ResetPrinter;
     procedure WriteTLVItems;
     function GetDocPrintMode: Integer;
+    function ReadDocData: WideString;
+    procedure CheckPrinterStatus;
+    procedure CorrectDate;
 
     property RecStation: TStrings read FRecStation;
     property JrnStation: TStrings read FJrnStation;
@@ -966,7 +969,7 @@ begin
   Result := 0;
 end;
 
-procedure TTextFiscalPrinterDevice.SetDate(const Date: TPrinterDate);
+procedure TTextFiscalPrinterDevice.WriteDate(const Date: TPrinterDate);
 begin
 
 end;
@@ -1887,6 +1890,21 @@ end;
 function TTextFiscalPrinterDevice.GetDocPrintMode: Integer;
 begin
   Result := 0;
+end;
+
+function TTextFiscalPrinterDevice.ReadDocData: WideString;
+begin
+  Result := '';
+end;
+
+procedure TTextFiscalPrinterDevice.CheckPrinterStatus;
+begin
+
+end;
+
+procedure TTextFiscalPrinterDevice.CorrectDate;
+begin
+
 end;
 
 end.

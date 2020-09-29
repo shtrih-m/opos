@@ -378,7 +378,7 @@ const
   DefModelId = -1;
   DefItemTextMode = ItemTextModeNone;
   DefCorrectCashlessAmount = false;
-
+  DefValidTimeDiffInSecs = 0;
 
 type
   { TPrinterParameters }
@@ -574,6 +574,7 @@ type
     SingleQuantityOnZeroUnitPrice: Boolean;
     ReceiptField: array [MinReceiptField..MaxReceiptField] of string;
     SendMarkType: Integer;
+    ValidTimeDiffInSecs: Integer;
   public
     constructor Create(ALogger: ILogFile);
     destructor Destroy; override;
@@ -1064,6 +1065,7 @@ begin
   Logger.Debug('CorrectCashlessAmount: ' + BoolToStr(CorrectCashlessAmount));
   Logger.Debug('SingleQuantityOnZeroUnitPrice: ' + BoolToStr(SingleQuantityOnZeroUnitPrice));
   Logger.Debug('SendMarkType: ' + IntToStr(SendMarkType));
+  Logger.Debug('ValidTimeDiffInSecs: ' + IntToStr(ValidTimeDiffInSecs));
   // PayTypes
   for i := 0 to PayTypes.Count-1 do
   begin

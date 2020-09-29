@@ -38,7 +38,7 @@ uses
   FptrTypes in '..\..\Source\OposConfig\Units\FptrTypes.pas',
   fmuFptrBarcode in '..\..\Source\OposConfig\Fmu\fmuFptrBarcode.pas' {fmFptrBarcode},
   fmuFptrReceipt in '..\..\Source\OposConfig\Fmu\fmuFptrReceipt.pas' {fmFptrReceipt},
-  fmuFiscalStorage in '..\..\Source\OposConfig\Fmu\fmuFiscalStorage.pas' {fmFiscalStorage},
+  fmuFptrDate in '..\..\Source\OposConfig\Fmu\fmuFptrDate.pas' {fmFptrDate},
   fmuFptrJournal in '..\..\Source\OposConfig\Fmu\fmuFptrJournal.pas' {fmFptrJournal},
   fmuFptrLogo in '..\..\Source\OposConfig\Fmu\fmuFptrLogo.pas' {fmFptrLogo},
   fmuFptrVatCode in '..\..\Source\OposConfig\Fmu\fmuFptrVatCode.pas' {fmFptrVatCode},
@@ -94,7 +94,8 @@ uses
   XmlModelReader in '..\..\Source\SmFiscalPrinter\Units\XmlModelReader.pas',
   XmlUtils in '..\..\Source\SmFiscalPrinter\Units\XmlUtils.pas',
   DefaultModel in '..\..\Source\SmFiscalPrinter\Units\DefaultModel.pas',
-  RegExpr in '..\..\Source\Shared\RegExpr.pas';
+  RegExpr in '..\..\Source\Shared\RegExpr.pas',
+  fmuFiscalStorage in '..\..\Source\OposConfig\Fmu\fmuFiscalStorage.pas' {fmFiscalStorage};
 
 {$R *.RES}
 

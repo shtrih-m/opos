@@ -59,7 +59,7 @@ uses
   fmuFptrConnection, fmuFptrReceipt, fmuFptrHeader, fmuFptrTrailer, fmuFptrText,
   fmuFptrLog, fmuFptrLogo, fmuFptrPayType, fmuFptrVatCode, fmuFptrBarcode,
   fmuXReport, fmuZReport, fmuMiscParams, fmuFiscalStorage, fmuFptrTables,
-  fmuReceiptFormat, fmuMarkChecker, fmuFptrDirectIO, 
+  fmuReceiptFormat, fmuMarkChecker, fmuFptrDirectIO, fmuFptrDate,
   {$IFDEF MALINA}
   fmuFptrMalina, fmuFptrUnipos, fmuFptrFuel, fmuFptrReplace, fmuCashInProcessing,
   fmuFptrPawnTicket, fmuRosneftDiscountCard, fmuRosneftAddText, fmuFptrRetalix,
@@ -149,6 +149,7 @@ begin
     AddPage(fm, TfmRosneftAddText);
     AddPage(fm, TfmFptrRetalix);
     {$ENDIF MALINA}
+    AddPage(fm, TfmFptrDate);
 
     fm.Init;
     fm.UpdatePage;

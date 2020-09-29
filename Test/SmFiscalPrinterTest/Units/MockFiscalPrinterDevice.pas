@@ -64,7 +64,7 @@ type
     function DoWriteTable(Table, Row, Field: Integer; const FieldValue: WideString): Integer;
     procedure SetPointPosition(PointPosition: Byte);
     procedure SetTime(const Time: TPrinterTime);
-    procedure SetDate(const Date: TPrinterDate);
+    procedure WriteDate(const Date: TPrinterDate);
     procedure ConfirmDate(const Date: TPrinterDate);
     procedure InitializeTables;
     procedure CutPaper(CutType: Byte);
@@ -324,6 +324,9 @@ type
     procedure ResetPrinter;
     procedure WriteTLVItems;
     function GetDocPrintMode: Integer;
+    function ReadDocData: WideString;
+    procedure CheckPrinterStatus;
+    procedure CorrectDate;
 
     property Status: TPrinterStatus read FStatus write FStatus;
     property Parameters: TPrinterParameters read GetParameters;
@@ -959,7 +962,7 @@ begin
   Result := 0;
 end;
 
-procedure TMockFiscalPrinterDevice.SetDate(const Date: TPrinterDate);
+procedure TMockFiscalPrinterDevice.WriteDate(const Date: TPrinterDate);
 begin
 
 end;
@@ -1886,6 +1889,21 @@ function TMockFiscalPrinterDevice.FSBindItemCode(const Barcode: string;
   var R: TFSBindItemCodeResult): Integer;
 begin
   Result := 0;
+end;
+
+procedure TMockFiscalPrinterDevice.CheckPrinterStatus;
+begin
+
+end;
+
+procedure TMockFiscalPrinterDevice.CorrectDate;
+begin
+
+end;
+
+function TMockFiscalPrinterDevice.ReadDocData: WideString;
+begin
+  Result := '';
 end;
 
 end.

@@ -98,7 +98,6 @@ type
     procedure CreateDIOHandlers;
     procedure CreateDIOHandlers1;
     procedure CreateDIOHandlers2;
-    procedure CheckPrinterStatus;
     procedure PrintFixedHeaderAndCut;
     procedure PrintNonFiscalEndDriver;
     procedure PrintNonFiscalEndPrinter;
@@ -123,7 +122,6 @@ type
     function WaitForPrinting: TPrinterStatus;
     function GetDevice: IFiscalPrinterDevice;
     function GetLongStatus: TLongPrinterStatus;
-    function GetStateErrorMessage(const Mode: Integer): WideString;
     function GetDayNumber(const ParamValue, ParamName: WideString): Integer;
     function ReadCashRegister(ID: Byte): Int64;
     function CreateReceipt(FiscalReceiptType: Integer): TCustomReceipt;
@@ -1491,155 +1489,6 @@ begin
   end;
 end;
 
-function TFiscalPrinterImpl.GetStateErrorMessage(const Mode: Integer): WideString;
-begin
-  Result := Tnt_WideFormat('%s: %d, %s', [_('Невозможно изменить состояние'), Mode, GetModeText(Mode)]);
-end;
-
-procedure TFiscalPrinterImpl.CheckPrinterStatus;
-
-  function GetCurrentPrinterDate: TPrinterDate;
-  var
-    Year, Month, Day: Word;
-  begin
-    DecodeDate(Date, Year, Month, Day);
-    Result.Day := Day;
-    Result.Month := Month;
-    Result.Year := Year - 2000;
-  end;
-
-  function GetCurrentPrinterTime: TPrinterTime;
-  var
-    Hour, Min, Sec, MSec: Word;
-  begin
-    DecodeTime(Time, Hour, Min, Sec, MSec);
-    Result.Hour := Hour;
-    Result.Min := Min;
-    Result.Sec := Sec;
-  end;
-
-const
-  MaxStateCount = 3;
-
-var
-  Mode: Byte;
-  TickCount: Integer;
-  PrinterStatus: TPrinterStatus;
-  PrinterDate: TPrinterDate;
-  WaitDateCount: Integer;
-  ModeTechCount: Integer;
-  ModeTestCount: Integer;
-  ModePointCount: Integer;
-  ModeDumpCount: Integer;
-  LockedCount: Integer;
-begin
-  WaitDateCount := 0;
-  ModeTechCount := 0;
-  ModeTestCount := 0;
-  ModePointCount := 0;
-  ModeDumpCount := 0;
-  LockedCount := 0;
-  TickCount := GetTickCount;
-  repeat
-    if Integer(GetTickCount) > (TickCount + Parameters.StatusTimeout*1000) then
-      raiseException(SStatusWaitTimeout);
-
-    PrinterStatus := Device.ReadPrinterStatus;
-    Mode := PrinterStatus.Mode and $0F;
-
-    case Mode of
-      // Dump mode
-      MODE_DUMPMODE:
-      begin
-        Device.StopDump;
-        Inc(ModeDumpCount);
-        if ModeDumpCount >= MaxStateCount then
-          raiseOposException(OPOS_E_FAILURE, GetStateErrorMessage(Mode));
-      end;
-
-      // Fiscal day opened, 24 hours is not over
-      MODE_24NOTOVER: Exit;
-
-      // Fiscal day opened, 24 hours is over
-      MODE_24OVER: Exit;
-
-      // Fiscal day closed
-      MODE_CLOSED: Exit;
-
-      // ECR blocked by incorrect tax offecer password
-      MODE_LOCKED:
-      begin
-        if Device.StartDump(1) = 0 then
-          Device.StopDump;
-        Inc(LockedCount);
-        if LockedCount >= MaxStateCount then
-          raiseOposException(OPOS_E_FAILURE, GetStateErrorMessage(Mode));
-      end;
-
-      // Waiting for date confirm
-      MODE_WAITDATE:
-      begin
-        Device.ConfirmDate(Device.ReadLongStatus.Date);
-        Inc(WaitDateCount);
-        if WaitDateCount >= MaxStateCount then
-          raiseOposException(OPOS_E_FAILURE, GetStateErrorMessage(Mode));
-      end;
-
-      // Permission to cange decimal point position
-      MODE_POINTPOS:
-      begin
-        Device.SetPointPosition(PRINTER_POINT_POSITION_2);
-        Inc(ModePointCount);
-        if ModePointCount >= MaxStateCount then
-          raiseOposException(OPOS_E_FAILURE, GetStateErrorMessage(Mode));
-      end;
-
-      // Opened document
-      MODE_REC: Exit;
-
-      // Tech reset permission
-      MODE_TECH:
-      begin
-        Device.ResetFiscalMemory;
-        PrinterDate := GetCurrentPrinterDate;
-        Device.SetDate(PrinterDate);
-        Device.ConfirmDate(PrinterDate);
-        Device.SetTime(GetCurrentPrinterTime);
-
-        Inc(ModeTechCount);
-        if ModeTechCount >= MaxStateCount then
-          raiseOposException(OPOS_E_FAILURE, GetStateErrorMessage(Mode));
-      end;
-      // Test run
-      MODE_TEST:
-      begin
-        Device.StopTest;
-        Inc(ModeTestCount);
-        if ModeTestCount >= MaxStateCount then
-          raiseOposException(OPOS_E_FAILURE, GetStateErrorMessage(Mode));
-      end;
-      // Full fiscal report printing
-      MODE_FULLREPORT:
-      begin
-        Sleep(Parameters.StatusInterval);
-      end;
-      // EJ report printing
-      MODE_EKLZREPORT:
-      begin
-        Sleep(Parameters.StatusInterval);
-      end;
-      // Opened fiscal slip
-      MODE_SLP: Exit;
-      // Slip printing
-      MODE_SLPPRINT: Exit;
-      // Fiscal slip is ready
-      MODE_SLPREADY: Exit;
-    else
-      Break;
-    end;
-  until False;
-end;
-
 procedure TFiscalPrinterImpl.PowerStateChanged(Sender: TObject);
 begin
   if Printer.Device.IsOnline then
@@ -2292,7 +2141,8 @@ begin
   if not FInitPrinter then
   begin
     CancelReceipt;
-    CheckPrinterStatus;
+    Device.CheckPrinterStatus;
+    Device.CorrectDate;
     FInitPrinter := True;
   end;
 end;
@@ -2401,7 +2251,7 @@ begin
         PrinterTime.Min := Min;
         PrinterTime.Sec := Sec;
 
-        Device.SetDate(PrinterDate);
+        Device.WriteDate(PrinterDate);
         Device.ConfirmDate(PrinterDate);
         Device.SetTime(PrinterTime);
       end;
@@ -3862,7 +3712,7 @@ begin
       PrinterTime.Min := OposDate.Min;
       PrinterTime.Sec := 0;
 
-      Device.SetDate(PrinterDate);
+      Device.WriteDate(PrinterDate);
       Device.ConfirmDate(PrinterDate);
       Device.SetTime(PrinterTime);
     end;

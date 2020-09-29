@@ -224,7 +224,7 @@ type
     function DoWriteTable(Table, Row, Field: Integer; const FieldValue: WideString): Integer;
     procedure SetPointPosition(PointPosition: Byte);
     procedure SetTime(const Time: TPrinterTime);
-    procedure SetDate(const Date: TPrinterDate);
+    procedure WriteDate(const Date: TPrinterDate);
     procedure ConfirmDate(const Date: TPrinterDate);
     procedure InitializeTables;
     procedure CutPaper(CutType: Byte);
@@ -472,6 +472,9 @@ type
     procedure ResetPrinter;
     procedure WriteTLVItems;
     function GetDocPrintMode: Integer;
+    function ReadDocData: WideString;
+    procedure CheckPrinterStatus;
+    procedure CorrectDate;
 
     property LastMacValue: Int64 read GetLastMacValue;
     property LastDocNumber: Int64 read GetLastDocNumber;
@@ -520,7 +523,7 @@ type
     function DoWriteTable(Table, Row, Field: Integer; const FieldValue: string): Integer;
     procedure SetPointPosition(PointPosition: Byte);
     procedure SetTime(const Time: TPrinterTime);
-    procedure SetDate(const Date: TPrinterDate);
+    procedure WriteDate(const Date: TPrinterDate);
     procedure ConfirmDate(const Date: TPrinterDate);
     procedure InitializeTables;
     procedure CutPaper(CutType: Byte);
