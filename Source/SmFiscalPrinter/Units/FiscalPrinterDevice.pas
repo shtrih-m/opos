@@ -213,6 +213,7 @@ type
     procedure CorrectDate;
     function ReadDocData: WideString;
     procedure CheckPrinterStatus;
+    procedure SetCapFiscalStorage(const Value: Boolean);
   protected
     function GetMaxGraphicsWidthInBytes: Integer;
   public
@@ -490,7 +491,7 @@ type
     property ResultText: WideString read GetResultText;
     property ResultCode: Integer read GetResultCode;
     property Connection: IPrinterConnection read FConnection;
-    property CapFiscalStorage: Boolean read GetCapFiscalStorage;
+    property CapFiscalStorage: Boolean read GetCapFiscalStorage write SetCapFiscalStorage;
     property DiscountMode: Integer read GetDiscountMode;
     property CapReceiptDiscount: Boolean read GetCapReceiptDiscount;
     property PrinterModel: TPrinterModel read GetPrinterModel;
@@ -9606,5 +9607,10 @@ begin
   until False;
 end;
 
+
+procedure TFiscalPrinterDevice.SetCapFiscalStorage(const Value: Boolean);
+begin
+  FCapFiscalStorage := Value;
+end;
 
 end.

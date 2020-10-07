@@ -31,6 +31,7 @@ type
     function GetCapReceiptDiscount: Boolean;
     function GetParameters: TPrinterParameters;
     function GetCapSubtotalRound: Boolean;
+    procedure SetCapFiscalStorage(const Value: Boolean);
   public
     FCapFiscalStorage: Boolean;
     FSCloseReceiptResult2: TFSCloseReceiptResult2;
@@ -333,7 +334,7 @@ type
     property Context: TDriverContext read FContext;
     property Parameters: TPrinterParameters read GetParameters;
     property CapSubtotalRound: Boolean read GetCapSubtotalRound;
-    property CapFiscalStorage: Boolean read GetCapFiscalStorage;
+    property CapFiscalStorage: Boolean read GetCapFiscalStorage write SetCapFiscalStorage;
     property Model: TPrinterModelRec read GetModel write FModel;
     property Tables: TDeviceTables read GetTables write SetTables;
     property CapReceiptDiscount: Boolean read GetCapReceiptDiscount;
@@ -1905,6 +1906,12 @@ end;
 procedure TTextFiscalPrinterDevice.CorrectDate;
 begin
 
+end;
+
+procedure TTextFiscalPrinterDevice.SetCapFiscalStorage(
+  const Value: Boolean);
+begin
+  FCapFiscalStorage := Value;
 end;
 
 end.

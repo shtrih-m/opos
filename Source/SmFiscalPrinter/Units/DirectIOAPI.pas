@@ -359,6 +359,7 @@ const
   DriverParameterMessage                  = 96;
   DriverParameterErrorMessage             = 97;
   DriverParameterDiscountMode             = 98;
+  DriverParameterCapFiscalStorage         = 99;
 
   /////////////////////////////////////////////////////////////////////////////
   // Separator type

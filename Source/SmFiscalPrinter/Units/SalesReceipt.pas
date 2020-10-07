@@ -34,6 +34,7 @@ type
 
     procedure PrintDiscount(Operation: TAmountOperation);
     function GetIsCashPayment: Boolean;
+    procedure SendItemBarcode;
   public
     constructor CreateReceipt(AContext: TReceiptContext; ARecType: Integer);
     destructor Destroy; override;
@@ -225,7 +226,19 @@ begin
   end;
   FItems.Add(Operation);
   FLastItemSumm := Round2(Operation.Price*Operation.Quantity/1000);
+  SendItemBarcode;
   PrintPostLine;
+end;
+
+procedure TSalesReceipt.SendItemBarcode;
+var
+  rc: TFSBindItemCodeResult;
+begin
+  if Parameters.Barcode <> '' then
+  begin
+    Device.FSBindItemCode(Parameters.Barcode, rc);
+    Parameters.Barcode := '';
+  end;
 end;
 
 procedure TSalesReceipt.PrintRecItemAdjustment(
@@ -590,6 +603,7 @@ begin
         RecTypeRetBuy  : Printer.RetBuy(PriceReg);
       end;
       FItems.Add(PriceReg);
+      SendItemBarcode;
     end;
 
     Printer.Printer.PrintText(AdditionalText);

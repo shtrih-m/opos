@@ -31,6 +31,7 @@ type
     function GetParameters: TPrinterParameters;
     function GetCapSubtotalRound: Boolean;
     function GetPrinterStatus: TPrinterStatus;
+    procedure SetCapFiscalStorage(const Value: Boolean);
   public
     FCapFiscalStorage: Boolean;
     FSCloseReceiptResult2: TFSCloseReceiptResult2;
@@ -330,7 +331,7 @@ type
 
     property Status: TPrinterStatus read FStatus write FStatus;
     property Parameters: TPrinterParameters read GetParameters;
-    property CapFiscalStorage: Boolean read GetCapFiscalStorage;
+    property CapFiscalStorage: Boolean read GetCapFiscalStorage write SetCapFiscalStorage;
     property Model: TPrinterModelRec read GetModel write FModel;
     property Tables: TDeviceTables read GetTables write SetTables;
     property LongStatus: TLongPrinterStatus read FLongStatus write FLongStatus;
@@ -1904,6 +1905,12 @@ end;
 function TMockFiscalPrinterDevice.ReadDocData: WideString;
 begin
   Result := '';
+end;
+
+procedure TMockFiscalPrinterDevice.SetCapFiscalStorage(
+  const Value: Boolean);
+begin
+  FCapFiscalStorage := Value;
 end;
 
 end.

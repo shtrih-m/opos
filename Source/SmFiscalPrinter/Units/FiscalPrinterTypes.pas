@@ -415,6 +415,7 @@ type
     function FSReadTotals(var R: TFMTotals): Integer;
     function GetErrorText(Code: Integer): WideString;
     function GetCapFiscalStorage: Boolean;
+    procedure SetCapFiscalStorage(const Value: Boolean);
     function GetCapOpenReceipt: Boolean;
     function OpenFiscalDay: Boolean;
     function GetCapReceiptDiscount: Boolean;
@@ -485,7 +486,7 @@ type
     property DiscountMode: Integer read GetDiscountMode;
     property IsFiscalized: Boolean read GetIsFiscalized;
     property Parameters: TPrinterParameters read GetParameters;
-    property CapFiscalStorage: Boolean read GetCapFiscalStorage;
+    property CapFiscalStorage: Boolean read GetCapFiscalStorage write SetCapFiscalStorage;
     property Tables: TDeviceTables read GetTables write SetTables;
     property Statistics: TFiscalPrinterStatistics read GetStatistics;
     property AmountDecimalPlaces: Integer read GetAmountDecimalPlaces write SetAmountDecimalPlaces;

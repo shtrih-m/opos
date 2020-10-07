@@ -2035,6 +2035,7 @@ begin
     DriverParameterMessage: pString := _(pString);
     DriverParameterErrorMessage: pString := GetErrorText(StrToInt(pString), True);
     DriverParameterDiscountMode: pString := '0';
+    DriverParameterCapFiscalStorage: pString := BoolToStr(Printer.Device.CapFiscalStorage);
   end;
 end;
 
@@ -2148,6 +2149,7 @@ begin
     DriverParameterAmount12: Parameters.Amount12 := StrToInt(pString);
     DriverParameterTaxType: Parameters.TaxType := StrToInt(pString);
     DriverParameterDiscountMode: ;
+    DriverParameterCapFiscalStorage: FPrinter.Device.CapFiscalStorage := StrToBool(pString);
   end;
 end;
 
