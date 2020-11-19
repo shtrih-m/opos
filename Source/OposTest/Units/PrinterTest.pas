@@ -5313,19 +5313,24 @@ end;
 { TReceiptTest33 }
 
 procedure TReceiptTest33.Execute;
-const
-  Barcode1 = '018123456789123421000000000005M'#$1D'2401234'#$1D+
-  '100123456789ABCDEF1234'#$1D'17170911911129'#$1D +
-  '92uZoDVpzZRuXoSs79Q54WhebeXNJa1oZ9kTyi09N4vW5E31B7vM3uwo17FIx9fd2T5g9tbVxhR1Wlmt9r3ivSvg==';
 begin
-  FiscalPrinter.SetParameter(DriverParameterCapFiscalStorage, '0');
+  Memo.Lines.Clear;
+  Memo.Update;
+  Application.ProcessMessages;
+
   Check(FiscalPrinter.ResetPrinter);
   FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
   Check(FiscalPrinter.BeginFiscalReceipt(True));
-  FiscalPrinter.SetParameter(DriverParameterBarcode, Barcode1);
-  Check(FiscalPrinter.PrintRecItem('3689061 √ÂÌÍË ¬ŒÀÕ»—“€≈ 75„', 73.13, 1000, 2, 73.13, ''));
-  Check(FiscalPrinter.PrintRecTotal(73.13, 73.13, '0'));
+  Check(FiscalPrinter.PrintRecItem('Item 1', 1.00, 1000, 1, 1.00, ''));
+  Check(FiscalPrinter.PrintRecTotal(1.00, 1.00, '0'));
   Check(FiscalPrinter.EndFiscalReceipt(False));
+
+  AddLine(Separator);
+  AddLine('‘ƒ    : ' + FiscalPrinter.GetParameter(DriverParameterLastDocNum));
+  AddLine('‘œƒ   : ' + FiscalPrinter.GetParameter(DriverParameterLastDocMac));
+  AddLine('ƒ‡Ú‡  : ' + FiscalPrinter.GetParameter(DriverParameterLastDocDateTime));
+  AddLine('—ÛÏÏ‡ : ' + FiscalPrinter.GetParameter(DriverParameterLastDocTotal));
+  AddLine(Separator);
 end;
 
 function TReceiptTest33.GetDisplayText: WideString;

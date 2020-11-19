@@ -2036,6 +2036,12 @@ begin
     DriverParameterErrorMessage: pString := GetErrorText(StrToInt(pString), True);
     DriverParameterDiscountMode: pString := '0';
     DriverParameterCapFiscalStorage: pString := BoolToStr(Printer.Device.CapFiscalStorage);
+    DriverParameterLastDocMac: pString := IntToStr(Printer.Device.LastDocMac);
+    DriverParameterLastDocNum: pString := IntToStr(Printer.Device.LastDocNumber);
+    DriverParameterLastDocTotal: pString := IntToStr(Printer.Device.LastDocTotal);
+    DriverParameterLastDocDateTime: pString := EncodeOposDate(
+      PrinterDateTimeToOposDate(Printer.Device.LastDocDate,
+      Printer.Device.LastDocTime));
   end;
 end;
 

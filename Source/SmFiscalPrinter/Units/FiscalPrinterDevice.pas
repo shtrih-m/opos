@@ -83,8 +83,11 @@ type
     FCapFooterFlag: Boolean;
     FFooterFlag: Boolean;
     FCapEnablePrint: Boolean;
-    FLastMacValue: Int64;
+    FLastDocMac: Int64;
     FLastDocNumber: Int64;
+    FLastDocTotal: Int64;
+    FLastDocDate: TPrinterDate;
+    FLastDocTime: TPrinterTime;
     FSTLVTag: TTLV;
     FSTLVStarted: Boolean;
     FTLVItems: TStrings;
@@ -205,7 +208,10 @@ type
     function IsFSDocumentOpened: Boolean;
     function FSCancelDocument: Integer;
     function GetLastDocNumber: Int64;
-    function GetLastMacValue: Int64;
+    function GetLastDocMac: Int64;
+    function GetLastDocTotal: Int64;
+    function GetLastDocDate: TPrinterDate;
+    function GetLastDocTime: TPrinterTime;
     function PrintItemText(const S: WideString): WideString;
     procedure WriteTLVItems;
     function ReadDocPrintMode: Integer;
@@ -506,7 +512,7 @@ type
     property CapDiscount: Boolean read GetCapDiscount;
     property CapSubtotalRound: Boolean read GetCapSubtotalRound;
     property CapFSCloseReceipt2: Boolean read GetCapFSCloseReceipt2;
-    property LastMacValue: Int64 read GetLastMacValue;
+    property LastDocMac: Int64 read GetLastDocMac;
     property LastDocNumber: Int64 read GetLastDocNumber;
   end;
 
@@ -2927,7 +2933,7 @@ begin
     if CapFiscalStorage then
     begin
       Check(FSReadState(FSState));
-      Check(FSReadDocMac(FLastMacValue));
+      Check(FSReadDocMac(FLastDocMac));
       FLastDocNumber := FSState.DocNumber;
     end;
     PrintCommStatus;
@@ -8511,12 +8517,14 @@ function TFiscalPrinterDevice.ReceiptClose2(
 var
   Command: AnsiString;
   Answer: AnsiString;
+  Status: TLongPrinterStatus;
 const
   SInvalidDiscountValue =  'Invalid discount value, %d. Valid discount value is [0..99].';
 begin
   if not ((P.Discount) in [0..99]) then
     RaiseIllegalError(Format(SInvalidDiscountValue, [P.Discount]));
 
+  FLastDocTotal := GetSubtotal;
   Command := #$FF#$45 + IntToBin(GetUsrPassword, 4) +
     IntToBin(P.Payments[0], 5) +
     IntToBin(P.Payments[1], 5) +
@@ -8550,9 +8558,26 @@ begin
     R.Change := BinToInt(Answer, 1, 5);
     R.DocNumber := BinToInt(Answer, 6, 4);
     R.MacValue := BinToInt(Answer, 10, 4);
+    if (Length(Answer) >= 18) then
+    begin
+      R.DocDate := BinToPrinterDate(Copy(Answer, 14, 3));
+      R.DocTime := BinToPrinterTime2(Copy(Answer, 17, 2));
+    end else
+    begin
+      try
+        Status := ReadLongStatus;
+        R.DocDate := Status.Date;
+        R.DocTime := Status.Time;
+      except
+        R.DocDate := GetCurrentPrinterDate;
+        R.DocTime := GetCurrentPrinterTime;
+      end;
+    end;
 
     FLastDocNumber := R.DocNumber;
-    FLastMacValue := R.MacValue;
+    FLastDocMac := R.MacValue;
+    FLastDocDate := R.DocDate;
+    FLastDocTime := R.DocTime;
   end;
 end;
 
@@ -9210,9 +9235,24 @@ begin
   Result := FLastDocNumber;
 end;
 
-function TFiscalPrinterDevice.GetLastMacValue: Int64;
+function TFiscalPrinterDevice.GetLastDocMac: Int64;
 begin
-  Result := FLastMacValue;
+  Result := FLastDocMac;
+end;
+
+function TFiscalPrinterDevice.GetLastDocTotal: Int64;
+begin
+  Result := FLastDocTotal;
+end;
+
+function TFiscalPrinterDevice.GetLastDocDate: TPrinterDate;
+begin
+  Result := FLastDocDate;
+end;
+
+function TFiscalPrinterDevice.GetLastDocTime: TPrinterTime;
+begin
+  Result := FLastDocTime;
 end;
 
 function TFiscalPrinterDevice.FSReadLastDocNum2: Int64;
@@ -9236,9 +9276,9 @@ end;
 
 function TFiscalPrinterDevice.FSReadLastMacValue: Int64;
 begin
-  if FLastMacValue = 0 then
-    FLastMacValue := FSReadLastMacValue2;
-  Result := FLastMacValue;
+  if FLastDocMac = 0 then
+    FLastDocMac := FSReadLastMacValue2;
+  Result := FLastDocMac;
 end;
 
 function TFiscalPrinterDevice.FSReadLastMacValue2: Int64;

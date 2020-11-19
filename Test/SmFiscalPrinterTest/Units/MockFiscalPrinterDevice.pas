@@ -308,7 +308,10 @@ type
     function GetFSCloseReceiptResult2: TFSCloseReceiptResult2;
     function FSStartCorrectionReceipt: Integer;
     function GetLastDocNumber: Int64;
-    function GetLastMacValue: Int64;
+    function GetLastDocMac: Int64;
+    function GetLastDocTotal: Int64;
+    function GetLastDocDate: TPrinterDate;
+    function GetLastDocTime: TPrinterTime;
     function FSReadLastDocNum: Int64;
     function FSReadLastDocNum2: Int64;
     function FSReadLastMacValue: Int64;
@@ -1803,7 +1806,7 @@ begin
   Result := 0;
 end;
 
-function TMockFiscalPrinterDevice.GetLastMacValue: Int64;
+function TMockFiscalPrinterDevice.GetLastDocMac: Int64;
 begin
   Result := 0;
 end;
@@ -1911,6 +1914,21 @@ procedure TMockFiscalPrinterDevice.SetCapFiscalStorage(
   const Value: Boolean);
 begin
   FCapFiscalStorage := Value;
+end;
+
+function TMockFiscalPrinterDevice.GetLastDocDate: TPrinterDate;
+begin
+  Result := GetCurrentPrinterDate;
+end;
+
+function TMockFiscalPrinterDevice.GetLastDocTime: TPrinterTime;
+begin
+  Result := GetCurrentPrinterTime;
+end;
+
+function TMockFiscalPrinterDevice.GetLastDocTotal: Int64;
+begin
+  Result := 0;
 end;
 
 end.

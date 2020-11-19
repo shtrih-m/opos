@@ -1140,6 +1140,8 @@ type
     Change: Int64;
     DocNumber: DWORD;
     MacValue: DWORD;
+    DocDate: TPrinterDate;
+    DocTime: TPrinterTime;
   end;
 
   { TPrinterParameters2Flags }
@@ -1393,6 +1395,7 @@ function GetOperRegisterName(Value: Integer): WideString;
 function PrinterDateToDate(Date: TPrinterDate): TDateTime;
 function PrinterTimeToTime(Time: TPrinterTime): TDateTime;
 function BinToPrinterDate(const P: WideString): TPrinterDate;
+function BinToPrinterTime2(const P: WideString): TPrinterTime;
 function BinToPrinterDateTime2(const P: WideString): TPrinterDateTime;
 function PrinterDateTimeToStr2(Date: TPrinterDateTime): WideString;
 function PrinterDateTimeToStr3(Date: TPrinterDateTime): WideString;
@@ -2605,6 +2608,13 @@ begin
   Result.Day := Ord(P[3]);
 end;
 
+function BinToPrinterTime2(const P: WideString): TPrinterTime;
+begin
+  Result.Hour := Ord(P[1]);
+  Result.Min := Ord(P[2]);
+  Result.Sec := 0;
+end;
+
 function BinToPrinterDateTime2(const P: WideString): TPrinterDateTime;
 begin
   Result.Year := Ord(P[1]);
@@ -2680,7 +2690,7 @@ begin
   DecodeDate(Date, Year, Month, Day);
   Result.Day := Day;
   Result.Month := Month;
-  Result.Year := Year - 2000;
+  Result.Year := Year mod 100;
 end;
 
 function GetCurrentPrinterTime: TPrinterTime;

@@ -308,7 +308,7 @@ type
     function GetFSCloseReceiptResult2: TFSCloseReceiptResult2;
     function FSStartCorrectionReceipt: Integer;
     function GetLastDocNumber: Int64;
-    function GetLastMacValue: Int64;
+    function GetLastDocMac: Int64;
     function FSReadLastDocNum: Int64;
     function FSReadLastDocNum2: Int64;
     function FSReadLastMacValue: Int64;
@@ -326,6 +326,9 @@ type
     procedure WriteTLVItems;
     function GetDocPrintMode: Integer;
     function ReadDocData: WideString;
+    function GetLastDocTotal: Int64;
+    function GetLastDocDate: TPrinterDate;
+    function GetLastDocTime: TPrinterTime;
     procedure CheckPrinterStatus;
     procedure CorrectDate;
 
@@ -1798,7 +1801,7 @@ begin
   Result := 0;
 end;
 
-function TTextFiscalPrinterDevice.GetLastMacValue: Int64;
+function TTextFiscalPrinterDevice.GetLastDocMac: Int64;
 begin
   Result := 0;
 end;
@@ -1912,6 +1915,21 @@ procedure TTextFiscalPrinterDevice.SetCapFiscalStorage(
   const Value: Boolean);
 begin
   FCapFiscalStorage := Value;
+end;
+
+function TTextFiscalPrinterDevice.GetLastDocDate: TPrinterDate;
+begin
+  Result := GetCurrentPrinterDate;
+end;
+
+function TTextFiscalPrinterDevice.GetLastDocTime: TPrinterTime;
+begin
+  Result := GetCurrentPrinterTime;
+end;
+
+function TTextFiscalPrinterDevice.GetLastDocTotal: Int64;
+begin
+  Result := 0;
 end;
 
 end.

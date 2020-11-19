@@ -457,7 +457,7 @@ type
     function SendItemBarcode(const Barcode: WideString; MarkType: Integer): Integer;
     function FSStartCorrectionReceipt: Integer;
     function GetLastDocNumber: Int64;
-    function GetLastMacValue: Int64;
+    function GetLastDocMac: Int64;
     function FSReadLastDocNum: Int64;
     function FSReadLastDocNum2: Int64;
     function FSReadLastMacValue: Int64;
@@ -476,9 +476,15 @@ type
     function ReadDocData: WideString;
     procedure CheckPrinterStatus;
     procedure CorrectDate;
+    function GetLastDocTotal: Int64;
+    function GetLastDocDate: TPrinterDate;
+    function GetLastDocTime: TPrinterTime;
 
-    property LastMacValue: Int64 read GetLastMacValue;
+    property LastDocMac: Int64 read GetLastDocMac;
     property LastDocNumber: Int64 read GetLastDocNumber;
+    property LastDocTotal: Int64 read GetLastDocTotal;
+    property LastDocDate: TPrinterDate read GetLastDocDate;
+    property LastDocTime: TPrinterTime read GetLastDocTime;
     property IsOnline: Boolean read GetIsOnline;
     property Model: TPrinterModelRec read GetModel;
     property ResultText: WideString read GetResultText;

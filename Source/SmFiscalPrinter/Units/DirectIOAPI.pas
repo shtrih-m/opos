@@ -360,6 +360,10 @@ const
   DriverParameterErrorMessage             = 97;
   DriverParameterDiscountMode             = 98;
   DriverParameterCapFiscalStorage         = 99;
+  DriverParameterLastDocMac               = 100;
+  DriverParameterLastDocNum               = 101;
+  DriverParameterLastDocTotal             = 102;
+  DriverParameterLastDocDateTime          = 103;
 
   /////////////////////////////////////////////////////////////////////////////
   // Separator type
