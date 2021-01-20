@@ -9,8 +9,6 @@ uses
   TntClasses,
   // Indy
   IdGlobal, IdIcmpClient,
-  // JWA
-  //JwaIcmpApi,
   // Opos
   Opos, OposFptr, OposFptrUtils, OposException, OposSemaphore,
   // This
@@ -228,21 +226,6 @@ end;
 var
   Printers: TInterfaceList = nil;
 
-procedure DeletePrinters;
-begin
-  ODS('DeletePrinters.0');
-  Printers.Lock;
-  try
-    while Printers.Count > 0 do
-    begin
-      Printers.Delete(0);
-    end;
-  finally
-    Printers.Unlock;
-  end;
-  ODS('DeletePrinters.1');
-end;
-
 function GetPrintersCount: Integer;
 begin
   Printers.Lock;
@@ -300,14 +283,16 @@ destructor TSharedPrinter.Destroy;
 begin
   ODS('TSharedPrinter.Destroy.0');
   StopPing;
+  SetPollEnabled(False);
+  FPingThread.Free;
+  FDeviceThread.Free;
+
   if FFilter <> nil then
   begin
     FDevice.RemoveFilter(FFilter);
     FFilter := nil;
   end;
-  SetPollEnabled(False);
   FPollEnabled := False;
-  FDeviceThread.Free;
   FLock.Free;
   FHeader.Free;
   FTrailer.Free;
@@ -317,7 +302,6 @@ begin
   FDevice := nil;
   FStatusLinks.Free;
   FConnectLinks.Free;
-  FPingThread.Free;
   inherited Destroy;
   ODS('TSharedPrinter.Destroy.1');
 end;
@@ -1415,7 +1399,6 @@ initialization
   Printers := TInterfaceList.Create;
 
 finalization
-  DeletePrinters;
   Printers.Free;
   Printers := nil;
 

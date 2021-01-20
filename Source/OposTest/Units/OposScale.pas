@@ -53,10 +53,4 @@ begin
   Result := ScaleVar;
 end;
 
-initialization
-
-finalization
-  ODS('finalization: FreeScale');
-  FreeScale;
-
 end.

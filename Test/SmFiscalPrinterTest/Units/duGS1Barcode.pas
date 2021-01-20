@@ -14,8 +14,9 @@ type
   { TGS1BarcodeTest }
 
   TGS1BarcodeTest = class(TTestCase)
-  published
+  public
     procedure CheckDecode;
+  published
     procedure CheckDecode2;
   end;
 

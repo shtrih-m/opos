@@ -3,6 +3,7 @@ library SmFiscalPrinter;
 {%ToDo 'SmFiscalPrinter.todo'}
 
 uses
+  FastMM4,
   ComServ,
   Opos in '..\Opos\Opos.pas',
   Oposhi in '..\Opos\Oposhi.pas',
@@ -174,7 +175,8 @@ uses
   TranslationUtil in 'Units\TranslationUtil.pas',
   LangUtils in '..\Shared\LangUtils.pas',
   BaseForm in '..\Shared\BaseForm.pas',
-  RegExpr in '..\Shared\RegExpr.pas';
+  RegExpr in '..\Shared\RegExpr.pas',
+  LogException in '..\Shared\LogException.pas';
 
 exports
   DllGetClassObject,

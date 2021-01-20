@@ -34,6 +34,7 @@ procedure FreeFiscalPrinter;
 begin
   if FFiscalPrinter <> nil then
   begin
+    FFiscalPrinter.Close;
     FFiscalPrinter.Free;
     FFiscalPrinter := nil;
   end;

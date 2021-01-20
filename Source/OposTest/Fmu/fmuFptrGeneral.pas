@@ -83,6 +83,7 @@ begin
   EnableButtons(False);
   try
     FiscalPrinter.Open(cbPrinterDeviceName.Text);
+
     edtOpenResult.Text := GetResultCodeText(FiscalPrinter.OpenResult);
     UpdateDeviceEnabled;
 

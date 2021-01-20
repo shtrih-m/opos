@@ -904,7 +904,6 @@ begin
   try
     FInitPrinter := False;
     SetPrinter(SharedPrinter.GetPrinter(DeviceName));
-
     FFilter := TEscFilter.Create(GetPrinter);
     FPrinter.OnProgress := ProgressEvent;
     FPrinter.AddStatusLink(FStatusLink);
@@ -947,7 +946,6 @@ begin
     {$IFDEF MALINA}
     FRetalix.Open;
     {$ENDIF}
-
     Result := ClearResult;
   except
     on E: Exception do

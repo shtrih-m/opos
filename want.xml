@@ -185,6 +185,7 @@ See http://www.suigeneris.org/want/ for details.
       <console   value="false" />
       <hugestrings value="true" />
       <writeableconst value="true" />
+      <stackframes value="true" />
       <align value="false" />
       <optimize value="false" />
       <warnings value="true" />
@@ -200,7 +201,7 @@ See http://www.suigeneris.org/want/ for details.
       <iochecks value="false" />
       <build value="true" />
       <debug     value="true" />
-	  <arguments value="-DDEBUG" /> 
+	  <arguments value="-DDEBUG -V" /> 
     </dcc>
   </target>
 

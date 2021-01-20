@@ -21,6 +21,7 @@ type
   published
     procedure CheckMaxCount;
     procedure CheckDeleteFile;
+    procedure CheckException;
   end;
 
 implementation
@@ -168,6 +169,23 @@ begin
     DeleteFiles(FilesPath + '*.log');
   finally
     FileNames.Free;
+  end;
+end;
+
+procedure TLogFileTest.CheckException;
+var
+  I: Double;
+  Logger: ILogFile;
+begin
+  Logger := TLogFile.Create;
+  Logger.MaxCount := 3;
+  Logger.Enabled := True;
+  Logger.FilePath := GetModulePath + 'Logs';
+  Logger.DeviceName := 'Device1';
+  try
+    I := 0;
+    I := 10/I;
+  except
   end;
 end;
 

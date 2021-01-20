@@ -485,6 +485,8 @@ end;
 
 destructor TSMFiscalPrinter.Destroy;
 begin
+  if FDriver <> nil then
+    FDriver.Close;
   FDriver.Free;
   FLogger := nil;
   inherited Destroy;
