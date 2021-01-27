@@ -5,7 +5,7 @@ interface
 uses
   // VCL
   SysUtils,
-  // Tnt
+  // 3'd
   TntSysUtils,
   // This
   FiscalPrinterImpl, LogFile, MalinaCard, PrinterTypes, FiscalPrinterTypes,
@@ -53,6 +53,7 @@ type
     property Device: IFiscalPrinterDevice read GetDevice;
   public
     constructor Create(AOwner: TFptrFilters; APrinter: ISharedPrinter; AParams: TMalinaParams);
+    destructor Destroy; override;
 
     procedure BeforeXReport; override;
     procedure AfterXReport; override;
@@ -75,6 +76,13 @@ begin
   FPrinter := APrinter;
   FParams := AParams;
 end;
+
+destructor TMalinaZReportFilter.Destroy;
+begin
+  FPrinter := nil;
+  inherited Destroy;
+end;
+
 
 (*
 // ясллю мюкнцнб он рхоюл

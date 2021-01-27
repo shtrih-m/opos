@@ -14,7 +14,7 @@ type
   TFiscalPrinterFilter = class
   private
     FLogger: ILogFile;
-    FList: TInterfaceList;
+    FList: IInterfaceList;
     property Logger: ILogFile read FLogger;
   public
     procedure AddFilter(AFilter: IFiscalPrinterFilter);
@@ -55,7 +55,7 @@ end;
 
 destructor TFiscalPrinterFilter.Destroy;
 begin
-  FList.Free;
+  FList := nil;
   inherited Destroy;
 end;
 

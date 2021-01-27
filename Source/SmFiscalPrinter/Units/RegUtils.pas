@@ -5,7 +5,7 @@ interface
 uses
   // VCL
   Windows, Classes, SysUtils,
-  // Tnt
+  // 3'd
   TntRegistry, TntClasses;
 
 procedure DeleteRegKey(const KeyName: WideString);

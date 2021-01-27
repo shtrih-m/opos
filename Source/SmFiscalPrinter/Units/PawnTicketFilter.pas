@@ -21,6 +21,7 @@ type
     function GetLogger: ILogFile;
   public
     constructor Create(AOwner: TFptrFilters; APrinter: ISharedPrinter);
+    destructor Destroy; override;
 
     procedure BeginFiscalReceipt; override;
     procedure EndNonFiscal(Doc: TNonfiscalDoc); override;
@@ -38,6 +39,12 @@ constructor TPawnTicketFilter.Create(AOwner: TFptrFilters;
 begin
   inherited Create(AOwner);
   FPrinter := APrinter;
+end;
+
+destructor TPawnTicketFilter.Destroy;
+begin
+  FPrinter := nil;
+  inherited Destroy;
 end;
 
 procedure TPawnTicketFilter.BeginFiscalReceipt;

@@ -5,7 +5,7 @@ interface
 uses
   // VCL
   Windows, Classes, SysUtils,
-  // Tnt
+  // 3'd
   TntClasses, 
   // This
   FiscalPrinterTypes, NonfiscalDoc, RecItem, PrinterTypes,
@@ -32,6 +32,7 @@ type
     property Params: TMalinaParams read GetParams;
   public
     constructor Create(AOwner: TFptrFilters; APrinter: ISharedPrinter);
+    destructor Destroy; override;
 
     procedure BeginFiscalReceipt2(ADoc: TCustomReceipt); override;
     procedure BeforeCloseReceipt; override;
@@ -46,6 +47,12 @@ constructor TFuelRecFilter.Create(AOwner: TFptrFilters; APrinter: ISharedPrinter
 begin
   inherited Create(AOwner);
   FPrinter := APrinter;
+end;
+
+destructor TFuelRecFilter.Destroy;
+begin
+  FPrinter := nil;
+  inherited Destroy;
 end;
 
 function TFuelRecFilter.IsFuelReceipt(Receipt: TSalesReceipt): Boolean;

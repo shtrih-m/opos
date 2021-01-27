@@ -5,8 +5,8 @@ interface
 uses
   // VCL
   Windows, SysUtils, Classes, Registry,
-  // Tnt
-  TntClasses, TntStdCtrls, TntRegistry, TntSysUtils, 
+  // 3'd
+  TntClasses, TntStdCtrls, TntRegistry, TntSysUtils,
   // This
   PrinterParameters, FileUtils, LogFile, SmIniFile, Oposhi, WException,
   gnugettext, DriverError;

@@ -5,7 +5,7 @@ interface
 uses
   // VCL
   Windows, Classes, SysUtils, Registry, Controls, StdCtrls,
-  // Tnt
+  // 3'd
   TntStdCtrls, TntSysUtils, TntClasses, TntRegistry;
 
 

@@ -6,7 +6,7 @@ uses
   // VCL
   Windows, Messages, StdCtrls, Controls, Classes, SysUtils, Registry, Dialogs,
   Forms, ComCtrls, Buttons, ExtDlgs, ExtCtrls, Graphics,
-  // Tnt
+  // 3'd
   TntStdCtrls, TntSysUtils, TntButtons, TntComCtrls, TntExtCtrls,
   // This
   BaseForm, FiscalPrinterImpl, Opos, Oposhi, OposUtils, untUtil,

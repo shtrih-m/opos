@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, SysUtils, Classes,
-  // Tnt
+  // 3'd
   TntSysUtils, TntClasses;
 
 type

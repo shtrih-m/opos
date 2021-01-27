@@ -4,11 +4,9 @@ interface
 
 uses
   // VCL
-  Windows, Classes, SysUtils, SyncObjs, Graphics,
-  // Tnt
-  TntClasses,
-  // Indy
-  IdGlobal, IdIcmpClient,
+  Windows, Classes, SysUtils, SyncObjs, Graphics, ActiveX,
+  // 3'd
+  TntClasses, IdGlobal, IdIcmpClient,
   // Opos
   Opos, OposFptr, OposFptrUtils, OposException, OposSemaphore,
   // This
@@ -19,12 +17,12 @@ uses
   PayType, DebugUtils, ByteUtils, DriverTypes, NotifyThread, NotifyLink,
   PrinterParameters, PrinterParametersX, DriverError, DirectIOAPI,
   ReceiptReportFilter, EscFilter, SerialPort, SocketPort, PrinterPort,
-  WException, TntSysUtils, gnugettext;
+  WException, TntSysUtils, gnugettext, IntfObj;
 
 type
   { TSharedPrinter }
 
-  TSharedPrinter = class(TInterfacedObject, ISharedPrinter)
+  TSharedPrinter = class(TInterfacedObject2, IInterface, ISharedPrinter)
   private
     FOpened: Boolean;
     FConnectCount: Integer;
@@ -34,7 +32,6 @@ type
     FHeader: TFixedStrings;
     FLock: TCriticalSection;
     FTrailer: TFixedStrings;
-    FDevice: IFiscalPrinterDevice;
     FDeviceMetrics: TDeviceMetrics;
     FLongPrinterStatus: TLongPrinterStatus;
     FOnProgress: TProgressEvent;
@@ -51,9 +48,11 @@ type
     FNumTrailerLines: Integer;
     FEJStatus1: TEJStatus1;
     FEJActivation: TEJActivation;
-    FFilter: IFiscalPrinterFilter;
     FEscFilter: TEscFilter;
     FSemaphore: TOposSemaphore;
+
+    FFilter: IFiscalPrinterFilter;
+    FDevice: IFiscalPrinterDevice;
     FConnection: IPrinterConnection;
 
     procedure Lock;
@@ -224,7 +223,7 @@ begin
 end;
 
 var
-  Printers: TInterfaceList = nil;
+  Printers: IInterfaceList = nil;
 
 function GetPrintersCount: Integer;
 begin
@@ -1399,7 +1398,6 @@ initialization
   Printers := TInterfaceList.Create;
 
 finalization
-  Printers.Free;
   Printers := nil;
 
 end.

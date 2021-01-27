@@ -9,8 +9,8 @@ uses
   // Opos
   Opos, OposFptr, Oposhi, OposFptrhi, OPOSException, OposUtils,
   OposFptrUtils, OposServiceDevice19,
-  // Tnt
-  TntSysUtils, TntClasses,
+  // 3'd
+  TntSysUtils, TntClasses, gnugettext,
    // This
   MalinaParams,
   SmFiscalPrinterLib_TLB, LogFile, FiscalPrinterState, FiscalPrinterDevice,
@@ -27,7 +27,7 @@ uses
   RosneftSalesReceipt, FSSalesReceipt, PrinterConnection, Retalix, RegExpr,
   TLV, DriverError, MathUtils, fmuTimeSync, CorrectionReceipt,
   CorrectionReceipt2, CsvPrinterTableFormat, PrinterTable, FSService,
-  ReceiptItem, WException, gnugettext;
+  ReceiptItem, WException;
 
 type
   { TFiscalPrinterImpl }
@@ -505,7 +505,6 @@ begin
   FPrinterState := TFiscalPrinterState.Create;
   FJournal := TElectronicJournal.Create;
   FAfterCloseItems := TReceiptItems.Create;
-  SetPrinter(SharedPrinter.GetPrinter(''));
 end;
 
 destructor TFiscalPrinterImpl.Destroy;
@@ -513,6 +512,7 @@ begin
   if FPrinter <> nil then
     DoCloseDevice;
 
+  FMonitoring.Free;
   FService.Free;
   FFilters.Free;
   FFilter.Free;
@@ -523,7 +523,6 @@ begin
   FPrinterState.Free;
   FOposDevice.Free;
   FStatusLink.Free;
-  FMonitoring.Free;
   FConnectLink.Free;
   FDisconnectLink.Free;
   FNonFiscalDoc.Free;
@@ -879,10 +878,10 @@ end;
 
 procedure TFiscalPrinterImpl.SetPrinter(APrinter: ISharedPrinter);
 begin
+  FMonitoring.Free;
   FOposDevice.Free;
   FCommandDefs.Free;
   FDIOHandlers.Free;
-  FMonitoring.Free;
   FRetalix.Free;
 
   FPrinter := APrinter;
@@ -890,9 +889,10 @@ begin
   FOposDevice.ErrorEventEnabled := False;
   FCommandDefs := TCommandDefs.Create(FPrinter.Device.Context.Logger);
   FDIOHandlers := TDIOHandlers.Create(FPrinter.Device.Context);
-  FMonitoring := TMonitoringServer.Create;
   FRetalix := TRetalix.Create(FPrinter.Device.Context.MalinaParams.RetalixDBPath,
     FPrinter.Device.Context);
+  FMonitoring := TMonitoringServer.Create;
+
   InternalInit;
 end;
 

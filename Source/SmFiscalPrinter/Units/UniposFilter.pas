@@ -49,6 +49,7 @@ end;
 
 destructor TUniposFilter.Destroy;
 begin
+  FPrinter := nil;
   FUnipos.Free;
   FUniposPrinter.Free;
   inherited Destroy;

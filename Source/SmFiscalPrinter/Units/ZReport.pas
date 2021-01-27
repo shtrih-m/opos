@@ -5,7 +5,7 @@ interface
 uses
   // VCL
   Windows, Classes, SysUtils, XMLDoc, XMLIntf,
-  // Tnt
+  // 3'd
   TntClasses,
   // This
   PrinterTypes, FiscalPrinterTypes, TntSysUtils, FileUtils;

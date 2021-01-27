@@ -98,6 +98,7 @@ end;
 destructor TAntiFroudFilter.Destroy;
 begin
   FReader.Free;
+  FService := nil;
   inherited Destroy;
 end;
 

@@ -14,7 +14,7 @@ object fmFptrEvents: TfmFptrEvents
   OnCreate = FormCreate
   DesignSize = (
     359
-    195)
+    194)
   PixelsPerInch = 96
   TextHeight = 13
   object memEvents: TTntMemo

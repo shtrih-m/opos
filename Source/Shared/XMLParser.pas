@@ -144,6 +144,7 @@ end;
 constructor TXmlParser.Create;
 begin
   inherited Create;
+  CoInitialize(nil);
   FxmlDoc := CoDOMDocument.Create;
   FxmlDoc.async := False;
   CreateProcessingInstruction;
@@ -155,6 +156,7 @@ destructor TXmlParser.Destroy;
 begin
   FRoot.Free;
   FxmlDoc := nil;
+  CoUninitialize();
   inherited Destroy;
 end;
 
@@ -530,8 +532,5 @@ begin
     newAtt.text := Value;
   end;
 end;
-
-initialization
-  CoInitialize(nil);
 
 end.

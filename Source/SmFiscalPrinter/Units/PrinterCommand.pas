@@ -5,7 +5,7 @@ interface
 uses
   // VCL
   Windows, Classes, SysUtils,
-  // Tnt
+  // 3'd
   TntSysUtils,
   // This
   PrinterTypes, BinStream, OposException, Opos, StringUtils, gnugettext;

@@ -55,6 +55,7 @@ end;
 destructor TTankFilter.Destroy;
 begin
   FReader.Free;
+  FPrinter := nil;
   inherited Destroy;
 end;
 

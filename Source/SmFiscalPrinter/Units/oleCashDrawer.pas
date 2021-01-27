@@ -104,7 +104,6 @@ implementation
 procedure ToleCashDrawer.Initialize;
 begin
   inherited Initialize;
-  FPrinter := SharedPrinter.GetPrinter('');
   FLock := TCriticalSection.Create;
   FOposDevice := TOposServiceDevice19.Create(Logger);
   FParameters := TCashDrawerParameters.Create(Logger);
@@ -183,6 +182,7 @@ function ToleCashDrawer.GetPrinter: ISharedPrinter;
 begin
   if FPrinter = nil then
     raiseException('Shared printer = nil');
+
   Result := FPrinter;
 end;
 

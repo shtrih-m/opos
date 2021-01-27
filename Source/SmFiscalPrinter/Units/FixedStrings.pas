@@ -5,7 +5,7 @@ interface
 uses
   // VCL
   Classes, SysUtils, Math,
-  // Tnt
+  // 3'd
   TntClasses;
 
 

@@ -5,7 +5,7 @@ interface
 uses
   // VCL
   Classes, SysUtils,
-  // Tnt
+  // 3'd
   TntIniFiles,
   // This
   StringUtils;

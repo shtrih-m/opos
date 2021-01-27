@@ -176,7 +176,8 @@ uses
   LangUtils in '..\Shared\LangUtils.pas',
   BaseForm in '..\Shared\BaseForm.pas',
   RegExpr in '..\Shared\RegExpr.pas',
-  LogException in '..\Shared\LogException.pas';
+  IntfObj in '..\Shared\IntfObj.pas',
+  LogExcept in '..\Shared\LogExcept.pas';
 
 exports
   DllGetClassObject,

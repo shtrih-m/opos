@@ -1176,7 +1176,6 @@ function ToleFiscalPrinter.Open(const DeviceClass, DeviceName: WideString;
   const pDispatch: IDispatch): Integer;
 begin
   Lock;
-  Logger.Debug('ToleFiscalPrinter.Open', [DeviceClass, DeviceName]);
   Result := Driver.Open(DeviceClass, DeviceName, pDispatch);
   Logger.Debug('ToleFiscalPrinter.Open', [DeviceClass, DeviceName], Result);
   Unlock;
@@ -1186,7 +1185,6 @@ function ToleFiscalPrinter.OpenService(const DeviceClass,
   DeviceName: WideString; const pDispatch: IDispatch): Integer;
 begin
   Lock;
-  Logger.Debug('ToleFiscalPrinter.OpenService', [DeviceClass, DeviceName]);
   Result := Driver.OpenService(DeviceClass, DeviceName, pDispatch);
   Logger.Debug('ToleFiscalPrinter.OpenService', [DeviceClass, DeviceName], Result);
   Unlock;

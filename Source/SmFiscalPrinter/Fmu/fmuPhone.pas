@@ -6,7 +6,7 @@ uses
   // VCL
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Buttons, PngBitBtn, ExtCtrls, Mask,
-  // Tnt
+  // 3'd
   TntStdCtrls, TntSysUtils, TntComCtrls, TntExtCtrls,
   // This
   BaseForm, LogFile, PngSpeedButton, FormUtils;

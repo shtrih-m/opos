@@ -5,7 +5,7 @@ interface
 uses
   // VCL
   Windows, Classes, SysUtils, IniFiles,
-  // Tnt
+  // 3'd
   TntClasses, TntIniFiles, 
   // This
   StatisticItem, OposStat, MSXML, LogFile, FileUtils;

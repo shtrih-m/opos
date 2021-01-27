@@ -5,7 +5,7 @@ interface
 uses
   // VCL
   Windows, SysUtils, Classes, Registry,
-  // Tnt
+  // 3'd
   TntClasses, TntStdCtrls, TntRegistry,
   // This
   PrinterParameters, FileUtils, LogFile, SmIniFile, Oposhi, WException,

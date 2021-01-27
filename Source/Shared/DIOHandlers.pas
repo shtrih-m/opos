@@ -5,7 +5,7 @@ interface
 uses
   // VCL
   Classes, SysUtils, Graphics, Extctrls,
-  // Tnt
+  // 3'd
   TntSysUtils, TntClasses,
   // This
   DIOHandler, DirectIOAPI, PrinterCommand, ShtrihFiscalPrinter,

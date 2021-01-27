@@ -85,6 +85,7 @@ type
     procedure SetHRIPosition(const Value: Integer);
   public
     constructor Create(APrinter: ISharedPrinter);
+    destructor Destroy; override;
     procedure Print;
 
     property Data: AnsiString read FData write FData;
@@ -243,6 +244,12 @@ constructor TEscBarcode.Create(APrinter: ISharedPrinter);
 begin
   inherited Create;
   FPrinter := APrinter;
+end;
+
+destructor TEscBarcode.Destroy;
+begin
+  FPrinter := nil;
+  inherited Destroy;
 end;
 
 procedure TEscBarcode.SetHRIPosition(const Value: Integer);

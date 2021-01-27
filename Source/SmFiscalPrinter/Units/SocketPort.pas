@@ -46,7 +46,7 @@ type
 implementation
 
 var
-  Ports: TInterfaceList = nil;
+  Ports: IInterfaceList = nil;
 
 function GetSocketPort(AParameters: TPrinterParameters;
   ALogger: ILogFile): IPrinterPort;
@@ -254,7 +254,6 @@ initialization
   Ports := TInterfaceList.Create;
 
 finalization
-  Ports.Free;
   Ports := nil;
 
 end.

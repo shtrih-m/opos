@@ -5,7 +5,7 @@ interface
 uses
   // VCL
   Windows, Classes, SysUtils, ShlObj, ShFolder, Registry,
-  // Tnt
+  // 3'd
   TntClasses, TntStdCtrls, TntRegistry, TntSysUtils;
 
 function GetModulePath: WideString;

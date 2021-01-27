@@ -62,6 +62,7 @@ end;
 destructor TMalinaFilter.Destroy;
 begin
   FCard.Free;
+  FPrinter := nil;
   inherited Destroy;
 end;
 

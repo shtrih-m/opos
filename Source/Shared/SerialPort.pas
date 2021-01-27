@@ -4,11 +4,9 @@ interface
 
 uses
   // VCL
-  Windows, Classes, SysUtils, SyncObjs, SysConst, Variants,
-  // Tnt
-  TntClasses,
-  // JVCL
-  DBT,
+  Windows, Classes, SysUtils, SyncObjs, SysConst, Variants, ActiveX,
+  // 3'd
+  TntClasses, DBT,
   // This
   LogFile, DeviceNotification, PortUtil, TextReport, PrinterPort,
   WException, TntSysUtils, gnugettext;
@@ -86,7 +84,7 @@ function GetSerialPort(PortNumber: Integer; Logger: ILogFile): IPrinterPort;
 implementation
 
 var
-  Ports: TInterfaceList = nil;
+  Ports: IInterfaceList = nil;
 
 function GetSerialPort(PortNumber: Integer; Logger: ILogFile): IPrinterPort;
 var
@@ -311,6 +309,14 @@ end;
 
 destructor TSerialPort.Destroy;
 begin
+(*
+  Ports.Lock;
+  try
+    Ports.Remove(Self);
+  finally
+    Ports.Unlock;
+  end;
+*)
   Close;
   FLock.Free;
   FReport.Free;
@@ -501,7 +507,7 @@ begin
 
       ReadCommConfig;
       UpdateCommProperties;
-      FNotification.Install(FHandle);
+      FNotification.Install(FHandle); 
     end;
   finally
     Unlock;
@@ -718,7 +724,6 @@ initialization
   Ports := TInterfaceList.Create;
 
 finalization
-  Ports.Free;
   Ports := nil;
 
 end.

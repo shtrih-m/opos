@@ -5,10 +5,8 @@ interface
 uses
   // VCL
   Windows, Classes, SysUtils, SyncObjs, SysConst, Variants, DateUtils, TypInfo,
-  // Tnt
-  TntClasses, TntStdCtrls, TntRegistry,
-  // JCL
-  JclDebug, JclHookExcept,
+  // 3'd
+  TntClasses, TntStdCtrls, TntRegistry, JclDebug, JclHookExcept,
   // This
   WException, TntSysUtils;
 
@@ -305,7 +303,7 @@ var
   HandlerLocation: Pointer;
   ExceptFrame: TJclExceptFrame;
 begin
-  if not IsOS then Exit;
+  //if not IsOS then Exit;
 
   Lines := TStringList.Create;
   try
@@ -833,7 +831,6 @@ initialization
   Include(JclStackTrackingOptions, stStaticModuleList);
   Include(JclStackTrackingOptions, stExceptFrame);
   JclStartExceptionTracking;
-
 
 finalization
   JclStopExceptionTracking;

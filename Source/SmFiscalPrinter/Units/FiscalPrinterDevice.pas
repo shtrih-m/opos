@@ -7,10 +7,7 @@ uses
   Windows, SysUtils, Classes, Variants, SyncObjs, Graphics, Math, StrUtils,
   DateUtils,
   // 3'd
-  // to enable loading this image formats
-  JvGIF, JvPCX, PngImage, uZintBarcode, uZintInterface,
-  // Tnt
-  TntClasses,
+  TntClasses, JvGIF, JvPCX, PngImage, uZintBarcode, uZintInterface,
   // Opos
   Opos, OposException, OposFptr, OposFptrHi, OposUtils, OposFptrUtils,
   // This
