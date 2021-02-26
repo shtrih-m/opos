@@ -17,12 +17,12 @@ uses
   PayType, DebugUtils, ByteUtils, DriverTypes, NotifyThread, NotifyLink,
   PrinterParameters, PrinterParametersX, DriverError, DirectIOAPI,
   ReceiptReportFilter, EscFilter, SerialPort, SocketPort, PrinterPort,
-  WException, TntSysUtils, gnugettext, IntfObj;
+  WException, TntSysUtils, gnugettext;
 
 type
   { TSharedPrinter }
 
-  TSharedPrinter = class(TInterfacedObject2, IInterface, ISharedPrinter)
+  TSharedPrinter = class(TInterfacedObject, IInterface, ISharedPrinter)
   private
     FOpened: Boolean;
     FConnectCount: Integer;
@@ -223,36 +223,41 @@ begin
 end;
 
 var
-  Printers: IInterfaceList = nil;
+  Printers: TThreadList;
 
 function GetPrintersCount: Integer;
+var
+  List: TList;
 begin
-  Printers.Lock;
+  List := Printers.LockList;
   try
-    Result := Printers.Count;
+    Result := List.Count;
   finally
-    Printers.Unlock;
+    Printers.UnlockList;
   end;
 end;
 
 function GetPrinter(const DeviceName: WideString): ISharedPrinter;
 var
   i: Integer;
+  List: TList;
+  Port: TSharedPrinter;
 begin
-  Printers.Lock;
+  List := Printers.LockList;
   try
-    for i := 0 to Printers.Count-1 do
+    for i := 0 to List.Count-1 do
     begin
-      Result := Printers[i] as ISharedPrinter;
+      Result := TSharedPrinter(List[i]);
       if Result.DeviceName = DeviceName then
       begin
         Exit;
       end;
     end;
-    Result := TSharedPrinter.Create(DeviceName);
-    Printers.Add(Result);
+    Port := TSharedPrinter.Create(DeviceName);
+    Printers.Add(Port);
+    Result := Port;
   finally
-    Printers.Unlock;
+    Printers.UnlockList;
   end;
 end;
 
@@ -281,6 +286,7 @@ end;
 destructor TSharedPrinter.Destroy;
 begin
   ODS('TSharedPrinter.Destroy.0');
+  Printers.Remove(Self);
   StopPing;
   SetPollEnabled(False);
   FPingThread.Free;
@@ -432,7 +438,6 @@ end;
 
 procedure TSharedPrinter.Close;
 begin
-  Logger.Error('TSharedPrinter.Close');
   try
     FOpened := False;
     FConnection := nil;
@@ -443,7 +448,6 @@ begin
       Logger.Error('TSharedPrinter.Close: ', E);
     end;
   end;
-  Logger.Error('TSharedPrinter.Close: OK');
 end;
 
 procedure TSharedPrinter.Open(const DeviceName: WideString);
@@ -1395,9 +1399,9 @@ begin
 end;
 
 initialization
-  Printers := TInterfaceList.Create;
+  Printers := TThreadList.Create;
 
 finalization
-  Printers := nil;
+  Printers.Free;
 
 end.

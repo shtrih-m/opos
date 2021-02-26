@@ -4,7 +4,7 @@ interface
 
 uses
   // VCL
-  Windows, SysUtils, Classes,
+  Windows, SysUtils, Classes, ActiveX, 
   // DUnit
   TestFramework,
   // Opos
@@ -266,6 +266,8 @@ var
   SPrinter: ISharedPrinter;
 begin
   inherited Setup;
+  CoInitialize(nil);
+
   LoadParametersEnabled := False;
   CommandDefsLoadEnabled := False;
 

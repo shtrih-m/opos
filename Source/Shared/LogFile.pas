@@ -280,13 +280,13 @@ begin
   SetDefaults;
 
 
-  //JclAddExceptNotifier(LogException);
+  JclAddExceptNotifier(LogException);
 end;
 
 destructor TLogFile.Destroy;
 begin
   ODS('TLogFile.Destroy');
-  //JclRemoveExceptNotifier(LogException);
+  JclRemoveExceptNotifier(LogException);
 
   CloseFile;
   FLock.Free;
@@ -303,7 +303,7 @@ var
   HandlerLocation: Pointer;
   ExceptFrame: TJclExceptFrame;
 begin
-  //if not IsOS then Exit;
+  if not IsOS then Exit;
 
   Lines := TStringList.Create;
   try
@@ -376,12 +376,12 @@ end;
 
 procedure TLogFile.Lock;
 begin
-  //FLock.Enter;
+  FLock.Enter;
 end;
 
 procedure TLogFile.Unlock;
 begin
-  //FLock.Leave;
+  FLock.Leave;
 end;
 
 function TLogFile.GetDefaultFileName: AnsiString;
@@ -826,7 +826,6 @@ begin
   end;
 end;
 
-(*
 initialization
   Include(JclStackTrackingOptions, stStaticModuleList);
   Include(JclStackTrackingOptions, stExceptFrame);
@@ -834,6 +833,5 @@ initialization
 
 finalization
   JclStopExceptionTracking;
-*)
 
 end.

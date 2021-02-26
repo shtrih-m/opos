@@ -99,12 +99,6 @@ uses
 {$R WindowsXP.RES}
 
 begin
-(*
-  bindtextdomain('OposTst', IncludeTrailingPathDelimiter(ExtractFilePath(GetDllFileName)) + 'locale');
-  textdomain('OposTst');
-  UseLanguage(GetLanguage);
-*)  
-
   Application.Initialize;
   Application.CreateForm(TfmMain, fmMain);
   Application.Run;

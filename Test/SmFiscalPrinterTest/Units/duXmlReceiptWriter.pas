@@ -17,8 +17,8 @@ type
   public
     procedure CheckAddTime; { !!! }
     procedure CreateReceiptFile;
-  published
     procedure CheckWrite;
+  published
   end;
 
 implementation

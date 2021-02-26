@@ -46,27 +46,30 @@ type
 implementation
 
 var
-  Ports: IInterfaceList = nil;
+  Ports: TThreadList;
 
 function GetSocketPort(AParameters: TPrinterParameters;
   ALogger: ILogFile): IPrinterPort;
 var
   i: Integer;
+  List: TList;
+  Port: TSocketPort;
 begin
-  Ports.Lock;
+  List := Ports.LockList;
   try
-    for i := 0 to Ports.Count-1 do
+    for i := 0 to List.Count-1 do
     begin
-      Result := IPrinterPort(Ports[i]);
+      Result := TSocketPort(List[i]);
       if Result.PortName = AParameters.RemoteHost then
       begin
         Exit;
       end;
     end;
-    Result := TSocketPort.Create(AParameters, ALogger);
-    Ports.Add(Result);
+    Port := TSocketPort.Create(AParameters, ALogger);
+    Ports.Add(Port);
+    Result := Port;
   finally
-    Ports.Unlock;
+    Ports.UnlockList;
   end;
 end;
 
@@ -84,6 +87,7 @@ end;
 
 destructor TSocketPort.Destroy;
 begin
+  Ports.Remove(Self);
   Close;
   FLock.Free;
   FConnection.Free;
@@ -251,9 +255,9 @@ begin
 end;
 
 initialization
-  Ports := TInterfaceList.Create;
+  Ports := TThreadList.Create;
 
 finalization
-  Ports := nil;
+  Ports.Free;
 
 end.

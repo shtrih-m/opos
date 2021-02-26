@@ -84,26 +84,29 @@ function GetSerialPort(PortNumber: Integer; Logger: ILogFile): IPrinterPort;
 implementation
 
 var
-  Ports: IInterfaceList = nil;
+  Ports: TThreadList;
 
 function GetSerialPort(PortNumber: Integer; Logger: ILogFile): IPrinterPort;
 var
   i: Integer;
+  List: TList;
+  Port: TSerialPort;
 begin
-  Ports.Lock;
+  List := Ports.LockList;
   try
-    for i := 0 to Ports.Count-1 do
+    for i := 0 to List.Count-1 do
     begin
-      Result := IPrinterPort(Ports[i]);
+      Result := TSerialPort(List[i]);
       if Result.PortName = IntToStr(PortNumber) then
       begin
         Exit;
       end;
     end;
-    Result := TSerialPort.Create(PortNumber, Logger);
-    Ports.Add(Result);
+    Port := TSerialPort.Create(PortNumber, Logger);
+    List.Add(Port);
+    Result := Port;
   finally
-    Ports.Unlock;
+    Ports.UnlockList;
   end;
 end;
 
@@ -309,14 +312,7 @@ end;
 
 destructor TSerialPort.Destroy;
 begin
-(*
-  Ports.Lock;
-  try
-    Ports.Remove(Self);
-  finally
-    Ports.Unlock;
-  end;
-*)
+  Ports.Remove(Self);
   Close;
   FLock.Free;
   FReport.Free;
@@ -721,9 +717,9 @@ begin
 end;
 
 initialization
-  Ports := TInterfaceList.Create;
+  Ports := TThreadList.Create;
 
 finalization
-  Ports := nil;
+  Ports.Free;
 
 end.
