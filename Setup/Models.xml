@@ -1259,7 +1259,7 @@
     </Model>
     <Model>
       <ID>26</ID>
-      <Name>Web-cassa</Name>
+      <Name>Webkassa</Name>
       <CapShortEcrStatus>1</CapShortEcrStatus>
       <CapCoverSensor>1</CapCoverSensor>
       <CapJrnPresent>0</CapJrnPresent>
