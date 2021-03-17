@@ -234,6 +234,8 @@ procedure TSalesReceipt.SendItemBarcode;
 var
   rc: TFSBindItemCodeResult;
 begin
+  if Parameters.ModelID <> MODEL_ID_WEB_CASSA then Exit;
+
   if Parameters.Barcode <> '' then
   begin
     Device.FSBindItemCode(Parameters.Barcode, rc);

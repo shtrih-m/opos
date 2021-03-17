@@ -6805,7 +6805,11 @@ begin
 
   ReadLongStatus;
   FCapBarcode2D := TestCommand($DE);
-  FCapFiscalStorage := ReadCapFiscalStorage;
+
+  FCapFiscalStorage := False;
+  if Parameters.ModelId <> MODEL_ID_WEB_CASSA then
+    FCapFiscalStorage := ReadCapFiscalStorage;
+
   FCapOpenReceipt := FCapFiscalStorage or TestCommand($8D);
 
   FCapFontInfo := TestCommand($26);

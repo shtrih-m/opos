@@ -53,6 +53,7 @@ const
   /////////////////////////////////////////////////////////////////////////////
   // Device model ID constants
 
+  MODEL_ID_AUTOSELECT       = -1;
   MODEL_ID_DEFAULT          = 0;
   MODEL_ID_SHTRIH_FRF       = 1;
   MODEL_ID_SHTRIH_FRK       = 2;
@@ -62,6 +63,7 @@ const
   MODEL_ID_SHTRIH_950PTK    = 6;
   MODEL_ID_SHTRIH_950PTK2   = 11;
   MODEL_ID_RETAIL_01K       = 22;
+  MODEL_ID_WEB_CASSA        = 26;
 
 
   PrinterDiscountText   = '— »ƒ ¿';
