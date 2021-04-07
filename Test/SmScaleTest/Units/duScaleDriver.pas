@@ -142,6 +142,7 @@ begin
   Parameters.PollPeriod := 10;
   Parameters.SearchByPortEnabled := False;
   Parameters.SearchByBaudRateEnabled := False;
+  Device.ScaleChannel.DecimalPoint := 3;
 end;
 
 procedure TScaleDriverTest.TearDown;

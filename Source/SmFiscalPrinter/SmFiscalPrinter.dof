@@ -90,7 +90,7 @@ MaxStackSize=1048576
 ImageBase=4194304
 ExeDescription=
 [Directories]
-OutputDir=
+OutputDir=..\..\Bin
 UnitOutputDir=..\..\DCU
 PackageDLLOutputDir=
 PackageDCPOutputDir=
@@ -122,7 +122,7 @@ AutoIncBuild=0
 MajorVer=1
 MinorVer=13
 Release=0
-Build=552
+Build=555
 Debug=0
 PreRelease=0
 Special=0
@@ -133,7 +133,7 @@ CodePage=1252
 [Version Info Keys]
 CompanyName=SHTRIH-M
 FileDescription=Fiscal printer service
-FileVersion=1.13.0.552
+FileVersion=1.13.0.555
 InternalName=Fiscal printer driver
 LegalCopyright=SHTRIH-M © 2013 
 LegalTrademarks=
@@ -166,8 +166,9 @@ Item0=..\..\DCU
 Item1=DCU
 Item2=..\lib\D7
 [HistoryLists\hlOutputDirectorry]
-Count=1
-Item0=Bin
+Count=2
+Item0=..\..\Bin
+Item1=Bin
 [HistoryLists\hlBPLOutput]
 Count=3
 Item0=$(DELPHI)\Bin\

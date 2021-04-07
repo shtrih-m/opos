@@ -302,11 +302,13 @@ begin
       FParameters.BarcodePrefix := IniFile.ReadString(Section, 'BarcodePrefix', 'BARCODE:');
       FParameters.BarcodeHeight := IniFile.ReadInteger(Section, 'BarcodeHeight', 100);
       FParameters.BarcodeType := IniFile.ReadInteger(Section, 'BarcodeType', DIO_BARCODE_EAN13_INT);
-      FParameters.BarcodeModuleWidth := IniFile.ReadInteger(Section, 'BarcodeModuleWidth', 2);
+      FParameters.BarcodeModuleWidth := IniFile.ReadInteger(Section, 'BarcodeModuleWidth', 3);
       FParameters.BarcodeAlignment := IniFile.ReadInteger(Section, 'BarcodeAlignment', BARCODE_ALIGNMENT_CENTER);
       FParameters.BarcodeParameter1 := IniFile.ReadInteger(Section, 'BarcodeParameter1', 0);
       FParameters.BarcodeParameter2 := IniFile.ReadInteger(Section, 'BarcodeParameter2', 0);
       FParameters.BarcodeParameter3 := IniFile.ReadInteger(Section, 'BarcodeParameter3', 0);
+      FParameters.BarcodeParameter4 := IniFile.ReadInteger(Section, 'BarcodeParameter4', 0);
+      FParameters.BarcodeParameter5 := IniFile.ReadInteger(Section, 'BarcodeParameter5', 0);
 
       FParameters.XReport := IniFile.ReadInteger(Section, 'XReport', FptrXReport);
       FParameters.WrapText := IniFile.ReadBool(Section, 'WrapText', DefWrapText);
@@ -475,6 +477,8 @@ begin
     IniFile.WriteInteger(Section, 'BarcodeParameter1', FParameters.BarcodeParameter1);
     IniFile.WriteInteger(Section, 'BarcodeParameter2', FParameters.BarcodeParameter2);
     IniFile.WriteInteger(Section, 'BarcodeParameter3', FParameters.BarcodeParameter3);
+    IniFile.WriteInteger(Section, 'BarcodeParameter4', FParameters.BarcodeParameter4);
+    IniFile.WriteInteger(Section, 'BarcodeParameter5', FParameters.BarcodeParameter5);
     IniFile.WriteInteger(Section, 'XReport', FParameters.XReport);
     IniFile.WriteBool(Section, 'WrapText', FParameters.WrapText);
     IniFile.WriteBool(Section, 'WritePaymentNameEnabled', FParameters.WritePaymentNameEnabled);

@@ -511,8 +511,10 @@ type
     BarcodeAlignment: Integer;
     BarcodeParameter1: Integer;
     BarcodeParameter2: Integer;
-
     BarcodeParameter3: Integer;
+    BarcodeParameter4: Integer;
+    BarcodeParameter5: Integer;
+
     WrapText: Boolean;
     WritePaymentNameEnabled: Boolean;
     TimeUpdateMode: Integer;
@@ -874,11 +876,13 @@ begin
   BarcodePrefix := 'BARCODE:';
   BarcodeHeight := 100;
   BarcodeType := DIO_BARCODE_EAN13_INT;
-  BarcodeModuleWidth := 2;
+  BarcodeModuleWidth := 3;
   BarcodeAlignment := BARCODE_ALIGNMENT_CENTER;
   BarcodeParameter1 := 0;
   BarcodeParameter2 := 0;
   BarcodeParameter3 := 0;
+  BarcodeParameter4 := 0;
+  BarcodeParameter5 := 0;
   XReport := FptrXReport;
   FSUpdatePrice := DefFSUpdatePrice;
   WrapText := DefWrapText;
@@ -1035,6 +1039,8 @@ begin
   Logger.Debug('BarcodeParameter1: ' + IntToStr(BarcodeParameter1));
   Logger.Debug('BarcodeParameter2: ' + IntToStr(BarcodeParameter2));
   Logger.Debug('BarcodeParameter3: ' + IntToStr(BarcodeParameter3));
+  Logger.Debug('BarcodeParameter4: ' + IntToStr(BarcodeParameter4));
+  Logger.Debug('BarcodeParameter5: ' + IntToStr(BarcodeParameter5));
   Logger.Debug('WrapText: ' + BoolToStr(WrapText));
   Logger.Debug('WritePaymentNameEnabled: ' + BoolToStr(WritePaymentNameEnabled));
   Logger.Debug('TimeUpdateMode: ' + IntToStr(TimeUpdateMode));

@@ -31,6 +31,7 @@ type
     GraduationPoint: TGraduationPoint;
     GraduationStatus: TGraduationStatus;
     WareItem: TM5WareItem;
+    WeightFactor: Double;
     RxData: string;
     TxData: string;
 
@@ -87,6 +88,7 @@ type
     function GetModeText(Mode: Integer): WideString;
     function GetLanguageText(Code: Integer): WideString;
     function GetBaudRates: TBaudRates;
+    function ReadWeightFactor: Double;
 
     property Password: Integer read GetPassword write SetPassword;
     property CommandTimeout: Integer read GetCommandTimeout write SetCommandTimeout;
@@ -383,6 +385,11 @@ end;
 function TMockM5ScaleDevice2.GetBaudRates: TBaudRates;
 begin
   Result := M5BaudRates;
+end;
+
+function TMockM5ScaleDevice2.ReadWeightFactor: Double;
+begin
+  Result := WeightFactor;
 end;
 
 end.

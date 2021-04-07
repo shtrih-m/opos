@@ -36,6 +36,7 @@ type
     procedure CheckTare;
     procedure CheckWriteTareValue;
     procedure CheckReadStatus;
+    procedure CheckReadStatus2;
     procedure CheckWriteGraduationPoint;
     procedure CheckReadGraduationPoint;
     procedure CheckStartGraduation;
@@ -62,6 +63,7 @@ type
     procedure CheckWriteWare;
     procedure CheckReadFirmwareCRC;
     procedure CheckReadPowerReport;
+    procedure CheckReadWeightFactor;
   end;
 
 implementation
@@ -335,6 +337,24 @@ begin
   Connection.Verify('Verify');
 end;
 
+procedure TM5ScaleDeviceTest.CheckReadStatus2;
+var
+  Data: TM5Status2;
+begin
+  Connection.Expects('Send').WithParams([Timeout, HexToStr('1101000000')]).
+    Returns(HexToStr('11 00 12 34 12 34 56 78 57 24 00 76 89 77 68 87 64 73 18 17'));
+  CheckEquals(0, Device.ReadStatus2(Data), 'ReadStatus2');
+  CheckEquals($3412, Data.Mode, 'Data.Mode');
+  CheckEquals($78563412, Data.Weight, 'Data.Weight');
+  CheckEquals($2457, Data.Tare, 'Data.Tare');
+  CheckEquals($76, Data.ItemType, 'Data.ItemType');
+  CheckEquals($89, Data.Quantity, 'Data.Quantity');
+  CheckEquals($876877, Data.Price, 'Data.Price');
+  CheckEquals($187364, Data.Amount, 'Data.Amount');
+  CheckEquals($17, Data.LastKey, 'Data.LastKey');
+  Connection.Verify('Verify');
+end;
+
 procedure TM5ScaleDeviceTest.CheckReset;
 begin
   Connection.Expects('Send').WithParams([Timeout, #$F0#$01#$00#$00#$00]).
@@ -569,7 +589,7 @@ var
 begin
   Data.Number := $67;
   RxData :=
-    'E8 00 01 00 02 03 04 00 05 00 06 00 07 00 08 00 09 00 0A 0B 0C 0D 0E 0F';
+    'E8 00 01 00 04 03 04 00 05 00 06 00 07 00 08 00 09 00 0A 0B 0C 0D 0E 0F';
   RxData := HexToStr(RxData);
 
   Connection.Expects('Send').WithParams([Timeout, #$E8#$67]).Returns(RxData);
@@ -577,7 +597,7 @@ begin
   Connection.Verify('Verify');
 
   CheckEquals(1, Data.Flags, 'Data.Flags');
-  CheckEquals(2, Data.DecimalPoint, 'Data.DecimalPoint');
+  CheckEquals(4, Data.DecimalPoint, 'Data.DecimalPoint');
   CheckEquals(3, Data.Power, 'Data.Power');
   CheckEquals(4, Data.MaxWeight, 'Data.MaxWeight');
   CheckEquals(5, Data.MinWeight, 'Data.MinWeight');
@@ -676,6 +696,28 @@ end;
 procedure TM5ScaleDeviceTest.CheckDecodeFlags;
 begin
   { !!! }
+end;
+
+procedure TM5ScaleDeviceTest.CheckReadWeightFactor;
+begin
+  // Decimal point 3, weight factor 1
+  Connection.Expects('Send').WithParams([Timeout, #$EA]).Returns(#$EA#$00#$67);
+  Connection.Expects('Send').WithParams([Timeout, #$E8#$67]).Returns(
+    HexToStr('E800010003030400050006000700080009000A0B0C0D0E0F'));
+  CheckEquals(1, Device.ReadWeightFactor, 0.001, 'Device.ReadWeightFactor');
+  Connection.Verify('Verify');
+  // Decimal point 2, weight factor 10
+  Connection.Expects('Send').WithParams([Timeout, #$EA]).Returns(#$EA#$00#$67);
+  Connection.Expects('Send').WithParams([Timeout, #$E8#$67]).Returns(
+    HexToStr('E800010002030400050006000700080009000A0B0C0D0E0F'));
+  CheckEquals(10, Device.ReadWeightFactor, 0.001, 'Device.ReadWeightFactor');
+  Connection.Verify('Verify');
+  // Decimal point 4, weight factor 0.1
+  Connection.Expects('Send').WithParams([Timeout, #$EA]).Returns(#$EA#$00#$67);
+  Connection.Expects('Send').WithParams([Timeout, #$E8#$67]).Returns(
+    HexToStr('E800010004030400050006000700080009000A0B0C0D0E0F'));
+  CheckEquals(0.1, Device.ReadWeightFactor, 0.001, 'Device.ReadWeightFactor');
+  Connection.Verify('Verify');
 end;
 
 initialization

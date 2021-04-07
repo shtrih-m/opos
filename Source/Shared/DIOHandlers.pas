@@ -1228,6 +1228,8 @@ begin
     Barcode.Parameter1 := Parameters.BarcodeParameter1;
     Barcode.Parameter2 := Parameters.BarcodeParameter2;
     Barcode.Parameter3 := Parameters.BarcodeParameter3;
+    Barcode.Parameter4 := Parameters.BarcodeParameter4;
+    Barcode.Parameter5 := Parameters.BarcodeParameter5;
   end else
   begin
     Barcode.BarcodeType := pData;
@@ -1316,6 +1318,8 @@ begin
     Barcode.Parameter1 := Parameters.BarcodeParameter1;
     Barcode.Parameter2 := Parameters.BarcodeParameter2;
     Barcode.Parameter3 := Parameters.BarcodeParameter3;
+    Barcode.Parameter4 := Parameters.BarcodeParameter4;
+    Barcode.Parameter5 := Parameters.BarcodeParameter5;
   end else
   begin
     Barcode.BarcodeType := pData;
@@ -1327,6 +1331,8 @@ begin
     Barcode.Parameter1 := GetInteger(pString, 6, ValueDelimiters);
     Barcode.Parameter2 := GetInteger(pString, 7, ValueDelimiters);
     Barcode.Parameter3 := GetInteger(pString, 8, ValueDelimiters);
+    Barcode.Parameter4 := GetInteger(pString, 9, ValueDelimiters);
+    Barcode.Parameter5 := GetInteger(pString, 10, ValueDelimiters);
   end;
   Printer.PrintBarcode(Barcode);
 end;

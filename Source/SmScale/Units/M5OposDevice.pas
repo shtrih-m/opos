@@ -4,7 +4,7 @@ interface
 
 uses
   // VCL
-  Windows, Classes, SysUtils, SyncObjs,
+  Windows, Classes, SysUtils, SyncObjs, Math,
   // Opos
   Opos, Oposhi, OposScal, OposScalhi, OposEvents, OposException,
   OposScalUtils, OposSemaphore,
@@ -34,6 +34,7 @@ type
     FCommands: TCommandDefs;
     FStatistics: TScaleStatistics;
     FUIController: IScaleUIController;
+    FWeightFactor: Double;
 
     procedure Lock;
     procedure Unlock;
@@ -52,6 +53,7 @@ type
     function SearchByBaudRate(PortNumber, BaudRate, ByteTimeout: Integer): Boolean;
     procedure SearchDevice;
     function Connect(PortNumber, Timeout: Integer): Boolean;
+    function GetWeightFactor: Double;
   private
     FCapDisplay: Boolean;
     FCapZeroScale: Boolean;
@@ -377,6 +379,15 @@ begin
   end;
 end;
 
+function TM5OposDevice.GetWeightFactor: Double;
+begin
+  if FWeightFactor = 0 then
+  begin
+    FWeightFactor := Device.ReadWeightFactor;
+  end;
+  Result := FWeightFactor;
+end;
+
 procedure TM5OposDevice.PollWeight;
 var
   Status: TM5Status;
@@ -408,7 +419,7 @@ begin
       end;
 
       FStatus := Status;
-      FScaleLiveWeight := Status.Weight;
+      FScaleLiveWeight := Round(Status.Weight * GetWeightFactor);
     except
       on E: Exception do
       begin
@@ -447,7 +458,8 @@ begin
   if Status.Flags.isOverweight then
     RaiseExtendedError(OPOS_ESCAL_OVERWEIGHT);
 
-  pWeightData := Status.Weight;
+  pWeightData := Round(Status.Weight * GetWeightFactor);
+
   if (not ZeroValid)and(pWeightData = 0) then
     RaiseOposException(OPOS_E_TIMEOUT, S_ZERO_WEIGHT);
 
@@ -476,6 +488,7 @@ end;
 procedure TM5OposDevice.DisconnectDevice;
 begin
   FConnected := False;
+  FWeightFactor := 0;
   FConnection.ClosePort;
   Statistics.IniSave(OPOS_CLASSKEY_SCAL + DeviceName);
 end;
@@ -566,6 +579,7 @@ begin
     Channel.Number := ChannelNumber;
     Device.Check(Device.ReadChannel(Channel));
     FMaximumWeight := Channel.MaxWeight;
+    FWeightFactor := 1000/Power(10, Channel.DecimalPoint);
 
     Statistics.ModelName := FDeviceMetrics.Name;
     Statistics.SerialNumber := '';

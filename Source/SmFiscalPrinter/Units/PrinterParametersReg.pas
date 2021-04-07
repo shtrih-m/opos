@@ -416,6 +416,12 @@ begin
       if Reg.ValueExists('BarcodeParameter3') then
         Parameters.BarcodeParameter3 := Reg.ReadInteger('BarcodeParameter3');
 
+      if Reg.ValueExists('BarcodeParameter4') then
+        Parameters.BarcodeParameter4 := Reg.ReadInteger('BarcodeParameter4');
+
+      if Reg.ValueExists('BarcodeParameter5') then
+        Parameters.BarcodeParameter5 := Reg.ReadInteger('BarcodeParameter5');
+
       if Reg.ValueExists('XReport') then
         Parameters.XReport := Reg.ReadInteger('XReport');
 
@@ -652,6 +658,8 @@ begin
     Reg.WriteInteger('BarcodeParameter1', FParameters.BarcodeParameter1);
     Reg.WriteInteger('BarcodeParameter2', FParameters.BarcodeParameter2);
     Reg.WriteInteger('BarcodeParameter3', FParameters.BarcodeParameter3);
+    Reg.WriteInteger('BarcodeParameter4', FParameters.BarcodeParameter4);
+    Reg.WriteInteger('BarcodeParameter5', FParameters.BarcodeParameter5);
     Reg.WriteInteger('XReport', FParameters.XReport);
     Reg.WriteBool('WrapText', FParameters.WrapText);
     Reg.WriteBool('WritePaymentNameEnabled', FParameters.WritePaymentNameEnabled);

@@ -1857,7 +1857,8 @@ var
   pString: WideString;
 begin
   pData := Barcode.BarcodeType;
-  pString := Tnt_WideFormat('%s;%s;%d;%d;%d;', [Barcode.Data, Barcode.Text, Barcode.Height, Barcode.ModuleWidth, Barcode.Alignment]);
+  pString := Tnt_WideFormat('%s;%s;%d;%d;%d;', [Barcode.Data, Barcode.Text,
+    Barcode.Height, Barcode.ModuleWidth, Barcode.Alignment]);
   Result := Driver.DirectIO(DIO_PRINT_BARCODE, pData, pString);
 end;
 

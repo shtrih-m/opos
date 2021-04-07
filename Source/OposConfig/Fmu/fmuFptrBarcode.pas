@@ -35,6 +35,10 @@ type
     lblBarcodeParameter3: TTntLabel;
     seBarcodeParameter3: TSpinEdit;
     Bevel2: TBevel;
+    lblBarcodeParameter4: TTntLabel;
+    lblBarcodeParameter5: TTntLabel;
+    seBarcodeParameter4: TSpinEdit;
+    seBarcodeParameter5: TSpinEdit;
     procedure FormCreate(Sender: TObject);
   public
     procedure UpdatePage; override;
@@ -64,6 +68,8 @@ begin
   seBarcodeParameter1.Value := Parameters.BarcodeParameter1;
   seBarcodeParameter2.Value := Parameters.BarcodeParameter2;
   seBarcodeParameter3.Value := Parameters.BarcodeParameter3;
+  seBarcodeParameter4.Value := Parameters.BarcodeParameter4;
+  seBarcodeParameter5.Value := Parameters.BarcodeParameter5;
 end;
 
 procedure TfmFptrBarcode.UpdateObject;
@@ -80,6 +86,8 @@ begin
   Parameters.BarcodeParameter1 := seBarcodeParameter1.Value;
   Parameters.BarcodeParameter2 := seBarcodeParameter2.Value;
   Parameters.BarcodeParameter3 := seBarcodeParameter3.Value;
+  Parameters.BarcodeParameter4 := seBarcodeParameter4.Value;
+  Parameters.BarcodeParameter5 := seBarcodeParameter5.Value;
 end;
 
 type

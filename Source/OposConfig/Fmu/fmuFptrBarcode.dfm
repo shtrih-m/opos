@@ -2,7 +2,7 @@ object fmFptrBarcode: TfmFptrBarcode
   Left = 607
   Top = 124
   Width = 312
-  Height = 445
+  Height = 512
   Caption = 'Barcode'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -100,10 +100,24 @@ object fmFptrBarcode: TfmFptrBarcode
   end
   object Bevel2: TBevel
     Left = 8
-    Top = 376
+    Top = 440
     Width = 273
     Height = 17
     Shape = bsTopLine
+  end
+  object lblBarcodeParameter4: TTntLabel
+    Left = 8
+    Top = 376
+    Width = 102
+    Height = 13
+    Caption = 'Barcode parameter 4:'
+  end
+  object lblBarcodeParameter5: TTntLabel
+    Left = 8
+    Top = 408
+    Width = 102
+    Height = 13
+    Caption = 'Barcode parameter 5:'
   end
   object cbBarLineByteMode: TTntComboBox
     Left = 152
@@ -210,6 +224,26 @@ object fmFptrBarcode: TfmFptrBarcode
     MaxValue = 0
     MinValue = 0
     TabOrder = 9
+    Value = 0
+  end
+  object seBarcodeParameter4: TSpinEdit
+    Left = 128
+    Top = 376
+    Width = 153
+    Height = 22
+    MaxValue = 0
+    MinValue = 0
+    TabOrder = 10
+    Value = 0
+  end
+  object seBarcodeParameter5: TSpinEdit
+    Left = 128
+    Top = 408
+    Width = 153
+    Height = 22
+    MaxValue = 0
+    MinValue = 0
+    TabOrder = 11
     Value = 0
   end
 end

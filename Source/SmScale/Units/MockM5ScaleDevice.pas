@@ -87,6 +87,7 @@ type
     function GetModeText(Mode: Integer): WideString;
     function GetLanguageText(Code: Integer): WideString;
     function GetBaudRates: TBaudRates;
+    function ReadWeightFactor: Double;
 
     property Password: Integer read GetPassword write SetPassword;
     property CommandTimeout: Integer read GetCommandTimeout write SetCommandTimeout;
@@ -383,6 +384,11 @@ end;
 function TMockM5ScaleDevice.GetBaudRates: TBaudRates;
 begin
   Result := M5BaudRates;
+end;
+
+function TMockM5ScaleDevice.ReadWeightFactor: Double;
+begin
+  Result := 1;
 end;
 
 end.

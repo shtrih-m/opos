@@ -4,7 +4,7 @@ interface
 
 uses
   // VCL
-  Windows, SysUtils, SyncObjs,
+  Windows, SysUtils, SyncObjs, Math,
   // Tnt
   TntSysUtils,
   // This
@@ -24,6 +24,7 @@ type
     FResultText: WideString;
     FCommandTimeout: Integer;
     FConnection: IScaleConnection;
+
 
     procedure Lock;
     procedure Unlock;
@@ -88,6 +89,7 @@ type
     function ClearResult: Integer;
     function GetModeText(Mode: Integer): WideString;
     function GetLanguageText(Code: Integer): WideString;
+    function ReadWeightFactor: Double;
 
     property BaudRates: TBaudRates read GetBaudRates;
     property Password: Integer read GetPassword write SetPassword;
@@ -884,5 +886,17 @@ function TM5ScaleDevice.GetBaudRates: TBaudRates;
 begin
   Result := M5BaudRates;
 end;
+
+function TM5ScaleDevice.ReadWeightFactor: Double;
+var
+  Channel: TScaleChannel;
+  ChannelNumber: Integer;
+begin
+  Check(ReadChannelNumber(ChannelNumber));
+  Channel.Number := ChannelNumber;
+  Check(ReadChannel(Channel));
+  Result := 1000/Power(10, Channel.DecimalPoint);
+end;
+
 
 end.

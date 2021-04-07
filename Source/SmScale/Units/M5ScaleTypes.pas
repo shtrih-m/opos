@@ -180,6 +180,7 @@ type
     function GetModeText(Mode: Integer): WideString;
     function GetLanguageText(Code: Integer): WideString;
     function GetBaudRates: TBaudRates;
+    function ReadWeightFactor: Double;
 
     property ResultCode: Integer read GetResultCode;
     property BaudRates: TBaudRates read GetBaudRates;
