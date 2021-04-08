@@ -630,8 +630,8 @@ begin
     CheckMinLength(Answer, 22);
 
     R.Flags := BinToInteger(Answer, 1, 2);
-    R.DecimalPoint := Ord(Answer[3]);
-    R.Power := Ord(Answer[4]);
+    R.PointPosition := Ord(Answer[3]);
+    R.Power := ShortInt(Answer[4]);
     R.MaxWeight := BinToInteger(Answer, 5, 2);
     R.MinWeight := BinToInteger(Answer, 7, 2);
     R.MaxTare := BinToInteger(Answer, 9, 2);
@@ -663,7 +663,7 @@ begin
     IntToBin(Password, 4) +
     Chr(R.Number) +
     IntToBin(R.Flags, 2) +
-    Chr(R.DecimalPoint) +
+    Chr(R.PointPosition) +
     Chr(R.Power) +
     IntToBin(R.MaxWeight, 2) +
     IntToBin(R.MinWeight, 2) +
@@ -895,7 +895,7 @@ begin
   Check(ReadChannelNumber(ChannelNumber));
   Channel.Number := ChannelNumber;
   Check(ReadChannel(Channel));
-  Result := 1000/Power(10, Channel.DecimalPoint);
+  Result := Power(10, Channel.Power + 3);
 end;
 
 

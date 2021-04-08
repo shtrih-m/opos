@@ -86,7 +86,8 @@ uses
   WException in '..\..\Source\Shared\WException.pas',
   TntIniFiles in '..\..\Source\Shared\TntIniFiles.pas',
   RegExpr in '..\..\Source\Shared\RegExpr.pas',
-  duM5OposDevice in 'Units\duM5OposDevice.pas';
+  duM5OposDevice in 'Units\duM5OposDevice.pas',
+  duMath in 'Units\duMath.pas';
 
 {$R *.RES}
 

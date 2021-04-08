@@ -54,6 +54,7 @@ begin
   UIController := TUIController.Create(ScaleDevice);
   Device := TM5OposDevice.Create(FLogger, ScaleDevice, Connection,
     FCommands, FParameters, FStatistics, UIController);
+  Device.PollEnabled := False;
 end;
 
 procedure TM5OposDeviceTest.TearDown;
@@ -82,10 +83,10 @@ begin
     #$FC#$00#$01#$02#$03#$04#$05#$06'Device name');
   Connection.Expects('Send').WithParams([Timeout, #$EA]).Returns(#$EA#$00#$67);
   Connection.Expects('Send').WithParams([Timeout, #$E8#$67]).Returns(
-    HexToStr('E800010003030400050006000700080009000A0B0C0D0E0F'));
+    HexToStr('E800010003000400050006000700080009000A0B0C0D0E0F'));
 
   Connection.Expects('Send').WithParams([Timeout, HexToStr('3A01000000')]).
-    Returns(HexToStr('3A000123012345670123'));
+    Returns(HexToStr('3A000123010000000123'));
 
   Connection.Expects('Send').WithParams([Timeout, #$11#$01#$00#$00#$00]).
     Returns(#$11#$00#$12#$34#$12#$34#$56#$78#$57#$24#$00#$76#$89#$77#$68#$87#$64#$73#$18#$17);
@@ -94,14 +95,11 @@ begin
   CheckEquals(0, Device.ClaimDevice(0), 'Device.ClaimDevice');
   Device.SetDeviceEnabled(True);
   CheckEquals(0, Device.ReadWeight(WeightData, 0), 'Device.ReadWeight');
-  CheckEquals($67452301, WeightData, 'WeightData');
-
-  //Connection.Verify('Verify');
+  CheckEquals(1000, WeightData, 'WeightData');
+  Connection.Verify('Verify');
 end;
 
-(*
 initialization
   RegisterTest('', TM5OposDeviceTest.Suite);
-*)
 
 end.

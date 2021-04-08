@@ -65,8 +65,8 @@ type
     isTareSampling: Boolean;  // бит 2 - Выборка массы тары из диапазона взвешивания.
     isRangeFlag1: Boolean; // бит3 - +2e при переключении диапазонов.
     isRangeFlag2: Boolean; // бит4 - НПВ +9е.
-    DecimalPoint: Integer; // Положение десятичной точки (1 байт) : Диапазон 0..6.
-    Power: Integer; // Степень (1 байт), диапазон: -127..128.
+    PointPosition: Integer; // Положение десятичной точки (1 байт) : Диапазон 0..6.
+    Power: ShortInt; // Степень (1 байт), диапазон: -127..128.
     MaxWeight: Integer;
     MinWeight: Integer;
     MaxTare: Integer;

@@ -24,6 +24,7 @@ type
   TM5OposDevice = class(TOposDevice)
   private
     FThread: TQueueThread;
+    FPollEnabled: Boolean;
     FPollThread: TNotifyThread;
     FLock: TCriticalSection;
     FDevice: IM5ScaleDevice;
@@ -131,6 +132,7 @@ type
     property Commands: TCommandDefs read FCommands;
     property Parameters: TScaleParameters read FParameters;
     property Statistics: TScaleStatistics read FStatistics;
+    property PollEnabled: Boolean read FPollEnabled write FPollEnabled;
   end;
 
 const
@@ -175,6 +177,7 @@ begin
   FThread := TQueueThread.Create(True);
   FThread.OnExecute := ThreadProc;
   FThread.Resume;
+  FPollEnabled := True;
 end;
 
 destructor TM5OposDevice.Destroy;
@@ -354,6 +357,7 @@ begin
         begin
           ReadWeightRequest := Request as TReadWeightRequest;
           DoReadWeight(WeightData, ReadWeightRequest.Timeout);
+
           FireEvent(TDataEvent.Create(WeightData, EVENT_TYPE_INPUT, Logger));
           ReadWeightRequest.Free;
           if AutoDisable then Break;
@@ -578,8 +582,8 @@ begin
     Device.Check(Device.ReadChannelNumber(ChannelNumber));
     Channel.Number := ChannelNumber;
     Device.Check(Device.ReadChannel(Channel));
-    FMaximumWeight := Channel.MaxWeight;
-    FWeightFactor := 1000/Power(10, Channel.DecimalPoint);
+    FWeightFactor := Power(10, Channel.Power + 3);
+    FMaximumWeight := Round(Channel.MaxWeight * FWeightFactor);
 
     Statistics.ModelName := FDeviceMetrics.Name;
     Statistics.SerialNumber := '';
@@ -655,7 +659,7 @@ procedure TM5OposDevice.SetTareWeight(const Value: Integer);
   begin
     try
       CheckEnabled;
-      Device.Check(Device.WriteTareValue(Value));
+      Device.Check(Device.WriteTareValue(Round(Value * GetWeightFactor)));
       ClearResult;
     except
       on E: Exception do
@@ -712,11 +716,14 @@ begin
   begin
     ConnectDevice;
     PowerState := OPOS_PS_ONLINE;
-    if FPollThread = nil then
+    if PollEnabled then
     begin
-      FPollThread := TNotifyThread.Create(True);
-      FPollThread.OnExecute := PollProc;
-      FPollThread.Resume;
+      if FPollThread = nil then
+      begin
+        FPollThread := TNotifyThread.Create(True);
+        FPollThread.OnExecute := PollProc;
+        FPollThread.Resume;
+      end;
     end;
   end else
   begin

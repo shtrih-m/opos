@@ -142,7 +142,8 @@ begin
   Parameters.PollPeriod := 10;
   Parameters.SearchByPortEnabled := False;
   Parameters.SearchByBaudRateEnabled := False;
-  Device.ScaleChannel.DecimalPoint := 3;
+  Device.ScaleChannel.PointPosition := 3;
+  Device.ScaleChannel.Power := -3;
 end;
 
 procedure TScaleDriverTest.TearDown;
@@ -666,6 +667,7 @@ begin
 
   Device.Status.Weight := 67853;
   Device.Status.Flags.isWeightFixed := True;
+
 
   pWeightData := 1234;
   CheckEquals(0, Driver.ReadWeight(pWeightData, 1267), 'ReadWeight');

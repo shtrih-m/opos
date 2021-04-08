@@ -492,8 +492,8 @@ var
 begin
   Data.Number := 1;
   Data.Flags := 2;
-  Data.DecimalPoint := 3;
-  Data.Power := 4;
+  Data.PointPosition := 3;
+  Data.Power := -1;
   Data.MaxWeight := 5;
   Data.MinWeight := 6;
   Data.MaxTare := 7;
@@ -508,7 +508,7 @@ begin
   Data.CalibrationsCount := 16;
 
   TxData := HexToStr(
-    'E9 01 00 00 00 01 02 00 03 04 05 00 06 00 07 00 08 00 09 00 0A 00 0B 0C 0D 0E 0F 10');
+    'E9 01 00 00 00 01 02 00 03 FF 05 00 06 00 07 00 08 00 09 00 0A 00 0B 0C 0D 0E 0F 10');
   Connection.Expects('Send').WithParams([Timeout, TxData]).Returns(#$E9#$00);
   CheckEquals(0, Device.WriteChannel(Data), 'WriteChannel');
   Connection.Verify('Verify');
@@ -597,7 +597,7 @@ begin
   Connection.Verify('Verify');
 
   CheckEquals(1, Data.Flags, 'Data.Flags');
-  CheckEquals(4, Data.DecimalPoint, 'Data.DecimalPoint');
+  CheckEquals(4, Data.PointPosition, 'Data.DecimalPoint');
   CheckEquals(3, Data.Power, 'Data.Power');
   CheckEquals(4, Data.MaxWeight, 'Data.MaxWeight');
   CheckEquals(5, Data.MinWeight, 'Data.MinWeight');
@@ -700,23 +700,23 @@ end;
 
 procedure TM5ScaleDeviceTest.CheckReadWeightFactor;
 begin
-  // Decimal point 3, weight factor 1
+  // Power 3, weight factor 1000
   Connection.Expects('Send').WithParams([Timeout, #$EA]).Returns(#$EA#$00#$67);
   Connection.Expects('Send').WithParams([Timeout, #$E8#$67]).Returns(
     HexToStr('E800010003030400050006000700080009000A0B0C0D0E0F'));
-  CheckEquals(1, Device.ReadWeightFactor, 0.001, 'Device.ReadWeightFactor');
+  CheckEquals(1000000, Device.ReadWeightFactor, 0.00001, 'Device.ReadWeightFactor');
   Connection.Verify('Verify');
-  // Decimal point 2, weight factor 10
+  // Power 0, weight factor 1000
   Connection.Expects('Send').WithParams([Timeout, #$EA]).Returns(#$EA#$00#$67);
   Connection.Expects('Send').WithParams([Timeout, #$E8#$67]).Returns(
-    HexToStr('E800010002030400050006000700080009000A0B0C0D0E0F'));
-  CheckEquals(10, Device.ReadWeightFactor, 0.001, 'Device.ReadWeightFactor');
+    HexToStr('E800010005000400050006000700080009000A0B0C0D0E0F'));
+  CheckEquals(1000, Device.ReadWeightFactor, 0.00001, 'Device.ReadWeightFactor');
   Connection.Verify('Verify');
-  // Decimal point 4, weight factor 0.1
+  // Power -1, weight factor 100
   Connection.Expects('Send').WithParams([Timeout, #$EA]).Returns(#$EA#$00#$67);
   Connection.Expects('Send').WithParams([Timeout, #$E8#$67]).Returns(
-    HexToStr('E800010004030400050006000700080009000A0B0C0D0E0F'));
-  CheckEquals(0.1, Device.ReadWeightFactor, 0.001, 'Device.ReadWeightFactor');
+    HexToStr('E800010004FF0400050006000700080009000A0B0C0D0E0F'));
+  CheckEquals(100, Device.ReadWeightFactor, 0.00001, 'Device.ReadWeightFactor');
   Connection.Verify('Verify');
 end;
 
