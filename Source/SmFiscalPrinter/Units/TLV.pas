@@ -4,7 +4,7 @@ interface
 
 Uses
   // VCL
-  Classes,
+  Classes, SysUtils, 
   // This
   TLVTags;
 
@@ -73,13 +73,9 @@ begin
   try
     Tag := Tags.Find(TagID);
     if Tag = nil then
-    begin
-      Values.AddStr(TagID, Data, 0);
-      Result := Values.GetRawData;
-    end else
-    begin
-      Result := Tag.ValueToBin(Data);
-    end;
+      raise Exception.CreateFmt('Tag %d not found', [TagID]);
+
+    Result := Tag.ValueToBin(Data);
   finally
     Tags.Free;
     Values.Free;
