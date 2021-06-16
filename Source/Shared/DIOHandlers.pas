@@ -1040,6 +1040,18 @@ type
     property Printer: TFiscalPrinterImpl read FPrinter;
   end;
 
+  { TDIOAddItemCode }
+
+  TDIOAddItemCode = class(TDIOHandler)
+  private
+    FPrinter: TFiscalPrinterImpl;
+  public
+    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
+      APrinter: TFiscalPrinterImpl);
+
+    procedure DirectIO(var pData: Integer; var pString: WideString); override;
+  end;
+
 implementation
 
 function BoolToStr(Value: Boolean): WideString;
@@ -3023,5 +3035,21 @@ procedure TDIOSetReceiptField.DirectIO(var pData: Integer;
 begin
   Printer.SetReceiptField(pData, pString);
 end;
+
+{ TDIOAddItemCode }
+
+constructor TDIOAddItemCode.CreateCommand(AOwner: TDIOHandlers;
+  ACommand: Integer; APrinter: TFiscalPrinterImpl);
+begin
+  inherited Create(AOwner, ACommand);
+  FPrinter := APrinter;
+end;
+
+procedure TDIOAddItemCode.DirectIO(var pData: Integer;
+  var pString: WideString);
+begin
+  FPrinter.AddItemCode(pString);
+end;
+
 
 end.

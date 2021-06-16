@@ -5203,13 +5203,17 @@ const
   Barcode1 = '018123456789123421000000000005M'#$1D'2401234'#$1D+
   '100123456789ABCDEF1234'#$1D'17170911911129'#$1D +
   '92uZoDVpzZRuXoSs79Q54WhebeXNJa1oZ9kTyi09N4vW5E31B7vM3uwo17FIx9fd2T5g9tbVxhR1Wlmt9r3ivSvg==';
+  Barcode2 = '8236482763482736482';
 begin
   Check(FiscalPrinter.ResetPrinter);
   FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
   Check(FiscalPrinter.BeginFiscalReceipt(True));
-  FiscalPrinter.SetParameter(DriverParameterBarcode, Barcode1);
+
+  FiscalPrinter.AddItemBarcode(Barcode1);
+  FiscalPrinter.AddItemBarcode(Barcode2);
   Check(FiscalPrinter.PrintRecItem('3689061 Ãðåíêè ÂÎËÍÈÑÒÛÅ 75ã', 89.90, 1000, 2, 89.90, ''));
-  Check(FiscalPrinter.PrintRecTotal(73.13, 73.13, '0'));
+
+  Check(FiscalPrinter.PrintRecTotal(1000, 1000, '0'));
   Check(FiscalPrinter.EndFiscalReceipt(False));
 end;
 

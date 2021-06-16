@@ -473,6 +473,7 @@ type
     function FSPrintCorrectionReceipt(var Command: TFSCorrectionReceipt): Integer;
     function FSPrintCorrectionReceipt2(var Data: TFSCorrectionReceipt2): Integer;
     procedure OpenFiscalDay;
+    procedure AddItemCode(const Code: WideString);
 
     property Logger: ILogFile read GetLogger;
     property Printer: ISharedPrinter read GetPrinter;
@@ -692,6 +693,7 @@ begin
   TDIOSTLVWriteOp.CreateCommand(FDIOHandlers, DIO_STLV_WRITE_OP, Self);
   TDIOSTLVGetHex.CreateCommand(FDIOHandlers, DIO_STLV_GET_HEX, Self);
   TDIOSetReceiptField.CreateCommand(FDIOHandlers, DIO_SET_RECEIPT_FIELD, Self);
+  TDIOAddItemCode.CreateCommand(FDIOHandlers, DIO_ADD_ITEM_CODE, Self);
 end;
 
 procedure TFiscalPrinterImpl.CreateDIOHandlers1;
@@ -782,6 +784,7 @@ begin
   TDIOSTLVWriteOp.CreateCommand(FDIOHandlers, DIO_STLV_WRITE_OP, Self);
   TDIOSTLVGetHex.CreateCommand(FDIOHandlers, DIO_STLV_GET_HEX, Self);
   TDIOSetReceiptField.CreateCommand(FDIOHandlers, DIO_SET_RECEIPT_FIELD, Self);
+  TDIOAddItemCode.CreateCommand(FDIOHandlers, DIO_ADD_ITEM_CODE, Self);
 end;
 
 procedure TFiscalPrinterImpl.CreateDIOHandlers2;
@@ -874,6 +877,7 @@ begin
   TDIOSTLVWriteOp.CreateCommand(FDIOHandlers, DIO_STLV_WRITE_OP, Self);
   TDIOSTLVGetHex.CreateCommand(FDIOHandlers, DIO_STLV_GET_HEX, Self);
   TDIOSetReceiptField.CreateCommand(FDIOHandlers, DIO_SET_RECEIPT_FIELD, Self);
+  TDIOAddItemCode.CreateCommand(FDIOHandlers, DIO_ADD_ITEM_CODE, Self);
 end;
 
 procedure TFiscalPrinterImpl.SetPrinter(APrinter: ISharedPrinter);
@@ -4672,5 +4676,9 @@ begin
   Parameters.SetReceiptField(FieldNumber, FieldValue);
 end;
 
+procedure TFiscalPrinterImpl.AddItemCode(const Code: WideString);
+begin
+  Receipt.AddItemCode(Code);
+end;
 
 end.

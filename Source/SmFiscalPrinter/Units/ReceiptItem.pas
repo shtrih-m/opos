@@ -41,7 +41,7 @@ type
     FOwner: TReceiptItems;
     procedure SetOwner(AOwner: TReceiptItems);
   public
-    constructor Create(AOwner: TReceiptItems);
+    constructor Create(AOwner: TReceiptItems); virtual;
     destructor Destroy; override;
 
     procedure Assign(Items: TReceiptItem); virtual;
@@ -99,6 +99,7 @@ type
 
   TFSSaleItem = class(TReceiptItem)
   private
+    FBarcodes: TStrings;
     FTags: TReceiptItems;
     FPriceUpdated: Boolean;
     FSplittedItem: TFSSaleItem;
@@ -111,6 +112,7 @@ type
   private
     function GetTotal2: Int64;
   public
+    constructor Create(AOwner: TReceiptItems); override;
     destructor Destroy; override;
     property Total2: Int64 read GetTotal2;
   public
@@ -129,6 +131,7 @@ type
 
     property Total: Int64 read GetTotal;
     property Tags: TReceiptItems read GetTags;
+    property Barcodes: TStrings read FBarcodes;
     property PriceDiscount: Int64 read GetPriceDiscount;
     property Discounts: TReceiptItems read GetDiscounts;
     property SplittedItem: TFSSaleItem read FSplittedItem;
@@ -278,9 +281,16 @@ end;
 
 { TFSSaleItem }
 
+constructor TFSSaleItem.Create(AOwner: TReceiptItems);
+begin
+  inherited Create(AOwner);
+  FBarcodes := TStringList.Create;
+end;
+
 destructor TFSSaleItem.Destroy;
 begin
   FTags.Free;
+  FBarcodes.Free;
   FDiscounts.Free;
   inherited Destroy;
 end;

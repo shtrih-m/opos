@@ -30,6 +30,7 @@ type
     FRecDiscount: TDiscountReceiptItem;
     FAdjustmentAmount: Integer;
     FTemplate: TReceiptTemplate;
+    FItemBarcodes: TStrings;
 
     procedure PrintReceiptItems;
     procedure CheckTotal(Total: Currency);
@@ -155,6 +156,7 @@ type
     procedure FSWriteTLVOperation(const TLVData: WideString); override;
     procedure WriteFPParameter(ParamId: Integer; const Value: WideString); override;
     procedure PrintAdditionalHeader(const AdditionalHeader: WideString); override;
+    procedure AddItemCode(const Code: WideString); override;
 
     property IsVoided: Boolean read FIsVoided;
     property IsCashPayment: Boolean read GetIsCashPayment;
@@ -204,6 +206,8 @@ begin
   FRecType := ARecType;
   FDiscounts := TReceiptItems.Create;
   FReceiptItems := TReceiptItems.Create;
+  FItemBarcodes := TStringList.Create;
+
   ClearReceipt;
 
   FTemplateData.PrintWidth := Device.GetPrintWidth;
@@ -221,6 +225,7 @@ begin
   FTemplate.Free;
   FDiscounts.Free;
   FReceiptItems.Free;
+  FItemBarcodes.Free;
   inherited Destroy;
 end;
 
@@ -244,8 +249,11 @@ var
   i: Integer;
 begin
   if Parameters.Barcode <> '' then
+    FItemBarcodes.Add(Parameters.Barcode);
+
+  if FItemBarcodes.Count > 0 then
     P.Tag1162IsSet := True;
-  P.ItemBarcode := Parameters.Barcode;
+
   P.MarkType := Parameters.MarkType;
   for i := MinReceiptField to MaxReceiptField do
   begin
@@ -256,10 +264,12 @@ begin
   FLastItem.Data := P;
   FLastItem.PreLine := Printer.Printer.PreLine;
   FLastItem.PostLine := Printer.Printer.PostLine;
+  FLastItem.Barcodes.AddStrings(FItemBarcodes);
 
   Printer.Printer.PreLine := '';
   Printer.Printer.PostLine := '';
   Parameters.Barcode := '';
+  FItemBarcodes.Clear;
   FHasReceiptItems := True;
   Parameters.ClearReceiptFields;
 end;
@@ -1027,7 +1037,10 @@ begin
   begin
     if Device.CapFSCloseReceipt2 then
     begin
-      Device.Check(Device.CheckItemCode(Item.Data.ItemBarcode));
+      for i := 0 to Item.Barcodes.Count-1 do
+      begin
+        Device.Check(Device.CheckItemCode(Item.Barcodes[i]));
+      end;
 
       FSSale2.UnitName := FSRegistration.UnitName;
       FSSale2.RecType := REcTypeToOperation(FRecType);
@@ -1044,7 +1057,7 @@ begin
       FSSale2.Text := Operation.Text;
       FSSale2.PaymentType := StrToInt64Def(FSRegistration.Parameter3, PaymentTypeCash);
       FSSale2.PaymentItem := StrToInt64Def(FSRegistration.Parameter4, PaymentItemNormal);
-      FSSale2.ItemBarcode := FSRegistration.ItemBarcode;
+
       FSSale2.MarkType := FSRegistration.MarkType;
       Device.Check(Device.FSSale2(FSSale2));
     end else
@@ -1074,7 +1087,10 @@ begin
     Device.Check(Device.FSWriteTLVOperation(TagToStr(1197, FSSale2.UnitName)));
   end;
   // Barcode
-  SendItemMark(FSSale2.ItemBarcode, FSSale2.MarkType);
+  for i := 0 to Item.Barcodes.Count-1 do
+  begin
+    SendItemMark(Item.Barcodes[i], FSSale2.MarkType);
+  end;
 
   if Parameters.RecPrintType = RecPrintTypeDriver then
   begin
@@ -1136,7 +1152,7 @@ begin
       AmountToStr(Amount/100)]) +  TaxName;
   end;
 
-  if Item.Data.ItemBarcode <> '' then
+  if Item.Barcodes.Count > 0 then
   begin
     Printer.Printer.PrintLines(Line1, '[M]');
     Printer.Printer.PrintLines('', Line2);
@@ -1739,6 +1755,11 @@ procedure TFSSalesReceipt.PrintAdditionalHeader(
   const AdditionalHeader: WideString);
 begin
   Device.PrintText(PRINTER_STATION_REC, AdditionalHeader);
+end;
+
+procedure TFSSalesReceipt.AddItemCode(const Code: WideString);
+begin
+  FItemBarcodes.Add(Code);
 end;
 
 end.

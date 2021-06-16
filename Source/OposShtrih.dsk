@@ -1,23 +1,26 @@
 [Closed Files]
-File_0=SourceModule,'D:\projects\OPOSShtrih\Source\SmScale\Units\MockM5ScaleDevice.pas',0,1,377,14,391,0,0
-File_1=SourceModule,'D:\projects\OPOSShtrih\Source\SmScale\Units\M5ScaleTypes.pas',0,1,175,2,183,0,0
-File_2=SourceModule,'D:\projects\OPOSShtrih\Test\SmScaleTest\Units\duScaleDriver.pas',0,1,924,51,934,0,0
-File_3=SourceModule,'c:\program files (x86)\borland\delphi7\Comp\DUnit\src\TestFramework.pas',0,1,1332,1,1344,0,0
-File_4=SourceModule,'D:\projects\OPOSShtrih\Test\SmScaleTest\Units\MockM5ScaleDevice2.pas',0,1,206,1,218,0,0
-File_5=SourceModule,'D:\projects\OPOSShtrih\Source\SmScale\Units\M5OposDevice.pas',0,1,449,55,461,0,0
-File_6=SourceModule,'D:\projects\OPOSShtrih\Source\SmScale\Units\ScaleDriver.pas',0,1,245,60,257,0,0
-File_7=SourceModule,'D:\projects\OPOSShtrih\Source\Opos\OposEvents.pas',0,1,1,1,1,0,0
-File_8=SourceModule,'D:\projects\OPOSShtrih\Test\SmScaleTest\Units\duM5OposDevice.pas',0,1,1,1,1,0,0
-File_9=SourceModule,'c:\program files (x86)\borland\delphi7\Comp\PascalMock1.1\PascalMock.pas',0,1,409,1,426,0,0
+File_0=SourceModule,'D:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FSSalesReceipt.pas',0,1,1,46,9,0,0
+File_1=SourceModule,'D:\projects\OPOSShtrih\Source\Opos\SMFiscalPrinter.pas',0,1,265,2,280,0,0
+File_2=SourceModule,'D:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\DirectIOAPI.pas',0,1,86,1,106,0,0
+File_3=SourceModule,'D:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\ReceiptItem.pas',0,1,118,48,134,0,0
+File_4=SourceModule,'D:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\PrinterTypes.pas',0,1,2574,8,2591,0,0
+File_5=SourceModule,'D:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterImpl.pas',0,1,4667,2,4681,0,0
+File_6=SourceModule,'D:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\CustomReceipt.pas',0,1,147,2,147,0,0
+File_7=SourceModule,'D:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\TLVTags.pas',0,1,746,30,766,0,0
+File_8=SourceModule,'D:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterDevice.pas',0,1,9061,56,9061,0,0
 
 [Modules]
-Module0=D:\projects\OPOSShtrih\Test\AcceptanceTest\AcceptanceTest.dpr
+Module0=D:\projects\OPOSShtrih\Source\OposTest\Units\PrinterTest.pas
 Count=1
 EditWindowCount=1
 TypeLibWindowCount=3
 
-[D:\projects\OPOSShtrih\Test\AcceptanceTest\AcceptanceTest.dpr]
+[D:\projects\OPOSShtrih\Source\OposTest\Units\PrinterTest.pas]
 ModuleType=SourceModule
+FormState=0
+FormOnTop=0
+
+[D:\projects\OPOSShtrih\Test\AcceptanceTest\AcceptanceTest.dpr]
 FormState=0
 FormOnTop=0
 
@@ -101,15 +104,17 @@ CodeExplorer=CodeExplorer@EditWindow0
 MessageView=MessageView@EditWindow0
 Create=1
 Visible=1
-State=0
+State=2
 Left=504
 Top=140
 Width=868
 Height=646
-MaxLeft=-1
-MaxTop=-1
-ClientWidth=852
-ClientHeight=607
+MaxLeft=-8
+MaxTop=107
+MaxWidth=1296
+MaxHeight=843
+ClientWidth=1280
+ClientHeight=804
 LeftPanelSize=0
 LeftPanelClients=CodeExplorer@EditWindow0
 LeftPanelData=00000400010000000C000000436F64654578706C6F7265720000000000000000000000000000000000FFFFFFFF
@@ -119,10 +124,10 @@ BottomPanelClients=MessageView@EditWindow0
 BottomPanelData=00000400010000000B0000004D657373616765566965770000000000000000000000000000000000FFFFFFFF
 
 [View0]
-Module=D:\projects\OPOSShtrih\Test\AcceptanceTest\AcceptanceTest.dpr
-CursorX=1
-CursorY=1
-TopLine=1
+Module=D:\projects\OPOSShtrih\Source\OposTest\Units\PrinterTest.pas
+CursorX=102
+CursorY=5206
+TopLine=5201
 LeftCol=1
 
 [TypeLibEditWindow0]
@@ -497,5 +502,5 @@ DockClients=CallStackWindow
 DockSiteData=0000040000000000CD01000000000000017603000000000000010000000087000000000000000100000002CD010000000000000200000000760300000F00000043616C6C537461636B57696E646F770200000000F7010000000000000100000000080100000000000001000000008C010000000000000100000000100200000000000001000000009802000000000000FFFFFFFF
 
 [ActiveProject]
-ActiveProject=4
+ActiveProject=2
 

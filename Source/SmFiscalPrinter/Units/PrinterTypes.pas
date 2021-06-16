@@ -741,7 +741,6 @@ type
     Parameter3: WideString;
     Parameter4: WideString;
     UnitName: WideString;
-    ItemBarcode: WideString;
     MarkType: Integer;
     ReceiptField: array [MinReceiptField..MaxReceiptField] of string;
     Tag1162IsSet: Boolean;
@@ -762,7 +761,6 @@ type
     UnitName: WideString;
     PaymentType: Byte;
     PaymentItem: Byte;
-    ItemBarcode: WideString;
     MarkType: Integer;
   end;
 

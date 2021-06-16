@@ -102,6 +102,8 @@ const
   DIO_STLV_WRITE                = 69; // Write tag value
   DIO_STLV_WRITE_OP             = 70; // Write tag value to operation
 
+  DIO_ADD_ITEM_CODE             = 71; // add item code
+
 
   // Read document from fiscal storage device
   DIO_READ_FS_DOCUMENT            = 96;
@@ -109,6 +111,8 @@ const
   DIO_PRINT_FS_DOCUMENT           = 97;
   // Set receipt field value for receipt template
   DIO_SET_RECEIPT_FIELD           = 98;
+
+
 
   DIO_PRINT_TEXT2                = 1000;  // print text
 

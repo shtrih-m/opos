@@ -144,6 +144,7 @@ type
     function GetMalinaParams: TMalinaParams;
     procedure WriteFPParameter(ParamId: Integer; const Value: WideString); virtual;
     procedure PrintAdditionalHeader(const AdditionalHeader: WideString); virtual;
+    procedure AddItemCode(const Code: WideString); virtual;
 
     property RecType: Integer read FRecType;
     property Logger: ILogFile read GetLogger;
@@ -529,6 +530,11 @@ end;
 procedure TCustomReceipt.FSWriteTLVOperation(const TLVData: WideString);
 begin
   Device.FSWriteTLV2(TLVData);
+end;
+
+procedure TCustomReceipt.AddItemCode(const Code: WideString);
+begin
+
 end;
 
 end.
