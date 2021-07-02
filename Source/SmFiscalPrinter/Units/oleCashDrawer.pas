@@ -20,6 +20,8 @@ type
 
   ToleCashDrawer = class(TAutoObject, ICashDrawer)
   private
+    function GetOposDevice: TOposServiceDevice19;
+  private
     FConnected: Boolean;
     FCapStatus: Boolean;
     FDrawerOpened: Boolean;
@@ -48,10 +50,6 @@ type
     procedure LoadParameters(const DeviceName: WideString);
     function DoOpen(const DeviceClass, DeviceName: WideString;
       const pDispatch: IDispatch): Integer;
-
-    property Printer: ISharedPrinter read GetPrinter;
-    property Device: IFiscalPrinterDevice read GetDevice;
-    property Parameters: TCashDrawerParameters read FParameters;
     function DecodeString(const S: WideString): WideString;
     function EncodeString(const S: WideString): WideString;
     function IllegalError: Integer;
@@ -59,6 +57,12 @@ type
     procedure StatusChanged(Sender: TObject);
     function HandleDriverError(E: EDriverError): TOPOSError;
     function GetLogger: ILogFile;
+    function GetParameters: TCashDrawerParameters;
+
+    property Printer: ISharedPrinter read GetPrinter;
+    property Device: IFiscalPrinterDevice read GetDevice;
+    property OposDevice: TOposServiceDevice19 read GetOposDevice;
+    property Parameters: TCashDrawerParameters read GetParameters;
   public
     procedure LogDispatch(pDispatch: IDispatch);
   protected
@@ -105,11 +109,9 @@ procedure ToleCashDrawer.Initialize;
 begin
   inherited Initialize;
   FLock := TCriticalSection.Create;
-  FOposDevice := TOposServiceDevice19.Create(Logger);
-  FParameters := TCashDrawerParameters.Create(Logger);
   FStatusLink := TNotifyLink.Create;
   FStatusLink.OnChange := StatusChanged;
-
+  FPrinter := SharedPrinter.GetPrinter('');
   InternalInit;
 end;
 
@@ -128,12 +130,12 @@ end;
 
 function ToleCashDrawer.IllegalError: Integer;
 begin
-  Result := FOposDevice.SetResultCode(OPOS_E_ILLEGAL);
+  Result := OposDevice.SetResultCode(OPOS_E_ILLEGAL);
 end;
 
 procedure ToleCashDrawer.CheckEnabled;
 begin
-  FOposDevice.CheckEnabled;
+  OposDevice.CheckEnabled;
 end;
 
 function ToleCashDrawer.DecodeString(const S: WideString): WideString;
@@ -168,10 +170,10 @@ procedure ToleCashDrawer.InternalInit;
 begin
   // common
   FConnected := False;
-  FOposDevice.ServiceObjectVersion := GenericServiceVersion;
-  FOposDevice.PhysicalDeviceDescription := '';
-  FOposDevice.ServiceObjectDescription := 'Cash Drawer OPOS Service Driver, (C) 2008 SHTRIH-M';
-  FOposDevice.FreezeEvents := False;
+  OposDevice.ServiceObjectVersion := GenericServiceVersion;
+  OposDevice.PhysicalDeviceDescription := '';
+  OposDevice.ServiceObjectDescription := 'Cash Drawer OPOS Service Driver, (C) 2021 SHTRIH-M';
+  OposDevice.FreezeEvents := False;
   FDrawerOpened := False;
   // specific
   FCapStatus := True;
@@ -201,7 +203,7 @@ begin
   if E is EDriverError then
   begin
     OPOSError := HandleDriverError(E as EDriverError);
-    FOposDevice.HandleException(OPOSError);
+    OposDevice.HandleException(OPOSError);
     Result := OPOSError.ResultCode;
     Exit;
   end;
@@ -212,7 +214,7 @@ begin
     OPOSError.ErrorString := GetExceptionMessage(E);
     OPOSError.ResultCode := OPOSException.ResultCode;
     OPOSError.ResultCodeExtended := OPOSException.ResultCodeExtended;
-    FOposDevice.HandleException(OPOSError);
+    OposDevice.HandleException(OPOSError);
     Result := OPOSError.ResultCode;
     Exit;
   end;
@@ -220,7 +222,7 @@ begin
   OPOSError.ErrorString := GetExceptionMessage(E);
   OPOSError.ResultCode := OPOS_E_FAILURE;
   OPOSError.ResultCodeExtended := OPOS_SUCCESS;
-  FOposDevice.HandleException(OPOSError);
+  OposDevice.HandleException(OPOSError);
   Result := OPOSError.ResultCode;
 end;
 
@@ -249,7 +251,7 @@ function ToleCashDrawer.DoOpen(const DeviceClass, DeviceName: WideString;
   const pDispatch: IDispatch): Integer;
 begin
   try
-    FOposDevice.Open(DeviceClass, DeviceName, GetEventInterface(pDispatch));
+    OposDevice.Open(DeviceClass, DeviceName, GetEventInterface(pDispatch));
     LoadParameters(DeviceName);
 
     FPrinter := SharedPrinter.GetPrinter(Parameters.FptrDeviceName);
@@ -258,8 +260,8 @@ begin
 
     Logger.Debug(Logger.Separator);
     Logger.Debug('  LOG START');
-    Logger.Debug('  ' + FOposDevice.ServiceObjectDescription);
-    Logger.Debug('  ServiceObjectVersion     : ' + IntToStr(FOposDevice.ServiceObjectVersion));
+    Logger.Debug('  ' + OposDevice.ServiceObjectDescription);
+    Logger.Debug('  ServiceObjectVersion     : ' + IntToStr(OposDevice.ServiceObjectVersion));
     Logger.Debug('  File version             : ' + GetFileVersionInfoStr);
     Logger.Debug(Logger.Separator);
     //LogDispatch(pDispatch);
@@ -269,7 +271,7 @@ begin
     on E: Exception do
       Result := HandleException(E);
   end;
-  FOposDevice.OpenResult := Result;
+  OposDevice.OpenResult := Result;
 end;
 
 procedure ToleCashDrawer.LogDispatch(pDispatch: IDispatch);
@@ -303,7 +305,7 @@ end;
 function ToleCashDrawer.DoClose: Integer;
 begin
   try
-    FOposDevice.Close;
+    OposDevice.Close;
     SetDeviceEnabled(False);
     Result := ClearResult;
   except
@@ -316,7 +318,7 @@ function ToleCashDrawer.DoRelease: Integer;
 begin
   try
     SetDeviceEnabled(False);
-    FOposDevice.ReleaseDevice;
+    OposDevice.ReleaseDevice;
     Printer.ReleaseDevice;
 
     Result := ClearResult;
@@ -328,7 +330,7 @@ end;
 
 procedure ToleCashDrawer.StatusUpdateEvent(Data: Integer);
 begin
-  FOposDevice.FireEvent(TStatusUpdateEvent.Create(Data, Logger));
+  OposDevice.FireEvent(TStatusUpdateEvent.Create(Data, Logger));
 end;
 
 procedure ToleCashDrawer.SetDeviceEnabled(Value: Boolean);
@@ -343,10 +345,10 @@ begin
       Connect;
     end else
     begin
-      FOposDevice.PowerState := OPOS_PS_UNKNOWN;
+      OposDevice.PowerState := OPOS_PS_UNKNOWN;
     end;
     FDeviceEnabled := Value;
-    FOposDevice.DeviceEnabled := Value;
+    OposDevice.DeviceEnabled := Value;
   end;
 end;
 
@@ -385,7 +387,7 @@ begin
   try
     Logger.Debug(Format('ToleCashDrawer.CheckHealth(%d)', [Level]));
 
-    FOposDevice.CheckEnabled;
+    OposDevice.CheckEnabled;
     RaiseOposException(OPOS_E_ILLEGAL, _('Не поддерживается'));
     Result := ClearResult;
   except
@@ -398,7 +400,7 @@ function ToleCashDrawer.Claim(Timeout: Integer): Integer;
 begin
   Logger.Debug(Format('ToleCashDrawer.Claim(%d)', [Timeout]));
   try
-    FOposDevice.ClaimDevice(Timeout);
+    OposDevice.ClaimDevice(Timeout);
     Printer.ClaimDevice(Timeout);
     Result := ClearResult;
   except
@@ -416,7 +418,7 @@ function ToleCashDrawer.ClearOutput: Integer;
 begin
   Logger.Debug('ToleCashDrawer.ClearOutput');
   try
-    FOposDevice.CheckClaimed;
+    OposDevice.CheckClaimed;
     Result := ClearResult;
   except
     on E: Exception do
@@ -441,7 +443,7 @@ begin
   Logger.Debug(Format('ToleCashDrawer.COFreezeEvents(%s)', [VarToStr(Freeze)]));
 
   try
-    FOposDevice.FreezeEvents := Freeze;
+    OposDevice.FreezeEvents := Freeze;
     Result := ClearResult;
   except
     on E: Exception do
@@ -453,7 +455,7 @@ function ToleCashDrawer.DirectIO(Command: Integer; var pData: Integer;
   var pString: WideString): Integer;
 begin
   try
-    FOposDevice.CheckOpened;
+    OposDevice.CheckOpened;
     RaiseOposException(OPOS_E_ILLEGAL);
 
     Result := ClearResult;
@@ -473,7 +475,7 @@ end;
 
 function ToleCashDrawer.Get_OpenResult: Integer;
 begin
-  Result := FOposDevice.OpenResult;
+  Result := OposDevice.OpenResult;
   Logger.Debug('ToleCashDrawer.Get_OpenResult');
 end;
 
@@ -482,25 +484,25 @@ begin
   try
     case PropIndex of
       // standard
-      PIDX_Claimed                    : Result := BoolToInt[FOposDevice.Claimed];
-      PIDX_DataEventEnabled           : Result := BoolToInt[FOposDevice.DataEventEnabled];
+      PIDX_Claimed                    : Result := BoolToInt[OposDevice.Claimed];
+      PIDX_DataEventEnabled           : Result := BoolToInt[OposDevice.DataEventEnabled];
       PIDX_DeviceEnabled              : Result := BoolToInt[FDeviceEnabled];
-      PIDX_FreezeEvents               : Result := BoolToInt[FOposDevice.FreezeEvents];
-      PIDX_OutputID                   : Result := FOposDevice.OutputID;
-      PIDX_ResultCode                 : Result := FOposDevice.ResultCode;
-      PIDX_ResultCodeExtended         : Result := FOposDevice.ResultCodeExtended;
-      PIDX_ServiceObjectVersion       : Result := FOposDevice.ServiceObjectVersion;
-      PIDX_State                      : Result := FOposDevice.State;
-      PIDX_AutoDisable                : Result := BoolToInt[FOposDevice.AutoDisable];
-      PIDX_BinaryConversion           : Result := FOposDevice.BinaryConversion;
-      PIDX_DataCount                  : Result := FOposDevice.DataCount;
-      PIDX_PowerNotify                : Result := FOposDevice.PowerNotify;
-      PIDX_PowerState                 : Result := FOposDevice.PowerState;
-      PIDX_CapPowerReporting          : Result := FOposDevice.CapPowerReporting;
-      PIDX_CapStatisticsReporting     : Result := BoolToInt[FOposDevice.CapStatisticsReporting];
-      PIDX_CapUpdateStatistics        : Result := BoolToInt[FOposDevice.CapUpdateStatistics];
-      PIDX_CapCompareFirmwareVersion  : Result := BoolToInt[FOposDevice.CapCompareFirmwareVersion];
-      PIDX_CapUpdateFirmware          : Result := BoolToInt[FOposDevice.CapUpdateFirmware];
+      PIDX_FreezeEvents               : Result := BoolToInt[OposDevice.FreezeEvents];
+      PIDX_OutputID                   : Result := OposDevice.OutputID;
+      PIDX_ResultCode                 : Result := OposDevice.ResultCode;
+      PIDX_ResultCodeExtended         : Result := OposDevice.ResultCodeExtended;
+      PIDX_ServiceObjectVersion       : Result := OposDevice.ServiceObjectVersion;
+      PIDX_State                      : Result := OposDevice.State;
+      PIDX_AutoDisable                : Result := BoolToInt[OposDevice.AutoDisable];
+      PIDX_BinaryConversion           : Result := OposDevice.BinaryConversion;
+      PIDX_DataCount                  : Result := OposDevice.DataCount;
+      PIDX_PowerNotify                : Result := OposDevice.PowerNotify;
+      PIDX_PowerState                 : Result := OposDevice.PowerState;
+      PIDX_CapPowerReporting          : Result := OposDevice.CapPowerReporting;
+      PIDX_CapStatisticsReporting     : Result := BoolToInt[OposDevice.CapStatisticsReporting];
+      PIDX_CapUpdateStatistics        : Result := BoolToInt[OposDevice.CapUpdateStatistics];
+      PIDX_CapCompareFirmwareVersion  : Result := BoolToInt[OposDevice.CapCompareFirmwareVersion];
+      PIDX_CapUpdateFirmware          : Result := BoolToInt[OposDevice.CapUpdateFirmware];
       // specific
       PIDXCash_DrawerOpened           :
       begin
@@ -512,7 +514,6 @@ begin
     else
       RaiseOposException(OPOS_E_ILLEGAL);
     end;
-    ClearResult;
   except
     on E: Exception do
       HandleException(E);
@@ -526,10 +527,10 @@ function ToleCashDrawer.GetPropertyString(PropIndex: Integer): WideString;
 begin
   case PropIndex of
     // commmon
-    PIDX_CheckHealthText                : Result := FOposDevice.CheckHealthText;
-    PIDX_DeviceDescription              : Result := FOposDevice.PhysicalDeviceDescription;
-    PIDX_DeviceName                     : Result := FOposDevice.PhysicalDeviceName;
-    PIDX_ServiceObjectDescription       : Result := FOposDevice.ServiceObjectDescription;
+    PIDX_CheckHealthText                : Result := OposDevice.CheckHealthText;
+    PIDX_DeviceDescription              : Result := OposDevice.PhysicalDeviceDescription;
+    PIDX_DeviceName                     : Result := OposDevice.PhysicalDeviceName;
+    PIDX_ServiceObjectDescription       : Result := OposDevice.ServiceObjectDescription;
     // specific
   else
     Result := '';
@@ -543,7 +544,7 @@ function ToleCashDrawer.OpenDrawer: Integer;
 begin
   Logger.Debug('ToleCashDrawer.OpenDrawer');
   try
-    FOposDevice.CheckEnabled;
+    OposDevice.CheckEnabled;
     Device.OpenDrawer(Parameters.DrawerNumber);
 
     Result := ClearResult;
@@ -590,8 +591,8 @@ begin
     case PropIndex of
       // common
       PIDX_DeviceEnabled          : SetDeviceEnabled(IntToBool(Number));
-      PIDX_DataEventEnabled       : FOposDevice.DataEventEnabled := IntToBool(Number);
-      PIDX_PowerNotify            : FOposDevice.PowerNotify := Number;
+      PIDX_DataEventEnabled       : OposDevice.DataEventEnabled := IntToBool(Number);
+      PIDX_PowerNotify            : OposDevice.PowerNotify := Number;
     else
       RaiseOposException(OPOS_E_ILLEGAL);
     end;
@@ -629,7 +630,7 @@ begin
     [BeepTimeout, BeepFrequency, BeepDuration, BeepDelay]));
 
   try
-    FOposDevice.CheckEnabled;
+    OposDevice.CheckEnabled;
     StartTime := GetTickCount;
     while FDrawerOpened do
     begin
@@ -652,7 +653,7 @@ end;
 
 function ToleCashDrawer.ClearResult: Integer;
 begin
-  Result := FOposDevice.ClearResult;
+  Result := OposDevice.ClearResult;
 end;
 
 function ToleCashDrawer.CompareFirmwareVersion(
@@ -756,17 +757,31 @@ procedure ToleCashDrawer.StatusChanged(Sender: TObject);
 begin
   if Printer.Device.IsOnline then
   begin
-    FOposDevice.PowerState := OPOS_PS_ONLINE;
+    OposDevice.PowerState := OPOS_PS_ONLINE;
     SetDrawerOpened(Device.PrinterStatus.Flags.DrawerOpened);
   end else
   begin
-    FOposDevice.PowerState := OPOS_PS_OFF_OFFLINE;
+    OposDevice.PowerState := OPOS_PS_OFF_OFFLINE;
   end;
 end;
 
 function ToleCashDrawer.GetLogger: ILogFile;
 begin
   Result := FPrinter.Device.Context.Logger;
+end;
+
+function ToleCashDrawer.GetParameters: TCashDrawerParameters;
+begin
+  if FParameters = nil then
+    FParameters := TCashDrawerParameters.Create(Logger);
+  Result := FParameters;
+end;
+
+function ToleCashDrawer.GetOposDevice: TOposServiceDevice19;
+begin
+  if FOposDevice = nil then
+    FOposDevice := TOposServiceDevice19.Create(Logger);
+  Result := FOposDevice;
 end;
 
 initialization

@@ -1,6 +1,6 @@
 object fmCashDrawer: TfmCashDrawer
-  Left = 359
-  Top = 136
+  Left = 915
+  Top = 327
   Anchors = [akTop]
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle

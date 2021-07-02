@@ -7,7 +7,7 @@ uses
   Windows, StdCtrls, Controls, ExtCtrls, Classes, Forms, SysUtils,
   Registry, ComCtrls,
   // Opos
-  OposCashDrawer, OposUtils,
+  OposCashDrawer, OposUtils, OposFptrUtils,
   // Tnt
   TntStdCtrls, TntSysUtils, TntComCtrls,
   // This
@@ -143,7 +143,7 @@ begin
     FStarted := False;
   end else edtTime.Clear;
   edtResult.Text := GetResultCodeText(CashDrawer.ResultCode);
-  //edtExtendedResult.Text := GetResultCodeExtendedText(CashDrawer.ResultCodeExtended);
+  edtExtendedResult.Text := GetResultCodeExtendedText(CashDrawer.ResultCodeExtended);
 end;
 
 procedure TfmCashDrawer.ShowPage(Page: TPage);
