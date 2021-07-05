@@ -4,7 +4,7 @@ interface
 
 uses
   // VCL
-  Windows, SysUtils, Variants, ComObj,
+  Windows, SysUtils, Variants, ComObj, ActiveX, 
   // Tnt
   TntSysUtils,
   // This
@@ -683,6 +683,12 @@ end;
 function TSMFiscalPrinter.Close: Integer;
 begin
   Result := Driver.Close;
+  if Result = 0 then
+  begin
+    FDriver.Free;
+    FDriver := nil;
+    CoFreeUnusedLibraries;
+  end;
 end;
 
 function TSMFiscalPrinter.DirectIO(Command: Integer; var pData: Integer; var pString: WideString): Integer;
