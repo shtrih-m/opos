@@ -4,7 +4,7 @@ interface
 
 uses
   // VCL
-  SysUtils,
+  SysUtils, Classes,
   // This
   CustomReceipt, PrinterTypes, ByteUtils, OposFptr, OposException,
   Opos, PayType, ReceiptPrinter, FiscalPrinterState,
@@ -22,6 +22,7 @@ type
     FPayments: TPayments;
     FItems: TRecItems;
     FDiscounts: TRecDiscounts;
+    FItemBarcodes: TStrings;
 
     function GetItemCount: Integer;
     function GetDiscountCount: Integer;
@@ -102,6 +103,7 @@ type
 
     function GetCashlessTotal: Int64;
     procedure PaymentAdjustment(Amount: Int64); override;
+    procedure AddItemCode(const Code: WideString); override;
 
     property IsVoided: Boolean read FIsVoided;
     property Items: TRecItems read FItems;
@@ -121,12 +123,14 @@ begin
   FRecType := ARecType;
   FItems := TRecItems.Create;
   FDiscounts := TRecDiscounts.Create;
+  FItemBarcodes := TStringList.Create;
 end;
 
 destructor TSalesReceipt.Destroy;
 begin
   FItems.Free;
   FDiscounts.Free;
+  FItemBarcodes.Free;
   inherited Destroy;
 end;
 
@@ -232,15 +236,21 @@ end;
 
 procedure TSalesReceipt.SendItemBarcode;
 var
+  i: Integer;
   rc: TFSBindItemCodeResult;
 begin
   if Parameters.ModelID <> MODEL_ID_WEB_CASSA then Exit;
 
   if Parameters.Barcode <> '' then
   begin
-    Device.FSBindItemCode(Parameters.Barcode, rc);
+    FItemBarcodes.Add(Parameters.Barcode);
     Parameters.Barcode := '';
   end;
+  for i := 0 to FItemBarcodes.Count-1 do
+  begin
+    Device.FSBindItemCode(FItemBarcodes[i], rc);
+  end;
+  FItemBarcodes.Clear;
 end;
 
 procedure TSalesReceipt.PrintRecItemAdjustment(
@@ -781,6 +791,12 @@ begin
     end;
   end;
 end;
+
+procedure TSalesReceipt.AddItemCode(const Code: WideString);
+begin
+  FItemBarcodes.Add(Code);
+end;
+
 
 
 end.
