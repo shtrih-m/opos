@@ -8,322 +8,320 @@
   resources were bound to the produced executable.
 */
 
-#define pnglang_EPNGUnknownCriticalChunkText 64784
-#define pnglang_EPNGUnknownCompressionText 64785
-#define pnglang_EPNGUnknownInterlaceText 64786
-#define pnglang_EPNGCannotAssignChunkText 64787
-#define pnglang_EPNGUnexpectedEndText 64788
-#define pnglang_EPNGNoImageDataText 64789
-#define pnglang_EPNGCannotChangeSizeText 64790
-#define pnglang_EPNGCannotAddChunkText 64791
-#define pnglang_EPNGCannotAddInvalidImageText 64792
-#define pnglang_EPNGOutMemoryText 64793
-#define pnglang_EPNGHeaderNotPresentText 64794
-#define OleConst_sNoRunningObject 64795
-#define JvResources_RsGradientInactiveCaption 64800
-#define JvResources_RsHotLight 64801
-#define JvResources_RsMenuBar 64802
-#define JvResources_RsMenuHighlight 64803
-#define JConsts_sChangeJPGSize 64804
-#define JConsts_sJPEGError 64805
-#define JConsts_sJPEGImageFile 64806
-#define pnglang_EPngInvalidCRCText 64807
-#define pnglang_EPNGInvalidIHDRText 64808
-#define pnglang_EPNGMissingMultipleIDATText 64809
-#define pnglang_EPNGZLIBErrorText 64810
-#define pnglang_EPNGInvalidPaletteText 64811
-#define pnglang_EPNGInvalidFileHeaderText 64812
-#define pnglang_EPNGIHDRNotFirstText 64813
-#define pnglang_EPNGSizeExceedsText 64814
-#define pnglang_EPNGUnknownPalEntryText 64815
-#define JvResources_RsClActiveBorder 64816
-#define JvResources_RsClInactiveBorder 64817
-#define JvResources_RsClAppWorkSpace 64818
-#define JvResources_RsClHighlight 64819
-#define JvResources_RsClHighlightText 64820
-#define JvResources_RsClBtnFace 64821
-#define JvResources_RsClBtnShadow 64822
-#define JvResources_RsClGrayText 64823
-#define JvResources_RsClBtnText 64824
-#define JvResources_RsClInactiveCaptionText 64825
-#define JvResources_RsClBtnHighlight 64826
-#define JvResources_RsCl3DDkShadow 64827
-#define JvResources_RsCl3DLight 64828
-#define JvResources_RsClInfoText 64829
-#define JvResources_RsClInfoBk 64830
-#define JvResources_RsGradientActiveCaption 64831
-#define JvResources_RsClTan 64832
-#define JvResources_RsClLightYellow 64833
-#define JvResources_RsClLightGreen 64834
-#define JvResources_RsClLightTurquoise 64835
-#define JvResources_RsClPaleBlue 64836
-#define JvResources_RsClLavender 64837
-#define JvResources_RsClScrollBar 64838
-#define JvResources_RsClBackground 64839
-#define JvResources_RsClActiveCaption 64840
-#define JvResources_RsClInactiveCaption 64841
-#define JvResources_RsClMenu 64842
-#define JvResources_RsClWindow 64843
-#define JvResources_RsClWindowFrame 64844
-#define JvResources_RsClMenuText 64845
-#define JvResources_RsClWindowText 64846
-#define JvResources_RsClCaptionText 64847
-#define JvResources_RsClOrange 64848
-#define JvResources_RsClDarkYellow 64849
-#define JvResources_RsClBlueGray 64850
-#define JvResources_RsClGray50 64851
-#define JvResources_RsClLightOrange 64852
-#define JvResources_RsClSeaGreen 64853
-#define JvResources_RsClLightBlue 64854
-#define JvResources_RsClViolet 64855
-#define JvResources_RsClGray40 64856
-#define JvResources_RsClPink 64857
-#define JvResources_RsClGold 64858
-#define JvResources_RsClBrightGreen 64859
-#define JvResources_RsClTurquoise 64860
-#define JvResources_RsClPlum 64861
-#define JvResources_RsClGray25 64862
-#define JvResources_RsClRose 64863
-#define JvResources_RsClBlue 64864
-#define JvResources_RsClFuchsia 64865
-#define JvResources_RsClAqua 64866
-#define JvResources_RsClWhite 64867
-#define JvResources_RsClMoneyGreen 64868
-#define JvResources_RsClSkyBlue 64869
-#define JvResources_RsClCream 64870
-#define JvResources_RsClMedGray 64871
-#define JvResources_RsClBrown 64872
-#define JvResources_RsClOliveGreen 64873
-#define JvResources_RsClDarkGreen 64874
-#define JvResources_RsClDarkTeal 64875
-#define JvResources_RsClDarkBlue 64876
-#define JvResources_RsClIndigo 64877
-#define JvResources_RsClGray80 64878
-#define JvResources_RsClDarkRed 64879
-#define JvResources_RsPcxFilterName 64880
-#define JvResources_RsEPcxUnknownFormat 64881
-#define JvResources_RsEPcxPaletteProblem 64882
-#define JvResources_RsEPcxInvalid 64883
-#define JvResources_RsClBlack 64884
-#define JvResources_RsClMaroon 64885
-#define JvResources_RsClGreen 64886
-#define JvResources_RsClOlive 64887
-#define JvResources_RsClNavy 64888
-#define JvResources_RsClPurple 64889
-#define JvResources_RsClTeal 64890
-#define JvResources_RsClGray 64891
-#define JvResources_RsClSilver 64892
-#define JvResources_RsClRed 64893
-#define JvResources_RsClLime 64894
-#define JvResources_RsClYellow 64895
-#define IdResourceStringsCore_RSICMPPacketTooBig 64896
-#define JvResources_RsAniExtension 64897
-#define JvResources_RsAniFilterName 64898
-#define JvResources_RsGIFImage 64899
-#define JvResources_RsEChangeGIFSize 64900
-#define JvResources_RsENoGIFData 64901
-#define JvResources_RsEUnrecognizedGIFExt 64902
-#define JvResources_RsEWrongGIFColors 64903
-#define JvResources_RsEBadGIFCodeSize 64904
-#define JvResources_RsEGIFDecodeError 64905
-#define JvResources_RsEGIFEncodeError 64906
-#define JvResources_RsEGIFVersion 64907
-#define JvResources_RsEPixelFormatNotImplemented 64908
-#define JvResources_RsEBitCountNotImplemented 64909
-#define JvResources_RsEBadGraphicSignature 64910
-#define JvResources_RsPcxExtension 64911
-#define IdResourceStringsCore_RSICMPConvIPHeaderLengthExceeded 64912
-#define IdResourceStringsCore_RSICMPConvTransportProtocol_255 64913
-#define IdResourceStringsCore_RSICMPConvPortConversionOutOfRange 64914
-#define IdResourceStringsCore_RSICMPConvTransportHeaderLengthExceeded 64915
-#define IdResourceStringsCore_RSICMPConv32BitRolloverMissingAndACKSet 64916
-#define IdResourceStringsCore_RSICMPConvUnknownMandatoryTransportOptionPresent 64917
-#define IdResourceStringsCore_RSICMPMobileHostRedirect 64918
-#define IdResourceStringsCore_RSICMPIPv6WhereAreYou 64919
-#define IdResourceStringsCore_RSICMPIPv6IAmHere 64920
-#define IdResourceStringsCore_RSICMPSKIP 64921
-#define IdResourceStringsCore_RSICMPSecBadSPI 64922
-#define IdResourceStringsCore_RSICMPSecAuthenticationFailed 64923
-#define IdResourceStringsCore_RSICMPSecDecompressionFailed 64924
-#define IdResourceStringsCore_RSICMPSecDecryptionFailed 64925
-#define IdResourceStringsCore_RSICMPSecNeedAuthentication 64926
-#define IdResourceStringsCore_RSICMPSecNeedAuthorization 64927
-#define IdResourceStringsCore_RSICMPParamNextHeader 64928
-#define IdResourceStringsCore_RSICMPUnrecognizedOpt 64929
-#define IdResourceStringsCore_RSICMPSourceQuenchMsg 64930
-#define IdResourceStringsCore_RSICMPRedirNet 64931
-#define IdResourceStringsCore_RSICMPRedirHost 64932
-#define IdResourceStringsCore_RSICMPRedirTOSNet 64933
-#define IdResourceStringsCore_RSICMPRedirTOSHost 64934
-#define IdResourceStringsCore_RSICMPEcho 64935
-#define IdResourceStringsCore_RSICMPTimeStamp 64936
-#define IdResourceStringsCore_RSICMPMaskRequest 64937
-#define IdResourceStringsCore_RSICMPTracePacketForwarded 64938
-#define IdResourceStringsCore_RSICMPTraceNoRoute 64939
-#define IdResourceStringsCore_RSICMPConvUnknownMandOptPresent 64940
-#define IdResourceStringsCore_RSICMPConvKnownUnsupportedOptionPresent 64941
-#define IdResourceStringsCore_RSICMPConvUnsupportedTransportProtocol 64942
-#define IdResourceStringsCore_RSICMPConvOverallLengthExceeded 64943
-#define IdResourceStringsCore_RSICMPSourceIsolated 64944
-#define IdResourceStringsCore_RSICMPDestNetProhibitted 64945
-#define IdResourceStringsCore_RSICMPDestHostProhibitted 64946
-#define IdResourceStringsCore_RSICMPTOSNetUnreach 64947
-#define IdResourceStringsCore_RSICMPTOSHostUnreach 64948
-#define IdResourceStringsCore_RSICMPAdminProhibitted 64949
-#define IdResourceStringsCore_RSICMPHostPrecViolation 64950
-#define IdResourceStringsCore_RSICMPPrecedenceCutoffInEffect 64951
-#define IdResourceStringsCore_RSICMPNoRouteToDest 64952
-#define IdResourceStringsCore_RSICMPSourceFilterFailed 64953
-#define IdResourceStringsCore_RSICMPRejectRoutToDest 64954
-#define IdResourceStringsCore_RSICMPTTLExceeded 64955
-#define IdResourceStringsCore_RSICMPHopLimitExceeded 64956
-#define IdResourceStringsCore_RSICMPFragAsmExceeded 64957
-#define IdResourceStringsCore_RSICMPParamError 64958
-#define IdResourceStringsCore_RSICMPParamHeader 64959
-#define IdResourceStringsCore_RSMaximumNumberOfCaptureLineExceeded 64960
-#define IdResourceStringsCore_RSInterceptIsDifferent 64961
-#define IdResourceStringsCore_RSTransparentProxyCannotBind 64962
-#define IdResourceStringsCore_RSTransparentProxyCanNotSupportUDP 64963
-#define IdResourceStringsCore_RSBufferMissingTerminator 64964
-#define IdResourceStringsCore_RSBufferInvalidStartPos 64965
-#define IdResourceStringsCore_RSReplyInvalidCode 64966
-#define IdResourceStringsCore_RSReplyCodeAlreadyExists 64967
-#define IdResourceStringsCore_RSICMPTimeout 64968
-#define IdResourceStringsCore_RSICMPNetUnreachable 64969
-#define IdResourceStringsCore_RSICMPHostUnreachable 64970
-#define IdResourceStringsCore_RSICMPProtUnreachable 64971
-#define IdResourceStringsCore_RSICMPFragmentNeeded 64972
-#define IdResourceStringsCore_RSICMPSourceRouteFailed 64973
-#define IdResourceStringsCore_RSICMPDestNetUnknown 64974
-#define IdResourceStringsCore_RSICMPDestHostUnknown 64975
-#define IdResourceStringsCore_RSInterceptCircularLink 64976
-#define IdResourceStringsCore_RSNotEnoughDataInBuffer 64977
-#define IdResourceStringsCore_RSTooMuchDataInBuffer 64978
-#define IdResourceStringsCore_RSFileNotFound 64979
-#define IdResourceStringsCore_RSNotConnected 64980
-#define IdResourceStringsCore_RSObjectTypeNotSupported 64981
-#define IdResourceStringsCore_RSIdNoDataToRead 64982
-#define IdResourceStringsCore_RSReadTimeout 64983
-#define IdResourceStringsCore_RSReadLnWaitMaxAttemptsExceeded 64984
-#define IdResourceStringsCore_RSReadLnMaxLineLengthExceeded 64985
-#define IdResourceStringsCore_RSRequiresLargeStream 64986
-#define IdResourceStringsCore_RSDataTooLarge 64987
-#define IdResourceStringsCore_RSConnectTimeout 64988
-#define IdResourceStringsCore_RSICMPNotEnoughtBytes 64989
-#define IdResourceStringsCore_RSICMPNonEchoResponse 64990
-#define IdResourceStringsCore_RSAlreadyConnected 64991
-#define IdResourceStringsCore_RSSocksUDPNotSupported 64992
-#define IdResourceStringsCore_RSSocksRequestFailed 64993
-#define IdResourceStringsCore_RSSocksRequestServerFailed 64994
-#define IdResourceStringsCore_RSSocksRequestIdentFailed 64995
-#define IdResourceStringsCore_RSSocksUnknownError 64996
-#define IdResourceStringsCore_RSSocksServerRespondError 64997
-#define IdResourceStringsCore_RSSocksAuthMethodError 64998
-#define IdResourceStringsCore_RSSocksAuthError 64999
-#define IdResourceStringsCore_RSSocksServerGeneralError 65000
-#define IdResourceStringsCore_RSSocksServerPermissionError 65001
-#define IdResourceStringsCore_RSSocksServerNetUnreachableError 65002
-#define IdResourceStringsCore_RSSocksServerHostUnreachableError 65003
-#define IdResourceStringsCore_RSSocksServerConnectionRefusedError 65004
-#define IdResourceStringsCore_RSSocksServerTTLExpiredError 65005
-#define IdResourceStringsCore_RSSocksServerCommandError 65006
-#define IdResourceStringsCore_RSSocksServerAddressError 65007
-#define IdResourceStrings_RSStackENOTEMPTY 65008
-#define IdResourceStrings_RSStackHOST_NOT_FOUND 65009
-#define IdResourceStrings_RSStackClassUndefined 65010
-#define IdResourceStrings_RSStackAlreadyCreated 65011
-#define IdResourceStrings_RSAntiFreezeOnlyOne 65012
-#define IdResourceStrings_RSCannotSetIPVersionWhenConnected 65013
-#define IdResourceStrings_RSCannotBindRange 65014
-#define IdResourceStrings_RSConnectionClosedGracefully 65015
-#define IdResourceStrings_RSCouldNotBindSocket 65016
-#define IdResourceStrings_RSInvalidPortRange 65017
-#define IdResourceStrings_RSInvalidServiceName 65018
-#define IdResourceStrings_RSInvalidIPv6Address 65019
-#define IdResourceStrings_RSIPVersionUnsupported 65020
-#define IdResourceStrings_RSNotAllBytesSent 65021
-#define IdResourceStrings_RSPackageSizeTooBig 65022
-#define IdResourceStrings_RSSetSizeExceeded 65023
-#define IdResourceStrings_RSStackENETDOWN 65024
-#define IdResourceStrings_RSStackENETUNREACH 65025
-#define IdResourceStrings_RSStackENETRESET 65026
-#define IdResourceStrings_RSStackECONNABORTED 65027
-#define IdResourceStrings_RSStackECONNRESET 65028
-#define IdResourceStrings_RSStackENOBUFS 65029
-#define IdResourceStrings_RSStackEISCONN 65030
-#define IdResourceStrings_RSStackENOTCONN 65031
-#define IdResourceStrings_RSStackESHUTDOWN 65032
-#define IdResourceStrings_RSStackETOOMANYREFS 65033
-#define IdResourceStrings_RSStackETIMEDOUT 65034
-#define IdResourceStrings_RSStackECONNREFUSED 65035
-#define IdResourceStrings_RSStackELOOP 65036
-#define IdResourceStrings_RSStackENAMETOOLONG 65037
-#define IdResourceStrings_RSStackEHOSTDOWN 65038
-#define IdResourceStrings_RSStackEHOSTUNREACH 65039
-#define IdResourceStrings_RSStackEMFILE 65040
-#define IdResourceStrings_RSStackEWOULDBLOCK 65041
-#define IdResourceStrings_RSStackEINPROGRESS 65042
-#define IdResourceStrings_RSStackEALREADY 65043
-#define IdResourceStrings_RSStackENOTSOCK 65044
-#define IdResourceStrings_RSStackEDESTADDRREQ 65045
-#define IdResourceStrings_RSStackEMSGSIZE 65046
-#define IdResourceStrings_RSStackEPROTOTYPE 65047
-#define IdResourceStrings_RSStackENOPROTOOPT 65048
-#define IdResourceStrings_RSStackEPROTONOSUPPORT 65049
-#define IdResourceStrings_RSStackESOCKTNOSUPPORT 65050
-#define IdResourceStrings_RSStackEOPNOTSUPP 65051
-#define IdResourceStrings_RSStackEPFNOSUPPORT 65052
-#define IdResourceStrings_RSStackEAFNOSUPPORT 65053
-#define IdResourceStrings_RSStackEADDRINUSE 65054
-#define IdResourceStrings_RSStackEADDRNOTAVAIL 65055
-#define IdResourceStrings_RSInvalidDestinationIndex 65056
-#define IdResourceStrings_RSInvalidCodePage 65057
-#define IdResourceStrings_RSWinsockCallError 65058
-#define IdResourceStrings_RSWinsockLoadError 65059
-#define IdResourceStrings_RSStatusResolving 65060
-#define IdResourceStrings_RSStatusConnecting 65061
-#define IdResourceStrings_RSStatusConnected 65062
-#define IdResourceStrings_RSStatusDisconnecting 65063
-#define IdResourceStrings_RSStatusDisconnected 65064
-#define IdResourceStrings_RSStatusText 65065
-#define IdResourceStrings_RSStackError 65066
-#define IdResourceStrings_RSStackEINTR 65067
-#define IdResourceStrings_RSStackEBADF 65068
-#define IdResourceStrings_RSStackEACCES 65069
-#define IdResourceStrings_RSStackEFAULT 65070
-#define IdResourceStrings_RSStackEINVAL 65071
-#define XMLConst_SInvalidNodeType 65072
-#define XMLConst_SMismatchedRegItems 65073
-#define XMLConst_SNotSingleTextNode 65074
-#define XMLConst_SNoDOMParseOptions 65075
-#define XMLConst_SNodeReadOnly 65076
-#define XMLConst_SNoRefresh 65077
-#define XMLConst_SMissingFileName 65078
-#define XMLConst_SLine 65079
-#define DBConsts_SBcdOverflow 65080
-#define DBConsts_SInvalidBcdValue 65081
-#define DBConsts_SCouldNotParseTimeStamp 65082
-#define DBConsts_SInvalidSqlTimeStamp 65083
-#define IdResourceStrings_RSInvalidSourceArray 65084
-#define IdResourceStrings_RSInvalidDestinationArray 65085
-#define IdResourceStrings_RSCharIndexOutOfBounds 65086
-#define IdResourceStrings_RSInvalidCharCount 65087
-#define JclResources_RsInvalidMMFEmpty 65088
-#define JclResources_RsHasNotTD32Info 65089
-#define JclResources_RsEUnexpectedEOSeq 65090
-#define JclResources_RsWin32Error 65091
-#define JclResources_RsELibraryNotFound 65092
-#define JclResources_RsEFunctionNotFound 65093
-#define XMLConst_SDuplicateRegistration 65094
-#define XMLConst_SNoMatchingDOMVendor 65095
-#define XMLConst_SNoDOMNodeEx 65096
-#define XMLConst_SDOMNotSupported 65097
-#define XMLConst_SNodeExpected 65098
-#define XMLConst_SMSDOMNotInstalled 65099
-#define XMLConst_SNotActive 65100
-#define XMLConst_SNodeNotFound 65101
-#define XMLConst_SMissingNode 65102
-#define XMLConst_SNoAttributes 65103
+#define pnglang_EPNGUnknownInterlaceText 64784
+#define pnglang_EPNGCannotAssignChunkText 64785
+#define pnglang_EPNGUnexpectedEndText 64786
+#define pnglang_EPNGNoImageDataText 64787
+#define pnglang_EPNGCannotChangeSizeText 64788
+#define pnglang_EPNGCannotAddChunkText 64789
+#define pnglang_EPNGCannotAddInvalidImageText 64790
+#define pnglang_EPNGOutMemoryText 64791
+#define pnglang_EPNGHeaderNotPresentText 64792
+#define OleConst_sNoRunningObject 64793
+#define JvResources_RsMenuBar 64800
+#define JvResources_RsMenuHighlight 64801
+#define JConsts_sChangeJPGSize 64802
+#define JConsts_sJPEGError 64803
+#define JConsts_sJPEGImageFile 64804
+#define pnglang_EPngInvalidCRCText 64805
+#define pnglang_EPNGInvalidIHDRText 64806
+#define pnglang_EPNGMissingMultipleIDATText 64807
+#define pnglang_EPNGZLIBErrorText 64808
+#define pnglang_EPNGInvalidPaletteText 64809
+#define pnglang_EPNGInvalidFileHeaderText 64810
+#define pnglang_EPNGIHDRNotFirstText 64811
+#define pnglang_EPNGSizeExceedsText 64812
+#define pnglang_EPNGUnknownPalEntryText 64813
+#define pnglang_EPNGUnknownCriticalChunkText 64814
+#define pnglang_EPNGUnknownCompressionText 64815
+#define JvResources_RsClAppWorkSpace 64816
+#define JvResources_RsClHighlight 64817
+#define JvResources_RsClHighlightText 64818
+#define JvResources_RsClBtnFace 64819
+#define JvResources_RsClBtnShadow 64820
+#define JvResources_RsClGrayText 64821
+#define JvResources_RsClBtnText 64822
+#define JvResources_RsClInactiveCaptionText 64823
+#define JvResources_RsClBtnHighlight 64824
+#define JvResources_RsCl3DDkShadow 64825
+#define JvResources_RsCl3DLight 64826
+#define JvResources_RsClInfoText 64827
+#define JvResources_RsClInfoBk 64828
+#define JvResources_RsGradientActiveCaption 64829
+#define JvResources_RsGradientInactiveCaption 64830
+#define JvResources_RsHotLight 64831
+#define JvResources_RsClLightGreen 64832
+#define JvResources_RsClLightTurquoise 64833
+#define JvResources_RsClPaleBlue 64834
+#define JvResources_RsClLavender 64835
+#define JvResources_RsClScrollBar 64836
+#define JvResources_RsClBackground 64837
+#define JvResources_RsClActiveCaption 64838
+#define JvResources_RsClInactiveCaption 64839
+#define JvResources_RsClMenu 64840
+#define JvResources_RsClWindow 64841
+#define JvResources_RsClWindowFrame 64842
+#define JvResources_RsClMenuText 64843
+#define JvResources_RsClWindowText 64844
+#define JvResources_RsClCaptionText 64845
+#define JvResources_RsClActiveBorder 64846
+#define JvResources_RsClInactiveBorder 64847
+#define JvResources_RsClBlueGray 64848
+#define JvResources_RsClGray50 64849
+#define JvResources_RsClLightOrange 64850
+#define JvResources_RsClSeaGreen 64851
+#define JvResources_RsClLightBlue 64852
+#define JvResources_RsClViolet 64853
+#define JvResources_RsClGray40 64854
+#define JvResources_RsClPink 64855
+#define JvResources_RsClGold 64856
+#define JvResources_RsClBrightGreen 64857
+#define JvResources_RsClTurquoise 64858
+#define JvResources_RsClPlum 64859
+#define JvResources_RsClGray25 64860
+#define JvResources_RsClRose 64861
+#define JvResources_RsClTan 64862
+#define JvResources_RsClLightYellow 64863
+#define JvResources_RsClAqua 64864
+#define JvResources_RsClWhite 64865
+#define JvResources_RsClMoneyGreen 64866
+#define JvResources_RsClSkyBlue 64867
+#define JvResources_RsClCream 64868
+#define JvResources_RsClMedGray 64869
+#define JvResources_RsClBrown 64870
+#define JvResources_RsClOliveGreen 64871
+#define JvResources_RsClDarkGreen 64872
+#define JvResources_RsClDarkTeal 64873
+#define JvResources_RsClDarkBlue 64874
+#define JvResources_RsClIndigo 64875
+#define JvResources_RsClGray80 64876
+#define JvResources_RsClDarkRed 64877
+#define JvResources_RsClOrange 64878
+#define JvResources_RsClDarkYellow 64879
+#define JvResources_RsEPcxPaletteProblem 64880
+#define JvResources_RsEPcxInvalid 64881
+#define JvResources_RsClBlack 64882
+#define JvResources_RsClMaroon 64883
+#define JvResources_RsClGreen 64884
+#define JvResources_RsClOlive 64885
+#define JvResources_RsClNavy 64886
+#define JvResources_RsClPurple 64887
+#define JvResources_RsClTeal 64888
+#define JvResources_RsClGray 64889
+#define JvResources_RsClSilver 64890
+#define JvResources_RsClRed 64891
+#define JvResources_RsClLime 64892
+#define JvResources_RsClYellow 64893
+#define JvResources_RsClBlue 64894
+#define JvResources_RsClFuchsia 64895
+#define JvResources_RsAniFilterName 64896
+#define JvResources_RsGIFImage 64897
+#define JvResources_RsEChangeGIFSize 64898
+#define JvResources_RsENoGIFData 64899
+#define JvResources_RsEUnrecognizedGIFExt 64900
+#define JvResources_RsEWrongGIFColors 64901
+#define JvResources_RsEBadGIFCodeSize 64902
+#define JvResources_RsEGIFDecodeError 64903
+#define JvResources_RsEGIFEncodeError 64904
+#define JvResources_RsEGIFVersion 64905
+#define JvResources_RsEPixelFormatNotImplemented 64906
+#define JvResources_RsEBitCountNotImplemented 64907
+#define JvResources_RsEBadGraphicSignature 64908
+#define JvResources_RsPcxExtension 64909
+#define JvResources_RsPcxFilterName 64910
+#define JvResources_RsEPcxUnknownFormat 64911
+#define IdResourceStringsCore_RSICMPConvPortConversionOutOfRange 64912
+#define IdResourceStringsCore_RSICMPConvTransportHeaderLengthExceeded 64913
+#define IdResourceStringsCore_RSICMPConv32BitRolloverMissingAndACKSet 64914
+#define IdResourceStringsCore_RSICMPConvUnknownMandatoryTransportOptionPresent 64915
+#define IdResourceStringsCore_RSICMPMobileHostRedirect 64916
+#define IdResourceStringsCore_RSICMPIPv6WhereAreYou 64917
+#define IdResourceStringsCore_RSICMPIPv6IAmHere 64918
+#define IdResourceStringsCore_RSICMPSKIP 64919
+#define IdResourceStringsCore_RSICMPSecBadSPI 64920
+#define IdResourceStringsCore_RSICMPSecAuthenticationFailed 64921
+#define IdResourceStringsCore_RSICMPSecDecompressionFailed 64922
+#define IdResourceStringsCore_RSICMPSecDecryptionFailed 64923
+#define IdResourceStringsCore_RSICMPSecNeedAuthentication 64924
+#define IdResourceStringsCore_RSICMPSecNeedAuthorization 64925
+#define IdResourceStringsCore_RSICMPPacketTooBig 64926
+#define JvResources_RsAniExtension 64927
+#define IdResourceStringsCore_RSICMPSourceQuenchMsg 64928
+#define IdResourceStringsCore_RSICMPRedirNet 64929
+#define IdResourceStringsCore_RSICMPRedirHost 64930
+#define IdResourceStringsCore_RSICMPRedirTOSNet 64931
+#define IdResourceStringsCore_RSICMPRedirTOSHost 64932
+#define IdResourceStringsCore_RSICMPEcho 64933
+#define IdResourceStringsCore_RSICMPTimeStamp 64934
+#define IdResourceStringsCore_RSICMPMaskRequest 64935
+#define IdResourceStringsCore_RSICMPTracePacketForwarded 64936
+#define IdResourceStringsCore_RSICMPTraceNoRoute 64937
+#define IdResourceStringsCore_RSICMPConvUnknownMandOptPresent 64938
+#define IdResourceStringsCore_RSICMPConvKnownUnsupportedOptionPresent 64939
+#define IdResourceStringsCore_RSICMPConvUnsupportedTransportProtocol 64940
+#define IdResourceStringsCore_RSICMPConvOverallLengthExceeded 64941
+#define IdResourceStringsCore_RSICMPConvIPHeaderLengthExceeded 64942
+#define IdResourceStringsCore_RSICMPConvTransportProtocol_255 64943
+#define IdResourceStringsCore_RSICMPDestHostProhibitted 64944
+#define IdResourceStringsCore_RSICMPTOSNetUnreach 64945
+#define IdResourceStringsCore_RSICMPTOSHostUnreach 64946
+#define IdResourceStringsCore_RSICMPAdminProhibitted 64947
+#define IdResourceStringsCore_RSICMPHostPrecViolation 64948
+#define IdResourceStringsCore_RSICMPPrecedenceCutoffInEffect 64949
+#define IdResourceStringsCore_RSICMPNoRouteToDest 64950
+#define IdResourceStringsCore_RSICMPSourceFilterFailed 64951
+#define IdResourceStringsCore_RSICMPRejectRoutToDest 64952
+#define IdResourceStringsCore_RSICMPTTLExceeded 64953
+#define IdResourceStringsCore_RSICMPHopLimitExceeded 64954
+#define IdResourceStringsCore_RSICMPFragAsmExceeded 64955
+#define IdResourceStringsCore_RSICMPParamError 64956
+#define IdResourceStringsCore_RSICMPParamHeader 64957
+#define IdResourceStringsCore_RSICMPParamNextHeader 64958
+#define IdResourceStringsCore_RSICMPUnrecognizedOpt 64959
+#define IdResourceStringsCore_RSTransparentProxyCannotBind 64960
+#define IdResourceStringsCore_RSTransparentProxyCanNotSupportUDP 64961
+#define IdResourceStringsCore_RSBufferMissingTerminator 64962
+#define IdResourceStringsCore_RSBufferInvalidStartPos 64963
+#define IdResourceStringsCore_RSReplyInvalidCode 64964
+#define IdResourceStringsCore_RSReplyCodeAlreadyExists 64965
+#define IdResourceStringsCore_RSICMPTimeout 64966
+#define IdResourceStringsCore_RSICMPNetUnreachable 64967
+#define IdResourceStringsCore_RSICMPHostUnreachable 64968
+#define IdResourceStringsCore_RSICMPProtUnreachable 64969
+#define IdResourceStringsCore_RSICMPFragmentNeeded 64970
+#define IdResourceStringsCore_RSICMPSourceRouteFailed 64971
+#define IdResourceStringsCore_RSICMPDestNetUnknown 64972
+#define IdResourceStringsCore_RSICMPDestHostUnknown 64973
+#define IdResourceStringsCore_RSICMPSourceIsolated 64974
+#define IdResourceStringsCore_RSICMPDestNetProhibitted 64975
+#define IdResourceStringsCore_RSTooMuchDataInBuffer 64976
+#define IdResourceStringsCore_RSFileNotFound 64977
+#define IdResourceStringsCore_RSNotConnected 64978
+#define IdResourceStringsCore_RSObjectTypeNotSupported 64979
+#define IdResourceStringsCore_RSIdNoDataToRead 64980
+#define IdResourceStringsCore_RSReadTimeout 64981
+#define IdResourceStringsCore_RSReadLnWaitMaxAttemptsExceeded 64982
+#define IdResourceStringsCore_RSReadLnMaxLineLengthExceeded 64983
+#define IdResourceStringsCore_RSRequiresLargeStream 64984
+#define IdResourceStringsCore_RSDataTooLarge 64985
+#define IdResourceStringsCore_RSConnectTimeout 64986
+#define IdResourceStringsCore_RSICMPNotEnoughtBytes 64987
+#define IdResourceStringsCore_RSICMPNonEchoResponse 64988
+#define IdResourceStringsCore_RSAlreadyConnected 64989
+#define IdResourceStringsCore_RSMaximumNumberOfCaptureLineExceeded 64990
+#define IdResourceStringsCore_RSInterceptIsDifferent 64991
+#define IdResourceStringsCore_RSSocksRequestServerFailed 64992
+#define IdResourceStringsCore_RSSocksRequestIdentFailed 64993
+#define IdResourceStringsCore_RSSocksUnknownError 64994
+#define IdResourceStringsCore_RSSocksServerRespondError 64995
+#define IdResourceStringsCore_RSSocksAuthMethodError 64996
+#define IdResourceStringsCore_RSSocksAuthError 64997
+#define IdResourceStringsCore_RSSocksServerGeneralError 64998
+#define IdResourceStringsCore_RSSocksServerPermissionError 64999
+#define IdResourceStringsCore_RSSocksServerNetUnreachableError 65000
+#define IdResourceStringsCore_RSSocksServerHostUnreachableError 65001
+#define IdResourceStringsCore_RSSocksServerConnectionRefusedError 65002
+#define IdResourceStringsCore_RSSocksServerTTLExpiredError 65003
+#define IdResourceStringsCore_RSSocksServerCommandError 65004
+#define IdResourceStringsCore_RSSocksServerAddressError 65005
+#define IdResourceStringsCore_RSInterceptCircularLink 65006
+#define IdResourceStringsCore_RSNotEnoughDataInBuffer 65007
+#define IdResourceStrings_RSStackClassUndefined 65008
+#define IdResourceStrings_RSStackAlreadyCreated 65009
+#define IdResourceStrings_RSAntiFreezeOnlyOne 65010
+#define IdResourceStrings_RSCannotSetIPVersionWhenConnected 65011
+#define IdResourceStrings_RSCannotBindRange 65012
+#define IdResourceStrings_RSConnectionClosedGracefully 65013
+#define IdResourceStrings_RSCouldNotBindSocket 65014
+#define IdResourceStrings_RSInvalidPortRange 65015
+#define IdResourceStrings_RSInvalidServiceName 65016
+#define IdResourceStrings_RSInvalidIPv6Address 65017
+#define IdResourceStrings_RSIPVersionUnsupported 65018
+#define IdResourceStrings_RSNotAllBytesSent 65019
+#define IdResourceStrings_RSPackageSizeTooBig 65020
+#define IdResourceStrings_RSSetSizeExceeded 65021
+#define IdResourceStringsCore_RSSocksUDPNotSupported 65022
+#define IdResourceStringsCore_RSSocksRequestFailed 65023
+#define IdResourceStrings_RSStackENETRESET 65024
+#define IdResourceStrings_RSStackECONNABORTED 65025
+#define IdResourceStrings_RSStackECONNRESET 65026
+#define IdResourceStrings_RSStackENOBUFS 65027
+#define IdResourceStrings_RSStackEISCONN 65028
+#define IdResourceStrings_RSStackENOTCONN 65029
+#define IdResourceStrings_RSStackESHUTDOWN 65030
+#define IdResourceStrings_RSStackETOOMANYREFS 65031
+#define IdResourceStrings_RSStackETIMEDOUT 65032
+#define IdResourceStrings_RSStackECONNREFUSED 65033
+#define IdResourceStrings_RSStackELOOP 65034
+#define IdResourceStrings_RSStackENAMETOOLONG 65035
+#define IdResourceStrings_RSStackEHOSTDOWN 65036
+#define IdResourceStrings_RSStackEHOSTUNREACH 65037
+#define IdResourceStrings_RSStackENOTEMPTY 65038
+#define IdResourceStrings_RSStackHOST_NOT_FOUND 65039
+#define IdResourceStrings_RSStackEINPROGRESS 65040
+#define IdResourceStrings_RSStackEALREADY 65041
+#define IdResourceStrings_RSStackENOTSOCK 65042
+#define IdResourceStrings_RSStackEDESTADDRREQ 65043
+#define IdResourceStrings_RSStackEMSGSIZE 65044
+#define IdResourceStrings_RSStackEPROTOTYPE 65045
+#define IdResourceStrings_RSStackENOPROTOOPT 65046
+#define IdResourceStrings_RSStackEPROTONOSUPPORT 65047
+#define IdResourceStrings_RSStackESOCKTNOSUPPORT 65048
+#define IdResourceStrings_RSStackEOPNOTSUPP 65049
+#define IdResourceStrings_RSStackEPFNOSUPPORT 65050
+#define IdResourceStrings_RSStackEAFNOSUPPORT 65051
+#define IdResourceStrings_RSStackEADDRINUSE 65052
+#define IdResourceStrings_RSStackEADDRNOTAVAIL 65053
+#define IdResourceStrings_RSStackENETDOWN 65054
+#define IdResourceStrings_RSStackENETUNREACH 65055
+#define IdResourceStrings_RSWinsockCallError 65056
+#define IdResourceStrings_RSWinsockLoadError 65057
+#define IdResourceStrings_RSStatusResolving 65058
+#define IdResourceStrings_RSStatusConnecting 65059
+#define IdResourceStrings_RSStatusConnected 65060
+#define IdResourceStrings_RSStatusDisconnecting 65061
+#define IdResourceStrings_RSStatusDisconnected 65062
+#define IdResourceStrings_RSStatusText 65063
+#define IdResourceStrings_RSStackError 65064
+#define IdResourceStrings_RSStackEINTR 65065
+#define IdResourceStrings_RSStackEBADF 65066
+#define IdResourceStrings_RSStackEACCES 65067
+#define IdResourceStrings_RSStackEFAULT 65068
+#define IdResourceStrings_RSStackEINVAL 65069
+#define IdResourceStrings_RSStackEMFILE 65070
+#define IdResourceStrings_RSStackEWOULDBLOCK 65071
+#define XMLConst_SNotSingleTextNode 65072
+#define XMLConst_SNoDOMParseOptions 65073
+#define XMLConst_SNodeReadOnly 65074
+#define XMLConst_SNoRefresh 65075
+#define XMLConst_SMissingFileName 65076
+#define XMLConst_SLine 65077
+#define DBConsts_SBcdOverflow 65078
+#define DBConsts_SInvalidBcdValue 65079
+#define DBConsts_SCouldNotParseTimeStamp 65080
+#define DBConsts_SInvalidSqlTimeStamp 65081
+#define IdResourceStrings_RSInvalidSourceArray 65082
+#define IdResourceStrings_RSInvalidDestinationArray 65083
+#define IdResourceStrings_RSCharIndexOutOfBounds 65084
+#define IdResourceStrings_RSInvalidCharCount 65085
+#define IdResourceStrings_RSInvalidDestinationIndex 65086
+#define IdResourceStrings_RSInvalidCodePage 65087
+#define JclResources_RsEUnexpectedEOSeq 65088
+#define JclResources_RsWin32Error 65089
+#define JclResources_RsELibraryNotFound 65090
+#define JclResources_RsEFunctionNotFound 65091
+#define XMLConst_SDuplicateRegistration 65092
+#define XMLConst_SNoMatchingDOMVendor 65093
+#define XMLConst_SNoDOMNodeEx 65094
+#define XMLConst_SDOMNotSupported 65095
+#define XMLConst_SNodeExpected 65096
+#define XMLConst_SMSDOMNotInstalled 65097
+#define XMLConst_SNotActive 65098
+#define XMLConst_SNodeNotFound 65099
+#define XMLConst_SMissingNode 65100
+#define XMLConst_SNoAttributes 65101
+#define XMLConst_SInvalidNodeType 65102
+#define XMLConst_SMismatchedRegItems 65103
 #define JclResources_RsIntelCacheDescrDE 65104
 #define JclResources_RsIntelCacheDescrE2 65105
 #define JclResources_RsIntelCacheDescrE3 65106
@@ -334,12 +332,12 @@
 #define JclResources_RsIntelCacheDescrF0 65111
 #define JclResources_RsIntelCacheDescrF1 65112
 #define JclResources_RsIntelCacheDescrFF 65113
-#define JclResources_RsOSVersionWin8 65114
-#define JclResources_RsOSVersionWinServer2012 65115
-#define JclResources_RsOSVersionWin81 65116
-#define JclResources_RsOSVersionWinServer2012R2 65117
-#define JclResources_RsCannotWriteRefStream 65118
-#define JclResources_RsInvalidMMFName 65119
+#define JclResources_RsOSVersionWin81 65114
+#define JclResources_RsOSVersionWinServer2012R2 65115
+#define JclResources_RsCannotWriteRefStream 65116
+#define JclResources_RsInvalidMMFName 65117
+#define JclResources_RsInvalidMMFEmpty 65118
+#define JclResources_RsHasNotTD32Info 65119
 #define JclResources_RsIntelCacheDescrB0 65120
 #define JclResources_RsIntelCacheDescrB1 65121
 #define JclResources_RsIntelCacheDescrB2 65122
@@ -596,7 +594,7 @@
 #define Consts_SGroupIndexTooLow 65373
 #define Consts_SNoMDIForm 65374
 #define Consts_SControlParentSetToSelf 65375
-#define RTLConsts_SMissingDateTimeField 65376
+#define RTLConsts_SInvalidDateTime 65376
 #define Consts_SInvalidBitmap 65377
 #define Consts_SInvalidIcon 65378
 #define Consts_SInvalidMetafile 65379
@@ -612,38 +610,38 @@
 #define Consts_SInvalidImageList 65389
 #define Consts_SReplaceImage 65390
 #define Consts_SImageIndexError 65391
-#define RTLConsts_SListIndexError 65392
-#define RTLConsts_SMemoryStreamError 65393
-#define RTLConsts_SPropertyException 65394
-#define RTLConsts_SReadError 65395
-#define RTLConsts_SReadOnlyProperty 65396
-#define RTLConsts_SRegCreateFailed 65397
-#define RTLConsts_SRegGetDataFailed 65398
-#define RTLConsts_SRegSetDataFailed 65399
-#define RTLConsts_SResNotFound 65400
-#define RTLConsts_SSeekNotImplemented 65401
-#define RTLConsts_SSortedListError 65402
-#define RTLConsts_SUnknownGroup 65403
-#define RTLConsts_SUnknownProperty 65404
-#define RTLConsts_SWriteError 65405
-#define RTLConsts_SThreadCreateError 65406
-#define RTLConsts_SThreadError 65407
+#define RTLConsts_SMemoryStreamError 65392
+#define RTLConsts_SPropertyException 65393
+#define RTLConsts_SReadError 65394
+#define RTLConsts_SReadOnlyProperty 65395
+#define RTLConsts_SRegCreateFailed 65396
+#define RTLConsts_SRegGetDataFailed 65397
+#define RTLConsts_SRegSetDataFailed 65398
+#define RTLConsts_SResNotFound 65399
+#define RTLConsts_SSeekNotImplemented 65400
+#define RTLConsts_SSortedListError 65401
+#define RTLConsts_SUnknownGroup 65402
+#define RTLConsts_SUnknownProperty 65403
+#define RTLConsts_SWriteError 65404
+#define RTLConsts_SThreadCreateError 65405
+#define RTLConsts_SThreadError 65406
+#define RTLConsts_SMissingDateTimeField 65407
 #define RTLConsts_SDuplicateName 65408
 #define RTLConsts_SDuplicateString 65409
 #define RTLConsts_SFCreateErrorEx 65410
 #define RTLConsts_SFOpenErrorEx 65411
 #define RTLConsts_SIniFileWriteError 65412
-#define RTLConsts_SInvalidDateTime 65413
-#define RTLConsts_SInvalidImage 65414
-#define RTLConsts_SInvalidName 65415
-#define RTLConsts_SInvalidProperty 65416
-#define RTLConsts_SInvalidPropertyElement 65417
-#define RTLConsts_SInvalidPropertyPath 65418
-#define RTLConsts_SInvalidPropertyType 65419
-#define RTLConsts_SInvalidPropertyValue 65420
-#define RTLConsts_SInvalidRegType 65421
-#define RTLConsts_SListCapacityError 65422
-#define RTLConsts_SListCountError 65423
+#define RTLConsts_SInvalidImage 65413
+#define RTLConsts_SInvalidName 65414
+#define RTLConsts_SInvalidProperty 65415
+#define RTLConsts_SInvalidPropertyElement 65416
+#define RTLConsts_SInvalidPropertyPath 65417
+#define RTLConsts_SInvalidPropertyType 65418
+#define RTLConsts_SInvalidPropertyValue 65419
+#define RTLConsts_SInvalidRegType 65420
+#define RTLConsts_SListCapacityError 65421
+#define RTLConsts_SListCountError 65422
+#define RTLConsts_SListIndexError 65423
 #define SysConst_SShortDayNameSat 65424
 #define SysConst_SLongDayNameSun 65425
 #define SysConst_SLongDayNameMon 65426
@@ -692,8 +690,8 @@
 #define SysConst_SShortMonthNameDec 65469
 #define SysConst_SLongMonthNameJan 65470
 #define SysConst_SLongMonthNameFeb 65471
-#define SysConst_SVarTypeTooManyCustom 65472
-#define SysConst_SInvalidVarNullOp 65473
+#define SysConst_SVarTypeNotUsableWithPrefix 65472
+#define SysConst_SVarTypeTooManyCustom 65473
 #define SysConst_SVarTypeCouldNotConvert 65474
 #define SysConst_SVarTypeConvertOverflow 65475
 #define SysConst_SVarOverflow 65476
@@ -711,19 +709,19 @@
 #define SysConst_SExceptTitle 65488
 #define SysConst_SInvalidFormat 65489
 #define SysConst_SArgumentMissing 65490
-#define SysConst_SInvalidVarCast 65491
-#define SysConst_SInvalidVarOp 65492
-#define SysConst_SDispatchError 65493
-#define SysConst_SReadAccess 65494
-#define SysConst_SWriteAccess 65495
-#define SysConst_SFormatTooLong 65496
-#define SysConst_SVarArrayCreate 65497
-#define SysConst_SVarArrayBounds 65498
-#define SysConst_SVarArrayLocked 65499
-#define SysConst_SInvalidVarOpWithHResultWithPrefix 65500
-#define SysConst_SVarTypeOutOfRangeWithPrefix 65501
-#define SysConst_SVarTypeAlreadyUsedWithPrefix 65502
-#define SysConst_SVarTypeNotUsableWithPrefix 65503
+#define SysConst_SDispatchError 65491
+#define SysConst_SReadAccess 65492
+#define SysConst_SWriteAccess 65493
+#define SysConst_SFormatTooLong 65494
+#define SysConst_SVarArrayCreate 65495
+#define SysConst_SVarArrayBounds 65496
+#define SysConst_SVarArrayLocked 65497
+#define SysConst_SInvalidVarCast 65498
+#define SysConst_SInvalidVarOp 65499
+#define SysConst_SInvalidVarNullOp 65500
+#define SysConst_SInvalidVarOpWithHResultWithPrefix 65501
+#define SysConst_SVarTypeOutOfRangeWithPrefix 65502
+#define SysConst_SVarTypeAlreadyUsedWithPrefix 65503
 #define SysConst_SInvalidInput 65504
 #define SysConst_SDivByZero 65505
 #define SysConst_SRangeError 65506
@@ -758,8 +756,6 @@
 #define SysConst_SDiskFull 65535
 STRINGTABLE
 BEGIN
-	pnglang_EPNGUnknownCriticalChunkText,	"This \"Portable Network Graphics\" image contains an unknown critical part which could not be decoded."
-	pnglang_EPNGUnknownCompressionText,	"This \"Portable Network Graphics\" image is encoded with an unknown compression scheme which could not be decoded."
 	pnglang_EPNGUnknownInterlaceText,	"This \"Portable Network Graphics\" image uses an unknown interlace scheme which could not be decoded."
 	pnglang_EPNGCannotAssignChunkText,	"The chunks must be compatible to be assigned."
 	pnglang_EPNGUnexpectedEndText,	"This \"Portable Network Graphics\" image is invalid because the decoder found an unexpected end of the file."
@@ -769,9 +765,7 @@ BEGIN
 	pnglang_EPNGCannotAddInvalidImageText,	"It's not allowed to add a new chunk because the current image is invalid."
 	pnglang_EPNGOutMemoryText,	"Some operation could not be performed because the system is out of resources. Close some windows and try again."
 	pnglang_EPNGHeaderNotPresentText,	"This operation is not valid because the current image contains no valid header."
-	OleConst_sNoRunningObject,	"Не могу получить ссылку на работающий объект, зарегистрированный в OLE, для %s/%s"
-	JvResources_RsGradientInactiveCaption,	"Gradient Inactive Caption"
-	JvResources_RsHotLight,	"Hot Light"
+	OleConst_sNoRunningObject,	"Unable to retrieve a pointer to a running object registered with OLE for %s/%s"
 	JvResources_RsMenuBar,	"Menu Bar"
 	JvResources_RsMenuHighlight,	"Menu Highlight"
 	JConsts_sChangeJPGSize,	"Cannot change the size of a JPEG image"
@@ -786,8 +780,8 @@ BEGIN
 	pnglang_EPNGIHDRNotFirstText,	"This \"Portable Network Graphics\" image is not supported or it might be invalid.\r\n(IHDR chunk is not the first)"
 	pnglang_EPNGSizeExceedsText,	"This \"Portable Network Graphics\" image is not supported because either it's width or height exceeds the maximum size, which is 65535 pixels length."
 	pnglang_EPNGUnknownPalEntryText,	"There is no such palette entry."
-	JvResources_RsClActiveBorder,	"Active window border"
-	JvResources_RsClInactiveBorder,	"Inactive window border"
+	pnglang_EPNGUnknownCriticalChunkText,	"This \"Portable Network Graphics\" image contains an unknown critical part which could not be decoded."
+	pnglang_EPNGUnknownCompressionText,	"This \"Portable Network Graphics\" image is encoded with an unknown compression scheme which could not be decoded."
 	JvResources_RsClAppWorkSpace,	"Application workspace"
 	JvResources_RsClHighlight,	"Selection background"
 	JvResources_RsClHighlightText,	"Selection text"
@@ -802,8 +796,8 @@ BEGIN
 	JvResources_RsClInfoText,	"Tooltip text"
 	JvResources_RsClInfoBk,	"Tooltip background"
 	JvResources_RsGradientActiveCaption,	"Gradient Active Caption"
-	JvResources_RsClTan,	"Tan"
-	JvResources_RsClLightYellow,	"Light Yellow"
+	JvResources_RsGradientInactiveCaption,	"Gradient Inactive Caption"
+	JvResources_RsHotLight,	"Hot Light"
 	JvResources_RsClLightGreen,	"Light Green"
 	JvResources_RsClLightTurquoise,	"Light Turquoise"
 	JvResources_RsClPaleBlue,	"Pale Blue"
@@ -818,8 +812,8 @@ BEGIN
 	JvResources_RsClMenuText,	"Menu text"
 	JvResources_RsClWindowText,	"Window text"
 	JvResources_RsClCaptionText,	"Active window title bar text"
-	JvResources_RsClOrange,	"Orange"
-	JvResources_RsClDarkYellow,	"Dark Yellow"
+	JvResources_RsClActiveBorder,	"Active window border"
+	JvResources_RsClInactiveBorder,	"Inactive window border"
 	JvResources_RsClBlueGray,	"Blue Gray"
 	JvResources_RsClGray50,	"Gray 50%"
 	JvResources_RsClLightOrange,	"Light Orange"
@@ -834,8 +828,8 @@ BEGIN
 	JvResources_RsClPlum,	"Plum"
 	JvResources_RsClGray25,	"Gray 25%"
 	JvResources_RsClRose,	"Rose"
-	JvResources_RsClBlue,	"Blue"
-	JvResources_RsClFuchsia,	"Fuchsia"
+	JvResources_RsClTan,	"Tan"
+	JvResources_RsClLightYellow,	"Light Yellow"
 	JvResources_RsClAqua,	"Aqua"
 	JvResources_RsClWhite,	"White"
 	JvResources_RsClMoneyGreen,	"Money green"
@@ -850,8 +844,8 @@ BEGIN
 	JvResources_RsClIndigo,	"Indigo"
 	JvResources_RsClGray80,	"Gray 80%"
 	JvResources_RsClDarkRed,	"Dark Red"
-	JvResources_RsPcxFilterName,	"PCX Image"
-	JvResources_RsEPcxUnknownFormat,	"PCX: Unknown format"
+	JvResources_RsClOrange,	"Orange"
+	JvResources_RsClDarkYellow,	"Dark Yellow"
 	JvResources_RsEPcxPaletteProblem,	"PCX: Unable to retrieve palette"
 	JvResources_RsEPcxInvalid,	"PCX: Invalid PCX file"
 	JvResources_RsClBlack,	"Black"
@@ -866,8 +860,8 @@ BEGIN
 	JvResources_RsClRed,	"Red"
 	JvResources_RsClLime,	"Lime"
 	JvResources_RsClYellow,	"Yellow"
-	IdResourceStringsCore_RSICMPPacketTooBig,	"Packet Too Big (MTU = %d)"
-	JvResources_RsAniExtension,	"ani"
+	JvResources_RsClBlue,	"Blue"
+	JvResources_RsClFuchsia,	"Fuchsia"
 	JvResources_RsAniFilterName,	"ANI Image"
 	JvResources_RsGIFImage,	"CompuServe GIF Image"
 	JvResources_RsEChangeGIFSize,	"Cannot change the Size of a GIF image"
@@ -882,8 +876,8 @@ BEGIN
 	JvResources_RsEBitCountNotImplemented,	"BitmapToMemoryStream: bit count not implemented"
 	JvResources_RsEBadGraphicSignature,	"Bad Graphic Signature"
 	JvResources_RsPcxExtension,	"pcx"
-	IdResourceStringsCore_RSICMPConvIPHeaderLengthExceeded,	"IP header length exceeded"
-	IdResourceStringsCore_RSICMPConvTransportProtocol_255,	"Transport protocol > 255"
+	JvResources_RsPcxFilterName,	"PCX Image"
+	JvResources_RsEPcxUnknownFormat,	"PCX: Unknown format"
 	IdResourceStringsCore_RSICMPConvPortConversionOutOfRange,	"Port conversion out of range"
 	IdResourceStringsCore_RSICMPConvTransportHeaderLengthExceeded,	"Transport header length exceeded"
 	IdResourceStringsCore_RSICMPConv32BitRolloverMissingAndACKSet,	"32 Bit Rollover missing and ACK set"
@@ -898,8 +892,8 @@ BEGIN
 	IdResourceStringsCore_RSICMPSecDecryptionFailed,	"Decryption Failed"
 	IdResourceStringsCore_RSICMPSecNeedAuthentication,	"Need Authentication"
 	IdResourceStringsCore_RSICMPSecNeedAuthorization,	"Need Authorization"
-	IdResourceStringsCore_RSICMPParamNextHeader,	"unrecognized Next Header type encountered (offset %d)"
-	IdResourceStringsCore_RSICMPUnrecognizedOpt,	"unrecognized IPv6 option encountered (offset %d)"
+	IdResourceStringsCore_RSICMPPacketTooBig,	"Packet Too Big (MTU = %d)"
+	JvResources_RsAniExtension,	"ani"
 	IdResourceStringsCore_RSICMPSourceQuenchMsg,	"Source Quench Message"
 	IdResourceStringsCore_RSICMPRedirNet,	"Redirect datagrams for the Network."
 	IdResourceStringsCore_RSICMPRedirHost,	"Redirect datagrams for the Host."
@@ -914,8 +908,8 @@ BEGIN
 	IdResourceStringsCore_RSICMPConvKnownUnsupportedOptionPresent,	"Known unsupported option present"
 	IdResourceStringsCore_RSICMPConvUnsupportedTransportProtocol,	"Unsupported transport protocol"
 	IdResourceStringsCore_RSICMPConvOverallLengthExceeded,	"Overall length exceeded"
-	IdResourceStringsCore_RSICMPSourceIsolated,	"Source Host Isolated"
-	IdResourceStringsCore_RSICMPDestNetProhibitted,	"Communication with Destination Network is Administratively Prohibited"
+	IdResourceStringsCore_RSICMPConvIPHeaderLengthExceeded,	"IP header length exceeded"
+	IdResourceStringsCore_RSICMPConvTransportProtocol_255,	"Transport protocol > 255"
 	IdResourceStringsCore_RSICMPDestHostProhibitted,	"Communication with Destination Host is Administratively Prohibited"
 	IdResourceStringsCore_RSICMPTOSNetUnreach,	"Destination Network Unreachable for Type of Service"
 	IdResourceStringsCore_RSICMPTOSHostUnreach,	"Destination Host Unreachable for Type of Service"
@@ -930,8 +924,8 @@ BEGIN
 	IdResourceStringsCore_RSICMPFragAsmExceeded,	"fragment reassembly time exceeded."
 	IdResourceStringsCore_RSICMPParamError,	"Parameter Problem (offset %d)"
 	IdResourceStringsCore_RSICMPParamHeader,	"erroneous header field encountered (offset %d)"
-	IdResourceStringsCore_RSMaximumNumberOfCaptureLineExceeded,	"Maximum number of line allowed exceeded"
-	IdResourceStringsCore_RSInterceptIsDifferent,	"The IOHandler already has a different Intercept assigned"
+	IdResourceStringsCore_RSICMPParamNextHeader,	"unrecognized Next Header type encountered (offset %d)"
+	IdResourceStringsCore_RSICMPUnrecognizedOpt,	"unrecognized IPv6 option encountered (offset %d)"
 	IdResourceStringsCore_RSTransparentProxyCannotBind,	"Transparent proxy cannot bind."
 	IdResourceStringsCore_RSTransparentProxyCanNotSupportUDP,	"UDP Not supported by this proxy."
 	IdResourceStringsCore_RSBufferMissingTerminator,	"Buffer terminator must be specified."
@@ -946,8 +940,8 @@ BEGIN
 	IdResourceStringsCore_RSICMPSourceRouteFailed,	"Source Route Failed"
 	IdResourceStringsCore_RSICMPDestNetUnknown,	"Destination Network Unknown"
 	IdResourceStringsCore_RSICMPDestHostUnknown,	"Destination Host Unknown"
-	IdResourceStringsCore_RSInterceptCircularLink,	"%d: Circular links are not allowed"
-	IdResourceStringsCore_RSNotEnoughDataInBuffer,	"Not enough data in buffer. (%d/%d)"
+	IdResourceStringsCore_RSICMPSourceIsolated,	"Source Host Isolated"
+	IdResourceStringsCore_RSICMPDestNetProhibitted,	"Communication with Destination Network is Administratively Prohibited"
 	IdResourceStringsCore_RSTooMuchDataInBuffer,	"Too much data in buffer."
 	IdResourceStringsCore_RSFileNotFound,	"File \"%s\" not found"
 	IdResourceStringsCore_RSNotConnected,	"Not Connected"
@@ -962,8 +956,8 @@ BEGIN
 	IdResourceStringsCore_RSICMPNotEnoughtBytes,	"Not enough bytes received"
 	IdResourceStringsCore_RSICMPNonEchoResponse,	"Non-echo type response received"
 	IdResourceStringsCore_RSAlreadyConnected,	"Already connected."
-	IdResourceStringsCore_RSSocksUDPNotSupported,	"UDP is not support in this SOCKS version."
-	IdResourceStringsCore_RSSocksRequestFailed,	"Request rejected or failed."
+	IdResourceStringsCore_RSMaximumNumberOfCaptureLineExceeded,	"Maximum number of line allowed exceeded"
+	IdResourceStringsCore_RSInterceptIsDifferent,	"The IOHandler already has a different Intercept assigned"
 	IdResourceStringsCore_RSSocksRequestServerFailed,	"Request rejected because SOCKS server cannot connect."
 	IdResourceStringsCore_RSSocksRequestIdentFailed,	"Request rejected because the client program and identd report different user-ids."
 	IdResourceStringsCore_RSSocksUnknownError,	"Unknown socks error."
@@ -978,8 +972,8 @@ BEGIN
 	IdResourceStringsCore_RSSocksServerTTLExpiredError,	"TTL expired."
 	IdResourceStringsCore_RSSocksServerCommandError,	"Command not supported."
 	IdResourceStringsCore_RSSocksServerAddressError,	"Address type not supported."
-	IdResourceStrings_RSStackENOTEMPTY,	"Directory not empty"
-	IdResourceStrings_RSStackHOST_NOT_FOUND,	"Host not found."
+	IdResourceStringsCore_RSInterceptCircularLink,	"%d: Circular links are not allowed"
+	IdResourceStringsCore_RSNotEnoughDataInBuffer,	"Not enough data in buffer. (%d/%d)"
 	IdResourceStrings_RSStackClassUndefined,	"Stack Class is undefined."
 	IdResourceStrings_RSStackAlreadyCreated,	"Stack already created."
 	IdResourceStrings_RSAntiFreezeOnlyOne,	"Only one TIdAntiFreeze can exist per application."
@@ -994,8 +988,8 @@ BEGIN
 	IdResourceStrings_RSNotAllBytesSent,	"Not all bytes sent."
 	IdResourceStrings_RSPackageSizeTooBig,	"Package Size Too Big."
 	IdResourceStrings_RSSetSizeExceeded,	"Set Size Exceeded."
-	IdResourceStrings_RSStackENETDOWN,	"Network is down."
-	IdResourceStrings_RSStackENETUNREACH,	"Network is unreachable."
+	IdResourceStringsCore_RSSocksUDPNotSupported,	"UDP is not support in this SOCKS version."
+	IdResourceStringsCore_RSSocksRequestFailed,	"Request rejected or failed."
 	IdResourceStrings_RSStackENETRESET,	"Net dropped connection or reset."
 	IdResourceStrings_RSStackECONNABORTED,	"Software caused connection abort."
 	IdResourceStrings_RSStackECONNRESET,	"Connection reset by peer."
@@ -1010,8 +1004,8 @@ BEGIN
 	IdResourceStrings_RSStackENAMETOOLONG,	"File name too long."
 	IdResourceStrings_RSStackEHOSTDOWN,	"Host is down."
 	IdResourceStrings_RSStackEHOSTUNREACH,	"No route to host."
-	IdResourceStrings_RSStackEMFILE,	"Too many open files."
-	IdResourceStrings_RSStackEWOULDBLOCK,	"Operation would block."
+	IdResourceStrings_RSStackENOTEMPTY,	"Directory not empty"
+	IdResourceStrings_RSStackHOST_NOT_FOUND,	"Host not found."
 	IdResourceStrings_RSStackEINPROGRESS,	"Operation now in progress."
 	IdResourceStrings_RSStackEALREADY,	"Operation already in progress."
 	IdResourceStrings_RSStackENOTSOCK,	"Socket operation on non-socket."
@@ -1026,8 +1020,8 @@ BEGIN
 	IdResourceStrings_RSStackEAFNOSUPPORT,	"Address family not supported by protocol family."
 	IdResourceStrings_RSStackEADDRINUSE,	"Address already in use."
 	IdResourceStrings_RSStackEADDRNOTAVAIL,	"Cannot assign requested address."
-	IdResourceStrings_RSInvalidDestinationIndex,	"Invalid destination index (%d)"
-	IdResourceStrings_RSInvalidCodePage,	"Invalid codepage (%d)"
+	IdResourceStrings_RSStackENETDOWN,	"Network is down."
+	IdResourceStrings_RSStackENETUNREACH,	"Network is unreachable."
 	IdResourceStrings_RSWinsockCallError,	"Error on call to Winsock2 library function %s"
 	IdResourceStrings_RSWinsockLoadError,	"Error on loading Winsock2 library (%s)"
 	IdResourceStrings_RSStatusResolving,	"Resolving hostname %s."
@@ -1042,38 +1036,40 @@ BEGIN
 	IdResourceStrings_RSStackEACCES,	"Access denied."
 	IdResourceStrings_RSStackEFAULT,	"Buffer fault."
 	IdResourceStrings_RSStackEINVAL,	"Invalid argument."
-	XMLConst_SInvalidNodeType,	"Неверный тип узла"
-	XMLConst_SMismatchedRegItems,	"Несовпадающие параметры к RegisterChildNodes"
-	XMLConst_SNotSingleTextNode,	"Элемент не содержит единственный текстовый узел"
-	XMLConst_SNoDOMParseOptions,	"Реализация DOM не поддерживает IDOMParseOptions"
-	XMLConst_SNodeReadOnly,	"Узел только для чтения"
-	XMLConst_SNoRefresh,	"Refresh поддерживается только, если установлены свойства FileName или XML"
-	XMLConst_SMissingFileName,	"FileName не может быть пустым"
+	IdResourceStrings_RSStackEMFILE,	"Too many open files."
+	IdResourceStrings_RSStackEWOULDBLOCK,	"Operation would block."
+	XMLConst_SNotSingleTextNode,	"Element does not contain a single text node"
+	XMLConst_SNoDOMParseOptions,	"DOM Implementation does not support IDOMParseOptions"
+	XMLConst_SNodeReadOnly,	"Node is readonly"
+	XMLConst_SNoRefresh,	"Refresh is only supported if the FileName or XML properties are set"
+	XMLConst_SMissingFileName,	"FileName cannot be blank"
 	XMLConst_SLine,	"Line"
-	DBConsts_SBcdOverflow,	"Переполнение BCD"
-	DBConsts_SInvalidBcdValue,	"%s - неверное BCD значение"
-	DBConsts_SCouldNotParseTimeStamp,	"Не могу разобрать строку SQL TimeStamp"
-	DBConsts_SInvalidSqlTimeStamp,	"Неверные значения SQL даты/времени"
+	DBConsts_SBcdOverflow,	"BCD overflow"
+	DBConsts_SInvalidBcdValue,	"%s is not a valid BCD value"
+	DBConsts_SCouldNotParseTimeStamp,	"Could not parse SQL TimeStamp string"
+	DBConsts_SInvalidSqlTimeStamp,	"Invalid SQL date/time values"
 	IdResourceStrings_RSInvalidSourceArray,	"Invalid source array"
 	IdResourceStrings_RSInvalidDestinationArray,	"Invalid destination array"
 	IdResourceStrings_RSCharIndexOutOfBounds,	"Character index out of bounds (%d)"
 	IdResourceStrings_RSInvalidCharCount,	"Invalid count (%d)"
-	JclResources_RsInvalidMMFEmpty,	"The MMF named \"%s\" cannot be created empty"
-	JclResources_RsHasNotTD32Info,	"File [%s] has not TD32 debug information!"
+	IdResourceStrings_RSInvalidDestinationIndex,	"Invalid destination index (%d)"
+	IdResourceStrings_RSInvalidCodePage,	"Invalid codepage (%d)"
 	JclResources_RsEUnexpectedEOSeq,	"Unexpected end of sequence"
 	JclResources_RsWin32Error,	"Win32 error: %s (%u)%s%s"
 	JclResources_RsELibraryNotFound,	"Library not found: %s"
 	JclResources_RsEFunctionNotFound,	"Function not found: %s.%s"
-	XMLConst_SDuplicateRegistration,	"\"%s\" DOMImplementation уже зарегистрирован"
-	XMLConst_SNoMatchingDOMVendor,	"Нет подходящего DOM Vendor: \"%s\""
-	XMLConst_SNoDOMNodeEx,	"Выбранный DOM Vendor не поддерживает это свойство или метод"
-	XMLConst_SDOMNotSupported,	"Свойство или метод \"%s\" не поддерживается DOM Vendor \"%s\""
-	XMLConst_SNodeExpected,	"Узел не может быть пустым (null)"
-	XMLConst_SMSDOMNotInstalled,	"Microsoft MSXML не установлен"
-	XMLConst_SNotActive,	"Нет активного документа"
-	XMLConst_SNodeNotFound,	"Узел \"%s\" не найден"
-	XMLConst_SMissingNode,	"IDOMNode требуется"
-	XMLConst_SNoAttributes,	"Атрибуты не поддерживаются на этом типе узла"
+	XMLConst_SDuplicateRegistration,	"\"%s\" DOMImplementation already registered"
+	XMLConst_SNoMatchingDOMVendor,	"No matching DOM Vendor: \"%s\""
+	XMLConst_SNoDOMNodeEx,	"Selected DOM Vendor does not support this property or method"
+	XMLConst_SDOMNotSupported,	"Property or Method \"%s\" is not supported by DOM Vendor \"%s\""
+	XMLConst_SNodeExpected,	"Node cannot be null"
+	XMLConst_SMSDOMNotInstalled,	"Microsoft MSXML is not installed"
+	XMLConst_SNotActive,	"No active document"
+	XMLConst_SNodeNotFound,	"Node \"%s\" not found"
+	XMLConst_SMissingNode,	"IDOMNode required"
+	XMLConst_SNoAttributes,	"Attributes are not supported on this node type"
+	XMLConst_SInvalidNodeType,	"Invalid node type"
+	XMLConst_SMismatchedRegItems,	"Mismatched paramaters to RegisterChildNodes"
 	JclResources_RsIntelCacheDescrDE,	"3rd-level cache: 6 MByte, 12-way set associative, 64 byte line size"
 	JclResources_RsIntelCacheDescrE2,	"3rd-level cache: 2 MByte, 16-way set associative, 64 byte line size"
 	JclResources_RsIntelCacheDescrE3,	"3rd-level cache: 4 MByte, 16-way set associative, 64 byte line size"
@@ -1084,12 +1080,12 @@ BEGIN
 	JclResources_RsIntelCacheDescrF0,	"64-Byte Prefetching"
 	JclResources_RsIntelCacheDescrF1,	"128-Byte Prefetching"
 	JclResources_RsIntelCacheDescrFF,	"CPUID leaf 2 does not report cache descriptor information, use CPUID leaf 4 to query cache parameters"
-	JclResources_RsOSVersionWin8,	"Windows 8"
-	JclResources_RsOSVersionWinServer2012,	"Windows Server 2012"
 	JclResources_RsOSVersionWin81,	"Windows 8.1"
 	JclResources_RsOSVersionWinServer2012R2,	"Windows Server 2012 R2"
 	JclResources_RsCannotWriteRefStream,	"Can not write to a read-only memory stream"
 	JclResources_RsInvalidMMFName,	"Invalid MMF name \"%s\""
+	JclResources_RsInvalidMMFEmpty,	"The MMF named \"%s\" cannot be created empty"
+	JclResources_RsHasNotTD32Info,	"File [%s] has not TD32 debug information!"
 	JclResources_RsIntelCacheDescrB0,	"Instruction TLB: 4 KByte pages, 4-way set associative, 128 entries"
 	JclResources_RsIntelCacheDescrB1,	"Instruction TLB: 2 MByte pages, 4-way, 8 entries or 4 MByte pages, 4-way, 4 entries"
 	JclResources_RsIntelCacheDescrB2,	"Instruction TLB: 4 KByte pages, 4-way set associative, 64 entries"
@@ -1202,22 +1198,22 @@ BEGIN
 	JclResources_RsPeSectionNotFound,	"Section \"%s\" not found"
 	JclResources_RsUnableToOpenKeyRead,	"Unable to open key \"%s\\%s\" for read"
 	JclResources_RsUnableToAccessValue,	"Unable to open key \"%s\\%s\" and access value \"%s\""
-	ComStrs_sInvalidComCtl32,	"Этот компонент требует COMCTL32.DLL версии 4.70 или выше"
+	ComStrs_sInvalidComCtl32,	"This control requires version 4.70 or greater of COMCTL32.DLL"
 	WinHelpViewer_hNoKeyword,	"No help keyword specified."
-	ComConst_SCreateRegKeyError,	"Ошибка создания ключа (entry) системного реестра"
-	ComConst_SOleError,	"Ошибка OLE %.8x"
-	ComConst_SObjectFactoryMissing,	"Object factory для класса %s потеряна"
-	ComConst_STypeInfoMissing,	"Информация о типе потеряна для класса %s"
-	ComConst_SBadTypeInfo,	"Неверная информация о типе для класса %s"
-	ComConst_SDispIntfMissing,	"Dispatch interface потерян для класса %s"
-	ComConst_SNoMethod,	"Метод '%s' не поддерживается automation объектом"
-	ComConst_SVarNotObject,	"Вариант не ссылается на automation объект"
-	ComConst_STooManyParams,	"Dispatch методы не поддерживают более 64 параметров"
-	ComConst_SDCOMNotInstalled,	"DCOM не установлен"
-	ComConst_SDAXError,	"Ошибка DAX"
-	ComConst_SAutomationWarning,	"Предупреждение COM Сервера"
-	ComConst_SNoCloseActiveServer1,	"В приложении имеются активные COM объекты. Один или более клиентов могут ссылаться на эти объекты, таким образом, закрытие "
-	ComConst_SNoCloseActiveServer2,	"приложения может вызвать сбой клиентских приложений.\r\n\r\nВы уверены, что хотите закрыть это приложение?"
+	ComConst_SCreateRegKeyError,	"Error creating system registry entry"
+	ComConst_SOleError,	"OLE error %.8x"
+	ComConst_SObjectFactoryMissing,	"Object factory for class %s missing"
+	ComConst_STypeInfoMissing,	"Type information missing for class %s"
+	ComConst_SBadTypeInfo,	"Incorrect type information for class %s"
+	ComConst_SDispIntfMissing,	"Dispatch interface missing from class %s"
+	ComConst_SNoMethod,	"Method '%s' not supported by automation object"
+	ComConst_SVarNotObject,	"Variant does not reference an automation object"
+	ComConst_STooManyParams,	"Dispatch methods do not support more than 64 parameters"
+	ComConst_SDCOMNotInstalled,	"DCOM not installed"
+	ComConst_SDAXError,	"DAX Error"
+	ComConst_SAutomationWarning,	"COM Server Warning"
+	ComConst_SNoCloseActiveServer1,	"There are still active COM objects in this application.  One or more clients may have references to these objects, so manually closing "
+	ComConst_SNoCloseActiveServer2,	"this application may cause those client application(s) to fail.\r\n\r\nAre you sure you want to close this application?"
 	ExtCtrls_clNameHighlightText,	"Highlight Text"
 	ExtCtrls_clNameInactiveBorder,	"Inactive Border"
 	ExtCtrls_clNameInactiveCaption,	"Inactive Caption"
@@ -1233,7 +1229,7 @@ BEGIN
 	ExtCtrls_clNameWindow,	"Window Background"
 	ExtCtrls_clNameWindowFrame,	"Window Frame"
 	ExtCtrls_clNameWindowText,	"Window Text"
-	ComStrs_sInvalidOwner,	"Неверный владелец"
+	ComStrs_sInvalidOwner,	"Invalid owner"
 	ExtCtrls_clNameMoneyGreen,	"Money Green"
 	ExtCtrls_clNameSkyBlue,	"Sky Blue"
 	ExtCtrls_clNameCream,	"Cream"
@@ -1266,18 +1262,18 @@ BEGIN
 	ExtCtrls_clNameFuchsia,	"Fuchsia"
 	ExtCtrls_clNameAqua,	"Aqua"
 	ExtCtrls_clNameWhite,	"White"
-	Consts_srNone,	"(Нет)"
-	Consts_sAllFilter,	"Все"
-	Consts_SIconToClipboard,	"Буфер обмена не поддерживает иконки"
-	Consts_SDuplicateMenus,	"Меню '%s' уже используется другой формой"
-	Consts_SPictureLabel,	"Картинка:"
+	Consts_srNone,	"(None)"
+	Consts_sAllFilter,	"All"
+	Consts_SIconToClipboard,	"Clipboard does not support Icons"
+	Consts_SDuplicateMenus,	"Menu '%s' is already being used by another form"
+	Consts_SPictureLabel,	"Picture:"
 	Consts_SPictureDesc,	" (%dx%d)"
-	Consts_SPreviewLabel,	"Просмотр"
-	Consts_SDockedCtlNeedsName,	"Докированный элемент должен иметь имя"
-	Consts_SDockTreeRemoveError,	"Ошибка удаления элемента из dock tree"
-	Consts_SDockZoneNotFound,	" - область докирования не найдена"
-	Consts_SDockZoneHasNoCtl,	" - область докирования не имеет элементов управления"
-	Consts_SNoGetItemEventHandler,	"Не определен обработчик события OnGetItem"
+	Consts_SPreviewLabel,	"Preview"
+	Consts_SDockedCtlNeedsName,	"Docked control must have a name"
+	Consts_SDockTreeRemoveError,	"Error removing control from dock tree"
+	Consts_SDockZoneNotFound,	" - Dock zone not found"
+	Consts_SDockZoneHasNoCtl,	" - Dock zone has no control"
+	Consts_SNoGetItemEventHandler,	"No OnGetItem event handler assigned"
 	HelpIntfs_hNoTableOfContents,	"Unable to find a Table of Contents"
 	HelpIntfs_hNothingFound,	"No help found for %s"
 	HelpIntfs_hNoContext,	"No context-sensitive help installed"
@@ -1298,213 +1294,213 @@ BEGIN
 	Consts_SmkcShift,	"Shift+"
 	Consts_SmkcCtrl,	"Ctrl+"
 	Consts_SmkcAlt,	"Alt+"
-	Consts_SMsgDlgError,	"Ошибка"
-	Consts_SMsgDlgInformation,	"Информация"
-	Consts_SMsgDlgConfirm,	"Подтверждение"
-	Consts_SMsgDlgYes,	"&Да"
-	Consts_SMsgDlgNo,	"&Нет"
+	Consts_SMsgDlgError,	"Error"
+	Consts_SMsgDlgInformation,	"Information"
+	Consts_SMsgDlgConfirm,	"Confirm"
+	Consts_SMsgDlgYes,	"&Yes"
+	Consts_SMsgDlgNo,	"&No"
 	Consts_SMsgDlgOK,	"OK"
-	Consts_SMsgDlgCancel,	"Отмена"
-	Consts_SMsgDlgHelp,	"&Справка"
-	Consts_SMsgDlgAbort,	"П&рервать"
-	Consts_SMsgDlgRetry,	"&Повторить"
-	Consts_SMsgDlgIgnore,	"Про&должить"
-	Consts_SMsgDlgAll,	"&Все"
-	Consts_SMsgDlgNoToAll,	"Н&ет для всех"
-	Consts_SMsgDlgYesToAll,	"Д&а для всех"
+	Consts_SMsgDlgCancel,	"Cancel"
+	Consts_SMsgDlgHelp,	"&Help"
+	Consts_SMsgDlgAbort,	"&Abort"
+	Consts_SMsgDlgRetry,	"&Retry"
+	Consts_SMsgDlgIgnore,	"&Ignore"
+	Consts_SMsgDlgAll,	"&All"
+	Consts_SMsgDlgNoToAll,	"N&o to All"
+	Consts_SMsgDlgYesToAll,	"Yes to &All"
 	Consts_SmkcBkSp,	"BkSp"
 	Consts_SmkcTab,	"Tab"
 	Consts_SOKButton,	"OK"
-	Consts_SCancelButton,	"Отмена"
-	Consts_SYesButton,	"&Да"
-	Consts_SNoButton,	"&Нет"
-	Consts_SHelpButton,	"&Справка"
-	Consts_SCloseButton,	"&Закрыть"
-	Consts_SIgnoreButton,	"Про&должить"
-	Consts_SRetryButton,	"&Повторить"
-	Consts_SAbortButton,	"Прервать"
-	Consts_SAllButton,	"&Все"
-	Consts_SCannotDragForm,	"Не могу перемещать форму"
-	Consts_SVMetafiles,	"Метафайлы"
-	Consts_SVEnhMetafiles,	"Расширенные метафайлы"
-	Consts_SVIcons,	"Иконки"
-	Consts_SVBitmaps,	"Картинки"
-	Consts_SMsgDlgWarning,	"Предупреждение"
-	Consts_SImageReadFail,	"Ошибка чтения данных ImageList из потока"
-	Consts_SImageWriteFail,	"Ошибка записи данных ImageList в поток"
-	Consts_SWindowDCError,	"Ошибка создания контекста окна (window device context)"
-	Consts_SWindowClass,	"Ошибка создания оконного класса"
-	Consts_SCannotFocus,	"Не могу передать фокус ввода отключенному или невидимому окну"
-	Consts_SParentRequired,	"Элемент управления '%s' не имеет родительского окна"
-	Consts_SMDIChildNotVisible,	"Не могу скрыть дочернюю форму MDI"
-	Consts_SVisibleChanged,	"Не могу изменить Visible в OnShow или OnHide"
-	Consts_SCannotShowModal,	"Не могу сделать видимым модальное окно"
-	Consts_SMenuIndexError,	"Индекс меню вышел за границы"
-	Consts_SMenuReinserted,	"Меню вставлено дважды"
-	Consts_SMenuNotFound,	"Подменю - не в меню"
-	Consts_SNoTimers,	"Нет доступных таймеров"
-	Consts_SGroupIndexTooLow,	"GroupIndex не может быть меньше, чем GroupIndex предыдущего пункта меню"
-	Consts_SNoMDIForm,	"Не могу создать форму. Нет активных MDI форм"
-	Consts_SControlParentSetToSelf,	"Элемент управления не может быть родителем самого себя"
+	Consts_SCancelButton,	"Cancel"
+	Consts_SYesButton,	"&Yes"
+	Consts_SNoButton,	"&No"
+	Consts_SHelpButton,	"&Help"
+	Consts_SCloseButton,	"&Close"
+	Consts_SIgnoreButton,	"&Ignore"
+	Consts_SRetryButton,	"&Retry"
+	Consts_SAbortButton,	"Abort"
+	Consts_SAllButton,	"&All"
+	Consts_SCannotDragForm,	"Cannot drag a form"
+	Consts_SVMetafiles,	"Metafiles"
+	Consts_SVEnhMetafiles,	"Enhanced Metafiles"
+	Consts_SVIcons,	"Icons"
+	Consts_SVBitmaps,	"Bitmaps"
+	Consts_SMsgDlgWarning,	"Warning"
+	Consts_SImageReadFail,	"Failed to read ImageList data from stream"
+	Consts_SImageWriteFail,	"Failed to write ImageList data to stream"
+	Consts_SWindowDCError,	"Error creating window device context"
+	Consts_SWindowClass,	"Error creating window class"
+	Consts_SCannotFocus,	"Cannot focus a disabled or invisible window"
+	Consts_SParentRequired,	"Control '%s' has no parent window"
+	Consts_SMDIChildNotVisible,	"Cannot hide an MDI Child Form"
+	Consts_SVisibleChanged,	"Cannot change Visible in OnShow or OnHide"
+	Consts_SCannotShowModal,	"Cannot make a visible window modal"
+	Consts_SMenuIndexError,	"Menu index out of range"
+	Consts_SMenuReinserted,	"Menu inserted twice"
+	Consts_SMenuNotFound,	"Sub-menu is not in menu"
+	Consts_SNoTimers,	"Not enough timers available"
+	Consts_SGroupIndexTooLow,	"GroupIndex cannot be less than a previous menu item's GroupIndex"
+	Consts_SNoMDIForm,	"Cannot create form. No MDI forms are currently active"
+	Consts_SControlParentSetToSelf,	"A control cannot have itself as its parent"
+	RTLConsts_SInvalidDateTime,	"''%s'' is not a valid date and time"
+	Consts_SInvalidBitmap,	"Bitmap image is not valid"
+	Consts_SInvalidIcon,	"Icon image is not valid"
+	Consts_SInvalidMetafile,	"Metafile is not valid"
+	Consts_SInvalidPixelFormat,	"Invalid pixel format"
+	Consts_SInvalidImage,	"Invalid image"
+	Consts_SScanLine,	"Scan line index out of range"
+	Consts_SChangeIconSize,	"Cannot change the size of an icon"
+	Consts_SUnknownExtension,	"Unknown picture file extension (.%s)"
+	Consts_SUnknownClipboardFormat,	"Unsupported clipboard format"
+	Consts_SOutOfResources,	"Out of system resources"
+	Consts_SNoCanvasHandle,	"Canvas does not allow drawing"
+	Consts_SInvalidImageSize,	"Invalid image size"
+	Consts_SInvalidImageList,	"Invalid ImageList"
+	Consts_SReplaceImage,	"Unable to Replace Image"
+	Consts_SImageIndexError,	"Invalid ImageList Index"
+	RTLConsts_SMemoryStreamError,	"Out of memory while expanding memory stream"
+	RTLConsts_SPropertyException,	"Error reading %s%s%s: %s"
+	RTLConsts_SReadError,	"Stream read error"
+	RTLConsts_SReadOnlyProperty,	"Property is read-only"
+	RTLConsts_SRegCreateFailed,	"Failed to create key %s"
+	RTLConsts_SRegGetDataFailed,	"Failed to get data for '%s'"
+	RTLConsts_SRegSetDataFailed,	"Failed to set data for '%s'"
+	RTLConsts_SResNotFound,	"Resource %s not found"
+	RTLConsts_SSeekNotImplemented,	"%s.Seek not implemented"
+	RTLConsts_SSortedListError,	"Operation not allowed on sorted list"
+	RTLConsts_SUnknownGroup,	"%s not in a class registration group"
+	RTLConsts_SUnknownProperty,	"Property %s does not exist"
+	RTLConsts_SWriteError,	"Stream write error"
+	RTLConsts_SThreadCreateError,	"Thread creation error: %s"
+	RTLConsts_SThreadError,	"Thread Error: %s (%d)"
 	RTLConsts_SMissingDateTimeField,	"?"
-	Consts_SInvalidBitmap,	"Изображение Bitmap имеет неверный формат"
-	Consts_SInvalidIcon,	"Иконка (Icon) имеет неверный формат"
-	Consts_SInvalidMetafile,	"Метафайл имеет неверный формат"
-	Consts_SInvalidPixelFormat,	"Неверный точечный (pixel) формат"
-	Consts_SInvalidImage,	"Неверное изображение"
-	Consts_SScanLine,	"Scan line индекс вышел за границы"
-	Consts_SChangeIconSize,	"Не могу изменить размер иконки"
-	Consts_SUnknownExtension,	"Неизвестное расширение файла изображения (.%s)"
-	Consts_SUnknownClipboardFormat,	"Неподдерживаемый формат буфера обмена"
-	Consts_SOutOfResources,	"Не хватает системных ресурсов"
-	Consts_SNoCanvasHandle,	"Canvas не позволяет рисовать"
-	Consts_SInvalidImageSize,	"Неверный размер изображения"
-	Consts_SInvalidImageList,	"Неверный ImageList"
-	Consts_SReplaceImage,	"Невозможно заменить изображение"
-	Consts_SImageIndexError,	"Неверный индекс ImageList"
-	RTLConsts_SListIndexError,	"Индекс списка вышел за границы (%d)"
-	RTLConsts_SMemoryStreamError,	"Не хватает памяти при расширении memory stream"
-	RTLConsts_SPropertyException,	"Ошибка чтения %s%s%s: %s"
-	RTLConsts_SReadError,	"Ошибка чтения потока"
-	RTLConsts_SReadOnlyProperty,	"Свойство только для чтения"
-	RTLConsts_SRegCreateFailed,	"Ошибка создания ключа %s"
-	RTLConsts_SRegGetDataFailed,	"Ошибка чтения значения для '%s'"
-	RTLConsts_SRegSetDataFailed,	"Ошибка записи значения для '%s'"
-	RTLConsts_SResNotFound,	"Ресурс %s не найден"
-	RTLConsts_SSeekNotImplemented,	"%s.Seek не выполнено"
-	RTLConsts_SSortedListError,	"Операция недопустима для отсортированного списка строк"
-	RTLConsts_SUnknownGroup,	"%s нет в группе регистрации класса"
-	RTLConsts_SUnknownProperty,	"Свойство %s не существует"
-	RTLConsts_SWriteError,	"Ошибка записи потока"
-	RTLConsts_SThreadCreateError,	"Ошибка создания нити (трэда): %s"
-	RTLConsts_SThreadError,	"Ошибка нити (трэда): %s (%d)"
-	RTLConsts_SDuplicateName,	"Компонент с именем %s уже существует"
-	RTLConsts_SDuplicateString,	"Список строк не допускает дубликатов"
-	RTLConsts_SFCreateErrorEx,	"Не могу создать файл \"%s\". %s"
-	RTLConsts_SFOpenErrorEx,	"Не могу открыть файл \"%s\". %s"
-	RTLConsts_SIniFileWriteError,	"Не могу записать в %s"
-	RTLConsts_SInvalidDateTime,	"''%s'' - неверные дата и время"
-	RTLConsts_SInvalidImage,	"Неверный формат потока"
-	RTLConsts_SInvalidName,	"''%s'' недопустимо в качестве имени компонента"
-	RTLConsts_SInvalidProperty,	"Неверное значение свойства"
-	RTLConsts_SInvalidPropertyElement,	"Неверный элемент свойства: %s"
-	RTLConsts_SInvalidPropertyPath,	"Неверный путь к свойству"
-	RTLConsts_SInvalidPropertyType,	"Неверный тип свойства: %s"
-	RTLConsts_SInvalidPropertyValue,	"Неверное значение свойства"
-	RTLConsts_SInvalidRegType,	"Неверный тип данных для '%s'"
-	RTLConsts_SListCapacityError,	"Размер списка вышел за границы (%d)"
-	RTLConsts_SListCountError,	"Счетчик списка вышел за границы (%d)"
-	SysConst_SShortDayNameSat,	"Сб"
-	SysConst_SLongDayNameSun,	"Воскресенье"
-	SysConst_SLongDayNameMon,	"Понедельник"
-	SysConst_SLongDayNameTue,	"Вторник"
-	SysConst_SLongDayNameWed,	"Среда"
-	SysConst_SLongDayNameThu,	"Четверг"
-	SysConst_SLongDayNameFri,	"Пятница"
-	SysConst_SLongDayNameSat,	"Суббота"
-	RTLConsts_SAncestorNotFound,	"Предок для '%s' не найден"
-	RTLConsts_SAssignError,	"Не могу значение %s присвоить %s"
-	RTLConsts_SBitsIndexError,	"Индекс Bits вышел за границы"
-	RTLConsts_SCantWriteResourceStreamError,	"Не могу записывать в поток ресурсов \"только для чтения\""
-	RTLConsts_SCheckSynchronizeError,	"CheckSynchronize вызван из нити (трэда) $%x, которая НЕ является основной нитью"
-	RTLConsts_SClassNotFound,	"Класс %s не найден"
-	RTLConsts_SDuplicateClass,	"Класс с именем %s уже существует"
-	RTLConsts_SDuplicateItem,	"Список не допускает дубликатов ($0%x)"
-	SysConst_SLongMonthNameMar,	"Март"
-	SysConst_SLongMonthNameApr,	"Апрель"
-	SysConst_SLongMonthNameMay,	"Май"
-	SysConst_SLongMonthNameJun,	"Июнь"
-	SysConst_SLongMonthNameJul,	"Июль"
-	SysConst_SLongMonthNameAug,	"Август"
-	SysConst_SLongMonthNameSep,	"Сентябрь"
-	SysConst_SLongMonthNameOct,	"Октябрь"
-	SysConst_SLongMonthNameNov,	"Ноябрь"
-	SysConst_SLongMonthNameDec,	"Декабрь"
-	SysConst_SShortDayNameSun,	"Вс"
-	SysConst_SShortDayNameMon,	"Пн"
-	SysConst_SShortDayNameTue,	"Вт"
-	SysConst_SShortDayNameWed,	"Ср"
-	SysConst_SShortDayNameThu,	"Чт"
-	SysConst_SShortDayNameFri,	"Пт"
-	SysConst_SOSError,	"Системная ошибка.  Код: %d.\r\n%s"
-	SysConst_SUnkOSError,	"Ошибка при вызове функции ОС"
-	SysConst_SShortMonthNameJan,	"Янв"
-	SysConst_SShortMonthNameFeb,	"Фев"
-	SysConst_SShortMonthNameMar,	"Мар"
-	SysConst_SShortMonthNameApr,	"Апр"
-	SysConst_SShortMonthNameMay,	"Май"
-	SysConst_SShortMonthNameJun,	"Июн"
-	SysConst_SShortMonthNameJul,	"Июл"
-	SysConst_SShortMonthNameAug,	"Авг"
-	SysConst_SShortMonthNameSep,	"Сен"
-	SysConst_SShortMonthNameOct,	"Окт"
-	SysConst_SShortMonthNameNov,	"Ноя"
-	SysConst_SShortMonthNameDec,	"Дек"
-	SysConst_SLongMonthNameJan,	"Январь"
-	SysConst_SLongMonthNameFeb,	"Февраль"
-	SysConst_SVarTypeTooManyCustom,	"Зарегистрировано cлишком много произвольных вариантных типов"
-	SysConst_SInvalidVarNullOp,	"Неверная операция с NULL"
-	SysConst_SVarTypeCouldNotConvert,	"Не могу преобразовать вариант типа (%s) в тип (%s)"
-	SysConst_SVarTypeConvertOverflow,	"Переполнение при преобразовании варианта типа (%s) в тип (%s)"
-	SysConst_SVarOverflow,	"Переполнение варианта"
-	SysConst_SVarInvalid,	"Неверный аргумент"
-	SysConst_SVarBadType,	"Неверный тип варианта"
-	SysConst_SVarNotImplemented,	"Операция не поддерживается"
-	SysConst_SVarUnexpected,	"Неожиданная ошибка варианта"
-	SysConst_SExternalException,	"Внешняя исключительная ситуация %x"
+	RTLConsts_SDuplicateName,	"A component named %s already exists"
+	RTLConsts_SDuplicateString,	"String list does not allow duplicates"
+	RTLConsts_SFCreateErrorEx,	"Cannot create file \"%s\". %s"
+	RTLConsts_SFOpenErrorEx,	"Cannot open file \"%s\". %s"
+	RTLConsts_SIniFileWriteError,	"Unable to write to %s"
+	RTLConsts_SInvalidImage,	"Invalid stream format"
+	RTLConsts_SInvalidName,	"''%s'' is not a valid component name"
+	RTLConsts_SInvalidProperty,	"Invalid property value"
+	RTLConsts_SInvalidPropertyElement,	"Invalid property element: %s"
+	RTLConsts_SInvalidPropertyPath,	"Invalid property path"
+	RTLConsts_SInvalidPropertyType,	"Invalid property type: %s"
+	RTLConsts_SInvalidPropertyValue,	"Invalid property value"
+	RTLConsts_SInvalidRegType,	"Invalid data type for '%s'"
+	RTLConsts_SListCapacityError,	"List capacity out of bounds (%d)"
+	RTLConsts_SListCountError,	"List count out of bounds (%d)"
+	RTLConsts_SListIndexError,	"List index out of bounds (%d)"
+	SysConst_SShortDayNameSat,	"Sat"
+	SysConst_SLongDayNameSun,	"Sunday"
+	SysConst_SLongDayNameMon,	"Monday"
+	SysConst_SLongDayNameTue,	"Tuesday"
+	SysConst_SLongDayNameWed,	"Wednesday"
+	SysConst_SLongDayNameThu,	"Thursday"
+	SysConst_SLongDayNameFri,	"Friday"
+	SysConst_SLongDayNameSat,	"Saturday"
+	RTLConsts_SAncestorNotFound,	"Ancestor for '%s' not found"
+	RTLConsts_SAssignError,	"Cannot assign a %s to a %s"
+	RTLConsts_SBitsIndexError,	"Bits index out of range"
+	RTLConsts_SCantWriteResourceStreamError,	"Can't write to a read-only resource stream"
+	RTLConsts_SCheckSynchronizeError,	"CheckSynchronize called from thread $%x, which is NOT the main thread"
+	RTLConsts_SClassNotFound,	"Class %s not found"
+	RTLConsts_SDuplicateClass,	"A class named %s already exists"
+	RTLConsts_SDuplicateItem,	"List does not allow duplicates ($0%x)"
+	SysConst_SLongMonthNameMar,	"March"
+	SysConst_SLongMonthNameApr,	"April"
+	SysConst_SLongMonthNameMay,	"May"
+	SysConst_SLongMonthNameJun,	"June"
+	SysConst_SLongMonthNameJul,	"July"
+	SysConst_SLongMonthNameAug,	"August"
+	SysConst_SLongMonthNameSep,	"September"
+	SysConst_SLongMonthNameOct,	"October"
+	SysConst_SLongMonthNameNov,	"November"
+	SysConst_SLongMonthNameDec,	"December"
+	SysConst_SShortDayNameSun,	"Sun"
+	SysConst_SShortDayNameMon,	"Mon"
+	SysConst_SShortDayNameTue,	"Tue"
+	SysConst_SShortDayNameWed,	"Wed"
+	SysConst_SShortDayNameThu,	"Thu"
+	SysConst_SShortDayNameFri,	"Fri"
+	SysConst_SOSError,	"System Error.  Code: %d.\r\n%s"
+	SysConst_SUnkOSError,	"A call to an OS function failed"
+	SysConst_SShortMonthNameJan,	"Jan"
+	SysConst_SShortMonthNameFeb,	"Feb"
+	SysConst_SShortMonthNameMar,	"Mar"
+	SysConst_SShortMonthNameApr,	"Apr"
+	SysConst_SShortMonthNameMay,	"May"
+	SysConst_SShortMonthNameJun,	"Jun"
+	SysConst_SShortMonthNameJul,	"Jul"
+	SysConst_SShortMonthNameAug,	"Aug"
+	SysConst_SShortMonthNameSep,	"Sep"
+	SysConst_SShortMonthNameOct,	"Oct"
+	SysConst_SShortMonthNameNov,	"Nov"
+	SysConst_SShortMonthNameDec,	"Dec"
+	SysConst_SLongMonthNameJan,	"January"
+	SysConst_SLongMonthNameFeb,	"February"
+	SysConst_SVarTypeNotUsableWithPrefix,	"Custom variant type (%s%.4x) is not usable"
+	SysConst_SVarTypeTooManyCustom,	"Too many custom variant types have been registered"
+	SysConst_SVarTypeCouldNotConvert,	"Could not convert variant of type (%s) into type (%s)"
+	SysConst_SVarTypeConvertOverflow,	"Overflow while converting variant of type (%s) into type (%s)"
+	SysConst_SVarOverflow,	"Variant overflow"
+	SysConst_SVarInvalid,	"Invalid argument"
+	SysConst_SVarBadType,	"Invalid variant type"
+	SysConst_SVarNotImplemented,	"Operation not supported"
+	SysConst_SVarUnexpected,	"Unexpected variant error"
+	SysConst_SExternalException,	"External exception %x"
 	SysConst_SAssertionFailed,	"Assertion failed"
-	SysConst_SIntfCastError,	"Интерфейс не поддерживается"
-	SysConst_SSafecallException,	"Исключительная ситуация в safecall методе"
-	SysConst_SAssertError,	"%s (%s, строка %d)"
-	SysConst_SAbstractError,	"Абстрактная ошибка"
-	SysConst_SModuleAccessViolation,	"Нарушение доступа по адресу %p в модуле '%s'. %s по адресу %p"
-	SysConst_SExceptTitle,	"Ошибка приложения"
-	SysConst_SInvalidFormat,	"Формат '%s' неверен или несовместим с аргументом"
-	SysConst_SArgumentMissing,	"Нет аргумента для формата '%s'"
-	SysConst_SInvalidVarCast,	"Неверное преобразование вариантного типа"
-	SysConst_SInvalidVarOp,	"Неверная операция с вариантом"
-	SysConst_SDispatchError,	"Вызовы вариантных методов не поддерживаются"
-	SysConst_SReadAccess,	"Чтение"
-	SysConst_SWriteAccess,	"Запись"
-	SysConst_SFormatTooLong,	"Строка формата слишком длинная"
-	SysConst_SVarArrayCreate,	"Ошибка создания вариантного или safe массива"
-	SysConst_SVarArrayBounds,	"Индекс вариантного или safe массива вышел за границы"
-	SysConst_SVarArrayLocked,	"Вариантный или safe массив заблокирован"
-	SysConst_SInvalidVarOpWithHResultWithPrefix,	"Неверная операция с вариантом (%s%.8x)\n%s"
-	SysConst_SVarTypeOutOfRangeWithPrefix,	"Произвольный вариантный тип (%s%.4x) вышел за границы"
-	SysConst_SVarTypeAlreadyUsedWithPrefix,	"Произвольный вариантный тип (%s%.4x) уже используется %s"
-	SysConst_SVarTypeNotUsableWithPrefix,	"Произвольный вариантный тип (%s%.4x) является непригодным"
-	SysConst_SInvalidInput,	"Неверный ввод числа"
-	SysConst_SDivByZero,	"Деление на ноль"
-	SysConst_SRangeError,	"Ошибка выхода за границы (Range check)"
-	SysConst_SIntOverflow,	"Переполнение целого"
-	SysConst_SInvalidOp,	"Неверная операция с дробными числами"
-	SysConst_SZeroDivide,	"Нецелочисленное деление на ноль"
-	SysConst_SOverflow,	"Нецелочисленное переполнение"
-	SysConst_SUnderflow,	"Нецелочисленная потеря (underflow)"
-	SysConst_SInvalidPointer,	"Неверная операция с указателем"
-	SysConst_SInvalidCast,	"Неверное приведение класса"
-	SysConst_SAccessViolationArg3,	"Нарушение доступа по адресу %p. %s по адресу %p"
-	SysConst_SAccessViolationNoArg,	"Нарушение доступа"
-	SysConst_SStackOverflow,	"Переполнение стека"
-	SysConst_SControlC,	"Нажатие Control-C"
-	SysConst_SPrivilege,	"Привилегированная инструкция"
-	SysConst_SException,	"Исключительная ситуация %s в модуле %s по адресу %p.\r\n%s%s\r\n"
-	SysConst_SInvalidInteger,	"'%s' - неверное целое значение"
-	SysConst_SInvalidFloat,	"'%s' - неверное дробное значение"
-	SysConst_SInvalidDate,	"'%s' - неверная дата"
-	SysConst_SInvalidTime,	"'%s' - неверное время"
-	SysConst_SInvalidDateTime,	"'%s' - неверная дата и время"
-	SysConst_SInvalidGUID,	"'%s' - неверное значение GUID"
-	SysConst_STimeEncodeError,	"Неверный аргумент для формирования времени"
-	SysConst_SDateEncodeError,	"Неверный аргумент для формирования даты"
-	SysConst_SOutOfMemory,	"Не хватает памяти"
-	SysConst_SInOutError,	"Ошибка ввода/вывода %d"
-	SysConst_SFileNotFound,	"Файл не найден"
-	SysConst_SInvalidFilename,	"Неверное имя файла"
-	SysConst_STooManyOpenFiles,	"Слишком много открытых файлов"
-	SysConst_SAccessDenied,	"В доступе к файлу отказано"
-	SysConst_SEndOfFile,	"Чтение за окончанием файла"
-	SysConst_SDiskFull,	"Диск полон"
+	SysConst_SIntfCastError,	"Interface not supported"
+	SysConst_SSafecallException,	"Exception in safecall method"
+	SysConst_SAssertError,	"%s (%s, line %d)"
+	SysConst_SAbstractError,	"Abstract Error"
+	SysConst_SModuleAccessViolation,	"Access violation at address %p in module '%s'. %s of address %p"
+	SysConst_SExceptTitle,	"Application Error"
+	SysConst_SInvalidFormat,	"Format '%s' invalid or incompatible with argument"
+	SysConst_SArgumentMissing,	"No argument for format '%s'"
+	SysConst_SDispatchError,	"Variant method calls not supported"
+	SysConst_SReadAccess,	"Read"
+	SysConst_SWriteAccess,	"Write"
+	SysConst_SFormatTooLong,	"Format string too long"
+	SysConst_SVarArrayCreate,	"Error creating variant or safe array"
+	SysConst_SVarArrayBounds,	"Variant or safe array index out of bounds"
+	SysConst_SVarArrayLocked,	"Variant or safe array is locked"
+	SysConst_SInvalidVarCast,	"Invalid variant type conversion"
+	SysConst_SInvalidVarOp,	"Invalid variant operation"
+	SysConst_SInvalidVarNullOp,	"Invalid NULL variant operation"
+	SysConst_SInvalidVarOpWithHResultWithPrefix,	"Invalid variant operation (%s%.8x)\n%s"
+	SysConst_SVarTypeOutOfRangeWithPrefix,	"Custom variant type (%s%.4x) is out of range"
+	SysConst_SVarTypeAlreadyUsedWithPrefix,	"Custom variant type (%s%.4x) already used by %s"
+	SysConst_SInvalidInput,	"Invalid numeric input"
+	SysConst_SDivByZero,	"Division by zero"
+	SysConst_SRangeError,	"Range check error"
+	SysConst_SIntOverflow,	"Integer overflow"
+	SysConst_SInvalidOp,	"Invalid floating point operation"
+	SysConst_SZeroDivide,	"Floating point division by zero"
+	SysConst_SOverflow,	"Floating point overflow"
+	SysConst_SUnderflow,	"Floating point underflow"
+	SysConst_SInvalidPointer,	"Invalid pointer operation"
+	SysConst_SInvalidCast,	"Invalid class typecast"
+	SysConst_SAccessViolationArg3,	"Access violation at address %p. %s of address %p"
+	SysConst_SAccessViolationNoArg,	"Access violation"
+	SysConst_SStackOverflow,	"Stack overflow"
+	SysConst_SControlC,	"Control-C hit"
+	SysConst_SPrivilege,	"Privileged instruction"
+	SysConst_SException,	"Exception %s in module %s at %p.\r\n%s%s\r\n"
+	SysConst_SInvalidInteger,	"'%s' is not a valid integer value"
+	SysConst_SInvalidFloat,	"'%s' is not a valid floating point value"
+	SysConst_SInvalidDate,	"'%s' is not a valid date"
+	SysConst_SInvalidTime,	"'%s' is not a valid time"
+	SysConst_SInvalidDateTime,	"'%s' is not a valid date and time"
+	SysConst_SInvalidGUID,	"'%s' is not a valid GUID value"
+	SysConst_STimeEncodeError,	"Invalid argument to time encode"
+	SysConst_SDateEncodeError,	"Invalid argument to date encode"
+	SysConst_SOutOfMemory,	"Out of memory"
+	SysConst_SInOutError,	"I/O error %d"
+	SysConst_SFileNotFound,	"File not found"
+	SysConst_SInvalidFilename,	"Invalid filename"
+	SysConst_STooManyOpenFiles,	"Too many open files"
+	SysConst_SAccessDenied,	"File access denied"
+	SysConst_SEndOfFile,	"Read beyond end of file"
+	SysConst_SDiskFull,	"Disk full"
 END
 

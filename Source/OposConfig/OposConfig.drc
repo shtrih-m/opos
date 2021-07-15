@@ -8,63 +8,61 @@
   resources were bound to the produced executable.
 */
 
-#define pnglang_EPNGUnknownCriticalChunkText 65040
-#define pnglang_EPNGUnknownCompressionText 65041
-#define pnglang_EPNGUnknownInterlaceText 65042
-#define pnglang_EPNGCannotAssignChunkText 65043
-#define pnglang_EPNGUnexpectedEndText 65044
-#define pnglang_EPNGNoImageDataText 65045
-#define pnglang_EPNGCannotChangeSizeText 65046
-#define pnglang_EPNGOutMemoryText 65047
-#define pnglang_EPNGHeaderNotPresentText 65048
-#define XMLConst_SLine 65056
-#define SynEditStrConst_SYNS_ScrollInfoFmt 65057
-#define SynEditStrConst_SYNS_ScrollInfoFmtTop 65058
-#define SynEditStrConst_SYNS_EDuplicateShortcut 65059
-#define SynEditStrConst_SYNS_FriendlyLangUnknown 65060
-#define SynEditTextBuffer_SListIndexOutOfBounds 65061
-#define SynEditTextBuffer_SInvalidCapacity 65062
-#define pnglang_EPngInvalidCRCText 65063
-#define pnglang_EPNGInvalidIHDRText 65064
-#define pnglang_EPNGMissingMultipleIDATText 65065
-#define pnglang_EPNGZLIBErrorText 65066
-#define pnglang_EPNGInvalidPaletteText 65067
-#define pnglang_EPNGInvalidFileHeaderText 65068
-#define pnglang_EPNGIHDRNotFirstText 65069
-#define pnglang_EPNGSizeExceedsText 65070
-#define pnglang_EPNGUnknownPalEntryText 65071
-#define XMLConst_SNoMatchingDOMVendor 65072
-#define XMLConst_SNoDOMNodeEx 65073
-#define XMLConst_SDOMNotSupported 65074
-#define XMLConst_SNodeExpected 65075
-#define XMLConst_SMSDOMNotInstalled 65076
-#define XMLConst_SNotActive 65077
-#define XMLConst_SNodeNotFound 65078
-#define XMLConst_SMissingNode 65079
-#define XMLConst_SNoAttributes 65080
-#define XMLConst_SInvalidNodeType 65081
-#define XMLConst_SMismatchedRegItems 65082
-#define XMLConst_SNotSingleTextNode 65083
-#define XMLConst_SNoDOMParseOptions 65084
-#define XMLConst_SNodeReadOnly 65085
-#define XMLConst_SNoRefresh 65086
-#define XMLConst_SMissingFileName 65087
+#define pnglang_EPNGUnknownInterlaceText 65040
+#define pnglang_EPNGCannotAssignChunkText 65041
+#define pnglang_EPNGUnexpectedEndText 65042
+#define pnglang_EPNGNoImageDataText 65043
+#define pnglang_EPNGCannotChangeSizeText 65044
+#define pnglang_EPNGOutMemoryText 65045
+#define pnglang_EPNGHeaderNotPresentText 65046
+#define SynEditStrConst_SYNS_ScrollInfoFmtTop 65056
+#define SynEditStrConst_SYNS_EDuplicateShortcut 65057
+#define SynEditStrConst_SYNS_FriendlyLangUnknown 65058
+#define SynEditTextBuffer_SListIndexOutOfBounds 65059
+#define SynEditTextBuffer_SInvalidCapacity 65060
+#define pnglang_EPngInvalidCRCText 65061
+#define pnglang_EPNGInvalidIHDRText 65062
+#define pnglang_EPNGMissingMultipleIDATText 65063
+#define pnglang_EPNGZLIBErrorText 65064
+#define pnglang_EPNGInvalidPaletteText 65065
+#define pnglang_EPNGInvalidFileHeaderText 65066
+#define pnglang_EPNGIHDRNotFirstText 65067
+#define pnglang_EPNGSizeExceedsText 65068
+#define pnglang_EPNGUnknownPalEntryText 65069
+#define pnglang_EPNGUnknownCriticalChunkText 65070
+#define pnglang_EPNGUnknownCompressionText 65071
+#define XMLConst_SDOMNotSupported 65072
+#define XMLConst_SNodeExpected 65073
+#define XMLConst_SMSDOMNotInstalled 65074
+#define XMLConst_SNotActive 65075
+#define XMLConst_SNodeNotFound 65076
+#define XMLConst_SMissingNode 65077
+#define XMLConst_SNoAttributes 65078
+#define XMLConst_SInvalidNodeType 65079
+#define XMLConst_SMismatchedRegItems 65080
+#define XMLConst_SNotSingleTextNode 65081
+#define XMLConst_SNoDOMParseOptions 65082
+#define XMLConst_SNodeReadOnly 65083
+#define XMLConst_SNoRefresh 65084
+#define XMLConst_SMissingFileName 65085
+#define XMLConst_SLine 65086
+#define SynEditStrConst_SYNS_ScrollInfoFmt 65087
 #define JclResources_RsIntelCacheDescrF0 65088
 #define JclResources_RsIntelCacheDescrF1 65089
 #define JclResources_RsIntelCacheDescrFF 65090
-#define JclResources_RsOSVersionWin8 65091
-#define JclResources_RsOSVersionWinServer2012 65092
-#define JclResources_RsOSVersionWin81 65093
-#define JclResources_RsOSVersionWinServer2012R2 65094
-#define JclResources_RsCannotWriteRefStream 65095
-#define JclResources_RsInvalidMMFName 65096
-#define JclResources_RsInvalidMMFEmpty 65097
-#define JclResources_RsHasNotTD32Info 65098
-#define JclResources_RsEUnexpectedEOSeq 65099
-#define JclResources_RsWin32Error 65100
-#define JclResources_RsELibraryNotFound 65101
-#define JclResources_RsEFunctionNotFound 65102
-#define XMLConst_SDuplicateRegistration 65103
+#define JclResources_RsOSVersionWin81 65091
+#define JclResources_RsOSVersionWinServer2012R2 65092
+#define JclResources_RsCannotWriteRefStream 65093
+#define JclResources_RsInvalidMMFName 65094
+#define JclResources_RsInvalidMMFEmpty 65095
+#define JclResources_RsHasNotTD32Info 65096
+#define JclResources_RsEUnexpectedEOSeq 65097
+#define JclResources_RsWin32Error 65098
+#define JclResources_RsELibraryNotFound 65099
+#define JclResources_RsEFunctionNotFound 65100
+#define XMLConst_SDuplicateRegistration 65101
+#define XMLConst_SNoMatchingDOMVendor 65102
+#define XMLConst_SNoDOMNodeEx 65103
 #define JclResources_RsIntelCacheDescrCA 65104
 #define JclResources_RsIntelCacheDescrD0 65105
 #define JclResources_RsIntelCacheDescrD1 65106
@@ -499,8 +497,6 @@
 #define SysConst_SDiskFull 65535
 STRINGTABLE
 BEGIN
-	pnglang_EPNGUnknownCriticalChunkText,	"This \"Portable Network Graphics\" image contains an unknown critical part which could not be decoded."
-	pnglang_EPNGUnknownCompressionText,	"This \"Portable Network Graphics\" image is encoded with an unknown compression scheme which could not be decoded."
 	pnglang_EPNGUnknownInterlaceText,	"This \"Portable Network Graphics\" image uses an unknown interlace scheme which could not be decoded."
 	pnglang_EPNGCannotAssignChunkText,	"The chunks must be compatible to be assigned."
 	pnglang_EPNGUnexpectedEndText,	"This \"Portable Network Graphics\" image is invalid because the decoder found an unexpected end of the file."
@@ -508,8 +504,6 @@ BEGIN
 	pnglang_EPNGCannotChangeSizeText,	"The \"Portable Network Graphics\" image can not be resize by changing width and height properties. Try assigning the image from a bitmap."
 	pnglang_EPNGOutMemoryText,	"Some operation could not be performed because the system is out of resources. Close some windows and try again."
 	pnglang_EPNGHeaderNotPresentText,	"This operation is not valid because the current image contains no valid header."
-	XMLConst_SLine,	"Line"
-	SynEditStrConst_SYNS_ScrollInfoFmt,	"%d - %d"
 	SynEditStrConst_SYNS_ScrollInfoFmtTop,	"Top Line: %d"
 	SynEditStrConst_SYNS_EDuplicateShortcut,	"Shortcut already exists"
 	SynEditStrConst_SYNS_FriendlyLangUnknown,	"<Unknown>"
@@ -524,8 +518,8 @@ BEGIN
 	pnglang_EPNGIHDRNotFirstText,	"This \"Portable Network Graphics\" image is not supported or it might be invalid.\r\n(IHDR chunk is not the first)"
 	pnglang_EPNGSizeExceedsText,	"This \"Portable Network Graphics\" image is not supported because either it's width or height exceeds the maximum size, which is 65535 pixels length."
 	pnglang_EPNGUnknownPalEntryText,	"There is no such palette entry."
-	XMLConst_SNoMatchingDOMVendor,	"No matching DOM Vendor: \"%s\""
-	XMLConst_SNoDOMNodeEx,	"Selected DOM Vendor does not support this property or method"
+	pnglang_EPNGUnknownCriticalChunkText,	"This \"Portable Network Graphics\" image contains an unknown critical part which could not be decoded."
+	pnglang_EPNGUnknownCompressionText,	"This \"Portable Network Graphics\" image is encoded with an unknown compression scheme which could not be decoded."
 	XMLConst_SDOMNotSupported,	"Property or Method \"%s\" is not supported by DOM Vendor \"%s\""
 	XMLConst_SNodeExpected,	"Node cannot be null"
 	XMLConst_SMSDOMNotInstalled,	"Microsoft MSXML is not installed"
@@ -540,11 +534,11 @@ BEGIN
 	XMLConst_SNodeReadOnly,	"Node is readonly"
 	XMLConst_SNoRefresh,	"Refresh is only supported if the FileName or XML properties are set"
 	XMLConst_SMissingFileName,	"FileName cannot be blank"
+	XMLConst_SLine,	"Line"
+	SynEditStrConst_SYNS_ScrollInfoFmt,	"%d - %d"
 	JclResources_RsIntelCacheDescrF0,	"64-Byte Prefetching"
 	JclResources_RsIntelCacheDescrF1,	"128-Byte Prefetching"
 	JclResources_RsIntelCacheDescrFF,	"CPUID leaf 2 does not report cache descriptor information, use CPUID leaf 4 to query cache parameters"
-	JclResources_RsOSVersionWin8,	"Windows 8"
-	JclResources_RsOSVersionWinServer2012,	"Windows Server 2012"
 	JclResources_RsOSVersionWin81,	"Windows 8.1"
 	JclResources_RsOSVersionWinServer2012R2,	"Windows Server 2012 R2"
 	JclResources_RsCannotWriteRefStream,	"Can not write to a read-only memory stream"
@@ -556,6 +550,8 @@ BEGIN
 	JclResources_RsELibraryNotFound,	"Library not found: %s"
 	JclResources_RsEFunctionNotFound,	"Function not found: %s.%s"
 	XMLConst_SDuplicateRegistration,	"\"%s\" DOMImplementation already registered"
+	XMLConst_SNoMatchingDOMVendor,	"No matching DOM Vendor: \"%s\""
+	XMLConst_SNoDOMNodeEx,	"Selected DOM Vendor does not support this property or method"
 	JclResources_RsIntelCacheDescrCA,	"Shared 2nd-Level TLB: 4 KByte pages, 4-way associative, 512 entries"
 	JclResources_RsIntelCacheDescrD0,	"3rd-level cache: 512 KByte, 4-way set associative, 64 byte line size"
 	JclResources_RsIntelCacheDescrD1,	"3rd-level cache: 1 MByte, 4-way set associative, 64 byte line size"
