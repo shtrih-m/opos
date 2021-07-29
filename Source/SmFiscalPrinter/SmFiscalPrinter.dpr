@@ -174,8 +174,7 @@ uses
   TranslationUtil in 'Units\TranslationUtil.pas',
   LangUtils in '..\Shared\LangUtils.pas',
   BaseForm in '..\Shared\BaseForm.pas',
-  RegExpr in '..\Shared\RegExpr.pas',
-  LogExcept in '..\Shared\LogExcept.pas';
+  RegExpr in '..\Shared\RegExpr.pas';
 
 exports
   DllGetClassObject,

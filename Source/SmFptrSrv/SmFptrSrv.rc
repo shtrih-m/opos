@@ -1,6 +1,6 @@
 VS_VERSION_INFO VERSIONINFO
-FILEVERSION 1,13,0,562
-PRODUCTVERSION 1,13,0,562 
+FILEVERSION 1,13,0,563
+PRODUCTVERSION 1,13,0,563 
 FILEFLAGSMASK 0x3fL
 FILEFLAGS 0x0L
 FILEOS 0x4L
@@ -13,7 +13,7 @@ BEGIN
     BEGIN
       VALUE "CompanyName", "SHTRIH-M\0"
       VALUE "FileDescription", "Fiscal printer print server\0"
-      VALUE "FileVersion", "1.13.0.562\0"
+      VALUE "FileVersion", "1.13.0.563\0"
       VALUE "InternalName", "Fiscal printer driver\0"
       VALUE "LegalCopyright", "SHTRIH-M \251 2013 \0"
       VALUE "OriginalFilename", "SmFptrSrv.exe\0"

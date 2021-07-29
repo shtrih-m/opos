@@ -20,7 +20,7 @@ var
   HandlerLocation: Pointer;
   ExceptFrame: TJclExceptFrame;
 begin
-  //if not IsOS then Exit;
+  if not IsOS then Exit;
 
   Lines := TStringList.Create;
   try
@@ -84,7 +84,7 @@ begin
     JclLastExceptStackList.AddToStrings(Lines, True, True, True, True);
     Lines.Add('');
 
-    Lines.SaveToFile('Exception.txt');
+    Lines.SaveToFile('C:\SmFiscalPrinterException.txt');
   finally
     Lines.Free;
   end;
@@ -97,7 +97,7 @@ initialization
   JclAddExceptNotifier(LogException);
 
 
-//finalization
-//  JclStopExceptionTracking;
+finalization
+  JclStopExceptionTracking;
 
 end.

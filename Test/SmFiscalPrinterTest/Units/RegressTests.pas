@@ -160,7 +160,6 @@ begin
   CheckEquals('', FSSale.Data.UnitName, 'FSSale.Data.UnitName');
   CheckEquals(4, FSSale.Data.PaymentType, 'FSSale.Data.PaymentType');
   CheckEquals(1, FSSale.Data.PaymentItem, 'FSSale.Data.PaymentItem');
-  CheckEquals('', FSSale.Data.ItemBarcode, 'FSSale.Data.ItemBarcode');
 
   FSSale.Free;
 end;
