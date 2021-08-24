@@ -210,7 +210,7 @@ begin
     Operation.Price := Printer.CurrencyToInt(Price);
   end else
   begin
-    if Quantity = 0 then Quantity := 1000;
+    Quantity := CorrectQuantity(Quantity);
     Operation.Quantity := Quantity;
     Operation.Price := Printer.CurrencyToInt(UnitPrice);
   end;
@@ -707,7 +707,7 @@ begin
     Operation.Price := Printer.CurrencyToInt(Price);
   end else
   begin
-    if Quantity = 0 then Quantity := 1000;
+    Quantity := CorrectQuantity(Quantity);
     Operation.Quantity := Quantity;
     Operation.Price := Printer.CurrencyToInt(UnitPrice);
   end;
@@ -742,7 +742,7 @@ begin
     Operation.Price := Printer.CurrencyToInt(Amount);
   end else
   begin
-    if Quantity = 0 then Quantity := 1000;
+    Quantity := CorrectQuantity(Quantity);
     Operation.Quantity := Quantity;
     Operation.Price := Printer.CurrencyToInt(UnitAmount);
   end;
@@ -775,7 +775,7 @@ begin
     Operation.Price := Printer.CurrencyToInt(Amount);
   end else
   begin
-    if Quantity = 0 then Quantity := 1000;
+    Quantity := CorrectQuantity(Quantity);
     Operation.Quantity := Quantity;
     Operation.Price := Printer.CurrencyToInt(UnitAmount);
   end;

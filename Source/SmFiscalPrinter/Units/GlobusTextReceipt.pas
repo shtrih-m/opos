@@ -813,7 +813,7 @@ begin
       ItemQuantity := 1;
   end else
   begin
-    if Quantity = 0 then Quantity := 1000;
+    Quantity := CorrectQuantity(Quantity);
     ItemQuantity := Quantity/1000;
     ItemPrice := UnitPrice;
   end;
@@ -837,7 +837,7 @@ begin
     ItemPrice := Amount;
   end else
   begin
-    if Quantity = 0 then Quantity := 1000;
+    Quantity := CorrectQuantity(Quantity);
     ItemQuantity := Quantity/1000;
     ItemPrice := UnitAmount;
   end;
@@ -868,7 +868,7 @@ begin
     ItemPrice := Amount;
   end else
   begin
-    if Quantity = 0 then Quantity := 1000;
+    Quantity := CorrectQuantity(Quantity);
     ItemQuantity := Quantity/1000;
     ItemPrice := UnitAmount;
   end;

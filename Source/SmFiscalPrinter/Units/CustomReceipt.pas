@@ -50,6 +50,7 @@ type
     class procedure CheckQuantity(Quantity: Integer);
     class procedure CheckAmount(Amount: Currency);
 
+    function CorrectQuantity(Quantity: Integer): Integer;
     procedure OpenReceipt(ARecType: Integer); virtual;
     procedure BeginFiscalReceipt(PrintHeader: Boolean); virtual;
     procedure AddRecMessage(const Message: WideString; Station: Integer; ID: Integer);
@@ -535,6 +536,12 @@ end;
 procedure TCustomReceipt.AddItemCode(const Code: WideString);
 begin
 
+end;
+
+function TCustomReceipt.CorrectQuantity(Quantity: Integer): Integer;
+begin
+  //if Quantity = 0 then Quantity := 1000;
+  Result := Quantity;
 end;
 
 end.
