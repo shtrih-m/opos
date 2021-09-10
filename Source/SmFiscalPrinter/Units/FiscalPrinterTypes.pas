@@ -222,6 +222,7 @@ type
     procedure PartialCut;
     procedure InterruptReport;
     procedure StopDump;
+    procedure UpdateInfo;
     procedure SetLongSerial(Serial: Int64);
     function SetPortParams(Port: Byte; const PortParams: TPortParams): Integer;
     procedure PrintDocHeader(const DocName: WideString; DocNumber: Word);
@@ -460,7 +461,7 @@ type
     procedure PrintFSDocument(Number: Integer);
     function FSStartOpenDay: Integer;
     function CheckItemCode(const Barcode: WideString): Integer;
-    function FSWriteTLVOperation(const Data: WideString): Integer;
+    function FSWriteTLVOperation(const AData: AnsiString): Integer;
     function SendItemBarcode(const Barcode: WideString; MarkType: Integer): Integer;
     function FSStartCorrectionReceipt: Integer;
     function GetLastDocNumber: Int64;

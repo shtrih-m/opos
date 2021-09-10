@@ -1026,6 +1026,7 @@ var
 begin
   Printer.Connect;
   CancelReceipt;
+  Device.UpdateInfo;
   Printer.ReadTables;
   Status := Device.ReadLongStatus;
   FDeviceMetrics := Device.GetDeviceMetrics;

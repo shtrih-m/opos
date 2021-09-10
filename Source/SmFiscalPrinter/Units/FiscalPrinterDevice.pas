@@ -231,6 +231,7 @@ type
     procedure Unlock;
     procedure FullCut;
     procedure StopDump;
+    procedure UpdateInfo;
     procedure PartialCut;
     procedure LoadModels;
     procedure SaveModels;
@@ -469,7 +470,7 @@ type
     function IsCapBarcode2D: Boolean;
     function IsCapEnablePrint: Boolean;
     function ReadCashReg(ID: Integer; var R: TCashRegisterRec): Integer;
-    function FSWriteTLVOperation(const Data: WideString): Integer;
+    function FSWriteTLVOperation(const AData: AnsiString): Integer;
     function FSStartCorrectionReceipt: Integer;
     function FSReadLastDocNum: Int64;
     function FSReadLastDocNum2: Int64;
@@ -6803,6 +6804,11 @@ begin
 end;
 
 procedure TFiscalPrinterDevice.Connect;
+begin
+  GetDeviceMetrics;
+end;
+
+procedure TFiscalPrinterDevice.UpdateInfo;
 var
   i: Integer;
   Table: TPrinterTableRec;
@@ -9277,11 +9283,16 @@ begin
   Result := IntToBinBE(BarcodeType, 2) + Data;
 end;
 
-function TFiscalPrinterDevice.FSWriteTLVOperation(const Data: WideString): Integer;
+function TFiscalPrinterDevice.FSWriteTLVOperation(const AData: AnsiString): Integer;
 var
+  Data: AnsiString;
   Command: AnsiString;
   Answer: AnsiString;
 begin
+  Result := 0;
+  Data := FilterTLV(AData);
+  if Length(Data) = 0 then Exit;
+
   if Length(Data) > 249 then
     raiseException(_('TLV data length too big'));
 

@@ -1079,12 +1079,6 @@ begin
       Device.FsWriteTLVOperation((ReceiptItem as TTLVOperationReceiptItem).Data);
     end;
   end;
-
-  // UnitName
-  if FSSale2.UnitName <> '' then
-  begin
-    Device.Check(Device.FSWriteTLVOperation(TagToStr(1197, FSSale2.UnitName)));
-  end;
   // Barcode
   for i := 0 to Item.Barcodes.Count-1 do
   begin

@@ -303,7 +303,7 @@ type
     procedure PrintFSDocument(Number: Integer);
     function FSStartOpenDay: Integer;
     function CheckItemCode(const Barcode: WideString): Integer;
-    function FSWriteTLVOperation(const Data: WideString): Integer;
+    function FSWriteTLVOperation(const AData: AnsiString): Integer;
     function SendItemBarcode(const Barcode: WideString; MarkType: Integer): Integer;
     function GetFSCloseReceiptResult2: TFSCloseReceiptResult2;
     function FSStartCorrectionReceipt: Integer;
@@ -331,6 +331,7 @@ type
     function ReadDocData: WideString;
     procedure CheckPrinterStatus;
     procedure CorrectDate;
+    procedure UpdateInfo;
 
     property Status: TPrinterStatus read FStatus write FStatus;
     property Parameters: TPrinterParameters read GetParameters;
@@ -1779,7 +1780,7 @@ begin
 end;
 
 function TMockFiscalPrinterDevice.FSWriteTLVOperation(
-  const Data: WideString): Integer;
+  const AData: AnsiString): Integer;
 begin
   Result := 0;
 end;
@@ -1928,6 +1929,11 @@ end;
 function TMockFiscalPrinterDevice.GetLastDocTotal: Int64;
 begin
   Result := 0;
+end;
+
+procedure TMockFiscalPrinterDevice.UpdateInfo;
+begin
+
 end;
 
 end.
