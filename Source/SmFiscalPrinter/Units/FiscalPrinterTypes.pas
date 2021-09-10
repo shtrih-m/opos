@@ -200,6 +200,14 @@ type
     procedure PrintZReport;
   end;
 
+  { TFSReadRegTagCommand }
+
+  TFSReadRegTagCommand = record
+    RegID: Byte;
+    TagID: Word;
+    TLV: AnsiString;
+  end;
+
   { IFiscalPrinterDevice }
 
   IFiscalPrinterDevice = interface
@@ -397,7 +405,6 @@ type
     function FSWriteTLV(const TLVData: AnsiString): Integer;
     function FSSale(P: TFSSale): Integer;
     function FSSale2(P: TFSSale2): Integer;
-    function FSStorno(P: TFSSale): Integer;
     function FSReadStatus(var R: TFSStatus): Integer;
     function FSReadBlock(const P: TFSBlockRequest; var Block: AnsiString): Integer;
     function FSStartWrite(DataSize: Word; var BlockSize: Byte): Integer;
@@ -407,7 +414,7 @@ type
     function FSPrintCalcReport(var R: TFSCalcReport): Integer;
     function FSFindDocument(DocNumber: Integer; var R: TFSDocument): Integer;
     function FSReadDocMac(var DocMac: Int64): Integer;
-    function FSReadExpireDate(var Date: TPrinterDate): Integer;
+    function FSReadExpiration(var R: TCommandFF03): Integer;
     function FSReadCommStatus(var R: TFSCommStatus): Integer;
     function FSReadFiscalResult(var R: TFSFiscalResult): Integer;
     function FSWriteTag(TagID: Integer; const Data: WideString): Integer;

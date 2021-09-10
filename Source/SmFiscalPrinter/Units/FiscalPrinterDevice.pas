@@ -27,6 +27,7 @@ type
 
   TFiscalPrinterDevice = class(TInterfacedObject, IFiscalPrinterDevice)
   private
+    FFFDVersion: TFFDVersion;
     FContext: TDriverContext;
     FCapFSCloseReceipt2: Boolean;
     FCapSubtotalRound: Boolean;
@@ -148,7 +149,8 @@ type
     function ParseEJDocument(const Text: WideString): TEJDocument;
     function FSSale(P: TFSSale): Integer;
     function FSSale2(P: TFSSale2): Integer;
-    function FSStorno(P: TFSSale): Integer;
+    function FSReadRegTag(var R: TFSReadRegTagCommand): Integer;
+
     function ProcessLine(const Line: WideString): Boolean;
     function FSReadStatus(var R: TFSStatus): Integer;
     function FSFindDocument(DocNumber: Integer; var R: TFSDocument): Integer;
@@ -217,6 +219,8 @@ type
     function ReadDocData: WideString;
     procedure CheckPrinterStatus;
     procedure SetCapFiscalStorage(const Value: Boolean);
+    function FilterTLV(Data: AnsiString): AnsiString;
+    function ReadFFDVersion: TFFDVersion;
   protected
     function GetMaxGraphicsWidthInBytes: Integer;
   public
@@ -434,7 +438,7 @@ type
     function FSWriteTLV(const TLVData: AnsiString): Integer;
     function FSPrintCalcReport(var R: TFSCalcReport): Integer;
     function FSReadCommStatus(var R: TFSCommStatus): Integer;
-    function FSReadExpireDate(var Date: TPrinterDate): Integer;
+    function FSReadExpiration(var R: TCommandFF03): Integer;
     function FSReadFiscalResult(var R: TFSFiscalResult): Integer;
     function FSWriteTag(TagID: Integer; const Data: WideString): Integer;
 
@@ -6773,6 +6777,31 @@ begin
   end;
 end;
 
+function TFiscalPrinterDevice.ReadFFDVersion: TFFDVersion;
+var
+  FFD: Byte;
+  Item: TTLVItem;
+  R: TFSReadRegTagCommand;
+  CommandFF03: TCommandFF03;
+begin
+  Check(FSReadExpiration(CommandFF03));
+  R.RegID := CommandFF03.RegNumber;
+  R.TagID := 1189;
+  Check(FSReadRegTag(R));
+  if not TTLVReader.Read(R.TLV, Item) then
+    raise Exception.Create('Invalid FFD verion returned');
+
+  FFD := Ord(Item.Data[1]);
+  case FFD of
+    1: Result := ffd10;
+    2: Result := ffd105;
+    3: Result := ffd11;
+    4: Result := ffd12;
+  else
+    Result := ffdUnknown;
+  end;
+end;
+
 procedure TFiscalPrinterDevice.Connect;
 var
   i: Integer;
@@ -6830,6 +6859,7 @@ begin
   end;
   if FCapFiscalStorage then
   begin
+    FFFDVersion := ReadFFDVersion;
     FDiscountMode := ReadDiscountMode;
     FDocPrintMode := ReadDocPrintMode;
   end;
@@ -7174,12 +7204,44 @@ begin
 
 end;
 
+function TFiscalPrinterDevice.FilterTLV(Data: AnsiString): AnsiString;
+var
+  Tag: TTLVTag;
+  Item: TTLVItem;
+  Tags: TTLVTags;
+  IsValid: Boolean;
+begin
+  Result := '';
+  Tags := TTLVTags.Create;
+  try
+    while TTLVReader.Read(Data, Item) do
+    begin
+      Tag := Tags.Find(Item.ID);
+      IsValid := True;
+      if Tag <> nil then
+      begin
+        IsValid := FFFDVersion in Tag.Versions;
+      end;
+
+      if IsValid then
+        Result := Result + TTLVWriter.Write(Item);
+    end;
+  finally
+    Tags.Free;
+  end;
+end;
+
 function TFiscalPrinterDevice.FSWriteTLV(const TLVData: AnsiString): Integer;
 var
+  Data: AnsiString;
   Answer: AnsiString;
   Command: AnsiString;
 begin
-  Command := #$FF#$0C + IntToBin(GetSysPassword, 4) + Copy(TLVData, 1, 250);
+  Result := 0;
+  Data := FilterTLV(TLVData);
+  if Length(Data) = 0 then Exit;
+
+  Command := #$FF#$0C + IntToBin(GetSysPassword, 4) + Copy(Data, 1, 250);
   Result := ExecuteData(Command, Answer);
 end;
 
@@ -7284,25 +7346,35 @@ begin
   Result := ExecuteData(Command, Answer);
 end;
 
-function TFiscalPrinterDevice.FSStorno(P: TFSSale): Integer;
+(*
+Запрос параметра открытия ФН
+Код команды 	FF0Eh. Длина сообщения: 9 байт.
+Пароль системного администратора (4 байта)
+Порядковый номер отчета о регистрации/перерегистрации (1 байт)
+Номер тега (Тип Т, TLV параметра) (2 байта)
+если T=FFFFh2, то читать TLV структуру командой FF3Bh
+Ответ: 		FF0Eh. Длина сообщения: 3+X1 байт.
+Код ошибки (1 байт)
+TLV структура (X1 байт)
+Примечание:
+1 - длина ответного сообщения зависит от TLV структуры, возвращаемой ФН на заданный номер тега (кроме FFFFh);
+2 - при запросе всех тегов TLV структура не возвращается (X=0).
+
+*)
+
+function TFiscalPrinterDevice.FSReadRegTag(var R: TFSReadRegTagCommand): Integer;
 var
   Answer: AnsiString;
   Command: AnsiString;
 begin
-  P.Text := PrintItemText(P.Text);
-  Command := #$FF#$0E + IntToBin(GetUsrPassword, 4) +
-    Chr(Abs(P.RecType)) +
-    IntToBin(Abs(Round(P.Quantity * 1000)), 5) +
-    IntToBin(Abs(P.Price), 5) +
-    IntToBin(Abs(P.Discount), 5) +
-    IntToBin(Abs(P.Charge), 5) +
-    Chr(Abs(P.Department)) +
-    Chr(GetFSTaxBits(Abs(P.Tax))) +
-    IntToBin(P.Barcode, 5) +
-    Copy(P.Text, 1, 109) + #0 +
-    Copy(P.AdjText, 1, 109) + #0;
-
+  Command := #$FF#$0E + IntToBin(GetSysPassword, 4) +
+    IntToBin(R.RegID, 1) +
+    IntToBin(R.TagID, 2);
   Result := ExecuteData(Command, Answer);
+  if Succeeded(Result) then
+  begin
+    R.TLV := Answer;
+  end;
 end;
 
 (*
@@ -7837,7 +7909,7 @@ end;
 Срок действия: 3 байта ГГ,ММ,ДД
 *)
 
-function TFiscalPrinterDevice.FSReadExpireDate(var Date: TPrinterDate): Integer;
+function TFiscalPrinterDevice.FSReadExpiration(var R: TCommandFF03): Integer;
 var
   Answer: AnsiString;
   Command: AnsiString;
@@ -7846,7 +7918,10 @@ begin
   Result := ExecuteData(Command, Answer);
   if Result = 0 then
   begin
-    Date := BinToPrinterDate(Answer);
+    CheckMinLength(Answer, 5);
+    R.ExpDate := BinToPrinterDate(Answer);
+    R.RegLeft := Ord(Answer[4]);
+    R.RegNumber := Ord(Answer[5]);
   end;
 end;
 

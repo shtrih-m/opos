@@ -1282,6 +1282,14 @@ type
     CodeType: Byte;
   end;
 
+  { TCommandFF03 }
+
+  TCommandFF03 = record
+    ExpDate: TPrinterDate;
+    RegLeft: Byte;
+    RegNumber: Byte;
+  end;
+
 const
   ///////////////////////////////////////////////////////////////////////////////
   // ItemStatus constants

@@ -261,7 +261,7 @@ type
     function FSPrintCalcReport(var R: TFSCalcReport): Integer;
     function FSFindDocument(DocNumber: Integer; var R: TFSDocument): Integer;
     function FSReadDocMac(var DocMac: Int64): Integer;
-    function FSReadExpireDate(var Date: TPrinterDate): Integer;
+    function FSReadExpiration(var R: TCommandFF03): Integer;
     function FSReadCommStatus(var R: TFSCommStatus): Integer;
     function FSReadFiscalResult(var R: TFSFiscalResult): Integer;
     function FSWriteTag(TagID: Integer; const Data: WideString): Integer;
@@ -1529,8 +1529,7 @@ begin
   Result := 0;
 end;
 
-function TTextFiscalPrinterDevice.FSReadExpireDate(
-  var Date: TPrinterDate): Integer;
+function TTextFiscalPrinterDevice.FSReadExpiration(var R: TCommandFF03): Integer;
 begin
   Result := 0;
 end;

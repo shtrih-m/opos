@@ -65,7 +65,6 @@ type
     function GetTables: TDeviceTables;
     function IsDayOpened(Mode: Integer): Boolean;
     function FSSale(const P: TFSSale): Integer;
-    function FSStorno(const P: TFSSale): Integer;
     function GetPrinter: ISharedPrinter;
     function GetTaxTotals(Amount: Int64): TTaxTotals;
 
@@ -119,7 +118,6 @@ type
     function PrintBoldString(Flags: Byte; const Text: WideString): Integer;
     function IsDayOpened(Mode: Integer): Boolean;
     function FSSale(const P: TFSSale): Integer;
-    function FSStorno(const P: TFSSale): Integer;
     procedure PrintText2(const Text: WideString; Station, Font: Integer;
       Alignment: TTextAlignment);
 
@@ -333,11 +331,6 @@ end;
 function TReceiptPrinter.FSSale(const P: TFSSale): Integer;
 begin
   Result := Device.FSSale(P);
-end;
-
-function TReceiptPrinter.FSStorno(const P: TFSSale): Integer;
-begin
-  Result := Device.FSStorno(P);
 end;
 
 function TReceiptPrinter.GetPrinter: ISharedPrinter;

@@ -4644,10 +4644,11 @@ var
   pString: WideString;
 begin
   Check(FiscalPrinter.ResetPrinter());
-
+(*
   pData := 0;
   pString := '';
   Check(FiscalPrinter.DirectIO(DIO_START_OPEN_DAY, pData, pString));
+*)  
 
   pData := 1203;
   pString := '505303696069';

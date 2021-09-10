@@ -25,6 +25,27 @@ type
     property ShowTagNumbers: Boolean read FShowTagNumbers write FShowTagNumbers;
   end;
 
+  { TTLVItem }
+
+  TTLVItem = record
+    ID: Integer;
+    Data: AnsiString;
+  end;
+
+  { TTLVReader }
+
+  TTLVReader = class
+  public
+    class function Read(var Data: AnsiString; var Item: TTLVItem): Boolean;
+  end;
+
+  { TTLVWriter }
+
+  TTLVWriter = class
+  public
+    class function Write(const Item: TTLVItem): AnsiString;
+  end;
+
 implementation
 
 
@@ -113,6 +134,33 @@ function TTLVParser.ParseTLV(AData: AnsiString): AnsiString;
 begin
   FIdent := 0;
   Result := DoParseTLV(AData);
+end;
+
+{ TTLVReader }
+
+class function TTLVReader.Read(var Data: AnsiString; var Item: TTLVItem): Boolean;
+var
+  Len: Integer;
+begin
+  Result := False;
+  if Length(Data) >= 4 then
+  begin
+    Item.ID := TTLVTag.ValueTLV2Int(Copy(Data, 1, 2));
+    Len := TTLVTag.ValueTLV2Int(Copy(Data, 3, 2));
+    Item.Data := Copy(Data, 5, Len);
+    Data := Copy(Data, 5 + Len, Length(Data));
+    Result := True;
+  end;
+end;
+
+{ TTLVWriter }
+
+class function TTLVWriter.Write(const Item: TTLVItem): AnsiString;
+begin
+  Result :=
+    TTLVTag.Int2ValueTLV(Item.ID, 2) +
+    TTLVTag.Int2ValueTLV(Length(Item.Data), 2) +
+    Item.Data;
 end;
 
 end.

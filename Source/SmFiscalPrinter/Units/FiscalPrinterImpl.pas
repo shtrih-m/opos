@@ -4582,7 +4582,7 @@ var
   Ticket: TFSTicket;
   FSState: TFSState;
   OposDate: TOposDate;
-  ExpireDate: TPrinterDate;
+  CommandFF03: TCommandFF03;
   FSCommStatus: TFSCommStatus;
   FSFiscalResult: TFSFiscalResult;
 begin
@@ -4611,8 +4611,8 @@ begin
 
     DIO_FS_PARAMETER_EXPIRE_DATE:
     begin
-      Device.Check(Device.FSReadExpireDate(ExpireDate));
-      OposDate := PrinterDateToOposDate(ExpireDate);
+      Device.Check(Device.FSReadExpiration(CommandFF03));
+      OposDate := PrinterDateToOposDate(CommandFF03.ExpDate);
       Result := EncodeOposDate(OposDate);
     end;
 

@@ -115,7 +115,7 @@ AutoIncBuild=1
 MajorVer=1
 MinorVer=13
 Release=0
-Build=600
+Build=565
 Debug=0
 PreRelease=0
 Special=0
@@ -126,9 +126,9 @@ CodePage=1252
 [Version Info Keys]
 CompanyName=SHTRIH-M
 FileDescription=OPOS setup utility
-FileVersion=1.13.0.600
-InternalName=OPOS setup
-LegalCopyright=SHTRIH-M © 2013
+FileVersion=1.13.0.565
+InternalName=OPOS setup 
+LegalCopyright=SHTRIH-M © 2013 
 LegalTrademarks=
 OriginalFilename=OposConfig.exe
 ProductName=OPOS drivers
@@ -143,16 +143,19 @@ Item0=C:\Components\DUnit\src\
 Count=1
 Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;
 [HistoryLists\hlSearchPath]
-Count=2
-Item0=$(DELPHI)\Lib\Debug;C:\COMPON~1\JVCL\jcl\lib\d7\debug;C:\COMPON~1\jcl\lib\d7\debug
-Item1=$(DELPHI)\Lib\Debug
+Count=3
+Item0=$(DELPHI)\Lib\Debug;c:\PROGRA~2\Borland\Delphi7\Comp\jcl\lib\d7\debug;$(DELPHI)\Comp\jvcl\lib\D7\debug
+Item1=$(DELPHI)\Lib\Debug;C:\COMPON~1\JVCL\jcl\lib\d7\debug;C:\COMPON~1\jcl\lib\d7\debug
+Item2=$(DELPHI)\Lib\Debug
 [HistoryLists\hlUnitOutputDirectory]
-Count=2
-Item0=DCU
-Item1=..\lib\D7
+Count=3
+Item0=..\..\DCU
+Item1=DCU
+Item2=..\lib\D7
 [HistoryLists\hlOutputDirectorry]
-Count=1
-Item0=Bin
+Count=2
+Item0=..\..\Bin
+Item1=Bin
 [HistoryLists\hlBPLOutput]
 Count=3
 Item0=$(DELPHI)\Bin\
