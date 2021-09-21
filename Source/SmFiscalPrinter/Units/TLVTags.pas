@@ -834,7 +834,7 @@ begin
     ttByte      : Result := Int2ValueTLV(v, 1);
     ttUInt32    : Result := Int2ValueTLV(v, 4);
     ttUInt16    : Result := Int2ValueTLV(v, 2);
-    ttSTLV      : Result := '';
+    ttSTLV      : Result := v;
     ttUnixTime  : Result := UnixTime2ValueTLV(v);
     ttVLN       : Result := VLN2ValueTLV(v);
     ttFVLN      : Result := FVLN2ValueTLV(v);

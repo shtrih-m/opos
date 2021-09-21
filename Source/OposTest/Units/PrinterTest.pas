@@ -944,6 +944,22 @@ type
     function GetDisplayText: WideString; override;
   end;
 
+  { TReceiptTest34 }
+
+  TReceiptTest34 = class(TDriverTest)
+  public
+    procedure Execute; override;
+    function GetDisplayText: WideString; override;
+  end;
+
+  { TReceiptTest35 }
+
+  TReceiptTest35 = class(TDriverTest)
+  public
+    procedure Execute; override;
+    function GetDisplayText: WideString; override;
+  end;
+
 implementation
 
 const
@@ -5338,6 +5354,71 @@ end;
 function TReceiptTest33.GetDisplayText: WideString;
 begin
   Result := 'ReceiptTest33';
+end;
+
+{ TReceiptTest34 }
+
+procedure TReceiptTest34.Execute;
+begin
+  Memo.Lines.Clear;
+  Memo.Update;
+  Application.ProcessMessages;
+
+  Check(FiscalPrinter.ResetPrinter);
+  FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
+  Check(FiscalPrinter.BeginFiscalReceipt(True));
+
+  Check(FiscalPrinter.STLVBegin(1256));
+  Check(FiscalPrinter.STLVAddTag(1227, 'Иванов Иван Иванович'));
+  Check(FiscalPrinter.STLVAddTag(1228, '505303696069'));
+  Check(FiscalPrinter.STLVWrite);
+
+  Check(FiscalPrinter.PrintRecItem('Item 1', 1.00, 1000, 1, 1.00, ''));
+  Check(FiscalPrinter.PrintRecTotal(1.00, 1.00, '0'));
+  Check(FiscalPrinter.EndFiscalReceipt(False));
+end;
+
+function TReceiptTest34.GetDisplayText: WideString;
+begin
+  Result := 'Tag 1256 test';
+end;
+
+
+{ TReceiptTest35 }
+
+procedure TReceiptTest35.Execute;
+begin
+  Memo.Lines.Clear;
+  Memo.Update;
+  Application.ProcessMessages;
+  // ResetPrinter
+  AddLine('ResetPrinter');
+  Check(FiscalPrinter.ResetPrinter);
+
+  AddLine('BeginFiscalReceipt');
+  FiscalPrinter.FiscalReceiptStation := FPTR_RS_RECEIPT;
+  FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
+  Check(FiscalPrinter.BeginFiscalReceipt(False));
+
+  AddLine('PrintRecItemRefund');
+  Check(FiscalPrinter.PrintRecItemRefund('Сахар', 63.83, 555000, 2, 115, ''));
+
+  AddLine('PrintRecSubTotal');
+  Check(FiscalPrinter.PrintRecSubTotal(0));
+
+  AddLine('PrintRecTotal');
+  Check(FiscalPrinter.PrintRecTotal(63.83, 63.83, '0'));
+
+  AddLine('EndFiscalReceipt');
+  Check(FiscalPrinter.EndFiscalReceipt(True));
+
+  AddLine(Separator);
+  AddLine('Test completed !');
+end;
+
+function TReceiptTest35.GetDisplayText: WideString;
+begin
+  Result := 'Refund receipt test 35';
 end;
 
 end.

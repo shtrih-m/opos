@@ -1032,43 +1032,37 @@ begin
     Operation.Text := '//' + FSRegistration.Text;
   end;
 
-  if FSRegistration.Quantity >= 0 then
+  if Device.CapFSCloseReceipt2 then
   begin
-    if Device.CapFSCloseReceipt2 then
+    for i := 0 to Item.Barcodes.Count-1 do
     begin
-      for i := 0 to Item.Barcodes.Count-1 do
-      begin
-        Device.Check(Device.CheckItemCode(Item.Barcodes[i]));
-      end;
-
-      FSSale2.UnitName := FSRegistration.UnitName;
-      FSSale2.RecType := REcTypeToOperation(FRecType);
-      FSSale2.Quantity := Abs(FSRegistration.Quantity);
-      FSSale2.Price := Item.PriceWithDiscount;
-      if FSRegistration.Parameter1 <> '' then
-        FSSale2.Total := StrToInt64Def(FSRegistration.Parameter1, $FFFFFFFFFF)
-      else
-        FSSale2.Total := Item.Total2;
-
-      FSSale2.TaxAmount := StrToInt64Def(FSRegistration.Parameter2, $FFFFFFFFFF);
-      FSSale2.Department := FSRegistration.Department;
-      FSSale2.Tax := FSRegistration.Tax;
-      FSSale2.Text := Operation.Text;
-      FSSale2.PaymentType := StrToInt64Def(FSRegistration.Parameter3, PaymentTypeCash);
-      FSSale2.PaymentItem := StrToInt64Def(FSRegistration.Parameter4, PaymentItemNormal);
-
-      FSSale2.MarkType := FSRegistration.MarkType;
-      Device.Check(Device.FSSale2(FSSale2));
-    end else
-    begin
-      if FRecType = RecTypeSale then
-        Printer.Sale(Operation)
-      else
-        Printer.RetSale(Operation);
+      Device.Check(Device.CheckItemCode(Item.Barcodes[i]));
     end;
+
+    FSSale2.UnitName := FSRegistration.UnitName;
+    FSSale2.RecType := REcTypeToOperation(FRecType);
+    FSSale2.Quantity := Abs(FSRegistration.Quantity);
+    FSSale2.Price := Item.PriceWithDiscount;
+    if FSRegistration.Parameter1 <> '' then
+      FSSale2.Total := StrToInt64Def(FSRegistration.Parameter1, $FFFFFFFFFF)
+    else
+      FSSale2.Total := Item.Total2;
+
+    FSSale2.TaxAmount := StrToInt64Def(FSRegistration.Parameter2, $FFFFFFFFFF);
+    FSSale2.Department := FSRegistration.Department;
+    FSSale2.Tax := FSRegistration.Tax;
+    FSSale2.Text := Operation.Text;
+    FSSale2.PaymentType := StrToInt64Def(FSRegistration.Parameter3, PaymentTypeCash);
+    FSSale2.PaymentItem := StrToInt64Def(FSRegistration.Parameter4, PaymentItemNormal);
+
+    FSSale2.MarkType := FSRegistration.MarkType;
+    Device.Check(Device.FSSale2(FSSale2));
   end else
   begin
-    Printer.Storno(Operation);
+    if FRecType = RecTypeSale then
+      Printer.Sale(Operation)
+    else
+      Printer.RetSale(Operation);
   end;
   // Tags bounded to operation
   for i := 0 to Item.Tags.Count-1 do
