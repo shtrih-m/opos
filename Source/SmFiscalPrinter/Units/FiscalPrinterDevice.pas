@@ -7428,7 +7428,7 @@ begin
     R.State := BinToInt(Answer, 1, 1);
     R.Document := BinToInt(Answer, 2, 1);
     R.DocReceived := BinToInt(Answer, 3, 1);
-    R.DayOpened := BinToInt(Answer, 4, 1);
+    R.DayOpened := BinToInt(Answer, 4, 1) ;
     R.WarningFlags := BinToInt(Answer, 5, 1);
     R.Date.Year := BinToInt(Answer, 6, 1);
     R.Date.Month := BinToInt(Answer, 7, 1);

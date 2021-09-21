@@ -5400,6 +5400,12 @@ begin
   FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
   Check(FiscalPrinter.BeginFiscalReceipt(False));
 
+  AddLine('DirectIO2(40, 2108, 0)');
+  Check(FiscalPrinter.DirectIO2(40, 2108, '0'));
+
+  AddLine('DirectIO2(71, 0, 1005239)');
+  Check(FiscalPrinter.DirectIO2(71, 0, '1005239'));
+
   AddLine('PrintRecItemRefund');
   Check(FiscalPrinter.PrintRecItemRefund('Сахар', 63.83, 555000, 2, 115, ''));
 

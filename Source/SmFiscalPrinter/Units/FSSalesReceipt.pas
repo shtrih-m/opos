@@ -1488,7 +1488,7 @@ end;
 
 procedure TFSSalesReceipt.SetRefundReceipt;
 begin
-  if FReceiptItems.Count = 0 then
+  if not FHasReceiptItems then
     FRecType := RecTypeRetSale;
 end;
 
