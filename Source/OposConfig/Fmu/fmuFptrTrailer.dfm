@@ -20,38 +20,13 @@ object fmFptrTrailer: TfmFptrTrailer
     316)
   PixelsPerInch = 96
   TextHeight = 13
-  object symTrailer: TSynMemo
-    Left = 0
-    Top = 0
-    Width = 473
-    Height = 209
-    Anchors = [akLeft, akTop, akRight, akBottom]
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Courier New'
-    Font.Style = []
-    TabOrder = 0
-    Gutter.DigitCount = 2
-    Gutter.Font.Charset = DEFAULT_CHARSET
-    Gutter.Font.Color = clWindowText
-    Gutter.Font.Height = -11
-    Gutter.Font.Name = 'Courier New'
-    Gutter.Font.Style = []
-    Gutter.LeftOffset = 6
-    Gutter.RightOffset = 4
-    Gutter.ShowLineNumbers = True
-    ScrollBars = ssVertical
-    OnChange = PageChange
-    FontSmoothing = fsmNone
-  end
   object gbTrailer: TTntGroupBox
     Left = 0
     Top = 216
     Width = 473
     Height = 97
     Anchors = [akLeft, akRight, akBottom]
-    TabOrder = 1
+    TabOrder = 0
     DesignSize = (
       473
       97)
@@ -119,5 +94,29 @@ object fmFptrTrailer: TfmFptrTrailer
       Caption = 'SetTrailerLine method enabled'
       TabOrder = 3
     end
+  end
+  object symTrailer: TSynMemo
+    Left = 0
+    Top = 0
+    Width = 473
+    Height = 209
+    Anchors = [akLeft, akTop, akRight, akBottom]
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Courier New'
+    Font.Style = []
+    TabOrder = 1
+    Gutter.DigitCount = 2
+    Gutter.Font.Charset = DEFAULT_CHARSET
+    Gutter.Font.Color = clWindowText
+    Gutter.Font.Height = -11
+    Gutter.Font.Name = 'Courier New'
+    Gutter.Font.Style = []
+    Gutter.LeftOffset = 6
+    Gutter.RightOffset = 4
+    Gutter.ShowLineNumbers = True
+    ScrollBars = ssVertical
+    OnChange = PageChange
   end
 end

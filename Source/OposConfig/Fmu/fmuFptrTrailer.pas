@@ -16,7 +16,6 @@ type
   { TfmFptrTrailer }
 
   TfmFptrTrailer = class(TFptrPage)
-    symTrailer: TSynMemo;
     gbTrailer: TTntGroupBox;
     lblNumTrailerLines: TTntLabel;
     lblTrailerFont: TTntLabel;
@@ -24,6 +23,7 @@ type
     cbTrailerFont: TTntComboBox;
     btnPrintTrailer: TTntButton;
     chbSetTrailerLineEnabled: TTntCheckBox;
+    symTrailer: TSynMemo;
     procedure PageChange(Sender: TObject);
     procedure btnPrintTrailerClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);

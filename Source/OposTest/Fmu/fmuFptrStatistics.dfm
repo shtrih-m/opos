@@ -24,7 +24,7 @@ object fmFptrStatistics: TfmFptrStatistics
     Height = 25
     Anchors = [akRight, akBottom]
     Caption = 'Reset statistics'
-    TabOrder = 2
+    TabOrder = 1
     OnClick = btnResetStatisticsClick
   end
   object btnRetrieveStatistics: TTntButton
@@ -34,7 +34,7 @@ object fmFptrStatistics: TfmFptrStatistics
     Height = 25
     Anchors = [akRight, akBottom]
     Caption = 'Retrieve statistics'
-    TabOrder = 3
+    TabOrder = 2
     OnClick = btnRetrieveStatisticsClick
   end
   object btnUpdateStatistics: TTntButton
@@ -44,7 +44,7 @@ object fmFptrStatistics: TfmFptrStatistics
     Height = 25
     Anchors = [akRight, akBottom]
     Caption = 'Update statistics'
-    TabOrder = 4
+    TabOrder = 3
     OnClick = btnUpdateStatisticsClick
   end
   object btnClear: TTntButton
@@ -54,7 +54,7 @@ object fmFptrStatistics: TfmFptrStatistics
     Height = 25
     Anchors = [akRight, akBottom]
     Caption = 'Clear'
-    TabOrder = 1
+    TabOrder = 0
     OnClick = btnClearClick
   end
   object mmData: TSynEdit
@@ -69,20 +69,15 @@ object fmFptrStatistics: TfmFptrStatistics
     Font.Name = 'Courier New'
     Font.Pitch = fpFixed
     Font.Style = []
-    TabOrder = 0
+    TabOrder = 4
     Gutter.Font.Charset = DEFAULT_CHARSET
     Gutter.Font.Color = clWindowText
     Gutter.Font.Height = -11
     Gutter.Font.Name = 'Courier New'
     Gutter.Font.Style = []
-    Highlighter = SynXMLSyn1
     TabWidth = 4
-    FontSmoothing = fsmNone
   end
   object SynXMLSyn1: TSynXMLSyn
-    Options.AutoDetectEnabled = False
-    Options.AutoDetectLineLimit = 0
-    Options.Visible = False
     WantBracesParsed = False
     Left = 8
     Top = 120

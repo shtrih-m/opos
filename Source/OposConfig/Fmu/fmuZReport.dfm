@@ -13,7 +13,7 @@ object fmZReport: TfmZReport
   OldCreateOrder = False
   DesignSize = (
     368
-    335)
+    334)
   PixelsPerInch = 96
   TextHeight = 13
   object lblXmlZReportFileName: TTntLabel

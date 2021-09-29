@@ -5227,7 +5227,7 @@ begin
   Check(FiscalPrinter.BeginFiscalReceipt(True));
 
   FiscalPrinter.AddItemBarcode(Barcode1);
-  FiscalPrinter.AddItemBarcode(Barcode2);
+  //FiscalPrinter.AddItemBarcode(Barcode2);
   Check(FiscalPrinter.PrintRecItem('3689061 Гренки ВОЛНИСТЫЕ 75г', 89.90, 1000, 2, 89.90, ''));
 
   Check(FiscalPrinter.PrintRecTotal(1000, 1000, '0'));
@@ -5400,14 +5400,14 @@ begin
   FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
   Check(FiscalPrinter.BeginFiscalReceipt(False));
 
-  AddLine('DirectIO2(40, 2108, 0)');
-  Check(FiscalPrinter.DirectIO2(40, 2108, '0'));
-
   AddLine('DirectIO2(71, 0, 1005239)');
   Check(FiscalPrinter.DirectIO2(71, 0, '1005239'));
 
   AddLine('PrintRecItemRefund');
   Check(FiscalPrinter.PrintRecItemRefund('Сахар', 63.83, 555000, 2, 115, ''));
+
+  AddLine('DirectIO2(65, 2108, 0)');
+  Check(FiscalPrinter.DirectIO2(65, 2108, '0'));
 
   AddLine('PrintRecSubTotal');
   Check(FiscalPrinter.PrintRecSubTotal(0));

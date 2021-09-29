@@ -1139,20 +1139,13 @@ begin
       AmountToStr(Amount/100)]) +  TaxName;
   end;
 
-  if Item.Barcodes.Count > 0 then
+  if Length(Line1 + Line2) > Device.GetPrintWidth then
   begin
-    Printer.Printer.PrintLines(Line1, '[M]');
+    PrintText2(Line1);
     Printer.Printer.PrintLines('', Line2);
   end else
   begin
-    if Length(Line1 + Line2) > Device.GetPrintWidth then
-    begin
-      PrintText2(Line1);
-      Printer.Printer.PrintLines('', Line2);
-    end else
-    begin
-      Printer.Printer.PrintLines(Line1, Line2);
-    end;
+    Printer.Printer.PrintLines(Line1, Line2);
   end;
   PrintTaxAmount(Item);
 end;

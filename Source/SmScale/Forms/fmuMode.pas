@@ -18,9 +18,9 @@ type
     btnReadParameters: TTntButton;
     btnWriteParameters: TTntButton;
     gbScaleMode: TTntGroupBox;
-    rbWeightMode: TTntRadioButton;
-    rbGraduationMode: TTntRadioButton;
-    rbDataMode: TTntRadioButton;
+    rbWeightMode: TRadioButton;
+    rbGraduationMode: TRadioButton;
+    rbDataMode: TRadioButton;
     btnReadMode: TTntButton;
     btnWriteMode: TTntButton;
     sePortNumber: TSpinEdit;

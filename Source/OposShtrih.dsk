@@ -1,23 +1,26 @@
 [Closed Files]
-File_0=SourceModule,'D:\projects\OPOSShtrih\Source\OposTest\Units\PrinterTest.pas',0,1,5395,5,5424,0,0
-File_1=SourceModule,'D:\projects\OPOSShtrih\Source\OposConfig\Fmu\fmuFptrReceipt.pas',0,1,68,46,74,1,1
-File_2=SourceModule,'D:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FSSalesReceipt.pas',0,1,1458,25,1492,0,0
-File_3=SourceModule,'D:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\PrinterTypes.pas',0,1,203,23,220,0,0
-File_4=SourceModule,'D:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterImpl.pas',0,1,919,58,925,0,0
-File_5=SourceModule,'D:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\PrinterParameters.pas',0,1,38,25,45,0,0
-File_6=SourceModule,'D:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterDevice.pas',0,1,9709,18,9734,0,0
-File_7=SourceModule,'D:\projects\OPOSShtrih\Source\OposTest\Fmu\fmuFptrReceiptTest.pas',0,1,122,22,134,0,0
-File_8=SourceModule,'D:\projects\OPOSShtrih\Source\Shared\DriverError.pas',0,1,28,17,39,0,0
-File_9=SourceModule,'D:\projects\OPOSShtrih\Source\OposTest\Units\DriverTest.pas',0,1,148,56,153,0,0
+File_0=SourceModule,'D:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\PrinterProtocol1.pas',0,1,267,1,291,0,0
+File_1=SourceModule,'D:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterDevice.pas',0,1,1442,14,1462,0,0
+File_2=SourceModule,'D:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\DirectIOAPI.pas',0,1,86,20,105,0,0
+File_3=SourceModule,'D:\projects\OPOSShtrih\Source\Opos\SMFiscalPrinter.pas',0,1,1710,40,1721,0,0
+File_4=SourceModule,'D:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\ReceiptTemplate.pas',0,1,225,18,236,0,0
+File_5=SourceModule,'D:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FSSalesReceipt.pas',0,1,1124,3,1149,0,0
+File_6=SourceModule,'c:\program files (x86)\borland\delphi7\Comp\dunit\src\TestFramework.pas',0,1,2044,33,2051,0,0
+File_7=SourceModule,'D:\projects\OPOSShtrih\Source\OposConfig\Units\CashDrawerDevice.pas',0,1,1,44,34,0,0
+File_8=SourceModule,'D:\projects\OPOSShtrih\Test\SmFiscalPrinterTest\Units\duLogFile.pas',0,1,183,1,187,0,0
 
 [Modules]
-Module0=D:\projects\OPOSShtrih\Test\AcceptanceTest\AcceptanceTest.dpr
+Module0=D:\projects\OPOSShtrih\Source\OposTest\Units\PrinterTest.pas
 Count=1
 EditWindowCount=1
 TypeLibWindowCount=3
 
-[D:\projects\OPOSShtrih\Test\AcceptanceTest\AcceptanceTest.dpr]
+[D:\projects\OPOSShtrih\Source\OposTest\Units\PrinterTest.pas]
 ModuleType=SourceModule
+FormState=0
+FormOnTop=0
+
+[D:\projects\OPOSShtrih\Test\AcceptanceTest\AcceptanceTest.dpr]
 FormState=0
 FormOnTop=0
 
@@ -121,10 +124,10 @@ BottomPanelClients=MessageView@EditWindow0
 BottomPanelData=00000400010000000B0000004D657373616765566965770000000000000000000000000000000000FFFFFFFF
 
 [View0]
-Module=D:\projects\OPOSShtrih\Test\AcceptanceTest\AcceptanceTest.dpr
-CursorX=71
-CursorY=37
-TopLine=1
+Module=D:\projects\OPOSShtrih\Source\OposTest\Units\PrinterTest.pas
+CursorX=62
+CursorY=5218
+TopLine=5212
 LeftCol=1
 
 [TypeLibEditWindow0]
@@ -191,8 +194,7 @@ LRDockWidth=320
 Dockable=1
 
 [Breakpoints]
-Count=1
-Breakpoint0='D:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterDevice.pas',7247,'',0,1,'',1,0,0,'',1,'','',''
+Count=0
 
 [AddressBreakpoints]
 Count=0
@@ -201,12 +203,12 @@ Count=0
 Create=1
 Visible=1
 State=2
-Left=659
-Top=0
-Width=621
+Left=651
+Top=16
+Width=629
 Height=123
-MaxLeft=-1
-MaxTop=-1
+MaxLeft=-8
+MaxTop=-8
 MaxWidth=1296
 MaxHeight=123
 ClientWidth=1280
@@ -218,12 +220,12 @@ Visible=1
 State=0
 Left=7
 Top=116
-Width=811
-Height=511
+Width=551
+Height=429
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=795
-ClientHeight=472
+ClientWidth=535
+ClientHeight=390
 TBDockHeight=681
 LRDockWidth=445
 Dockable=0
@@ -232,8 +234,8 @@ Dockable=0
 Create=1
 Visible=0
 State=0
-Left=86
-Top=81
+Left=369
+Top=116
 Width=1194
 Height=861
 MaxLeft=-1
@@ -485,8 +487,8 @@ DockSiteType=0
 Create=1
 Visible=0
 State=0
-Left=162
-Top=569
+Left=93
+Top=339
 Width=1007
 Height=500
 MaxLeft=-1
@@ -500,5 +502,5 @@ DockClients=CallStackWindow
 DockSiteData=0000040000000000CD0100000000000001DF03000000000000010000000087000000000000000100000002CD010000000000000200000000DF0300000F00000043616C6C537461636B57696E646F770200000000F7010000000000000100000000080100000000000001000000008C010000000000000100000000100200000000000001000000009802000000000000FFFFFFFF
 
 [ActiveProject]
-ActiveProject=3
+ActiveProject=2
 

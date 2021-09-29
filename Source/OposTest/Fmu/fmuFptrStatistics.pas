@@ -17,8 +17,8 @@ type
     btnResetStatistics: TTntButton;
     btnRetrieveStatistics: TTntButton;
     btnUpdateStatistics: TTntButton;
-    SynXMLSyn1: TSynXMLSyn;
     btnClear: TTntButton;
+    SynXMLSyn1: TSynXMLSyn;
     mmData: TSynEdit;
     procedure btnResetStatisticsClick(Sender: TObject);
     procedure btnRetrieveStatisticsClick(Sender: TObject);
