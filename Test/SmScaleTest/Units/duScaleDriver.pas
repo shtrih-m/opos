@@ -606,7 +606,7 @@ end;
 
 procedure TScaleDriverTest.CheckWeightUnits;
 begin
-  CheckEquals(SCAL_WU_GRAM, Driver.GetPropertyNumber(PIDXScal_WeightUnits),
+  CheckEquals(SCAL_WU_KILOGRAM, Driver.GetPropertyNumber(PIDXScal_WeightUnits),
     'PIDX_WeightUnits');
 end;
 

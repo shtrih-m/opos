@@ -9,7 +9,7 @@ uses
   TestFramework,
   // This
   PrinterParameters, PrinterParametersIni, PrinterParametersReg,
-  PrinterParametersX, DriverContext, LogFile;
+  PrinterParametersRegIBT, PrinterParametersX, DriverContext, LogFile;
 
 type
   { TPrinterParametersTest }
@@ -29,6 +29,7 @@ type
   published
     procedure CheckLoadIni;
     procedure CheckLoadReg;
+    procedure CheckLoadRegIBT;
     procedure CheckSetDefaults;
     procedure CheckDefaultParams;
 
@@ -312,6 +313,16 @@ begin
   LoadParametersReg(Params, 'DeviceName', Logger);
   CheckNonDefaultParams;
   DeleteParametersReg('DeviceName', Logger);
+end;
+
+procedure TPrinterParametersTest.CheckLoadRegIBT;
+begin
+  SetNonDefaultParams;
+  SaveParametersRegIBT(Params, 'DeviceName', Logger);
+  Params.SetDefaults;
+  LoadParametersRegIBT(Params, 'DeviceName', Logger);
+  CheckNonDefaultParams;
+  DeleteParametersRegIBT('DeviceName', Logger);
 end;
 
 function TPrinterParametersTest.GetLogger: ILogFile;

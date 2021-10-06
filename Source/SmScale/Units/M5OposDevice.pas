@@ -233,7 +233,7 @@ begin
   FCapStatusUpdate := True;
   FCapPriceCalculating := True;
   FMaximumWeight := 6000;
-  FWeightUnits := SCAL_WU_GRAM;
+  FWeightUnits := SCAL_WU_KILOGRAM;
   FAsyncMode := False;
   FMaxDisplayTextChars := 0;
   FTareWeight := 0;

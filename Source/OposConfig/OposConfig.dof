@@ -94,7 +94,7 @@ OutputDir=..\..\Bin
 UnitOutputDir=DCU
 PackageDLLOutputDir=
 PackageDCPOutputDir=
-SearchPath=C:\COMPON~1\JVCL\jcl\lib\d7\debug
+SearchPath=$(DELPHI)\Lib\Debug;C:\PROGRA~2\Borland\Delphi7\Comp\jcl\lib\d7\debug;C:\COMPON~1\JVCL\jcl\lib\d7\debug
 Packages=Vcl50;SynEdit_D5;SynEdit_R5;vcl;rtl;indy
 Conditionals=
 DebugSourceDirs=
@@ -115,7 +115,7 @@ AutoIncBuild=1
 MajorVer=1
 MinorVer=13
 Release=0
-Build=573
+Build=577
 Debug=0
 PreRelease=0
 Special=0
@@ -126,7 +126,7 @@ CodePage=1252
 [Version Info Keys]
 CompanyName=SHTRIH-M
 FileDescription=OPOS setup utility
-FileVersion=1.13.0.573
+FileVersion=1.13.0.577
 InternalName=OPOS setup
 LegalCopyright=SHTRIH-M © 2013
 LegalTrademarks=
@@ -143,16 +143,18 @@ Item0=C:\Components\DUnit\src\
 Count=1
 Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;
 [HistoryLists\hlSearchPath]
-Count=2
-Item0=$(DELPHI)\Lib\Debug;C:\COMPON~1\JVCL\jcl\lib\d7\debug;C:\COMPON~1\jcl\lib\d7\debug
-Item1=$(DELPHI)\Lib\Debug
+Count=3
+Item0=$(DELPHI)\Lib\Debug;C:\PROGRA~2\Borland\Delphi7\Comp\jcl\lib\d7\debug;C:\COMPON~1\JVCL\jcl\lib\d7\debug
+Item1=$(DELPHI)\Lib\Debug;C:\COMPON~1\JVCL\jcl\lib\d7\debug;C:\COMPON~1\jcl\lib\d7\debug
+Item2=$(DELPHI)\Lib\Debug
 [HistoryLists\hlUnitOutputDirectory]
 Count=2
 Item0=DCU
 Item1=..\lib\D7
 [HistoryLists\hlOutputDirectorry]
-Count=1
-Item0=Bin
+Count=2
+Item0=..\..\Bin
+Item1=Bin
 [HistoryLists\hlBPLOutput]
 Count=3
 Item0=$(DELPHI)\Bin\

@@ -36,6 +36,8 @@ type
 
 function ReadEncodingRegIBT(const DeviceName: WideString; Logger: ILogFile): Integer;
 
+procedure DeleteParametersRegIBT(const DeviceName: WideString; Logger: ILogFile);
+
 procedure LoadParametersRegIBT(Item: TPrinterParameters; const DeviceName: WideString; Logger: ILogFile);
 
 procedure SaveParametersRegIBT(Item: TPrinterParameters; const DeviceName: WideString; Logger: ILogFile);
@@ -60,6 +62,24 @@ begin
   finally
     P.Free;
   end;
+end;
+
+procedure DeleteParametersRegIBT(const DeviceName: WideString; Logger: ILogFile);
+var
+  Reg: TTntRegistry;
+begin
+  Reg := TTntRegistry.Create;
+  try
+    Reg.Access := KEY_ALL_ACCESS;
+    Reg.RootKey := HKEY_CURRENT_USER;
+    Reg.DeleteKey(TPrinterParametersRegIBT.GetUsrKeyName(DeviceName));
+    Reg.RootKey := HKEY_LOCAL_MACHINE;
+    Reg.DeleteKey(TPrinterParametersRegIBT.GetSysKeyName(DeviceName));
+  except
+    on E: Exception do
+      Logger.Error('TPrinterParametersReg.Save', E);
+  end;
+  Reg.Free;
 end;
 
 procedure LoadParametersRegIBT(Item: TPrinterParameters; const DeviceName: WideString; Logger: ILogFile);
@@ -539,42 +559,44 @@ begin
       if Reg.ValueExists('ValidTimeDiffInSecs') then
         FParameters.ValidTimeDiffInSecs := Reg.ReadInteger('ValidTimeDiffInSecs');
 
-      // VatCodes
-      if Reg.OpenKey(REG_KEY_VATCODES, False) then
-      begin
-        Parameters.VatCodes.Clear;
-        Names := TTntStringList.Create;
-        try
-          Reg.GetValueNames(Names);
-          for i := 0 to Names.Count - 1 do
-          begin
-            AppVatCode := StrToInt(Names[i]);
-            FptrVatCode := Reg.ReadInteger(Names[i]);
-            Parameters.VatCodes.Add(AppVatCode, FptrVatCode);
-          end;
-        finally
-          Names.Free;
-        end;
-      end;
-      // Payment types
-      if Reg.OpenKey(REG_KEY_PAYTYPES, False) then
-      begin
-        Parameters.PayTypes.Clear;
-        Names := TTntStringList.Create;
-        try
-          Reg.GetValueNames(Names);
-          for i := 0 to Names.Count - 1 do
-          begin
-            PayTypeText := Names[i];
-            PayTypeCode := Reg.ReadInteger(PayTypeText);
-            Parameters.PayTypes.Add(PayTypeCode, PayTypeText);
-          end;
-        finally
-          Names.Free;
-        end;
-      end;
+      Reg.CloseKey;
     end;
-    Reg.CloseKey;
+    // VatCodes
+    if Reg.OpenKey(KeyName + '\' + REG_KEY_VATCODES, False) then
+    begin
+      Parameters.VatCodes.Clear;
+      Names := TTntStringList.Create;
+      try
+        Reg.GetValueNames(Names);
+        for i := 0 to Names.Count - 1 do
+        begin
+          AppVatCode := StrToInt(Names[i]);
+          FptrVatCode := Reg.ReadInteger(Names[i]);
+          Parameters.VatCodes.Add(AppVatCode, FptrVatCode);
+        end;
+      finally
+        Names.Free;
+      end;
+      Reg.CloseKey;
+    end;
+    // Payment types
+    if Reg.OpenKey(KeyName + '\' + REG_KEY_PAYTYPES, False) then
+    begin
+      Parameters.PayTypes.Clear;
+      Names := TTntStringList.Create;
+      try
+        Reg.GetValueNames(Names);
+        for i := 0 to Names.Count - 1 do
+        begin
+          PayTypeText := Names[i];
+          PayTypeCode := Reg.ReadInteger(PayTypeText);
+          Parameters.PayTypes.Add(PayTypeCode, PayTypeText);
+        end;
+      finally
+        Names.Free;
+      end;
+      Reg.CloseKey;
+    end;
   finally
     Reg.Free;
   end;
@@ -712,26 +734,28 @@ begin
     Reg.WriteBool('SingleQuantityOnZeroUnitPrice', FParameters.SingleQuantityOnZeroUnitPrice);
     Reg.WriteInteger('SendMarkType', FParameters.SendMarkType);
     Reg.WriteInteger('ValidTimeDiffInSecs', FParameters.ValidTimeDiffInSecs);
+    Reg.CloseKey;
 
     // VatCodes
-    Reg.DeleteKey(REG_KEY_VATCODES);
-    if Reg.OpenKey(REG_KEY_VATCODES, True) then
+    Reg.DeleteKey(KeyName + '\' + REG_KEY_VATCODES);
+    if Reg.OpenKey(KeyName + '\' + REG_KEY_VATCODES, True) then
     begin
       for i := 0 to Parameters.VatCodes.Count - 1 do
       begin
         Reg.WriteInteger(IntToStr(Parameters.VatCodes[i].AppVatCode), Parameters.VatCodes[i].FptrVatCode);
       end;
+      Reg.CloseKey;
     end;
     // PayTypes
-    Reg.DeleteKey(REG_KEY_PAYTYPES);
-    if Reg.OpenKey(REG_KEY_PAYTYPES, True) then
+    Reg.DeleteKey(KeyName + '\' + REG_KEY_PAYTYPES);
+    if Reg.OpenKey(KeyName + '\' + REG_KEY_PAYTYPES, True) then
     begin
       for i := 0 to Parameters.PayTypes.Count - 1 do
       begin
         Reg.WriteInteger(Parameters.PayTypes[i].Text, Parameters.PayTypes[i].Code);
       end;
+      Reg.CloseKey;
     end;
-    Reg.CloseKey;
   finally
     Reg.Free;
   end;
