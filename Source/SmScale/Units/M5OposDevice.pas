@@ -7,9 +7,9 @@ uses
   Windows, Classes, SysUtils, SyncObjs, Math,
   // Opos
   Opos, Oposhi, OposScal, OposScalhi, OposEvents, OposException,
-  OposScalUtils, OposSemaphore,
+  OposScalUtils, OposSemaphore, NCRScale,
   // Tnt
-  TntSysUtils, TntClasses, 
+  TntSysUtils, TntClasses,
   // Shared
   NotifyThread, SerialPort, LogFile,
   // This
@@ -110,6 +110,11 @@ type
     function ResetStatistics(const StatisticsBuffer: WideString): Integer; override;
     function RetrieveStatistics(var pStatisticsBuffer: WideString): Integer; override;
     function UpdateStatistics(const StatisticsBuffer: WideString): Integer; override;
+    function NCRReadLiveWeight: Integer;
+    function NCRReadStatus: WideString;
+    function NCRReadROMVersion: WideString;
+
+
 
     property CapDisplay: Boolean read FCapDisplay;
     property CapZeroScale: Boolean read FCapZeroScale;
@@ -211,6 +216,14 @@ begin
   TDIOStrCommand.CreateCommand(FDIOHandlers, Self);
   TDIOGetDriverParameter.CreateCommand(FDIOHandlers, Self);
   TDIOSetDriverParameter.CreateCommand(FDIOHandlers, Self);
+  // NCR
+  TDIONCRLiveWeight.CreateCommand(FDIOHandlers, Self);
+  TDIONCRReadStatus.CreateCommand(FDIOHandlers, Self);
+  TDIONCRReadROM.CreateCommand(FDIOHandlers, Self);
+  TDIONCRReadROMVersion.CreateCommand(FDIOHandlers, Self);
+  TDIONCRDirect.CreateCommand(FDIOHandlers, Self);
+  TDIONCRWeightDelay.CreateCommand(FDIOHandlers, Self);
+  TDIONCRZero.CreateCommand(FDIOHandlers, Self);
 end;
 
 procedure TM5OposDevice.Lock;
@@ -795,6 +808,47 @@ begin
     on E: Exception do
       Result := HandleException(E);
   end;
+end;
+
+function TM5OposDevice.NCRReadLiveWeight: Integer;
+var
+  Status: TM5Status;
+begin
+  Device.Check(Device.ReadStatus(Status));
+
+  if Status.Flags.isOverweight then
+    RaiseExtendedError(OPOS_ESCAL_OVERWEIGHT);
+
+  if not Status.Flags.isWeightStable then
+    RaiseExtendedError(NCR_ESCAL_UNSTABLE);
+
+  if Status.Flags.isWeightTooLow then
+    RaiseExtendedError(NCR_ESCAL_UNDERZERO);
+
+  if Status.Weight = 0 then
+    RaiseExtendedError(NCR_ESCAL_ZEROWEIGHT);
+
+  Result := Round(Status.Weight * GetWeightFactor);
+
+  Statistics.WeightReaded;
+end;
+
+function M5StatusToStr(const Status: TM5Status): WideString;
+begin
+  Result := '';
+end;
+
+function TM5OposDevice.NCRReadStatus: WideString;
+var
+  Status: TM5Status;
+begin
+  Device.Check(Device.ReadStatus(Status));
+  Result := M5StatusToStr(Status);
+end;
+
+function TM5OposDevice.NCRReadROMVersion: WideString;
+begin
+  Result := FPhysicalDeviceDescription;
 end;
 
 end.

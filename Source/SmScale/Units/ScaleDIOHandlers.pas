@@ -6,12 +6,12 @@ uses
   // VCL
   SysUtils, Graphics, Extctrls,
   // Opos
-  Opos, OposException,
+  Opos, OposException, NCRScale,
   // Tnt
   TntSysUtils,
   // This
   DIOHandler, ScaleDirectIO, CommandDef, M5OposDevice,
-  CommandParam, BinStream, StringUtils, ScaleParameters;
+  CommandParam, BinStream, StringUtils, ScaleParameters, M5ScaleTypes;
 
 const
   ValueDelimiters = [';'];
@@ -21,10 +21,13 @@ type
 
   TM5DIOHandler = class(TDIOHandler)
   private
+    function GetDevice: IM5ScaleDevice;
+  private
     FDriver: TM5OposDevice;
     property Driver: TM5OposDevice read FDriver;
   public
     constructor CreateCommand(AOwner: TDIOHandlers; ADriver: TM5OposDevice);
+    property Device: IM5ScaleDevice read GetDevice;
   end;
 
   { TDIOXmlCommand }
@@ -67,6 +70,62 @@ type
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
+  { TDIONCRLiveWeight }
+
+  TDIONCRLiveWeight = class(TM5DIOHandler)
+  public
+    function GetCommand: Integer; override;
+    procedure DirectIO(var pData: Integer; var pString: WideString); override;
+  end;
+
+  { TDIONCRReadStatus }
+
+  TDIONCRReadStatus = class(TM5DIOHandler)
+  public
+    function GetCommand: Integer; override;
+    procedure DirectIO(var pData: Integer; var pString: WideString); override;
+  end;
+
+  { TDIONCRReadROM }
+
+  TDIONCRReadROM = class(TM5DIOHandler)
+  public
+    function GetCommand: Integer; override;
+    procedure DirectIO(var pData: Integer; var pString: WideString); override;
+  end;
+
+  { TDIONCRReadROMVersion }
+
+  TDIONCRReadROMVersion = class(TM5DIOHandler)
+  public
+    function GetCommand: Integer; override;
+    procedure DirectIO(var pData: Integer; var pString: WideString); override;
+  end;
+
+  { TDIONCRDirect }
+
+  TDIONCRDirect = class(TM5DIOHandler)
+  public
+    function GetCommand: Integer; override;
+    procedure DirectIO(var pData: Integer; var pString: WideString); override;
+  end;
+
+  { TDIONCRWeightDelay }
+
+  TDIONCRWeightDelay = class(TM5DIOHandler)
+  public
+    function GetCommand: Integer; override;
+    procedure DirectIO(var pData: Integer; var pString: WideString); override;
+  end;
+
+  { TDIONCRZero }
+
+  TDIONCRZero = class(TM5DIOHandler)
+  public
+    function GetCommand: Integer; override;
+    procedure DirectIO(var pData: Integer; var pString: WideString); override;
+  end;
+
 const
   FPTR_ERROR_BASE = 300;
 
@@ -79,6 +138,11 @@ constructor TM5DIOHandler.CreateCommand(AOwner: TDIOHandlers;
 begin
   inherited Create(AOwner);
   FDriver := ADriver;
+end;
+
+function TM5DIOHandler.GetDevice: IM5ScaleDevice;
+begin
+  Result := FDriver.Device;
 end;
 
 { TDIOXmlCommand }
@@ -243,6 +307,102 @@ begin
     ParamCapPrice: pString := BoolToStr(P.CapPrice);
     ParamPollPeriod: pString := IntToStr(P.PollPeriod);
   end;
+end;
+
+{ TDIONCRLiveWeight }
+
+function TDIONCRLiveWeight.GetCommand: Integer;
+begin
+  Result := NCRDIO_SCAL_LIVE_WEIGHT;
+end;
+
+procedure TDIONCRLiveWeight.DirectIO(var pData: Integer;
+  var pString: WideString);
+begin
+  pData := Driver.NCRReadLiveWeight;
+end;
+
+{ TDIONCRReadStatus }
+
+(*
+Returns the status string direct from the scale.
+Note: Determine the scale interface to decode the string.
+*)
+
+function TDIONCRReadStatus.GetCommand: Integer;
+begin
+  Result := NCRDIO_SCAL_STATUS;
+end;
+
+procedure TDIONCRReadStatus.DirectIO(var pData: Integer;
+  var pString: WideString);
+begin
+  pString := Driver.NCRReadStatus;
+end;
+
+{ TDIONCRReadROM }
+
+function TDIONCRReadROM.GetCommand: Integer;
+begin
+  Result := NCRDIO_SCAL_READROM;
+end;
+
+procedure TDIONCRReadROM.DirectIO(var pData: Integer;
+  var pString: WideString);
+begin
+  pString := '';
+end;
+
+{ TDIONCRReadROMVersion }
+
+function TDIONCRReadROMVersion.GetCommand: Integer;
+begin
+  Result := NCRDIO_SCAL_ROM_VERSION;
+end;
+
+procedure TDIONCRReadROMVersion.DirectIO(var pData: Integer;
+  var pString: WideString);
+begin
+  pString := Driver.NCRReadROMVersion;
+end;
+
+{ TDIONCRDirect }
+
+function TDIONCRDirect.GetCommand: Integer;
+begin
+  Result := NCRDIO_SCAL_DIRECT;
+end;
+
+procedure TDIONCRDirect.DirectIO(var pData: Integer;
+  var pString: WideString);
+begin
+  pString := '';
+end;
+
+{ TDIONCRWeightDelay }
+
+function TDIONCRWeightDelay.GetCommand: Integer;
+begin
+  Result := NCRDIO_SCAL_WEIGHT_DELAY;
+end;
+
+procedure TDIONCRWeightDelay.DirectIO(var pData: Integer;
+  var pString: WideString);
+begin
+  pString := '';
+end;
+
+{ TDIONCRZero }
+
+function TDIONCRZero.GetCommand: Integer;
+begin
+  Result := NCRDIO_SCAL_ZERO;
+end;
+
+procedure TDIONCRZero.DirectIO(var pData: Integer;
+  var pString: WideString);
+begin
+  pString := '';
 end;
 
 end.

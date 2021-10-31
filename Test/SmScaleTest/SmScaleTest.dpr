@@ -87,7 +87,8 @@ uses
   TntIniFiles in '..\..\Source\Shared\TntIniFiles.pas',
   RegExpr in '..\..\Source\Shared\RegExpr.pas',
   duM5OposDevice in 'Units\duM5OposDevice.pas',
-  duMath in 'Units\duMath.pas';
+  duMath in 'Units\duMath.pas',
+  NCRScale in '..\..\Source\SmScale\Units\NCRScale.pas';
 
 {$R *.RES}
 

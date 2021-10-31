@@ -69,7 +69,8 @@ uses
   PrinterPort in '..\SmFiscalPrinter\Units\PrinterPort.pas',
   WException in '..\Shared\WException.pas',
   TntIniFiles in '..\Shared\TntIniFiles.pas',
-  RegExpr in '..\Shared\RegExpr.pas';
+  RegExpr in '..\Shared\RegExpr.pas',
+  NCRScale in 'Units\NCRScale.pas';
 
 exports
   DllGetClassObject,
