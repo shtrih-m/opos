@@ -1998,7 +1998,7 @@ begin
     $FF0B: Result := _('FS: Open day');
     $FF0C: Result := _('FS: Send TLV data');
     $FF0D: Result := _('FS: Registration with discount/charge');
-    $FF0E: Result := _('FS: Storno with discount/charge');
+    $FF0E: Result := _('FS: Read open parameter');
     $FF30: Result := _('FS: Read data in buffer');
     $FF31: Result := _('FS: Read data block from buffer');
     $FF32: Result := _('FS: Start write buffer');

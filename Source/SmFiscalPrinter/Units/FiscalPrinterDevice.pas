@@ -149,7 +149,6 @@ type
     function ParseEJDocument(const Text: WideString): TEJDocument;
     function FSSale(P: TFSSale): Integer;
     function FSSale2(P: TFSSale2): Integer;
-    function FSReadRegTag(var R: TFSReadRegTagCommand): Integer;
 
     function ProcessLine(const Line: WideString): Boolean;
     function FSReadStatus(var R: TFSStatus): Integer;
@@ -220,7 +219,7 @@ type
     procedure CheckPrinterStatus;
     procedure SetCapFiscalStorage(const Value: Boolean);
     function FilterTLV(Data: AnsiString): AnsiString;
-    function ReadFFDVersion: TFFDVersion;
+    function GetFFDVersion: TFFDVersion;
   protected
     function GetMaxGraphicsWidthInBytes: Integer;
   public
@@ -491,6 +490,7 @@ type
     function IsCorrectItemCode(const P: TFSCheckItemResult): Boolean;
     procedure CheckCorrectItemCode(const P: TFSCheckItemResult);
     function BarcodeTo1162Value(const Barcode: AnsiString): AnsiString;
+    function FSReadRegTag(var R: TFSReadRegTagCommand): Integer;
 
     property IsOnline: Boolean read GetIsOnline;
     property Tables: TPrinterTables read FTables;
@@ -737,7 +737,7 @@ begin
     $FF0B: Result := 30000; // FS: Open day
     $FF0C: Result := 30000; // FS: Send TLV data
     $FF0D: Result := 30000; // FS: Registration with discount/charge
-    $FF0E: Result := 30000; // FS: Storno with discount/charge
+    $FF0E: Result := 30000; // FS: Read open parameter
     $FF30: Result := 30000; // FS: Read data in buffer
     $FF31: Result := 30000; // FS: Read data block from buffer
     $FF32: Result := 30000; // FS: Start write buffer
@@ -860,6 +860,7 @@ begin
   FCapFooterFlag := False;
   FFooterFlag := False;
   FCapEnablePrint := False;
+  FFFDVersion := TFFDVersion(-1);
 end;
 
 function TFiscalPrinterDevice.GetCapFSCloseReceipt2: Boolean;
@@ -1390,7 +1391,7 @@ begin
     $FF0B, // FS: Open day
     $FF0C, // FS: Send TLV data
     $FF0D, // FS: Registration with discount/charge
-    $FF0E, // FS: Storno with discount/charge
+    $FF0E, // FS: Read open parameter
     $FF30, // FS: Read data in buffer
     $FF31, // FS: Read data block from buffer
     $FF32, // FS: Start write buffer
@@ -6778,22 +6779,9 @@ begin
   end;
 end;
 
-function TFiscalPrinterDevice.ReadFFDVersion: TFFDVersion;
-var
-  FFD: Byte;
-  Item: TTLVItem;
-  R: TFSReadRegTagCommand;
-  CommandFF03: TCommandFF03;
+function IntToFFDVersion(Value: Integer): TFFDVersion;
 begin
-  Check(FSReadExpiration(CommandFF03));
-  R.RegID := CommandFF03.RegNumber;
-  R.TagID := 1189;
-  Check(FSReadRegTag(R));
-  if not TTLVReader.Read(R.TLV, Item) then
-    raise Exception.Create('Invalid FFD verion returned');
-
-  FFD := Ord(Item.Data[1]);
-  case FFD of
+  case Value of
     1: Result := ffd10;
     2: Result := ffd105;
     3: Result := ffd11;
@@ -6801,6 +6789,14 @@ begin
   else
     Result := ffdUnknown;
   end;
+end;
+
+// 17,1,17,1,0,4,4,'Rus פמנלאע פה','4'
+function TFiscalPrinterDevice.GetFFDVersion: TFFDVersion;
+begin
+  if FFFDVersion = TFFDVersion(-1) then
+    FFFDVersion := IntToFFDVersion(ReadTableInt(17,1,17));
+  Result := FFFDVersion;
 end;
 
 procedure TFiscalPrinterDevice.Connect;
@@ -6865,7 +6861,6 @@ begin
   end;
   if FCapFiscalStorage then
   begin
-    FFFDVersion := ReadFFDVersion;
     FDiscountMode := ReadDiscountMode;
     FDocPrintMode := ReadDocPrintMode;
   end;
@@ -7226,7 +7221,7 @@ begin
       IsValid := True;
       if Tag <> nil then
       begin
-        IsValid := FFFDVersion in Tag.Versions;
+        IsValid := GetFFDVersion in Tag.Versions;
       end;
 
       if IsValid then

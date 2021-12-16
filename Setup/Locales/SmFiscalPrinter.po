@@ -2514,7 +2514,7 @@ msgstr "Операция со скидками и надбавками"
 
 #: Units/PrinterTypes.pas:1819
 msgid "FS: Storno with discount/charge"
-msgstr "Сторно со скидками и надбавками"
+msgstr "Запрос параметра открытия ФН"
 
 #: Units/PrinterTypes.pas:1820
 msgid "FS: Read data in buffer"
