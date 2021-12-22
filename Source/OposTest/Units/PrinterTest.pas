@@ -5294,8 +5294,7 @@ begin
   FiscalPrinter.FiscalReceiptType := FPTR_RT_SALES;
   Check(FiscalPrinter.BeginFiscalReceipt(False));
   Check(FiscalPrinter.PrintRecItem('2:3026155 —»√¿–≈“€ CHESTERFIELD BLUE 1œ¿◊', 95, 1000, 1, 95, '¯Ú'));
-  Check(FiscalPrinter.DirectIO2(DIO_WRITE_FS_STRING_TAG_OP, 1197, 'ÿ“'));
-
+  Check(FiscalPrinter.DirectIO2(DIO_WRITE_FS_STRING_TAG_OP, 1228, '126356125387'));
   Check(FiscalPrinter.PrintRecTotal(1000, 1000, ''));
   Check(FiscalPrinter.EndFiscalReceipt(True));
 end;

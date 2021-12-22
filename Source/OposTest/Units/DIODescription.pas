@@ -20,7 +20,12 @@ const
   CRLF = #13#10;
   DIO_CUSTOM_COMMAND = $FFFF;
 
-  DIODescriptions: array[1..46] of TDirectIODescription = (
+  DIODescriptions: array[1..51] of TDirectIODescription = (
+
+    (Command: DIO_CUSTOM_COMMAND;
+     Description: 'Custom command';
+     DescriptionEx: '';),
+
     (Command: DIO_COMMAND_PRINTER_XML;
      Description: 'XML command';
      DescriptionEx:  'Data: Printer command code' + #13#10 +
@@ -215,10 +220,6 @@ const
      Description: 'Read operating register';
      DescriptionEx: 'Data is register number;' + CRLF +
                     'String: register value'),
-
-    (Command: DIO_CUSTOM_COMMAND;
-     Description: 'Custom command';
-     DescriptionEx: '';),
 
     (Command: DIO_GET_LAST_ERROR;
      Description: 'Read last error code';
@@ -604,12 +605,6 @@ const
        'Data: not used' + CRLF +
        'String: not used';),
 
-    (Command: DIO_START_CORRECTION;
-     Description: 'Start correction receipt';
-     DescriptionEx:
-       'Data: not used' + CRLF +
-       'String: not used';),
-
     (Command: DIO_WRITE_FS_TLV_HEX;
      Description: 'Write TLV data';
      DescriptionEx:
@@ -620,7 +615,43 @@ const
      Description: 'Write TLV data for operation';
      DescriptionEx:
        'Data: not used' + CRLF +
-       'String: TLV data in HEX format';)
+       'String: TLV data in HEX format';),
+
+    (Command: DIO_CLEAR_LOGO;
+     Description: 'Clear logo';
+     DescriptionEx:
+       'Data: not used' + CRLF +
+       'String: not used';),
+
+    (Command: DIO_WRITE_FS_STRING_TAG_OP;
+     Description: 'Write tag for operation';
+     DescriptionEx:
+       'Data: tag number' + CRLF +
+       'String: tag value';),
+
+    (Command: DIO_STLV_BEGIN;
+     Description: 'Clear TLV';
+     DescriptionEx:
+       'Data: tag number' + CRLF +
+       'String: not used';),
+
+    (Command: DIO_STLV_ADD_TAG;
+     Description: 'Add tag value';
+     DescriptionEx:
+       'Data: tag number' + CRLF +
+       'String: tag value';),
+
+    (Command: DIO_STLV_WRITE;
+     Description: 'Write STLV value';
+     DescriptionEx:
+       'Data: not used' + CRLF +
+       'String: not used';),
+
+    (Command: DIO_STLV_WRITE_OP;
+     Description: 'Write STLV value for operation';
+     DescriptionEx:
+       'Data: not used' + CRLF +
+       'String: not used';)
   );
 
 
