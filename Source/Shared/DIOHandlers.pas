@@ -3002,7 +3002,7 @@ end;
 procedure TDIOSTLVWrite.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
-  Printer.Device.FSWriteTLV2(HexToStr(Printer.Device.STLVGetHex));
+  Printer.FSWriteTLV(HexToStr(Printer.Device.STLVGetHex));
 end;
 
 

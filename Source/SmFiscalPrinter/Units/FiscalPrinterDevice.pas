@@ -4081,6 +4081,7 @@ function TFiscalPrinterDevice.ReceiptClose(const P: TCloseReceiptParams;
 var
   Stream: TBinStream;
 begin
+  WriteTLVItems;
   FFilter.BeforeCloseReceipt;
   Stream := TBinStream.Create;
   try
@@ -8598,6 +8599,8 @@ var
 const
   SInvalidDiscountValue =  'Invalid discount value, %d. Valid discount value is [0..99].';
 begin
+  WriteTLVItems;
+
   if not ((P.Discount) in [0..99]) then
     RaiseIllegalError(Format(SInvalidDiscountValue, [P.Discount]));
 
