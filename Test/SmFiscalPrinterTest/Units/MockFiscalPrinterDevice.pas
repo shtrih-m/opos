@@ -132,7 +132,7 @@ type
     function PrintBarcode(const Barcode: WideString): Integer;
     procedure PrintBarcode2(const Barcode: TBarcodeRec);
     function PrintGraphics(Line1, Line2: Word): Integer;
-    function LoadGraphics(Line: Word; Data: WideString): Integer;
+    function LoadGraphics(Line: Word; Data: AnsiString): Integer;
     function PrintBarLine(Height: Word; Data: AnsiString): Integer;
     function GetDeviceMetrics: TDeviceMetrics;
     function GetDayDiscountTotal: Int64;
@@ -174,7 +174,7 @@ type
     function FormatLines(const Line1, Line2: WideString): WideString;
     function FormatBoldLines(const Line1, Line2: WideString): WideString;
     function ExecuteStream2(Stream: TBinStream): Integer;
-    function GetFieldValue(FieldInfo: TPrinterFieldRec; const Value: WideString): WideString;
+    function GetFieldValue(FieldInfo: TPrinterFieldRec; const Value: WideString): AnsiString;
     function FieldToStr(FieldInfo: TPrinterFieldRec; const Value: WideString): WideString;
     function BinToFieldValue(FieldInfo: TPrinterFieldRec; const Value: WideString): WideString;
     function ReadDaysRange: TDayRange;
@@ -596,7 +596,7 @@ begin
 end;
 
 function TMockFiscalPrinterDevice.GetFieldValue(
-  FieldInfo: TPrinterFieldRec; const Value: WideString): WideString;
+  FieldInfo: TPrinterFieldRec; const Value: WideString): AnsiString;
 begin
   Result := '';
 end;
@@ -709,7 +709,7 @@ begin
 end;
 
 function TMockFiscalPrinterDevice.LoadGraphics(Line: Word;
-  Data: WideString): Integer;
+  Data: AnsiString): Integer;
 begin
   Result := 0;
 end;

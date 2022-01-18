@@ -14,7 +14,7 @@ type
 
   TTableParameterRec = record
     ID: Integer;
-    Name: string;
+    Name: WideString;
     Table: Integer;
     Row: Integer;
     Field: Integer;
@@ -22,7 +22,7 @@ type
     FieldType: Integer;
     MinValue: Integer;
     MaxValue: Integer;
-    DefValue: string;
+    DefValue: WideString;
   end;
 
   { TPrinterModelRec }

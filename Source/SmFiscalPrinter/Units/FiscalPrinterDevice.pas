@@ -307,10 +307,10 @@ type
     function PrintGraphics2(Line1, Line2: Word): Integer;
     function PrintGraphics3(Line1, Line2: Word): Integer; overload;
     function PrintGraphics3(const P: TPrintGraphics3): Integer; overload;
-    function LoadGraphics(Line: Word; Data: WideString): Integer;
-    function LoadGraphics1(Line: Byte; Data: WideString): Integer;
-    function LoadGraphics2(Line: Word; Data: WideString): Integer;
-    function LoadGraphics3(Line: Word; Data: WideString): Integer; overload;
+    function LoadGraphics(Line: Word; Data: AnsiString): Integer;
+    function LoadGraphics1(Line: Byte; Data: AnsiString): Integer;
+    function LoadGraphics2(Line: Word; Data: AnsiString): Integer;
+    function LoadGraphics3(Line: Word; Data: AnsiString): Integer; overload;
     function LoadGraphics3(const P: TLoadGraphics3): Integer; overload;
     function PrintBarLine(Height: Word; Data: AnsiString): Integer;
     function PrintGraphicsLine(Height: Word; Flags: Byte; Data: WideString): Integer;
@@ -369,7 +369,7 @@ type
     procedure EJTotalsReportDate(const Parameters: TDateReport);
     procedure EJTotalsReportNumber(const Parameters: TNumberReport);
     function ExecuteStream2(Stream: TBinStream): Integer;
-    function GetFieldValue(FieldInfo: TPrinterFieldRec; const Value: WideString): WideString;
+    function GetFieldValue(FieldInfo: TPrinterFieldRec; const Value: WideString): AnsiString;
     function FieldToStr(FieldInfo: TPrinterFieldRec; const Value: WideString): WideString;
     function BinToFieldValue(FieldInfo: TPrinterFieldRec; const Value: WideString): WideString;
     class function ByteToTimeout(Value: Byte): DWORD;
@@ -535,6 +535,13 @@ const
 
 
 implementation
+
+function GetDataBlock(const Data: AnsiString;
+  MinLength, MaxLength: Integer): AnsiString;
+begin
+  Result := Copy(Data, 1, MaxLength);
+  Result := Result + StringOfChar(#0, MinLength - Length(Result));
+end;
 
 function TLVToText(const TLVData: AnsiString): AnsiString;
 var
@@ -4503,7 +4510,7 @@ end;
 
 ******************************************************************************)
 
-function TFiscalPrinterDevice.LoadGraphics1(Line: Byte; Data: WideString): Integer;
+function TFiscalPrinterDevice.LoadGraphics1(Line: Byte; Data: AnsiString): Integer;
 var
   Stream: TBinStream;
 begin
@@ -4512,7 +4519,7 @@ begin
     Stream.WriteByte($C0);
     Stream.WriteDWORD(GetUsrPassword);
     Stream.WriteByte(Line);
-    Stream.WriteString(GetLine(Data, 40, 40));
+    Stream.WriteString(GetDataBlock(Data, 40, 40));
     Result := ExecuteStream(Stream);
     if Result = ERROR_COMMAND_NOT_SUPPORTED then
     begin
@@ -4632,7 +4639,7 @@ end;
 
 ******************************************************************************)
 
-function TFiscalPrinterDevice.LoadGraphics2(Line: Word; Data: WideString): Integer;
+function TFiscalPrinterDevice.LoadGraphics2(Line: Word; Data: AnsiString): Integer;
 var
   Stream: TBinStream;
 begin
@@ -4641,7 +4648,7 @@ begin
     Stream.WriteByte($C4);
     Stream.WriteDWORD(GetUsrPassword);
     Stream.WriteInt(Line, 2);
-    Stream.WriteString(GetLine(Data, 40, 40));
+    Stream.WriteString(GetDataBlock(Data, 40, 40));
     Result := ExecuteStream(Stream);
     if Result = ERROR_COMMAND_NOT_SUPPORTED then
     begin
@@ -4768,11 +4775,11 @@ begin
 end;
 
 function TFiscalPrinterDevice.GetFieldValue(FieldInfo: TPrinterFieldRec;
-  const Value: WideString): WideString;
+  const Value: WideString): AnsiString;
 begin
   case FieldInfo.FieldType of
     PRINTER_FIELD_TYPE_INT: Result := IntToBin(StrToInt(Value), FieldInfo.Size);
-    PRINTER_FIELD_TYPE_STR: Result := GetLine(Value, FieldInfo.Size, FieldInfo.Size);
+    PRINTER_FIELD_TYPE_STR: Result := GetDataBlock(Value, FieldInfo.Size, FieldInfo.Size);
   else
     raiseException(_('Invalid field type'));
   end;
@@ -5726,7 +5733,7 @@ begin
 end;
 
 function TFiscalPrinterDevice.LoadGraphics(Line: Word;
-  Data: WideString): Integer;
+  Data: AnsiString): Integer;
 begin
   Result := 0;
   if FCapGraphics2 then
@@ -6667,7 +6674,7 @@ begin
   for i := 0 to Count-1 do
   begin
     Data := GetLineData(Bitmap, i);
-    Data := GetLine(Data, 40, 40);
+    Data := GetDataBlock(Data, 40, 40);
     Check(LoadGraphics(i+ StartLine, Data));
     NewProgress := 0;
     if ProgressStep <> 0 then
@@ -7132,7 +7139,7 @@ end;
 Порядковый номер оператора (1 байт) 1…30
 *)
 
-function TFiscalPrinterDevice.LoadGraphics3(Line: Word; Data: WideString): Integer;
+function TFiscalPrinterDevice.LoadGraphics3(Line: Word; Data: AnsiString): Integer;
 var
   Answer: AnsiString;
   Command: AnsiString;

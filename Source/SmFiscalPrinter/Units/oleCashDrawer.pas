@@ -2,7 +2,7 @@ unit oleCashDrawer;
 
 interface
 
-uses
+uses               
   // VCL
   Windows, ComObj, ActiveX, StdVcl, ComServ, SysUtils, Variants, SyncObjs,
   // Opos

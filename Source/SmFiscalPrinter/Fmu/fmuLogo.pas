@@ -42,7 +42,7 @@ type
     procedure btnPrintClick(Sender: TObject);
   private
     FPrinter: TFiscalPrinterImpl;
-    FApplicationTitle: string;
+    FApplicationTitle: WideString;
     FApplicationHandle: THandle;
 
     procedure UpdatePage;

@@ -20,8 +20,8 @@ type
     Date: TPrinterDateTime;
     DocNum: Int64;
     DocMac: Int64;
-    TaxID: string;
-    EcrRegNum: string;
+    TaxID: WideString;
+    EcrRegNum: WideString;
     TaxType: Byte;
     WorkMode: Byte;
   end;
@@ -32,8 +32,8 @@ type
     Date: TPrinterDateTime;
     DocNum: Int64;
     DocMac: Int64;
-    TaxID: string;
-    EcrRegNum: string;
+    TaxID: WideString;
+    EcrRegNum: WideString;
     TaxType: Byte;
     WorkMode: Byte;
     ReasonCode: Byte;
@@ -45,8 +45,8 @@ type
     Date: TPrinterDateTime;
     DocNum: Int64;
     DocMac: Int64;
-    TaxID: string;
-    EcrRegNum: string;
+    TaxID: WideString;
+    EcrRegNum: WideString;
   end;
 
   { TFSDocument2 }
@@ -112,7 +112,7 @@ type
   TFSBlock = record
     Offset: Word;
     Size: Byte;
-    Data: string;
+    Data: AnsiString;
   end;
 
   { TFSDocument }
@@ -120,7 +120,7 @@ type
   TFSDocument = record
     DocType: Byte;
     TicketReceived: Boolean;
-    TlvData: string;
+    TlvData: AnsiString;
     DocType1: TFSDocument1;
     DocType2: TFSDocument2;
     DocType3: TFSDocument3;
@@ -133,8 +133,8 @@ type
 
   TFSFiscalResult = record
     Date: TPrinterDateTime;
-    TaxID: string;
-    EcrRegNum: string;
+    TaxID: WideString;
+    EcrRegNum: WideString;
     TaxType: Byte;
     WorkMode: Byte;
     DocNum: Int64;
@@ -144,7 +144,7 @@ type
   { TEJDocument }
 
   TEJDocument = record
-    Text: string;
+    Text: WideString;
     MACValue: Int64;
     MACNumber: Int64;
   end;
@@ -160,7 +160,7 @@ type
   { TLoadGraphics3 }
 
   TLoadGraphics3 = record
-    Data: string;
+    Data: AnsiString;
     FirstLineNum: Word;
     NextLinesNum: Word;
   end;
@@ -299,7 +299,7 @@ type
     function PrintGraphics(Line1, Line2: Word): Integer;
     function PrintBarcode(const Barcode: WideString): Integer;
     procedure CheckGraphicsSize(Line: Word);
-    function LoadGraphics(Line: Word; Data: WideString): Integer;
+    function LoadGraphics(Line: Word; Data: AnsiString): Integer;
     function PrintBarLine(Height: Word; Data: AnsiString): Integer;
     function GetDeviceMetrics: TDeviceMetrics;
     function GetDayDiscountTotal: Int64;
@@ -340,7 +340,7 @@ type
     function FormatLines(const Line1, Line2: WideString): WideString;
     function FormatBoldLines(const Line1, Line2: WideString): WideString;
     function ExecuteStream2(Stream: TBinStream): Integer;
-    function GetFieldValue(FieldInfo: TPrinterFieldRec; const Value: WideString): WideString;
+    function GetFieldValue(FieldInfo: TPrinterFieldRec; const Value: WideString): AnsiString;
     function FieldToStr(FieldInfo: TPrinterFieldRec; const Value: WideString): WideString;
     function BinToFieldValue(FieldInfo: TPrinterFieldRec; const Value: WideString): WideString;
     function ReadDaysRange: TDayRange;
@@ -514,175 +514,6 @@ type
     property OnConnect: TNotifyEvent read GetOnConnect write SetOnConnect;
     property OnDisconnect: TNotifyEvent read GetOnDisconnect write SetOnDisconnect;
     property OnPrinterStatus: TNotifyEvent read GetOnPrinterStatus write SetOnPrinterStatus;
-  end;
-
-  { IFiscalPrinterDevice2 }
-
-  IFiscalPrinterDevice2 = interface
-    function StartDump(Password, DeviceCode: Integer; var BlockCount: Integer): Integer;
-
-(*
-    procedure LoadModels;
-    procedure SaveModels;
-    procedure FullCut;
-    procedure PartialCut;
-    procedure InterruptReport;
-    procedure StopDump;
-    procedure SetLongSerial(Serial: Int64);
-    procedure SetPortParams(Port: Byte; const PortParams: TPortParams);
-    procedure PrintDocHeader(const DocName: string; DocNumber: Word);
-    procedure StartTest(Interval: Byte);
-    procedure WriteLicense(License: Int64);
-    function WriteTableInt(Table, Row, Field, Value: Integer): Integer;
-    function WriteTable(Table, Row, Field: Integer; const FieldValue: string): Integer;
-    function DoWriteTable(Table, Row, Field: Integer; const FieldValue: string): Integer;
-    procedure SetPointPosition(PointPosition: Byte);
-    procedure SetTime(const Time: TPrinterTime);
-    procedure WriteDate(const Date: TPrinterDate);
-    procedure ConfirmDate(const Date: TPrinterDate);
-    procedure InitializeTables;
-    procedure CutPaper(CutType: Byte);
-    procedure ResetFiscalMemory;
-    procedure ResetTotalizers;
-    procedure OpenDrawer(DrawerNumber: Byte);
-    procedure FeedPaper(Station: Byte; Lines: Byte);
-    procedure EjectSlip(Direction: Byte);
-    procedure StopTest;
-    procedure PrintActnTotalizers;
-    procedure PrintStringFont(Station, Font: Byte; const Line: string);
-    procedure PrintXReport;
-    procedure PrintZReport;
-    procedure PrintDepartmentsReport;
-    procedure PrintTaxReport;
-    procedure PrintHeader;
-    procedure PrintDocTrailer(Flags: Byte);
-    procedure PrintTrailer;
-    procedure WriteSerial(Serial: DWORD);
-    procedure InitFiscalMemory;
-    procedure Check(Value: Integer);
-    procedure PrintString(Stations: Byte; const Text: string);
-    procedure SetSysPassword(const Value: DWORD);
-    procedure SetTaxPassword(const Value: DWORD);
-    procedure SetUsrPassword(const Value: DWORD);
-    procedure CashIn(Amount: Int64);
-    procedure CashOut(Amount: Int64);
-    procedure EJTotalsReportDate(const Parameters: TDateReport);
-    procedure EJTotalsReportNumber(const Parameters: TNumberReport);
-    procedure SetOnCommand(Value: TCommandEvent);
-    procedure PrintJournal(DayNumber: Integer);
-
-    function GetDumpBlock: TDumpBlock;
-    function GetLongSerial: TGetLongSerial;
-    function GetShortStatus: TShortPrinterStatus;
-    function GetLongStatus: TLongPrinterStatus;
-    function GetFMFlags(Flags: Byte): TFMFlags;
-    function PrintBoldString(Flags: Byte; const Text: string): Integer;
-    function Beep: Integer;
-    function GetPortParams(Port: Byte): TPortParams;
-    function ReadCashRegister(ID: Byte): Int64;
-    function ReadCashReg(ID: Byte; var R: TCashRegisterRec): Integer;
-    function ReadOperatingRegister(ID: Byte): Word;
-    function ReadOperatingReg(ID: Byte; var R: TOperRegisterRec): Integer;
-    function ReadLicense: Int64;
-    function ReadTableBin(Table, Row, Field: Integer): string;
-    function ReadTableStr(Table, Row, Field: Integer): string;
-    function ReadTableInt(Table, Row, Field: Integer): Integer;
-    function ReadFontInfo(FontNumber: Byte): TFontInfo;
-    function ReadFMTotals(Flags: Byte): TFMTotals;
-    function OpenSlipDoc(Params: TSlipParams): TDocResult;
-    function OpenStdSlip(Params: TStdSlipParams): TDocResult;
-    function SlipOperation(Params: TSlipOperation; Operation: TPriceReg): Integer;
-    function SlipStdOperation(LineNumber: Byte; Operation: TPriceReg): Integer;
-    function SlipDiscount(Params: TSlipDiscountParams; Discount: TSlipDiscount): Integer;
-    function SlipStdDiscount(Discount: TSlipDiscount): Integer;
-    function SlipClose(Params: TCloseReceiptParams): TCloseReceiptResult;
-    function ContinuePrint: Integer;
-    function LoadGraphics(Line: Byte; Data: string): Integer;
-    function PrintGraphics(Line1, Line2: Byte): Integer;
-    function PrintBarcode(Barcode: Int64): Integer;
-    function PrintGraphics2(Line1, Line2: Word): Integer;
-    function LoadGraphics2(Line: Word; Data: string): Integer;
-    function PrintBarLine(Height: Word; Data: string): Integer;
-    function GetDeviceMetrics: TDeviceMetrics;
-    function GetDayDiscountTotal: Int64;
-    function GetRecDiscountTotal: Int64;
-    function GetDayItemTotal: Int64;
-    function GetRecItemTotal: Int64;
-    function GetDayItemVoidTotal: Int64;
-    function GetRecItemVoidTotal: Int64;
-    function ReadTableInfo(Table: Byte; var R: TPrinterTableRec): Integer;
-    function ReadTableStructure(Table: Byte; var R: TPrinterTableRec): Integer;
-    function ReadFieldStructure(Table, Field: Byte): TPrinterFieldRec;
-    function GetEJSesssionResult(Number: Word; var Text: string): Integer;
-    function GetEJReportLine(var Line: string): Integer;
-    function EJReportStop: Integer;
-    function GetEJStatus1(var Status: TEJStatus1): Integer;
-    function Execute(const Data: string): string;
-    function ExecuteStream(Stream: TBinStream): Integer;
-    function ExecutePrinterCommand(Command: TPrinterCommand): Integer;
-    function GetPrintWidth: Integer;
-    function GetSysPassword: DWORD;
-    function GetTaxPassword: DWORD;
-    function GetUsrPassword: DWORD;
-    function Sale(Operation: TPriceReg): Integer;
-    function Buy(Operation: TPriceReg): Integer;
-    function RetSale(Operation: TPriceReg): Integer;
-    function RetBuy(Operation: TPriceReg): Integer;
-    function Storno(Operation: TPriceReg): Integer;
-    function ReceiptClose(Params: TCloseReceiptParams): TCloseReceiptResult;
-    function ReceiptDiscount(Operation: TAmountOperation): Integer;
-    function ReceiptCharge(Operation: TAmountOperation): Integer;
-    function ReceiptCancel: Integer;
-    function GetSubtotal: Int64;
-    function ReceiptStornoDiscount(Operation: TAmountOperation): Integer;
-    function ReceiptStornoCharge(Operation: TAmountOperation): Integer;
-    function PrintReceiptCopy: Integer;
-    function OpenReceipt(ReceiptType: Byte): Integer;
-    function FormatLines(const Line1, Line2: string): string;
-    function FormatBoldLines(const Line1, Line2: string): string;
-    function ExecuteStream2(Stream: TBinStream): Integer;
-    function GetFieldValue(FieldInfo: TPrinterFieldRec; const Value: string): string;
-    function FieldToStr(FieldInfo: TPrinterFieldRec; const Value: string): string;
-    function BinToFieldValue(FieldInfo: TPrinterFieldRec; const Value: string): string;
-    function ReadDaysRange: TDayRange;
-    function ReadFMLastRecordDate: TFMRecordDate;
-    function ReadFiscInfo(FiscNumber: Byte): TFiscInfo;
-    function LongFisc(NewPassword: DWORD; PrinterID, FiscalID: Int64): TLongFiscResult;
-    function Fiscalization(Password, PrinterID, FiscalID: Int64): TFiscalizationResult;
-    function ReportOnDateRange(ReportType: Byte; Range: TDayDateRange): TDayRange;
-    function ReportOnNumberRange(ReportType: Byte; Range: TDayNumberRange): TDayRange;
-    function DecodeEJFlags(Flags: Byte): TEJFlags;
-    function GetLine(const Text: string): string; overload;
-    function GetLine(const Text: string; MinLength, MaxLength: Integer): string; overload;
-    function FieldToInt(FieldInfo: TPrinterFieldRec; const Value: string): Integer;
-    function ReadFieldInfo(Table, Field: Byte): TPrinterFieldRec;
-    function ExecuteData(const Data: string; var RxData: string): Integer;
-    function ExecuteCommand(var Command: TCommandRec): Integer;
-    function SendCommand(var Command: TCommandRec): Integer;
-    function GetModel: TPrinterModelRec;
-    function GetOnCommand: TCommandEvent;
-    function GetTables: TDeviceTables;
-
-    function CapGraphics: Boolean;
-    function CapShortEcrStatus: Boolean;
-    function CapPrintStringFont: Boolean;
-
-    procedure ClosePort;
-    procedure ReleaseDevice;
-    procedure Open(AConnection: IPrinterConnection);
-    procedure SetTables(const Value: TDeviceTables);
-    procedure ClaimDevice(PortNumber, Timeout: Integer);
-    procedure OpenPort(PortNumber, BaudRate, ByteTimeout: Integer);
-    procedure PrintText(const Text: string; Station, Font: Integer;
-      Alignment: TTextAlignment = taLeft);
-    procedure WriteParameter(ParamID, ValueID: Integer);
-    function ReadParameter(ParamID: Integer): Integer;
-    function GetStatistics: TFiscalPrinterStatistics;
-
-    property Model: TPrinterModelRec read GetModel;
-    property Tables: TDeviceTables read GetTables write SetTables;
-    property Statistics: TFiscalPrinterStatistics read GetStatistics;
-*)
   end;
 
 type

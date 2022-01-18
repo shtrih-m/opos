@@ -12,7 +12,7 @@ unit SmFiscalPrinterLib_TLB;
 // ************************************************************************ //
 
 // PASTLWTR : 1.2
-// File generated on 22.12.2021 19:26:21 from Type Library described below.
+// File generated on 28.12.2021 15:34:23 from Type Library described below.
 
 // ************************************************************************  //
 // Type Lib: D:\projects\OPOSShtrih\Source\SmFiscalPrinter\SmFiscalPrinter.tlb (1)

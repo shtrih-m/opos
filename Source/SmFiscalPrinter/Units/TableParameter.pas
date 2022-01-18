@@ -47,7 +47,7 @@ type
     function AddValue(ID, Value: Integer): TParameterValue;
 
     property ID: Integer read FData.ID;
-    property Name: string read FData.Name;
+    property Name: WideString read FData.Name;
     property Table: Integer read FData.Table;
     property Row: Integer read FData.Row;
     property Field: Integer read FData.Field;
