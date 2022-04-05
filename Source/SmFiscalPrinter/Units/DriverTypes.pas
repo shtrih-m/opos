@@ -59,7 +59,6 @@ type
     MaxGraphicsHeight: Word;            // Max graphics height
     CapFullCut: Boolean;                // Printer supports full paper cut
     CapPartialCut: Boolean;             // Printer supports partial paper cut
-    CapOpenReceipt: Boolean;            // Open receipt command supported
     CombLineNumber: Integer;            // Line number from head to comb
     BarcodeSwapBytes: Boolean;          // Swap bytes in barcode line
     HeaderTableNumber: Integer;
@@ -131,7 +130,7 @@ const
   PARAMID_28 = 28; // 1,1,28 нрйкчвемхе гбсйю опх ньхайюу, "0"
   PARAMID_29 = 29; // 1,1,29 лефярпнвмши хмрепбюк, "5"
   PARAMID_Z_REPORT_TYPE = 30; // 1,1,30 рхо ясрнвмнцн нрверю, "1"
-  PARAMID_31 = 31; // 1,1,31 яфюрхе ьпхтрю мю вейнбни кемре, "0"
+  PARAMID_CONDENSED_FONT = 31; // 1,1,31 яфюрхе ьпхтрю мю вейнбни кемре, "0"
   PARAMID_32 = 32; // 1,1,32 пюгцнм опх оевюрх, "1"
   PARAMID_33 = 33; // 1,1,33 йнппейжхъ ъпйнярх, "0"
   PARAMID_34 = 34; // 1,1,34 ъпйнярэ оевюрх, "2"

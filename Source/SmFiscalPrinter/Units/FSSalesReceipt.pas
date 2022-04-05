@@ -847,7 +847,7 @@ begin
 
   if not FOpened then
   begin
-    if Device.CapOpenReceipt then
+    if Device.CapFiscalStorage then
     begin
       if not Device.IsRecOpened then
       begin
@@ -1032,7 +1032,7 @@ begin
     Operation.Text := '//' + FSRegistration.Text;
   end;
 
-  if Device.CapFSCloseReceipt2 then
+  if Device.CapFiscalStorage then
   begin
     for i := 0 to Item.Barcodes.Count-1 do
     begin
@@ -1265,7 +1265,7 @@ begin
       Device.CancelReceipt;
     end else
     begin
-      if Device.CapFSCloseReceipt2 then
+      if Device.CapFiscalStorage then
       begin
         CloseParams2.Payments := FPayments;
         CloseParams2.Discount := FAdjustmentAmount;

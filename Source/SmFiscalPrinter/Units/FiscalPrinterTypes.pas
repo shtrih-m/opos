@@ -424,7 +424,6 @@ type
     function GetErrorText(Code: Integer): WideString;
     function GetCapFiscalStorage: Boolean;
     procedure SetCapFiscalStorage(const Value: Boolean);
-    function GetCapOpenReceipt: Boolean;
     function OpenFiscalDay: Boolean;
     function GetCapReceiptDiscount: Boolean;
     function ReadSysOperatorNumber: Integer;
@@ -447,7 +446,6 @@ type
     function GetCapSubtotalRound: Boolean;
     procedure CancelReceipt;
     function ReadLoaderVersion(var Version: WideString): Integer;
-    function GetCapFSCloseReceipt2: Boolean;
     function FSFiscalization(const P: TFSFiscalization; var R: TFDDocument): Integer;
     function FSReFiscalization(const P: TFSReFiscalization; var R: TFDDocument): Integer;
     function IsCapFooterFlag: Boolean;
@@ -487,6 +485,9 @@ type
     function GetLastDocTotal: Int64;
     function GetLastDocDate: TPrinterDate;
     function GetLastDocTime: TPrinterTime;
+    function GetHeaderHeight: Integer;
+    function GetTrailerHeight: Integer;
+    function GetFont(Font: Integer): TFontInfo;
 
     property LastDocMac: Int64 read GetLastDocMac;
     property LastDocNumber: Int64 read GetLastDocNumber;
@@ -506,10 +507,8 @@ type
     property AmountDecimalPlaces: Integer read GetAmountDecimalPlaces write SetAmountDecimalPlaces;
     property CapReceiptDiscount: Boolean read GetCapReceiptDiscount;
     property Context: TDriverContext read GetContext;
-    property CapOpenReceipt: Boolean read GetCapOpenReceipt;
     property CapDiscount: Boolean read GetCapDiscount;
     property CapSubtotalRound: Boolean read GetCapSubtotalRound;
-    property CapFSCloseReceipt2: Boolean read GetCapFSCloseReceipt2;
     property PrinterStatus: TPrinterStatus read GetPrinterStatus;
     property OnConnect: TNotifyEvent read GetOnConnect write SetOnConnect;
     property OnDisconnect: TNotifyEvent read GetOnDisconnect write SetOnDisconnect;

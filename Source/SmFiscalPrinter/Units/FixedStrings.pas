@@ -27,6 +27,7 @@ type
     destructor Destroy; override;
     procedure Assign(Strings: TTntStrings);
     function ValidIndex(Index: Integer): Boolean;
+    function GetLine(N: Integer): WideString;
 
     property Text: WideString read GetText write SetText;
     property Count: Integer read GetCount write SetCount;
@@ -114,6 +115,13 @@ end;
 function TFixedStrings.ValidIndex(Index: Integer): Boolean;
 begin
   Result := (Index >= 0)and(Index < Count);
+end;
+
+function TFixedStrings.GetLine(N: Integer): WideString;
+begin
+  Result := ' ';
+  if ValidIndex(N) then
+    Result := Items[N];
 end;
 
 end.

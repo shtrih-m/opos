@@ -54,7 +54,6 @@ type
     property Data: TPrinterModelRec read FData;
     property Tables: TPrinterTables read FTables;
     property Parameters: TTableParameters read FParameters;
-    property CapOpenReceipt: Boolean read FData.CapOpenReceipt write FData.CapOpenReceipt;
   end;
 
 implementation

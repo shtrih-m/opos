@@ -1768,20 +1768,14 @@ end;
 
 function TFiscalPrinterImpl.GetHeaderLine(N: Integer): WideString;
 begin
-  Result := ' ';
-  if Printer.Header.ValidIndex(N) then
-    Result := Printer.Header[N];
-
+  Result := Printer.Header.GetLine(N);
   if Parameters.CenterHeader then
     Result := Device.CenterLine(Result);
 end;
 
 function TFiscalPrinterImpl.GetTrailerLine(N: Integer): WideString;
 begin
-  Result := ' ';
-  if Printer.Trailer.ValidIndex(N) then
-    Result := Printer.Trailer[N];
-
+  Result := Printer.Trailer.GetLine(N);
   if Parameters.CenterHeader then
     Result := Device.CenterLine(Result);
 end;
@@ -1897,8 +1891,11 @@ begin
   begin
     PrintLogo;
   end;
+
   if FAdditionalTrailer <> '' then
     PrintText(FAdditionalTrailer, PRINTER_STATION_REC);
+
+  PrintText('', PRINTER_STATION_REC);
   PrintText('', PRINTER_STATION_REC);
 end;
 
@@ -1920,17 +1917,18 @@ procedure TFiscalPrinterImpl.DoPrintHeader;
 var
   i: Integer;
   Data: TTextRec;
+  Font: TFontInfo;
   LineCount: Integer;
-const
-  HeaderFontHeight = 22;
 begin
   if Parameters.LogoPosition = LogoBeforeHeader then
   begin
-    if Parameters.LogoSize <= (Device.GetModel.NumHeaderLines * HeaderFontHeight) then
+    if Parameters.LogoSize <= Device.GetHeaderHeight then
     begin
       PrintLogo;
+
+      Font := Device.GetFont(Parameters.HeaderFont);
       LineCount := Device.GetModel.NumHeaderLines - 1 -
-        (Parameters.LogoSize + HeaderFontHeight - 1) div HeaderFontHeight;
+        (Parameters.LogoSize + Font.CharHeight - 1) div Font.CharHeight;
 
       for i := 0 to LineCount-1 do
       begin

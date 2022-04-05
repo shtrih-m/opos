@@ -29,7 +29,6 @@ type
   private
     FFFDVersion: TFFDVersion;
     FContext: TDriverContext;
-    FCapFSCloseReceipt2: Boolean;
     FCapSubtotalRound: Boolean;
     FCapDiscount: Boolean;
     FCapBarLine: Boolean;
@@ -39,7 +38,6 @@ type
     FCapGraphics2: Boolean;
     FCapGraphics512: Boolean;
     FCapFiscalStorage: Boolean;
-    FCapOpenReceipt: Boolean;
     FCapReceiptDiscount: Boolean;
     FCapFontInfo: Boolean;
     FDiscountMode: Integer;
@@ -89,7 +87,9 @@ type
     FSTLVTag: TTLV;
     FSTLVStarted: Boolean;
     FTLVItems: TStrings;
-
+    FCondensedFont: Boolean;
+    FHeadToCutterDistanse: Integer;
+    FCutterToCombDistanse: Integer;
 
     procedure PrintLineFont(const Data: TTextRec);
     procedure SetPrinterStatus(Value: TPrinterStatus);
@@ -166,7 +166,6 @@ type
     function GetErrorText(Code: Integer): WideString;
     function OpenFiscalDay: Boolean;
     function GetCapFiscalStorage: Boolean;
-    function GetCapOpenReceipt: Boolean;
     function GetCapReceiptDiscount: Boolean;
     procedure PrintCommStatus;
     procedure WriteFPParameter(ParamId: Integer; const Value: WideString);
@@ -184,7 +183,6 @@ type
     function GetMalinaParams: TMalinaParams;
     function GetCapDiscount: Boolean;
     function ReadLoaderVersion(var Version: WideString): Integer;
-    function GetCapFSCloseReceipt2: Boolean;
     function ReceiptCancelPassword(Password: Integer): Integer;
     function IsSupported(ResultCode: Integer): Boolean;
     function IsCapFooterFlag: Boolean;
@@ -220,6 +218,8 @@ type
     procedure SetCapFiscalStorage(const Value: Boolean);
     function FilterTLV(Data: AnsiString): AnsiString;
     function GetFFDVersion: TFFDVersion;
+    function GetFont(Font: Integer): TFontInfo;
+    function ValidFont(Font: Integer): Boolean;
   protected
     function GetMaxGraphicsWidthInBytes: Integer;
   public
@@ -491,6 +491,8 @@ type
     procedure CheckCorrectItemCode(const P: TFSCheckItemResult);
     function BarcodeTo1162Value(const Barcode: AnsiString): AnsiString;
     function FSReadRegTag(var R: TFSReadRegTagCommand): Integer;
+    function GetHeaderHeight: Integer;
+    function GetTrailerHeight: Integer;
 
     property IsOnline: Boolean read GetIsOnline;
     property Tables: TPrinterTables read FTables;
@@ -513,9 +515,9 @@ type
     property MalinaParams: TMalinaParams read GetMalinaParams;
     property CapDiscount: Boolean read GetCapDiscount;
     property CapSubtotalRound: Boolean read GetCapSubtotalRound;
-    property CapFSCloseReceipt2: Boolean read GetCapFSCloseReceipt2;
     property LastDocMac: Int64 read GetLastDocMac;
     property LastDocNumber: Int64 read GetLastDocNumber;
+    property CondensedFont: Boolean read FCondensedFont;
   end;
 
   { EDisabledException }
@@ -579,57 +581,57 @@ end;
 function GetCommandTimeout(Command: Word): Integer;
 begin
   case Command of
-    $01: Result := 1000; // Get dump
-    $02: Result := 1000; // Get data block from dump
-    $03: Result := 1000; // Interrupt data stream
-    $0D: Result := 1000; // Fiscalization/refiscalization with long ECRRN
-    $0E: Result := 1000; // Set long serial number
-    $0F: Result := 1000; // Get long serial number and long ECRRN
-    $10: Result := 1000; // Get short ECR status
-    $11: Result := 1000; // Get ECR status
-    $12: Result := 1000; // Print bold AnsiString
-    $13: Result := 1000; // Beep
-    $14: Result := 1000; // Set communication parameters
-    $15: Result := 1000; // Read communication parameters
+    $01: Result := 3000; // Get dump
+    $02: Result := 3000; // Get data block from dump
+    $03: Result := 3000; // Interrupt data stream
+    $0D: Result := 3000; // Fiscalization/refiscalization with long ECRRN
+    $0E: Result := 3000; // Set long serial number
+    $0F: Result := 3000; // Get long serial number and long ECRRN
+    $10: Result := 3000; // Get short ECR status
+    $11: Result := 3000; // Get ECR status
+    $12: Result := 3000; // Print bold AnsiString
+    $13: Result := 3000; // Beep
+    $14: Result := 3000; // Set communication parameters
+    $15: Result := 3000; // Read communication parameters
     $16: Result := 60000; // Technological reset
-    $17: Result := 1000; // Print AnsiString
-    $18: Result := 1000; // Print document header
+    $17: Result := 3000; // Print AnsiString
+    $18: Result := 3000; // Print document header
     $19: Result := 10000; // Test run
-    $1A: Result := 1000; // Get cash totalizer value
-    $1B: Result := 1000; // Get operation totalizer value
-    $1C: Result := 1000; // Write license
-    $1D: Result := 1000; // Read license
-    $1E: Result := 1000; // Write table
-    $1F: Result := 1000; // Read table
-    $20: Result := 1000; // Set decimal point position
-    $21: Result := 1000; // Set clock time
-    $22: Result := 1000; // Set calendar date
-    $23: Result := 1000; // Confirm date
-    $24: Result := 1000; // Initialize tables with default values
+    $1A: Result := 3000; // Get cash totalizer value
+    $1B: Result := 3000; // Get operation totalizer value
+    $1C: Result := 3000; // Write license
+    $1D: Result := 3000; // Read license
+    $1E: Result := 3000; // Write table
+    $1F: Result := 3000; // Read table
+    $20: Result := 3000; // Set decimal point position
+    $21: Result := 3000; // Set clock time
+    $22: Result := 3000; // Set calendar date
+    $23: Result := 3000; // Confirm date
+    $24: Result := 3000; // Initialize tables with default values
     $25: Result := 10000; // Cut receipt
-    $26: Result := 1000; // Get font parameters
+    $26: Result := 3000; // Get font parameters
     $27: Result := 30000; // Common clear
     $28: Result := 10000; // Open cash drawer
-    $29: Result := 1000; // Feed
-    $2A: Result := 1000; // Eject slip
-    $2B: Result := 1000; // Interrupt test
+    $29: Result := 3000; // Feed
+    $2A: Result := 3000; // Eject slip
+    $2B: Result := 3000; // Interrupt test
     $2C: Result := 30000; // Print operation totalizers report
-    $2D: Result := 1000; // Get table structure
-    $2E: Result := 1000; // Get field structure
-    $2F: Result := 1000; // Print AnsiString with font
+    $2D: Result := 3000; // Get table structure
+    $2E: Result := 3000; // Get field structure
+    $2F: Result := 3000; // Print AnsiString with font
     $40: Result := 30000; // Daily report without cleaning
     $41: Result := 30000; // Daily report with cleaning
     $42: Result := 30000; // Print Department report
     $43: Result := 30000; // Print tax report
-    $4D: Result := 1000; // Print graphics 512
-    $4E: Result := 1000; // Load graphics 512
-    $4F: Result := 1000; // Print scaled graphics
+    $4D: Result := 3000; // Print graphics 512
+    $4E: Result := 3000; // Load graphics 512
+    $4F: Result := 3000; // Print scaled graphics
     $50: Result := 10000; // Cash in
     $51: Result := 10000; // Cash out
     $52: Result := 10000; // Print fixed document header
     $53: Result := 10000; // Print document footer
     $54: Result := 10000; // Print trailer
-    $60: Result := 1000; // Set serial number
+    $60: Result := 3000; // Set serial number
     $61: Result := 30000; // Initialize FM
     $62: Result := 30000; // Get FM totals
     $63: Result := 30000; // Get last FM record date
@@ -728,6 +730,7 @@ begin
     $F3: Result := 30000; // Set service center password
     $FC: Result := 30000; // Get device type
     $FD: Result := 30000; // Send commands to external device port
+    $E0: Result := 100000; // Open fiscal day
     $E1: Result := 30000; // Finish slip
     $E2: Result := 30000; // Close nonfiscal document
     $E4: Result := 30000; // Print attribute
@@ -848,7 +851,6 @@ begin
   Tables.Clear;
   Fields.Clear;
   FValidDeviceMetrics := False;
-  FCapFSCloseReceipt2 := False;
   FCapSubtotalRound := False;
   FCapDiscount := False;
   FCapBarLine := True;
@@ -858,7 +860,6 @@ begin
   FCapGraphics2 := True;
   FCapGraphics512 := False;
   FCapFiscalStorage := False;
-  FCapOpenReceipt := False;
   FCapReceiptDiscount := False;
   FCapFontInfo := False;
   FIsFiscalized := False;
@@ -868,11 +869,6 @@ begin
   FFooterFlag := False;
   FCapEnablePrint := False;
   FFFDVersion := TFFDVersion(-1);
-end;
-
-function TFiscalPrinterDevice.GetCapFSCloseReceipt2: Boolean;
-begin
-  Result := FCapFSCloseReceipt2;
 end;
 
 function TFiscalPrinterDevice.GetCapSubtotalRound: Boolean;
@@ -1108,10 +1104,15 @@ begin
   Result := GetPrintWidth(Parameters.FontNumber);
 end;
 
+function TFiscalPrinterDevice.ValidFont(Font: Integer): Boolean;
+begin
+  Result := (Font >= 1) and (Font <= FFontInfo[1].FontCount);
+end;
+
 function TFiscalPrinterDevice.GetPrintWidth(Font: Integer): Integer;
 begin
   Result := 0;
-  if (Font >= 1)and(Font < FFontInfo[1].FontCount) then
+  if ValidFont(Font) then
   begin
     if FFontInfo[Font].CharWidth <> 0 then
       Result := FFontInfo[Font].PrintWidth div FFontInfo[Font].CharWidth;
@@ -2577,6 +2578,7 @@ var
   Command: AnsiString;
   Answer: AnsiString;
 begin
+  if not FParameters2.Flags.CapCutter then Exit;
   FLogger.Debug(Format('CutPaper(%d)', [CutType]));
 
   Command := #$25 + IntToBin(GetUsrPassword, 4) + Chr(CutType);
@@ -6837,21 +6839,23 @@ begin
     FModelData.CapJrnLever := FParameters2.Flags.CapJrnLeverSensor;
   end else
   begin
-    FCapGraphics512 := TestCommand($4E);
-    FCapScaleGraphics := TestCommand($4F);
+    FCapGraphics512 := True;
+    FCapScaleGraphics := True;
+    //FCapGraphics512 := TestCommand($4E);
+    //FCapScaleGraphics := TestCommand($4F);
   end;
   FCapFooterFlag := FCapParameters2 and FParameters2.Flags.CapFlagsGraphicsEx;
 
   ReadLongStatus;
-  FCapBarcode2D := TestCommand($DE);
+  FCapBarcode2D := True;
+  //FCapBarcode2D := TestCommand($DE);
 
   FCapFiscalStorage := False;
   if Parameters.ModelId <> MODEL_ID_WEB_CASSA then
     FCapFiscalStorage := ReadCapFiscalStorage;
 
-  FCapOpenReceipt := FCapFiscalStorage or TestCommand($8D);
-
-  FCapFontInfo := TestCommand($26);
+  FCapFontInfo := True;
+  //FCapFontInfo := TestCommand($26);
   if FCapFontInfo then
   begin
     FFontInfo[1] := ReadFontInfo(1);
@@ -6873,10 +6877,16 @@ begin
     FDocPrintMode := ReadDocPrintMode;
   end;
   FCapEnablePrint := GetDeviceMetrics.Model <> 19;
-  FCapFSCloseReceipt2 := FCapFiscalStorage and TestCommand($FF45);
   FIsFiscalized := FCapFiscalStorage or (FLongStatus.RegistrationNumber <> 0);
   FCapDiscount := not FCapFiscalStorage;
   FCapSubtotalRound := FCapFiscalStorage;
+  FCondensedFont := ReadTableInt(1, 1, PARAMID_CONDENSED_FONT) = 1;
+  FHeadToCutterDistanse := ReadTableInt(10, 1, 1);
+  FCutterToCombDistanse := ReadTableInt(10, 1, 2);
+  if FHeadToCutterDistanse <> 0 then
+  begin
+    FModelData.NumHeaderLines := FHeadToCutterDistanse div FFontInfo[1].CharHeight;
+  end;
 end;
 
 // Is fiscal printer firmware 2 (Semenov)
@@ -8005,11 +8015,6 @@ end;
 function TFiscalPrinterDevice.GetCapFiscalStorage: Boolean;
 begin
   Result := FCapFiscalStorage;
-end;
-
-function TFiscalPrinterDevice.GetCapOpenReceipt: Boolean;
-begin
-  Result := FCapOpenReceipt;
 end;
 
 function TFiscalPrinterDevice.WriteCustomerAddress(const Value: WideString): Integer;
@@ -9743,6 +9748,35 @@ end;
 procedure TFiscalPrinterDevice.SetCapFiscalStorage(const Value: Boolean);
 begin
   FCapFiscalStorage := Value;
+end;
+
+function TFiscalPrinterDevice.GetTrailerHeight: Integer;
+var
+  Font: TFontInfo;
+begin
+  Font := GetFont(Parameters.TrailerFont);
+  Result := GetModel.NumTrailerLines * Font.CharHeight;
+end;
+
+function TFiscalPrinterDevice.GetFont(Font: Integer): TFontInfo;
+begin
+  if not ValidFont(Font) then
+    Font := 1;
+  Result := FFontInfo[Font];
+end;
+
+function TFiscalPrinterDevice.GetHeaderHeight: Integer;
+var
+  Font: TFontInfo;
+begin
+  if FHeadToCutterDistanse <> 0 then
+  begin
+    Result := FHeadToCutterDistanse;
+  end else
+  begin
+    Font := GetFont(Parameters.HeaderFont);
+    Result := GetModel.NumHeaderLines * Font.CharHeight;
+  end;
 end;
 
 end.

@@ -332,6 +332,9 @@ type
     procedure CheckPrinterStatus;
     procedure CorrectDate;
     procedure UpdateInfo;
+    function GetHeaderHeight: Integer;
+    function GetTrailerHeight: Integer;
+    function GetFont(Font: Integer): TFontInfo;
 
     property RecStation: TStrings read FRecStation;
     property JrnStation: TStrings read FJrnStation;
@@ -1935,6 +1938,21 @@ end;
 procedure TTextFiscalPrinterDevice.UpdateInfo;
 begin
 
+end;
+
+function TTextFiscalPrinterDevice.GetFont(Font: Integer): TFontInfo;
+begin
+
+end;
+
+function TTextFiscalPrinterDevice.GetHeaderHeight: Integer;
+begin
+  Result := 0;
+end;
+
+function TTextFiscalPrinterDevice.GetTrailerHeight: Integer;
+begin
+  Result := 0;
 end;
 
 end.

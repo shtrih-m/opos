@@ -41,7 +41,6 @@ const
     MaxGraphicsHeight: 255;
     CapFullCut: True;
     CapPartialCut: True;
-    CapOpenReceipt: False;
     CombLineNumber: 10;
     HeaderTableNumber: 4;
     TrailerTableNumber: 4;
@@ -84,7 +83,6 @@ const
 		MaxGraphicsHeight: 200;
     CapFullCut: True;
     CapPartialCut: True;
-    CapOpenReceipt: False;
     CombLineNumber: 10;
     HeaderTableNumber: 4;
     TrailerTableNumber: 4;
@@ -127,7 +125,6 @@ const
 		MaxGraphicsHeight: 200;
     CapFullCut: True;
     CapPartialCut: True;
-    CapOpenReceipt: True;
     CombLineNumber: 10;
     HeaderTableNumber: 4;
     TrailerTableNumber: 4;
@@ -170,7 +167,6 @@ const
 		MaxGraphicsHeight: 499;
     CapFullCut: True;
     CapPartialCut: True;
-    CapOpenReceipt: True;
     CombLineNumber: 10;
     HeaderTableNumber: 4;
     TrailerTableNumber: 4;
@@ -213,7 +209,6 @@ const
 		MaxGraphicsHeight: 499;
     CapFullCut: True;
     CapPartialCut: True;
-    CapOpenReceipt: True;
     CombLineNumber: 0;
     HeaderTableNumber: 4;
     TrailerTableNumber: 4;
@@ -256,7 +251,6 @@ const
 		MaxGraphicsHeight: 499;
     CapFullCut: True;
     CapPartialCut: True;
-    CapOpenReceipt: True;
     CombLineNumber: 0;
     HeaderTableNumber: 4;
     TrailerTableNumber: 4;
@@ -299,7 +293,6 @@ const
 		MaxGraphicsHeight: 499;
     CapFullCut: True;
     CapPartialCut: True;
-    CapOpenReceipt: True;
     CombLineNumber: 10;
     HeaderTableNumber: 4;
     TrailerTableNumber: 4;
@@ -342,7 +335,6 @@ const
 		MaxGraphicsHeight: 499;
     CapFullCut: True;
     CapPartialCut: True;
-    CapOpenReceipt: True;
     CombLineNumber: 10;
     HeaderTableNumber: 4;
     TrailerTableNumber: 4;
@@ -385,7 +377,6 @@ const
 		MaxGraphicsHeight: 499;
     CapFullCut: True;
     CapPartialCut: True;
-    CapOpenReceipt: True;
     CombLineNumber: 10;
     HeaderTableNumber: 4;
     TrailerTableNumber: 4;
@@ -425,7 +416,6 @@ const
 		MaxGraphicsHeight: 499;
     CapFullCut: True;
     CapPartialCut: True;
-    CapOpenReceipt: True;
     CombLineNumber: 10;
     HeaderTableNumber: 4;
     TrailerTableNumber: 4;
@@ -465,7 +455,6 @@ const
 		MaxGraphicsHeight: 499;
     CapFullCut: True;
     CapPartialCut: True;
-    CapOpenReceipt: True;
     CombLineNumber: 10;
     HeaderTableNumber: 4;
     TrailerTableNumber: 4;
@@ -505,7 +494,6 @@ const
 		MaxGraphicsHeight: 499;
     CapFullCut: True;
     CapPartialCut: True;
-    CapOpenReceipt: True;
     CombLineNumber: 10;
     HeaderTableNumber: 4;
     TrailerTableNumber: 4;
@@ -546,7 +534,6 @@ const
 		MaxGraphicsHeight: 1200;
     CapFullCut: True;
     CapPartialCut: True;
-    CapOpenReceipt: True;
     CombLineNumber: 10;
     HeaderTableNumber: 4;
     TrailerTableNumber: 4;

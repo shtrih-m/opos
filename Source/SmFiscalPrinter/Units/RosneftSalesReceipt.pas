@@ -546,7 +546,7 @@ procedure TRosneftSalesReceipt.OpenReceipt(ARecType: Integer);
 begin
   if not FOpened then
   begin
-    if Device.CapOpenReceipt then
+    if Device.CapFiscalStorage then
     begin
       if not Device.IsRecOpened then
         Printer.OpenReceipt(ARecType);
