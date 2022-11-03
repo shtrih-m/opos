@@ -1098,10 +1098,7 @@ var
 begin
   if Barcode <> '' then
   begin
-    if Parameters.SendMarkType = SendMarkTypeDriver then
-    begin
-      Device.Check(Device.SendItemBarcode(Barcode, MarkType));
-    end else
+    if Device.CapFiscalStorage then
     begin
       Device.Check(Device.FSBindItemCode(Barcode, rc));
     end;

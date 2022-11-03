@@ -13,13 +13,6 @@ uses
 
 const
   /////////////////////////////////////////////////////////////////////////////
-  // SendMarkType constants
-
-  SendMarkTypePrinter   = 0; // Tag 1162 will be created by printer
-  SendMarkTypeDriver    = 1; // Tag 1162 will be created by driver
-  DefSendMarkType = SendMarkTypePrinter;
-
-  /////////////////////////////////////////////////////////////////////////////
   // ItemTextMode constants
 
   ItemTextModeNone  = 0; // Item text not changed
@@ -575,7 +568,6 @@ type
     CorrectCashlessAmount: Boolean;
     SingleQuantityOnZeroUnitPrice: Boolean;
     ReceiptField: array [MinReceiptField..MaxReceiptField] of string;
-    SendMarkType: Integer;
     ValidTimeDiffInSecs: Integer;
   public
     constructor Create(ALogger: ILogFile);
@@ -925,7 +917,6 @@ begin
   ItemTextMode := DefItemTextMode;
   CorrectCashlessAmount := DefCorrectCashlessAmount;
   SingleQuantityOnZeroUnitPrice := True;
-  SendMarkType := SendMarkTypePrinter;
 end;
 
 procedure TPrinterParameters.LogText(const Caption, Text: WideString);
@@ -1070,7 +1061,6 @@ begin
   Logger.Debug(Format('ItemTextMode: %d, %s', [ItemTextMode, GetItemTextMode(ItemTextMode)]));
   Logger.Debug('CorrectCashlessAmount: ' + BoolToStr(CorrectCashlessAmount));
   Logger.Debug('SingleQuantityOnZeroUnitPrice: ' + BoolToStr(SingleQuantityOnZeroUnitPrice));
-  Logger.Debug('SendMarkType: ' + IntToStr(SendMarkType));
   Logger.Debug('ValidTimeDiffInSecs: ' + IntToStr(ValidTimeDiffInSecs));
   // PayTypes
   for i := 0 to PayTypes.Count-1 do

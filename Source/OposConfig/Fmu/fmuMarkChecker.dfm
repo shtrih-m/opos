@@ -15,7 +15,6 @@ object fmMarkChecker: TfmMarkChecker
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
-  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object lblEkmServerHost: TTntLabel
@@ -38,13 +37,6 @@ object fmMarkChecker: TfmMarkChecker
     Width = 120
     Height = 13
     Caption = 'Timeout, seconds (1..30):'
-  end
-  object lblSendMarkType: TLabel
-    Left = 8
-    Top = 176
-    Width = 77
-    Height = 13
-    Caption = 'Send mark type:'
   end
   object chkEkmServerEnabled: TTntCheckBox
     Left = 8
@@ -88,17 +80,5 @@ object fmMarkChecker: TfmMarkChecker
     Height = 17
     Caption = 'Check marking in fiscal storage (version 1.1 or later)'
     TabOrder = 0
-  end
-  object cbSendMarkType: TComboBox
-    Left = 112
-    Top = 176
-    Width = 193
-    Height = 21
-    Style = csDropDownList
-    ItemHeight = 13
-    TabOrder = 5
-    Items.Strings = (
-      'Tag 1162 created by printer'
-      'Tag 1162 created by driver')
   end
 end

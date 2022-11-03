@@ -26,7 +26,7 @@ type
   { TFiscalPrinterDevice }
 
   TFiscalPrinterDevice = class(TInterfacedObject, IFiscalPrinterDevice)
-  private
+  protected
     FFFDVersion: TFFDVersion;
     FContext: TDriverContext;
     FCapSubtotalRound: Boolean;

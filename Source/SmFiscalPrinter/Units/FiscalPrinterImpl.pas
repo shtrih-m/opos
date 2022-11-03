@@ -1160,21 +1160,8 @@ end;
 function TFiscalPrinterImpl.DoCloseDevice: Integer;
 begin
   try
-    Result := ClearResult;
-    if not FOposDevice.Opened then Exit;
-
     SetDeviceEnabled(False);
-    FPrinter.Close;
     FOposDevice.Close;
-    Statistics.IniSave('FiscalPrinter' + FOposDevice.DeviceName);
-    FInitPrinter := False;
-    FFilter.Free;
-    FFilter := nil;
-    FreceiptPrinter := nil;
-    FMonitoring.Close;
-    {$IFDEF MALINA}
-    FRetalix.Close;
-    {$ENDIF}
 
     Result := ClearResult;
   except
