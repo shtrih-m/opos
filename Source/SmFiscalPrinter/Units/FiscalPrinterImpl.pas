@@ -71,7 +71,6 @@ type
     function GetMalinaParams: TMalinaParams;
     function GetNonFiscalDoc: TNonFiscalDoc;
     function GetPrinterSemaphoreName: WideString;
-    function GetHeaderLine(N: Integer): WideString;
     function GetParameters: TPrinterParameters;
     function GetTrailerLine(N: Integer): WideString;
     function AddDateStamp(const FileName: WideString): WideString;
@@ -80,20 +79,21 @@ type
     function CreateNormalSalesReceipt(RecType: Integer): TCustomReceipt;
     function EJHandleError(FPCode, ResultCodeExtended: Integer): Integer;
     function FSHandleError(FPCode, ResultCodeExtended: Integer): Integer;
+    function GetTax(const ItemName: WideString; Tax: Integer): Integer;
 
-    property NonFiscalDoc: TNonFiscalDoc read GetNonFiscalDoc;
-    procedure PrintReceiptItems(Items: TReceiptItems);
+    procedure PrintFiscalEnd;
     procedure PrintDocumentEnd;
     procedure PrintRecMessages;
-    procedure PrintFiscalEnd;
-    function GetTax(const ItemName: WideString; Tax: Integer): Integer;
+    procedure PrintReceiptItems(Items: TReceiptItems);
+    procedure PrintHeaderLines(Index1, Index2: Integer);
+
+    property NonFiscalDoc: TNonFiscalDoc read GetNonFiscalDoc;
   public
     procedure ReadHeader;
     procedure CheckEndDay;
     procedure ReadTrailer;
     procedure CancelReceipt;
     procedure PrintReportEnd;
-    procedure PrintFixedHeader;
     procedure UpdateDioHandlers;
     procedure CreateDIOHandlers;
     procedure CreateDIOHandlers1;
@@ -1139,24 +1139,6 @@ begin
   DirectIOEvent(DIRECTIO_EVENT_PROGRESS, pData, pString);
 end;
 
-procedure TFiscalPrinterImpl.PrintFixedHeader;
-var
-  i: Integer;
-  Data: TTextRec;
-begin
-  for i := 0 to Printer.Header.Count-1 do
-  begin
-    Data.Text := GetHeaderLine(i);
-    Data.Station := Printer.Station;
-    Data.Font := Parameters.HeaderFont;
-    Data.Alignment := taLeft;
-    Data.Wrap := Parameters.WrapText;
-    Device.PrintText(Data);
-  end;
-  Parameters.HeaderPrinted := True;
-  SaveParameters;
-end;
-
 function TFiscalPrinterImpl.DoCloseDevice: Integer;
 begin
   try
@@ -1222,7 +1204,7 @@ var
   Data: TTextRec;
 begin
   Data.Text := Text;
-  Data.Station := Printer.Station;
+  Data.Station := Station;
   Data.Font := Parameters.FontNumber;
   Data.Alignment := taLeft;
   Data.Wrap := Parameters.WrapText;
@@ -1753,13 +1735,6 @@ begin
   end;
 end;
 
-function TFiscalPrinterImpl.GetHeaderLine(N: Integer): WideString;
-begin
-  Result := Printer.Header.GetLine(N);
-  if Parameters.CenterHeader then
-    Result := Device.CenterLine(Result);
-end;
-
 function TFiscalPrinterImpl.GetTrailerLine(N: Integer): WideString;
 begin
   Result := Printer.Trailer.GetLine(N);
@@ -1770,29 +1745,10 @@ end;
 // Print fixed header
 
 procedure TFiscalPrinterImpl.PrintFixedHeaderAndCut;
-var
-  i: Integer;
-  Data: TTextRec;
 begin
-  for i := 0 to Device.GetModel.NumHeaderLines-1 do
-  begin
-    Data.Text := GetHeaderLine(i);
-    Data.Station := Printer.Station;
-    Data.Font := Parameters.HeaderFont;
-    Data.Alignment := taLeft;
-    Data.Wrap := False;
-    Device.PrintText(Data);
-  end;
+  PrintHeaderLines(0, Device.GetModel.NumHeaderLines-1);
   Printer.CutPaper;
-  for i := Device.GetModel.NumHeaderLines to Printer.Header.Count-1 do
-  begin
-    Data.Text := GetHeaderLine(i);
-    Data.Station := Printer.Station;
-    Data.Font := Parameters.HeaderFont;
-    Data.Alignment := taLeft;
-    Data.Wrap := False;
-    Device.PrintText(Data);
-  end;
+  PrintHeaderLines(Device.GetModel.NumHeaderLines, Printer.Header.Count-1);
   Parameters.HeaderPrinted := True;
   SaveParameters;
 end;
@@ -1917,26 +1873,9 @@ begin
       LineCount := Device.GetModel.NumHeaderLines - 1 -
         (Parameters.LogoSize + Font.CharHeight - 1) div Font.CharHeight;
 
-      for i := 0 to LineCount-1 do
-      begin
-        Data.Text := GetHeaderLine(i);
-        Data.Station := PRINTER_STATION_REC;
-        Data.Font := Parameters.HeaderFont;
-        Data.Alignment := taLeft;
-        Data.Wrap := False;
-        Device.PrintText(Data);
-      end;
-
+      PrintHeaderLines(0, LineCount-1);
       Printer.CutPaper;
-      for i := LineCount to Printer.Header.Count-1 do
-      begin
-        Data.Text := GetHeaderLine(i);
-        Data.Station := PRINTER_STATION_REC;
-        Data.Font := Parameters.HeaderFont;
-        Data.Alignment := taLeft;
-        Data.Wrap := False;
-        Device.PrintText(Data);
-      end;
+      PrintHeaderLines(LineCount, Printer.Header.Count-1);
 
       Parameters.HeaderPrinted := True;
       SaveParameters;
@@ -1954,7 +1893,9 @@ begin
       end;
       Printer.CutPaper;
       PrintLogo;
-      PrintFixedHeader;
+      PrintHeaderLines(0, Printer.Header.Count-1);
+      Parameters.HeaderPrinted := True;
+      SaveParameters;
     end;
   end else
   begin
@@ -1963,6 +1904,25 @@ begin
     begin
       PrintLogo;
     end;
+  end;
+end;
+
+procedure TFiscalPrinterImpl.PrintHeaderLines(Index1, Index2: Integer);
+var
+  i: Integer;
+  Data: TTextRec;
+begin
+  for i := Index1 to Index2 do
+  begin
+    Data.Text := Printer.Header.GetLine(i);
+    if Parameters.CenterHeader then
+      Data.Text := Device.CenterLine(Data.Text);
+
+    Data.Station := PRINTER_STATION_REC;
+    Data.Font := Parameters.HeaderFont;
+    Data.Alignment := taLeft;
+    Data.Wrap := False;
+    Device.PrintText(Data);
   end;
 end;
 
