@@ -542,6 +542,46 @@ const
     CapNonfiscalDocument: False;
   );
 
+  MODEL_PAYONLINE: TPrinterModelRec = (
+    ID: MODEL_ID_PAYONLINE;
+    Name: 'PAYONLINE-01-FA';
+    CapShortEcrStatus: True;
+    CapCoverSensor: True;
+    CapJrnPresent: False;
+    CapJrnEmptySensor: False;
+    CapJrnNearEndSensor: False;
+    CapRecPresent: True;
+    CapRecEmptySensor: True;
+    CapRecNearEndSensor: True;
+    CapSlpFullSlip: False;
+    CapSlpEmptySensor: False;
+    CapSlpFiscalDocument: False;
+    CapSlpNearEndSensor: False;
+    CapSlpPresent: False;
+    CapSetHeader: True;
+    CapSetTrailer: True;
+    CapRecLever: True;
+    CapJrnLever: False;
+    CapDisableTrailer: False;
+    NumHeaderLines: 3;
+    NumTrailerLines: 0;
+    StartHeaderLine: 11;
+    StartTrailerLine: 1;
+    BaudRates: '2400;4800;9600;19200;38400;57600;115200';
+    PrintWidth: 20;
+    //PrintWidth: 42;
+    MaxGraphicsWidth: 320;
+    MaxGraphicsHeight: 1200;
+    CapFullCut: True;
+    CapPartialCut: True;
+    CombLineNumber: 10;
+    HeaderTableNumber: 4;
+    TrailerTableNumber: 4;
+    CapAttributes: False;
+    CapJournalReport: True;
+    CapNonfiscalDocument: False;
+  );
+
 procedure AddDefaultModels(Models: TPrinterModels);
 
 implementation
@@ -840,6 +880,7 @@ begin
   AddModel(Models, MODEL_SHTRIH_950_PTK);
   AddModel(Models, MODEL_SHTRIH_950_PTK2);
   AddModel(Models, MODEL_RETAIL_01K);
+  AddModel(Models, MODEL_PAYONLINE);
 end;
 
 end.

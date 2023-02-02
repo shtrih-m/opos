@@ -1291,5 +1291,39 @@
       <CapPartialCut>1</CapPartialCut>
       <CombLineNumber>10</CombLineNumber>
     </Model>
+    <Model>
+      <ID>255</ID>
+      <Name>PAYONLINE-01-ФА</Name>
+      <CapShortEcrStatus>1</CapShortEcrStatus>
+      <CapCoverSensor>1</CapCoverSensor>
+      <CapJrnPresent>0</CapJrnPresent>
+      <CapJrnEmptySensor>0</CapJrnEmptySensor>
+      <CapJrnNearEndSensor>0</CapJrnNearEndSensor>
+      <CapRecPresent>1</CapRecPresent>
+      <CapRecEmptySensor>1</CapRecEmptySensor>
+      <CapRecNearEndSensor>1</CapRecNearEndSensor>
+      <CapSlpFullSlip>0</CapSlpFullSlip>
+      <CapSlpEmptySensor>0</CapSlpEmptySensor>
+      <CapSlpFiscalDocument>0</CapSlpFiscalDocument>
+      <CapSlpNearEndSensor>0</CapSlpNearEndSensor>
+      <CapSlpPresent>0</CapSlpPresent>
+      <CapSetHeader>1</CapSetHeader>
+      <CapSetTrailer>1</CapSetTrailer>
+      <CapRecLever>0</CapRecLever>
+      <CapJrnLever>0</CapJrnLever>
+      <CapFixedTrailer>0</CapFixedTrailer>
+      <CapDisableTrailer>0</CapDisableTrailer>
+      <NumHeaderLines>3</NumHeaderLines>
+      <NumTrailerLines>3</NumTrailerLines>
+      <StartHeaderLine>12</StartHeaderLine>
+      <StartTrailerLine>1</StartTrailerLine>
+      <BaudRates>2400;4800;9600;19200;38400;57600;115200;230400;460800;</BaudRates>
+      <PrintWidth>42</PrintWidth>
+      <MaxGraphicsWidth>320</MaxGraphicsWidth>
+      <MaxGraphicsHeight>499</MaxGraphicsHeight>
+      <CapFullCut>1</CapFullCut>
+      <CapPartialCut>1</CapPartialCut>
+      <CombLineNumber>10</CombLineNumber>
+    </Model>
   </Models>
 </Root>

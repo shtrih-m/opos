@@ -65,6 +65,33 @@ const
   MODEL_ID_RETAIL_01K       = 22;
   MODEL_ID_WEB_CASSA        = 26;
 
+  MODEL_ID_PAYONLINE        = 255;
+
+(*
+  FPTR_MODEL_DEFAULT                 = -1;   // Default model
+  FPTR_MODEL_SHTRIH_FRF              = 0;    // SHTRIH-FR-F (ver. 03 & 04)
+  FPTR_MODEL_SHTRIH_FRFKAZ           = 1;    // SHTRIH-FR-F (Kazakhstan)
+  FPTR_MODEL_ELVES_MINI_FRF          = 2;    // ELVES-MINI-FR-F
+  FPTR_MODEL_FELIX                   = 3;    // FELIX-R F
+  FPTR_MODEL_SHTRIH_FRK              = 4;    // SHTRIH-FR-K
+  FPTR_MODEL_SHTRIH_950K             = 5;    // SHTRIH-950K
+  FPTR_MODEL_ELVES_FRK               = 6;    // ELVES-FR-K
+  FPTR_MODEL_SHTRIH_MINI_FRK         = 7;    // SHTRIH-MINI-FR-K
+  FPTR_MODEL_SHTRIH_FRF_BEL          = 8;    // SHTRIH-FR-F (Belorussia)
+  FPTR_MODEL_COMBO_FRK               = 9;    // SHTRIH-COMBO-FR-K
+  FPTR_MODEL_SHTRIH_POSF             = 10;   // Fiscal module Shtrih-POS-F
+  FPTR_MODEL_SHTRIH_950K_02          = 11;   // SHTRIH-950K
+  FPTR_MODEL_COMBO_FRK_02            = 12;   // SHTRIH-COMBO-FR-K (ver. 02)
+  FPTR_MODEL_SHTRIH_MINI_FRK_02      = 14;   // SHTRIH-MINI-FR-K (ver 02, 57 mm)
+  FPTR_MODEL_SHTRIH_KIOSK_FRK        = 15;   // SHTRIH-KIOSK-FR-K
+  FPTR_MODEL_SHTRIH_M_FRK            = 250;  // SHTRIH-M-FR-K
+  FPTR_MODEL_SHTRIH_LIGHT_FRK        = 251;  // SHTRIH-LIGHT-FR-K
+  FPTR_MODEL_YARUS_M2100K            = 20;   // YARUS M2100K
+*)
+
+
+
+
 
   PrinterDiscountText   = '— »ƒ ¿';
   PrinterChargeText     = 'Õ¿ƒ¡¿¬ ¿';

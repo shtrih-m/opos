@@ -15,79 +15,79 @@ Count=0
 EditWindowCount=0
 TypeLibWindowCount=3
 
-[C:\projects\OPOSShtrih\Source\OposShtrih.bpg]
+[D:\projects\OPOSShtrih\Source\OposShtrih.bpg]
 FormState=0
 FormOnTop=0
 
-[C:\projects\OPOSShtrih\Source\OposConfig\OposConfig.dpr]
+[D:\projects\OPOSShtrih\Source\OposConfig\OposConfig.dpr]
 FormState=0
 FormOnTop=0
 
-[C:\projects\OPOSShtrih\Source\OposTest\OposTest.dpr]
+[D:\projects\OPOSShtrih\Source\OposTest\OposTest.dpr]
 FormState=0
 FormOnTop=0
 
-[C:\projects\OPOSShtrih\Source\SmFiscalPrinter\SmFiscalPrinter.dpr]
+[D:\projects\OPOSShtrih\Source\SmFiscalPrinter\SmFiscalPrinter.dpr]
 FormState=0
 FormOnTop=0
 
-[C:\projects\OPOSShtrih\Source\SmFiscalPrinter\SmFiscalPrinter.todo]
+[D:\projects\OPOSShtrih\Source\SmFiscalPrinter\SmFiscalPrinter.todo]
 FormState=0
 FormOnTop=0
 
-[C:\projects\OPOSShtrih\Source\SmFiscalPrinter\SmFiscalPrinter.tlb]
+[D:\projects\OPOSShtrih\Source\SmFiscalPrinter\SmFiscalPrinter.tlb]
 FormState=0
 FormOnTop=0
 
-[C:\projects\OPOSShtrih\Source\SmScale\SmScale.dpr]
+[D:\projects\OPOSShtrih\Source\SmScale\SmScale.dpr]
 FormState=0
 FormOnTop=0
 
-[C:\projects\OPOSShtrih\Source\SmScale\SmScale.tlb]
+[D:\projects\OPOSShtrih\Source\SmScale\SmScale.tlb]
 FormState=0
 FormOnTop=0
 
-[C:\projects\OPOSShtrih\Test\OposConfigTest\OposConfigTest.dpr]
+[D:\projects\OPOSShtrih\Test\OposConfigTest\OposConfigTest.dpr]
 FormState=0
 FormOnTop=0
 
-[C:\projects\OPOSShtrih\Test\OposConfigTest\OposConfigTestLib.dpr]
+[D:\projects\OPOSShtrih\Test\OposConfigTest\OposConfigTestLib.dpr]
 FormState=0
 FormOnTop=0
 
-[C:\projects\OPOSShtrih\Test\SmFiscalPrinterTest\SmFiscalPrinterTest.dpr]
+[D:\projects\OPOSShtrih\Test\SmFiscalPrinterTest\SmFiscalPrinterTest.dpr]
 FormState=0
 FormOnTop=0
 
-[C:\projects\OPOSShtrih\Test\SmFiscalPrinterTest\SmFiscalPrinterTestLib.dpr]
+[D:\projects\OPOSShtrih\Test\SmFiscalPrinterTest\SmFiscalPrinterTestLib.dpr]
 FormState=0
 FormOnTop=0
 
-[C:\projects\OPOSShtrih\Test\OposTestTest\OposTestTest.dpr]
+[D:\projects\OPOSShtrih\Test\OposTestTest\OposTestTest.dpr]
 FormState=0
 FormOnTop=0
 
-[C:\projects\OPOSShtrih\Test\OposTestTest\OposTestTestLib.dpr]
+[D:\projects\OPOSShtrih\Test\OposTestTest\OposTestTestLib.dpr]
 FormState=0
 FormOnTop=0
 
-[C:\projects\OPOSShtrih\Test\SmScaleTest\SmScaleTest.dpr]
+[D:\projects\OPOSShtrih\Test\SmScaleTest\SmScaleTest.dpr]
 FormState=0
 FormOnTop=0
 
-[C:\projects\OPOSShtrih\Test\SmScaleTest\SmScaleTestLib.dpr]
+[D:\projects\OPOSShtrih\Test\SmScaleTest\SmScaleTestLib.dpr]
 FormState=0
 FormOnTop=0
 
-[C:\projects\OPOSShtrih\Source\SmFptrSrv\SmFptrSrv.dpr]
+[D:\projects\OPOSShtrih\Source\SmFptrSrv\SmFptrSrv.dpr]
 FormState=0
 FormOnTop=0
 
-[C:\projects\OPOSShtrih\Source\SmFptrSrv\SmFptrSrv.tlb]
+[D:\projects\OPOSShtrih\Source\SmFptrSrv\SmFptrSrv.tlb]
 FormState=0
 FormOnTop=0
 
-[C:\projects\OPOSShtrih\Test\AcceptanceTest\AcceptanceTest.dpr]
+[D:\projects\OPOSShtrih\Test\AcceptanceTest\AcceptanceTest.dpr]
 FormState=0
 FormOnTop=0
 
@@ -95,43 +95,43 @@ FormOnTop=0
 Create=1
 Visible=0
 State=0
-Left=174
-Top=302
+Left=200
+Top=117
 Width=647
-Height=457
+Height=458
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=631
 ClientHeight=419
-Module=C:\projects\OPOSShtrih\Source\SmFiscalPrinter\SmFiscalPrinter.tlb
+Module=D:\projects\OPOSShtrih\Source\SmFiscalPrinter\SmFiscalPrinter.tlb
 
 [TypeLibEditWindow1]
 Create=1
 Visible=0
 State=0
 Left=200
-Top=589
+Top=117
 Width=647
-Height=457
+Height=458
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=631
 ClientHeight=419
-Module=C:\projects\OPOSShtrih\Source\SmScale\SmScale.tlb
+Module=D:\projects\OPOSShtrih\Source\SmScale\SmScale.tlb
 
 [TypeLibEditWindow2]
 Create=1
 Visible=0
 State=0
 Left=200
-Top=589
+Top=117
 Width=647
-Height=457
+Height=458
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=631
 ClientHeight=419
-Module=C:\projects\OPOSShtrih\Source\SmFptrSrv\SmFptrSrv.tlb
+Module=D:\projects\OPOSShtrih\Source\SmFptrSrv\SmFptrSrv.tlb
 
 [Watches]
 Count=0
@@ -149,7 +149,7 @@ Height=142
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=476
-ClientHeight=108
+ClientHeight=103
 TBDockHeight=180
 LRDockWidth=320
 Dockable=1
@@ -167,11 +167,11 @@ State=2
 Left=651
 Top=0
 Width=1269
-Height=122
+Height=123
 MaxLeft=-1
 MaxTop=-1
 MaxWidth=1936
-MaxHeight=122
+MaxHeight=123
 ClientWidth=1920
 ClientHeight=84
 
@@ -181,12 +181,12 @@ Visible=1
 State=0
 Left=3
 Top=113
-Width=813
-Height=574
+Width=556
+Height=603
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=797
-ClientHeight=540
+ClientWidth=540
+ClientHeight=564
 TBDockHeight=681
 LRDockWidth=445
 Dockable=0
@@ -202,7 +202,7 @@ Height=861
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=954
-ClientHeight=823
+ClientHeight=822
 DumpPane=163
 DisassemblyPane=921
 RegisterPane=231
@@ -215,7 +215,7 @@ State=0
 Left=822
 Top=767
 Width=156
-Height=84
+Height=89
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=150
@@ -225,21 +225,21 @@ ClientHeight=60
 Create=1
 Visible=1
 State=0
-Left=1
-Top=123
+Left=-13
+Top=174
 Width=487
 Height=831
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=471
-ClientHeight=797
+ClientHeight=792
 TBDockHeight=681
 LRDockWidth=291
 Dockable=1
 SplitPos=153
 ArrangeBy=Name
 SelectedItem=
-ExpandedItems=Anchors,Attributes,BorderIcons,Constraints,Font,Font.Style,Greeting,Options,ProviderFlags,TestModeInfo,Title,Title.Font,VisibleButtons
+ExpandedItems=Anchors,Attributes,BorderIcons,Constraints,Font.Style,Greeting,Options,ProviderFlags,TestModeInfo,Title,Title.Font,VisibleButtons
 HiddenCategories=
 
 [BreakpointWindow]
@@ -253,7 +253,7 @@ Height=613
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=805
-ClientHeight=579
+ClientHeight=574
 TBDockHeight=197
 LRDockWidth=737
 Dockable=1
@@ -271,12 +271,12 @@ State=0
 Left=0
 Top=12
 Width=439
-Height=489
+Height=484
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=439
-ClientHeight=489
-TBDockHeight=489
+ClientHeight=484
+TBDockHeight=484
 LRDockWidth=320
 Dockable=1
 
@@ -291,7 +291,7 @@ Height=189
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=544
-ClientHeight=155
+ClientHeight=150
 TBDockHeight=152
 LRDockWidth=320
 Dockable=1
@@ -311,7 +311,7 @@ Height=318
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=174
-ClientHeight=284
+ClientHeight=279
 TBDockHeight=318
 LRDockWidth=190
 Dockable=1
@@ -321,13 +321,13 @@ Create=1
 Visible=0
 State=0
 Left=0
-Top=679
+Top=339
 Width=1280
-Height=263
+Height=603
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1264
-ClientHeight=229
+ClientHeight=564
 TBDockHeight=263
 LRDockWidth=445
 Dockable=1
@@ -343,7 +343,7 @@ Height=142
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=312
-ClientHeight=108
+ClientHeight=103
 TBDockHeight=192
 LRDockWidth=320
 Dockable=1
@@ -359,7 +359,7 @@ Height=536
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=745
-ClientHeight=502
+ClientHeight=497
 TBDockHeight=63
 LRDockWidth=470
 Dockable=1
@@ -383,7 +383,7 @@ Height=250
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=441
-ClientHeight=212
+ClientHeight=211
 RegisterPane=121
 FlagPane=59
 
@@ -398,7 +398,7 @@ Height=825
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1057
-ClientHeight=791
+ClientHeight=786
 TBDockHeight=137
 LRDockWidth=638
 Dockable=1
@@ -414,22 +414,22 @@ DockHostCount=1
 [DockSite0]
 DockSiteType=0
 Create=1
-Visible=1
+Visible=0
 State=0
-Left=586
-Top=110
+Left=901
+Top=216
 Width=455
 Height=535
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=439
-ClientHeight=501
+ClientHeight=496
 TBDockHeight=690
 LRDockWidth=328
 Dockable=1
 DockClients=CallStackWindow
-DockSiteData=0000040000000000F50100000000000001B701000000000000010000000087000000000000000100000002F5010000000000000200000000B70100000F00000043616C6C537461636B57696E646F770200000000F7010000000000000100000000080100000000000001000000008C010000000000000100000000100200000000000001000000009802000000000000FFFFFFFF
+DockSiteData=0000040000000000F00100000000000001B701000000000000010000000087000000000000000100000002F0010000000000000200000000B70100000F00000043616C6C537461636B57696E646F770200000000F7010000000000000100000000080100000000000001000000008C010000000000000100000000100200000000000001000000009802000000000000FFFFFFFF
 
 [ActiveProject]
-ActiveProject=14
+ActiveProject=3
 
