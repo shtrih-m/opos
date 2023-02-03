@@ -88,6 +88,8 @@ type
     procedure PrintHeaderLines(Index1, Index2: Integer);
 
     property NonFiscalDoc: TNonFiscalDoc read GetNonFiscalDoc;
+    procedure PrintEmptyHeader;
+    procedure PrintHeader2;
   public
     procedure ReadHeader;
     procedure CheckEndDay;
@@ -1742,7 +1744,22 @@ begin
     Result := Device.CenterLine(Result);
 end;
 
-// Print fixed header
+
+procedure TFiscalPrinterImpl.PrintEmptyHeader;
+var
+  i: Integer;
+  Data: TTextRec;
+begin
+  for i := 1 to Device.GetModel.NumHeaderLines do
+  begin
+    Data.Text := '';
+    Data.Station := PRINTER_STATION_REC;
+    Data.Font := Parameters.HeaderFont;
+    Data.Alignment := taLeft;
+    Data.Wrap := False;
+    Device.PrintText(Data);
+  end;
+end;
 
 procedure TFiscalPrinterImpl.PrintFixedHeaderAndCut;
 begin
@@ -1834,12 +1851,16 @@ begin
   begin
     PrintLogo;
   end;
-
   if FAdditionalTrailer <> '' then
     PrintText(FAdditionalTrailer, PRINTER_STATION_REC);
+end;
 
-  PrintText('', PRINTER_STATION_REC);
-  PrintText('', PRINTER_STATION_REC);
+procedure TFiscalPrinterImpl.PrintHeader2;
+begin
+  PrintLogo;
+  PrintHeaderLines(0, Printer.Header.Count-1);
+  Parameters.HeaderPrinted := True;
+  SaveParameters;
 end;
 
 procedure TFiscalPrinterImpl.PrintHeader;
@@ -1858,8 +1879,6 @@ end;
 
 procedure TFiscalPrinterImpl.DoPrintHeader;
 var
-  i: Integer;
-  Data: TTextRec;
   Font: TFontInfo;
   LineCount: Integer;
 begin
@@ -1881,21 +1900,9 @@ begin
       SaveParameters;
     end else
     begin
-      // Empty fixed header
-      for i := 1 to Device.GetModel.NumHeaderLines do
-      begin
-        Data.Text := '';
-        Data.Station := PRINTER_STATION_REC;
-        Data.Font := Parameters.HeaderFont;
-        Data.Alignment := taLeft;
-        Data.Wrap := False;
-        Device.PrintText(Data);
-      end;
+      PrintEmptyHeader;
       Printer.CutPaper;
-      PrintLogo;
-      PrintHeaderLines(0, Printer.Header.Count-1);
-      Parameters.HeaderPrinted := True;
-      SaveParameters;
+      PrintHeader2;
     end;
   end else
   begin
@@ -2130,6 +2137,10 @@ begin
 
     FReceipt.Free;
     FReceipt := CreateReceipt(FFiscalReceiptType);
+    if PrintHeader then
+    begin
+      PrintHeader2;
+    end;
     if FAdditionalHeader <> '' then
     begin
       Receipt.PrintAdditionalHeader(FAdditionalHeader);
@@ -2391,9 +2402,27 @@ begin
       PrintRecMessages;
 
     Receipt.EndFiscalReceipt;
-    Filters.AfterCloseReceipt;
-    PrintDocumentEnd;
-    Device.ResetPrinter;
+    try
+      Filters.AfterCloseReceipt;
+      if PrintHeader then
+      begin
+        PrintDocumentEnd;
+      end else
+      begin
+        PrintTrailer;
+        if not Device.GetModel.CapAutoFeedOnCut then
+        begin
+          PrintEmptyHeader;
+        end;
+        Printer.CutPaper;
+      end;
+      Device.ResetPrinter;
+    except
+      on E: Exception do
+      begin
+        Logger.Error(E.Message);
+      end;
+    end;
 
     FReceipt.Free;
     FReceipt := CreateNullReceipt;

@@ -68,6 +68,7 @@ type
     CapNonfiscalDocument: Boolean;
     CapGraphics: Boolean;
     CapGraphicsEx: Boolean;
+    CapAutoFeedOnCut: Boolean;
   end;
 
 const

@@ -34,6 +34,7 @@
       <CapFullCut>1</CapFullCut>
       <CapPartialCut>1</CapPartialCut>
       <CombLineNumber>10</CombLineNumber>
+      <CapAutoFeedOnCut>0</CapAutoFeedOnCut>
       <TableParameters/>
     </Model>
     <Model>
@@ -69,6 +70,7 @@
       <CapFullCut>1</CapFullCut>
       <CapPartialCut>1</CapPartialCut>
       <CombLineNumber>10</CombLineNumber>
+      <CapAutoFeedOnCut>0</CapAutoFeedOnCut>
       <TableParameters>
         <TableParameter>
           <ID>3</ID>
@@ -197,6 +199,7 @@
       <CapFullCut>1</CapFullCut>
       <CapPartialCut>1</CapPartialCut>
       <CombLineNumber>10</CombLineNumber>
+      <CapAutoFeedOnCut>0</CapAutoFeedOnCut>
       <TableParameters>
         <TableParameter>
           <ID>3</ID>
@@ -325,6 +328,7 @@
       <CapFullCut>1</CapFullCut>
       <CapPartialCut>1</CapPartialCut>
       <CombLineNumber>10</CombLineNumber>
+      <CapAutoFeedOnCut>0</CapAutoFeedOnCut>
       <TableParameters>
         <TableParameter>
           <ID>3</ID>
@@ -453,6 +457,7 @@
       <CapFullCut>1</CapFullCut>
       <CapPartialCut>1</CapPartialCut>
       <CombLineNumber>0</CombLineNumber>
+      <CapAutoFeedOnCut>0</CapAutoFeedOnCut>
       <TableParameters>
         <TableParameter>
           <ID>3</ID>
@@ -581,6 +586,7 @@
       <CapFullCut>1</CapFullCut>
       <CapPartialCut>1</CapPartialCut>
       <CombLineNumber>0</CombLineNumber>
+      <CapAutoFeedOnCut>0</CapAutoFeedOnCut>
       <TableParameters/>
     </Model>
     <Model>
@@ -616,6 +622,7 @@
       <CapFullCut>1</CapFullCut>
       <CapPartialCut>1</CapPartialCut>
       <CombLineNumber>10</CombLineNumber>
+      <CapAutoFeedOnCut>0</CapAutoFeedOnCut>
       <TableParameters>
         <TableParameter>
           <ID>3</ID>
@@ -744,6 +751,7 @@
       <CapFullCut>1</CapFullCut>
       <CapPartialCut>1</CapPartialCut>
       <CombLineNumber>10</CombLineNumber>
+      <CapAutoFeedOnCut>0</CapAutoFeedOnCut>
       <TableParameters>
         <TableParameter>
           <ID>3</ID>
@@ -872,6 +880,7 @@
       <CapFullCut>1</CapFullCut>
       <CapPartialCut>1</CapPartialCut>
       <CombLineNumber>10</CombLineNumber>
+      <CapAutoFeedOnCut>0</CapAutoFeedOnCut>
       <TableParameters>
         <TableParameter>
           <ID>3</ID>
@@ -1000,6 +1009,7 @@
       <CapFullCut>1</CapFullCut>
       <CapPartialCut>1</CapPartialCut>
       <CombLineNumber>10</CombLineNumber>
+      <CapAutoFeedOnCut>0</CapAutoFeedOnCut>
       <TableParameters>
         <TableParameter>
           <ID>3</ID>
@@ -1128,6 +1138,7 @@
       <CapFullCut>1</CapFullCut>
       <CapPartialCut>1</CapPartialCut>
       <CombLineNumber>10</CombLineNumber>
+      <CapAutoFeedOnCut>0</CapAutoFeedOnCut>
       <TableParameters>
         <TableParameter>
           <ID>3</ID>
@@ -1256,6 +1267,7 @@
       <CapFullCut>1</CapFullCut>
       <CapPartialCut>1</CapPartialCut>
       <CombLineNumber>10</CombLineNumber>
+      <CapAutoFeedOnCut>0</CapAutoFeedOnCut>
     </Model>
     <Model>
       <ID>26</ID>
@@ -1290,6 +1302,7 @@
       <CapFullCut>1</CapFullCut>
       <CapPartialCut>1</CapPartialCut>
       <CombLineNumber>10</CombLineNumber>
+      <CapAutoFeedOnCut>0</CapAutoFeedOnCut>
     </Model>
     <Model>
       <ID>255</ID>
@@ -1324,6 +1337,7 @@
       <CapFullCut>1</CapFullCut>
       <CapPartialCut>1</CapPartialCut>
       <CombLineNumber>10</CombLineNumber>
+      <CapAutoFeedOnCut>1</CapAutoFeedOnCut>
     </Model>
   </Models>
 </Root>

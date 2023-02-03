@@ -47,6 +47,7 @@ const
     CapAttributes: False;
     CapJournalReport: False;
     CapNonfiscalDocument: False;
+    CapAutoFeedOnCut: False;
   );
 
   { PrinterModelShtrihFRF }
@@ -89,6 +90,7 @@ const
     CapAttributes: False;
     CapJournalReport: False;
     CapNonfiscalDocument: False;
+    CapAutoFeedOnCut: False;
     );
 
   { PrinterModelShtrihFRK }
@@ -131,6 +133,7 @@ const
     CapAttributes: False;
     CapJournalReport: False;
     CapNonfiscalDocument: False;
+    CapAutoFeedOnCut: False;
     );
 
   { PrinterModelShtrihMiniFRK }
@@ -173,6 +176,7 @@ const
     CapAttributes: False;
     CapJournalReport: False;
     CapNonfiscalDocument: False;
+    CapAutoFeedOnCut: False;
    );
 
   { PrinterModelShtrihMFRK }
@@ -215,6 +219,7 @@ const
     CapAttributes: False;
     CapJournalReport: False;
     CapNonfiscalDocument: False;
+    CapAutoFeedOnCut: False;
     );
 
   { PrinterModelShtrihMPTK }
@@ -257,6 +262,7 @@ const
     CapAttributes: False;
     CapJournalReport: False;
     CapNonfiscalDocument: False;
+    CapAutoFeedOnCut: False;
     );
 
   { PrinterModelShtrihComboFRK }
@@ -299,6 +305,7 @@ const
     CapAttributes: False;
     CapJournalReport: False;
     CapNonfiscalDocument: False;
+    CapAutoFeedOnCut: False;
     );
 
   { PrinterModelShtrihComboFRK2 }
@@ -341,6 +348,7 @@ const
     CapAttributes: False;
     CapJournalReport: False;
     CapNonfiscalDocument: False;
+    CapAutoFeedOnCut: False;
     );
 
   { PrinterModelShtrihLightFRK }
@@ -383,6 +391,7 @@ const
     CapAttributes: False;
     CapJournalReport: False;
     CapNonfiscalDocument: False;
+    CapAutoFeedOnCut: False;
     );
 
   MODEL_SHTRIH_950K: TPrinterModelREc = (
@@ -422,6 +431,7 @@ const
     CapAttributes: False;
     CapJournalReport: False;
     CapNonfiscalDocument: False;
+    CapAutoFeedOnCut: False;
   );
 
   MODEL_SHTRIH_950_PTK: TPrinterModelRec = (
@@ -461,6 +471,7 @@ const
     CapAttributes: True;
     CapJournalReport: False;
     CapNonfiscalDocument: True;
+    CapAutoFeedOnCut: False;
   );
 
   MODEL_SHTRIH_950_PTK2: TPrinterModelRec = (
@@ -500,6 +511,7 @@ const
     CapAttributes: True;
     CapJournalReport: False;
     CapNonfiscalDocument: True;
+    CapAutoFeedOnCut: False;
   );
 
   MODEL_RETAIL_01K: TPrinterModelRec = (
@@ -540,6 +552,7 @@ const
     CapAttributes: False;
     CapJournalReport: True;
     CapNonfiscalDocument: False;
+    CapAutoFeedOnCut: False;
   );
 
   MODEL_PAYONLINE: TPrinterModelRec = (
@@ -580,6 +593,7 @@ const
     CapAttributes: False;
     CapJournalReport: True;
     CapNonfiscalDocument: False;
+    CapAutoFeedOnCut: True;
   );
 
 procedure AddDefaultModels(Models: TPrinterModels);

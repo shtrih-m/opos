@@ -204,6 +204,7 @@ begin
     Model.CapAttributes := GetNodeBool(Node, 'CapAttributes');
     Model.CapJournalReport := GetNodeBool(Node, 'CapJournalReport');
     Model.CapNonfiscalDocument := GetNodeBool(Node, 'CapNonfiscalDocument');
+    Model.CapAutoFeedOnCut := GetNodeBool(Node, 'CapAutoFeedOnCut');
 
     PrinterModel := Models.Add(Model);
     ParametersNode := Node.ChildNodes.FindNode(NODENAME_TABLE_PARAMETERS);
@@ -314,6 +315,7 @@ begin
     SetNodeBool(Root, 'CapNonfiscalDocument', Data.CapNonfiscalDocument);
     SetNodeBool(Root, 'CapAttributes', Data.CapAttributes);
     SetNodeBool(Root, 'CapJournalReport', Data.CapJournalReport);
+    SetNodeBool(Root, 'CapAutoFeedOnCut', Data.CapAutoFeedOnCut);
 
     Node := Root.AddChild(NODENAME_TABLE_PARAMETERS);
     SaveParameters(Node, Model.Parameters);
