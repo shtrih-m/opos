@@ -367,6 +367,7 @@ begin
   CheckEquals(1, Length(Method.Params), 'Length(Method.Params)');
   FSSale := TFSSale2Object(Integer(Method.Params[0]));
   CheckEquals(Text, FSSale.Data.Text, 'FSSale.Data.Text');
+  FSSale.Free;
 end;
 
 ///////////////////////////////////////////////////////////////////////////////

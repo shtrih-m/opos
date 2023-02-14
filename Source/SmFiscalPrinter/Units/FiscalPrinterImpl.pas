@@ -61,7 +61,6 @@ type
     FPrinter: ISharedPrinter;
     FReceiptPrinter: IReceiptPrinter;
 
-    procedure CancelReceipt2;
     procedure UpdatePrinterDate;
     procedure CheckCapSetVatTable;
     procedure PrintTextFont(Station: Integer; Font: Integer; const Text: WideString);
@@ -89,7 +88,6 @@ type
 
     property NonFiscalDoc: TNonFiscalDoc read GetNonFiscalDoc;
     procedure PrintEmptyHeader;
-    procedure PrintHeader2;
   public
     procedure ReadHeader;
     procedure CheckEndDay;
@@ -100,9 +98,6 @@ type
     procedure CreateDIOHandlers;
     procedure CreateDIOHandlers1;
     procedure CreateDIOHandlers2;
-    procedure PrintFixedHeaderAndCut;
-    procedure PrintNonFiscalEndDriver;
-    procedure PrintNonFiscalEndPrinter;
     procedure SetFreezeEvents(Value: Boolean);
     procedure ProgressEvent(Progress: Integer);
     procedure SetCoverState(CoverOpened: Boolean);
@@ -135,7 +130,6 @@ type
     procedure PrintText(const Text: WideString); overload;
     procedure PrintText(const Text: WideString; Station: Integer); overload;
     procedure DoPrintHeader;
-    procedure DoPrintTrailer;
     function GetStatistics: TFiscalPrinterStatistics;
     function GetDailyTotal(Code: Integer): Int64;
     function GetDailyTotalAll: Int64;
@@ -274,7 +268,7 @@ type
     procedure SaveZReportFile;
     function GetCommandDefsFileName: WideString;
     function BeginFiscalDocument(DocumentAmount: Integer): Integer; safecall;
-    function BeginFiscalReceipt(PrintHeader: WordBool): Integer; safecall;
+    function BeginFiscalReceipt(APrintHeader: WordBool): Integer; safecall;
     function BeginFixedOutput(Station, DocumentType: Integer): Integer;
       safecall;
     function BeginInsertion(Timeout: Integer): Integer; safecall;
@@ -451,7 +445,9 @@ type
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
 
+    procedure OpenFiscalDay;
     procedure PrintLogo;
+    procedure PrintLogo2(Position: Integer);
     procedure PrintHeader;
     procedure PrintTrailer;
     procedure CheckEnabled;
@@ -474,7 +470,6 @@ type
     procedure PrintFSDocument(Number: Integer);
     function FSPrintCorrectionReceipt(var Command: TFSCorrectionReceipt): Integer;
     function FSPrintCorrectionReceipt2(var Data: TFSCorrectionReceipt2): Integer;
-    procedure OpenFiscalDay;
     procedure AddItemCode(const Code: WideString);
 
     property Logger: ILogFile read GetLogger;
@@ -910,7 +905,6 @@ begin
   try
     FInitPrinter := False;
     SetPrinter(SharedPrinter.GetPrinter(DeviceName));
-    FFilter := TEscFilter.Create(GetPrinter);
     FPrinter.OnProgress := ProgressEvent;
     FPrinter.AddStatusLink(FStatusLink);
     FPrinter.AddConnectLink(FConnectLink);
@@ -985,16 +979,6 @@ begin
 
   if Result < 0 then
     RaiseOposException(OPOS_E_ILLEGAL, Tnt_WideFormat('%s < 0', [ParamName]));
-end;
-
-procedure TFiscalPrinterImpl.PrintReportEnd;
-begin
-  try
-    PrintNonFiscalEnd;
-  except
-    on E: Exception do
-      HandleException(E);
-  end;
 end;
 
 function TFiscalPrinterImpl.GetReceipt: TCustomReceipt;
@@ -1129,6 +1113,14 @@ end;
 procedure TFiscalPrinterImpl.PrintLogo;
 begin
   Printer.PrintLogo;
+end;
+
+procedure TFiscalPrinterImpl.PrintLogo2(Position: Integer);
+begin
+  if Parameters.LogoPosition = Position then
+  begin
+    Printer.PrintLogo;
+  end;
 end;
 
 procedure TFiscalPrinterImpl.ProgressEvent(Progress: Integer);
@@ -1488,7 +1480,6 @@ begin
     FDayOpened := Device.IsDayOpened(Status.Mode);
     if Status.AdvancedMode = AMODE_AFTER then
     begin
-      WaitForPrinting;
       PrintNonFiscalEnd;
     end;
   except
@@ -1761,30 +1752,36 @@ begin
   end;
 end;
 
-procedure TFiscalPrinterImpl.PrintFixedHeaderAndCut;
+procedure TFiscalPrinterImpl.PrintReportEnd;
 begin
-  PrintHeaderLines(0, Device.GetModel.NumHeaderLines-1);
-  Printer.CutPaper;
-  PrintHeaderLines(Device.GetModel.NumHeaderLines, Printer.Header.Count-1);
-  Parameters.HeaderPrinted := True;
-  SaveParameters;
+  try
+    PrintNonFiscalEnd;
+  except
+    on E: Exception do
+      HandleException(E);
+  end;
 end;
 
-// If it was printing on receipt paper
 procedure TFiscalPrinterImpl.PrintNonFiscalEnd;
 begin
-  WaitForPrinting;
-  if Parameters.LogoPosition = LogoAfterTotal then
+  if not FHeaderEnabled then
   begin
-    PrintLogo;
+    FHeaderEnabled := True;
+    Exit;
   end;
+
+  WaitForPrinting;
+  PrintLogo2(LogoAfterTotal);
   Receipt.PrintRecMessages;
   case Parameters.HeaderType of
     HeaderTypeNone: ;
-    HeaderTypePrinter: PrintNonFiscalEndPrinter;
-    HeaderTypeDriver: PrintNonFiscalEndDriver;
+    HeaderTypePrinter: ;
+    HeaderTypeDriver:
+    begin
+      PrintTrailer;
+      PrintHeader;
+    end;
   end;
-  FDocumentNumber := Device.ReadLongStatus.DocumentNumber;
 end;
 
 procedure TFiscalPrinterImpl.PrintFiscalEnd;
@@ -1793,48 +1790,13 @@ begin
     PrintNonFiscalEnd;
 end;
 
-procedure TFiscalPrinterImpl.PrintNonFiscalEndPrinter;
-begin
-  WaitForPrinting;
-  PrintLogo;
-end;
-
-procedure TFiscalPrinterImpl.PrintNonFiscalEndDriver;
-begin
-  if not FHeaderEnabled then
-  begin
-    FHeaderEnabled := True;
-    Exit;
-  end;
-  PrintTrailer;
-  PrintHeader;
-end;
-
 procedure TFiscalPrinterImpl.PrintTrailer;
-var
-  SaveStation: Integer;
-begin
-  SaveStation := Printer.Station;
-  try
-    if not Parameters.JournalPrintTrailer then
-      Printer.Station := PRINTER_STATION_REC;
-    DoPrintTrailer;
-  finally
-    Printer.Station := SaveStation;
-  end;
-end;
-
-procedure TFiscalPrinterImpl.DoPrintTrailer;
 var
   i: Integer;
   Data: TTextRec;
 begin
   WaitForPrinting;
-  if Parameters.LogoPosition = LogoBeforeTrailer then
-  begin
-    PrintLogo;
-  end;
-
+  PrintLogo2(LogoBeforeTrailer);
   if not Device.GetModel.CapFixedTrailer then
   begin
     for i := 0 to Parameters.NumTrailerLines-1 do
@@ -1847,20 +1809,9 @@ begin
       Device.PrintText(Data);
     end;
   end;
-  if Parameters.LogoPosition = LogoAfterTrailer then
-  begin
-    PrintLogo;
-  end;
+  PrintLogo2(LogoAfterTrailer);
   if FAdditionalTrailer <> '' then
     PrintText(FAdditionalTrailer, PRINTER_STATION_REC);
-end;
-
-procedure TFiscalPrinterImpl.PrintHeader2;
-begin
-  PrintLogo;
-  PrintHeaderLines(0, Printer.Header.Count-1);
-  Parameters.HeaderPrinted := True;
-  SaveParameters;
 end;
 
 procedure TFiscalPrinterImpl.PrintHeader;
@@ -1886,32 +1837,53 @@ begin
   begin
     if Parameters.LogoSize <= Device.GetHeaderHeight then
     begin
-      PrintLogo;
+      PrintLogo2(LogoBeforeHeader);
 
       Font := Device.GetFont(Parameters.HeaderFont);
       LineCount := Device.GetModel.NumHeaderLines - 1 -
         (Parameters.LogoSize + Font.CharHeight - 1) div Font.CharHeight;
 
-      PrintHeaderLines(0, LineCount-1);
-      Printer.CutPaper;
-      PrintHeaderLines(LineCount, Printer.Header.Count-1);
-
-      Parameters.HeaderPrinted := True;
-      SaveParameters;
+      if Device.GetModel.CapAutoFeedOnCut then
+      begin
+        Printer.CutPaper;
+        PrintHeaderLines(0, Printer.Header.Count-1);
+      end else
+      begin
+        PrintHeaderLines(0, LineCount-1);
+        Printer.CutPaper;
+        PrintHeaderLines(LineCount, Printer.Header.Count-1);
+      end;
     end else
     begin
-      PrintEmptyHeader;
+      if not Device.GetModel.CapAutoFeedOnCut then
+      begin
+        PrintEmptyHeader;
+      end;
       Printer.CutPaper;
-      PrintHeader2;
+      PrintLogo2(LogoBeforeHeader);
+      PrintHeaderLines(0, Printer.Header.Count-1);
     end;
   end else
   begin
-    PrintFixedHeaderAndCut;
-    if Parameters.LogoPosition = LogoAfterHeader then
+    if Device.GetModel.CapAutoFeedOnCut then
     begin
-      PrintLogo;
+      Printer.CutPaper;
+      PrintHeaderLines(0, Printer.Header.Count-1);
+    end else
+    begin
+      PrintHeaderLines(0, Device.GetModel.NumHeaderLines-1);
+      Printer.CutPaper;
+      PrintHeaderLines(Device.GetModel.NumHeaderLines, Printer.Header.Count-1);
     end;
   end;
+  if FAdditionalHeader <> '' then
+  begin
+    Device.PrintText(PRINTER_STATION_REC, FAdditionalHeader);
+    FAdditionalHeader := '';
+  end;
+  Parameters.HeaderPrinted := True;
+  SaveParameters;
+  PrintLogo2(LogoAfterHeader);
 end;
 
 procedure TFiscalPrinterImpl.PrintHeaderLines(Index1, Index2: Integer);
@@ -2104,11 +2076,14 @@ end;
 
 procedure TFiscalPrinterImpl.OpenFiscalDay;
 begin
-  if Device.OpenFiscalDay then
-    PrintNonFiscalEnd;
+  if Device.CapFiscalStorage then
+  begin
+    if Device.OpenFiscalDay then
+      PrintNonFiscalEnd;
+  end;
 end;
 
-function TFiscalPrinterImpl.BeginFiscalReceipt(PrintHeader: WordBool): Integer;
+function TFiscalPrinterImpl.BeginFiscalReceipt(APrintHeader: WordBool): Integer;
 begin
   try
     Printer.UpdateParams;
@@ -2125,29 +2100,20 @@ begin
         CheckEndDay;
     end;
     UpdatePrinterDate;
-    if Device.CapFiscalStorage then
-    begin
-      if Device.OpenFiscalDay then
-        PrintNonFiscalEnd;
-    end;
-
+    OpenFiscalDay;
     Filters.BeginFiscalReceipt;
 
     SetPrinterState(FPTR_PS_FISCAL_RECEIPT);
 
     FReceipt.Free;
     FReceipt := CreateReceipt(FFiscalReceiptType);
-    if PrintHeader then
-    begin
-      PrintHeader2;
-    end;
-    if FAdditionalHeader <> '' then
-    begin
-      Receipt.PrintAdditionalHeader(FAdditionalHeader);
-    end;
-    Receipt.BeginFiscalReceipt(PrintHeader);
+    Receipt.BeginFiscalReceipt(APrintHeader);
     Filters.BeginFiscalReceipt2(FReceipt);
     FAfterCloseItems.Clear;
+    if APrintHeader then
+    begin
+      PrintHeader;
+    end;
     Result := ClearResult;
   except
     on E: Exception do
@@ -2403,6 +2369,7 @@ begin
 
     Receipt.EndFiscalReceipt;
     try
+      FDocumentNumber := Device.ReadLongStatus.DocumentNumber;
       Filters.AfterCloseReceipt;
       if PrintHeader then
       begin
@@ -2459,10 +2426,9 @@ begin
     if not NonFiscalDoc.Cancelled then
     begin
       NonFiscalDoc.EndNonFiscal;
-      PrintNonFiscalEndDriver;
+      PrintNonFiscalEnd;
     end;
     SetPrinterState(FPTR_PS_MONITOR);
-
     Result := ClearResult;
   except
     on E: Exception do
@@ -4148,20 +4114,6 @@ begin
     Lines.Free;
   end;
 end;
-
-procedure TFiscalPrinterImpl.CancelReceipt2;
-begin
-  WaitForPrinting;
-  if Device.IsRecOpened then
-  begin
-    Device.CancelReceipt;
-  end else
-  begin
-    Device.PrintText(PRINTER_STATION_REC, Parameters.VoidRecText);
-  end;
-  PrintFiscalEnd;
-end;
-
 
 function TFiscalPrinterImpl.GetPrinterSemaphoreName: WideString;
 begin

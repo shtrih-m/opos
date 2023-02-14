@@ -144,7 +144,6 @@ type
     procedure FSWriteTLVOperation(const TLVData: WideString); virtual;
     function GetMalinaParams: TMalinaParams;
     procedure WriteFPParameter(ParamId: Integer; const Value: WideString); virtual;
-    procedure PrintAdditionalHeader(const AdditionalHeader: WideString); virtual;
     procedure AddItemCode(const Code: WideString); virtual;
 
     property RecType: Integer read FRecType;
@@ -510,12 +509,6 @@ procedure TCustomReceipt.WriteFPParameter(ParamId: Integer;
   const Value: WideString);
 begin
   Device.WriteFPParameter(ParamId, Value);
-end;
-
-procedure TCustomReceipt.PrintAdditionalHeader(
-  const AdditionalHeader: WideString);
-begin
-  Device.PrintText(PRINTER_STATION_REC, AdditionalHeader);
 end;
 
 procedure TCustomReceipt.EndFiscalReceipt2;

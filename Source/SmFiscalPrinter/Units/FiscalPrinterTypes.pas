@@ -737,7 +737,6 @@ type
     property OpenResult: Integer read Get_OpenResult;
     // Extended
     procedure CancelReceipt;
-    procedure CancelReceipt2;
     procedure SetPrinterState(Value: Integer);
     function GetPrinter: ISharedPrinter;
     property Printer: ISharedPrinter read GetPrinter;

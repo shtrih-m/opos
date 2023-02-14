@@ -155,7 +155,6 @@ type
     procedure FSWriteTLV(const TLVData: WideString); override;
     procedure FSWriteTLVOperation(const TLVData: WideString); override;
     procedure WriteFPParameter(ParamId: Integer; const Value: WideString); override;
-    procedure PrintAdditionalHeader(const AdditionalHeader: WideString); override;
     procedure AddItemCode(const Code: WideString); override;
 
     property IsVoided: Boolean read FIsVoided;
@@ -877,16 +876,6 @@ begin
   FAdjustmentAmount := 0;
   ClearRecMessages;
 
-  Parameters.Parameter1 := '';
-  Parameters.Parameter2 := '';
-  Parameters.Parameter3 := '';
-  Parameters.Parameter4 := '';
-  Parameters.Parameter5 := '';
-  Parameters.Parameter6 := '';
-  Parameters.Parameter7 := '';
-  Parameters.Parameter8 := '';
-  Parameters.Parameter9 := '';
-  Parameters.Parameter10 := '';
   Parameters.ClearReceiptFields;
 end;
 
@@ -1725,12 +1714,6 @@ begin
   begin
     Device.WriteFPParameter(ParamId, Value);
   end;
-end;
-
-procedure TFSSalesReceipt.PrintAdditionalHeader(
-  const AdditionalHeader: WideString);
-begin
-  Device.PrintText(PRINTER_STATION_REC, AdditionalHeader);
 end;
 
 procedure TFSSalesReceipt.AddItemCode(const Code: WideString);

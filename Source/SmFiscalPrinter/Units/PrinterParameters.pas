@@ -1308,6 +1308,16 @@ begin
   begin
     ReceiptField[i] := '';
   end;
+  Parameter1 := '';
+  Parameter2 := '';
+  Parameter3 := '';
+  Parameter4 := '';
+  Parameter5 := '';
+  Parameter6 := '';
+  Parameter7 := '';
+  Parameter8 := '';
+  Parameter9 := '';
+  Parameter10 := '';
 end;
 
 end.

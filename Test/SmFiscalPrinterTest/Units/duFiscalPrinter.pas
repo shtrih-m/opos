@@ -4,7 +4,7 @@ interface
 
 uses
   // VCL
-  Windows, SysUtils, Classes, ActiveX, 
+  Windows, SysUtils, Classes, ActiveX,
   // DUnit
   TestFramework,
   // Opos
@@ -189,10 +189,14 @@ type
     procedure CheckClearError;
     procedure CheckEndFiscalDocument;
     procedure CheckEndFiscalReceipt;
+    procedure CheckEndFiscalReceipt2;
+    procedure CheckEndFiscalReceipt3;
+
     procedure CheckEndFixedOutput;
     procedure CheckEndInsertion;
     procedure CheckEndItemList;
     procedure CheckEndNonFiscal;
+    procedure CheckEndNonFiscal2;
     procedure CheckEndRemoval;
     procedure CheckEndTraining;
     procedure CheckGetData;
@@ -286,6 +290,14 @@ begin
   FPrinter := TFiscalPrinterImpl.Create(nil);
   FPrinter.SetPrinter(SPrinter);
   FDriver := ToleFiscalPrinter.Create(FPrinter);
+
+  Parameters.SetDefaults;
+  Parameters.NumHeaderLines := 0;
+  Parameters.NumTrailerLines := 0;
+  Parameters.LogFileEnabled := False;
+  Parameters.PropertyUpdateMode := PropertyUpdateModeNone;
+  Parameters.Header := '';
+  Parameters.Trailer := '';
 end;
 
 procedure TFiscalPrinterTest.TearDown;
@@ -308,13 +320,6 @@ end;
 procedure TFiscalPrinterTest.OpenDevice;
 begin
   CheckResult(Driver.Open('FiscalPrinter', DeviceName, nil));
-  Parameters.SetDefaults;
-  Parameters.NumHeaderLines := 0;
-  Parameters.NumTrailerLines := 0;
-  Parameters.LogFileEnabled := False;
-  Parameters.PropertyUpdateMode := PropertyUpdateModeNone;
-  Parameters.Header := '';
-  Parameters.Trailer := '';
 end;
 
 procedure TFiscalPrinterTest.ClaimDevice;
@@ -1244,8 +1249,216 @@ begin
 end;
 
 procedure TFiscalPrinterTest.CheckEndFiscalReceipt;
+var
+  Model: TPrinterModelRec;
 begin
-  EmptyTest;
+  OpenClaimEnable;
+
+  Model := Device.Model;
+  Model.CapAutoFeedOnCut := False;
+  Model.NumHeaderLines := 3;
+  Model.NumTrailerLines := 4;
+  Device.Model := Model;
+
+  Printer.Parameters.NumHeaderLines := 3;
+  Printer.Parameters.NumTrailerLines := 4;
+
+  Printer.Parameters.Trailer :=
+    '  Trailer line 1' + CRLF +
+    '  Trailer line 2' + CRLF +
+    '  Trailer line 3' + CRLF +
+    '  Trailer line 4';
+
+  Printer.Parameters.Header :=
+    '  Header line 1' + CRLF +
+    '  Header line 2' + CRLF +
+    '  Header line 3';
+
+  CheckEquals(0, Device.RecStation.Count, 'Device.RecStation.Count');
+  CheckEquals(0, Printer.BeginFiscalReceipt(False));
+  CheckEquals(0, Printer.PrintRecItem('', 1, 1000, 0, 0, ''));
+  CheckEquals(0, Printer.PrintRecTotal(1, 1, '0'));
+  CheckEquals(0, Printer.EndFiscalReceipt(false));
+  Driver.Close;
+
+  CheckEquals(8, Device.RecStation.Count, 'Device.RecStation.Count');
+  CheckEquals('  Trailer line 1', Device.RecStation[0], 'Device.RecStation[0]');
+  CheckEquals('  Trailer line 2', Device.RecStation[1], 'Device.RecStation[1]');
+  CheckEquals('  Trailer line 3', Device.RecStation[2], 'Device.RecStation[2]');
+  CheckEquals('  Trailer line 4', Device.RecStation[3], 'Device.RecStation[3]');
+  CheckEquals('', Device.RecStation[4], 'Device.RecStation[4]');
+  CheckEquals('', Device.RecStation[5], 'Device.RecStation[5]');
+  CheckEquals('', Device.RecStation[6], 'Device.RecStation[6]');
+  CheckEquals('CutPaper(1)', Device.RecStation[7], 'Device.RecStation[7]');
+end;
+
+procedure TFiscalPrinterTest.CheckEndFiscalReceipt2;
+var
+  Model: TPrinterModelRec;
+begin
+  OpenClaimEnable;
+
+  Model := Device.Model;
+  Model.CapAutoFeedOnCut := True;
+  Model.NumHeaderLines := 3;
+  Model.NumTrailerLines := 4;
+  Device.Model := Model;
+
+  Printer.Parameters.NumHeaderLines := 3;
+  Printer.Parameters.NumTrailerLines := 4;
+
+  Printer.Parameters.Trailer :=
+    '  Trailer line 1' + CRLF +
+    '  Trailer line 2' + CRLF +
+    '  Trailer line 3' + CRLF +
+    '  Trailer line 4';
+
+  Printer.Parameters.Header :=
+    '  Header line 1' + CRLF +
+    '  Header line 2' + CRLF +
+    '  Header line 3';
+
+  CheckEquals(0, Device.RecStation.Count, 'Device.RecStation.Count');
+  CheckEquals(0, Printer.BeginFiscalReceipt(False));
+  CheckEquals(0, Printer.PrintRecItem('', 1, 1000, 0, 0, ''));
+  CheckEquals(0, Printer.PrintRecTotal(1, 1, '0'));
+  CheckEquals(0, Printer.EndFiscalReceipt(false));
+  Driver.Close;
+
+  CheckEquals(5, Device.RecStation.Count, 'Device.RecStation.Count');
+  CheckEquals('  Trailer line 1', Device.RecStation[0], 'Device.RecStation[0]');
+  CheckEquals('  Trailer line 2', Device.RecStation[1], 'Device.RecStation[1]');
+  CheckEquals('  Trailer line 3', Device.RecStation[2], 'Device.RecStation[2]');
+  CheckEquals('  Trailer line 4', Device.RecStation[3], 'Device.RecStation[3]');
+  CheckEquals('CutPaper(1)', Device.RecStation[4], 'Device.RecStation[4]');
+end;
+
+procedure TFiscalPrinterTest.CheckEndFiscalReceipt3;
+var
+  Model: TPrinterModelRec;
+begin
+  OpenClaimEnable;
+
+  Model := Device.Model;
+  Model.CapAutoFeedOnCut := True;
+  Model.NumHeaderLines := 3;
+  Model.NumTrailerLines := 4;
+  Device.Model := Model;
+
+  Printer.Parameters.NumHeaderLines := 3;
+  Printer.Parameters.NumTrailerLines := 4;
+
+  Printer.Parameters.Trailer :=
+    '  Trailer line 1' + CRLF +
+    '  Trailer line 2' + CRLF +
+    '  Trailer line 3' + CRLF +
+    '  Trailer line 4';
+
+  Printer.Parameters.Header :=
+    '  Header line 1' + CRLF +
+    '  Header line 2' + CRLF +
+    '  Header line 3';
+
+  CheckEquals(0, Device.RecStation.Count, 'Device.RecStation.Count');
+  CheckEquals(0, Printer.BeginFiscalReceipt(False));
+  CheckEquals(0, Printer.PrintRecItem('', 1, 1000, 0, 0, ''));
+  CheckEquals(0, Printer.PrintRecTotal(1, 1, '0'));
+  CheckEquals(0, Printer.EndFiscalReceipt(True));
+  Driver.Close;
+
+  CheckEquals(8, Device.RecStation.Count, 'Device.RecStation.Count');
+  CheckEquals('  Trailer line 1', Device.RecStation[0], 'Device.RecStation[0]');
+  CheckEquals('  Trailer line 2', Device.RecStation[1], 'Device.RecStation[1]');
+  CheckEquals('  Trailer line 3', Device.RecStation[2], 'Device.RecStation[2]');
+  CheckEquals('  Trailer line 4', Device.RecStation[3], 'Device.RecStation[3]');
+  CheckEquals('CutPaper(1)', Device.RecStation[4], 'Device.RecStation[4]');
+  CheckEquals('  Header line 1', Device.RecStation[5], 'Device.RecStation[5]');
+  CheckEquals('  Header line 2', Device.RecStation[6], 'Device.RecStation[6]');
+  CheckEquals('  Header line 3', Device.RecStation[7], 'Device.RecStation[7]');
+end;
+
+procedure TFiscalPrinterTest.CheckEndNonFiscal;
+var
+  Model: TPrinterModelRec;
+begin
+  Model := Device.Model;
+  Model.CapAutoFeedOnCut := True;
+  Model.NumHeaderLines := 3;
+  Model.NumTrailerLines := 4;
+  Device.Model := Model;
+
+  Printer.Parameters.NumHeaderLines := 3;
+  Printer.Parameters.NumTrailerLines := 4;
+
+  Printer.Parameters.Trailer :=
+    '  Trailer line 1' + CRLF +
+    '  Trailer line 2' + CRLF +
+    '  Trailer line 3' + CRLF +
+    '  Trailer line 4';
+
+  Printer.Parameters.Header :=
+    '  Header line 1' + CRLF +
+    '  Header line 2' + CRLF +
+    '  Header line 3';
+
+  OpenClaimEnable;
+  CheckEquals(0, Device.RecStation.Count, 'Device.RecStation.Count');
+  CheckEquals(0, Printer.BeginNonFiscal, 'Printer.BeginNonFiscal');
+  CheckEquals(0, Printer.PrintNormal(FPTR_S_RECEIPT, 'Text line 1'), 'Printer.PrintNormal');
+  CheckEquals(0, Printer.EndNonFiscal, 'Printer.EndNonFiscal');
+
+  CheckEquals(9, Device.RecStation.Count, 'Device.RecStation.Count');
+  CheckEquals('Text line 1', Device.RecStation[0], 'Device.RecStation[0]');
+  CheckEquals('  Trailer line 1', Device.RecStation[1], 'Device.RecStation[1]');
+  CheckEquals('  Trailer line 2', Device.RecStation[2], 'Device.RecStation[2]');
+  CheckEquals('  Trailer line 3', Device.RecStation[3], 'Device.RecStation[3]');
+  CheckEquals('  Trailer line 4', Device.RecStation[4], 'Device.RecStation[4]');
+  CheckEquals('CutPaper(1)', Device.RecStation[5], 'Device.RecStation[5]');
+  CheckEquals('  Header line 1', Device.RecStation[6], 'Device.RecStation[6]');
+  CheckEquals('  Header line 2', Device.RecStation[7], 'Device.RecStation[7]');
+  CheckEquals('  Header line 3', Device.RecStation[8], 'Device.RecStation[8]');
+end;
+
+procedure TFiscalPrinterTest.CheckEndNonFiscal2;
+var
+  Model: TPrinterModelRec;
+begin
+  Model := Device.Model;
+  Model.CapAutoFeedOnCut := False;
+  Model.NumHeaderLines := 3;
+  Model.NumTrailerLines := 4;
+  Device.Model := Model;
+
+  Printer.Parameters.NumHeaderLines := 3;
+  Printer.Parameters.NumTrailerLines := 4;
+
+  Printer.Parameters.Trailer :=
+    '  Trailer line 1' + CRLF +
+    '  Trailer line 2' + CRLF +
+    '  Trailer line 3' + CRLF +
+    '  Trailer line 4';
+
+  Printer.Parameters.Header :=
+    '  Header line 1' + CRLF +
+    '  Header line 2' + CRLF +
+    '  Header line 3';
+
+  OpenClaimEnable;
+  CheckEquals(0, Device.RecStation.Count, 'Device.RecStation.Count');
+  CheckEquals(0, Printer.BeginNonFiscal, 'Printer.BeginNonFiscal');
+  CheckEquals(0, Printer.PrintNormal(FPTR_S_RECEIPT, 'Text line 1'), 'Printer.PrintNormal');
+  CheckEquals(0, Printer.EndNonFiscal, 'Printer.EndNonFiscal');
+
+  CheckEquals(9, Device.RecStation.Count, 'Device.RecStation.Count');
+  CheckEquals('Text line 1', Device.RecStation[0], 'Device.RecStation[0]');
+  CheckEquals('  Trailer line 1', Device.RecStation[1], 'Device.RecStation[1]');
+  CheckEquals('  Trailer line 2', Device.RecStation[2], 'Device.RecStation[2]');
+  CheckEquals('  Trailer line 3', Device.RecStation[3], 'Device.RecStation[3]');
+  CheckEquals('  Trailer line 4', Device.RecStation[4], 'Device.RecStation[4]');
+  CheckEquals('  Header line 1', Device.RecStation[5], 'Device.RecStation[5]');
+  CheckEquals('  Header line 2', Device.RecStation[6], 'Device.RecStation[6]');
+  CheckEquals('  Header line 3', Device.RecStation[7], 'Device.RecStation[7]');
+  CheckEquals('CutPaper(1)', Device.RecStation[8], 'Device.RecStation[8]');
 end;
 
 procedure TFiscalPrinterTest.CheckEndFixedOutput;
@@ -1259,11 +1472,6 @@ begin
 end;
 
 procedure TFiscalPrinterTest.CheckEndItemList;
-begin
-  EmptyTest;
-end;
-
-procedure TFiscalPrinterTest.CheckEndNonFiscal;
 begin
   EmptyTest;
 end;

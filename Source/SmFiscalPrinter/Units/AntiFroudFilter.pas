@@ -187,7 +187,7 @@ end;
 
 procedure TAntiFroudFilter.CancelReceipt2;
 begin
-  FService.CancelReceipt2;
+  FService.CancelReceipt;
   FService.SetPrinterState(FPTR_PS_MONITOR);
   PrintInfoReceipt;
 
@@ -263,7 +263,7 @@ begin
   begin
     Logger.Debug('Special item prohibited in refund receipt');
 
-    FService.CancelReceipt2;
+    FService.CancelReceipt;
     FService.SetPrinterState(FPTR_PS_MONITOR);
 
     Text := Params.UniposRefundErrorText;

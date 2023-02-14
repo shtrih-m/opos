@@ -428,11 +428,6 @@ begin
   Result := 0;
 end;
 
-procedure TTextFiscalPrinterDevice.CutPaper(CutType: Byte);
-begin
-
-end;
-
 function TTextFiscalPrinterDevice.DecodeEJFlags(Flags: Byte): TEJFlags;
 begin
 
@@ -538,7 +533,7 @@ end;
 
 procedure TTextFiscalPrinterDevice.FullCut;
 begin
-
+  RecStation.Add('FullCut');
 end;
 
 function TTextFiscalPrinterDevice.GetDayDiscountTotal: Int64;
@@ -741,9 +736,14 @@ begin
 
 end;
 
+procedure TTextFiscalPrinterDevice.CutPaper(CutType: Byte);
+begin
+  RecStation.Add(Format('CutPaper(%d)', [CutType]));
+end;
+
 procedure TTextFiscalPrinterDevice.PartialCut;
 begin
-
+  RecStation.Add('PartialCut');
 end;
 
 procedure TTextFiscalPrinterDevice.PrintActnTotalizers;
@@ -787,6 +787,7 @@ end;
 function TTextFiscalPrinterDevice.PrintGraphics(Line1,
   Line2: Word): Integer;
 begin
+  FRecStation.Add(Format('PrintGraphics(%d,%d', [Line1, Line2]));
   Result := 0;
 end;
 
