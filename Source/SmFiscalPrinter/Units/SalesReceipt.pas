@@ -237,7 +237,8 @@ end;
 procedure TSalesReceipt.SendItemBarcode;
 var
   i: Integer;
-  rc: TFSBindItemCodeResult;
+  P: TFSBindItemCode;
+  R: TFSBindItemCodeResult;
 begin
   if Parameters.ModelID <> MODEL_ID_WEB_CASSA then Exit;
 
@@ -248,7 +249,9 @@ begin
   end;
   for i := 0 to FItemBarcodes.Count-1 do
   begin
-    Device.FSBindItemCode(FItemBarcodes[i], rc);
+    P.Code := FItemBarcodes[i];
+    P.IsAccounted := False;
+    Device.FSBindItemCode(P, R);
   end;
   FItemBarcodes.Clear;
 end;

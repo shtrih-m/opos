@@ -142,14 +142,15 @@ type
     procedure CheckInitPrinter;
     procedure PowerStateChanged(Sender: TObject);
     procedure UpdatePrinterStatus(PropIndex: Integer);
-
-    property Filter: TEscFilter read GetFilter;
-    property Filters: TFptrFilters read GetFilters;
-    property Receipt: TCustomReceipt read GetReceipt;
     function GetAppAmountDecimalPlaces: Integer;
     function GetCapRecNearEnd(Value: Boolean): Boolean;
     function ReadFSParameter(ParamID: Integer; const pString: WideString): WideString;
     procedure SetReceiptField(FieldNumber: Integer; const FieldValue: WideString);
+
+    property Filter: TEscFilter read GetFilter;
+    property Filters: TFptrFilters read GetFilters;
+    property Receipt: TCustomReceipt read GetReceipt;
+    property CommandDefs: TCommandDefs read FCommandDefs;
   private
     // boolean
     FDayOpened: Boolean;
@@ -613,8 +614,7 @@ end;
 procedure TFiscalPrinterImpl.CreateDIOHandlers;
 begin
   FDIOHandlers.Clear;
-  TDIOCommandDef.CreateCommand(FDIOHandlers, DIO_COMMAND_PRINTER_XML,
-    FCommandDefs, Self);
+  TDIOCommandDef.CreateCommand(FDIOHandlers, DIO_COMMAND_PRINTER_XML, Self);
   TDIOHexCommand.CreateCommand(FDIOHandlers, DIO_COMMAND_PRINTER_HEX, Self);
   TDIOCheckEndDay.CreateCommand(FDIOHandlers, DIO_CHECK_END_DAY, Self);
   TDIOLoadLogo.CreateCommand(FDIOHandlers, DIO_LOAD_LOGO, Self);
@@ -623,7 +623,7 @@ begin
   TDIOLogoDlg.CreateCommand(FDIOHandlers, DIO_LOGO_DLG, Self);
   TDIOBarcode.CreateCommand(FDIOHandlers, DIO_PRINT_BARCODE, Self);
   TDIOBarcodeHex.CreateCommand(FDIOHandlers, DIO_PRINT_BARCODE_HEX, Self);
-  TDIOStrCommand.CreateCommand(FDIOHandlers, DIO_COMMAND_PRINTER_STR, FCommandDefs, Self);
+  TDIOStrCommand.CreateCommand(FDIOHandlers, DIO_COMMAND_PRINTER_STR, Self);
   TDIOPrintText.CreateCommand(FDIOHandlers, DIO_PRINT_TEXT, Self);
   TDIOWriteTaxName.CreateCommand(FDIOHandlers, DIO_WRITE_TAX_NAME, Self);
   TDIOReadTaxName.CreateCommand(FDIOHandlers, DIO_READ_TAX_NAME, Self);
@@ -648,7 +648,7 @@ begin
   TDIOSetDriverParameter.CreateCommand(FDIOHandlers, DIO_SET_DRIVER_PARAMETER, Self);
   TDIOPrintSeparator.CreateCommand(FDIOHandlers, DIO_PRINT_SEPARATOR, Self);
   TDIOPrintText.CreateCommand(FDIOHandlers, DIO_PRINT_TEXT2, Self);
-  TDIOStrCommand2.CreateCommand(FDIOHandlers, DIO_COMMAND_PRINTER_STR2, FCommandDefs, Self);
+  TDIOStrCommand2.CreateCommand(FDIOHandlers, DIO_COMMAND_PRINTER_STR2, Self);
   TDIOReadEJActivation.CreateCommand(FDIOHandlers, DIO_READ_EJ_ACTIVATION, Self);
   TDIOReadFMTotals.CreateCommand(FDIOHandlers, DIO_READ_FM_TOTALS, Self);
   TDIOReadGrandTotals.CreateCommand(FDIOHandlers, DIO_READ_GRAND_TOTALS, Self);
@@ -679,6 +679,7 @@ begin
   TDIOStartOpenDay.CreateCommand(FDIOHandlers, DIO_START_OPEN_DAY, Self);
   TDIOOpenDay.CreateCommand(FDIOHandlers, DIO_OPEN_DAY, Self);
   TDIOCheckItemCode.CreateCommand(FDIOHandlers, DIO_CHECK_ITEM_CODE, Self);
+  TDIOCheckItemCode2.CreateCommand(FDIOHandlers, DIO_CHECK_ITEM_CODE2, Self);
   TDIOStartCorrection.CreateCommand(FDIOHandlers, DIO_START_CORRECTION, Self);
   TDIOWriteTlvHex.CreateCommand(FDIOHandlers, DIO_WRITE_FS_TLV_HEX, Self);
   TDIOWriteTlvOperation.CreateCommand(FDIOHandlers, DIO_WRITE_FS_TLV_OP_HEX, Self);
@@ -691,6 +692,13 @@ begin
   TDIOSTLVGetHex.CreateCommand(FDIOHandlers, DIO_STLV_GET_HEX, Self);
   TDIOSetReceiptField.CreateCommand(FDIOHandlers, DIO_SET_RECEIPT_FIELD, Self);
   TDIOAddItemCode.CreateCommand(FDIOHandlers, DIO_ADD_ITEM_CODE, Self);
+  TDIOFSSyncRegisters.CreateCommand(FDIOHandlers, DIO_FS_SYNC_REGISTERS, Self);
+  TDIOFSReadMemStatus.CreateCommand(FDIOHandlers, DIO_FS_READ_MEM_STATUS, Self);
+  TDIOFSWriteTLVBuffer.CreateCommand(FDIOHandlers, DIO_FS_WRITE_TLV_BUFFER, Self);
+  TDIOFSGenerateRandomData.CreateCommand(FDIOHandlers, DIO_FS_GENERATE_RANDOM_DATA, Self);
+  TDIOFSAuthorize.CreateCommand(FDIOHandlers, DIO_FS_AUTHORIZE, Self);
+  TDIOFSReadTicketStatus.CreateCommand(FDIOHandlers, DIO_FS_READ_TICKET_STATUS, Self);
+
 end;
 
 procedure TFiscalPrinterImpl.CreateDIOHandlers1;
@@ -702,20 +710,16 @@ begin
   TDIOPrintJournal.CreateCommand(FDIOHandlers, DIO2_PRINT_JOURNAL, Self);
   TDIOReadDayNumber.CreateCommand(FDIOHandlers, DIO2_READ_DAY_NUMBER, Self);
   TDIOWritePaymentName2.CreateCommand(FDIOHandlers, DIO2_SET_TENDER_NAME, Self);
-
-  TDIOCommandDef.CreateCommand(FDIOHandlers, DIO_COMMAND_PRINTER_XML + Offset,
-    FCommandDefs, Self);
+  TDIOCommandDef.CreateCommand(FDIOHandlers, DIO_COMMAND_PRINTER_XML + Offset, Self);
   TDIOHexCommand.CreateCommand(FDIOHandlers, DIO_COMMAND_PRINTER_HEX + Offset, Self);
   TDIOCheckEndDay.CreateCommand(FDIOHandlers, DIO_CHECK_END_DAY + Offset, Self);
-
   TDIOLoadLogo.CreateCommand(FDIOHandlers, DIO_LOAD_LOGO, Self);
   TDIOPrintLogo.CreateCommand(FDIOHandlers, DIO_PRINT_LOGO, Self);
   TDIOClearLogo.CreateCommand(FDIOHandlers, DIO_CLEAR_LOGO, Self);
   TDIOLogoDlg.CreateCommand(FDIOHandlers, DIO_LOGO_DLG, Self);
   TDIOBarcode.CreateCommand(FDIOHandlers, DIO_PRINT_BARCODE, Self);
   TDIOBarcodeHex.CreateCommand(FDIOHandlers, DIO_PRINT_BARCODE_HEX, Self);
-  TDIOStrCommand.CreateCommand(FDIOHandlers, DIO_COMMAND_PRINTER_STR,
-    FCommandDefs, Self);
+  TDIOStrCommand.CreateCommand(FDIOHandlers, DIO_COMMAND_PRINTER_STR, Self);
   TDIOPrintText.CreateCommand(FDIOHandlers, DIO_PRINT_TEXT, Self);
   TDIOWriteTaxName.CreateCommand(FDIOHandlers, DIO_WRITE_TAX_NAME, Self);
   TDIOReadTaxName.CreateCommand(FDIOHandlers, DIO_READ_TAX_NAME, Self);
@@ -740,7 +744,7 @@ begin
   TDIOSetDriverParameter.CreateCommand(FDIOHandlers, DIO_SET_DRIVER_PARAMETER, Self);
   TDIOPrintSeparator.CreateCommand(FDIOHandlers, DIO_PRINT_SEPARATOR, Self);
   TDIOPrintText.CreateCommand(FDIOHandlers, DIO_PRINT_TEXT2, Self);
-  TDIOStrCommand2.CreateCommand(FDIOHandlers, DIO_COMMAND_PRINTER_STR2, FCommandDefs, Self);
+  TDIOStrCommand2.CreateCommand(FDIOHandlers, DIO_COMMAND_PRINTER_STR2, Self);
   TDIOReadEJActivation.CreateCommand(FDIOHandlers, DIO_READ_EJ_ACTIVATION, Self);
   TDIOReadFMTotals.CreateCommand(FDIOHandlers, DIO_READ_FM_TOTALS, Self);
   TDIOReadGrandTotals.CreateCommand(FDIOHandlers, DIO_READ_GRAND_TOTALS, Self);
@@ -771,6 +775,7 @@ begin
   TDIOStartOpenDay.CreateCommand(FDIOHandlers, DIO_START_OPEN_DAY, Self);
   TDIOOpenDay.CreateCommand(FDIOHandlers, DIO_OPEN_DAY, Self);
   TDIOCheckItemCode.CreateCommand(FDIOHandlers, DIO_CHECK_ITEM_CODE, Self);
+  TDIOCheckItemCode2.CreateCommand(FDIOHandlers, DIO_CHECK_ITEM_CODE2, Self);
   TDIOStartCorrection.CreateCommand(FDIOHandlers, DIO_START_CORRECTION, Self);
   TDIOWriteTlvHex.CreateCommand(FDIOHandlers, DIO_WRITE_FS_TLV_HEX, Self);
   TDIOWriteTlvOperation.CreateCommand(FDIOHandlers, DIO_WRITE_FS_TLV_OP_HEX, Self);
@@ -782,6 +787,12 @@ begin
   TDIOSTLVGetHex.CreateCommand(FDIOHandlers, DIO_STLV_GET_HEX, Self);
   TDIOSetReceiptField.CreateCommand(FDIOHandlers, DIO_SET_RECEIPT_FIELD, Self);
   TDIOAddItemCode.CreateCommand(FDIOHandlers, DIO_ADD_ITEM_CODE, Self);
+  TDIOFSSyncRegisters.CreateCommand(FDIOHandlers, DIO_FS_SYNC_REGISTERS, Self);
+  TDIOFSReadMemStatus.CreateCommand(FDIOHandlers, DIO_FS_READ_MEM_STATUS, Self);
+  TDIOFSWriteTLVBuffer.CreateCommand(FDIOHandlers, DIO_FS_WRITE_TLV_BUFFER, Self);
+  TDIOFSGenerateRandomData.CreateCommand(FDIOHandlers, DIO_FS_GENERATE_RANDOM_DATA, Self);
+  TDIOFSAuthorize.CreateCommand(FDIOHandlers, DIO_FS_AUTHORIZE, Self);
+  TDIOFSReadTicketStatus.CreateCommand(FDIOHandlers, DIO_FS_READ_TICKET_STATUS, Self);
 end;
 
 procedure TFiscalPrinterImpl.CreateDIOHandlers2;
@@ -796,8 +807,7 @@ begin
   TDIOReadDayNumber.CreateCommand(FDIOHandlers, DIO2_READ_DAY_NUMBER, Self);
   TDIOWritePaymentName2.CreateCommand(FDIOHandlers, DIO2_SET_TENDER_NAME, Self);
 
-  TDIOCommandDef.CreateCommand(FDIOHandlers, DIO_COMMAND_PRINTER_XML + Offset,
-    FCommandDefs, Self);
+  TDIOCommandDef.CreateCommand(FDIOHandlers, DIO_COMMAND_PRINTER_XML + Offset, Self);
   TDIOHexCommand.CreateCommand(FDIOHandlers, DIO_COMMAND_PRINTER_HEX + Offset, Self);
   TDIOCheckEndDay.CreateCommand(FDIOHandlers, DIO_CHECK_END_DAY + Offset, Self);
 
@@ -806,8 +816,7 @@ begin
   TDIOClearLogo.CreateCommand(FDIOHandlers, DIO_CLEAR_LOGO, Self);
   TDIOLogoDlg.CreateCommand(FDIOHandlers, DIO_LOGO_DLG, Self);
   TDIOBarcodeHex.CreateCommand(FDIOHandlers, DIO_PRINT_BARCODE_HEX, Self);
-  TDIOStrCommand.CreateCommand(FDIOHandlers, DIO_COMMAND_PRINTER_STR,
-    FCommandDefs, Self);
+  TDIOStrCommand.CreateCommand(FDIOHandlers, DIO_COMMAND_PRINTER_STR, Self);
   TDIOPrintText.CreateCommand(FDIOHandlers, DIO_PRINT_TEXT, Self);
   TDIOWriteTaxName.CreateCommand(FDIOHandlers, DIO_WRITE_TAX_NAME, Self);
   TDIOReadTaxName.CreateCommand(FDIOHandlers, DIO_READ_TAX_NAME, Self);
@@ -832,7 +841,7 @@ begin
   TDIOSetDriverParameter.CreateCommand(FDIOHandlers, DIO_SET_DRIVER_PARAMETER, Self);
   TDIOPrintSeparator.CreateCommand(FDIOHandlers, DIO_PRINT_SEPARATOR, Self);
   TDIOPrintText.CreateCommand(FDIOHandlers, DIO_PRINT_TEXT2, Self);
-  TDIOStrCommand2.CreateCommand(FDIOHandlers, DIO_COMMAND_PRINTER_STR2, FCommandDefs, Self);
+  TDIOStrCommand2.CreateCommand(FDIOHandlers, DIO_COMMAND_PRINTER_STR2, Self);
   TDIOReadEJActivation.CreateCommand(FDIOHandlers, DIO_READ_EJ_ACTIVATION, Self);
   TDIOReadFMTotals.CreateCommand(FDIOHandlers, DIO_READ_FM_TOTALS, Self);
   TDIOReadGrandTotals.CreateCommand(FDIOHandlers, DIO_READ_GRAND_TOTALS, Self);
@@ -863,6 +872,7 @@ begin
   TDIOStartOpenDay.CreateCommand(FDIOHandlers, DIO_START_OPEN_DAY, Self);
   TDIOOpenDay.CreateCommand(FDIOHandlers, DIO_OPEN_DAY, Self);
   TDIOCheckItemCode.CreateCommand(FDIOHandlers, DIO_CHECK_ITEM_CODE, Self);
+  TDIOCheckItemCode2.CreateCommand(FDIOHandlers, DIO_CHECK_ITEM_CODE2, Self);
   TDIOStartCorrection.CreateCommand(FDIOHandlers, DIO_START_CORRECTION, Self);
   TDIOWriteTlvHex.CreateCommand(FDIOHandlers, DIO_WRITE_FS_TLV_HEX, Self);
   TDIOWriteTlvOperation.CreateCommand(FDIOHandlers, DIO_WRITE_FS_TLV_OP_HEX, Self);
@@ -875,6 +885,12 @@ begin
   TDIOSTLVGetHex.CreateCommand(FDIOHandlers, DIO_STLV_GET_HEX, Self);
   TDIOSetReceiptField.CreateCommand(FDIOHandlers, DIO_SET_RECEIPT_FIELD, Self);
   TDIOAddItemCode.CreateCommand(FDIOHandlers, DIO_ADD_ITEM_CODE, Self);
+  TDIOFSSyncRegisters.CreateCommand(FDIOHandlers, DIO_FS_SYNC_REGISTERS, Self);
+  TDIOFSReadMemStatus.CreateCommand(FDIOHandlers, DIO_FS_READ_MEM_STATUS, Self);
+  TDIOFSWriteTLVBuffer.CreateCommand(FDIOHandlers, DIO_FS_WRITE_TLV_BUFFER, Self);
+  TDIOFSGenerateRandomData.CreateCommand(FDIOHandlers, DIO_FS_GENERATE_RANDOM_DATA, Self);
+  TDIOFSAuthorize.CreateCommand(FDIOHandlers, DIO_FS_AUTHORIZE, Self);
+  TDIOFSReadTicketStatus.CreateCommand(FDIOHandlers, DIO_FS_READ_TICKET_STATUS, Self);
 end;
 
 procedure TFiscalPrinterImpl.SetPrinter(APrinter: ISharedPrinter);

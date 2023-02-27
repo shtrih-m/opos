@@ -47,8 +47,8 @@ type
   TCommandDef = class
   private
     FCode: Integer;
-    FText: WideString;
     FName: WideString;
+    FTimeout: Integer;
     FOwner: TCommandDefs;
     FInParams: TCommandParams;
     FOutParams: TCommandParams;
@@ -67,9 +67,9 @@ type
     property InParams: TCommandParams read FInParams;
     property OutParams: TCommandParams read FOutParams;
 
-    property Text: WideString read FText write FText;
-    property Name: WideString read FName write FName;
     property Code: Integer read FCode write FCode;
+    property Name: WideString read FName write FName;
+    property Timeout: Integer read FTimeout write FTimeout;
   end;
 
 implementation
@@ -301,8 +301,8 @@ end;
 procedure TCommandDef.LoadFromXml(Root: TXmlItem);
 begin
   FCode := Root.GetInt('Code');
-  FText := Root.GetText('Text');
   FName := Root.GetText('Name');
+  FTimeout := Root.GetInt('Timeout');
 
   LoadParams(InParams, Root.FindItem('InParams'));
   LoadParams(OutParams, Root.FindItem('OutParams'));
@@ -311,8 +311,8 @@ end;
 procedure TCommandDef.SaveToXml(Root: TXmlItem);
 begin
   Root.AddInt('Code', Code);
-  Root.AddText('Text', Text);
   Root.AddText('Name', Name);
+  Root.AddInt('Timeout', Timeout);
 
   SaveParams(InParams, Root.Add('InParams'));
   SaveParams(OutParams, Root.Add('OutParams'));

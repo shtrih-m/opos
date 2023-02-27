@@ -20,8 +20,10 @@ type
     function ReadWord: Word;
     function ReadDWord: DWORD;
     function ReadChar: Char;
-    function ReadDate: TPrinterDate;
-    function ReadTime: TPrinterTime;
+    function ReadDateDMY: TPrinterDate;
+    function ReadDateYMD: TPrinterDate;
+    function ReadTimeHMS: TPrinterTime;
+    function ReadTimeHM: TPrinterTime;
     procedure WriteByte(Value: Byte);
     procedure WriteWORD(Value: WORD);
     procedure WriteDWORD(Value: DWORD);
@@ -30,8 +32,10 @@ type
     function ReadInt(Size: Integer): Int64; overload;
     procedure WriteInt(Value: Int64; Size: Integer); overload;
     procedure WriteString(const Data: AnsiString); overload;
-    procedure WriteDate(const Data: TPrinterDate);
-    procedure WriteTime(const Data: TPrinterTime);
+    procedure WriteDateDMY(const Data: TPrinterDate);
+    procedure WriteDateYMD(const Data: TPrinterDate);
+    procedure WriteTimeHM(const Data: TPrinterTime);
+    procedure WriteTimeHMS(const Data: TPrinterTime);
 
     property Data: AnsiString read GetData write SetData;
   end;
@@ -87,14 +91,18 @@ begin
   Read(Result, 1);
 end;
 
-function TBinStream.ReadDate: TPrinterDate;
+function TBinStream.ReadDateDMY: TPrinterDate;
 begin
-  Read(Result, Sizeof(Result));
+  Result.Day := ReadByte;
+  Result.Month := ReadByte;
+  Result.Year := ReadByte;
 end;
 
-function TBinStream.ReadTime: TPrinterTime;
+function TBinStream.ReadDateYMD: TPrinterDate;
 begin
-  Read(Result, Sizeof(Result));
+  Result.Year := ReadByte;
+  Result.Month := ReadByte;
+  Result.Day := ReadByte;
 end;
 
 procedure TBinStream.WriteByte(Value: Byte);
@@ -146,35 +154,45 @@ begin
   end;
 end;
 
-(*
-
-procedure TBinStream.WriteString(const Data: AnsiString; Size: Integer);
-var
-  S: AnsiString;
-  i: Integer;
+procedure TBinStream.WriteDateDMY(const Data: TPrinterDate);
 begin
-  if Size > 0 then
-  begin
-    S := Copy(Data, 1, Size);
-    for i := Length(S) to Size-1 do
-    begin
-      S := S + #0;
-    end;
-    Write(S[1], Size);
-  end;
+  WriteByte(Data.Day);
+  WriteByte(Data.Month);
+  WriteByte(Data.Year);
 end;
 
-
-*)
-
-procedure TBinStream.WriteDate(const Data: TPrinterDate);
+procedure TBinStream.WriteDateYMD(const Data: TPrinterDate);
 begin
-  Write(Data, Sizeof(Data));
+  WriteByte(Data.Year);
+  WriteByte(Data.Month);
+  WriteByte(Data.Day);
 end;
 
-procedure TBinStream.WriteTime(const Data: TPrinterTime);
+function TBinStream.ReadTimeHMS: TPrinterTime;
 begin
-  Write(Data, Sizeof(Data));
+  Result.Hour := ReadByte;
+  Result.Min := ReadByte;
+  Result.Sec := ReadByte;
+end;
+
+procedure TBinStream.WriteTimeHMS(const Data: TPrinterTime);
+begin
+  WriteByte(Data.Hour);
+  WriteByte(Data.Min);
+  WriteByte(Data.Sec);
+end;
+
+function TBinStream.ReadTimeHM: TPrinterTime;
+begin
+  Result.Hour := ReadByte;
+  Result.Min := ReadByte;
+  Result.Sec := 0;
+end;
+
+procedure TBinStream.WriteTimeHM(const Data: TPrinterTime);
+begin
+  WriteByte(Data.Hour);
+  WriteByte(Data.Min);
 end;
 
 end.

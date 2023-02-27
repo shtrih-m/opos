@@ -1285,21 +1285,37 @@ type
   { TFSCheckItemCode }
 
   TFSCheckItemCode = record
-    ItemStatus: Byte; // Новый статус товара: 1 байт
-    CodeLength: Byte; // Длина кода маркировки: 1 байт
-    CheckMode: Byte;  // Режим проверки: 1 байт
+    ItemStatus: Byte; // Планируемый статус	Тег 2003
+    ProcessMode: Byte; // Режим обработки	Тег 2102 (сейчас всегда "0")
+    CMData: AnsiString; // Сам КМ, как он был прочитан сканером
+    TLVData: AnsiString; // Список TLV
   end;
 
   { TFSCheckItemResult }
 
   TFSCheckItemResult = record
-    LocalCheckResult: Byte; // Результат локальной проверки кода маркировки: 1 байт
-    ProcessingCode: Byte; // Код обработки пакета: 1 байт.
-    SellPermission: Byte; // Разрешение на продажу товара от ИСМ: 1 байт.
-    KMStatus: Byte; // Статус КМ: 1 байт (см. выше)
-    ServerResult: Byte; // Код ошибки от сервера КМ: 1 байт
-    ServerStatus: Byte; // Статус проверок сервера : 1 байт
-    SymbolicType: Byte; // Тип символики: 1 байт
+    LocalCheckResult: Byte; // Статус локальной проверки	Тег 2004
+    LocalCheckError: Byte; // Причина, по которой не была проведена локальная проверка
+    SymbolicType: Byte; // Распознанный тип КМ	Тег 2100
+    DataLength: Byte; // Длина дополнительных параметров
+    FSResultCode: Byte; // Код ответа ФН на команду онлайн-проверки
+    ServerCheckStatus: Byte; // Результат проверки КМ	Тег 2106
+    ServerTLVData: AnsiString; // Список реквизитов ответа сервера
+  end;
+
+  { TFSReadMemoryResult }
+
+  TFSReadMemoryResult = record
+    FreeDocCount: DWORD; // Ресурс данных 5 летнего хранения 1 (4 байта)
+    FreeMemorySizeInKB: DWORD; // Ресурс данных 30 дневного хранения 2 (4 байта)
+    UsedMCTicketStorageInPercents: Byte; // Ресурс для хранения уведомлений о реализации маркированного товара3 (1 байт)
+  end;
+
+  { TFSBindItemCode }
+
+  TFSBindItemCode = record
+    Code: AnsiString; // Данные маркировки
+    IsAccounted: Boolean; // Объемно-сортовой учет (ОСУ)
   end;
 
   { TFSBindItemCodeResult }
@@ -1307,7 +1323,62 @@ type
   TFSBindItemCodeResult = record
     ItemCode: Word;
     CodeType: Byte;
+    CheckResult: TFSCheckItemResult;
   end;
+
+  { TFSTicketStatus }
+
+  TFSTicketStatus = record
+    TicketStatus: Byte; // Состояние по передачи уведомлений
+    TicketCount: Integer; // Количество уведомлений в очереди
+    TicketNumber: Integer; // Номер текущего уведомления
+    TicketDate: TPrinterDateTime; // Дата и время текущего уведомления
+    TicketStorageUsageInPercents: Byte; // Процент заполнения области хранения уведомлений
+  end;
+
+  { TFSMarkStatus }
+
+  TFSMarkStatus = record
+    MarkCheckStatus: Byte; // Состояние по проверке КМ
+    TicketStatus: Byte; // Состояние по формированию уведомления о реализации маркированного товара
+    CommandFlags: Byte; // Флаги разрешения команд работы с КМ
+    MCSavedCount: Byte; // Количество сохранённых результатов проверки КМ
+    MCTicketCount: Byte; // Количество КМ, включенных в уведомление о реализации маркированного товара
+    TicketStorageStatus: Byte; // Предупреждение о заполнении области хранения уведомлений
+    TicketCount: Integer; // Количество уведомлений в очереди
+  end;
+
+  { TFSTicketParams }
+
+  TFSTicketParams = record
+    TicketCount: Integer; // Общее число уведомлений (2 байта)
+    FirstTicketNumber: Integer; // Номер первого уведомления (4 байта)
+    FirstTicketSize: Integer; // Размер первого уведомления (2 байта)
+  end;
+
+  { TFSTicketData }
+
+  TFSTicketData = record
+    Number: Integer; // Номер текущего уведомления (4 байта)
+    Size: Integer; // Полный размер текущего уведомления (2 байта)
+    Offset: Integer; // Смещение от начала текущего уведомления (2 байта)
+    Data: AnsiString; // Блок данных (N байт)
+  end;
+
+  { TFSTicketNumber }
+
+  TFSTicketNumber = record
+    Number: Integer; // Номер уведомления (4 байта) получается из ответа на команду FF72h
+    Crc16: Integer; // CRC16 (4 байта) контрольная сумма уведомления
+  end;
+
+  { TFSDocSize }
+
+  TFSDocSize = record
+    DocSize: Integer; // Размер в байтах текущего документа для ОФД ( 4 байта)
+    TicketSize: Integer; // Размер в байтах текущего уведомления о реализации маркированных товаров для ОИСМ ( 4 байта)
+  end;
+
 
   { TCommandFF03 }
 

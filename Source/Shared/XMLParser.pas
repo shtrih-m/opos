@@ -20,7 +20,6 @@ type
 
     procedure UpdateItems;
     procedure CreateProcessingInstruction;
-    procedure ConvertFile(const FileName: WideString);
   public
     constructor Create;
     destructor Destroy; override;
@@ -33,6 +32,7 @@ type
     procedure SaveToFile(const FileName: WideString);
     procedure LoadFromFile(const FileName: WideString);
     procedure LoadFromString(const Data: WideString);
+    procedure ConvertFile(const FileName: WideString);
 
     property Xml: WideString read GetXml;
     property Root: TXmlItem read FRoot;
@@ -234,9 +234,11 @@ end;
 procedure TXmlParser.SaveToFile(const FileName: WideString);
 begin
   xmlDoc.save(FileName);
+(*
   ConvertFile(FileName);
   xmlDoc.load(FileName);
   xmlDoc.save(FileName);
+*)
 end;
 
 procedure TXmlParser.LoadFromFile(const FileName: WideString);
@@ -453,8 +455,12 @@ begin
 end;
 
 function TXmlItem.GetInt(const Name: WideString): Integer;
+var
+  Text: WideString;
 begin
-  Result := StrToInt(GetText(Name));
+  Text := GetText(Name);
+  Text := StringReplace(Text, '0x', '$', []);
+  Result := StrToInt(Text);
 end;
 
 function TXmlItem.GetIntDef(const Name: WideString; DefValue: Integer): Integer;

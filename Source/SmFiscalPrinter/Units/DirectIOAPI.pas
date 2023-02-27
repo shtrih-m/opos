@@ -103,6 +103,13 @@ const
   DIO_STLV_WRITE_OP             = 70; // Write tag value to operation
 
   DIO_ADD_ITEM_CODE             = 71; // add item code
+  DIO_CHECK_ITEM_CODE2          = 72; // check marking code
+  DIO_FS_SYNC_REGISTERS         = 73; // Sync registers to FS totalizers
+  DIO_FS_READ_MEM_STATUS        = 74; // Read FS memory status
+  DIO_FS_WRITE_TLV_BUFFER       = 75; // Write TLV data from buffer
+  DIO_FS_GENERATE_RANDOM_DATA   = 76; // Generate random data
+  DIO_FS_AUTHORIZE              = 77; // Authorize
+  DIO_FS_READ_TICKET_STATUS     = 78; // Read ticket status
 
 
   // Read document from fiscal storage device

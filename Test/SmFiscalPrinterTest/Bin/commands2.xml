@@ -6935,48 +6935,5 @@
 			</InParams>
 			<OutParams/>
 		</Command>
-		<Command>
-			<Code>0xFF74</Code>
-			<Name>FS Read device version</Name>
-			<Timeout>10000</Timeout>
-			<InParams>
-				<Param>
-					<Name>Operator password</Name>
-					<Size>4</Size>
-					<Type>0</Type>
-				</Param>
-			</InParams>
-			<OutParams>
-				<Param>
-					<Name>Device version</Name>
-					<Size>48</Size>
-					<Type>1</Type>
-				</Param>
-			</OutParams>
-		</Command>
-		<Command>
-			<Code>0xFF75</Code>
-			<Name>FS Read document size</Name>
-			<Timeout>10000</Timeout>
-			<InParams>
-				<Param>
-					<Name>Operator password</Name>
-					<Size>4</Size>
-					<Type>0</Type>
-				</Param>
-			</InParams>
-			<OutParams>
-				<Param>
-					<Name>Document size</Name>
-					<Size>4</Size>
-					<Type>0</Type>
-				</Param>
-				<Param>
-					<Name>Ticket size</Name>
-					<Size>4</Size>
-					<Type>0</Type>
-				</Param>
-			</OutParams>
-		</Command>
 	</Commands>
 </root>

@@ -18,1037 +18,614 @@ const
   ValueDelimiters = [';'];
 
 type
-  { TDIOCommandDef }
+  { TDIOHandler2 }
 
-  TDIOCommandDef = class(TDIOHandler)
+  TDIOHandler2 = class(TDIOHandler)
   private
-    FCommands: TCommandDefs;
     FPrinter: TFiscalPrinterImpl;
     function GetDevice: IFiscalPrinterDevice;
+    function GetParameters: TPrinterParameters;
 
     property Printer: TFiscalPrinterImpl read FPrinter;
     property Device: IFiscalPrinterDevice read GetDevice;
+    property Parameters: TPrinterParameters read GetParameters;
   public
     constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      ACommands: TCommandDefs; APrinter: TFiscalPrinterImpl);
+      APrinter: TFiscalPrinterImpl);
+  end;
 
+  { TDIOCommandDef }
+
+  TDIOCommandDef = class(TDIOHandler2)
+  public
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOHexCommand }
 
-  TDIOHexCommand = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
-    function GetDevice: IFiscalPrinterDevice;
-
-    property Printer: TFiscalPrinterImpl read FPrinter;
-    property Device: IFiscalPrinterDevice read GetDevice;
+  TDIOHexCommand = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOCheckEndDay }
 
-  TDIOCheckEndDay = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
-    property Printer: TFiscalPrinterImpl read FPrinter;
+  TDIOCheckEndDay = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOLoadLogo }
 
-  TDIOLoadLogo = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
-    property Printer: TFiscalPrinterImpl read FPrinter;
+  TDIOLoadLogo = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOPrintLogo }
 
-  TDIOPrintLogo = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
-    property Printer: TFiscalPrinterImpl read FPrinter;
+  TDIOPrintLogo = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOClearLogo }
 
-  TDIOClearLogo = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
-    property Printer: TFiscalPrinterImpl read FPrinter;
+  TDIOClearLogo = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOLogoDlg }
 
-  TDIOLogoDlg = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
-    property Printer: TFiscalPrinterImpl read FPrinter;
+  TDIOLogoDlg = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOBarcode }
 
-  TDIOBarcode = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
-    property Printer: TFiscalPrinterImpl read FPrinter;
+  TDIOBarcode = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOBarcodeHex }
 
-  TDIOBarcodeHex = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
-    property Printer: TFiscalPrinterImpl read FPrinter;
+  TDIOBarcodeHex = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOBarcodeHex2 }
 
-  TDIOBarcodeHex2 = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
-    property Printer: TFiscalPrinterImpl read FPrinter;
+  TDIOBarcodeHex2 = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOStrCommand }
 
-  TDIOStrCommand = class(TDIOHandler)
-  private
-    FCommands: TCommandDefs;
-    FPrinter: TFiscalPrinterImpl;
-    function GetDevice: IFiscalPrinterDevice;
-
-    property Printer: TFiscalPrinterImpl read FPrinter;
-    property Device: IFiscalPrinterDevice read GetDevice;
+  TDIOStrCommand = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      ACommands: TCommandDefs; APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOStrCommand2 }
 
-  TDIOStrCommand2 = class(TDIOHandler)
-  private
-    FCommands: TCommandDefs;
-    FPrinter: TFiscalPrinterImpl;
-    function GetDevice: IFiscalPrinterDevice;
-
-    property Printer: TFiscalPrinterImpl read FPrinter;
-    property Device: IFiscalPrinterDevice read GetDevice;
+  TDIOStrCommand2 = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      ACommands: TCommandDefs; APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOPrintText }
 
-  TDIOPrintText = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
-    property Printer: TFiscalPrinterImpl read FPrinter;
+  TDIOPrintText = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOWriteTaxName }
 
-  TDIOWriteTaxName = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
-    function GetDevice: IFiscalPrinterDevice;
-
-    property Printer: TFiscalPrinterImpl read FPrinter;
-    property Device: IFiscalPrinterDevice read GetDevice;
+  TDIOWriteTaxName = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOReadTaxName }
 
-  TDIOReadTaxName = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
-    function GetDevice: IFiscalPrinterDevice;
-
-    property Printer: TFiscalPrinterImpl read FPrinter;
-    property Device: IFiscalPrinterDevice read GetDevice;
+  TDIOReadTaxName = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOWritePaymentName }
 
-  TDIOWritePaymentName = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
-    property Printer: TFiscalPrinterImpl read FPrinter;
+  TDIOWritePaymentName = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOWritePaymentName2 }
 
-  TDIOWritePaymentName2 = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
-    property Printer: TFiscalPrinterImpl read FPrinter;
+  TDIOWritePaymentName2 = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOReadPaymentName }
 
-  TDIOReadPaymentName = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
-    function GetDevice: IFiscalPrinterDevice;
-
-    property Printer: TFiscalPrinterImpl read FPrinter;
-    property Device: IFiscalPrinterDevice read GetDevice;
+  TDIOReadPaymentName = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOWriteTable }
 
-  TDIOWriteTable = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
-    property Printer: TFiscalPrinterImpl read FPrinter;
+  TDIOWriteTable = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOReadTable }
 
-  TDIOReadTable = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
-    property Printer: TFiscalPrinterImpl read FPrinter;
+  TDIOReadTable = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOGetDepartment }
 
-  TDIOGetDepartment = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
+  TDIOGetDepartment = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
-    property Printer: TFiscalPrinterImpl read FPrinter;
   end;
 
   { TDIOSetDepartment }
 
-  TDIOSetDepartment = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
+  TDIOSetDepartment = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
-    property Printer: TFiscalPrinterImpl read FPrinter;
   end;
 
   { TDIOReadCashRegister }
 
-  TDIOReadCashRegister = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
-    property Printer: TFiscalPrinterImpl read FPrinter;
+  TDIOReadCashRegister = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOReadOperatingRegister }
 
-  TDIOReadOperatingRegister = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
-    property Printer: TFiscalPrinterImpl read FPrinter;
+  TDIOReadOperatingRegister = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOPrintRecRefund }
 
-  TDIOPrintRecRefund = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
-    property Printer: TFiscalPrinterImpl read FPrinter;
+  TDIOPrintRecRefund = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOPrintJournal }
 
-  TDIOPrintJournal = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
-    property Printer: TFiscalPrinterImpl read FPrinter;
+  TDIOPrintJournal = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOReadDayNumber }
 
-  TDIOReadDayNumber = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
-    property Printer: TFiscalPrinterImpl read FPrinter;
+  TDIOReadDayNumber = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOWaitForPrint }
 
-  TDIOWaitForPrint = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
-    property Printer: TFiscalPrinterImpl read FPrinter;
+  TDIOWaitForPrint = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOPrintHeader }
 
-  TDIOPrintHeader = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
-    property Printer: TFiscalPrinterImpl read FPrinter;
+  TDIOPrintHeader = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOPrintTrailer }
 
-  TDIOPrintTrailer = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
-    property Printer: TFiscalPrinterImpl read FPrinter;
+  TDIOPrintTrailer = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOZReport }
 
-  TDIOZReport = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
-    property Printer: TFiscalPrinterImpl read FPrinter;
+  TDIOZReport = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOZReportXML }
 
-  TDIOZReportXML = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
-    property Printer: TFiscalPrinterImpl read FPrinter;
+  TDIOZReportXML = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOZReportCSV }
 
-  TDIOZReportCSV = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
-    property Printer: TFiscalPrinterImpl read FPrinter;
+  TDIOZReportCSV = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOGetLastError }
 
-  TDIOGetLastError = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
-    property Printer: TFiscalPrinterImpl read FPrinter;
+  TDIOGetLastError = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOGetPrinterStation }
 
-  TDIOGetPrinterStation = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
+  TDIOGetPrinterStation = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOSetPrinterStation }
 
-  TDIOSetPrinterStation = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
+  TDIOSetPrinterStation = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOGetDriverParameter }
 
-  TDIOGetDriverParameter = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
-    property Printer: TFiscalPrinterImpl read FPrinter;
+  TDIOGetDriverParameter = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOSetDriverParameter }
 
-  TDIOSetDriverParameter = class(TDIOHandler)
-  private
-    function GetParameters: TPrinterParameters;
-  private
-    FPrinter: TFiscalPrinterImpl;
-    property Parameters: TPrinterParameters read GetParameters;
+  TDIOSetDriverParameter = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOPrintSeparator }
 
-  TDIOPrintSeparator = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
+  TDIOPrintSeparator = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
-    property Printer: TFiscalPrinterImpl read FPrinter;
   end;
 
   { TDIOReadEJActivation }
 
-  TDIOReadEJActivation = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
+  TDIOReadEJActivation = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
-    property Printer: TFiscalPrinterImpl read FPrinter;
   end;
 
   { TDIOReadFMTotals }
 
-  TDIOReadFMTotals = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
+  TDIOReadFMTotals = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
-    property Printer: TFiscalPrinterImpl read FPrinter;
   end;
 
   { TDIOReadGrandTotals }
 
-  TDIOReadGrandTotals = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
+  TDIOReadGrandTotals = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
-    property Printer: TFiscalPrinterImpl read FPrinter;
   end;
 
   { TDIOPrintImage }
 
-  TDIOPrintImage = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
-    property Printer: TFiscalPrinterImpl read FPrinter;
+  TDIOPrintImage = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOPrintImageScale }
 
-  TDIOPrintImageScale = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
-    property Printer: TFiscalPrinterImpl read FPrinter;
+  TDIOPrintImageScale = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOReadFSParameter }
 
-  TDIOReadFSParameter = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
-    function GetDevice: IFiscalPrinterDevice;
+  TDIOReadFSParameter = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
-
-    property Printer: TFiscalPrinterImpl read FPrinter;
-    property Device: IFiscalPrinterDevice read GetDevice;
   end;
 
   { TDIOReadFPParameter }
 
-  TDIOReadFPParameter = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
-    function GetDevice: IFiscalPrinterDevice;
-    property Device: IFiscalPrinterDevice read GetDevice;
+  TDIOReadFPParameter = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
-    property Printer: TFiscalPrinterImpl read FPrinter;
   end;
 
   { TDIOWriteFPParameter }
 
-  TDIOWriteFPParameter = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
+  TDIOWriteFPParameter = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
-    property Printer: TFiscalPrinterImpl read FPrinter;
   end;
 
   { TDIOWriteCustomerAddress }
 
-  TDIOWriteCustomerAddress = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
-    function GetDevice: IFiscalPrinterDevice;
+  TDIOWriteCustomerAddress = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
-    property Printer: TFiscalPrinterImpl read FPrinter;
-    property Device: IFiscalPrinterDevice read GetDevice;
   end;
 
   { TDIOWriteTlvData }
 
-  TDIOWriteTlvData = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
-    function GetDevice: IFiscalPrinterDevice;
+  TDIOWriteTlvData = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
-
-    property Printer: TFiscalPrinterImpl read FPrinter;
-    property Device: IFiscalPrinterDevice read GetDevice;
   end;
 
   { TDIOWriteTlvHex }
 
-  TDIOWriteTlvHex = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
+  TDIOWriteTlvHex = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
-    property Printer: TFiscalPrinterImpl read FPrinter;
   end;
 
   { TDIOWriteTlvOperation }
 
-  TDIOWriteTlvOperation = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
+  TDIOWriteTlvOperation = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
-    property Printer: TFiscalPrinterImpl read FPrinter;
   end;
 
   { TDIOWriteStringTag }
 
-  TDIOWriteStringTag = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
-    function GetDevice: IFiscalPrinterDevice;
+  TDIOWriteStringTag = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
-
-    property Printer: TFiscalPrinterImpl read FPrinter;
-    property Device: IFiscalPrinterDevice read GetDevice;
   end;
 
   { TDIOSetAdjustmentAmount }
 
-  TDIOSetAdjustmentAmount = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
-    function GetDevice: IFiscalPrinterDevice;
+  TDIOSetAdjustmentAmount = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
-    property Printer: TFiscalPrinterImpl read FPrinter;
-    property Device: IFiscalPrinterDevice read GetDevice;
   end;
 
   { TDIODisableNextHeader }
 
-  TDIODisableNextHeader = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
-    function GetDevice: IFiscalPrinterDevice;
+  TDIODisableNextHeader = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
-    property Printer: TFiscalPrinterImpl read FPrinter;
-    property Device: IFiscalPrinterDevice read GetDevice;
   end;
 
   { TDIOWriteTableFile }
 
-  TDIOWriteTableFile = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
+  TDIOWriteTableFile = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOFSReadDocument }
 
-  TDIOFSReadDocument = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
+  TDIOFSReadDocument = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOFSPrintCalcReport }
 
-  TDIOFSPrintCalcReport = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
+  TDIOFSPrintCalcReport = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOOpenCashDrawer }
 
-  TDIOOpenCashDrawer = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
+  TDIOOpenCashDrawer = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOReadCashDrawerState }
 
-  TDIOReadCashDrawerState = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
+  TDIOReadCashDrawerState = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOFSFiscalize }
 
-  TDIOFSFiscalize = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
+  TDIOFSFiscalize = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOFSReFiscalize }
 
-  TDIOFSReFiscalize = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
+  TDIOFSReFiscalize = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOGetPrintWidth }
 
-  TDIOGetPrintWidth = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
+  TDIOGetPrintWidth = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOReadFSDocument }
 
-  TDIOReadFSDocument = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
+  TDIOReadFSDocument = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOPrintFSDocument }
 
-  TDIOPrintFSDocument = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
+  TDIOPrintFSDocument = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOPrintCorrection }
 
-  TDIOPrintCorrection = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
+  TDIOPrintCorrection = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOPrintCorrection2 }
 
-  TDIOPrintCorrection2 = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
+  TDIOPrintCorrection2 = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOStartOpenDay }
 
-  TDIOStartOpenDay = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
+  TDIOStartOpenDay = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOOpenDay }
 
-  TDIOOpenDay = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
+  TDIOOpenDay = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOCheckItemCode }
 
-  TDIOCheckItemCode = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
+  TDIOCheckItemCode = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
+    procedure DirectIO(var pData: Integer; var pString: WideString); override;
+  end;
 
+  { TDIOCheckItemCode2 }
+
+  TDIOCheckItemCode2 = class(TDIOHandler2)
+  public
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOStartCorrection }
 
-  TDIOStartCorrection = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
+  TDIOStartCorrection = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
   { TDIOWriteStringTagOp }
 
-  TDIOWriteStringTagOp = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
-    function GetDevice: IFiscalPrinterDevice;
+  TDIOWriteStringTagOp = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
-
-    property Printer: TFiscalPrinterImpl read FPrinter;
-    property Device: IFiscalPrinterDevice read GetDevice;
   end;
 
   { TDIOSTLVBegin }
 
-  TDIOSTLVBegin = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
+  TDIOSTLVBegin = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
-    property Printer: TFiscalPrinterImpl read FPrinter;
   end;
 
   { TDIOSTLVAddTag }
 
-  TDIOSTLVAddTag = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
+  TDIOSTLVAddTag = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
-    property Printer: TFiscalPrinterImpl read FPrinter;
   end;
 
   { TDIOSTLVWrite }
 
-  TDIOSTLVWrite = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
+  TDIOSTLVWrite = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
-    property Printer: TFiscalPrinterImpl read FPrinter;
   end;
 
   { TDIOSTLVWriteOp }
 
-  TDIOSTLVWriteOp = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
+  TDIOSTLVWriteOp = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
-    property Printer: TFiscalPrinterImpl read FPrinter;
   end;
 
   { TDIOSTLVGetHex }
 
-  TDIOSTLVGetHex = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
+  TDIOSTLVGetHex = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
-    property Printer: TFiscalPrinterImpl read FPrinter;
   end;
 
   { TDIOSetReceiptField }
 
-  TDIOSetReceiptField = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
+  TDIOSetReceiptField = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
-
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
-    property Printer: TFiscalPrinterImpl read FPrinter;
   end;
 
   { TDIOAddItemCode }
 
-  TDIOAddItemCode = class(TDIOHandler)
-  private
-    FPrinter: TFiscalPrinterImpl;
+  TDIOAddItemCode = class(TDIOHandler2)
   public
-    constructor CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-      APrinter: TFiscalPrinterImpl);
+    procedure DirectIO(var pData: Integer; var pString: WideString); override;
+  end;
 
+ { TDIOFSSyncRegisters }
+
+  TDIOFSSyncRegisters = class(TDIOHandler2)
+  public
+    procedure DirectIO(var pData: Integer; var pString: WideString); override;
+  end;
+
+ { TDIOFSReadMemStatus }
+
+  TDIOFSReadMemStatus = class(TDIOHandler2)
+  public
+    procedure DirectIO(var pData: Integer; var pString: WideString); override;
+  end;
+
+  { TDIOFSWriteTLVBuffer }
+
+  TDIOFSWriteTLVBuffer = class(TDIOHandler2)
+  public
+    procedure DirectIO(var pData: Integer; var pString: WideString); override;
+  end;
+
+  { TDIOFSGenerateRandomData }
+
+  TDIOFSGenerateRandomData = class(TDIOHandler2)
+  public
+    procedure DirectIO(var pData: Integer; var pString: WideString); override;
+  end;
+
+  { TDIOFSAuthorize }
+
+  TDIOFSAuthorize = class(TDIOHandler2)
+  public
+    procedure DirectIO(var pData: Integer; var pString: WideString); override;
+  end;
+
+  { TDIOFSReadTicketStatus }
+
+  TDIOFSReadTicketStatus = class(TDIOHandler2)
+  public
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
@@ -1065,15 +642,26 @@ begin
   Result := Value <> '0';
 end;
 
-{ TDIOCommandDef }
+{ TDIOHandler2 }
 
-constructor TDIOCommandDef.CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-  ACommands: TCommandDefs; APrinter: TFiscalPrinterImpl);
+constructor TDIOHandler2.CreateCommand(AOwner: TDIOHandlers;
+  ACommand: Integer; APrinter: TFiscalPrinterImpl);
 begin
   inherited Create(AOwner, ACommand);
-  FCommands := ACommands;
   FPrinter := APrinter;
 end;
+
+function TDIOHandler2.GetDevice: IFiscalPrinterDevice;
+begin
+  Result := Printer.Printer.Device;
+end;
+
+function TDIOHandler2.GetParameters: TPrinterParameters;
+begin
+  Result := Printer.Parameters;
+end;
+
+{ TDIOCommandDef }
 
 procedure TDIOCommandDef.DirectIO(var pData: Integer; var pString: WideString);
 var
@@ -1084,7 +672,7 @@ var
 begin
   Printer.CheckEnabled;
 
-  Command := FCommands.ItemByCode(pData);
+  Command := Printer.CommandDefs.ItemByCode(pData);
   Stream := TBinStream.Create;
   try
     Command.InParams.AsXml := pString;
@@ -1112,19 +700,7 @@ begin
   end;
 end;
 
-function TDIOCommandDef.GetDevice: IFiscalPrinterDevice;
-begin
-  Result := Printer.Printer.Device;
-end;
-
 { TDIOHexCommand }
-
-constructor TDIOHexCommand.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
 
 procedure TDIOHexCommand.DirectIO(var pData: Integer; var pString: WideString);
 var
@@ -1137,19 +713,7 @@ begin
   pString := StrToHex(RxData);
 end;
 
-function TDIOHexCommand.GetDevice: IFiscalPrinterDevice;
-begin
-  Result := Printer.Printer.Device;
-end;
-
 { TDIOCheckEndDay }
-
-constructor TDIOCheckEndDay.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
 
 procedure TDIOCheckEndDay.DirectIO(var pData: Integer;
   var pString: WideString);
@@ -1160,13 +724,6 @@ begin
 end;
 
 { TDIOLoadLogo }
-
-constructor TDIOLoadLogo.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
 
 procedure TDIOLoadLogo.DirectIO(var pData: Integer;
   var pString: WideString);
@@ -1184,13 +741,6 @@ end;
 
 { TDIOPrintLogo }
 
-constructor TDIOPrintLogo.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
-
 procedure TDIOPrintLogo.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
@@ -1199,13 +749,6 @@ end;
 
 { TDIOLogoDlg }
 
-constructor TDIOLogoDlg.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
-
 procedure TDIOLogoDlg.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
@@ -1213,13 +756,6 @@ begin
 end;
 
 { TDIOBarcode }
-
-constructor TDIOBarcode.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
 
 procedure TDIOBarcode.DirectIO(var pData: Integer;
   var pString: WideString);
@@ -1261,13 +797,6 @@ end;
 
 { TDIOBarcodeHex }
 
-constructor TDIOBarcodeHex.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
-
 procedure TDIOBarcodeHex.DirectIO(var pData: Integer;
   var pString: WideString);
 var
@@ -1303,13 +832,6 @@ begin
 end;
 
 { TDIOBarcodeHex2 }
-
-constructor TDIOBarcodeHex2.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
 
 procedure TDIOBarcodeHex2.DirectIO(var pData: Integer;
   var pString: WideString);
@@ -1351,14 +873,6 @@ end;
 
 { TDIOStrCommand }
 
-constructor TDIOStrCommand.CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-  ACommands: TCommandDefs; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FCommands := ACommands;
-  FPrinter := APrinter;
-end;
-
 procedure TDIOStrCommand.DirectIO(var pData: Integer;
   var pString: WideString);
 var
@@ -1370,7 +884,7 @@ var
   TableNumber: Integer;
   FieldInfo: TPrinterFieldRec;
 begin
-  Command := FCommands.ItemByCode(pData);
+  Command := Printer.CommandDefs.ItemByCode(pData);
   Stream := TBinStream.Create;
   try
     Command.InParams.AsText := pString;
@@ -1450,20 +964,7 @@ begin
   end;
 end;
 
-function TDIOStrCommand.GetDevice: IFiscalPrinterDevice;
-begin
-  Result := Printer.Printer.Device;
-end;
-
 { TDIOStrCommand2 }
-
-constructor TDIOStrCommand2.CreateCommand(AOwner: TDIOHandlers; ACommand: Integer;
-  ACommands: TCommandDefs; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FCommands := ACommands;
-  FPrinter := APrinter;
-end;
 
 procedure TDIOStrCommand2.DirectIO(var pData: Integer;
   var pString: WideString);
@@ -1471,7 +972,7 @@ var
   Stream: TBinStream;
   Command: TCommandDef;
 begin
-  Command := FCommands.ItemByCode(pData);
+  Command := Printer.CommandDefs.ItemByCode(pData);
   Stream := TBinStream.Create;
   try
     Command.InParams.AsText := pString;
@@ -1493,19 +994,7 @@ begin
   end;
 end;
 
-function TDIOStrCommand2.GetDevice: IFiscalPrinterDevice;
-begin
-  Result := Printer.Printer.Device;
-end;
-
 { TDIOPrintText }
-
-constructor TDIOPrintText.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
 
 procedure TDIOPrintText.DirectIO(var pData: Integer;
   var pString: WideString);
@@ -1522,18 +1011,6 @@ end;
 
 { TDIOWriteTaxName }
 
-constructor TDIOWriteTaxName.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
-
-function TDIOWriteTaxName.GetDevice: IFiscalPrinterDevice;
-begin
-  Result := Printer.Printer.Device;
-end;
-
 procedure TDIOWriteTaxName.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
@@ -1541,18 +1018,6 @@ begin
 end;
 
 { TDIOReadTaxName }
-
-constructor TDIOReadTaxName.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
-
-function TDIOReadTaxName.GetDevice: IFiscalPrinterDevice;
-begin
-  Result := Printer.Printer.Device;
-end;
 
 procedure TDIOReadTaxName.DirectIO(var pData: Integer;
   var pString: WideString);
@@ -1562,32 +1027,13 @@ end;
 
 { TDIOReadPaymentName }
 
-constructor TDIOReadPaymentName.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
-
 procedure TDIOReadPaymentName.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
   pString := Device.ReadTableStr(PRINTER_TABLE_PAYTYPE, pData, 1);
 end;
 
-function TDIOReadPaymentName.GetDevice: IFiscalPrinterDevice;
-begin
-  Result := Printer.Printer.Device;
-end;
-
 { TDIOWritePaymentName }
-
-constructor TDIOWritePaymentName.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
 
 procedure TDIOWritePaymentName.DirectIO(var pData: Integer;
   var pString: WideString);
@@ -1600,13 +1046,6 @@ end;
 
 { TDIOWritePaymentName2 }
 
-constructor TDIOWritePaymentName2.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
-
 procedure TDIOWritePaymentName2.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
@@ -1617,13 +1056,6 @@ begin
 end;
 
 { TDIOReadTable }
-
-constructor TDIOReadTable.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
 
 procedure TDIOReadTable.DirectIO(var pData: Integer;
   var pString: WideString);
@@ -1639,13 +1071,6 @@ begin
 end;
 
 { TDIOWriteTable }
-
-constructor TDIOWriteTable.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
 
 procedure TDIOWriteTable.DirectIO(var pData: Integer;
   var pString: WideString);
@@ -1664,13 +1089,6 @@ end;
 
 { TDIOGetDepartment }
 
-constructor TDIOGetDepartment.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
-
 procedure TDIOGetDepartment.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
@@ -1678,13 +1096,6 @@ begin
 end;
 
 { TDIOSetDepartment }
-
-constructor TDIOSetDepartment.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
 
 procedure TDIOSetDepartment.DirectIO(var pData: Integer;
   var pString: WideString);
@@ -1694,13 +1105,6 @@ end;
 
 { TDIOReadCashRegister }
 
-constructor TDIOReadCashRegister.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
-
 procedure TDIOReadCashRegister.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
@@ -1709,25 +1113,13 @@ end;
 
 { TDIOReadOperatingRegister }
 
-constructor TDIOReadOperatingRegister.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
-
 procedure TDIOReadOperatingRegister.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
   pString := IntTostr(Printer.Printer.Device.ReadOperatingRegister(pData));
 end;
 
-constructor TDIOPrintRecRefund.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
+{ TDIOPrintRecRefund }
 
 procedure TDIOPrintRecRefund.DirectIO(var pData: Integer;
   var pString: WideString);
@@ -1747,13 +1139,6 @@ end;
 
 { TDIOPrintJournal }
 
-constructor TDIOPrintJournal.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
-
 procedure TDIOPrintJournal.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
@@ -1763,13 +1148,6 @@ end;
 
 { TDIOReadDayNumber }
 
-constructor TDIOReadDayNumber.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
-
 procedure TDIOReadDayNumber.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
@@ -1777,13 +1155,6 @@ begin
 end;
 
 { TDIOWaitForPrint }
-
-constructor TDIOWaitForPrint.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
 
 procedure TDIOWaitForPrint.DirectIO(var pData: Integer;
   var pString: WideString);
@@ -1793,13 +1164,6 @@ end;
 
 { TDIOPrintHeader }
 
-constructor TDIOPrintHeader.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
-
 procedure TDIOPrintHeader.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
@@ -1807,13 +1171,6 @@ begin
 end;
 
 { TDIOPrintTrailer }
-
-constructor TDIOPrintTrailer.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
 
 procedure TDIOPrintTrailer.DirectIO(var pData: Integer;
   var pString: WideString);
@@ -1823,13 +1180,6 @@ end;
 
 { TDIOZReport }
 
-constructor TDIOZReport.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
-
 procedure TDIOZReport.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
@@ -1837,13 +1187,6 @@ begin
 end;
 
 { TDIOZReportXML }
-
-constructor TDIOZReportXML.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
 
 procedure TDIOZReportXML.DirectIO(var pData: Integer;
   var pString: WideString);
@@ -1867,13 +1210,6 @@ end;
 
 { TDIOZReportCSV }
 
-constructor TDIOZReportCSV.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
-
 procedure TDIOZReportCSV.DirectIO(var pData: Integer;
   var pString: WideString);
 var
@@ -1896,13 +1232,6 @@ end;
 
 { TDIOGetLastError }
 
-constructor TDIOGetLastError.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
-
 procedure TDIOGetLastError.DirectIO(
   var pData: Integer;
   var pString: WideString);
@@ -1913,13 +1242,6 @@ end;
 
 { TDIOGetPrinterStation }
 
-constructor TDIOGetPrinterStation.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
-
 procedure TDIOGetPrinterStation.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
@@ -1928,13 +1250,6 @@ end;
 
 { TDIOSetPrinterStation }
 
-constructor TDIOSetPrinterStation.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
-
 procedure TDIOSetPrinterStation.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
@@ -1942,13 +1257,6 @@ begin
 end;
 
 { TDIOGetDriverParameter }
-
-constructor TDIOGetDriverParameter.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
 
 procedure TDIOGetDriverParameter.DirectIO(var pData: Integer;
   var pString: WideString);
@@ -2065,13 +1373,6 @@ end;
 
 { TDIOSetDriverParameter }
 
-constructor TDIOSetDriverParameter.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
-
 procedure TDIOSetDriverParameter.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
@@ -2177,19 +1478,7 @@ begin
   end;
 end;
 
-function TDIOSetDriverParameter.GetParameters: TPrinterParameters;
-begin
-  Result := FPrinter.Parameters;
-end;
-
 { TDIOPrintSeparator }
-
-constructor TDIOPrintSeparator.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
 
 procedure TDIOPrintSeparator.DirectIO(var pData: Integer;
   var pString: WideString);
@@ -2221,13 +1510,6 @@ end;
 *)
 
 { TDIOReadEJActivation }
-
-constructor TDIOReadEJActivation.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
 
 function GetParam(const S: WideString; N: Integer): WideString;
 var
@@ -2331,13 +1613,6 @@ end;
 
 { TDIOReadFMTotals }
 
-constructor TDIOReadFMTotals.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
-
 procedure TDIOReadFMTotals.DirectIO(var pData: Integer;
   var pString: WideString);
 var
@@ -2351,13 +1626,6 @@ end;
 
 { TDIOReadGrandTotals }
 
-constructor TDIOReadGrandTotals.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
-
 procedure TDIOReadGrandTotals.DirectIO(var pData: Integer;
   var pString: WideString);
 var
@@ -2370,13 +1638,6 @@ end;
 
 { TDIOPrintImage }
 
-constructor TDIOPrintImage.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
-
 procedure TDIOPrintImage.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
@@ -2384,13 +1645,6 @@ begin
 end;
 
 { TDIOPrintImageScale }
-
-constructor TDIOPrintImageScale.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
 
 procedure TDIOPrintImageScale.DirectIO(var pData: Integer;
   var pString: WideString);
@@ -2400,18 +1654,6 @@ end;
 
 { TDIOReadFSParameter }
 
-constructor TDIOReadFSParameter.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
-
-function TDIOReadFSParameter.GetDevice: IFiscalPrinterDevice;
-begin
-  Result := FPrinter.Device;
-end;
-
 procedure TDIOReadFSParameter.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
@@ -2419,18 +1661,6 @@ begin
 end;
 
 { TDIOReadFPParameter }
-
-constructor TDIOReadFPParameter.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
-
-function TDIOReadFPParameter.GetDevice: IFiscalPrinterDevice;
-begin
-  Result := FPrinter.Device;
-end;
 
 procedure TDIOReadFPParameter.DirectIO(var pData: Integer;
   var pString: WideString);
@@ -2440,13 +1670,6 @@ end;
 
 { TDIOWriteFPParameter }
 
-constructor TDIOWriteFPParameter.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
-
 procedure TDIOWriteFPParameter.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
@@ -2454,18 +1677,6 @@ begin
 end;
 
 { TDIOWriteCustomerAddress }
-
-constructor TDIOWriteCustomerAddress.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
-
-function TDIOWriteCustomerAddress.GetDevice: IFiscalPrinterDevice;
-begin
-  Result := FPrinter.Device;
-end;
 
 procedure TDIOWriteCustomerAddress.DirectIO(var pData: Integer;
   var pString: WideString);
@@ -2475,18 +1686,6 @@ end;
 
 { TDIOWriteTlvData }
 
-constructor TDIOWriteTlvData.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
-
-function TDIOWriteTlvData.GetDevice: IFiscalPrinterDevice;
-begin
-  Result := FPrinter.Device;
-end;
-
 procedure TDIOWriteTlvData.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
@@ -2494,18 +1693,6 @@ begin
 end;
 
 { TDIOWriteStringTag }
-
-constructor TDIOWriteStringTag.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
-
-function TDIOWriteStringTag.GetDevice: IFiscalPrinterDevice;
-begin
-  Result := FPrinter.Device;
-end;
 
 procedure TDIOWriteStringTag.DirectIO(var pData: Integer;
   var pString: WideString);
@@ -2515,18 +1702,6 @@ end;
 
 { TDIOSetAdjustmentAmount }
 
-constructor TDIOSetAdjustmentAmount.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
-
-function TDIOSetAdjustmentAmount.GetDevice: IFiscalPrinterDevice;
-begin
-  Result := FPrinter.Device;
-end;
-
 procedure TDIOSetAdjustmentAmount.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
@@ -2535,32 +1710,13 @@ end;
 
 { TDIODisableNextHeader }
 
-constructor TDIODisableNextHeader.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
-
 procedure TDIODisableNextHeader.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
   FPrinter.DisableNextHeader;
 end;
 
-function TDIODisableNextHeader.GetDevice: IFiscalPrinterDevice;
-begin
-  Result := FPrinter.Device;
-end;
-
 { TDIOWriteTableFile }
-
-constructor TDIOWriteTableFile.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
 
 procedure TDIOWriteTableFile.DirectIO(var pData: Integer;
   var pString: WideString);
@@ -2572,13 +1728,6 @@ begin
 end;
 
 { TDIOFSReadDocument }
-
-constructor TDIOFSReadDocument.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
 
 procedure TDIOFSReadDocument.DirectIO(var pData: Integer;
   var pString: WideString);
@@ -2619,13 +1768,6 @@ end;
 
 { TDIOFSPrintCalcReport }
 
-constructor TDIOFSPrintCalcReport.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
-
 procedure TDIOFSPrintCalcReport.DirectIO(var pData: Integer;
   var pString: WideString);
 var
@@ -2635,19 +1777,7 @@ begin
   FPrinter.PrintReportEnd;
 end;
 
-(*
-  DIO_OPEN_CASH_DRAWER          = 50; // Open cash drawer
-  DIO_READ_CASH_DRAWER_STATE    = 51; // Read cash drawer state
-*)
-
 { TDIOOpenCashDrawer }
-
-constructor TDIOOpenCashDrawer.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
 
 procedure TDIOOpenCashDrawer.DirectIO(var pData: Integer;
   var pString: WideString);
@@ -2657,13 +1787,6 @@ end;
 
 { TDIOReadCashDrawerState }
 
-constructor TDIOReadCashDrawerState.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
-
 procedure TDIOReadCashDrawerState.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
@@ -2671,13 +1794,6 @@ begin
 end;
 
 { TDIOFSFiscalize }
-
-constructor TDIOFSFiscalize.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
 
 procedure TDIOFSFiscalize.DirectIO(var pData: Integer;
   var pString: WideString);
@@ -2694,13 +1810,6 @@ begin
 end;
 
 { TDIOFSReFiscalize }
-
-constructor TDIOFSReFiscalize.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
 
 procedure TDIOFSReFiscalize.DirectIO(var pData: Integer;
   var pString: WideString);
@@ -2719,13 +1828,6 @@ end;
 
 { TDIOGetPrintWidth }
 
-constructor TDIOGetPrintWidth.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
-
 procedure TDIOGetPrintWidth.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
@@ -2733,13 +1835,6 @@ begin
 end;
 
 { TDIOReadFSDocument }
-
-constructor TDIOReadFSDocument.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
 
 procedure TDIOReadFSDocument.DirectIO(var pData: Integer;
   var pString: WideString);
@@ -2749,13 +1844,6 @@ end;
 
 { TDIOPrintFSDocument }
 
-constructor TDIOPrintFSDocument.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
-
 procedure TDIOPrintFSDocument.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
@@ -2763,13 +1851,6 @@ begin
 end;
 
 { TDIOPrintCorrection }
-
-constructor TDIOPrintCorrection.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
 
 procedure TDIOPrintCorrection.DirectIO(var pData: Integer;
   var pString: WideString);
@@ -2785,13 +1866,6 @@ begin
 end;
 
 { TDIOPrintCorrection2 }
-
-constructor TDIOPrintCorrection2.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
 
 procedure TDIOPrintCorrection2.DirectIO(var pData: Integer;
   var pString: WideString);
@@ -2821,13 +1895,6 @@ end;
 
 { TDIOStartOpenDay }
 
-constructor TDIOStartOpenDay.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
-
 procedure TDIOStartOpenDay.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
@@ -2835,13 +1902,6 @@ begin
 end;
 
 { TDIOOpenDay }
-
-constructor TDIOOpenDay.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
 
 procedure TDIOOpenDay.DirectIO(var pData: Integer;
   var pString: WideString);
@@ -2851,27 +1911,36 @@ end;
 
 { TDIOCheckItemCode }
 
-constructor TDIOCheckItemCode.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
-
 procedure TDIOCheckItemCode.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
   FPrinter.Device.Check(FPrinter.Device.CheckItemCode(pString));
 end;
 
-{ TDIOStartCorrection }
+{ TDIOCheckItemCode2 }
 
-constructor TDIOStartCorrection.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
+procedure TDIOCheckItemCode2.DirectIO(var pData: Integer;
+  var pString: WideString);
+var
+  P: TFSCheckItemCode;
+  R: TFSCheckItemResult;
 begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
+  P.ItemStatus := GetInteger(pString, 1, ValueDelimiters);
+  P.ProcessMode := GetInteger(pString, 2, ValueDelimiters);
+  P.CMData := HexToStr(GetString(pString, 3, ValueDelimiters));
+  P.TLVData := HexToStr(GetString(pString, 4, ValueDelimiters));
+  FPrinter.Device.Check(FPrinter.Device.FSCheckItemCode(P, R));
+  pString := Format('%d;%d;%d;%d;%d;%d;%s;', [
+    R.LocalCheckResult,
+    R.LocalCheckError,
+    R.SymbolicType,
+    R.DataLength,
+    R.FSResultCode,
+    R.ServerCheckStatus,
+    StrToHex(R.ServerTLVData)]);
 end;
+
+{ TDIOStartCorrection }
 
 procedure TDIOStartCorrection.DirectIO(var pData: Integer;
   var pString: WideString);
@@ -2881,13 +1950,6 @@ end;
 
 { TDIOWriteTlvOperation }
 
-constructor TDIOWriteTlvOperation.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
-
 procedure TDIOWriteTlvOperation.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
@@ -2895,13 +1957,6 @@ begin
 end;
 
 { TDIOWriteTlvHex }
-
-constructor TDIOWriteTlvHex.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
 
 procedure TDIOWriteTlvHex.DirectIO(var pData: Integer;
   var pString: WideString);
@@ -2911,13 +1966,6 @@ end;
 
 { TDIOClearLogo }
 
-constructor TDIOClearLogo.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
-
 procedure TDIOClearLogo.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
@@ -2926,33 +1974,13 @@ end;
 
 { TDIOWriteStringTagOp }
 
-constructor TDIOWriteStringTagOp.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
-
-function TDIOWriteStringTagOp.GetDevice: IFiscalPrinterDevice;
-begin
-  Result := FPrinter.Device;
-end;
-
 procedure TDIOWriteStringTagOp.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
   Printer.FSWriteTagOperation(pData, pString);
 end;
 
-
 { TDIOSTLVBegin }
-
-constructor TDIOSTLVBegin.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
 
 procedure TDIOSTLVBegin.DirectIO(var pData: Integer;
   var pString: WideString);
@@ -2962,13 +1990,6 @@ end;
 
 { TDIOSTLVAddTag }
 
-constructor TDIOSTLVAddTag.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
-
 procedure TDIOSTLVAddTag.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
@@ -2976,13 +1997,6 @@ begin
 end;
 
 { TDIOSTLVGetHex }
-
-constructor TDIOSTLVGetHex.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
 
 procedure TDIOSTLVGetHex.DirectIO(var pData: Integer;
   var pString: WideString);
@@ -2992,28 +2006,13 @@ end;
 
 { TDIOSTLVWrite }
 
-constructor TDIOSTLVWrite.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
-
 procedure TDIOSTLVWrite.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
   Printer.FSWriteTLV(HexToStr(Printer.Device.STLVGetHex));
 end;
 
-
 { TDIOSTLVWriteOp }
-
-constructor TDIOSTLVWriteOp.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
 
 procedure TDIOSTLVWriteOp.DirectIO(var pData: Integer;
   var pString: WideString);
@@ -3023,13 +2022,6 @@ end;
 
 { TDIOSetReceiptField }
 
-constructor TDIOSetReceiptField.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
-
 procedure TDIOSetReceiptField.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
@@ -3038,18 +2030,76 @@ end;
 
 { TDIOAddItemCode }
 
-constructor TDIOAddItemCode.CreateCommand(AOwner: TDIOHandlers;
-  ACommand: Integer; APrinter: TFiscalPrinterImpl);
-begin
-  inherited Create(AOwner, ACommand);
-  FPrinter := APrinter;
-end;
-
 procedure TDIOAddItemCode.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
   FPrinter.AddItemCode(pString);
 end;
 
+{ TDIOFSSyncRegisters }
+
+procedure TDIOFSSyncRegisters.DirectIO(var pData: Integer;
+  var pString: WideString);
+begin
+  FPrinter.Device.Check(FPrinter.Device.FSSyncRegisters);
+end;
+
+{ TDIOFSReadMemStatus }
+
+procedure TDIOFSReadMemStatus.DirectIO(var pData: Integer;
+  var pString: WideString);
+var
+  R: TFSReadMemoryResult;
+begin
+  FPrinter.Device.Check(FPrinter.Device.FSReadMemory(R));
+  pString := Format('%d;%d;%d', [
+    R.FreeDocCount, R.FreeMemorySizeInKB, R.UsedMCTicketStorageInPercents]);
+end;
+
+{ TDIOFSWriteTLVBuffer }
+
+procedure TDIOFSWriteTLVBuffer.DirectIO(var pData: Integer;
+  var pString: WideString);
+begin
+  FPrinter.Device.Check(FPrinter.Device.FSWriteTLVFromBuffer);
+end;
+
+{ TDIOFSGenerateRandomData }
+
+procedure TDIOFSGenerateRandomData.DirectIO(var pData: Integer;
+  var pString: WideString);
+var
+  Data: string;
+begin
+  FPrinter.Device.Check(FPrinter.Device.FSRandomData(Data));
+  pString := StrToHex(Data);
+end;
+
+{ TDIOFSAuthorize }
+
+procedure TDIOFSAuthorize.DirectIO(var pData: Integer;
+  var pString: WideString);
+var
+  Data: AnsiString;
+begin
+  Data := HexToStr(pString);
+  FPrinter.Device.Check(FPrinter.Device.FSAuthorize(Data));
+end;
+
+{ TDIOFSReadTicketStatus }
+
+procedure TDIOFSReadTicketStatus.DirectIO(var pData: Integer;
+  var pString: WideString);
+var
+  R: TFSTicketStatus;
+begin
+  FPrinter.Device.Check(FPrinter.Device.FSReadTicketStatus(R));
+  pString := Format('%d;%d;%d;%s;%d', [
+    R.TicketStatus,
+    R.TicketCount,
+    R.TicketNumber,
+    EncodeOposDate(PrinterDateTimeToOposDate(R.TicketDate)),
+    R.TicketStorageUsageInPercents]);
+end;
 
 end.

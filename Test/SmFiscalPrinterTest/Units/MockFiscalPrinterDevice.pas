@@ -318,8 +318,21 @@ type
     function FSReadLastMacValue2: Int64;
     function FSCheckItemCode(const P: TFSCheckItemCode;
       var R: TFSCheckItemResult): Integer;
+    function FSSyncRegisters: Integer;
+    function FSReadMemory(var R: TFSReadMemoryResult): Integer;
+    function FSWriteTLVFromBuffer: Integer;
+    function FSRandomData(var Data: AnsiString): Integer;
+    function FSAuthorize(const DataToAuthorize: AnsiString): Integer;
     function FSAcceptItemCode(Action: Integer): Integer;
-    function FSBindItemCode(const Barcode: string; var R: TFSBindItemCodeResult): Integer;
+    function FSBindItemCode(const P: TFSBindItemCode;
+      var R: TFSBindItemCodeResult): Integer;
+    function FSReadTicketStatus(var R: TFSTicketStatus): Integer;
+    function FSReadMarkStatus(var R: TFSMarkStatus): Integer;
+    function FSStartReadTickets(var R: TFSTicketParams): Integer;
+    function FSReadNextTicket(var R: TFSTicketData): Integer;
+    function FSConfirmTicket(const P: TFSTicketNumber): Integer;
+    function FSReadDeviceInfo(var R: string): Integer;
+    function FSReadDocSize(var R: TFSDocSize): Integer;
     procedure STLVBegin(TagID: Integer);
     procedure STLVAddTag(TagID: Integer; TagValue: string);
     function STLVGetHex: string;
@@ -1892,7 +1905,7 @@ begin
   Result := 0;
 end;
 
-function TMockFiscalPrinterDevice.FSBindItemCode(const Barcode: string;
+function TMockFiscalPrinterDevice.FSBindItemCode(const P: TFSBindItemCode;
   var R: TFSBindItemCodeResult): Integer;
 begin
   Result := 0;
@@ -1950,6 +1963,75 @@ begin
 end;
 
 function TMockFiscalPrinterDevice.GetTrailerHeight: Integer;
+begin
+  Result := 0;
+end;
+
+function TMockFiscalPrinterDevice.FSAuthorize(
+  const DataToAuthorize: AnsiString): Integer;
+begin
+  Result := 0;
+end;
+
+function TMockFiscalPrinterDevice.FSConfirmTicket(
+  const P: TFSTicketNumber): Integer;
+begin
+  Result := 0;
+end;
+
+function TMockFiscalPrinterDevice.FSRandomData(
+  var Data: AnsiString): Integer;
+begin
+  Result := 0;
+end;
+
+function TMockFiscalPrinterDevice.FSReadDeviceInfo(var R: string): Integer;
+begin
+  Result := 0;
+end;
+
+function TMockFiscalPrinterDevice.FSReadDocSize(
+  var R: TFSDocSize): Integer;
+begin
+  Result := 0;
+end;
+
+function TMockFiscalPrinterDevice.FSReadMarkStatus(
+  var R: TFSMarkStatus): Integer;
+begin
+  Result := 0;
+end;
+
+function TMockFiscalPrinterDevice.FSReadMemory(
+  var R: TFSReadMemoryResult): Integer;
+begin
+  Result := 0;
+end;
+
+function TMockFiscalPrinterDevice.FSReadNextTicket(
+  var R: TFSTicketData): Integer;
+begin
+  Result := 0;
+end;
+
+function TMockFiscalPrinterDevice.FSReadTicketStatus(
+  var R: TFSTicketStatus): Integer;
+begin
+  Result := 0;
+end;
+
+function TMockFiscalPrinterDevice.FSStartReadTickets(
+  var R: TFSTicketParams): Integer;
+begin
+  Result := 0;
+end;
+
+function TMockFiscalPrinterDevice.FSSyncRegisters: Integer;
+begin
+  Result := 0;
+end;
+
+function TMockFiscalPrinterDevice.FSWriteTLVFromBuffer: Integer;
 begin
   Result := 0;
 end;

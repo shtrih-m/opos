@@ -1083,13 +1083,16 @@ end;
 
 procedure TFSSalesReceipt.SendItemMark(const Barcode: string; MarkType: Integer);
 var
-  rc: TFSBindItemCodeResult;
+  P: TFSBindItemCode;
+  R: TFSBindItemCodeResult;
 begin
   if Barcode <> '' then
   begin
     if Device.CapFiscalStorage then
     begin
-      Device.Check(Device.FSBindItemCode(Barcode, rc));
+      P.Code := Barcode;
+      P.IsAccounted := False;
+      Device.Check(Device.FSBindItemCode(P, R));
     end;
   end;
 end;

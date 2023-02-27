@@ -45,8 +45,8 @@ type
   TCommandDef = class
   private
     FCode: Integer;
-    FText: string;
     FName: string;
+    FTimeout: Integer;
     FOwner: TCommandDefs;
     FInParams: TCommandParams;
     FOutParams: TCommandParams;
@@ -62,12 +62,12 @@ type
 
     procedure SaveToXml(Root: TXmlItem);
     procedure LoadFromXml(Root: TXmlItem);
+
     property InParams: TCommandParams read FInParams;
     property OutParams: TCommandParams read FOutParams;
-
-    property Text: string read FText write FText;
-    property Name: string read FName write FName;
     property Code: Integer read FCode write FCode;
+    property Name: string read FName write FName;
+    property Timeout: Integer read FTimeout write FTimeout;
   end;
 
 var
@@ -268,7 +268,7 @@ begin
   AddParam(Command.OutParams, 'Fiscalization number', 1, PARAM_TYPE_INT);
   AddParam(Command.OutParams, 'Refiscalizations left count', 1, PARAM_TYPE_INT);
   AddParam(Command.OutParams, 'Last closed day number', 2, PARAM_TYPE_INT);
-  AddParam(Command.OutParams, 'Fiscalization date', 3, PARAM_TYPE_DATE);
+  AddParam(Command.OutParams, 'Fiscalization date', 3, PARAM_TYPE_DATE_DMY);
   // 0Eh
   Command := AddCommand($0E, 'Set long serial number');
   AddParam(Command.InParams, 'Password', 4, PARAM_TYPE_INT);
@@ -301,7 +301,7 @@ begin
   AddParam(Command.OutParams, 'Operator number', 1, PARAM_TYPE_INT);
   AddParam(Command.OutParams, 'ECR firmware version', 2, PARAM_TYPE_STR);
   AddParam(Command.OutParams, 'ECR firmware build', 2, PARAM_TYPE_INT);
-  AddParam(Command.OutParams, 'ECR firmware date', 3, PARAM_TYPE_DATE);
+  AddParam(Command.OutParams, 'ECR firmware date', 3, PARAM_TYPE_DATE_DMY);
   AddParam(Command.OutParams, 'ECR number in checkout line', 1, PARAM_TYPE_INT);
   AddParam(Command.OutParams, 'Current document transparent number', 2, PARAM_TYPE_INT);
   AddParam(Command.OutParams, 'ECR flags', 2, PARAM_TYPE_INT);
@@ -310,9 +310,9 @@ begin
   AddParam(Command.OutParams, 'ECR port', 1, PARAM_TYPE_INT);
   AddParam(Command.OutParams, 'FM firmware version', 2, PARAM_TYPE_STR);
   AddParam(Command.OutParams, 'fm firmware build', 2, PARAM_TYPE_INT);
-  AddParam(Command.OutParams, 'fm firmware date', 3, PARAM_TYPE_DATE);
-  AddParam(Command.OutParams, 'Date', 3, PARAM_TYPE_DATE);
-  AddParam(Command.OutParams, 'Time', 3, PARAM_TYPE_TIME);
+  AddParam(Command.OutParams, 'fm firmware date', 3, PARAM_TYPE_DATE_DMY);
+  AddParam(Command.OutParams, 'Date', 3, PARAM_TYPE_DATE_DMY);
+  AddParam(Command.OutParams, 'Time', 3, PARAM_TYPE_TIME_HMS);
   AddParam(Command.OutParams, 'FM flags', 1, PARAM_TYPE_INT);
   AddParam(Command.OutParams, 'Serial number', 4, PARAM_TYPE_FINT);
   AddParam(Command.OutParams, 'Last closed day number', 2, PARAM_TYPE_INT);
@@ -413,17 +413,17 @@ begin
   // 21h
   Command := AddCommand($21, 'Set clock time');
   AddParam(Command.InParams, 'Password', 4, PARAM_TYPE_INT);
-  AddParam(Command.InParams, 'Time', 3, PARAM_TYPE_TIME);
+  AddParam(Command.InParams, 'Time', 3, PARAM_TYPE_TIME_HMS);
   AddParam(Command.OutParams, 'Result code', 1, PARAM_TYPE_INT);
   // 22h
   Command := AddCommand($22, 'Set calendar date');
   AddParam(Command.InParams, 'Password', 4, PARAM_TYPE_SYS);
-  AddParam(Command.InParams, 'Date', 3, PARAM_TYPE_DATE);
+  AddParam(Command.InParams, 'Date', 3, PARAM_TYPE_DATE_DMY);
   AddParam(Command.OutParams, 'Result code', 1, PARAM_TYPE_INT);
   // 23h
   Command := AddCommand($23, 'Confirm date');
   AddParam(Command.InParams, 'Password', 4, PARAM_TYPE_SYS);
-  AddParam(Command.InParams, 'Date', 3, PARAM_TYPE_DATE);
+  AddParam(Command.InParams, 'Date', 3, PARAM_TYPE_DATE_DMY);
   AddParam(Command.OutParams, 'Result code', 1, PARAM_TYPE_INT);
   // 24h
   Command := AddCommand($24, 'Initialize tables with default values');
@@ -578,13 +578,13 @@ begin
   AddParam(Command.OutParams, 'Result code', 1, PARAM_TYPE_INT);
   AddParam(Command.OutParams, 'Operator number', 1, PARAM_TYPE_INT);
   AddParam(Command.OutParams, 'Last record type', 1, PARAM_TYPE_INT);
-  AddParam(Command.OutParams, 'Date', 3, PARAM_TYPE_DATE);
+  AddParam(Command.OutParams, 'Date', 3, PARAM_TYPE_DATE_DMY);
   // 64h
   Command := AddCommand($64, 'Get dates and sessions range');
   AddParam(Command.InParams, 'Tax officer password', 4, PARAM_TYPE_TAX);
   AddParam(Command.OutParams, 'Result code', 1, PARAM_TYPE_INT);
-  AddParam(Command.OutParams, 'First day date', 3, PARAM_TYPE_DATE);
-  AddParam(Command.OutParams, 'Last day date', 3, PARAM_TYPE_DATE);
+  AddParam(Command.OutParams, 'First day date', 3, PARAM_TYPE_DATE_DMY);
+  AddParam(Command.OutParams, 'Last day date', 3, PARAM_TYPE_DATE_DMY);
   AddParam(Command.OutParams, 'First day number', 2, PARAM_TYPE_INT);
   AddParam(Command.OutParams, 'Last day number', 2, PARAM_TYPE_INT);
   // 65h
@@ -597,16 +597,16 @@ begin
   AddParam(Command.OutParams, 'Fiscalization number', 1, PARAM_TYPE_INT);
   AddParam(Command.OutParams, 'Fiscalizations left count', 1, PARAM_TYPE_INT);
   AddParam(Command.OutParams, 'Fiscalization day number', 2, PARAM_TYPE_INT);
-  AddParam(Command.OutParams, 'Fiscalization data', 3, PARAM_TYPE_DATE);
+  AddParam(Command.OutParams, 'Fiscalization data', 3, PARAM_TYPE_DATE_DMY);
   // 66h
   Command := AddCommand($66, 'Fiscal report in dates range');
   AddParam(Command.InParams, 'Tax officer password', 4, PARAM_TYPE_TAX);
   AddParam(Command.InParams, 'Report type', 1, PARAM_TYPE_INT);
-  AddParam(Command.InParams, 'First day date', 3, PARAM_TYPE_DATE);
-  AddParam(Command.InParams, 'Last day date', 3, PARAM_TYPE_DATE);
+  AddParam(Command.InParams, 'First day date', 3, PARAM_TYPE_DATE_DMY);
+  AddParam(Command.InParams, 'Last day date', 3, PARAM_TYPE_DATE_DMY);
   AddParam(Command.OutParams, 'Result code', 1, PARAM_TYPE_INT);
-  AddParam(Command.OutParams, 'First day date', 3, PARAM_TYPE_DATE);
-  AddParam(Command.OutParams, 'Last day date', 3, PARAM_TYPE_DATE);
+  AddParam(Command.OutParams, 'First day date', 3, PARAM_TYPE_DATE_DMY);
+  AddParam(Command.OutParams, 'Last day date', 3, PARAM_TYPE_DATE_DMY);
   AddParam(Command.OutParams, 'First day number', 2, PARAM_TYPE_INT);
   AddParam(Command.OutParams, 'Last day number', 2, PARAM_TYPE_INT);
   // 67h
@@ -616,8 +616,8 @@ begin
   AddParam(Command.InParams, 'First day number', 2, PARAM_TYPE_INT);
   AddParam(Command.InParams, 'Last day number', 2, PARAM_TYPE_INT);
   AddParam(Command.OutParams, 'Result code', 1, PARAM_TYPE_INT);
-  AddParam(Command.OutParams, 'First day date', 3, PARAM_TYPE_DATE);
-  AddParam(Command.OutParams, 'Last day date', 3, PARAM_TYPE_DATE);
+  AddParam(Command.OutParams, 'First day date', 3, PARAM_TYPE_DATE_DMY);
+  AddParam(Command.OutParams, 'Last day date', 3, PARAM_TYPE_DATE_DMY);
   AddParam(Command.OutParams, 'First day number', 2, PARAM_TYPE_INT);
   AddParam(Command.OutParams, 'Last day number', 2, PARAM_TYPE_INT);
   // 68h
@@ -633,7 +633,7 @@ begin
   AddParam(Command.OutParams, 'ECRRN', 5, PARAM_TYPE_FINT);
   AddParam(Command.OutParams, 'Taxpayer ID', 6, PARAM_TYPE_FINT);
   AddParam(Command.OutParams, 'Day number before fiscalization ', 2, PARAM_TYPE_INT);
-  AddParam(Command.OutParams, 'Fiscalization/refiscalization date', 3, PARAM_TYPE_DATE);
+  AddParam(Command.OutParams, 'Fiscalization/refiscalization date', 3, PARAM_TYPE_DATE_DMY);
   // 70h
   Command := AddCommand($70, 'Open fiscal slip');
   AddParam(Command.InParams, 'Operator password', 4, PARAM_TYPE_USR);
@@ -1106,8 +1106,8 @@ begin
   AddParam(Command.InParams, 'Operator password', 4, PARAM_TYPE_USR);
   AddParam(Command.InParams, 'Report type', 1, PARAM_TYPE_INT);
   AddParam(Command.InParams, 'Department number', 1, PARAM_TYPE_INT);
-  AddParam(Command.InParams, 'First day date', 3, PARAM_TYPE_DATE);
-  AddParam(Command.InParams, 'Last day date', 3, PARAM_TYPE_DATE);
+  AddParam(Command.InParams, 'First day date', 3, PARAM_TYPE_DATE_DMY);
+  AddParam(Command.InParams, 'Last day date', 3, PARAM_TYPE_DATE_DMY);
   AddParam(Command.OutParams, 'Result code', 1, PARAM_TYPE_INT);
   // A1h
   Command := AddCommand($A1, 'EJ department report in days range');
@@ -1121,8 +1121,8 @@ begin
   Command := AddCommand($A2, 'EJ day report in dates range');
   AddParam(Command.InParams, 'Operator password', 4, PARAM_TYPE_USR);
   AddParam(Command.InParams, 'Report type', 1, PARAM_TYPE_INT);
-  AddParam(Command.InParams, 'First day date', 3, PARAM_TYPE_DATE);
-  AddParam(Command.InParams, 'Last day date', 3, PARAM_TYPE_DATE);
+  AddParam(Command.InParams, 'First day date', 3, PARAM_TYPE_DATE_DMY);
+  AddParam(Command.InParams, 'Last day date', 3, PARAM_TYPE_DATE_DMY);
   AddParam(Command.OutParams, 'Result code', 1, PARAM_TYPE_INT);
   // A3h
   Command := AddCommand($A3, 'EJ day report in days range');
@@ -1176,11 +1176,11 @@ begin
   AddParam(Command.InParams, 'Admin password', 4, PARAM_TYPE_USR);
   AddParam(Command.OutParams, 'Result code', 1, PARAM_TYPE_INT);
   AddParam(Command.OutParams, 'Last KPK document total value', 5, PARAM_TYPE_INT);
-  AddParam(Command.OutParams, 'Last KPK date', 3, PARAM_TYPE_DATE);
-  AddParam(Command.OutParams, 'Last KPK time', 3, PARAM_TYPE_TIME);
-  AddParam(Command.OutParams, 'Last KPK number', 4, PARAM_TYPE_TIME);
-  AddParam(Command.OutParams, 'EJ number', 5, PARAM_TYPE_TIME);
-  AddParam(Command.OutParams, 'EJ flags', 1, PARAM_TYPE_TIME);
+  AddParam(Command.OutParams, 'Last KPK date', 3, PARAM_TYPE_DATE_DMY);
+  AddParam(Command.OutParams, 'Last KPK time', 3, PARAM_TYPE_TIME_HMS);
+  AddParam(Command.OutParams, 'Last KPK number', 4, PARAM_TYPE_INT);
+  AddParam(Command.OutParams, 'EJ number', 5, PARAM_TYPE_TIME_HMS);
+  AddParam(Command.OutParams, 'EJ flags', 1, PARAM_TYPE_TIME_HMS);
   // AEh
   Command := AddCommand($AE, 'Get EJ status by code 2');
   AddParam(Command.InParams, 'Admin password', 4, PARAM_TYPE_USR);
@@ -1230,8 +1230,8 @@ begin
   AddParam(Command.InParams, 'Admin password', 4, PARAM_TYPE_USR);
   AddParam(Command.InParams, 'Report type', 1, PARAM_TYPE_INT);
   AddParam(Command.InParams, 'Department number', 1, PARAM_TYPE_INT);
-  AddParam(Command.InParams, 'First day date', 3, PARAM_TYPE_DATE);
-  AddParam(Command.InParams, 'Last day date', 3, PARAM_TYPE_DATE);
+  AddParam(Command.InParams, 'First day date', 3, PARAM_TYPE_DATE_DMY);
+  AddParam(Command.InParams, 'Last day date', 3, PARAM_TYPE_DATE_DMY);
   AddParam(Command.OutParams, 'Result code', 1, PARAM_TYPE_INT);
   AddParam(Command.OutParams, 'ECR type', 0, PARAM_TYPE_STR);
   // B7h
@@ -1247,8 +1247,8 @@ begin
   Command := AddCommand($B8, 'Get EJ day report in dates range');
   AddParam(Command.InParams, 'Admin password', 4, PARAM_TYPE_USR);
   AddParam(Command.InParams, 'Report type', 1, PARAM_TYPE_INT);
-  AddParam(Command.InParams, 'First day date', 3, PARAM_TYPE_DATE);
-  AddParam(Command.InParams, 'Last day date', 3, PARAM_TYPE_DATE);
+  AddParam(Command.InParams, 'First day date', 3, PARAM_TYPE_DATE_DMY);
+  AddParam(Command.InParams, 'Last day date', 3, PARAM_TYPE_DATE_DMY);
   AddParam(Command.OutParams, 'Result code', 1, PARAM_TYPE_INT);
   AddParam(Command.OutParams, 'ECR type', 0, PARAM_TYPE_STR);
   // B9h
@@ -1417,23 +1417,31 @@ begin
 end;
 
 procedure TCommandDef.LoadParam(Param: TCommandParam; Root: TXmlItem);
+var
+  ParamType: Integer;
+  ParamSize: Integer;
 begin
-  Param.Text := Root.GetText('Text');
+  ParamSize := Root.GetIntDef('Size', 0);
+  ParamType := Root.GetInt('Type');
+  //ParamSize := GetSizeInBytes(ParamType, ParamSize); !!!
+
+  Param.Size := ParamSize;
+  Param.ParamType := ParamType;
   Param.Name := Root.GetText('Name');
-  Param.Size := Root.GetInt('Size');
-  Param.ParamType := Root.GetInt('Type');
   Param.MinValue := Root.GetIntDef('MinValue', 0);
   Param.MaxValue := Root.GetIntDef('MaxValue', 0);
 end;
 
 procedure TCommandDef.SaveParam(Param: TCommandParam; Root: TXmlItem);
 begin
-  Root.AddText('Text', Param.Text);
   Root.AddText('Name', Param.Name);
   Root.AddInt('Size', Param.Size);
   Root.AddInt('Type', Param.ParamType);
-  Root.AddInt('MinValue', Param.MinValue);
-  Root.AddInt('MaxValue', Param.MaxValue);
+  if Param.MaxValue > 0 then
+  begin
+    Root.AddInt('MinValue', Param.MinValue);
+    Root.AddInt('MaxValue', Param.MaxValue);
+  end;
 end;
 
 procedure TCommandDef.LoadParams(Params: TCommandParams; Root: TXmlItem);
@@ -1466,21 +1474,37 @@ end;
 procedure TCommandDef.LoadFromXml(Root: TXmlItem);
 begin
   FCode := Root.GetInt('Code');
-  FText := Root.GetText('Text');
   FName := Root.GetText('Name');
-
+  FTimeout := Root.GetInt('Timeout');
   LoadParams(InParams, Root.FindItem('InParams'));
   LoadParams(OutParams, Root.FindItem('OutParams'));
 end;
 
 procedure TCommandDef.SaveToXml(Root: TXmlItem);
 begin
-  Root.AddInt('Code', Code);
-  Root.AddText('Text', Text);
+  Root.AddText('Code', Format('0x%.4X', [Code]));
   Root.AddText('Name', Name);
-
+  Root.AddInt('Timeout', Timeout);
   SaveParams(InParams, Root.Add('InParams'));
   SaveParams(OutParams, Root.Add('OutParams'));
 end;
 
+(*
+function TCommandDef.GetSizeInBytes(ParamType: Integer; ParamSize: Integer): Integer;
+begin
+  case ParamType of
+    PARAM_TYPE_TIME_HMS_HM:  Result := 2;
+    PARAM_TYPE_DATE_DMY,
+    PARAM_TYPE_DATE_YMD,
+    PARAM_TYPE_TIME_HMS: Result := 3;
+    PARAM_TYPE_SYS,
+    PARAM_TYPE_USR,
+    PARAM_TYPE_TAX: Result := 4;
+  else
+    Result := ParamSize;
+  end;
+end;
+
+
+*)
 end.

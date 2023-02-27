@@ -469,8 +469,23 @@ type
     function FSReadLastMacValue: Int64;
     function FSReadLastMacValue2: Int64;
     function FSCheckItemCode(const P: TFSCheckItemCode; var R: TFSCheckItemResult): Integer;
+    
+    function FSSyncRegisters: Integer;
+    function FSReadMemory(var R: TFSReadMemoryResult): Integer;
+    function FSWriteTLVFromBuffer: Integer;
+    function FSRandomData(var Data: AnsiString): Integer;
+    function FSAuthorize(const DataToAuthorize: AnsiString): Integer;
     function FSAcceptItemCode(Action: Integer): Integer;
-    function FSBindItemCode(const Barcode: string; var R: TFSBindItemCodeResult): Integer;
+    function FSBindItemCode(const P: TFSBindItemCode;
+      var R: TFSBindItemCodeResult): Integer;
+    function FSReadTicketStatus(var R: TFSTicketStatus): Integer;
+    function FSReadMarkStatus(var R: TFSMarkStatus): Integer;
+    function FSStartReadTickets(var R: TFSTicketParams): Integer;
+    function FSReadNextTicket(var R: TFSTicketData): Integer;
+    function FSConfirmTicket(const P: TFSTicketNumber): Integer;
+    function FSReadDeviceInfo(var R: string): Integer;
+    function FSReadDocSize(var R: TFSDocSize): Integer;
+
     procedure STLVBegin(TagID: Integer);
     procedure STLVAddTag(TagID: Integer; TagValue: string);
     function STLVGetHex: string;

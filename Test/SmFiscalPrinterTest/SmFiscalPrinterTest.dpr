@@ -64,7 +64,6 @@ uses
   DirectIOAPI in '..\..\Source\SmFiscalPrinter\Units\DirectIOAPI.pas',
   FiscalPrinterReceipt in '..\..\Source\SmFiscalPrinter\Units\FiscalPrinterReceipt.pas',
   FiscalPrinterState in '..\..\Source\SmFiscalPrinter\Units\FiscalPrinterState.pas',
-  ScaleStatistics in '..\..\Source\SmScale\Units\ScaleStatistics.pas',
   ShtrihFiscalPrinter in '..\..\Source\SmFiscalPrinter\Units\ShtrihFiscalPrinter.pas',
   untUtil in '..\..\Source\SmFiscalPrinter\Units\untUtil.pas',
   SmFiscalPrinterLib_TLB in '..\..\Source\SmFiscalPrinter\SmFiscalPrinterLib_TLB.pas',

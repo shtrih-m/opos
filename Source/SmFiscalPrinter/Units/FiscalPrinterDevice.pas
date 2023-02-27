@@ -26,6 +26,7 @@ type
   { TFiscalPrinterDevice }
 
   TFiscalPrinterDevice = class(TInterfacedObject, IFiscalPrinterDevice)
+  private
   protected
     FFFDVersion: TFFDVersion;
     FContext: TDriverContext;
@@ -390,7 +391,8 @@ type
     class function CodeToBaudRate(BaudRate: Integer): Integer;
     function FieldToInt(FieldInfo: TPrinterFieldRec; const Value: WideString): Integer;
     function ReadFieldInfo(Table, Field: Byte; var R: TPrinterFieldRec): Integer;
-    function ExecuteData(const TxData: AnsiString; var RxData: AnsiString): Integer;
+    function ExecuteData(const TxData: AnsiString): Integer; overload;
+    function ExecuteData(const TxData: AnsiString; var RxData: AnsiString): Integer; overload;
     function ExecuteCommand(var Command: TCommandRec): Integer;
 
     function SendCommand(var Command: TCommandRec): Integer;
@@ -477,8 +479,21 @@ type
     function FSReadLastMacValue2: Int64;
     function FSCheckItemCode(const P: TFSCheckItemCode;
       var R: TFSCheckItemResult): Integer;
+    function FSSyncRegisters: Integer;
+    function FSReadMemory(var R: TFSReadMemoryResult): Integer;
+    function FSWriteTLVFromBuffer: Integer;
+    function FSRandomData(var Data: AnsiString): Integer;
+    function FSAuthorize(const DataToAuthorize: AnsiString): Integer;
     function FSAcceptItemCode(Action: Integer): Integer;
-    function FSBindItemCode(const Barcode: string; var R: TFSBindItemCodeResult): Integer;
+    function FSBindItemCode(const P: TFSBindItemCode;
+      var R: TFSBindItemCodeResult): Integer;
+    function FSReadTicketStatus(var R: TFSTicketStatus): Integer;
+    function FSReadMarkStatus(var R: TFSMarkStatus): Integer;
+    function FSStartReadTickets(var R: TFSTicketParams): Integer;
+    function FSReadNextTicket(var R: TFSTicketData): Integer;
+    function FSConfirmTicket(const P: TFSTicketNumber): Integer;
+    function FSReadDeviceInfo(var R: string): Integer;
+    function FSReadDocSize(var R: TFSDocSize): Integer;
     procedure STLVWrite;
     procedure STLVWriteOp;
     function STLVGetHex: string;
@@ -1528,6 +1543,13 @@ begin
   finally
     Unlock;
   end;
+end;
+
+function TFiscalPrinterDevice.ExecuteData(const TxData: AnsiString): Integer;
+var
+  RxData: AnsiString;
+begin
+  Result := ExecuteData(TxData, RxData);
 end;
 
 function TFiscalPrinterDevice.ExecuteData(const TxData: AnsiString;
@@ -9077,48 +9099,36 @@ end;
 
 function TFiscalPrinterDevice.CheckItemCode(const Barcode: WideString): Integer;
 var
-  Data: AnsiString;
-  GS1Barcode: TGS1Barcode;
-  //Action: Integer;
-  //CheckItemCode: TFSCheckItemCode;
-  //CheckItemResult: TFSCheckItemResult;
+  CheckItemCode: TFSCheckItemCode;
+  CheckItemResult: TFSCheckItemResult;
 begin
   Result := 0;
   if Barcode = '' then Exit;
-
-  if Parameters.EkmServerEnabled then
-  begin
-    GS1Barcode := DecodeGS1(Data);
-    EkmCheckBarcode(GS1Barcode);
-  end;
-  (*
   if Parameters.CheckItemCodeEnabled then
   begin
-    Result := LoadBarcodeData(1, Barcode);
     if Result = 0 then
     begin
       CheckItemCode.ItemStatus := Parameters.NewItemStatus;
-      CheckItemCode.CodeLength := Length(Barcode);
-      CheckItemCode.CheckMode := Parameters.ItemCheckMode;
+      CheckItemCode.ProcessMode := 0;
+      CheckItemCode.TLVData := '';
+      CheckItemCode.CMData := Barcode;
+
       Result := FSCheckItemCode(CheckItemCode, CheckItemResult);
       if Result = 0 then
       begin
-        Action := 0;
-        if IsCorrectItemCode(CheckItemResult) then
-          Action := 1;
-        Result := FSAcceptItemCode(Action);
         CheckCorrectItemCode(CheckItemResult);
       end;
     end;
   end;
-  *)
 end;
 
 procedure TFiscalPrinterDevice.CheckCorrectItemCode(const P: TFSCheckItemResult);
 begin
+
   if P.LocalCheckResult = SMFP_LOCAL_CHECK_FAILED then
     raise Exception.Create(_('Barcode is not valid'));
 
+(*
   if (P.ProcessingCode = 0) then
   begin
     if P.SellPermission <> SMFP_SELL_PERMISSION_OK then
@@ -9127,6 +9137,7 @@ begin
     if P.ServerResult <> SMFP_SERVER_RESULT_OK then
       raise Exception.Create(getServerResultCodeText(P.ServerResult));
   end;
+*)
 end;
 
 function TFiscalPrinterDevice.IsCorrectItemCode(const P: TFSCheckItemResult): Boolean;
@@ -9136,7 +9147,7 @@ begin
     Result := False;
     Exit;
   end;
-
+(*
   if (P.ProcessingCode = 0) then
   begin
     if P.SellPermission <> SMFP_SELL_PERMISSION_OK then
@@ -9150,6 +9161,7 @@ begin
       Exit;
     end;
   end;
+*)
   Result := True;
 end;
 
@@ -9390,146 +9402,570 @@ begin
   Result := LastMacValue;
 end;
 
+(******************************************************************************
+  Проверка маркированного товара
 
-(*
-Проверка  маркированного товара FF61H
-Код команды FF61h. Длина сообщения: 9 байт.
-Пароль оператора: 4 байта
+  Код команды 	FF61h. Длина сообщения: 10+X+Y байт.
+  Пароль оператора (4 байта)
+  Входные данные (4+X+Y байт)
 
-Новый статус товара: 1 байт
-1 - "Сформирован".Не выдан регистратору.
-2 - "Готов". Выдан регистратору, но не применен.
-3 - "Выдан". КМ выдан ТС для нанесения. Применение не подтверждено.
-4 - "Выпущен". КМ нанесен на товар или упаковку, правильность нанесения кода подтверждена, маркированный товар произведен.
-5 - "Не использован". КМ не был выдан ТС к моменту закрытия заказа.
-6 - "Упакован". Товар или упаковка с данным КМ находится в составе логистической единицы.
-7 - "Распакован". Маркированный объект находится в обороте или в употреблении в виде товарной единицы.
-8 - Выбыл по определенным, известным участникам обращения товара, причинам на этапе производства (например, отобран, как опытный образец для испытаний), оптового или розничного оборота (уничтожен безвозвратно в составе логистической единицы, похищенной, испорченной в совокупности со всем содержимым и т.п.).
-9 - "Выбыл через розничную сеть".
-10 - "В состоянии выбытия" (мерный товар).
-11 - "Утерян".
-12 - "Оборот приостановлен".
-13 - "Оборот запрещен".
-14 - "Потреблен".
-15 - "Дублирован".
-Длина кода маркировки: 1 байт
-Режим проверки: 1 байт
-0 - полная проверка.
-1 - только онлайн проверка.
-2 - только локальная проверка.
-В первую очередь всегда надо пытаться проводить полную проверку. Полная проверка состоит из 2-х этапов, локальная проверка и онлайн проверка. Если локальная проверка дала отрицательный результат, то ККТ прекращает проверку и сообщает об этом управляющему ПО. Далее в зависимости от режима контроля и пожеланий покупателя можно для данного КМ произвести онлайн проверку.
-Если локальная проверка выполнена успешно то ККТ (в режиме передачи данных) автоматически произведет онлайн проверку.
-Для ККТ в автономном режиме онлайн проверка не производится.
-Управляющее ПО исходя из результатов проверки КМ, режима выбытия для данного товара и пожеланий покупателя должно принимать решение о регистрации или отказе в регистрации данного предмета расчета.
-Режим "только локальная проверка" нужен на переходный период, пока не определены правила по онлайн проверке.
+  Состав входных данных:
 
-(данные должны быть загружены командой 0xDD)
-Ответ: FF61h	    Длина сообщения: 8 байт.
-Код ошибки: 1 байт
-Результат локальной проверки кода маркировки: 1 байт
-0 - проверка не проводилась, (для симметричной криптографической системы).
-1 - код маркировки проверен, достоверный.
-2 - код маркировки проверен, недостоверный.
-3 - проверка не проводилась, (криптографическая система асимметричная, но в ФН-М нет ключа с идентификатором КПКИЗ.ид)
-Код обработки пакета: 1 байт.
-поля ниже имеют смысл, если в этом поле 0, в противном случае должны игнорироваться
-Разрешение на продажу товара от ИСМ: 1 байт.
-0 - товар разрешен к продаже
-1 - товар запрещен к продаже
-Статус КМ: 1 байт (см. выше)
-Код ошибки от сервера КМ: 1 байт
-0 - Статус успешно изменен
-1 - КИЗ отсутствует в базе Серверы СКЗКМ или КИЗ отсутствует в базе ИСМ
-2 - Не корректен формат КИЗ
-3 - Криптографическая проверка КПКИЗ дала отрицательный результат
-4 - КИЗ имеет в базе Серверы СКЗКМ статус не совместимый с запрашиваемым изменением. Например, запрошено изменение статуса "Выбыл в розничной сети" в то время, как товар уже был продан. Иными словами, запрашивается запрещенное изменение статуса кода маркировки
-5 - В списке вложения обнаружены ошибки
-Статус проверок сервера : 1 байт
-0 - все хорошо.
-Любое другое значение - все плохо.
-Тип символики: 1 байт
-0 - ассиметричная
-1 - симметричная
-2 - табачная
+  Смещение	Длина	Параметр	Значение
+  0	1 байт	Планируемый статус	Тег 2003
+  1	1 байт	Режим обработки	Тег 2102 (сейчас всегда "0")
+  2	1 байт	Длина кода маркировки (КМ) в байтах (X)	Полная длина КМ
+  3	1 байт	Длина списка TLV в байтах	Полная длина списка TLV
+  4	X байт	КМ	Сам КМ, как он был прочитан сканером
+  4+X	Y байт	Список TLV	Если планируется частичное выбытие маркированного
+            товара (согласно с тегом 2003), то необходимо сформировать буфер
+            из тегов 2108 (мера) и 1023 (количество) и передать его здесь
 
-*)
+  Ответ:		FF61h. Длина сообщения: 9+X байт.
+  Код ошибки (1 байт)
+  Результат проверки (6+N байт)
 
-function TFiscalPrinterDevice.FSCheckItemCode(const P: TFSCheckItemCode; var R: TFSCheckItemResult): Integer;
+  Состав данных результата проверки:
+
+  Смещение	Длина	Параметр	Значение	Примечание
+  0	1 байт	Статус локальной проверки	Тег 2004
+  1	1 байт	Причина, по которой не была проведена локальная проверка
+  2	1 байт	Распознанный тип КМ	Тег 2100
+  3	1 байт	Длина дополнительных параметров	Длина данных, идущих далее
+            Если автономный режим или если сервер не ответил в течение таймаута, то "0"
+  4	1 байт	Код ответа ФН на команду онлайн-проверки
+            В соответствии и вводом ошибки ФН	Если 0x20, то в следующем байте
+            возвращается причина в соответствии с Примечанием 2 ниже
+  5	1 байт	Результат проверки КМ	Тег 2106	Только если сервер ответил без ошибок
+  6	N байт	Список реквизитов ответа сервера	TLV List	Только если сервер ответил без ошибок
+
+******************************************************************************)
+
+function TFiscalPrinterDevice.FSCheckItemCode(const P: TFSCheckItemCode;
+  var R: TFSCheckItemResult): Integer;
 var
   Answer: AnsiString;
   Command: AnsiString;
 begin
   Command := #$FF#$61 + IntToBin(FSysPassword, 4) +
-    Chr(P.ItemStatus) + Chr(P.CodeLength) + Chr(P.CheckMode);
+    Chr(P.ItemStatus) + Chr(P.ProcessMode) +
+    Chr(Length(P.CMData)) + Chr(Length(P.TLVData)) +
+    P.CMData + P.TLVData;
+
   Result := ExecuteData(Command, Answer);
   if Result = 0 then
   begin
-    CheckMinLength(Answer, 7);
+    CheckMinLength(Answer, 4);
     R.LocalCheckResult := Ord(Answer[1]);
-    R.ProcessingCode := Ord(Answer[2]);
-    R.SellPermission := Ord(Answer[3]);
-    R.KMStatus := Ord(Answer[4]);
-    R.ServerResult := Ord(Answer[5]);
-    R.ServerStatus := Ord(Answer[6]);
-    R.SymbolicType := Ord(Answer[7]);
+    R.LocalCheckError := Ord(Answer[2]);
+    R.SymbolicType := Ord(Answer[3]);
+    R.DataLength := Ord(Answer[4]);
+    if R.DataLength > 1 then
+    begin
+      R.FSResultCode := Ord(Answer[5]);
+      R.ServerCheckStatus := Ord(Answer[6]);
+      R.ServerTLVData := Copy(Answer, 7, Length(Answer));
+    end;
   end;
-end;
-
-
-(*
-Принять или отвергнуть введенный код маркировки FF69H
-Код команды FF69h. Длина сообщения: 7 байт.
-Пароль оператора: 4 байта
-Решение : 1 байт. 0 - отвергнуть, 1 - принять.
-Команду необходимо подавать после проверки каждого КМ.
-Ответ: FF69h	    Длина сообщения: 1 байт.
-Код ошибки: 1 байт
-*)
-
-
-function TFiscalPrinterDevice.FSAcceptItemCode(Action: Integer): Integer;
-var
-  Answer: AnsiString;
-  Command: AnsiString;
-begin
-  Command := #$FF#$69 + IntToBin(FUsrPassword, 4) + Chr(Action);
-  Result := ExecuteData(Command, Answer);
 end;
 
 (******************************************************************************
 
-Привязка  маркированного товара к позиции FF67H
+  Синхронизировать регистры со счётчиком ФН
 
-Код команды FF67h. Длина сообщения: 5+N байт.
-  Пароль оператора: 4 байта
-  Длина кода маркировки: 1 байт
-  Данные маркировки N байт
-  Данная команда должна вызываться после привязки всех тегов к предмету расчета.
+  Код команды 	FF62h. Длина сообщения: 6 байт.
+    Пароль системного администратора (4 байта)
 
-Ответ: FF67h	    Длина сообщения: 4 байт.
-  Код ошибки: 1 байт
-  первые 2 байта значения реквизита "код товара": 2 байта,
-  Тип Data Matrix:1 байт.
-  0 - КМ 88,
-  1-КМ симметричный,
-  2-КМ Табачный,
-  3-КМ 44.
+  Ответ: 		FF62h. Длина сообщения: 3 байта.
+      Код ошибки (1 байт)
 
 ******************************************************************************)
 
-function TFiscalPrinterDevice.FSBindItemCode(const Barcode: string;
+function TFiscalPrinterDevice.FSSyncRegisters: Integer;
+var
+  Command: AnsiString;
+begin
+  Command := #$FF#$62 + IntToBin(FSysPassword, 4);
+  Result := ExecuteData(Command);
+end;
+
+
+(******************************************************************************
+
+  Запрос ресурса свободной памяти в ФН
+
+  Код команды 	FF63h. Длина сообщения: 6 байт.
+  Пароль системного администратора (4 байта)
+
+  Ответ: 		FF63h. Длина сообщения: 11 байт.
+  Код ошибки (1 байт)
+  Ресурс данных 5 летнего хранения 1 (4 байта)
+  Ресурс данных 30 дневного хранения 2 (4 байта)
+  Ресурс для хранения уведомлений о реализации маркированного товара3 (1 байт)
+  Примечание:
+  1 - Ориентировочное количество документов, которые можно создать в ФН.
+  2 - Размер свободной области (в килобайтах) для записи документов 30 дней хранения.
+      После 30 дней работы значение может колебаться на постоянном уровне.
+  3 - Процент заполнения области хранения уведомлений о реализации маркированных
+      товаров для ОИСМ. Параметр не возвращается если ФН зарегистрирован в
+      режиме без поддержки работы с маркированным товарами.
+
+******************************************************************************)
+
+function TFiscalPrinterDevice.FSReadMemory(var R: TFSReadMemoryResult): Integer;
+var
+  Answer: AnsiString;
+  Command: AnsiString;
+begin
+  Command := #$FF#$63 + IntToBin(FSysPassword, 4);
+  Result := ExecuteData(Command, Answer);
+  if Result = 0 then
+  begin
+    R.FreeDocCount := BinToInt(Answer, 1, 4);
+    R.FreeMemorySizeInKB := BinToInt(Answer, 5, 4);
+    R.UsedMCTicketStorageInPercents := BinToInt(Answer, 5, 4);
+  end;
+end;
+
+(******************************************************************************
+
+  Передача в ФН TLV из буфера
+
+  Код команды 	FF64h. Длина сообщения: 6 байт.
+  Пароль системного администратора (4 байта)
+
+  Ответ: 		FF64h. Длина сообщения: 3 байта.
+  Код ошибки (1 байт)
+  Примечание:
+  Позволяет передать в ФН предварительно загруженную в буфер TLV структуру.
+  Позволяет передать TLV длиннее 250 байт. Буфер тот же что и для проверки маркировки.
+
+******************************************************************************)
+
+function TFiscalPrinterDevice.FSWriteTLVFromBuffer: Integer;
+var
+  Command: AnsiString;
+begin
+  Command := #$FF#$64 + IntToBin(FSysPassword, 4);
+  Result := ExecuteData(Command);
+end;
+
+(******************************************************************************
+
+  Получить случайную последовательность
+
+  Код команды 	FF65h. Длина сообщения: 6 байт.
+  Пароль оператора (4 байта)
+
+  Ответ: 		FF65h. Длина сообщения: 19 байт.
+  Код ошибки (1 байт)
+  Данные (16 байт)
+
+******************************************************************************)
+
+function TFiscalPrinterDevice.FSRandomData(var Data: AnsiString): Integer;
+var
+  Command: AnsiString;
+begin
+  Command := #$FF#$65 + IntToBin(FSysPassword, 4);
+  Result := ExecuteData(Command, Data);
+end;
+
+(******************************************************************************
+  Авторизоваться
+  Код команды 	FF66h. Длина сообщения: 22 байта.
+  Пароль оператора (4 байта)
+  Данные для авторизации (16 байт)
+
+  Ответ: 		FF66h. Длина сообщения: 3 байта.
+  Код ошибки (1 байт)
+
+******************************************************************************)
+
+function TFiscalPrinterDevice.FSAuthorize(const DataToAuthorize: AnsiString): Integer;
+var
+  Command: AnsiString;
+begin
+  Command := #$FF#$66 + IntToBin(FSysPassword, 4) + Copy(DataToAuthorize, 1, 16);
+  Result := ExecuteData(Command);
+end;
+
+(******************************************************************************
+
+  Привязка маркированного товара к позиции
+
+  Код команды 	FF67h. Длина сообщения: 7+N байт.
+  Пароль оператора (4 байта)
+  Длина кода маркировки (1 байт)
+  Данные маркировки (N байт)
+  Признак ОСУ (1 байт) 1 Объемно-сортовой учет (ОСУ)
+
+  Ответ: 		FF67h. Длина сообщения: 6+(6+N)4 байт.
+  Код ошибки (1 байт)
+  Распознанный тип кода (2 байта) 2
+  Тип Data Matrix (1 байт) 3
+  0 - КМ 88
+  1 - КМ симметричный
+  2 - КМ Табачный
+  3 - КМ 44
+  0 xFF- GS-1 без маркировки
+  Результат проверки (6+N байт)4 может отсутствовать (см. Примечание 1)
+
+  Примечание:
+  1 - Может отсутствовать. Для реализации позиции по ОСУ надо передать значение 0xFF.
+  2 - Таблица допустимых значений:
+  Тип кода	Значение
+  EAN8	0x45 0x08
+  EAN13	0x45 0x0D
+  ITF14	0x49 0x0E
+  GS-1 Data Matrix		0x44 0x4D
+  RF метка меховых изделий	0x52 0x46
+  ЕГАИС-3	0xC5 0x14
+  ЕГАИС-3	0xC5 0x1E
+  ОСУ EAN8		0x4F 0x08
+  ОСУ EAN13	0x4F 0x0D
+  ОСУ GTIN ITF14	0x4F 0x0E
+  Нераспознанный код	0x00 0x00
+  3 - Поле имеет смысл только если код распознан как GS-1 Data Matrix, в противном случае принимает значение 0.
+  4 - В случае если код маркировки не проверялся ранее командой FF61h "Проверка маркированного товара", ККТ сама её подаст и добывит ответ на неё к ответу на команду FF67h.
+
+
+  Состав данных результата проверки:
+
+  Смещение	Длина	Параметр	Значение	Примечание
+  0	1 байт	Статус локальной проверки	Тег 2004
+  1	1 байт	Причина, по которой не была проведена локальная проверка	См. Примечание 2 ниже
+  2	1 байт	Распознанный тип КМ	Тег 2100
+  3	1 байт	Длина дополнительных параметров	Длина данных, идущих далее	Если автономный режим, то "0"
+  4	1 байт	Код ответа ФН на команду онлайн-проверки	В соответствии и вводом ошибки ФН	Если 0x20, то в следующем байте возвращается причина в соответствии с Примечанием 3 ниже
+  Значение 0xFF, если сервер не ответил в течение таймаута.
+  5	1 байт	Результат проверки КМ	Тег 2106	Только если сервер ответил без ошибок
+  6	N байт	Список реквизитов ответа сервера	TLV List	Только если сервер ответил без ошибок
+
+******************************************************************************)
+
+
+function TFiscalPrinterDevice.FSBindItemCode(const P: TFSBindItemCode;
   var R: TFSBindItemCodeResult): Integer;
 var
   Answer: AnsiString;
   Command: AnsiString;
 begin
-  Command := #$FF#$67 + IntToBin(FUsrPassword, 4) + Chr(Length(Barcode)) + Barcode;
+  Command := #$FF#$67 + IntToBin(FUsrPassword, 4) + Chr(Length(P.Code)) + P.Code;
+  if P.IsAccounted then
+    Command := Command + #$FF;
+
   Result := ExecuteData(Command, Answer);
   if Result = 0 then
   begin
     CheckMinLength(Answer, 3);
     R.ItemCode := BinToInt(Answer, 1, 2);
     R.CodeType := BinToInt(Answer, 3, 1);
+    if Length(Answer) >= 7 then
+    begin
+      R.CheckResult.LocalCheckResult := Ord(Answer[4]);
+      R.CheckResult.LocalCheckError := Ord(Answer[5]);
+      R.CheckResult.SymbolicType := Ord(Answer[6]);
+      R.CheckResult.DataLength := Ord(Answer[7]);
+      if R.CheckResult.DataLength > 1 then
+      begin
+        R.CheckResult.FSResultCode := Ord(Answer[8]);
+        R.CheckResult.ServerCheckStatus := Ord(Answer[9]);
+        R.CheckResult.ServerTLVData := Copy(Answer, 10, Length(Answer));
+      end;
+    end;
+  end;
+end;
+
+(******************************************************************************
+
+  Получить состояние по передаче уведомлений о реализации маркированных товаров
+  Код команды 	FF68h. Длина сообщения: 6 байт.
+  Пароль оператора (4 байта)
+  Ответ:		FF68h. Длина сообщения: 13 байт.
+  Код ошибки (1 байт)
+
+  Наименование	Тип	Длина	Описание
+  Состояние по передачи уведомлений	Byte	1	0 - нет активного обмена;
+  1 - начато чтение уведомления;
+  2 - ожидание квитанции на уведомление;
+  Количество уведомлений в очереди	Uint16, LE	2	0, если на все уведомления была получена квитанция
+  Номер текущего уведомления	Uint32, LE	4	Номер уведомления для передачи, или уведомления, на которое ожидается квитанция
+  Дата и время текущего уведомления	DATE_TIME	5	0, если на все уведомления получена квитанция
+  Процент заполнения области хранения уведомлений	Byte	1
+
+  Код ошибки (1 байт) может принимать следующие значения:
+  Код ответа	Описание	Комментарий (действия ККТ)
+
+  00h	Нет ошибки
+
+  02h	Неверное состояние ФН	ФН был активирован в автономном режиме или уже
+      начато чтение уведомления и состояние по передаче уведомлений имеет
+      значение "1" - "начато чтение уведомления": необходимо завершить или
+      отменить начатое чтение уведомления
+
+  32h	Запрещена работа с маркированными товарами	При регистрации ФН не был
+      указан признак работы с маркированными товарами
+
+******************************************************************************)
+
+function TFiscalPrinterDevice.FSReadTicketStatus(var R: TFSTicketStatus): Integer;
+var
+  Answer: AnsiString;
+  Command: AnsiString;
+begin
+  Command := #$FF#$68 + IntToBin(FUsrPassword, 4);
+  Result := ExecuteData(Command, Answer);
+  if Result = 0 then
+  begin
+    CheckMinLength(Answer, 13);
+    R.TicketStatus := BinToInt(Answer, 1, 1);
+    R.TicketCount := BinToInt(Answer, 2, 2);
+    R.TicketNumber := BinToInt(Answer, 4, 4);
+    R.TicketDate := BinToPrinterDateTime2(Copy(Answer, 8, 5));
+    R.TicketStorageUsageInPercents := Ord(Answer[13]);
+  end;
+end;
+
+(******************************************************************************
+
+  Принять или отвергнуть введенный код маркировки FF69H
+
+  Код команды FF69h. Длина сообщения: 7 байт.
+  Пароль оператора: 4 байта
+  Решение : 1 байт. 0 - отвергнуть, 1 - принять.
+  Команду необходимо подавать после проверки каждого КМ.
+
+  Ответ: FF69h	    Длина сообщения: 1 байт.
+  Код ошибки: 1 байт
+
+******************************************************************************)
+
+function TFiscalPrinterDevice.FSAcceptItemCode(Action: Integer): Integer;
+var
+  Command: AnsiString;
+begin
+  Command := #$FF#$69 + IntToBin(FUsrPassword, 4) + Chr(Action);
+  Result := ExecuteData(Command);
+end;
+
+(******************************************************************************
+
+  Запрос статуса по работе с кодами маркировки
+
+  Код команды 	FF70h. Длина сообщения: 6 байт.
+  Пароль оператора (4 байта)
+
+  Ответ:		FF70h. Длина сообщения: 11 байт.
+  Код ошибки (1 байт)
+  Статус работы с кодами маркировки (8 байт)
+
+  Наименование	Тип	Длина	Описание
+  Состояние по проверке КМ	Byte	1	0 - Таблица проверки КМ переполнена
+    1 - Нет КМ на проверке
+    2 - Передан КМ в команде B1h
+    3 - Сформирован запрос о коде маркировки при помощи команды B5h
+    4 - Получен и передан в ФН ответ на запрос при помощи команды B6h
+  Состояние по формированию уведомления о реализации маркированного товара	Byte	1
+    0 - Уведомление о реализации маркированного товара не формируется
+    1 - Начато формирование уведомления о реализации маркированного товара
+    2 - Формирование уведомлений заблокировано из-за переполнения области временного хранения
+  Флаги разрешения команд работы с КМ	Byte	1	См. таблицу "Флаги разрешения команд работы с КМ" ниже
+  Количество сохранённых результатов проверки КМ	Byte	1
+  Количество КМ, результаты проверки которых сохранены в ФН командой B2h c кодом "1"
+  Количество КМ, включенных в уведомление о реализации маркированного товара	Byte	1
+  Предупреждение о заполнении области хранения уведомлений о реализации маркированного товара	Byte	1
+    В этом параметре ФН информирует ККТ о заполнении области хранения уведомлений о реализации маркированного товара.
+    Возможные следующие значения параметра:
+    0 - Область заполнена менее чем на 50%
+    1 - Область заполнена от 50 до 80%
+    2 - Область заполнена от 80 до 90%
+    3 - Область заполнена более чем на 90%
+    4 - Область полностью заполнена, формирование новых уведомлений невозможно
+  Количество уведомлений в очереди	Uint16, LE	2
+    Количество неподтверждённых или невыгруженных уведомлений о реализации маркированного товара
+  Флаги разрешения команд работы с КМ
+
+  Бит 7	Бит 6	Бит 5	Бит 4	Бит 3	Бит 2	Бит 1	Бит 0	Код разрешенной команды
+  0	0	0	0	0	0	0	1	B1h
+  0	0	0	0	0	0	1	0	B2h
+  0	0	0	0	0	1	0	0	B3h
+  0	0	0	0	1	0	0	0	B5h
+  0	0	0	1	0	0	0	0	B6h
+  0	0	1	0	0	0	0	0	B7h с дополнительным кодом 1
+  0	1	0	0	0	0	0	0	B7h с дополнительным кодом 2
+  1	0	0	0	0	0	0	0	B7h с дополнительным кодом 3
+
+******************************************************************************)
+
+function TFiscalPrinterDevice.FSReadMarkStatus(var R: TFSMarkStatus): Integer;
+var
+  Answer: AnsiString;
+  Command: AnsiString;
+begin
+  Command := #$FF#$70 + IntToBin(FUsrPassword, 4);
+  Result := ExecuteData(Command, Answer);
+  if Result = 0 then
+  begin
+    CheckMinLength(Answer, 8);
+    R.MarkCheckStatus := Ord(Answer[1]);
+    R.TicketStatus := Ord(Answer[2]);
+    R.CommandFlags := Ord(Answer[3]);
+    R.MCSavedCount := Ord(Answer[4]);
+    R.MCTicketCount := Ord(Answer[5]);
+    R.TicketStorageStatus := Ord(Answer[6]);
+    R.TicketCount := BinToInt(Answer, 7, 2);
+  end;
+end;
+
+(******************************************************************************
+
+  Начать выгрузку уведомлений о реализации маркированных товаров (в автономном режиме)
+
+  Код команды 	FF71h. Длина сообщения: 6 байт.
+  Пароль оператора (4 байта)
+
+  Ответ:		FF71h. Длина сообщения: 11 байт.
+  Код ошибки (1 байт)
+  Общее число уведомлений (2 байта)
+  Номер первого уведомления (4 байта)
+  Размер первого уведомления (2 байта)
+
+******************************************************************************)
+
+function TFiscalPrinterDevice.FSStartReadTickets(var R: TFSTicketParams): Integer;
+var
+  Answer: AnsiString;
+  Command: AnsiString;
+begin
+  Command := #$FF#$71 + IntToBin(FUsrPassword, 4);
+  Result := ExecuteData(Command, Answer);
+  if Result = 0 then
+  begin
+    CheckMinLength(Answer, 8);
+    R.TicketCount := BinToInt(Answer, 1, 2);
+    R.FirstTicketNumber := BinToInt(Answer, 3, 4);
+    R.FirstTicketSize := BinToInt(Answer, 7, 2);
+  end;
+end;
+
+(******************************************************************************
+
+  Прочитать блок уведомления (в автономном режиме)
+
+  Код команды 	FF72h. Длина сообщения: 6 байт.
+  Пароль оператора: 4 байта
+
+  Ответ:		FF72h. Длина сообщения: 11+N байт.
+  Код ошибки (1 байт)
+  Номер текущего уведомления (4 байта)
+  Полный размер текущего уведомления (2 байта)
+  Смещение от начала текущего уведомления (2 байта)
+  Блок данных (N байт)
+
+  Примечание:
+  ККТ выполняет поблочное чтение всех доступных уведомлений
+  (максимально ККТ может прочитать блок 128 байт).
+  Следует вызывать команду до получения ошибки "Нет данных" или на основании
+  общего числа уведомлений, полученного подачей команды FF71h.
+  Допускается прочитать лишь часть уведомлений и подтвердить их.
+  В любой момент до подтверждения чтения можно вызвать команду FF71h и
+  начать чтение неподтвержденных уведомлений заново.
+
+******************************************************************************)
+
+function TFiscalPrinterDevice.FSReadNextTicket(var R: TFSTicketData): Integer;
+var
+  Answer: AnsiString;
+  Command: AnsiString;
+begin
+  Command := #$FF#$72 + IntToBin(FUsrPassword, 4);
+  Result := ExecuteData(Command, Answer);
+  if Result = 0 then
+  begin
+    CheckMinLength(Answer, 8);
+    R.Number := BinToInt(Answer, 1, 4);
+    R.Size := BinToInt(Answer, 5, 2);
+    R.Offset := BinToInt(Answer, 7, 2);
+    R.Data := Copy(Answer, 9, Length(Answer));
+  end;
+end;
+
+(******************************************************************************
+
+  Подтвердить выгрузку уведомления (в автономном режиме)
+
+  Код команды 	FF73h. Длина сообщения: 14 байт.
+  Пароль оператора (4 байта)
+  Номер уведомления (4 байта) получается из ответа на команду FF72h
+  CRC16 (4 байта) контрольная сумма уведомления
+
+  Ответ:		FF73h. Длина сообщения: 3 байта.
+  Код ошибки (1 байт)
+
+******************************************************************************)
+
+function TFiscalPrinterDevice.FSConfirmTicket(const P: TFSTicketNumber): Integer;
+var
+  Answer: AnsiString;
+  Command: AnsiString;
+begin
+  Command := #$FF#$73 + IntToBin(FUsrPassword, 4) +
+    IntToBin(P.Number, 4) + IntToBin(P.Crc16, 4);
+  Result := ExecuteData(Command, Answer);
+end;
+
+(******************************************************************************
+
+  Запрос исполнения ФН
+
+  Код команды 	FF74h. Длина сообщения: 6 байт.
+  Пароль оператора (4 байта)
+
+  Ответ:		FF74h. Длина сообщения: 51 байт.
+  Код ошибки (1 байт)
+  Строка исполнения ФН  (48 байт)  ASCII
+
+******************************************************************************)
+
+function TFiscalPrinterDevice.FSReadDeviceInfo(var R: string): Integer;
+var
+  Answer: AnsiString;
+  Command: AnsiString;
+begin
+  Command := #$FF#$74 + IntToBin(FUsrPassword, 4);
+  Result := ExecuteData(Command, Answer);
+  if Result = 0 then
+  begin
+    R := Answer;
+  end;
+end;
+
+(******************************************************************************
+
+  Запрос общего размера данных документа в ФН
+
+  Код команды 	FF75h. Длина сообщения: 14 байт.
+  Пароль оператора (4 байта)
+  Ответ:		FF75h. Длина сообщения: 11 байт.
+  Код ошибки (1 байт)
+  Размер в байтах текущего документа для ОФД ( 4 байта)
+  Размер в байтах текущего уведомления о реализации маркированных товаров для ОИСМ ( 4 байта)
+
+******************************************************************************)
+
+function TFiscalPrinterDevice.FSReadDocSize(var R: TFSDocSize): Integer;
+var
+  Answer: AnsiString;
+  Command: AnsiString;
+begin
+  Command := #$FF#$75 + IntToBin(FUsrPassword, 4);
+  Result := ExecuteData(Command, Answer);
+  if Result = 0 then
+  begin
+    CheckMinLength(Answer, 8);
+    R.DocSize := BinToInt(Answer, 1, 4);
+    R.TicketSize := BinToInt(Answer, 5, 4);
   end;
 end;
 

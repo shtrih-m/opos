@@ -14,8 +14,8 @@ const
   PARAM_TYPE_INT        = 0; // Integer
   PARAM_TYPE_STR        = 1; // String
   PARAM_TYPE_HEX        = 2; // Binary byte array in hex format
-  PARAM_TYPE_DATE       = 3; // Date
-  PARAM_TYPE_TIME       = 4; // Time
+  PARAM_TYPE_DATE_DMY   = 3; // Date
+  PARAM_TYPE_TIME_HMS   = 4; // Time
   PARAM_TYPE_FINT       = 5; // Number, Taxpayer ID, if all $FF - not accepted
   PARAM_TYPE_SYS        = 6; // System administrator password
   PARAM_TYPE_USR        = 7; // Operator password
@@ -31,6 +31,8 @@ const
   PARAM_TYPE_VBAT       = 17; // Battery voltage
   PARAM_TYPE_VSRC       = 18; // Power supply voltage
   PARAM_TYPE_TIMEOUT    = 19; // Timeout
+  PARAM_TYPE_TIME_HM    = 20; // Time
+  PARAM_TYPE_DATE_YMD   = 21; // Date
 
 type
   TCommandParam = class;
@@ -88,7 +90,6 @@ type
 
   TCommandParam = class
   private
-    FText: WideString;
     FName: WideString;
     FOwner: TCommandParams;
     FSize: Integer;
@@ -103,7 +104,6 @@ type
     destructor Destroy; override;
     function IsLastItem: Boolean;
 
-    property Text: WideString read FText write FText;
     property Name: WideString read FName write FName;
     property Size: Integer read FSize write FSize;
     property Value: WideString read FValue write FValue;
@@ -326,8 +326,10 @@ begin
     PARAM_TYPE_SYS: Item.Value := IntToStr(Data.ReadInt(Item.Size));
     PARAM_TYPE_USR: Item.Value := IntToStr(Data.ReadInt(Item.Size));
     PARAM_TYPE_TAX: Item.Value := IntToStr(Data.ReadInt(Item.Size));
-    PARAM_TYPE_DATE: Item.Value := PrinterDateToStr(Data.ReadDate);
-    PARAM_TYPE_TIME: Item.Value := PrinterTimeToStr(Data.ReadTime);
+    PARAM_TYPE_DATE_DMY: Item.Value := PrinterDateToStr(Data.ReadDateDMY);
+    PARAM_TYPE_DATE_YMD: Item.Value := PrinterDateToStr(Data.ReadDateYMD);
+    PARAM_TYPE_TIME_HMS: Item.Value := PrinterTimeToStr(Data.ReadTimeHMS);
+    PARAM_TYPE_TIME_HM: Item.Value := PrinterTimeToStr(Data.ReadTimeHM);
     PARAM_TYPE_FINT:
     begin
       S := Data.ReadString(Item.Size);
@@ -431,8 +433,10 @@ begin
       FPassword := StrToInt64(Item.Value);
       Data.WriteInt(FPassword, Item.Size);
     end;
-    PARAM_TYPE_DATE: Data.WriteDate(StrToPrinterDate(Item.Value));
-    PARAM_TYPE_TIME: Data.WriteTime(StrToPrinterTime(Item.Value));
+    PARAM_TYPE_DATE_DMY: Data.WriteDateDMY(StrToPrinterDate(Item.Value));
+    PARAM_TYPE_DATE_YMD: Data.WriteDateYMD(StrToPrinterDate(Item.Value));
+    PARAM_TYPE_TIME_HMS: Data.WriteTimeHMS(StrToPrinterTime(Item.Value));
+    PARAM_TYPE_TIME_HM: Data.WriteTimeHM(StrToPrinterTime(Item.Value));
     PARAM_TYPE_FINT: Data.WriteInt(StrToInt64(Item.Value), Item.Size);
     PARAM_TYPE_MIN: ;
     PARAM_TYPE_MAX: ;

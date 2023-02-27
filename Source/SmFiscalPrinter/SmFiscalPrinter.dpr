@@ -3,7 +3,6 @@ library SmFiscalPrinter;
 {%ToDo 'SmFiscalPrinter.todo'}
 
 uses
-  //FastMM4,
   ComServ,
   Opos in '..\Opos\Opos.pas',
   Oposhi in '..\Opos\Oposhi.pas',
@@ -20,7 +19,6 @@ uses
   DirectIOAPI in 'Units\DirectIOAPI.pas',
   ShtrihFiscalPrinter in 'Units\ShtrihFiscalPrinter.pas',
   PrinterTypes in 'Units\PrinterTypes.pas',
-  CommandDef in '..\SmScale\Units\CommandDef.pas',
   XMLParser in '..\Shared\XMLParser.pas',
   XmlValue in 'Units\XmlValue.pas',
   PayType in 'Units\PayType.pas',
@@ -34,7 +32,6 @@ uses
   SharedPrinter in 'Units\SharedPrinter.pas',
   OposCash in '..\Opos\OposCash.pas',
   OposCashhi in '..\Opos\OposCashhi.pas',
-  ScaleStatistics in '..\SmScale\Units\ScaleStatistics.pas',
   OposStat in '..\Opos\OposStat.pas',
   OposStatistics in '..\Opos\OposStatistics.pas',
   StatisticItem in 'Units\StatisticItem.pas',
@@ -175,7 +172,8 @@ uses
   TranslationUtil in 'Units\TranslationUtil.pas',
   LangUtils in '..\Shared\LangUtils.pas',
   BaseForm in '..\Shared\BaseForm.pas',
-  RegExpr in '..\Shared\RegExpr.pas';
+  RegExpr in '..\Shared\RegExpr.pas',
+  CommandDef in '..\Shared\CommandDef.pas';
 
 exports
   DllGetClassObject,
