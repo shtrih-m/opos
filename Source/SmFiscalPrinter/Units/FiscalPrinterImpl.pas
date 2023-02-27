@@ -2646,7 +2646,6 @@ end;
 
 function TFiscalPrinterImpl.GetDate(out Date: WideString): Integer;
 var
-  OposDate: TOposDate;
   Status: TLongPrinterStatus;
 begin
   try
@@ -2658,8 +2657,7 @@ begin
       FPTR_DT_RTC:
       begin
         Status := Device.ReadLongStatus;
-        OposDate := PrinterDateTimeToOposDate(Status.Date, Status.Time);
-        Date := EncodeOposDate(OposDate);
+        Date := EncodeOposDate(Status.Date, Status.Time);
       end;
     else
       InvalidPropertyValue('DateType', IntToStr(FDateType));
@@ -3037,8 +3035,8 @@ begin
     CheckEnabled;
     CheckState(FPTR_PS_MONITOR);
     Parameters.ReportType := PRINTER_REPORT_TYPE_SHORT;
-    Parameters.Date1 := OposDateToPrinterDate(DecodeOposDate(Date1));
-    Parameters.Date2 := OposDateToPrinterDate(DecodeOposDate(Date2));
+    Parameters.Date1 := DecodeOposDate(Date1);
+    Parameters.Date2 := DecodeOposDate(Date2);
     if ComparePrinterDate(Parameters.Date1, Parameters.Date2) = 1 then
       RaiseOposException(OPOS_E_ILLEGAL, 'Date1 > Date2');
 
@@ -3483,8 +3481,8 @@ begin
       FPTR_RT_DATE:
       begin
         DateReport.ReportType := PRINTER_REPORT_TYPE_FULL;
-        DateReport.Date1 := OposDateToPrinterDate(DecodeOposDate(StartNum));
-        DateReport.Date2 := OposDateToPrinterDate(DecodeOposDate(EndNum));
+        DateReport.Date1 := DecodeOposDate(StartNum);
+        DateReport.Date2 := DecodeOposDate(EndNum);
         if ComparePrinterDate(DateReport.Date1, DateReport.Date2) = 1 then
           RaiseOposException(OPOS_E_ILLEGAL, 'StartNum > EndNum');
 
@@ -3652,7 +3650,7 @@ end;
 
 function TFiscalPrinterImpl.SetDate(const Date: WideString): Integer;
 var
-  OposDate: TOposDate;
+  DateTime: TPrinterDateTime;
   PrinterDate: TPrinterDate;
   PrinterTime: TPrinterTime;
 begin
@@ -3663,12 +3661,12 @@ begin
       if FDayOpened then
         RaiseOposException(OPOS_E_ILLEGAL, _('Day is opened. Unable to change date'));
 
-      OposDate := DecodeOposDate(Date);
-      PrinterDate.Day := OposDate.Day;
-      PrinterDate.Month := OposDate.Month;
-      PrinterDate.Year := OposDate.Year - 2000;
-      PrinterTime.Hour := OposDate.Hour;
-      PrinterTime.Min := OposDate.Min;
+      DateTime := DecodeOposDateTime(Date);
+      PrinterDate.Day := DateTime.Day;
+      PrinterDate.Month := DateTime.Month;
+      PrinterDate.Year := DateTime.Year;
+      PrinterTime.Hour := DateTime.Hour;
+      PrinterTime.Min := DateTime.Min;
       PrinterTime.Sec := 0;
 
       Device.WriteDate(PrinterDate);
@@ -4524,7 +4522,6 @@ function TFiscalPrinterImpl.ReadFSParameter(ParamID: Integer;
 var
   Ticket: TFSTicket;
   FSState: TFSState;
-  OposDate: TOposDate;
   CommandFF03: TCommandFF03;
   FSCommStatus: TFSCommStatus;
   FSFiscalResult: TFSFiscalResult;
@@ -4555,8 +4552,7 @@ begin
     DIO_FS_PARAMETER_EXPIRE_DATE:
     begin
       Device.Check(Device.FSReadExpiration(CommandFF03));
-      OposDate := PrinterDateToOposDate(CommandFF03.ExpDate);
-      Result := EncodeOposDate(OposDate);
+      Result := EncodeOposDate(CommandFF03.ExpDate);
     end;
 
     DIO_FS_PARAMETER_FIRST_DOC_NUM:
@@ -4568,15 +4564,13 @@ begin
     DIO_FS_PARAMETER_FIRST_DOC_DATE:
     begin
       Device.Check(Device.FSReadCommStatus(FSCommStatus));
-      OposDate := PrinterDateTimeToOposDate(FSCommStatus.DocumentDate);
-      Result := EncodeOposDate(OposDate);
+      Result := EncodeOposDate(FSCommStatus.DocumentDate);
     end;
 
     DIO_FS_PARAMETER_FISCAL_DATE:
     begin
       Device.Check(Device.FSReadFiscalResult(FSFiscalResult));
-      OposDate := PrinterDateTimeToOposDate(FSFiscalResult.Date);
-      Result := EncodeOposDate(OposDate);
+      Result := EncodeOposDate(FSFiscalResult.Date);
     end;
 
     DIO_FS_PARAMETER_OFD_ONLINE:

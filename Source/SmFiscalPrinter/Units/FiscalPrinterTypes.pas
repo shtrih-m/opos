@@ -759,49 +759,7 @@ type
 
 function TicketToStr(const Ticket: TFSTicket): string;
 
-function PrinterDateToOposDate(Date: TPrinterDate): TOposDate;
-
-function OposDateToPrinterDate(Date: TOposDate): TPrinterDate;
-
-function PrinterDateTimeToOposDate(Date: TPrinterDateTime): TOposDate; overload;
-
-function PrinterDateTimeToOposDate(Date: TPrinterDate; Time: TPrinterTime): TOposDate; overload;
-
 implementation
-
-function PrinterDateToOposDate(Date: TPrinterDate): TOposDate;
-begin
-  Result.Day := Date.Day;
-  Result.Month := Date.Month;
-  Result.Year := Date.Year + 2000;
-  Result.Hour := 0;
-  Result.Min := 0;
-end;
-
-function PrinterDateTimeToOposDate(Date: TPrinterDateTime): TOposDate;
-begin
-  Result.Day := Date.Day;
-  Result.Month := Date.Month;
-  Result.Year := Date.Year + 2000;
-  Result.Hour := Date.Hour;
-  Result.Min := Date.Min;
-end;
-
-function PrinterDateTimeToOposDate(Date: TPrinterDate; Time: TPrinterTime): TOposDate;
-begin
-  Result.Day := Date.Day;
-  Result.Month := Date.Month;
-  Result.Year := Date.Year + 2000;
-  Result.Hour := Time.Hour;
-  Result.Min := Time.Min;
-end;
-
-function OposDateToPrinterDate(Date: TOposDate): TPrinterDate;
-begin
-  Result.Day := Date.Day;
-  Result.Month := Date.Month;
-  Result.Year := Date.Year - 2000;
-end;
 
 function TicketToStr(const Ticket: TFSTicket): string;
 begin

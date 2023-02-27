@@ -5,6 +5,8 @@ interface
 uses
   // VCL
   Windows, SysUtils,
+  // Opos
+  OposException, OposFptr,
   // 3'd
   TntSysUtils, gnugettext;
 
@@ -1512,9 +1514,74 @@ function IsEqual(const I1, I2: TPrinterStatus): Boolean;
 function getServerResultCodeText(ServerCode: Integer): WideString;
 function GetCurrentPrinterDate: TPrinterDate;
 function GetCurrentPrinterTime: TPrinterTime;
+function EncodeOposDate(const Date: TPrinterDate): WideString; overload;
+function EncodeOposDate(const Date: TPrinterDateTime): WideString; overload;
+function EncodeOposDate(const Date: TPrinterDate; const Time: TPrinterTime): WideString; overload;
+
+function DecodeOposDate(const Date: WideString): TPrinterDate; overload;
+function DecodeOposDateTime(const Date: WideString): TPrinterDateTime; overload;
 
 implementation
 
+function EncodeOposDate(const Date: TPrinterDate): WideString;
+begin
+  Result := Tnt_WideFormat('%.2d%.2d%.4d%.2d%.2d',[
+    Date.Day, Date.Month, 2000 + Date.Year, 0, 0]);
+end;
+
+function EncodeOposDate(const Date: TPrinterDateTime): WideString;
+begin
+  Result := Tnt_WideFormat('%.2d%.2d%.4d%.2d%.2d',[
+    Date.Day, Date.Month, 2000 + Date.Year, Date.Hour, Date.Min]);
+end;
+
+function EncodeOposDate(const Date: TPrinterDate; const Time: TPrinterTime): WideString; overload;
+begin
+  Result := Tnt_WideFormat('%.2d%.2d%.4d%.2d%.2d',[
+    Date.Day, Date.Month, 2000 + Date.Year, Time.Hour, Time.Min]);
+end;
+
+// ddmmyyyyhhmm
+
+// dd day of the month (1 - 31)
+// mm month (1 - 12)
+// yyyy year (1997-)
+// hh hour (0-23)
+// mm minutes (0-59)
+
+function DecodeOposDateTime(const Date: WideString): TPrinterDateTime;
+begin
+  Result.Day := StrToInt(Copy(Date, 1, 2));
+  Result.Month := StrToInt(Copy(Date, 3, 2));
+  Result.Year := StrToInt(Copy(Date, 5, 4)) mod 100;
+  Result.Hour := StrToInt(Copy(Date, 9, 2));
+  Result.Min := StrToInt(Copy(Date, 11, 2));
+
+  if not(Result.Day in [1..31]) then
+    raiseExtendedError(OPOS_EFPTR_BAD_DATE, _('Invalid day'));
+
+  if not(Result.Month in [1..12]) then
+    raiseExtendedError(OPOS_EFPTR_BAD_DATE, _('Invalid month'));
+
+  if not(Result.Hour in [0..23]) then
+    raiseExtendedError(OPOS_EFPTR_BAD_DATE, _('Invalid hour'));
+
+  if not(Result.Min in [0..59]) then
+    raiseExtendedError(OPOS_EFPTR_BAD_DATE, _('Invalid minutes'));
+end;
+
+function DecodeOposDate(const Date: WideString): TPrinterDate;
+begin
+  Result.Day := StrToInt(Copy(Date, 1, 2));
+  Result.Month := StrToInt(Copy(Date, 3, 2));
+  Result.Year := StrToInt(Copy(Date, 5, 4)) mod 100;
+
+  if not(Result.Day in [1..31]) then
+    raiseExtendedError(OPOS_EFPTR_BAD_DATE, _('Invalid day'));
+
+  if not(Result.Month in [1..12]) then
+    raiseExtendedError(OPOS_EFPTR_BAD_DATE, _('Invalid month'));
+end;
 
 procedure SetBit(var Value: Word; Bit: Byte);
 begin

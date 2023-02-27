@@ -1366,8 +1366,7 @@ begin
     DriverParameterLastDocNum: pString := IntToStr(Printer.Device.LastDocNumber);
     DriverParameterLastDocTotal: pString := IntToStr(Printer.Device.LastDocTotal);
     DriverParameterLastDocDateTime: pString := EncodeOposDate(
-      PrinterDateTimeToOposDate(Printer.Device.LastDocDate,
-      Printer.Device.LastDocTime));
+      Printer.Device.LastDocDate, Printer.Device.LastDocTime);
   end;
 end;
 
@@ -1545,7 +1544,7 @@ end;
 function ParamsToDate(Params: TTntStrings): WideString;
 var
   Date, Time: WideString;
-  OposDate: TOposDate;
+  OposDate: TPrinterDateTime;
 begin
   Result := '';
   if Params.Count >= 5 then
@@ -1554,7 +1553,7 @@ begin
     Time := Params[5];
     OposDate.Day := StrToInt(Copy(Date, 1, 2));
     OposDate.Month := StrToInt(Copy(Date, 4, 2));
-    OposDate.Year := 2000 + StrToInt(Copy(Date, 7, 2));
+    OposDate.Year := StrToInt(Copy(Date, 7, 2));
     OposDate.Hour := StrToInt(Copy(Time, 1, 2));
     OposDate.Min := StrToInt(Copy(Time, 4, 2));
     Result := EncodeOposDate(OposDate);
@@ -2098,7 +2097,7 @@ begin
     R.TicketStatus,
     R.TicketCount,
     R.TicketNumber,
-    EncodeOposDate(PrinterDateTimeToOposDate(R.TicketDate)),
+    EncodeOposDate(R.TicketDate),
     R.TicketStorageUsageInPercents]);
 end;
 

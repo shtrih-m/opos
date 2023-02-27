@@ -10,17 +10,6 @@ uses
   // This
   GNUGetText;
 
-type
-  { TOposDate }
-
-  TOposDate = record
-    Day: Integer;
-    Month: Integer;
-    Year: Integer;
-    Hour: Integer;
-    Min: Integer;
-  end;
-
 function GetErrorLocusText(Value: Integer): WideString;
 function GetResultCodeText(Value: Integer): WideString;
 function GetErrorResponseText(Value: Integer): WideString;

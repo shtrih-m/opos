@@ -40,7 +40,7 @@ class function TElectronicJournal.DecodeDateLine(Line: WideString): WideString;
 var
   R: TRegExpr;
   S: WideString;
-  OposDate: TOposDate;
+  Date: TPrinterDateTime;
 begin
   Result := '';
   R := TRegExpr.Create;
@@ -50,16 +50,16 @@ begin
       R.Expression := '[0-9]{2}/[0-9]{2}/[0-9]{2}';
       if not R.Exec(Line) then Exit;
       S := R.Match[0];
-      OposDate.Day := StrToInt(Copy(S, 1, 2));
-      OposDate.Month := StrToInt(Copy(S, 4, 2));
-      OposDate.Year := 2000 + StrToInt(Copy(S, 7, 2));
+      Date.Day := StrToInt(Copy(S, 1, 2));
+      Date.Month := StrToInt(Copy(S, 4, 2));
+      Date.Year := StrToInt(Copy(S, 7, 2));
       // Time
       R.Expression := '[0-9]{2}:[0-9]{2}';
       if not R.Exec(Line) then Exit;
       S := R.Match[0];
-      OposDate.Hour := StrToInt(Copy(S, 1, 2));
-      OposDate.Min := StrToInt(Copy(S, 4, 2));
-      Result := EncodeOposDate(OposDate);
+      Date.Hour := StrToInt(Copy(S, 1, 2));
+      Date.Min := StrToInt(Copy(S, 4, 2));
+      Result := EncodeOposDate(Date);
     except
       on E: Exception do
       begin

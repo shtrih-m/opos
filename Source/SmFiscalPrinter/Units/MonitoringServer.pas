@@ -222,11 +222,11 @@ begin
 
   MainVersion1 := Tnt_WideFormat('%s.%s %d %s', [
     Status.FirmwareVersionHi, Status.FirmwareVersionLo, Status.FirmwareBuild,
-    EncodeOposDate(PrinterDateToOposDate(Status.FirmwareDate))]);
+    EncodeOposDate(Status.FirmwareDate)]);
 
   MainVersion2 := Tnt_WideFormat('%s.%s %d %s', [
     Status.FMVersionHi, Status.FMVersionLo, Status.FMBuild,
-    EncodeOposDate(PrinterDateToOposDate(Status.FMFirmwareDate))]);
+    EncodeOposDate(Status.FMFirmwareDate)]);
 
   Device.Check(Device.ReadLoaderVersion(LoaderVersion));
   Result := Tnt_WideFormat('%s;%s;%s', [LoaderVersion, MainVersion1, MainVersion2]);

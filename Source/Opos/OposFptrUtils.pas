@@ -10,8 +10,6 @@ uses
   gnugettext;
 
 function PrinterStateToStr(Value: Integer): WideString;
-function EncodeOposDate(const Date: TOposDate): WideString;
-function DecodeOposDate(const Date: WideString): TOposDate;
 function GetFptrPropertyName(const ID: Integer): WideString;
 function GetResultCodeExtendedText(Value: Integer): WideString;
 function GetStatusUpdateEventText(Value: Integer): WideString;
@@ -171,44 +169,6 @@ begin
   else
     Result := GetCommonPropertyName(ID);
   end;
-end;
-
-// ddmmyyyyhhmm
-
-// dd day of the month (1 - 31)
-// mm month (1 - 12)
-// yyyy year (1997-)
-// hh hour (0-23)
-// mm minutes (0-59)
-
-function DecodeOposDate(const Date: WideString): TOposDate;
-begin
-  Result.Day := StrToInt(Copy(Date, 1, 2));
-  Result.Month := StrToInt(Copy(Date, 3, 2));
-  Result.Year := StrToInt(Copy(Date, 5, 4));
-  Result.Hour := StrToInt(Copy(Date, 9, 2));
-  Result.Min := StrToInt(Copy(Date, 11, 2));
-
-  if not(Result.Day in [1..31]) then
-    raiseExtendedError(OPOS_EFPTR_BAD_DATE, _('Invalid day'));
-
-  if not(Result.Month in [1..12]) then
-    raiseExtendedError(OPOS_EFPTR_BAD_DATE, _('Invalid month'));
-
-  if Result.Year < 2000 then
-    raiseExtendedError(OPOS_EFPTR_BAD_DATE, _('Invalid year'));
-
-  if not(Result.Hour in [0..23]) then
-    raiseExtendedError(OPOS_EFPTR_BAD_DATE, _('Invalid hour'));
-
-  if not(Result.Min in [0..59]) then
-    raiseExtendedError(OPOS_EFPTR_BAD_DATE, _('Invalid minutes'));
-end;
-
-function EncodeOposDate(const Date: TOposDate): WideString;
-begin
-  Result := Tnt_WideFormat('%.2d%.2d%.4d%.2d%.2d',[
-    Date.Day, Date.Month, Date.Year, Date.Hour, Date.Min]);
 end;
 
 function GetResultCodeExtendedText(Value: Integer): WideString;

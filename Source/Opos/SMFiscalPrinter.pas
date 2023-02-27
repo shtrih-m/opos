@@ -4,13 +4,16 @@ interface
 
 uses
   // VCL
-  Windows, SysUtils, Variants, ComObj, ActiveX, 
+  Windows, SysUtils, Variants, ComObj, ActiveX,
   // Tnt
   TntSysUtils,
   // This
   Opos, OposFptrUtils, PrinterEncoding, PrinterParameters, PrinterParametersX,
   DirectIOAPI, OposFiscalPrinter_1_12_Lib_TLB, OposFiscalPrinter_1_13_Lib_TLB,
-  StringUtils, LogFile, WException;
+  StringUtils, LogFile, WException, PrinterTypes;
+
+const
+  ValueDelimiters = [';'];
 
 type
   { TBarcodeRec }
@@ -278,6 +281,13 @@ type
     function ReadFSDocument(Number: Integer; var S: WideString): Integer;
     function CheckItemBarcode(const Barcode: WideString): Integer;
     function AddItemBarcode(const Barcode: WideString): Integer;
+    function FSCheckItemCode(const P: TFSCheckItemCode; var R: TFSCheckItemResult): Integer;
+    function FSSyncRegisters: Integer;
+    function FSReadMemory(var R: TFSReadMemoryResult): Integer;
+    function FSWriteTLVFromBuffer: Integer;
+    function FSRandomData(var Data: AnsiString): Integer;
+    function FSAuthorize(const DataToAuthorize: AnsiString): Integer;
+    function FSReadTicketStatus(var R: TFSTicketStatus): Integer;
 
     property OpenResult: Integer read Get_OpenResult;
     property BinaryConversion: Integer read Get_BinaryConversion write Set_BinaryConversion;
@@ -2102,6 +2112,109 @@ begin
   pString := '';
   Check(Driver.DirectIO(DIO_STLV_GET_HEX, pData, pString));
   Result := pString;
+end;
+
+function TSMFiscalPrinter.FSCheckItemCode(const P: TFSCheckItemCode;
+  var R: TFSCheckItemResult): Integer;
+var
+  pData: Integer;
+  pString: WideString;
+begin
+  pData := 0;
+  pString := Format('%d;%d;%s;%s', [P.ItemStatus, P.ProcessMode,
+    StrToHexText(P.CMData), StrToHexText(P.TLVData)]);
+  Result := Driver.DirectIO(DIO_CHECK_ITEM_CODE2, pData, pString);
+  if Result = OPOS_SUCCESS then
+  begin
+    R.LocalCheckResult := GetInteger(pString, 1, ValueDelimiters);
+    R.LocalCheckError := GetInteger(pString, 2, ValueDelimiters);
+    R.SymbolicType := GetInteger(pString, 3, ValueDelimiters);
+    R.DataLength := GetInteger(pString, 4, ValueDelimiters);
+    R.FSResultCode := GetInteger(pString, 5, ValueDelimiters);
+    R.ServerCheckStatus := GetInteger(pString, 6, ValueDelimiters);
+    R.ServerTLVData := HexToStr(GetString(pString, 7, ValueDelimiters));
+  end;
+end;
+
+function TSMFiscalPrinter.FSSyncRegisters: Integer;
+var
+  pData: Integer;
+  pString: WideString;
+begin
+  pData := 0;
+  pString := '';
+  Result := Driver.DirectIO(DIO_FS_SYNC_REGISTERS, pData, pString);
+end;
+
+function TSMFiscalPrinter.FSReadMemory(
+  var R: TFSReadMemoryResult): Integer;
+var
+  pData: Integer;
+  pString: WideString;
+begin
+  pData := 0;
+  pString := '';
+  Result := Driver.DirectIO(DIO_FS_READ_MEM_STATUS, pData, pString);
+  if Result = OPOS_SUCCESS then
+  begin
+    R.FreeDocCount := GetInteger(pString, 1, ValueDelimiters);
+    R.FreeMemorySizeInKB := GetInteger(pString, 2, ValueDelimiters);
+    R.UsedMCTicketStorageInPercents := GetInteger(pString, 3, ValueDelimiters);
+  end;
+end;
+
+function TSMFiscalPrinter.FSWriteTLVFromBuffer: Integer;
+var
+  pData: Integer;
+  pString: WideString;
+begin
+  pData := 0;
+  pString := '';
+  Result := Driver.DirectIO(DIO_FS_WRITE_TLV_BUFFER, pData, pString);
+end;
+
+function TSMFiscalPrinter.FSRandomData(var Data: AnsiString): Integer;
+var
+  pData: Integer;
+  pString: WideString;
+begin
+  pData := 0;
+  pString := '';
+  Result := Driver.DirectIO(DIO_FS_GENERATE_RANDOM_DATA, pData, pString);
+  if Result = OPOS_SUCCESS then
+  begin
+    Data := HexToStr(pString);
+  end;
+end;
+
+function TSMFiscalPrinter.FSAuthorize(
+  const DataToAuthorize: AnsiString): Integer;
+var
+  pData: Integer;
+  pString: WideString;
+begin
+  pData := 0;
+  pString := StrToHexText(DataToAuthorize);
+  Result := Driver.DirectIO(DIO_FS_AUTHORIZE, pData, pString);
+end;
+
+function TSMFiscalPrinter.FSReadTicketStatus(
+  var R: TFSTicketStatus): Integer;
+var
+  pData: Integer;
+  pString: WideString;
+begin
+  pData := 0;
+  pString := '';
+  Result := Driver.DirectIO(DIO_FS_READ_TICKET_STATUS, pData, pString);
+  if Result = OPOS_SUCCESS then
+  begin
+    R.TicketStatus := GetInteger(pString, 1, ValueDelimiters);
+    R.TicketCount := GetInteger(pString, 2, ValueDelimiters);
+    R.TicketNumber := GetInteger(pString, 3, ValueDelimiters);
+    //R.TicketDate := OposDateToPrinterDateTime(DecodeOposDate(GetString(pString, 4, ValueDelimiters))); !!!
+    R.TicketStorageUsageInPercents := GetInteger(pString, 5, ValueDelimiters);
+  end;
 end;
 
 end.
