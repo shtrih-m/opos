@@ -2212,7 +2212,7 @@ begin
     R.TicketStatus := GetInteger(pString, 1, ValueDelimiters);
     R.TicketCount := GetInteger(pString, 2, ValueDelimiters);
     R.TicketNumber := GetInteger(pString, 3, ValueDelimiters);
-    //R.TicketDate := OposDateToPrinterDateTime(DecodeOposDate(GetString(pString, 4, ValueDelimiters))); !!!
+    R.TicketDate := DecodeOposDateTime(GetString(pString, 4, ValueDelimiters));
     R.TicketStorageUsageInPercents := GetInteger(pString, 5, ValueDelimiters);
   end;
 end;

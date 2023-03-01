@@ -1489,22 +1489,4 @@ begin
   SaveParams(OutParams, Root.Add('OutParams'));
 end;
 
-(*
-function TCommandDef.GetSizeInBytes(ParamType: Integer; ParamSize: Integer): Integer;
-begin
-  case ParamType of
-    PARAM_TYPE_TIME_HMS_HM:  Result := 2;
-    PARAM_TYPE_DATE_DMY,
-    PARAM_TYPE_DATE_YMD,
-    PARAM_TYPE_TIME_HMS: Result := 3;
-    PARAM_TYPE_SYS,
-    PARAM_TYPE_USR,
-    PARAM_TYPE_TAX: Result := 4;
-  else
-    Result := ParamSize;
-  end;
-end;
-
-
-*)
 end.

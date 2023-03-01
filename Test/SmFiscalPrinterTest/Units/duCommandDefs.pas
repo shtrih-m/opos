@@ -27,17 +27,20 @@ implementation
 procedure TCommandDefsTest.CheckLoadFromXml;
 var
   Logger: ILogFile;
-  Item: TCommandDefs;
+  Item: TCommandDef;
+  Items: TCommandDefs;
 begin
+  CommandDefsLoadEnabled := True;
   Logger := TLogFile.Create;
-  Item := TCommandDefs.Create(Logger);
+  Items := TCommandDefs.Create(Logger);
   try
-    Item.LoadFromFile(GetModulePath + 'commands.xml');
-    DeleteFile(GetModulePath + 'commands2.xml');
-    Item.SaveToFile(GetModulePath + 'commands2.xml');
-    CheckEquals(190, Item.Count, 'Item.Count');
+    Items.LoadFromFile(GetModulePath + 'commands.xml');
+    CheckEquals(192, Items.Count, 'Items.Count');
+    Item := Items.ItemByCode(37);
+    Check(Item <> nil, 'Item <> nil');
+    CheckEquals('Cut paper', Item.Name, 'Item.Name');
   finally
-    Item.Free;
+    Items.Free;
     Logger := nil;
   end;
 end;
@@ -50,7 +53,7 @@ begin
   Logger := TLogFile.Create;
   Item := TCommandDefs.Create(Logger);
   try
-    Item.SaveToFile('CommandDefs.xml');
+    Item.SaveToFile('commands2.xml');
   finally
     Item.Free;
     Logger := nil;

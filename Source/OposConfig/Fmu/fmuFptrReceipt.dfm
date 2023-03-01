@@ -198,7 +198,7 @@ object fmFptrReceipt: TfmFptrReceipt
     end
     object chbCacheReceiptNumber: TTntCheckBox
       Left = 8
-      Top = 320
+      Top = 296
       Width = 201
       Height = 17
       Caption = 'Cache receipt number'
@@ -226,7 +226,7 @@ object fmFptrReceipt: TfmFptrReceipt
     end
     object chbZReceiptBeforeZReport: TTntCheckBox
       Left = 8
-      Top = 344
+      Top = 320
       Width = 214
       Height = 17
       Caption = 'Zero receipt before Z report (day closed)'
@@ -234,7 +234,7 @@ object fmFptrReceipt: TfmFptrReceipt
     end
     object chbOpenReceiptEnabled: TTntCheckBox
       Left = 8
-      Top = 368
+      Top = 344
       Width = 214
       Height = 17
       Caption = 'Open receipt in beginFiscalReceipt'
@@ -268,7 +268,7 @@ object fmFptrReceipt: TfmFptrReceipt
     end
     object chbCorrectCashlessAmount: TTntCheckBox
       Left = 8
-      Top = 392
+      Top = 368
       Width = 465
       Height = 17
       Caption = 
@@ -278,11 +278,19 @@ object fmFptrReceipt: TfmFptrReceipt
     end
     object chbSingleQuantityOnZeroUnitPrice: TCheckBox
       Left = 8
-      Top = 416
+      Top = 392
       Width = 385
       Height = 17
       Caption = 'Use single quantity, when UnitPrice parameter is zero'
       TabOrder = 15
+    end
+    object cbUsePrintHeaderParameter: TCheckBox
+      Left = 8
+      Top = 416
+      Width = 385
+      Height = 17
+      Caption = 'Use PrintHeader parameter'
+      TabOrder = 16
     end
   end
 end

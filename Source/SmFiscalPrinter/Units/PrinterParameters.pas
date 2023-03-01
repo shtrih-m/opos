@@ -372,6 +372,7 @@ const
   DefItemTextMode = ItemTextModeNone;
   DefCorrectCashlessAmount = false;
   DefValidTimeDiffInSecs = 0;
+  DefUsePrintHeaderParameter = True;
 
 type
   { TPrinterParameters }
@@ -569,6 +570,7 @@ type
     SingleQuantityOnZeroUnitPrice: Boolean;
     ReceiptField: array [MinReceiptField..MaxReceiptField] of string;
     ValidTimeDiffInSecs: Integer;
+    UsePrintHeaderParameter: Boolean;
   public
     constructor Create(ALogger: ILogFile);
     destructor Destroy; override;
@@ -917,6 +919,7 @@ begin
   ItemTextMode := DefItemTextMode;
   CorrectCashlessAmount := DefCorrectCashlessAmount;
   SingleQuantityOnZeroUnitPrice := True;
+  UsePrintHeaderParameter := DefUsePrintHeaderParameter;
 end;
 
 procedure TPrinterParameters.LogText(const Caption, Text: WideString);
@@ -1062,6 +1065,7 @@ begin
   Logger.Debug('CorrectCashlessAmount: ' + BoolToStr(CorrectCashlessAmount));
   Logger.Debug('SingleQuantityOnZeroUnitPrice: ' + BoolToStr(SingleQuantityOnZeroUnitPrice));
   Logger.Debug('ValidTimeDiffInSecs: ' + IntToStr(ValidTimeDiffInSecs));
+  Logger.Debug('UsePrintHeaderParameter: ' + BoolToStr(UsePrintHeaderParameter));
   // PayTypes
   for i := 0 to PayTypes.Count-1 do
   begin

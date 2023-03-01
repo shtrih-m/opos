@@ -88,6 +88,7 @@ type
 
     property NonFiscalDoc: TNonFiscalDoc read GetNonFiscalDoc;
     procedure PrintEmptyHeader;
+    procedure PrintHeaderBegin;
   public
     procedure ReadHeader;
     procedure CheckEndDay;
@@ -288,7 +289,7 @@ type
     function DirectIO(Command: Integer; var pData: Integer;
       var pString: WideString): Integer; safecall;
     function EndFiscalDocument: Integer; safecall;
-    function EndFiscalReceipt(PrintHeader: WordBool): Integer; safecall;
+    function EndFiscalReceipt(APrintHeader: WordBool): Integer; safecall;
     function EndFixedOutput: Integer; safecall;
     function EndInsertion: Integer; safecall;
     function EndItemList: Integer; safecall;
@@ -2126,15 +2127,31 @@ begin
     Receipt.BeginFiscalReceipt(APrintHeader);
     Filters.BeginFiscalReceipt2(FReceipt);
     FAfterCloseItems.Clear;
-    if APrintHeader then
+
+    if Parameters.UsePrintHeaderParameter and APrintHeader then
     begin
-      PrintHeader;
+      PrintHeaderBegin;
     end;
     Result := ClearResult;
   except
     on E: Exception do
       Result := HandleException(E);
   end;
+end;
+
+procedure TFiscalPrinterImpl.PrintHeaderBegin;
+begin
+  PrintLogo2(LogoBeforeHeader);
+  PrintHeaderLines(0, Printer.Header.Count-1);
+  if FAdditionalHeader <> '' then
+  begin
+    Device.PrintText(PRINTER_STATION_REC, FAdditionalHeader);
+    FAdditionalHeader := '';
+  end;
+  PrintLogo2(LogoAfterHeader);
+
+  Parameters.HeaderPrinted := True;
+  SaveParameters;
 end;
 
 (*
@@ -2374,7 +2391,7 @@ begin
   Items.Clear;
 end;
 
-function TFiscalPrinterImpl.EndFiscalReceipt(PrintHeader: WordBool): Integer;
+function TFiscalPrinterImpl.EndFiscalReceipt(APrintHeader: WordBool): Integer;
 begin
   try
     Filters.BeforeCloseReceipt;
@@ -2387,7 +2404,8 @@ begin
     try
       FDocumentNumber := Device.ReadLongStatus.DocumentNumber;
       Filters.AfterCloseReceipt;
-      if PrintHeader then
+
+      if Parameters.UsePrintHeaderParameter and APrintHeader then
       begin
         PrintDocumentEnd;
       end else

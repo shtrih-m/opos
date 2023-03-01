@@ -42,6 +42,7 @@ type
     lblPrintRecMessageMode: TTntLabel;
     cbPrintRecMessageMode: TTntComboBox;
     chbSingleQuantityOnZeroUnitPrice: TCheckBox;
+    cbUsePrintHeaderParameter: TCheckBox;
   public
     procedure UpdatePage; override;
     procedure UpdateObject; override;
@@ -73,6 +74,7 @@ begin
   cbQuantityDecimalPlaces.ItemIndex := Parameters.QuantityDecimalPlaces;
   cbPrintRecMessageMode.ItemIndex := Parameters.PrintRecMessageMode;
   chbSingleQuantityOnZeroUnitPrice.Checked := Parameters.SingleQuantityOnZeroUnitPrice;
+  cbUsePrintHeaderParameter.Checked := Parameters.UsePrintHeaderParameter;
 end;
 
 procedure TfmFptrReceipt.UpdateObject;
@@ -92,6 +94,7 @@ begin
   Parameters.QuantityDecimalPlaces := cbQuantityDecimalPlaces.ItemIndex;
   Parameters.PrintRecMessageMode := cbPrintRecMessageMode.ItemIndex;
   Parameters.SingleQuantityOnZeroUnitPrice := chbSingleQuantityOnZeroUnitPrice.Checked;
+  Parameters.UsePrintHeaderParameter := cbUsePrintHeaderParameter.Checked;
 end;
 
 end.

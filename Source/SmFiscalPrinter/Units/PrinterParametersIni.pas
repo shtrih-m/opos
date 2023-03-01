@@ -344,6 +344,7 @@ begin
       FParameters.CorrectCashlessAmount := IniFile.ReadBool(Section, 'CorrectCashlessAmount', DefCorrectCashlessAmount);
       FParameters.SingleQuantityOnZeroUnitPrice := IniFile.ReadBool(Section, 'SingleQuantityOnZeroUnitPrice', True);
       FParameters.ValidTimeDiffInSecs := IniFile.ReadInteger(Section, 'ValidTimeDiffInSecs', DefValidTimeDiffInSecs);
+      FParameters.UsePrintHeaderParameter := IniFile.ReadBool(Section, 'UsePrintHeaderParameter', DefUsePrintHeaderParameter);
     end;
     // VatCodes
     Section := GetSectionName(DeviceName) + '_VatCodes';
@@ -512,6 +513,7 @@ begin
     IniFile.WriteBool(Section, 'CorrectCashlessAmount', FParameters.CorrectCashlessAmount);
     IniFile.WriteBool(Section, 'SingleQuantityOnZeroUnitPrice', FParameters.SingleQuantityOnZeroUnitPrice);
     IniFile.WriteInteger(Section, 'ValidTimeDiffInSecs', FParameters.ValidTimeDiffInSecs);
+    IniFile.WriteBool(Section, 'UsePrintHeaderParameter', FParameters.UsePrintHeaderParameter);
     // PayTypes
     Section := GetSectionName(DeviceName) + '_PaymentTypes';
     IniFile.EraseSection(Section);

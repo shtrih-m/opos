@@ -517,6 +517,9 @@ begin
       if Reg.ValueExists('ValidTimeDiffInSecs') then
         FParameters.ValidTimeDiffInSecs := Reg.ReadInteger('ValidTimeDiffInSecs');
 
+      if Reg.ValueExists('UsePrintHeaderParameter') then
+        FParameters.UsePrintHeaderParameter := Reg.ReadBool('UsePrintHeaderParameter');
+
       Reg.CloseKey;
     end;
 
@@ -693,6 +696,7 @@ begin
     Reg.WriteBool('CorrectCashlessAmount', FParameters.CorrectCashlessAmount);
     Reg.WriteBool('SingleQuantityOnZeroUnitPrice', FParameters.SingleQuantityOnZeroUnitPrice);
     Reg.WriteInteger('ValidTimeDiffInSecs', FParameters.ValidTimeDiffInSecs);
+    Reg.WriteBool('UsePrintHeaderParameter', FParameters.UsePrintHeaderParameter);
     Reg.CloseKey;
 
     // VatCodes
