@@ -27,6 +27,8 @@ Name: "source"; Description: "Samples and source code";
 [Files]
 ; Version history
 Source: "History.txt"; DestDir: "{app}"; Flags: ignoreversion; components: main;
+; Doc
+Source: "Doc\OposShtrih.pdf"; DestDir: "{app}\Doc"; Flags: ignoreversion; components: main;
 ; Localization params
 Source: "Setup\locales\SmFiscalPrinter.mo"; DestDir: "{app}\Bin\locale\en\LC_MESSAGES\"; Flags: 32bit; Components: main
 Source: "Setup\locales\SmFiscalPrinter.mo"; DestDir: "{app}\Bin\locale\ru\LC_MESSAGES\"; Flags: 32bit; Components: main
@@ -59,6 +61,7 @@ Source: "Source\Shared\*"; DestDir: "{app}\Source\Shared"; Flags: createallsubdi
 Source: "Source\SmFptrSrv\*"; DestDir: "{app}\Source\SmFptrSrv"; Flags: createallsubdirs recursesubdirs; Excludes: "*.svn,*.exe,*.dll,*.dcu,*.rsm,*.xml";	components: source;
 [Icons]
 Name: "{group}\Version history"; Filename: "{app}\History.txt"; WorkingDir: "{app}";
+Name: "{group}\Programmer manual"; Filename: "{app}\Doc\OposShtrih.pdf"; WorkingDir: "{app}";
 Name: "{group}\Opos setup"; Filename: "{app}\Bin\OposConfig.exe"; WorkingDir: "{app}";
 Name: "{group}\Opos test"; Filename: "{app}\Bin\OposTest.exe"; WorkingDir: "{app}";
 Name: "{group}\Uninstall"; Filename: "{uninstallexe}"
