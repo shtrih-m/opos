@@ -332,6 +332,14 @@ begin
   Connection.Verify('Verify');
 
   Connection.Expects('Send').WithParams([Timeout, #$3A#$01#$00#$00#$00]).
+    Returns(#$3A#$00#$14#$00#$EA#$FF#$FF#$FF#$00#$00#$08#$38);
+  CheckEquals(0, Device.ReadStatus(Data), 'ReadStatus');
+  CheckEquals($14, Data.Flags.Value, 'Data.Flags.Value');
+  CheckEquals(-22, Data.Weight, 'Data.Weight');
+  CheckEquals(0, Data.Tare, 'Data.Tare');
+  Connection.Verify('Verify');
+
+  Connection.Expects('Send').WithParams([Timeout, #$3A#$01#$00#$00#$00]).
     Returns(#$3A#$56);
   CheckEquals($56, Device.ReadStatus(Data), 'ReadStatus');
   Connection.Verify('Verify');

@@ -425,6 +425,8 @@ begin
 end;
 
 // 3Ah, Запрос состояния весового канала
+// 3A 00 14 00 02 00 00 00 00 00 08 2F
+
 
 function TM5ScaleDevice.ReadStatus(var R: TM5Status): Integer;
 var

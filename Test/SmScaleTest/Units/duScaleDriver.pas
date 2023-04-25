@@ -666,7 +666,7 @@ begin
   EnableDevice;
 
   Device.Status.Weight := 67853;
-  Device.Status.Flags.isWeightFixed := True;
+  Device.Status.Flags.isWeightStable := True;
 
 
   pWeightData := 1234;
@@ -727,7 +727,7 @@ begin
   Driver.Parameters.CapPrice := True;
   SaveParameters;
   Device.Status.Weight := 67853;
-  Device.Status.Flags.isWeightFixed := True;
+  Device.Status.Flags.isWeightStable := True;
   Device.Status2.Amount := 837645;
   OpenService;
   CheckEquals(1, Driver.GetPropertyNumber(PIDXScal_CapPriceCalculating),
@@ -746,7 +746,7 @@ begin
   Driver.Parameters.CapPrice := False;
   SaveParameters;
   Device.Status.Weight := 67853;
-  Device.Status.Flags.isWeightFixed := True;
+  Device.Status.Flags.isWeightStable := True;
   Device.Status2.Amount := 837645;
   OpenService;
   CheckEquals(0, Driver.GetPropertyNumber(PIDXScal_CapPriceCalculating),
@@ -791,7 +791,7 @@ var
 begin
   OposEvents.Clear;
   Device.Status.Weight := 67853;
-  Device.Status.Flags.isWeightFixed := True;
+  Device.Status.Flags.isWeightStable := True;
   // No ClearInput call
   OpenService;
   Driver.SetPropertyNumber(PIDX_DataEventEnabled, 1);
@@ -927,7 +927,7 @@ begin
   EnableDevice;
 
   Device.Status.Weight := 67853;
-  Device.Status.Flags.isWeightFixed := True;
+  Device.Status.Flags.isWeightStable := True;
 
   pWeightData := 1234;
   CheckEquals(0, Driver.ReadWeight(pWeightData, 1267), 'ReadWeight');

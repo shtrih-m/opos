@@ -470,7 +470,7 @@ begin
 
       Device.Check(Device.ReadStatus(Status));
       if Status.Weight = 0 then Break;
-    until Status.Flags.isWeightFixed;
+    until Status.Flags.isWeightStable;
   end;
   if Status.Flags.isOverweight then
     RaiseExtendedError(OPOS_ESCAL_OVERWEIGHT);
