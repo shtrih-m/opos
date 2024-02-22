@@ -34,20 +34,38 @@ type
   private
     function GetItem(Index: Integer): TGS1Token;
   public
-    procedure DecodeAI(Barcode: AnsiString);
-    procedure DecodeBraces(const Data: AnsiString);
+    function EncodeGS1: AnsiString;
+    function EncodeGS1Text: AnsiString;
     function HasItem(const ID: AnsiString): Boolean;
     function FindItem(const ID: AnsiString): TGS1Token;
     function ItemByID(const ID: AnsiString): TGS1Token;
+
+    procedure DecodeGS1(Barcode: AnsiString);
+    procedure DecodeGS1Text(const Data: AnsiString);
 
     property Items[Index: Integer]: TGS1Token read GetItem; default;
   end;
 
 function IsValidGS1(const Barcode: AnsiString): Boolean;
 function DecodeGS1(const Barcode: AnsiString): TGS1Barcode;
+function GS1ToText(const GS1Barcode: AnsiString): AnsiString;
+function TextToGS1(const GS1Text: AnsiString): AnsiString;
+function IsGS1Text(const GS1Text: AnsiString): Boolean;
+function CorrectGS1(const GS1Barcode: AnsiString): AnsiString;
 
 implementation
 
+function CorrectGS1(const GS1Barcode: AnsiString): AnsiString;
+begin
+  Result := GS1Barcode;
+  if IsGS1Text(GS1Barcode) then
+    Result := TextToGS1(GS1Barcode);
+end;
+
+function IsGS1Text(const GS1Text: AnsiString): Boolean;
+begin
+  Result := (Length(GS1Text) > 0)and(GS1Text[1] = '(');
+end;
 
 function IsValidGS1(const Barcode: AnsiString): Boolean;
 var
@@ -55,7 +73,7 @@ var
 begin
   Tokens := TGS1Tokens.Create(TGS1Token);
   try
-    Tokens.DecodeAI(Barcode);
+    Tokens.DecodeGS1(Barcode);
     Result := Tokens.HasItem('01') and Tokens.HasItem('21');
   finally
     Tokens.Free;
@@ -71,7 +89,7 @@ const
 begin
   Tokens := TGS1Tokens.Create(TGS1Token);
   try
-    Tokens.DecodeAI(Barcode);
+    Tokens.DecodeGS1(Barcode);
     Token := Tokens.FindItem('01');
     if Token = nil then
       raiseError(E_TAG_NOT_FOUND, Tnt_WideFormat(STagNotFound, ['GTIN(01)']));
@@ -85,6 +103,35 @@ begin
     Tokens.Free;
   end;
 end;
+
+function GS1ToText(const GS1Barcode: AnsiString): AnsiString;
+var
+  Tokens: TGS1Tokens;
+begin
+  Result := '';
+  Tokens := TGS1Tokens.Create(TGS1Token);
+  try
+    Tokens.DecodeGS1(GS1Barcode);
+    Result := Tokens.EncodeGS1Text;
+  finally
+    Tokens.Free;
+  end;
+end;
+
+function TextToGS1(const GS1Text: AnsiString): AnsiString;
+var
+  Tokens: TGS1Tokens;
+begin
+  Result := '';
+  Tokens := TGS1Tokens.Create(TGS1Token);
+  try
+    Tokens.DecodeGS1Text(GS1Text);
+    Result := Tokens.EncodeGS1;
+  finally
+    Tokens.Free;
+  end;
+end;
+
 
 type
   { TAIREc }
@@ -273,39 +320,6 @@ begin
   end;
 end;
 
-function GS1EncodeBraces(const Barcode: AnsiString): AnsiString;
-var
-  i: Integer;
-  Item: TAIRec;
-  Token: TGS1Token;
-  Tokens: TGS1Tokens;
-begin
-  Result := '';
-  Tokens := TGS1Tokens.Create(TGS1Token);
-  try
-    Tokens.DecodeBraces(Barcode);
-    for i := 0 to Tokens.Count-1 do
-    begin
-      Token := Tokens[i];
-      if GetAI(Token.id, Item) then
-      begin
-        if i = Tokens.Count-1 then
-        begin
-          Result := Result + Token.id + Token.Data
-        end else
-        begin
-          if Item.min = Item.max then
-            Result := Result + Token.id + Token.Data
-          else
-            Result := Result + Token.id + Token.Data + GS;
-        end;
-      end;
-    end;
-  finally
-    Tokens.Free;
-  end;
-end;
-
 //(01)18901148006024(21)09ICXT3D9BZ8L(10)111(17)190117(240)3004(91)0001(92)2dKkY5iBAmuKEAU2eqIElw/0OYK0P2/+j2O2Y/K8mQDxI51I1L+X2BHCdZdShioTaKqaCvbhfnBD/ZmQJh8RQw==
 
 function ValidGS1TagId(const TagId: AnsiString): Boolean;
@@ -322,7 +336,7 @@ begin
   Result := Barcode;
   Tokens := TGS1Tokens.Create(TGS1Token);
   try
-    Tokens.DecodeBraces(Barcode);
+    Tokens.DecodeGS1Text(Barcode);
     if Tokens.Count > 0 then
     begin
       Result := '';
@@ -363,7 +377,7 @@ end;
 
 *)
 
-function GS1DecodeBraces(const Barcode: AnsiString): AnsiString;
+function GS1DecodeGS1Text(const Barcode: AnsiString): AnsiString;
 var
   i: Integer;
   Token: TGS1Token;
@@ -376,7 +390,7 @@ begin
   Result := '';
   Tokens := TGS1Tokens.Create(TGS1Token);
   try
-    Tokens.DecodeAI(Barcode);
+    Tokens.DecodeGS1(Barcode);
     for i := 0 to Tokens.Count-1 do
     begin
       Token := Tokens[i];
@@ -392,7 +406,7 @@ end;
 type
   TDecodeState = (dsCode, dsData);
 
-procedure TGS1Tokens.DecodeBraces(const Data: AnsiString);
+procedure TGS1Tokens.DecodeGS1Text(const Data: AnsiString);
 var
   i: Integer;
   Token: TGS1Token;
@@ -442,7 +456,7 @@ begin
   end;
 end;
 
-procedure TGS1Tokens.DecodeAI(Barcode: AnsiString);
+procedure TGS1Tokens.DecodeGS1(Barcode: AnsiString);
 var
   Item: TAIREc;
   i, j: Integer;
@@ -491,6 +505,45 @@ begin
       end;
     end;
     Inc(i);
+  end;
+end;
+
+function TGS1Tokens.EncodeGS1Text: AnsiString;
+var
+  i: Integer;
+  Token: TGS1Token;
+begin
+  Result := '';
+  for i := 0 to Count-1 do
+  begin
+    Token := Items[i];
+    Result := Result + Format('(%s)%s', [Token.id, Token.Data]);
+  end;
+end;
+
+function TGS1Tokens.EncodeGS1: AnsiString;
+var
+  i: Integer;
+  Item: TAIRec;
+  Token: TGS1Token;
+begin
+  Result := '';
+  for i := 0 to Count-1 do
+  begin
+    Token := Items[i];
+    if GetAI(Token.id, Item) then
+    begin
+      if i = Count-1 then
+      begin
+        Result := Result + Token.id + Token.Data
+      end else
+      begin
+        if Item.min = Item.max then
+          Result := Result + Token.id + Token.Data
+        else
+          Result := Result + Token.id + Token.Data + GS;
+      end;
+    end;
   end;
 end;
 

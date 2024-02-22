@@ -4,7 +4,7 @@ interface
 
 Uses
   // VCL
-  Classes, SysUtils, 
+  Classes, SysUtils,
   // This
   TLVTags;
 
@@ -52,10 +52,10 @@ type
   public
     constructor Create(AOwner: TTLVList);
     destructor Destroy; override;
-    property Items: TTLVList read FItems write FItems;
-    property Data: AnsiString read FData write FData;
-    property RawData: AnsiString read GetRawData;
     property Tag: Word read FTag write FTag;
+    property RawData: AnsiString read GetRawData;
+    property Data: AnsiString read FData write FData;
+    property Items: TTLVList read FItems write FItems;
   end;
 
 function TagToStr(TagID: Integer; const Data: AnsiString): AnsiString;

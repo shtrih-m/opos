@@ -18,6 +18,7 @@ type
     procedure CheckDecode;
   published
     procedure CheckDecode2;
+    procedure CheckGS1ToText;
   end;
 
 implementation
@@ -61,7 +62,7 @@ var
 begin
   Tokens := TGS1Tokens.Create(TGS1Token);
   try
-    Tokens.DecodeAI(Barcode);
+    Tokens.DecodeGS1(Barcode);
     CheckEquals(5, Tokens.Count, 'Tokens.Count');
 
     CheckEquals('01', Tokens[0].id, 'Tokens[0].id');
@@ -83,6 +84,26 @@ begin
   end;
 end;
 
+procedure TGS1BarcodeTest.CheckGS1ToText;
+const
+  GS1Barcode = '010463003546359221Jty945YpbLtBA'#$1D'2406402'#$1D'91ffd0'#$1D +
+    '92lhADfVvvYK1hulPfYg42Yv5fNlSTxqLtP7JEvbMnyTkT7ljcNK6d/Z1qGzMEIdb2qqDFYiAGUE2ssqXiNICCcg==';
+
+  GS1BarcodeText = '(01)04630035463592(21)Jty945YpbLtBA(240)6402(91)ffd0' +
+    '(92)lhADfVvvYK1hulPfYg42Yv5fNlSTxqLtP7JEvbMnyTkT7ljcNK6d/Z1qGzMEIdb2qqDFYiAGUE2ssqXiNICCcg==';
+var
+  Text: AnsiString;
+begin
+  Text := GS1ToText(GS1Barcode);
+  CheckEquals(GS1BarcodeText, Text, 'GS1BarcodeText');
+  Text := TextToGS1(GS1BarcodeText);
+  CheckEquals(GS1Barcode, Text, 'GS1Barcode');
+
+  Text := CorrectGS1(GS1BarcodeText);
+  CheckEquals(GS1Barcode, Text, 'GS1Barcode');
+  Text := CorrectGS1(GS1Barcode);
+  CheckEquals(GS1Barcode, Text, 'GS1Barcode');
+end;
 
 initialization
   RegisterTest('', TGS1BarcodeTest.Suite);

@@ -316,7 +316,7 @@ type
     function FSReadLastDocNum2: Int64;
     function FSReadLastMacValue: Int64;
     function FSReadLastMacValue2: Int64;
-    function FSCheckItemCode(const P: TFSCheckItemCode;
+    function FSCheckItemCode(P: TFSCheckItemCode;
       var R: TFSCheckItemResult): Integer;
     function FSSyncRegisters: Integer;
     function FSReadMemory(var R: TFSReadMemoryResult): Integer;
@@ -324,7 +324,7 @@ type
     function FSRandomData(var Data: AnsiString): Integer;
     function FSAuthorize(const DataToAuthorize: AnsiString): Integer;
     function FSAcceptItemCode(Action: Integer): Integer;
-    function FSBindItemCode(const P: TFSBindItemCode;
+    function FSBindItemCode(P: TFSBindItemCode;
       var R: TFSBindItemCodeResult): Integer;
     function FSReadTicketStatus(var R: TFSTicketStatus): Integer;
     function FSReadMarkStatus(var R: TFSMarkStatus): Integer;
@@ -1853,8 +1853,8 @@ begin
   Result := 0;
 end;
 
-function TMockFiscalPrinterDevice.FSCheckItemCode(
-  const P: TFSCheckItemCode; var R: TFSCheckItemResult): Integer;
+function TMockFiscalPrinterDevice.FSCheckItemCode(P: TFSCheckItemCode;
+  var R: TFSCheckItemResult): Integer;
 begin
   Result := 0;
 end;
@@ -1905,7 +1905,7 @@ begin
   Result := 0;
 end;
 
-function TMockFiscalPrinterDevice.FSBindItemCode(const P: TFSBindItemCode;
+function TMockFiscalPrinterDevice.FSBindItemCode(P: TFSBindItemCode;
   var R: TFSBindItemCodeResult): Integer;
 begin
   Result := 0;

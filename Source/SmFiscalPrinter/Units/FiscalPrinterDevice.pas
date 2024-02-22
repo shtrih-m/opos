@@ -477,7 +477,7 @@ type
     function FSReadLastDocNum2: Int64;
     function FSReadLastMacValue: Int64;
     function FSReadLastMacValue2: Int64;
-    function FSCheckItemCode(const P: TFSCheckItemCode;
+    function FSCheckItemCode(P: TFSCheckItemCode;
       var R: TFSCheckItemResult): Integer;
     function FSSyncRegisters: Integer;
     function FSReadMemory(var R: TFSReadMemoryResult): Integer;
@@ -485,7 +485,7 @@ type
     function FSRandomData(var Data: AnsiString): Integer;
     function FSAuthorize(const DataToAuthorize: AnsiString): Integer;
     function FSAcceptItemCode(Action: Integer): Integer;
-    function FSBindItemCode(const P: TFSBindItemCode;
+    function FSBindItemCode(P: TFSBindItemCode;
       var R: TFSBindItemCodeResult): Integer;
     function FSReadTicketStatus(var R: TFSTicketStatus): Integer;
     function FSReadMarkStatus(var R: TFSMarkStatus): Integer;
@@ -9223,7 +9223,7 @@ begin
   BarcodeType := KTN_UNKNOWN;
   Tokens := TGS1Tokens.Create(TGS1Token);
   try
-    Tokens.DecodeAI(Barcode);
+    Tokens.DecodeGS1(Barcode);
     if Tokens.HasItem('01') and Tokens.HasItem('21') then
     begin
       BarcodeType := KTN_DM;
@@ -9441,12 +9441,13 @@ end;
 
 ******************************************************************************)
 
-function TFiscalPrinterDevice.FSCheckItemCode(const P: TFSCheckItemCode;
+function TFiscalPrinterDevice.FSCheckItemCode(P: TFSCheckItemCode;
   var R: TFSCheckItemResult): Integer;
 var
   Answer: AnsiString;
   Command: AnsiString;
 begin
+  P.CMData := CorrectGS1(P.CMData);
   Command := #$FF#$61 + IntToBin(FSysPassword, 4) +
     Chr(P.ItemStatus) + Chr(P.ProcessMode) +
     Chr(Length(P.CMData)) + Chr(Length(P.TLVData)) +
@@ -9645,12 +9646,13 @@ end;
 ******************************************************************************)
 
 
-function TFiscalPrinterDevice.FSBindItemCode(const P: TFSBindItemCode;
+function TFiscalPrinterDevice.FSBindItemCode(P: TFSBindItemCode;
   var R: TFSBindItemCodeResult): Integer;
 var
   Answer: AnsiString;
   Command: AnsiString;
 begin
+  P.Code := CorrectGS1(P.Code);
   Command := #$FF#$67 + IntToBin(FUsrPassword, 4) + Chr(Length(P.Code)) + P.Code;
   if P.IsAccounted then
     Command := Command + #$FF;
