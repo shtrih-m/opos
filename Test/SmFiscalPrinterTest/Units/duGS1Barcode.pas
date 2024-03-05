@@ -8,7 +8,7 @@ uses
   // DUnit
   TestFramework,
   // This
-  GS1Barcode;
+  GS1Barcode, StringUtils;
 
 type
   { TGS1BarcodeTest }
@@ -90,12 +90,12 @@ const
     '92lhADfVvvYK1hulPfYg42Yv5fNlSTxqLtP7JEvbMnyTkT7ljcNK6d/Z1qGzMEIdb2qqDFYiAGUE2ssqXiNICCcg==';
 
   GS1BarcodeText = '(01)04630035463592(21)Jty945YpbLtBA(240)6402(91)ffd0' +
-    '(92)lhADfVvvYK1hulPfYg42Yv5fNlSTxqLtP7JEvbMnyTkT7ljcNK6d/Z1qGzMEIdb2qqDFYiAGUE2ssqXiNICCcg==';
+    '(92)lhADfVvvYK1hulPfYg42Yv5fNlSTxqLtP7JEvbMnyTkT7ljcNK6d/Z1qGzMEIdb2qqDFYiAGUE2ssqXiNICCcg=='#$0D#$0A;
 var
   Text: AnsiString;
 begin
   Text := GS1ToText(GS1Barcode);
-  CheckEquals(GS1BarcodeText, Text, 'GS1BarcodeText');
+  CheckEquals(Trim(GS1BarcodeText), Text, 'GS1BarcodeText');
   Text := TextToGS1(GS1BarcodeText);
   CheckEquals(GS1Barcode, Text, 'GS1Barcode');
 

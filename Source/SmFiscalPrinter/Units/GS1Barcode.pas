@@ -57,9 +57,9 @@ implementation
 
 function CorrectGS1(const GS1Barcode: AnsiString): AnsiString;
 begin
-  Result := GS1Barcode;
-  if IsGS1Text(GS1Barcode) then
-    Result := TextToGS1(GS1Barcode);
+  Result := Trim(GS1Barcode);
+  if IsGS1Text(Result) then
+    Result := TextToGS1(Result);
 end;
 
 function IsGS1Text(const GS1Text: AnsiString): Boolean;
@@ -125,7 +125,7 @@ begin
   Result := '';
   Tokens := TGS1Tokens.Create(TGS1Token);
   try
-    Tokens.DecodeGS1Text(GS1Text);
+    Tokens.DecodeGS1Text(Trim(GS1Text));
     Result := Tokens.EncodeGS1;
   finally
     Tokens.Free;
