@@ -1792,7 +1792,10 @@ begin
   Receipt.PrintRecMessages;
   case Parameters.HeaderType of
     HeaderTypeNone: ;
-    HeaderTypePrinter: ;
+    HeaderTypePrinter:
+    begin
+      Device.PrintDocTrailer(1);
+    end;
     HeaderTypeDriver:
     begin
       PrintTrailer;
@@ -1804,7 +1807,26 @@ end;
 procedure TFiscalPrinterImpl.PrintFiscalEnd;
 begin
   if Device.GetDocPrintMode = 0 then
-    PrintNonFiscalEnd;
+  begin
+    if not FHeaderEnabled then
+    begin
+      FHeaderEnabled := True;
+      Exit;
+    end;
+
+    WaitForPrinting;
+    PrintLogo2(LogoAfterTotal);
+    Receipt.PrintRecMessages;
+    case Parameters.HeaderType of
+      HeaderTypeNone: ;
+      HeaderTypePrinter: ;
+      HeaderTypeDriver:
+      begin
+        PrintTrailer;
+        PrintHeader;
+      end;
+    end;
+  end;
 end;
 
 procedure TFiscalPrinterImpl.PrintTrailer;
