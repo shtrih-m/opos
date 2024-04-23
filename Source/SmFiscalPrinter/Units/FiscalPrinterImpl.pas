@@ -1794,7 +1794,7 @@ begin
     HeaderTypeNone: ;
     HeaderTypePrinter:
     begin
-      Device.PrintDocTrailer(1);
+      Device.CutPaper(PRINTER_CUTTYPE_PARTIAL);
     end;
     HeaderTypeDriver:
     begin

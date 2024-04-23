@@ -1,14 +1,14 @@
 [Closed Files]
-File_0=SourceModule,'D:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterImpl.pas',0,1,1805,25,1812,0,0
-File_1=SourceModule,'D:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterTypes.pas',0,1,240,31,253,0,0
-File_2=SourceModule,'D:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterDevice.pas',0,1,3033,47,3048,0,0
-File_3=SourceModule,'D:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\PrinterTypes.pas',0,1,1,1,1,0,0
-File_4=SourceModule,'D:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\SharedPrinter.pas',0,1,483,5,492,0,0
-File_5=SourceModule,'D:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\PrinterParameters.pas',0,1,169,23,182,0,0
-File_6=SourceModule,'D:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\GlobusTextReceipt.pas',0,1,331,26,342,0,0
-File_7=SourceModule,'D:\projects\OPOSShtrih\Source\Opos\OposFptr.pas',0,1,327,143,341,0,0
-File_8=SourceModule,'D:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\CustomReceipt.pas',0,1,213,42,242,0,0
-File_9=SourceModule,'D:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FSSalesReceipt.pas',0,1,1,1,1,0,0
+File_0=SourceModule,'D:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterImpl.pas',0,1,1316,23,1327,0,0
+File_1=SourceModule,'D:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterDevice.pas',0,1,242,2,257,0,0
+File_2=SourceModule,'D:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\SharedPrinter.pas',0,1,836,9,846,0,0
+File_3=SourceModule,'D:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\PrinterParameters.pas',0,1,576,41,581,0,0
+File_4=SourceModule,'D:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\GlobusTextReceipt.pas',0,1,665,63,677,0,0
+File_5=SourceModule,'D:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\TrainingReceiptPrinter.pas',0,1,372,2,384,0,0
+File_6=SourceModule,'D:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\ReceiptPrinter.pas',0,1,175,10,185,0,0
+File_7=SourceModule,'D:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\PrinterTypes.pas',0,1,103,32,119,0,0
+File_8=SourceModule,'D:\projects\OPOSShtrih\Source\SmFiscalPrinter\Units\FiscalPrinterTypes.pas',0,1,240,31,253,0,0
+File_9=SourceModule,'D:\projects\OPOSShtrih\Source\Opos\OposFptr.pas',0,1,327,143,341,0,0
 
 [Modules]
 Count=0
@@ -168,8 +168,8 @@ Left=268
 Top=225
 Width=1652
 Height=123
-MaxLeft=-1
-MaxTop=-1
+MaxLeft=-8
+MaxTop=-8
 MaxWidth=1936
 MaxHeight=123
 ClientWidth=1920
