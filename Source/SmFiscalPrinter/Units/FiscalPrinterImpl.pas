@@ -2262,7 +2262,13 @@ begin
     CheckState(FPTR_PS_MONITOR);
     SetPrinterState(FPTR_PS_NONFISCAL);
     NonFiscalDoc.BeginNonFiscal;
-
+    case Parameters.HeaderType of
+      HeaderTypeNone: ;
+      HeaderTypePrinter:
+      begin
+        Device.PrintDocHeader('Õ≈‘»— ¿À‹Õ€… ◊≈ ', 1);
+      end;
+    end;
     Result := ClearResult;
   except
     on E: Exception do
