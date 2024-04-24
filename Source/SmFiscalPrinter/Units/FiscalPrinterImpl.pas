@@ -1792,10 +1792,7 @@ begin
   Receipt.PrintRecMessages;
   case Parameters.HeaderType of
     HeaderTypeNone: ;
-    HeaderTypePrinter:
-    begin
-      Device.CutPaper(PRINTER_CUTTYPE_PARTIAL);
-    end;
+    HeaderTypePrinter,
     HeaderTypeDriver:
     begin
       PrintTrailer;
