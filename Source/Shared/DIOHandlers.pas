@@ -629,6 +629,13 @@ type
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
+  { TDIOClearMCCheckResults }
+
+  TDIOClearMCCheckResults = class(TDIOHandler2)
+  public
+    procedure DirectIO(var pData: Integer; var pString: WideString); override;
+  end;
+
 implementation
 
 function BoolToStr(Value: Boolean): WideString;
@@ -2099,6 +2106,14 @@ begin
     R.TicketNumber,
     EncodeOposDate(R.TicketDate),
     R.TicketStorageUsageInPercents]);
+end;
+
+{ TDIOClearMCCheckResults }
+
+procedure TDIOClearMCCheckResults.DirectIO(var pData: Integer;
+  var pString: WideString);
+begin
+  FPrinter.Device.Check(FPrinter.Device.FSClearMCCheckResults);
 end;
 
 end.

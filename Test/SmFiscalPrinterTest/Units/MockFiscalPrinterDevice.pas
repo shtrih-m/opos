@@ -348,6 +348,7 @@ type
     function GetHeaderHeight: Integer;
     function GetTrailerHeight: Integer;
     function GetFont(Font: Integer): TFontInfo;
+    function FSClearMCCheckResults: Integer;
 
     property Status: TPrinterStatus read FStatus write FStatus;
     property Parameters: TPrinterParameters read GetParameters;
@@ -2032,6 +2033,11 @@ begin
 end;
 
 function TMockFiscalPrinterDevice.FSWriteTLVFromBuffer: Integer;
+begin
+  Result := 0;
+end;
+
+function TMockFiscalPrinterDevice.FSClearMCCheckResults: Integer;
 begin
   Result := 0;
 end;

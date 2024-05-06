@@ -76,6 +76,7 @@ type
     procedure CheckStateNotChanged;
     procedure CheckRetrieveStatistics;
   published
+    procedure CheckAsyncMode;
     procedure CheckOpenResult;
     procedure CheckCheckHealthText;
     procedure CheckClaimed;
@@ -93,7 +94,6 @@ type
     procedure CheckAutoDisable;
     procedure CheckCapPowerReporting;
     procedure CheckPowerNotify;
-    procedure CheckAsyncMode;
     procedure CheckCapDisplayText;
     procedure CheckCapPriceCalculating;
     procedure CheckCapTareWeight;

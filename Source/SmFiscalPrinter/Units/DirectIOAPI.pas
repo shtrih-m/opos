@@ -110,6 +110,7 @@ const
   DIO_FS_GENERATE_RANDOM_DATA   = 76; // Generate random data
   DIO_FS_AUTHORIZE              = 77; // Authorize
   DIO_FS_READ_TICKET_STATUS     = 78; // Read ticket status
+  DIO_FS_CLEAR_MC_CHECK_RESULTS = 79; // Clear MC check result buffer
 
 
   // Read document from fiscal storage device

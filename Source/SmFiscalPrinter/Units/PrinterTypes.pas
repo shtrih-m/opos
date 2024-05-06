@@ -2154,6 +2154,7 @@ begin
     $D0: Result := _('Read ECR IBM status');
     $D1: Result := _('Read short ECR IBM status');
     $DE: Result := _('Print barcode 2D');
+    $E0: Result := _('Open fiscal day');
     $F0: Result := _('Change shutter position');
     $F1: Result := _('Discharge receipt from presenter');
     $F3: Result := _('Write service center password');

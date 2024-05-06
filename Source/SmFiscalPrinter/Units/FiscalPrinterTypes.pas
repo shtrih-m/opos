@@ -469,7 +469,8 @@ type
     function FSReadLastMacValue: Int64;
     function FSReadLastMacValue2: Int64;
     function FSCheckItemCode(P: TFSCheckItemCode; var R: TFSCheckItemResult): Integer;
-    
+    function FSClearMCCheckResults: Integer;
+
     function FSSyncRegisters: Integer;
     function FSReadMemory(var R: TFSReadMemoryResult): Integer;
     function FSWriteTLVFromBuffer: Integer;

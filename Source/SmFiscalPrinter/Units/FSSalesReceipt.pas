@@ -881,6 +881,7 @@ end;
 
 procedure TFSSalesReceipt.BeginFiscalReceipt(PrintHeader: Boolean);
 begin
+  Device.FSClearMCCheckResults;
   ClearReceipt;
   if Parameters.OpenReceiptEnabled then
   begin

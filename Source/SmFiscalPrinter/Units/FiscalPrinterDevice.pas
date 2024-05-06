@@ -485,6 +485,7 @@ type
     function FSRandomData(var Data: AnsiString): Integer;
     function FSAuthorize(const DataToAuthorize: AnsiString): Integer;
     function FSAcceptItemCode(Action: Integer): Integer;
+    function FSClearMCCheckResults: Integer;
     function FSBindItemCode(P: TFSBindItemCode;
       var R: TFSBindItemCodeResult): Integer;
     function FSReadTicketStatus(var R: TFSTicketStatus): Integer;
@@ -9735,7 +9736,7 @@ end;
 
   Код команды FF69h. Длина сообщения: 7 байт.
   Пароль оператора: 4 байта
-  Решение : 1 байт. 0 - отвергнуть, 1 - принять.
+  Решение : 1 байт. 0 - отвергнуть, 1 - принять, 2 - очистить буфер КМ
   Команду необходимо подавать после проверки каждого КМ.
 
   Ответ: FF69h	    Длина сообщения: 1 байт.
@@ -9750,6 +9751,12 @@ begin
   Command := #$FF#$69 + IntToBin(FUsrPassword, 4) + Chr(Action);
   Result := ExecuteData(Command);
 end;
+
+function TFiscalPrinterDevice.FSClearMCCheckResults: Integer;
+begin
+  Result := FSAcceptItemCode(2);
+end;
+
 
 (******************************************************************************
 

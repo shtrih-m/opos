@@ -699,7 +699,7 @@ begin
   TDIOFSGenerateRandomData.CreateCommand(FDIOHandlers, DIO_FS_GENERATE_RANDOM_DATA, Self);
   TDIOFSAuthorize.CreateCommand(FDIOHandlers, DIO_FS_AUTHORIZE, Self);
   TDIOFSReadTicketStatus.CreateCommand(FDIOHandlers, DIO_FS_READ_TICKET_STATUS, Self);
-
+  TDIOClearMCCheckResults.CreateCommand(FDIOHandlers, DIO_FS_CLEAR_MC_CHECK_RESULTS, Self);
 end;
 
 procedure TFiscalPrinterImpl.CreateDIOHandlers1;
@@ -794,6 +794,7 @@ begin
   TDIOFSGenerateRandomData.CreateCommand(FDIOHandlers, DIO_FS_GENERATE_RANDOM_DATA, Self);
   TDIOFSAuthorize.CreateCommand(FDIOHandlers, DIO_FS_AUTHORIZE, Self);
   TDIOFSReadTicketStatus.CreateCommand(FDIOHandlers, DIO_FS_READ_TICKET_STATUS, Self);
+  TDIOClearMCCheckResults.CreateCommand(FDIOHandlers, DIO_FS_CLEAR_MC_CHECK_RESULTS, Self);
 end;
 
 procedure TFiscalPrinterImpl.CreateDIOHandlers2;
@@ -892,6 +893,7 @@ begin
   TDIOFSGenerateRandomData.CreateCommand(FDIOHandlers, DIO_FS_GENERATE_RANDOM_DATA, Self);
   TDIOFSAuthorize.CreateCommand(FDIOHandlers, DIO_FS_AUTHORIZE, Self);
   TDIOFSReadTicketStatus.CreateCommand(FDIOHandlers, DIO_FS_READ_TICKET_STATUS, Self);
+  TDIOClearMCCheckResults.CreateCommand(FDIOHandlers, DIO_FS_CLEAR_MC_CHECK_RESULTS, Self);
 end;
 
 procedure TFiscalPrinterImpl.SetPrinter(APrinter: ISharedPrinter);

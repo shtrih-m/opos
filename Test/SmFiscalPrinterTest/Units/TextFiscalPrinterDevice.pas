@@ -329,6 +329,7 @@ type
     function FSConfirmTicket(const P: TFSTicketNumber): Integer;
     function FSReadDeviceInfo(var R: string): Integer;
     function FSReadDocSize(var R: TFSDocSize): Integer;
+    function FSClearMCCheckResults: Integer;
 
     procedure STLVBegin(TagID: Integer);
     procedure STLVAddTag(TagID: Integer; TagValue: string);
@@ -2034,6 +2035,11 @@ begin
 end;
 
 function TTextFiscalPrinterDevice.FSWriteTLVFromBuffer: Integer;
+begin
+  Result := 0;
+end;
+
+function TTextFiscalPrinterDevice.FSClearMCCheckResults: Integer;
 begin
   Result := 0;
 end;
