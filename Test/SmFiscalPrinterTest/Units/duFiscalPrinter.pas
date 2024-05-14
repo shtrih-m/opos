@@ -1260,6 +1260,7 @@ begin
   Model.NumTrailerLines := 4;
   Device.Model := Model;
 
+  Parameters.UsePrintHeaderParameter := True;
   Printer.Parameters.NumHeaderLines := 3;
   Printer.Parameters.NumTrailerLines := 4;
 
@@ -1304,6 +1305,7 @@ begin
   Model.NumTrailerLines := 4;
   Device.Model := Model;
 
+  Parameters.UsePrintHeaderParameter := True;
   Printer.Parameters.NumHeaderLines := 3;
   Printer.Parameters.NumTrailerLines := 4;
 

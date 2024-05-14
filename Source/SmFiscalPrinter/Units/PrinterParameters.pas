@@ -372,8 +372,7 @@ const
   DefItemTextMode = ItemTextModeNone;
   DefCorrectCashlessAmount = false;
   DefValidTimeDiffInSecs = 0;
-  DefUsePrintHeaderParameter = True;
-
+  DefUsePrintHeaderParameter = False;
 type
   { TPrinterParameters }
 

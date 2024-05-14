@@ -2432,17 +2432,23 @@ begin
       FDocumentNumber := Device.ReadLongStatus.DocumentNumber;
       Filters.AfterCloseReceipt;
 
-      if Parameters.UsePrintHeaderParameter and APrintHeader then
+      if Parameters.UsePrintHeaderParameter then
       begin
-        PrintDocumentEnd;
+        if APrintHeader then
+        begin
+          PrintDocumentEnd;
+        end else
+        begin
+          PrintTrailer;
+          if not Device.GetModel.CapAutoFeedOnCut then
+          begin
+            PrintEmptyHeader;
+          end;
+          Printer.CutPaper;
+        end;
       end else
       begin
-        PrintTrailer;
-        if not Device.GetModel.CapAutoFeedOnCut then
-        begin
-          PrintEmptyHeader;
-        end;
-        Printer.CutPaper;
+        PrintDocumentEnd;
       end;
       Device.ResetPrinter;
     except
