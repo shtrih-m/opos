@@ -2122,6 +2122,8 @@ begin
 end;
 
 function TFiscalPrinterImpl.BeginFiscalReceipt(APrintHeader: WordBool): Integer;
+var
+  AReceipt: TCustomReceipt;
 begin
   try
     Printer.UpdateParams;
@@ -2141,10 +2143,9 @@ begin
     OpenFiscalDay;
     Filters.BeginFiscalReceipt;
 
-    SetPrinterState(FPTR_PS_FISCAL_RECEIPT);
-
+    AReceipt := CreateReceipt(FFiscalReceiptType);
     FReceipt.Free;
-    FReceipt := CreateReceipt(FFiscalReceiptType);
+    FReceipt := AReceipt;
     Receipt.BeginFiscalReceipt(APrintHeader);
     Filters.BeginFiscalReceipt2(FReceipt);
     FAfterCloseItems.Clear;
@@ -2153,6 +2154,8 @@ begin
     begin
       PrintHeaderBegin;
     end;
+
+    SetPrinterState(FPTR_PS_FISCAL_RECEIPT);
     Result := ClearResult;
   except
     on E: Exception do

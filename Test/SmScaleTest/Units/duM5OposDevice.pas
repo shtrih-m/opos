@@ -59,11 +59,13 @@ end;
 
 procedure TM5OposDeviceTest.TearDown;
 begin
+  FLogger := nil;
+  ScaleDevice := nil;
   Device.Free;
   FCommands.Free;
   FParameters.Free;
   FStatistics.Free;
-  FLogger := nil;
+  Connection.Free;
 end;
 
 procedure TM5OposDeviceTest.TestReadWeight;
