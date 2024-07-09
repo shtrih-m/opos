@@ -1321,6 +1321,7 @@ begin
   Parameter8 := '';
   Parameter9 := '';
   Parameter10 := '';
+  Barcode := '';
 end;
 
 end.

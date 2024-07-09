@@ -2146,6 +2146,7 @@ begin
     AReceipt := CreateReceipt(FFiscalReceiptType);
     FReceipt.Free;
     FReceipt := AReceipt;
+    Parameters.ClearReceiptFields;
     Receipt.BeginFiscalReceipt(APrintHeader);
     Filters.BeginFiscalReceipt2(FReceipt);
     FAfterCloseItems.Clear;
@@ -2463,6 +2464,7 @@ begin
 
     FReceipt.Free;
     FReceipt := CreateNullReceipt;
+    Parameters.ClearReceiptFields;
     SetPrinterState(FPTR_PS_MONITOR);
 
     Result := ClearResult;
