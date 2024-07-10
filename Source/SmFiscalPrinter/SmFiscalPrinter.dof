@@ -90,7 +90,7 @@ MaxStackSize=1048576
 ImageBase=4194304
 ExeDescription=
 [Directories]
-OutputDir=
+OutputDir=..\..\Bin
 UnitOutputDir=..\..\DCU
 PackageDLLOutputDir=
 PackageDCPOutputDir=
@@ -101,7 +101,7 @@ DebugSourceDirs=
 UsePackages=0
 [Parameters]
 RunParams=
-HostApplication=D:\projects\OPOSShtrih\bin\OposTest.exe
+HostApplication=C:\projects\OPOSShtrih\bin\OposTest.exe
 Launcher=
 UseLauncher=0
 DebugCWD=
@@ -122,7 +122,7 @@ AutoIncBuild=0
 MajorVer=1
 MinorVer=13
 Release=0
-Build=573
+Build=593
 Debug=0
 PreRelease=0
 Special=0
@@ -133,14 +133,16 @@ CodePage=1252
 [Version Info Keys]
 CompanyName=SHTRIH-M
 FileDescription=Fiscal printer service
-FileVersion=1.13.0.573
+FileVersion=1.13.0.593
 InternalName=Fiscal printer driver
-LegalCopyright=SHTRIH-M © 2013
+LegalCopyright=SHTRIH-M © 2013 
 LegalTrademarks=
 OriginalFilename=SmFiscalPrinter.dll
 ProductName=OPOS drivers
 ProductVersion=1.13
 Comments=http://www.shtrih-m.ru
+[Excluded Packages]
+C:\Program Files (x86)\Borland\Delphi7\Projects\Bpl\PngComponentsD7.bpl=Png components
 [HistoryLists\hlDebugSourcePath]
 Count=1
 Item0=C:\Components\DUnit\src\
@@ -148,16 +150,19 @@ Item0=C:\Components\DUnit\src\
 Count=1
 Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;
 [HistoryLists\hlSearchPath]
-Count=2
-Item0=$(DELPHI)\Lib\Debug;C:\COMPON~1\JVCL\jcl\lib\d7\debug;C:\COMPON~1\jcl\lib\d7\debug
-Item1=$(DELPHI)\Lib\Debug
+Count=3
+Item0=$(DELPHI)\Lib\Debug;c:\PROGRA~2\Borland\Delphi7\Comp\jcl\lib\d7\debug;$(DELPHI)\Comp\jvcl\lib\D7\debug
+Item1=$(DELPHI)\Lib\Debug;C:\COMPON~1\JVCL\jcl\lib\d7\debug;C:\COMPON~1\jcl\lib\d7\debug
+Item2=$(DELPHI)\Lib\Debug
 [HistoryLists\hlUnitOutputDirectory]
-Count=2
-Item0=DCU
-Item1=..\lib\D7
+Count=3
+Item0=..\..\DCU
+Item1=DCU
+Item2=..\lib\D7
 [HistoryLists\hlOutputDirectorry]
-Count=1
-Item0=Bin
+Count=2
+Item0=..\..\Bin
+Item1=Bin
 [HistoryLists\hlBPLOutput]
 Count=3
 Item0=$(DELPHI)\Bin\

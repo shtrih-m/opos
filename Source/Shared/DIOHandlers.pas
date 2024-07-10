@@ -636,6 +636,13 @@ type
     procedure DirectIO(var pData: Integer; var pString: WideString); override;
   end;
 
+  { TDIOReadQRCodeData }
+
+  TDIOReadQRCodeData = class(TDIOHandler2)
+  public
+    procedure DirectIO(var pData: Integer; var pString: WideString); override;
+  end;
+
 implementation
 
 function BoolToStr(Value: Boolean): WideString;
@@ -2114,6 +2121,14 @@ procedure TDIOClearMCCheckResults.DirectIO(var pData: Integer;
   var pString: WideString);
 begin
   FPrinter.Device.Check(FPrinter.Device.FSClearMCCheckResults);
+end;
+
+{ TDIOReadQRCodeData }
+
+procedure TDIOReadQRCodeData.DirectIO(var pData: Integer;
+  var pString: WideString);
+begin
+  pString := FPrinter.QRCodeData;
 end;
 
 end.

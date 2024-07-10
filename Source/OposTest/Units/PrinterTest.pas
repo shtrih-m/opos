@@ -1752,6 +1752,9 @@ end;
 { TSalesReceiptTest }
 
 procedure TSalesReceiptTest.Execute;
+var
+  pData: Integer;
+  pString: WideString;
 begin
   // Clear memo
   Memo.Lines.Clear;
@@ -1774,6 +1777,9 @@ begin
   Check(FiscalPrinter.PrintRecItem('Булка вкусная и свежая', 123.45, 123, 4, 0, ''));
   Check(FiscalPrinter.PrintRecTotal(999, 999, '0'));
   Check(FiscalPrinter.EndFiscalReceipt(True));
+
+  Check(FiscalPrinter.DirectIO(DIO_FS_READ_QR_CODE_DATA, pData, pString));
+  AddLine('QRCodeData: ' + pString);
 
   AddLine(Separator);
   AddLine('Test completed !');

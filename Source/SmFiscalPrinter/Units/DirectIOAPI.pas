@@ -111,6 +111,7 @@ const
   DIO_FS_AUTHORIZE              = 77; // Authorize
   DIO_FS_READ_TICKET_STATUS     = 78; // Read ticket status
   DIO_FS_CLEAR_MC_CHECK_RESULTS = 79; // Clear MC check result buffer
+  DIO_FS_READ_QR_CODE_DATA      = 80; // Read QR code data
 
 
   // Read document from fiscal storage device

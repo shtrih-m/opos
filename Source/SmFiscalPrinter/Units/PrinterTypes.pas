@@ -1167,8 +1167,8 @@ type
 
   TFSCloseReceiptResult2 = record
     Change: Int64;
-    DocNumber: DWORD;
-    MacValue: DWORD;
+    DocNumber: Int64;
+    MacValue: Int64;
     DocDate: TPrinterDate;
     DocTime: TPrinterTime;
   end;

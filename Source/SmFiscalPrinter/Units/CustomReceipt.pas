@@ -36,6 +36,7 @@ type
     function GetDevice: IFiscalPrinterDevice;
     function GetParameters: TPrinterParameters;
   protected
+    FQRCodeData: string;
     FPrintEnabled: Boolean;
     property State: TFiscalPrinterState read FState;
     property Printer: IReceiptPrinter read FPrinter;
@@ -153,6 +154,7 @@ type
     property MalinaParams: TMalinaParams read GetMalinaParams;
     property Parameters: TPrinterParameters read GetParameters;
     property AdditionalText: WideString read FAdditionalText write FAdditionalText;
+    property QRCodeData: string read FQRCodeData;
   end;
 
   TCustomReceiptClass = class of TCustomReceipt;

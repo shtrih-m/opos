@@ -31,6 +31,7 @@ type
     FAdjustmentAmount: Integer;
     FTemplate: TReceiptTemplate;
     FItemBarcodes: TStrings;
+    FCloseResult2: TFSCloseReceiptResult2;
 
     procedure PrintReceiptItems;
     procedure CheckTotal(Total: Currency);
@@ -160,9 +161,22 @@ type
     property IsVoided: Boolean read FIsVoided;
     property IsCashPayment: Boolean read GetIsCashPayment;
     property ReceiptItems: TReceiptItems read FReceiptItems;
+    property CloseResult2: TFSCloseReceiptResult2 read FCloseResult2;
   end;
 
 implementation
+
+function RecTypeToOperation(RecType: Integer): Integer;
+begin
+  case RecType of
+    RecTypeSale       : Result := 1;
+    RecTypeRetSale    : Result := 2;
+    RecTypeBuy        : Result := 3;
+    RecTypeRetBuy     : Result := 4;
+  else
+    Result := 1;
+  end;
+end;
 
 // Parse price and quantity
 
@@ -981,20 +995,6 @@ begin
 end;
 
 procedure TFSSalesReceipt.PrintFSSale(Item: TFSSaleItem);
-
-  function RecTypeToOperation(RecType: Integer): Integer;
-  begin
-    case RecType of
-      RecTypeSale       : Result := 1;
-      RecTypeRetSale    : Result := 2;
-      RecTypeBuy        : Result := 3;
-      RecTypeRetBuy     : Result := 4;
-    else
-      Result := 1;
-    end;
-  end;
-
-
 var
   i: Integer;
   FSSale2: TFSSale2;
@@ -1243,9 +1243,10 @@ end;
 
 procedure TFSSalesReceipt.EndFiscalReceipt;
 var
+  FSState: TFSState;
+  ReceiptTotal: Int64;
   CloseParams: TCloseReceiptParams;
   CloseParams2: TFSCloseReceiptParams2;
-  CloseResult2: TFSCloseReceiptResult2;
 begin
   Device.Lock;
   try
@@ -1257,6 +1258,8 @@ begin
     begin
       if Device.CapFiscalStorage then
       begin
+        Device.Check(Device.FSReadState(FSState));
+        ReceiptTotal := Device.GetSubtotal;
         CloseParams2.Payments := FPayments;
         CloseParams2.Discount := FAdjustmentAmount;
         CloseParams2.TaxAmount[1] := StrToInt64Def(Parameters.Parameter1, 0);
@@ -1267,7 +1270,14 @@ begin
         CloseParams2.TaxAmount[6] := StrToInt64Def(Parameters.Parameter6, 0);
         CloseParams2.TaxSystem := StrToInt64Def(Parameters.Parameter7, 0);
         CloseParams2.Text := Parameters.CloseRecText;
-        Device.Check(Device.ReceiptClose2(CloseParams2, CloseResult2));
+        Device.Check(Device.ReceiptClose2(CloseParams2, FCloseResult2));
+
+        FQRCodeData := Format('t=%.4d%.2d%.2dT%.2d%.2d&s=%.2f&fn=%s&i=%d&fp=%d&n=%d', [
+          FCloseResult2.DocDate.Year + 2000, FCloseResult2.DocDate.Month,
+          FCloseResult2.DocDate.Day, FCloseResult2.DocTime.Hour,
+          FCloseResult2.DocTime.Min, ReceiptTotal/100, FSState.FSNumber,
+          FCloseResult2.DocNumber, FCloseResult2.MacValue,
+          RecTypeToOperation(FRecType)]);
       end else
       begin
         CloseParams.CashAmount := FPayments[0];

@@ -266,6 +266,8 @@ type
     property DIOHandlers: TDIOHandlers read FDIOHandlers;
     property PrinterState: Integer read GetPrinterState write SetPrinterState;
   public
+    QRCodeData: string;
+
     procedure SaveParameters;
     procedure SaveZReportFile;
     function GetCommandDefsFileName: WideString;
@@ -700,6 +702,7 @@ begin
   TDIOFSAuthorize.CreateCommand(FDIOHandlers, DIO_FS_AUTHORIZE, Self);
   TDIOFSReadTicketStatus.CreateCommand(FDIOHandlers, DIO_FS_READ_TICKET_STATUS, Self);
   TDIOClearMCCheckResults.CreateCommand(FDIOHandlers, DIO_FS_CLEAR_MC_CHECK_RESULTS, Self);
+  TDIOReadQRCodeData.CreateCommand(FDIOHandlers, DIO_FS_READ_QR_CODE_DATA, Self);
 end;
 
 procedure TFiscalPrinterImpl.CreateDIOHandlers1;
@@ -795,6 +798,7 @@ begin
   TDIOFSAuthorize.CreateCommand(FDIOHandlers, DIO_FS_AUTHORIZE, Self);
   TDIOFSReadTicketStatus.CreateCommand(FDIOHandlers, DIO_FS_READ_TICKET_STATUS, Self);
   TDIOClearMCCheckResults.CreateCommand(FDIOHandlers, DIO_FS_CLEAR_MC_CHECK_RESULTS, Self);
+  TDIOReadQRCodeData.CreateCommand(FDIOHandlers, DIO_FS_READ_QR_CODE_DATA, Self);
 end;
 
 procedure TFiscalPrinterImpl.CreateDIOHandlers2;
@@ -894,6 +898,7 @@ begin
   TDIOFSAuthorize.CreateCommand(FDIOHandlers, DIO_FS_AUTHORIZE, Self);
   TDIOFSReadTicketStatus.CreateCommand(FDIOHandlers, DIO_FS_READ_TICKET_STATUS, Self);
   TDIOClearMCCheckResults.CreateCommand(FDIOHandlers, DIO_FS_CLEAR_MC_CHECK_RESULTS, Self);
+  TDIOReadQRCodeData.CreateCommand(FDIOHandlers, DIO_FS_READ_QR_CODE_DATA, Self);
 end;
 
 procedure TFiscalPrinterImpl.SetPrinter(APrinter: ISharedPrinter);
@@ -2126,6 +2131,7 @@ var
   AReceipt: TCustomReceipt;
 begin
   try
+    QRCodeData := '';
     Printer.UpdateParams;
     CheckEnabled;
     CheckInitPrinter;
@@ -2433,6 +2439,7 @@ begin
 
     Receipt.EndFiscalReceipt;
     try
+      QRCodeData := Receipt.QRCodeData;
       FDocumentNumber := Device.ReadLongStatus.DocumentNumber;
       Filters.AfterCloseReceipt;
 
@@ -3683,6 +3690,7 @@ begin
     CheckEnabled;
     CancelReceipt;
     Device.ResetPrinter;
+    QRCodeData := '';
     SetPrinterState(FPTR_PS_MONITOR);
     FAfterCloseItems.Clear;
     FReceiptItems := 0;
