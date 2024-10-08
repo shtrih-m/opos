@@ -55,6 +55,7 @@ type
     procedure SearchDevice;
     function Connect(PortNumber, Timeout: Integer): Boolean;
     function GetWeightFactor: Double;
+    function ReadStatus: TM5Status;
   private
     FCapDisplay: Boolean;
     FCapZeroScale: Boolean;
@@ -301,7 +302,7 @@ procedure TM5OposDevice.CheckHealthInternal;
 var
   Status: TM5Status;
 begin
-  Device.Check(Device.ReadStatus(Status));
+  Status := ReadStatus;
   FCheckHealthText := S_CHECK_HEALTH_SUCCESS;
   if Status.Flags.isOverweight then
     FCheckHealthText := S_CHECK_HEALTH_WEIGHT_OVERWEIGHT;
@@ -359,7 +360,7 @@ var
   WeightData: Integer;
   ReadWeightRequest: TReadWeightRequest;
 begin
-  Lock;
+  Lock;           
   try
     try
       if not DeviceEnabled then Exit;
@@ -405,46 +406,50 @@ begin
   Result := FWeightFactor;
 end;
 
-procedure TM5OposDevice.PollWeight;
+function TM5OposDevice.ReadStatus: TM5Status;
 var
   Status: TM5Status;
 begin
   Lock;
   try
-    try
-      Device.Check(Device.ReadStatus(Status));
-      // WeightStable
-      if Status.Flags.isWeightStable <> FStatus.Flags.isWeightStable then
-      begin
-        if Status.Flags.isWeightStable then
-          StatusUpdateEvent(SCAL_SUE_STABLE_WEIGHT)
-        else
-          StatusUpdateEvent(SCAL_SUE_WEIGHT_UNSTABLE);
-      end;
-      if Status.Weight <> FStatus.Weight then
-      begin
-        if Status.Weight = 0 then
-          StatusUpdateEvent(SCAL_SUE_WEIGHT_ZERO);
-
-        if (Status.Weight < 0)and(FStatus.Weight >= 0) then
-          StatusUpdateEvent(SCAL_SUE_WEIGHT_UNDER_ZERO);
-      end;
-      if Status.Flags.isOverweight <> FStatus.Flags.isOverweight then
-      begin
-        if Status.Flags.isOverweight then
-          StatusUpdateEvent(SCAL_SUE_WEIGHT_OVERWEIGHT);
-      end;
-
-      FStatus := Status;
-      FScaleLiveWeight := Round(Status.Weight * GetWeightFactor);
-    except
-      on E: Exception do
-      begin
-        Logger.Error('PollProc: ' + E.Message);
-      end;
+    Device.Check(Device.ReadStatus(Status));
+    // WeightStable
+    if Status.Flags.isWeightStable <> FStatus.Flags.isWeightStable then
+    begin
+      if Status.Flags.isWeightStable then
+        StatusUpdateEvent(SCAL_SUE_STABLE_WEIGHT)
+      else
+        StatusUpdateEvent(SCAL_SUE_WEIGHT_UNSTABLE);
     end;
+    if Status.Weight <> FStatus.Weight then
+    begin
+      if Status.Weight = 0 then
+        StatusUpdateEvent(SCAL_SUE_WEIGHT_ZERO);
+
+      if (Status.Weight < 0)and(FStatus.Weight >= 0) then
+        StatusUpdateEvent(SCAL_SUE_WEIGHT_UNDER_ZERO);
+    end;
+    if Status.Flags.isOverweight <> FStatus.Flags.isOverweight then
+    begin
+      if Status.Flags.isOverweight then
+        StatusUpdateEvent(SCAL_SUE_WEIGHT_OVERWEIGHT);
+    end;
+    FScaleLiveWeight := Round(Status.Weight * GetWeightFactor);
+    Result := Status;
   finally
     UnLock;
+  end;
+end;
+
+procedure TM5OposDevice.PollWeight;
+begin
+  try
+    FStatus := ReadStatus;
+  except
+    on E: Exception do
+    begin
+      Logger.Error('PollProc: ' + E.Message);
+    end;
   end;
 end;
 
@@ -457,7 +462,7 @@ var
 begin
   if Timeout = 0 then
   begin
-    Device.Check(Device.ReadStatus(Status));
+    Status := ReadStatus;
   end else
   begin
     TickCount := Integer(GetTickCount) + Timeout;
@@ -468,7 +473,7 @@ begin
 
       end;
 
-      Device.Check(Device.ReadStatus(Status));
+      Status := ReadStatus;
       if Status.Weight = 0 then Break;
     until Status.Flags.isWeightStable;
   end;
@@ -604,6 +609,8 @@ begin
       FDeviceMetrics.MajorType, FDeviceMetrics.MinorType,
       FDeviceMetrics.MajorVersion, FDeviceMetrics.MinorVersion]);
     Statistics.InstallationDate := '';
+
+    Device.Zero;
 
     FConnected := True;
   except
@@ -814,7 +821,7 @@ function TM5OposDevice.NCRReadLiveWeight: Integer;
 var
   Status: TM5Status;
 begin
-  Device.Check(Device.ReadStatus(Status));
+  Status := ReadStatus;
 
   if Status.Flags.isOverweight then
     RaiseExtendedError(OPOS_ESCAL_OVERWEIGHT);
@@ -839,11 +846,8 @@ begin
 end;
 
 function TM5OposDevice.NCRReadStatus: WideString;
-var
-  Status: TM5Status;
 begin
-  Device.Check(Device.ReadStatus(Status));
-  Result := M5StatusToStr(Status);
+  Result := M5StatusToStr(ReadStatus);
 end;
 
 function TM5OposDevice.NCRReadROMVersion: WideString;

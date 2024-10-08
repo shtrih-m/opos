@@ -55,8 +55,6 @@ type
     FList: TList;
     FEvent: TEvent;
     FLock: TCriticalSection;
-    procedure Lock;
-    procedure Unlock;
     function GetCount: Integer;
     function GetItem(Index: Integer): TOposEvent;
   public
@@ -65,12 +63,16 @@ type
 
     procedure Wait;
     procedure Clear;
+    procedure Lock;
+    procedure Unlock;
     procedure ClearInput;
     procedure ClearOutput;
     function DataCount: Integer;
     procedure Add(Event: TOposEvent);
     function Remove(Index: Integer): TOposEvent;
     procedure Execute(EventInterface: IOposEvents);
+    function ItemById(Id: Integer): TOposEvent;
+    function FindById(Id: Integer): TOposEvent;
 
     property Count: Integer read GetCount;
     property Items[Index: Integer]: TOposEvent read GetItem; default;
@@ -340,6 +342,30 @@ begin
   finally
     Unlock;
   end;
+end;
+
+function TOposEvents.FindById(Id: Integer): TOposEvent;
+var
+  i: Integer;
+begin
+  Lock;
+  try
+    for i := 0 to Count-1 do
+    begin
+      Result := Items[i];
+      if Result.ID = Id then Exit;
+    end;
+    Result := nil;
+  finally
+    UnLock;
+  end;
+end;
+
+function TOposEvents.ItemById(Id: Integer): TOposEvent;
+begin
+  Result := FindById(Id);
+  if Result = nil then
+    raise Exception.CreateFmt('Item with Id=%d not found', [Id]);
 end;
 
 { TDataEvent }

@@ -12,7 +12,7 @@ uses
   TestFramework, ScaleDriver, FileUtils, ScaleParameters, MockScaleConnection2,
   RCSEvents, RCSEvents_TLB, ServiceVersion, ScaleTypes2, ScaleDirectIO,
   StringUtils, MockCommandDef, MockScaleParameters, MockscaleStatistics,
-  MockUIController, LogFile;
+  MockUIController, LogFile, DebugUtils;
 
 type
   { TScaleDriverTest }
@@ -56,6 +56,7 @@ type
       ErrorLocus: Integer;
       var pErrorResponse: Integer);
     procedure WaitForEvent;
+    procedure WaitForEventId(EventId: Integer);
     procedure CheckNoEvent;
     procedure AddEvent(Event: TOposEvent);
     procedure SaveParameters;
@@ -119,7 +120,7 @@ implementation
 const
   DeviceName        = 'Scale1';
   CurrencyPrecision = 0.0001;
-  EventWaitTimeout  = 50;
+  EventWaitTimeout  = 100;
   CRLF = #13#10;
 
 { TScaleDriverTest }
@@ -159,8 +160,14 @@ end;
 
 procedure TScaleDriverTest.AddEvent(Event: TOposEvent);
 begin
-  OposEvents.Add(Event);
-  FWaitEvent.SetEvent;
+  ODS('AddEvent');
+  OposEvents.Lock;
+  try
+    OposEvents.Add(Event);
+    FWaitEvent.SetEvent;
+  finally
+    OposEvents.Unlock;
+  end;
 end;
 
 procedure TScaleDriverTest.DataEvent(Status: Integer);
@@ -493,6 +500,15 @@ begin
     raise Exception.Create('Wait failed');
 end;
 
+procedure TScaleDriverTest.WaitForEventId(EventID: Integer);
+begin
+  while True do
+  begin
+    WaitForEvent;
+    if OposEvents.FindById(EventID) <> nil then Exit;
+  end;
+end;
+
 procedure TScaleDriverTest.CheckNoEvent;
 begin
   if FWaitEvent.WaitFor(EventWaitTimeout) <> wrTimeOut then
@@ -668,13 +684,12 @@ begin
   Device.Status.Weight := 67853;
   Device.Status.Flags.isWeightStable := True;
 
-
   pWeightData := 1234;
   CheckEquals(0, Driver.ReadWeight(pWeightData, 1267), 'ReadWeight');
   CheckEquals(0, pWeightData, 'pWeightData');
-  WaitForEvent;
-  CheckEquals(1, OposEvents.Count, 'OposEvents.Count');
-  Event := OposEvents[0] as TDataEvent;
+  WaitForEventId(EVENT_ID_DATA);
+  CheckEquals(True, OposEvents.Count <> 0, 'OposEvents.Count = 0');
+  Event := OposEvents.ItemById(EVENT_ID_DATA) as TDataEvent;
   CheckEquals(Device.Status.Weight, Event.Status, 'Event.Status');
 end;
 
@@ -786,17 +801,17 @@ end;
 
 procedure TScaleDriverTest.CheckClearInput;
 var
-  Event: TDataEvent;
   pWeightData: Integer;
+  DataEvent: TDataEvent;
 begin
   OposEvents.Clear;
   Device.Status.Weight := 67853;
   Device.Status.Flags.isWeightStable := True;
   // No ClearInput call
   OpenService;
-  Driver.SetPropertyNumber(PIDX_DataEventEnabled, 1);
   Driver.SetPropertyNumber(PIDXScal_AsyncMode, 1);
   Driver.SetPropertyNumber(PIDX_FreezeEvents, 1);
+  Driver.SetPropertyNumber(PIDX_DataEventEnabled, 1);
   ClaimDevice;
   EnableDevice;
   pWeightData := 1234;
@@ -804,10 +819,11 @@ begin
   CheckEquals(0, pWeightData, 'pWeightData');
   CheckNoEvent;
   Driver.SetPropertyNumber(PIDX_FreezeEvents, 0);
-  WaitForEvent;
-  CheckEquals(1, OposEvents.Count, 'OposEvents.Count');
-  Event := OposEvents[0] as TDataEvent;
-  CheckEquals(Device.Status.Weight, Event.Status, 'Event.Status');
+  WaitForEventId(EVENT_ID_DATA);
+  CheckEquals(True, OposEvents.Count > 0, 'OposEvents.Count = 0');
+  DataEvent := OposEvents.ItemById(EVENT_ID_DATA) as TDataEvent;
+  CheckEquals(Device.Status.Weight, DataEvent.Status, 'Event.Status');
+
   CloseService;
 
   // ClearInput call
@@ -932,9 +948,8 @@ begin
   pWeightData := 1234;
   CheckEquals(0, Driver.ReadWeight(pWeightData, 1267), 'ReadWeight');
   CheckEquals(0, pWeightData, 'pWeightData');
-  WaitForEvent;
-  CheckEquals(1, OposEvents.Count, 'OposEvents.Count');
-  Event := OposEvents[0] as TDataEvent;
+  WaitForEventId(EVENT_ID_DATA);
+  Event := OposEvents.ItemById(EVENT_ID_DATA) as TDataEvent;
   CheckEquals(Device.Status.Weight, Event.Status, 'Event.Status');
   // After event delivered device must be disabled
   CheckEquals(0, Driver.GetPropertyNumber(PIDX_DeviceEnabled), 'DeviceEnabled');

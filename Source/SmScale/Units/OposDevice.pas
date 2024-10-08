@@ -12,7 +12,7 @@ uses
   // Shared
   NotifyThread, LogFile,
   // This
-  DriverError, ServiceVersion, SerialPort, QueueThread;
+  DriverError, ServiceVersion, SerialPort, QueueThread, DebugUtils;
 
 type
   { TOposDevice }
@@ -369,6 +369,7 @@ end;
 
 procedure TOposDevice.FireEvent(Event: TOposEvent);
 begin
+  ODS('TOposDevice.FireEvent: ' + Event.ClassName);
   Events.Add(Event);
   FEventThread.WakeUp;
 end;
