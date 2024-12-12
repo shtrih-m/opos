@@ -2443,6 +2443,9 @@ begin
       FDocumentNumber := Device.ReadLongStatus.DocumentNumber;
       Filters.AfterCloseReceipt;
 
+      if Parameters.PrintRecMessageMode <> PrintRecMessageModeBefore then
+        PrintRecMessages;
+
       if Parameters.UsePrintHeaderParameter then
       begin
         if APrintHeader then
@@ -4536,9 +4539,6 @@ begin
   if Receipt.PrintEnabled then
   begin
     try
-      if Parameters.PrintRecMessageMode = PrintRecMessageModeNormal then
-        PrintRecMessages;
-
       PrintFiscalEnd;
       Receipt.AfterEndFiscalReceipt;
       Filters.AfterPrintReceipt;

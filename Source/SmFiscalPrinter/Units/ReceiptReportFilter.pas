@@ -7,7 +7,7 @@ uses
   SysUtils,
   // This
   FiscalPrinterTypes, PrinterTypes, PrinterParameters,
-  OmniXmlUtils, XmlReceiptWriter;
+  XmlReceiptWriter;
 
 type
   { TReceiptReportFilter }

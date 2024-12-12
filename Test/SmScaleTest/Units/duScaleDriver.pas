@@ -76,6 +76,7 @@ type
     procedure CheckReleaseDevice;
     procedure CheckStateNotChanged;
     procedure CheckRetrieveStatistics;
+    procedure CheckClearInput;
   published
     procedure CheckAsyncMode;
     procedure CheckOpenResult;
@@ -103,7 +104,6 @@ type
     procedure CheckSalesPrice;
     procedure CheckTareWeight;
     procedure CheckUnitPrice;
-    procedure CheckClearInput;
     procedure CheckDirectIO;
     procedure CheckReadWeight;
     procedure CheckDisplayText;

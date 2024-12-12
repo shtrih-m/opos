@@ -27,8 +27,8 @@ type
   protected
     procedure Setup; override;
     procedure TearDown; override;
-  published
     procedure TestReadWeight;
+  published
   end;
 
 implementation
