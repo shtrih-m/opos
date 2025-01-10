@@ -22,6 +22,7 @@ type
     FItems: TReceiptItems;
     FVatAmount: TTaxTotals;
     FIsReceiptOpened: Boolean;
+    FTaxCount: Integer;
 
     procedure CheckTotal(Total: Currency);
     procedure SubtotalCharge(Summ: Int64; Description: WideString = '');
@@ -111,6 +112,9 @@ begin
   inherited Create(AContext);
   FRecType := ARecType;
   FItems := TReceiptItems.Create;
+
+  FTaxCount := AContext.Printer.Printer.Device.TaxCount;
+  SetLength(FVatAmount, FTaxCount + 1);
 end;
 
 destructor TCachedSalesReceipt.Destroy;
@@ -456,7 +460,7 @@ var
 begin
   if Summ = 0 then Exit;
   TaxTotals := Printer.GetTaxTotals(Summ);
-  for i := 0 to 4 do
+  for i := 0 to Length(TaxTotals)-1 do
   begin
     if TaxTotals[i] <> 0 then
     begin
@@ -482,7 +486,7 @@ var
 begin
   if Summ = 0 then Exit;
   TaxTotals := Printer.GetTaxTotals(Summ);
-  for i := 0 to 4 do
+  for i := 0 to Length(TaxTotals)-1 do
   begin
     if TaxTotals[i] <> 0 then
     begin
@@ -600,7 +604,7 @@ begin
   FItems.Clear;
   FIsVoided := False;
   FLastItemSumm := 0;
-  for i := 0 to 4 do
+  for i := 0 to Length(FVatAmount)-1 do
     FVatAmount[i] := 0;
 end;
 

@@ -27,7 +27,7 @@ type
 
   TReceiptTemplateRec = record
     PrintWidth: Integer;
-    TaxInfo: array [1..6] of TTaxInfo;
+    TaxInfo: TTaxInfoList;
   end;
 
   { TReceiptTemplate }

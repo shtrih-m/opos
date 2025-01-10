@@ -503,6 +503,8 @@ type
     function GetHeaderHeight: Integer;
     function GetTrailerHeight: Integer;
     function GetFont(Font: Integer): TFontInfo;
+    function GetTaxInfoList: TTaxInfoList;
+    function GetTaxCount: Integer;
 
     property LastDocMac: Int64 read GetLastDocMac;
     property LastDocNumber: Int64 read GetLastDocNumber;
@@ -528,6 +530,8 @@ type
     property OnConnect: TNotifyEvent read GetOnConnect write SetOnConnect;
     property OnDisconnect: TNotifyEvent read GetOnDisconnect write SetOnDisconnect;
     property OnPrinterStatus: TNotifyEvent read GetOnPrinterStatus write SetOnPrinterStatus;
+    property TaxInfoList: TTaxInfoList read GetTaxInfoList;
+    property TaxCount: Integer read GetTaxCount;
   end;
 
 type

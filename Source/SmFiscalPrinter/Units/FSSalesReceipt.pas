@@ -212,7 +212,6 @@ end;
 
 constructor TFSSalesReceipt.CreateReceipt(AContext: TReceiptContext; ARecType: Integer);
 var
-  i: Integer;
   FTemplateData: TReceiptTemplateRec;
 begin
   inherited Create(AContext);
@@ -224,10 +223,7 @@ begin
   ClearReceipt;
 
   FTemplateData.PrintWidth := Device.GetPrintWidth;
-  for i := 1 to 6 do
-  begin
-    FTemplateData.TaxInfo[i] := Device.GetTaxInfo(i);
-  end;
+  FTemplateData.TaxInfo := Device.TaxInfoList;
   FTemplate := TReceiptTemplate.Create(FTemplateData);
   FTemplate.Template := AContext.Printer.Printer.Parameters.ReceiptItemFormat;
 end;

@@ -25,6 +25,7 @@ type
     FLongStatus: TLongPrinterStatus;
     FShortStatus: TShortPrinterStatus;
     FContext: TDriverContext;
+    FTaxInfo: TTaxInfoList;
 
     FPort: TSerialPort;
     function GetCapFiscalStorage: Boolean;
@@ -349,6 +350,8 @@ type
     function GetHeaderHeight: Integer;
     function GetTrailerHeight: Integer;
     function GetFont(Font: Integer): TFontInfo;
+    function GetTaxInfoList: TTaxInfoList;
+    function GetTaxCount: Integer;
 
     property RecStation: TStrings read FRecStation;
     property JrnStation: TStrings read FJrnStation;
@@ -363,6 +366,8 @@ type
     property ShortStatus: TShortPrinterStatus read FShortStatus write FShortStatus;
     property DeviceMetrics: TDeviceMetrics read FDeviceMetrics write FDeviceMetrics;
     property PrinterStatus: TPrinterStatus read FPrinterStatus write FPrinterStatus;
+    property TaxInfoList: TTaxInfoList read GetTaxInfoList;
+    property TaxCount: Integer read GetTaxCount;
   end;
 
 implementation
@@ -2040,6 +2045,16 @@ begin
 end;
 
 function TTextFiscalPrinterDevice.FSClearMCCheckResults: Integer;
+begin
+  Result := 0;
+end;
+
+function TTextFiscalPrinterDevice.GetTaxInfoList: TTaxInfoList;
+begin
+  Result := FTaxInfo;
+end;
+
+function TTextFiscalPrinterDevice.GetTaxCount: Integer;
 begin
   Result := 0;
 end;

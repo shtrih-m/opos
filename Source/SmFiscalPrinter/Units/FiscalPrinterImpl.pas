@@ -56,7 +56,7 @@ type
     FNonFiscalDoc: TNonFiscalDoc;
     FOposDevice: TOposServiceDevice19;
     FPrinterState: TFiscalPrinterState;
-    FVatValues: array [1..4] of Integer;
+    FVatValues: array of Integer;
     FAfterCloseItems: TReceiptItems;
     FPrinter: ISharedPrinter;
     FReceiptPrinter: IReceiptPrinter;
@@ -221,7 +221,6 @@ type
     FErrorState: Integer;
     FErrorStation: Integer;
 
-    FNumVatRates: Integer;
     FQuantityDecimalPlaces: Integer;
     FQuantityLength: Integer;
     FRecStatus: TPaperStatus;
@@ -1246,6 +1245,7 @@ begin
     if Value then
     begin
       Connect;
+
       Printer.PollEnabled := Parameters.PropertyUpdateMode = PropertyUpdateModePolling;
       if (Parameters.PingEnabled and (Parameters.ConnectionType = ConnectionTypeSocket)) then
       begin
@@ -1594,7 +1594,6 @@ begin
   FSlpStatus.IsNearEnd := False;
   FSlpStatus.Status := FPTR_SUE_SLP_PAPEROK;
 
-  FNumVatRates := 4;
   SetPrinterState(FPTR_PS_MONITOR);
   FQuantityDecimalPlaces := 3;
   FQuantityLength := 10;
@@ -2783,7 +2782,7 @@ begin
     PIDXFptr_MessageLength          : Result := Device.GetPrintWidth;
     PIDXFptr_NumHeaderLines         : Result := Printer.NumHeaderLines;
     PIDXFptr_NumTrailerLines        : Result := Printer.NumTrailerLines;
-    PIDXFptr_NumVatRates            : Result := FNumVatRates;
+    PIDXFptr_NumVatRates            : Result := Device.TaxCount;
     PIDXFptr_PrinterState           : Result := PrinterState;
     PIDXFptr_QuantityDecimalPlaces  : Result := FQuantityDecimalPlaces;
     PIDXFptr_QuantityLength         : Result := FQuantityLength;
@@ -2981,7 +2980,7 @@ function TFiscalPrinterImpl.GetVatEntry(VatID, OptArgs: Integer;
   out VatRate: Integer): Integer;
 begin
   try
-    if (VatID < 1)or(VatID > 6) then
+    if (VatID < 1)or(VatID > Device.TaxCount) then
       InvalidParameterValue('VatID', IntToStr(VatID));
 
     VatRate := Device.ReadTableInt(PRINTER_TABLE_TAX, VatID, 1);
@@ -3864,9 +3863,10 @@ begin
     CheckEnabled;
     CheckCapSetVatTable;
 
-
-    for i := 1 to 4 do
-      Device.WriteTableInt(PRINTER_TABLE_TAX, i, 1, FVatValues[i]);
+    for i := 1 to Length(FVatValues) do
+    begin
+      Device.WriteTableInt(PRINTER_TABLE_TAX, i, 1, FVatValues[i-1]);
+    end;
 
     Result := ClearResult;
   except
@@ -3891,15 +3891,14 @@ begin
     CheckEnabled;
     CheckCapSetVatTable;
 
-    // There are 6 taxes in Shtrih-M ECRs available
-    if (VatID < 1)or(VatID > 6) then
+    if (VatID < 1)or(VatID > Device.TaxCount) then
       InvalidParameterValue('VatID', IntToStr(VatID));
 
     VatValueInt := StrToInt(AVatValue);
     if VatValueInt > 9999 then
       InvalidParameterValue('VatValue', AVatValue);
 
-    FVatValues[VatID] := VatValueInt;
+    FVatValues[VatID-1] := VatValueInt;
     Result := ClearResult;
   except
     on E: Exception do

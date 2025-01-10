@@ -49,7 +49,7 @@ type
   TDeviceTables = record
     Params: TParamTable;
     RecFormat: TRecFormatTable; // Receipt format table
-    Taxes: array [1..4] of TTaxInfo;
+    TaxInfo: TTaxInfoList;
   end;
 
 implementation

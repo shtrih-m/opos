@@ -19,15 +19,16 @@ type
     FTotal: Int64;
     FRecType: Integer;
     FIsVoided: Boolean;
+    FTaxCount: Integer;
     FPayments: TPayments;
     FItemsCount: Integer;
     FPreLines: TTextItems;
     FLastItemAmount: Int64;
     FIsReceiptOpened: Boolean;
     FEndSeparatorPrinted: Boolean;
-    FVatAmount: array [0..4] of Int64;
-    FChargeAmount: array [0..4] of Int64;
-    FDiscountAmount: array [0..4] of Int64;
+    FVatAmount: array of Int64;
+    FChargeAmount: array of Int64;
+    FDiscountAmount: array of Int64;
 
     function GetPayment: Int64;
     procedure SubtotalCharge(const Description: WideString; Amount: Int64);
@@ -136,6 +137,11 @@ begin
   inherited Create(AContext);
   FRecType := ARecType;
   FPreLines := TTextItems.Create;
+
+  FTaxCount := AContext.Printer.Printer.Device.TaxCount;
+  SetLength(FVatAmount, FTaxCount + 1);
+  SetLength(FChargeAmount, FTaxCount + 1);
+  SetLength(FDiscountAmount, FTaxCount + 1);
 end;
 
 destructor TGlobusTextReceipt.Destroy;
@@ -461,7 +467,8 @@ var
   NoTaxSumm: Int64;
 begin
   NoTaxSumm := Amount;
-  for i := 0 to 4 do
+
+  for i := 0 to FTaxCount-1 do
   begin
     Result[i] := 0;
     TaxAmount := FVatAmount[i] - FDiscountAmount[i] + FChargeAmount[i];
@@ -472,7 +479,7 @@ begin
     end;
   end;
 
-  for i := 0 to 4 do
+  for i := 0 to FTaxCount-1 do
   begin
     if Result[i] <> 0 then
       Result[i] := Result[i] + NoTaxSumm;
@@ -493,7 +500,7 @@ begin
   Printer.PrintLines(PrinterDiscountText + ' ' + Description, Text);
 
   TaxAmounts := GetTaxTotals(Amount);
-  for i := 0 to 4 do
+  for i := 0 to FTaxCount-1 do
   begin
     FDiscountAmount[i] := FDiscountAmount[i] + TaxAmounts[i];
   end;
@@ -513,7 +520,7 @@ begin
   Printer.PrintLines(PrinterChargeText + ' ' + Description, Text);
 
   TaxAmounts := GetTaxTotals(Amount);
-  for i := 0 to 4 do
+  for i := 0 to Length(TaxAmounts)-1 do
   begin
     FChargeAmount[i] := FChargeAmount[i] + TaxAmounts[i];
   end;
@@ -626,7 +633,7 @@ begin
   FTotal := 0;
   FItemsCount := 0;
   FIsVoided := False;
-  for i := 0 to 4 do
+  for i := 0 to FTaxCount-1 do
   begin
     FVatAmount[i] := 0;
     FChargeAmount[i] := 0;
@@ -724,12 +731,12 @@ begin
     PrintItem(PriceReg);
   end else
   begin
-    for i := 0 to 4 do
+    for i := 0 to FTaxCount-1 do
     begin
       FVatAmount[i] := FVatAmount[i] - FDiscountAmount[i] + FChargeAmount[i];
     end;
     // Items
-    for i := 0 to 4 do
+    for i := 0 to FTaxCount-1 do
     begin
       if FVatAmount[i] > 0 then
       begin
@@ -743,13 +750,13 @@ begin
         PriceReg.Text := '';
         if (i > 0) then
         begin
-          PriceReg.Text := Printer.Tables.Taxes[i].Name;
+          PriceReg.Text := Printer.Tables.TaxInfo[i].Name;
         end;
         PrintItem(PriceReg);
       end;
     end;
     // Discount
-    for i := 0 to 4 do
+    for i := 0 to FTaxCount-1 do
     begin
       if FVatAmount[i] < 0 then
       begin

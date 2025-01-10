@@ -574,6 +574,7 @@ type
     CharHeight: Byte; 	// Character heigth in dots
     FontCount: Byte; 	  // Font count
   end;
+  TFontInfoList = array of TFontInfo;
 
   { TTaxInfo }
 
@@ -581,6 +582,7 @@ type
     Name: WideString;
     Rate: Integer;
   end;
+  TTaxInfoList = array of TTaxInfo;
 
   { TPrinterTableRec }
 
@@ -1104,8 +1106,8 @@ type
    end;
 
   TPayments = array [0..15] of Int64;
-  TTaxTotals = array [0..6] of Int64;
-  TVatRates = array [0..6] of Int64;
+  TTaxTotals = array of Int64;
+  TVatRates = array of Int64;
 
   { TFSCorrectionReceipt }
 

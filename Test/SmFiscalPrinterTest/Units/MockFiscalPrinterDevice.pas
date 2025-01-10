@@ -24,6 +24,7 @@ type
     FDeviceMetrics: TDeviceMetrics;
     FLongStatus: TLongPrinterStatus;
     FShortStatus: TShortPrinterStatus;
+    FTaxInfo: TTaxInfoList;
 
     function GetLogger: ILogFile;
     function GetCapFiscalStorage: Boolean;
@@ -349,6 +350,8 @@ type
     function GetTrailerHeight: Integer;
     function GetFont(Font: Integer): TFontInfo;
     function FSClearMCCheckResults: Integer;
+    function GetTaxInfoList: TTaxInfoList;
+    function GetTaxCount: Integer;
 
     property Status: TPrinterStatus read FStatus write FStatus;
     property Parameters: TPrinterParameters read GetParameters;
@@ -361,6 +364,8 @@ type
     property CapReceiptDiscount: Boolean read GetCapReceiptDiscount;
     property Logger: ILogFile read GetLogger;
     property CapSubtotalRound: Boolean read GetCapSubtotalRound;
+    property TaxInfoList: TTaxInfoList read GetTaxInfoList;
+    property TaxCount: Integer read GetTaxCount;
   end;
 
 implementation
@@ -374,6 +379,7 @@ begin
   FModel := PrinterModelDefault;
   FPort := TSerialPort.Create(1, FContext.Logger);
   FStatistics := TFiscalPrinterStatistics.Create(FContext.Logger);
+  SetLength(FTaxInfo, 4);
 end;
 
 destructor TMockFiscalPrinterDevice.Destroy;
@@ -2040,6 +2046,16 @@ end;
 function TMockFiscalPrinterDevice.FSClearMCCheckResults: Integer;
 begin
   Result := 0;
+end;
+
+function TMockFiscalPrinterDevice.GetTaxInfoList: TTaxInfoList;
+begin
+  Result := FTaxInfo;
+end;
+
+function TMockFiscalPrinterDevice.GetTaxCount: Integer;
+begin
+  Result := Length(FTaxInfo);
 end;
 
 end.

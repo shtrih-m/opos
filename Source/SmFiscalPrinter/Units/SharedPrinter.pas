@@ -716,8 +716,6 @@ end;
 
 procedure TSharedPrinter.ReadTables;
 var
-  i: Integer;
-  TaxInfo: TTaxInfo;
   Tables: TDeviceTables;
 begin
   Tables := Device.Tables;
@@ -728,14 +726,7 @@ begin
       Tables.RecFormat := ReadRecFormatTable;
     end;
   end;
-  // Read tax names
-  for i := 1 to 4 do
-  begin
-    TaxInfo.Rate := Device.ReadTableInt(6, i, 1);
-    TaxInfo.Name := Device.ReadTableStr(6, i, 2);
-    Tables.Taxes[i] := TaxInfo;
-  end;
-
+  Tables.TaxInfo := Device.TaxInfoList;
   Device.Tables := Tables;
 end;
 

@@ -254,7 +254,7 @@ begin
   RosneftItemDepartment := 15;
   RosneftAddText := '';
   RetalixDBPath := 'c:\Positive\DataPdx\';
-  RetalixDBEnabled := True;
+  RetalixDBEnabled := False;
   RetalixSearchCI := DefRetalixSearchCI;
   RosneftDryReceiptEnabled := False;
 end;

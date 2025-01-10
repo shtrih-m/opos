@@ -149,19 +149,21 @@ begin
   Method := Device.CalledMethodByName('FSSale2');
   CheckEquals(1, Length(Method.Params), 'Length(Method.Params)');
   FSSale := TFSSale2Object(Integer(Method.Params[0]));
-  CheckEquals('¿»-95', FSSale.Data.Text, 'FSSale.Data.Text');
-  CheckEquals(3920, FSSale.Data.Price, 'FSSale.Data.Price');
-  CheckEquals(2.551, FSSale.Data.Quantity, 0.001, 'FSSale.Data.Quantity');
-  CheckEquals(2, FSSale.Data.RecType, 'FSSale.Data.RecType');
-  CheckEquals(10000, FSSale.Data.Total, 'FSSale.Data.Total');
-  CheckEquals($FFFFFFFFFF, FSSale.Data.TaxAmount, 'FSSale.Data.TaxAmount');
-  CheckEquals(1, FSSale.Data.Department, 'FSSale.Data.Department');
-  CheckEquals(4, FSSale.Data.Tax, 'FSSale.Data.Tax');
-  CheckEquals('', FSSale.Data.UnitName, 'FSSale.Data.UnitName');
-  CheckEquals(4, FSSale.Data.PaymentType, 'FSSale.Data.PaymentType');
-  CheckEquals(1, FSSale.Data.PaymentItem, 'FSSale.Data.PaymentItem');
-
-  FSSale.Free;
+  try
+    CheckEquals('¿»-95', FSSale.Data.Text, 'FSSale.Data.Text');
+    CheckEquals(3920, FSSale.Data.Price, 'FSSale.Data.Price');
+    CheckEquals(2.551, FSSale.Data.Quantity, 0.001, 'FSSale.Data.Quantity');
+    CheckEquals(2, FSSale.Data.RecType, 'FSSale.Data.RecType');
+    CheckEquals(10000, FSSale.Data.Total, 'FSSale.Data.Total');
+    CheckEquals($FFFFFFFFFF, FSSale.Data.TaxAmount, 'FSSale.Data.TaxAmount');
+    CheckEquals(1, FSSale.Data.Department, 'FSSale.Data.Department');
+    CheckEquals(4, FSSale.Data.Tax, 'FSSale.Data.Tax');
+    CheckEquals('', FSSale.Data.UnitName, 'FSSale.Data.UnitName');
+    CheckEquals(4, FSSale.Data.PaymentType, 'FSSale.Data.PaymentType');
+    CheckEquals(1, FSSale.Data.PaymentItem, 'FSSale.Data.PaymentItem');
+  finally
+    FSSale.Free;
+  end;
 end;
 
 ///////////////////////////////////////////////////////////////////////////////

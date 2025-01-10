@@ -430,7 +430,7 @@ var
 begin
   if Summ = 0 then Exit;
   TaxTotals := Printer.GetTaxTotals(Summ);
-  for i := 0 to 4 do
+  for i := 0 to Length(TaxTotals)-1 do
   begin
     if TaxTotals[i] <> 0 then
     begin
@@ -456,7 +456,7 @@ var
 begin
   if Summ = 0 then Exit;
   TaxTotals := Printer.GetTaxTotals(Summ);
-  for i := 0 to 4 do
+  for i := 0 to Length(TaxTotals)-1 do
   begin
     if TaxTotals[i] <> 0 then
     begin

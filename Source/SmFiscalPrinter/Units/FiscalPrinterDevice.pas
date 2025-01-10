@@ -27,6 +27,8 @@ type
 
   TFiscalPrinterDevice = class(TInterfacedObject, IFiscalPrinterDevice)
   private
+    function ReadTaxInfoList: TTaxInfoList;
+    function ReadFontInfoList: TFontInfoList;
   protected
     FFFDVersion: TFFDVersion;
     FContext: TDriverContext;
@@ -72,8 +74,8 @@ type
     FFilter: TFiscalPrinterFilter;
     FAmountDecimalPlaces: Integer;
     FOnProgress: TProgressEvent;
-    FFontInfo: array [1..10] of TFontInfo;
-    FTaxInfo: array [1..6] of TTaxInfo;
+    FFontInfo: TFontInfoList;
+    FTaxInfo: TTaxInfoList;
     FPrinterStatus: TPrinterStatus;
     FLongStatus: TLongPrinterStatus;
     FShortStatus: TShortPrinterStatus;
@@ -509,6 +511,8 @@ type
     function FSReadRegTag(var R: TFSReadRegTagCommand): Integer;
     function GetHeaderHeight: Integer;
     function GetTrailerHeight: Integer;
+    function GetTaxInfoList: TTaxInfoList;
+    function GetTaxCount: Integer;
 
     property IsOnline: Boolean read GetIsOnline;
     property Tables: TPrinterTables read FTables;
@@ -534,6 +538,8 @@ type
     property LastDocMac: Int64 read GetLastDocMac;
     property LastDocNumber: Int64 read GetLastDocNumber;
     property CondensedFont: Boolean read FCondensedFont;
+    property TaxInfoList: TTaxInfoList read GetTaxInfoList;
+    property TaxCount: Integer read GetTaxCount;
   end;
 
   { EDisabledException }
@@ -824,6 +830,7 @@ end;
 constructor TFiscalPrinterDevice.Create;
 begin
   inherited Create;
+  SetLength(FTaxInfo, 4);
   FTLVItems := TStringList.Create;
   FSTLVTag := TTLV.Create(nil);
   FContext := TDriverContext.Create;
@@ -1122,7 +1129,7 @@ end;
 
 function TFiscalPrinterDevice.ValidFont(Font: Integer): Boolean;
 begin
-  Result := (Font >= 1) and (Font <= FFontInfo[1].FontCount);
+  Result := (Font >= 1) and (Font <= Length(FFontInfo));
 end;
 
 function TFiscalPrinterDevice.GetPrintWidth(Font: Integer): Integer;
@@ -1130,8 +1137,8 @@ begin
   Result := 0;
   if ValidFont(Font) then
   begin
-    if FFontInfo[Font].CharWidth <> 0 then
-      Result := FFontInfo[Font].PrintWidth div FFontInfo[Font].CharWidth;
+    if FFontInfo[Font-1].CharWidth <> 0 then
+      Result := FFontInfo[Font-1].PrintWidth div FFontInfo[Font-1].CharWidth;
   end;
   if Result = 0 then Result := 40;
 end;
@@ -6260,7 +6267,9 @@ end;
 
 function TFiscalPrinterDevice.GetMaxGraphicsWidth: Integer;
 begin
-  Result := FFontInfo[1].PrintWidth;
+  Result := 0;
+  if ValidFont(1) then
+    Result := FFontInfo[0].PrintWidth;
 end;
 
 function TFiscalPrinterDevice.GetMaxGraphicsWidthInBytes: Integer;
@@ -6838,9 +6847,6 @@ begin
 end;
 
 procedure TFiscalPrinterDevice.UpdateInfo;
-var
-  i: Integer;
-  Table: TPrinterTableRec;
 begin
   GetPrinterModel;
   FCapParameters2 := ReadParameters2(FParameters2) = 0;
@@ -6881,19 +6887,10 @@ begin
   //FCapFontInfo := TestCommand($26);
   if FCapFontInfo then
   begin
-    FFontInfo[1] := ReadFontInfo(1);
-    for i := 2 to FFontInfo[1].FontCount do
-    begin
-      FFontInfo[i] := ReadFontInfo(i);
-    end;
+    FFontInfo := ReadFontInfoList;
   end;
-  // Read tax Info
-  Check(ReadTableStructure(PRINTER_TABLE_TAX, Table));
-  for i := 1 to Table.RowCount do
-  begin
-    FTaxInfo[i].Rate := ReadTableInt(PRINTER_TABLE_TAX, i, 1);
-    FTaxInfo[i].Name := ReadTableStr(PRINTER_TABLE_TAX, i, 2);
-  end;
+  FTaxInfo := ReadTaxInfoList;
+
   if FCapFiscalStorage then
   begin
     FDiscountMode := ReadDiscountMode;
@@ -6912,6 +6909,49 @@ begin
   end;
 end;
 
+function TFiscalPrinterDevice.GetTaxCount: Integer;
+begin
+  Result := Length(FTaxInfo);
+end;
+
+// Read font info
+function TFiscalPrinterDevice.ReadFontInfoList: TFontInfoList;
+var
+  i: Integer;
+  FontInfo: TFontInfo;
+begin
+  SetLength(Result, 0);
+  FontInfo := ReadFontInfo(1);
+  if FontInfo.FontCount > 0 then
+  begin
+    SetLength(Result, FontInfo.FontCount);
+    FFontInfo[0] := FontInfo;
+    for i := 2 to FontInfo.FontCount do
+    begin
+      Result[i-1] := ReadFontInfo(i);
+    end;
+  end;
+end;
+
+// Read tax Info
+function TFiscalPrinterDevice.ReadTaxInfoList: TTaxInfoList;
+var
+  i: Integer;
+  Table: TPrinterTableRec;
+begin
+  SetLength(Result, 0);
+  Check(ReadTableStructure(PRINTER_TABLE_TAX, Table));
+  if Table.RowCount > 0 then
+  begin
+    SetLength(Result, Table.RowCount);
+    for i := 1 to Table.RowCount do
+    begin
+      Result[i-1].Rate := ReadTableInt(PRINTER_TABLE_TAX, i, 1);
+      Result[i-1].Name := ReadTableStr(PRINTER_TABLE_TAX, i, 2);
+    end;
+  end;
+end;
+
 // Is fiscal printer firmware 2 (Semenov)
 function TFiscalPrinterDevice.IsMobilePrinter: Boolean;
 begin
@@ -6922,8 +6962,8 @@ function TFiscalPrinterDevice.GetTaxInfo(Tax: Integer): TTaxInfo;
 begin
   Result.Rate := 0;
   Result.Name := '';
-  if Tax in [1..6] then
-    Result := FTaxInfo[Tax];
+  if (Tax >= 1)and(Tax <= Length(FTaxInfo)) then
+    Result := FTaxInfo[Tax-1];
 end;
 
 function TFiscalPrinterDevice.ReadCapFiscalStorage: Boolean;
@@ -10222,6 +10262,11 @@ begin
     Font := GetFont(Parameters.HeaderFont);
     Result := GetModel.NumHeaderLines * Font.CharHeight;
   end;
+end;
+
+function TFiscalPrinterDevice.GetTaxInfoList: TTaxInfoList;
+begin
+  Result := FTaxInfo;
 end;
 
 end.
