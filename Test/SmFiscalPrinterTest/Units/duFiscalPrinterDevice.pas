@@ -7,7 +7,7 @@ uses
   Windows, SysUtils, Classes,
   // DUnit
   TestFramework, FiscalPrinterDevice, Opos, OPOSException, OposFptr,
-  DriverError, StringUtils;
+  DriverError, StringUtils, PrinterTypes, MockPrinterConnection2;
 
 type
   { TFiscalPrinterDeviceTest }
@@ -15,15 +15,21 @@ type
   TFiscalPrinterDeviceTest = class(TTestCase)
   private
     Device: TFiscalPrinterDevice;
+    Connection: TMockPrinterConnection2;
     procedure CheckErrorCode(Code: Integer);
   protected
     procedure Setup; override;
     procedure TearDown; override;
+
+    procedure TestUpdateInfo; // !!!
   published
     procedure TestCheck;
     procedure TestSTLV;
     procedure TestIsMatch;
     procedure TestBarcodeTo1162Value;
+    procedure TestReadFontInfoList;
+    procedure TestReadFontInfo;
+    procedure TestReadTaxInfoList;
   end;
 
 implementation
@@ -33,11 +39,14 @@ implementation
 procedure TFiscalPrinterDeviceTest.Setup;
 begin
   Device := TFiscalPrinterDevice.Create;
+  Connection := TMockPrinterConnection2.Create;
+  Device.Connection := Connection;
 end;
 
 procedure TFiscalPrinterDeviceTest.TearDown;
 begin
   Device.Free;
+  Connection.Free;
 end;
 
 procedure TFiscalPrinterDeviceTest.CheckErrorCode(Code: Integer);
@@ -138,6 +147,87 @@ begin
   CheckEquals(True, IsMatch('72354726', '\d+'));
   CheckEquals(True, IsMatch('72354726', '\d{8}'));
   CheckEquals(True, IsMatch('72354726', '[0-9]{8}'));
+end;
+
+procedure TFiscalPrinterDeviceTest.TestReadFontInfoList;
+var
+  FontInfo: TFontInfo;
+  FontInfoList: TFontInfoList;
+begin
+  Connection.Expects('Send').WithParams([3000, '26 00 00 00 00 01']).Returns('26 00 00 02 0C 18 02');
+  Connection.Expects('Send').WithParams([3000, '26 00 00 00 00 02']).Returns('26 00 58 02 09 12 02');
+  FontInfoList := Device.ReadFontInfoList;
+  Connection.Verify('Connection.Verify');
+
+  CheckEquals(2, Length(FontInfoList), 'Length(FontInfoList)');
+  // 0
+  FontInfo := FontInfoList[0];
+  CheckEquals(512, FontInfo.PrintWidth, 'FontInfo.PrintWidth.0');
+  CheckEquals(12, FontInfo.CharWidth, 'FontInfo.CharWidth.0');
+  CheckEquals(24, FontInfo.CharHeight, 'FontInfo.CharHeight.0');
+  CheckEquals(2, FontInfo.FontCount, 'FontInfo.FontCount.0');
+  // 1
+  FontInfo := FontInfoList[1];
+  CheckEquals(600, FontInfo.PrintWidth, 'FontInfo.PrintWidth.1');
+  CheckEquals(9, FontInfo.CharWidth, 'FontInfo.CharWidth.1');
+  CheckEquals(18, FontInfo.CharHeight, 'FontInfo.CharHeight.1');
+  CheckEquals(2, FontInfo.FontCount, 'FontInfo.FontCount.1');
+end;
+
+procedure TFiscalPrinterDeviceTest.TestReadFontInfo;
+var
+  FontInfo: TFontInfo;
+begin
+  Connection.Expects('Send').WithParams([3000, '26 00 00 00 00 01']).Returns('26 00 00 02 0C 18 01');
+  FontInfo := Device.ReadFontInfo(1);
+  Connection.Verify('Connection.Verify');
+  CheckEquals(512, FontInfo.PrintWidth, 'FontInfo.PrintWidth');
+  CheckEquals(12, FontInfo.CharWidth, 'FontInfo.CharWidth');
+  CheckEquals(24, FontInfo.CharHeight, 'FontInfo.CharHeight');
+  CheckEquals(1, FontInfo.FontCount, 'FontInfo.FontCount');
+end;
+
+procedure TFiscalPrinterDeviceTest.TestReadTaxInfoList;
+var
+  RxData: AnsiString;
+  TaxInfoList: TTaxInfoList;
+begin
+  // Read table info
+  RxData := #$2D#$00 + StringOfChar(#0, 40) + IntToBin(2, 2) + Chr(3);
+  Connection.Expects('Send').WithParams([3000, '2D 00 00 00 00 06']).Returns(StrToHex(RxData));
+  // Read field info 1
+  RxData := #$2E#$00 + StringOfChar(#0, 40) + #$00#$02;
+  Connection.Expects('Send').WithParams([3000, '2E 00 00 00 00 06 01']).Returns(StrToHex(RxData));
+  // Read table value
+  RxData := #$1F#$00 + #$E8#$03;
+  Connection.Expects('Send').WithParams([3000, '1F 00 00 00 00 06 01 00 01']).Returns(StrToHex(RxData));
+  // Read field info 2
+  RxData := #$2E#$00 + StringOfChar(#0, 40) + #$01#$02;
+  Connection.Expects('Send').WithParams([3000, '2E 00 00 00 00 06 02']).Returns(StrToHex(RxData));
+  // Read table value
+  RxData := #$1F#$00 + '10 %';
+  Connection.Expects('Send').WithParams([3000, '1F 00 00 00 00 06 01 00 02']).Returns(StrToHex(RxData));
+  // Read table value
+  RxData := #$1F#$00 + #$F4#$01;
+  Connection.Expects('Send').WithParams([3000, '1F 00 00 00 00 06 02 00 01']).Returns(StrToHex(RxData));
+  // Read table value
+  RxData := #$1F#$00 + '5 %';
+  Connection.Expects('Send').WithParams([3000, '1F 00 00 00 00 06 02 00 02']).Returns(StrToHex(RxData));
+
+  TaxInfoList := Device.ReadTaxInfoList;
+  Connection.Verify('Connection.Verify');
+  CheckEquals(2, Length(TaxInfoList), 'Length(TaxInfoList)');
+  // 0
+  CheckEquals(1000, TaxInfoList[0].Rate, 'TaxInfoList[0].Rate');
+  CheckEquals('10 %', TaxInfoList[0].Name, 'TaxInfoList[0].Name');
+  // 1
+  CheckEquals(500, TaxInfoList[1].Rate, 'TaxInfoList[1].Rate');
+  CheckEquals('5 %', TaxInfoList[1].Name, 'TaxInfoList[1].Name');
+end;
+
+procedure TFiscalPrinterDeviceTest.TestUpdateInfo;
+begin
+
 end;
 
 initialization

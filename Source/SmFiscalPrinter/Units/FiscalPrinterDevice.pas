@@ -26,9 +26,6 @@ type
   { TFiscalPrinterDevice }
 
   TFiscalPrinterDevice = class(TInterfacedObject, IFiscalPrinterDevice)
-  private
-    function ReadTaxInfoList: TTaxInfoList;
-    function ReadFontInfoList: TFontInfoList;
   protected
     FFFDVersion: TFFDVersion;
     FContext: TDriverContext;
@@ -513,6 +510,8 @@ type
     function GetTrailerHeight: Integer;
     function GetTaxInfoList: TTaxInfoList;
     function GetTaxCount: Integer;
+    function ReadTaxInfoList: TTaxInfoList;
+    function ReadFontInfoList: TFontInfoList;
 
     property IsOnline: Boolean read GetIsOnline;
     property Tables: TPrinterTables read FTables;
@@ -520,7 +519,7 @@ type
     property Model: TPrinterModelRec read GetModel;
     property ResultText: WideString read GetResultText;
     property ResultCode: Integer read GetResultCode;
-    property Connection: IPrinterConnection read FConnection;
+    property Connection: IPrinterConnection read FConnection write FConnection;
     property CapFiscalStorage: Boolean read GetCapFiscalStorage write SetCapFiscalStorage;
     property DiscountMode: Integer read GetDiscountMode;
     property CapReceiptDiscount: Boolean read GetCapReceiptDiscount;
@@ -6925,7 +6924,7 @@ begin
   if FontInfo.FontCount > 0 then
   begin
     SetLength(Result, FontInfo.FontCount);
-    FFontInfo[0] := FontInfo;
+    Result[0] := FontInfo;
     for i := 2 to FontInfo.FontCount do
     begin
       Result[i-1] := ReadFontInfo(i);

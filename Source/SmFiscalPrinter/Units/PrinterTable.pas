@@ -86,7 +86,7 @@ type
     procedure Clear;
     procedure Assign(Src: TPrinterFields);
     function ItemByID(ID: Integer): TPrinterField;
-    function Find(Col, Row: Integer): TPrinterField;
+    function Find(Table, Field: Integer): TPrinterField;
     function Add(const AData: TPrinterFieldRec): TPrinterField;
 
     property Count: Integer read GetCount;
@@ -354,14 +354,14 @@ begin
   Result := nil;
 end;
 
-function TPrinterFields.Find(Col, Row: Integer): TPrinterField;
+function TPrinterFields.Find(Table, Field: Integer): TPrinterField;
 var
   i: Integer;
 begin
   for i := 0 to Count-1 do
   begin
     Result := Items[i];
-    if (Result.Field = Col)and(Result.Row = Row) then Exit;
+    if (Result.Field = Field)and(Result.Table = Table) then Exit;
   end;
   Result := nil;
 end;

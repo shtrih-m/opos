@@ -173,7 +173,7 @@ uses
   duReceiptTemplate in 'Units\duReceiptTemplate.pas',
   PortUtil in '..\..\Source\Shared\PortUtil.pas',
   TextReport in '..\..\Source\Shared\TextReport.pas',
-  MockPrinterConnection in 'Units\MockPrinterConnection.pas',
+  MockPrinterConnection2 in 'Units\MockPrinterConnection2.pas',
   duSemaphore in 'Units\duSemaphore.pas',
   fmuEMail in '..\..\Source\SmFiscalPrinter\Fmu\fmuEMail.pas' {fmEMail},
   fmuSelect in '..\..\Source\SmFiscalPrinter\Fmu\fmuSelect.pas' {fmSelect},
@@ -209,7 +209,8 @@ uses
   BaseForm in '..\..\Source\Shared\BaseForm.pas',
   TranslationUtil in '..\..\Source\SmFiscalPrinter\Units\TranslationUtil.pas',
   LangUtils in '..\..\Source\Shared\LangUtils.pas',
-  RegExpr in '..\..\Source\Shared\RegExpr.pas';
+  RegExpr in '..\..\Source\Shared\RegExpr.pas',
+  MockPrinterConnection in 'Units\MockPrinterConnection.pas';
 
 {$R *.RES}
 {$R ..\..\Source\SmFiscalPrinter\SmFiscalPrinter.TLB}
