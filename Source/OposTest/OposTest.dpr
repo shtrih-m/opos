@@ -1,7 +1,6 @@
 program OposTest;
 
 uses
-  //FastMM4,
   Forms,
   fmuPtrGeneral in 'Fmu\fmuPtrGeneral.pas' {fmPtrGeneral},
   fmuAbout in 'Fmu\fmuAbout.pas' {fmAbout},
@@ -24,7 +23,7 @@ uses
   fmuFptrFiscalDocument in 'Fmu\fmuFptrFiscalDocument.pas' {fmFptrFiscalDocument},
   untPages in 'units\untPages.pas',
   fmuFptrStatistics in 'Fmu\fmuFptrStatistics.pas' {fmFptrStatistics},
-  fmuFptrSetVatTable in 'Fmu\fmuFptrSetVatTable.pas' {fmFptrSetVatTable},
+  fmuFptrSetPosID in 'Fmu\fmuFptrSetPosID.pas' {fmFptrSetPosId},
   fmuFptrWritableProperties in 'Fmu\fmuFptrWritableProperties.pas' {fmFptrWritableProperties},
   fmuFptrSlipInsertion in 'Fmu\fmuFptrSlipInsertion.pas' {fmFptrSlipInsertion},
   fmuFptrFiscalStorage in 'Fmu\fmuFptrFiscalStorage.pas' {fmFptrFiscalStorage},
@@ -139,7 +138,8 @@ uses
   fmuFptrDirectIOBarcode in 'Fmu\fmuFptrDirectIOBarcode.pas' {fmFptrDirectIOBarcode},
   WException in '..\Shared\WException.pas',
   TntIniFiles in '..\Shared\TntIniFiles.pas',
-  RegExpr in '..\Shared\RegExpr.pas';
+  RegExpr in '..\Shared\RegExpr.pas',
+  fmuFptrSetVatTable in 'Fmu\fmuFptrSetVatTable.pas' {fmFptrSetVatTable};
 
 {$R *.RES}
 {$R WindowsXP.RES}

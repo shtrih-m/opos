@@ -48,7 +48,7 @@ uses
   fmuFptrRecTotal in '..\..\Source\OposTest\Fmu\fmuFptrRecTotal.pas' {fmFptrRecTotal},
   fmuFptrStatistics in '..\..\Source\OposTest\Fmu\fmuFptrStatistics.pas' {fmFptrStatistics},
   fmuFptrSetline in '..\..\Source\OposTest\Fmu\fmuFptrSetline.pas' {fmFptrSetLine},
-  fmuFptrSetVatTable in '..\..\Source\OposTest\Fmu\fmuFptrSetVatTable.pas' {fmFptrSetVatTable},
+  fmuFptrSetPosID in '..\..\Source\OposTest\Fmu\fmuFptrSetPosID.pas' {fmFptrSetPosId},
   fmuFptrSlipInsertion in '..\..\Source\OposTest\Fmu\fmuFptrSlipInsertion.pas' {fmFptrSlipInsertion},
   fmuFptrTraining in '..\..\Source\OposTest\Fmu\fmuFptrTraining.pas' {fmFptrTraining},
   fmuFptrWritableProperties in '..\..\Source\OposTest\Fmu\fmuFptrWritableProperties.pas' {fmFptrWritableProperties},
@@ -141,7 +141,8 @@ uses
   WException in '..\..\Source\Shared\WException.pas',
   TntIniFiles in '..\..\Source\Shared\TntIniFiles.pas',
   DriverError in '..\..\Source\Shared\DriverError.pas',
-  RegExpr in '..\..\Source\Shared\RegExpr.pas';
+  RegExpr in '..\..\Source\Shared\RegExpr.pas',
+  fmuFptrSetVatTable in '..\..\Source\OposTest\Fmu\fmuFptrSetVatTable.pas' {fmFptrSetVatTable};
 
 {$R *.RES}
 

@@ -7,7 +7,7 @@ uses
   Windows, StdCtrls, Controls, ExtCtrls, Classes, Forms, SysUtils,
   Registry, ComCtrls,
   // Tnt
-  TntStdCtrls, TntSysUtils, TntComCtrls, 
+  TntStdCtrls, TntSysUtils, TntComCtrls,
   // Opos
   OposFptrUtils, OposUtils,
   // This
@@ -26,7 +26,7 @@ uses
   fmuPrintRecVoidItem, fmuPrintRecItemRefund, fmuPrintRecItemRefundVoid,
   fmuFptrStatistics, fmuFptrMonitoring,
   fmuFptrEvents, fmuFptrTest, fmuFptrThreadTest, fmuFptrFiscalStorage,
-  fmuFptrTest2,
+  fmuFptrTest2, fmuFptrSetPosID,
   {$IFDEF MALINA}
   fmuMalina,
   fmuTextBlock,
@@ -163,6 +163,7 @@ begin
   // Others
   AddPage(TfmFptrSlipInsertion);
   AddPage(TfmFptrFiscalDocument);
+  AddPage(TfmFptrSetPosID);
   AddPage(TfmFptrDate);
   AddPage(TfmFptrSetVatTable);
   AddPage(TfmFptrSetLine);
