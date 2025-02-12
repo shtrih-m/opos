@@ -352,6 +352,7 @@ type
     function GetFont(Font: Integer): TFontInfo;
     function GetTaxInfoList: TTaxInfoList;
     function GetTaxCount: Integer;
+    procedure WriteTaxRate(Tax, Rate: Integer);
 
     property RecStation: TStrings read FRecStation;
     property JrnStation: TStrings read FJrnStation;
@@ -2057,6 +2058,11 @@ end;
 function TTextFiscalPrinterDevice.GetTaxCount: Integer;
 begin
   Result := 0;
+end;
+
+procedure TTextFiscalPrinterDevice.WriteTaxRate(Tax, Rate: Integer);
+begin
+  { !!! }
 end;
 
 end.

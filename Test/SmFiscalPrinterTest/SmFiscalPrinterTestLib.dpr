@@ -177,7 +177,7 @@ uses
   duSemaphore in 'Units\duSemaphore.pas',
   fmuEMail in '..\..\Source\SmFiscalPrinter\Fmu\fmuEMail.pas' {fmEMail},
   fmuSelect in '..\..\Source\SmFiscalPrinter\Fmu\fmuSelect.pas' {fmSelect},
-  duFiscalPrinter in 'Units\duFiscalPrinter.pas',
+  duFiscalPrinter2 in 'Units\duFiscalPrinter2.pas',
   duICMPClient in 'Units\duICMPClient.pas',
   Retalix in '..\..\Source\SmFiscalPrinter\Units\Retalix.pas',
   MalinaFilter in '..\..\Source\SmFiscalPrinter\Units\MalinaFilter.pas',

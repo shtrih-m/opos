@@ -352,6 +352,7 @@ type
     function FSClearMCCheckResults: Integer;
     function GetTaxInfoList: TTaxInfoList;
     function GetTaxCount: Integer;
+    procedure WriteTaxRate(Tax, Rate: Integer);
 
     property Status: TPrinterStatus read FStatus write FStatus;
     property Parameters: TPrinterParameters read GetParameters;
@@ -379,7 +380,7 @@ begin
   FModel := PrinterModelDefault;
   FPort := TSerialPort.Create(1, FContext.Logger);
   FStatistics := TFiscalPrinterStatistics.Create(FContext.Logger);
-  SetLength(FTaxInfo, 4);
+  SetLength(FTaxInfo, 10);
 end;
 
 destructor TMockFiscalPrinterDevice.Destroy;
@@ -2056,6 +2057,11 @@ end;
 function TMockFiscalPrinterDevice.GetTaxCount: Integer;
 begin
   Result := Length(FTaxInfo);
+end;
+
+procedure TMockFiscalPrinterDevice.WriteTaxRate(Tax, Rate: Integer);
+begin
+  AddCall('WriteTaxRate').WithParams([Tax, Rate]);
 end;
 
 end.

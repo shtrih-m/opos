@@ -505,6 +505,7 @@ type
     function GetFont(Font: Integer): TFontInfo;
     function GetTaxInfoList: TTaxInfoList;
     function GetTaxCount: Integer;
+    procedure WriteTaxRate(Tax, Rate: Integer);
 
     property LastDocMac: Int64 read GetLastDocMac;
     property LastDocNumber: Int64 read GetLastDocNumber;
@@ -761,6 +762,27 @@ type
     property Printer: ISharedPrinter read GetPrinter;
   end;
 
+  { TVatValue }
+
+  TVatValue = class(TCollectionItem)
+  private
+    FId: Integer;
+    FRate: Integer;
+  public
+    property Id: Integer read FId;
+    property Rate: Integer read FRate;
+  end;
+
+  { TVatValues }
+
+  TVatValues = class(TCollection)
+  private
+    function GetItem(Index: Integer): TVatValue;
+  public
+    function Add(AId, ARate: Integer): TVatValue;
+    property Items[Index: Integer]: TVatValue read GetItem; default;
+  end;
+
 function TicketToStr(const Ticket: TFSTicket): string;
 
 implementation
@@ -772,6 +794,20 @@ begin
     StrToHexText(Ticket.DocumentMac),
     IntToStr(Ticket.DocumentNum),
     StrToHexText(Ticket.Data)]);
+end;
+
+{ TVatValues }
+
+function TVatValues.Add(AId, ARate: Integer): TVatValue;
+begin
+  Result := TVatValue.Create(Self);
+  Result.FId := AId;
+  Result.FRate := ARate;
+end;
+
+function TVatValues.GetItem(Index: Integer): TVatValue;
+begin
+  Result := inherited Items[Index] as TVatValue;
 end;
 
 end.

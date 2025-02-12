@@ -56,7 +56,7 @@ type
     FNonFiscalDoc: TNonFiscalDoc;
     FOposDevice: TOposServiceDevice19;
     FPrinterState: TFiscalPrinterState;
-    FVatValues: array of Integer;
+    FVatValues: TVatValues;
     FAfterCloseItems: TReceiptItems;
     FPrinter: ISharedPrinter;
     FReceiptPrinter: IReceiptPrinter;
@@ -506,6 +506,7 @@ begin
   FPrinterState := TFiscalPrinterState.Create;
   FJournal := TElectronicJournal.Create;
   FAfterCloseItems := TReceiptItems.Create;
+  FVatValues := TVatValues.Create(TVatValue);
 end;
 
 destructor TFiscalPrinterImpl.Destroy;
@@ -529,6 +530,7 @@ begin
   FNonFiscalDoc.Free;
   FRetalix.Free;
   FAfterCloseItems.Free;
+  FVatValues.Free;
   FPrinter := nil;
   inherited Destroy;
 end;
@@ -3862,11 +3864,11 @@ begin
   try
     CheckEnabled;
     CheckCapSetVatTable;
-
-    for i := 1 to Length(FVatValues) do
+    for i := 0 to FVatValues.Count-1 do
     begin
-      Device.WriteTableInt(PRINTER_TABLE_TAX, i, 1, FVatValues[i-1]);
+      Device.WriteTaxRate(FVatValues[i].Id, FVatValues[i].Rate);
     end;
+    FVatValues.Clear;
 
     Result := ClearResult;
   except
@@ -3898,7 +3900,7 @@ begin
     if VatValueInt > 9999 then
       InvalidParameterValue('VatValue', AVatValue);
 
-    FVatValues[VatID-1] := VatValueInt;
+    FVatValues.Add(VatID, VatValueInt);
     Result := ClearResult;
   except
     on E: Exception do

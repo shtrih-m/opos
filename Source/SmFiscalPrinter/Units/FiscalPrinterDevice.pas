@@ -512,6 +512,7 @@ type
     function GetTaxCount: Integer;
     function ReadTaxInfoList: TTaxInfoList;
     function ReadFontInfoList: TFontInfoList;
+    procedure WriteTaxRate(Tax, Rate: Integer);
 
     property IsOnline: Boolean read GetIsOnline;
     property Tables: TPrinterTables read FTables;
@@ -8718,7 +8719,7 @@ var
   Command: AnsiString;
   Answer: AnsiString;
   Status: TLongPrinterStatus;
-  IsExtendedCommand: Boolean;
+  //IsExtendedCommand: Boolean;
 const
   SInvalidDiscountValue =  'Invalid discount value, %d. Valid discount value is [0..99].';
 begin
@@ -10330,5 +10331,14 @@ function TFiscalPrinterDevice.GetTaxInfoList: TTaxInfoList;
 begin
   Result := FTaxInfo;
 end;
+
+procedure TFiscalPrinterDevice.WriteTaxRate(Tax, Rate: Integer);
+begin
+  if (Tax < 1)or(Tax > Length(FTaxInfo)) then
+    raise Exception.CreateFmt('Invalid tax number, %d', [Tax]);
+
+  WriteTableInt(PRINTER_TABLE_TAX, Tax, 1, Rate);
+end;
+
 
 end.
