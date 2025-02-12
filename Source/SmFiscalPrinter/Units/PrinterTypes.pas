@@ -1160,7 +1160,7 @@ type
   TFSCloseReceiptParams2 = record
     Payments: TPayments;
     Discount: Byte;
-    TaxAmount: array [1..6] of Int64;
+    TaxAmount: array [1..10] of Int64;
     TaxSystem: Byte;
     Text: WideString;
   end;
