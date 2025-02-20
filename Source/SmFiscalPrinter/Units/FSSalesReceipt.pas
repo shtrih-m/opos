@@ -240,12 +240,16 @@ end;
 
 function TFSSalesReceipt.GetTaxRate(Tax: Integer): Integer;
 begin
-  Result := Device.ReadTableInt(6, Tax, 1);
+  Result := 0;
+  if Tax > 0 then
+    Result := Device.ReadTableInt(6, Tax, 1);
 end;
 
 function TFSSalesReceipt.GetTaxName(Tax: Integer): WideString;
 begin
-  Result := Device.ReadTableStr(6, Tax, 2);
+  Result := '';
+  if Tax > 0 then
+    Result := Device.ReadTableStr(6, Tax, 2);
 end;
 
 procedure TFSSalesReceipt.PrintText2(const Text: WideString);
